@@ -13,11 +13,12 @@ English, basic maths and values. Parents pay a monthly subscription.
 | `docs/ROADMAP.md` | The plan: phases, next steps and what we measure |
 | `docs/BRAND.md` | Name, mascot, characters, voice and pricing draft |
 | `docs/TECH_STACK.md` | The tech stack and how stories are stored |
-| `apps/mobile/` | The Lali website, and later the Android and iOS apps (Expo) |
+| `apps/web/` | The Lali website and storybook reader (Next.js) |
+| `apps/mobile/` | The Android and iOS apps (Expo) |
 | `docs/research/` | Market and content research (YouTube channel study, competitors) |
 | `web/prototype/` | The first design prototype (superseded by `apps/mobile`) |
 
-To run the app, see `apps/mobile/README.md`.
+To run the website, see `apps/web/README.md`. For the apps, see `apps/mobile/README.md`.
 
 ## Try the prototype
 
