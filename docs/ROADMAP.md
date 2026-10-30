@@ -8,43 +8,60 @@ The goal of the first six months is to answer two questions with real families:
 Everything else (full animation, more learning worlds, VIP extras) waits until both
 answers are yes.
 
-## Phase 0: Foundations (weeks 1–3)
+## Done so far
 
-- [x] Name and mascot chosen (Lali, Lali the bee)
-- [x] First clickable website prototype
-- [x] Study the best kids' YouTube channels (`docs/research/youtube-channels.md`)
-- [ ] Trademark search, domains and social handles
-- [ ] Talk to 20 parents in Addis Ababa: what they pay for now, what worries them
-      about screen time, which plan price feels right
-- [ ] Find 1 illustrator, 1 Amharic writer/editor and 2 narrators (one English, one Amharic)
+- [x] Name and mascot (Lali, Lali the bee), brand notes
+- [x] Research on the best kids' YouTube channels (`docs/research/youtube-channels.md`)
+- [x] Website: animated home page, story library, storybook reader with 3D page turns and read-along
+- [x] Backend: database with privacy rules, email-code sign-in, protected PDF book reader
+      (server-side rendering, watermark, 90-second page tokens, rate limit, canvas reader), admin upload
+- [x] Mobile app foundation (Expo) for the mobile team
+- [x] Deployed to Render at https://lali-kids.onrender.com (auto-deploys from `main`)
 
-## Phase 1: Content pilot (weeks 3–8)
+## Next steps, in order
 
-- [ ] Write a story bible: characters, world, tone, reading levels by age
-- [ ] Produce 10 illustrated, narrated storybooks in English and Amharic
-- [ ] Produce 3 short animated "motion comic" episodes (cheap animation from book art)
-- [ ] Post free clips on YouTube, TikTok and Telegram to test which characters kids like
+### Phase 1: Connect and launch the site (this week)
 
-## Phase 2: Product MVP (weeks 6–14)
+- [ ] Connect Supabase: run the SQL, set the keys on Render and in the coding environment,
+      switch the magic-link email to a code (`docs/SETUP_SUPABASE.md`)
+- [ ] Make the founder account an admin; upload one test PDF; confirm the reader end to end
+- [ ] Reset the Supabase database password (it was partly shared in a chat)
+- [ ] Buy the domain (`lalikids.com` or `lali.et`) and point it at Render
+- [ ] Secure the social handles: YouTube, TikTok, Telegram, Instagram, Facebook
+- [ ] Ethiopian trademark search for "Lali"
 
-- [x] Choose the tech stack (`docs/TECH_STACK.md`)
-- [x] Story reader: page turns, read-to-me with word highlighting, English/Amharic toggle
-- [ ] Offline downloads
-- [ ] Parent area behind a lock: child profiles, bedtime timer, weekly progress note
-- [ ] Payments: Telebirr and Chapa (CBE Birr, cards)
-- [ ] Simple admin tool to upload stories without a developer
+### Phase 2: Content and channels (weeks 2–6)
 
-## Phase 3: Paid pilot (weeks 14–20)
+- [ ] Hire: 1 illustrator, 1 Amharic writer/editor, 2 narrators (English, Amharic)
+- [ ] Native-speaker review of the three existing stories' Amharic text
+- [ ] Story bible: characters, world, tone, reading levels by age band
+- [ ] Produce 10 illustrated, narrated storybooks in both languages
+- [ ] Record narration with word timings so read-along uses real voices, not the browser's
+- [ ] Launch YouTube and TikTok with 3 short animated story clips; add links in `src/content/links.ts`
+- [ ] Telegram channel for parents (biggest reach in Ethiopia)
 
-- [ ] 100 families on a free week, then the Reader plan
-- [ ] 1–2 private schools on a classroom licence
-- [ ] Measure weekly: stories finished per child, days active per week,
-      free-week-to-paid conversion, month-1 renewal
+### Phase 3: Accounts, payments, parents (weeks 4–10)
 
-## Phase 4: Grow (after the pilot)
+- [ ] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
+- [ ] Chapa checkout (Telebirr, CBE Birr, cards) creating subscription rows via webhook
+- [ ] Free-week trial flow and renewal emails
+- [ ] Weekly progress note by email
+- [ ] Admin area for uploading Lali's own stories (text, art, audio) without a developer
+- [ ] PostHog analytics for the pilot metrics
 
+### Phase 4: Pilot (weeks 10–16)
+
+- [ ] 100 families on the free week, then the Reader plan
+- [ ] 1–2 private schools in Addis on a classroom licence
+- [ ] Measure weekly: stories finished per child, days active, trial-to-paid, month-1 renewal
+- [ ] Interview 20 parents; adjust prices and plans
+
+### Phase 5: Apps and growth (after the pilot)
+
+- [ ] Mobile team: connect the Expo app to the same backend; offline downloads;
+      Android screenshot blocking; publish to Play Store, then App Store
 - [ ] Learning worlds: English, Maths, Values (the Learner plan)
-- [ ] Full animated episodes for the characters kids like most
+- [ ] "Fidelblocks": a Numberblocks-style series where each fidel family is a character
 - [ ] VIP extras: printed books, live reading circles
 - [ ] Afaan Oromo and Tigrinya editions
 
