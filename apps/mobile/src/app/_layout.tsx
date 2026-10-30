@@ -35,6 +35,7 @@ export default function RootLayout() {
       <StatusBar style={bedtime ? 'light' : 'dark'} />
       <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: t.bg }, animation: 'fade' }}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="read" />
         <Stack.Screen name="story/[id]" options={{ animation: 'slide_from_bottom' }} />
         <Stack.Screen name="parents" options={{ presentation: 'modal' }} />
       </Stack>

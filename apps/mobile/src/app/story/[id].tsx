@@ -23,6 +23,7 @@ import { ChunkyButton, Heading } from '@/components/ui';
 import { getStory, type Story } from '@/content/stories';
 import { actions, isLimitReached, useAppState, type Lang } from '@/lib/store';
 import { fonts, textFont, useTheme } from '@/lib/theme';
+import { goBackOr } from '@/lib/nav';
 import { useReadAlong } from '@/lib/use-read-along';
 
 const PAGE_INK = '#2A2414';
@@ -143,7 +144,7 @@ function TheEnd({ story, lang, onAgain }: { story: Story; lang: Lang; onAgain: (
         ) : (
           <ChunkyButton variant="plain" label="Read again" onPress={onAgain} />
         )}
-        <ChunkyButton label="Back to bookshelf" onPress={() => router.back()} />
+        <ChunkyButton label="Back to bookshelf" onPress={() => goBackOr('/read')} />
       </View>
     </Animated.View>
   );
@@ -162,7 +163,7 @@ export default function Reader() {
     return (
       <SafeAreaView style={[styles.screen, { backgroundColor: t.bg, alignItems: 'center', justifyContent: 'center', gap: 16 }]}>
         <Heading>We couldn’t find that story</Heading>
-        <ChunkyButton label="Back to bookshelf" onPress={() => router.replace('/')} />
+        <ChunkyButton label="Back to bookshelf" onPress={() => router.replace('/read')} />
       </SafeAreaView>
     );
   }
@@ -180,7 +181,7 @@ export default function Reader() {
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.inner}>
           <View style={styles.topBar}>
-            <ChunkyButton small variant="plain" label="Close" onPress={() => router.back()} accessibilityLabel="Close the story" />
+            <ChunkyButton small variant="plain" label="Close" onPress={() => goBackOr('/read')} accessibilityLabel="Close the story" />
             <Text style={[styles.title, { color: t.muted, fontFamily: lang === 'am' ? fonts.ethiopicBold : fonts.displayBold }]} numberOfLines={1}>
               {story.title[lang]}
             </Text>

@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
@@ -6,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Body, ChunkyButton, Heading } from '@/components/ui';
 import { STORIES } from '@/content/stories';
+import { goBackOr } from '@/lib/nav';
 import { actions, storiesTonight, useAppState } from '@/lib/store';
 import { fonts, useTheme } from '@/lib/theme';
 
@@ -151,7 +151,7 @@ export default function Parents() {
         <View style={styles.inner}>
           <View style={styles.topBar}>
             <Heading>Grown-ups’ corner</Heading>
-            <ChunkyButton small variant="plain" label="Done" onPress={() => router.back()} />
+            <ChunkyButton small variant="plain" label="Done" onPress={() => goBackOr('/read')} />
           </View>
           {open ? <Settings /> : <Gate onPass={() => setOpen(true)} />}
         </View>

@@ -1,15 +1,29 @@
 # Lali tech stack
 
-The aim is one small team shipping to Android first, then iOS and the web, without
-writing the app three times.
+The aim is one small team shipping to the web first, then Android and iOS, without
+writing the product three times.
+
+**Web first.** Most parents will arrive from a YouTube, TikTok or Telegram link, and
+a website opens instantly with nothing to install. The same Expo codebase builds the
+website now and the Play Store and App Store apps later.
+
+| Web address | What it shows |
+|---|---|
+| `/` | Public landing page: videos, social links, free stories, app store buttons |
+| `/read` | The kids' bookshelf |
+| `/story/<id>` | The story reader (shareable link to one story) |
+| `/parents` | Grown-ups' corner |
+
+Channel and app-store links live in `apps/mobile/src/content/links.ts`. Anything left
+empty shows as "coming soon" on the site.
 
 ## Summary
 
 | Layer | Choice | Why |
 |---|---|---|
-| App (Android, iOS, web) | **Expo (React Native) + Expo Router**, TypeScript | One codebase for all three. Android is most of the Ethiopian market. Over-the-air updates without app store reviews. |
+| Website and apps | **Expo (React Native) + Expo Router**, TypeScript | One codebase for the web, Android and iOS. Over-the-air updates without app store reviews. |
 | Animation | **React Native Reanimated** and **react-native-svg** | Smooth 60fps animation on cheap Android phones. Characters are vector art, so they stay sharp and small to download. |
-| Marketing website | **Next.js** on Vercel (later) | Fast, search-friendly landing pages. The current prototype in `web/prototype` becomes this site. |
+| Hosting | Static site on **Render**, **Netlify** or **Cloudflare Pages** | `npx expo export -p web` produces plain files; any static host works. |
 | Backend | **Supabase** (Postgres, auth, file storage, edge functions) | Hosted, cheap to start, no servers to run. Row-level security keeps each family's data private. |
 | Payments | **Chapa** (Telebirr, CBE Birr, M-Pesa, cards) | One integration covers the payment methods Ethiopian parents use. Webhooks go to a Supabase edge function that turns on the subscription. |
 | Story content | JSON files plus images and audio in Supabase Storage | Writers and illustrators publish through a simple admin page. The app downloads whole stories for offline reading. |
