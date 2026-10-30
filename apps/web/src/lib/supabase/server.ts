@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
-import { supabasePublishableKey, supabaseSecretKey, supabaseUrl } from "./env";
+import { isSupabaseConfigured, supabasePublishableKey, supabaseSecretKey, supabaseUrl } from "./env";
 
 /** A client that acts as the signed-in person. Row-level security applies. */
 export async function createSupabaseServer() {
@@ -27,12 +27,14 @@ export function createSupabaseAdmin() {
 }
 
 export async function currentUser() {
+  if (!isSupabaseConfigured()) return null;
   const supabase = await createSupabaseServer();
   const { data } = await supabase.auth.getUser();
   return data.user;
 }
 
 export async function currentProfile() {
+  if (!isSupabaseConfigured()) return null;
   const supabase = await createSupabaseServer();
   const { data } = await supabase.auth.getUser();
   if (!data.user) return null;
