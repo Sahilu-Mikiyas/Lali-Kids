@@ -13,7 +13,6 @@ English, basic maths and values. Parents pay a monthly subscription.
 | `docs/ROADMAP.md` | The plan: phases, next steps and what we measure |
 | `docs/BRAND.md` | Name, mascot, characters, voice and pricing draft |
 | `docs/research/` | Market and content research (YouTube channel study, competitors) |
-| `content/stories/` | Story scripts in English and Amharic |
 | `web/prototype/` | The first clickable website prototype (open `index.html` in a browser) |
 
 The app and website code will live in `apps/` once we choose the tech stack

@@ -12,7 +12,7 @@ answers are yes.
 
 - [x] Name and mascot chosen (Lali, Lali the bee)
 - [x] First clickable website prototype
-- [ ] Study the best kids' YouTube channels (`docs/research/youtube-channels.md`)
+- [x] Study the best kids' YouTube channels (`docs/research/youtube-channels.md`)
 - [ ] Trademark search, domains and social handles
 - [ ] Talk to 20 parents in Addis Ababa: what they pay for now, what worries them
       about screen time, which plan price feels right
