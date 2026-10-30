@@ -31,6 +31,9 @@ async function LibraryPageContent() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            <Link href="/account" className="btn btn-plain !text-base">
+              Grown-ups&rsquo; corner
+            </Link>
             {profile.role === "admin" && (
               <Link href="/admin/books" className="btn btn-plain !text-base">
                 Manage books

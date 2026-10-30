@@ -189,7 +189,16 @@ type Flip = { from: number; to: number } | null;
  * A story as a real book. On wide screens it opens as a two-page spread with
  * 3D page turns; on phones it is a single page you swipe.
  */
-export function StoryBook({ story, compact = false }: { story: Story; compact?: boolean }) {
+export function StoryBook({
+  story,
+  compact = false,
+  onFinish,
+}: {
+  story: Story;
+  compact?: boolean;
+  /** Called once when the child reaches The End; the site records it for the signed-in child. */
+  onFinish?: (storyId: string) => void;
+}) {
   const total = story.pages.length; // index `total` is The End
   const [page, setPage] = useState(0);
   const [lang, setLang] = useState<Lang>("en");
@@ -225,10 +234,11 @@ export function StoryBook({ story, compact = false }: { story: Story; compact?: 
     if (page === total && !awarded.current) {
       awarded.current = true;
       finishStory(story.id);
+      onFinish?.(story.id);
       confetti(0.4);
     }
     if (page < total) awarded.current = false;
-  }, [page, story.id, total]);
+  }, [page, story.id, total, onFinish]);
 
   // Arrow keys turn pages when the book is on screen.
   useEffect(() => {

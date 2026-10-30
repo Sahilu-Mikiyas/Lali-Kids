@@ -42,7 +42,7 @@ answers are yes.
 
 ### Phase 3: Accounts, payments, parents (weeks 4–10)
 
-- [ ] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
+- [x] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
 - [ ] Chapa checkout (Telebirr, CBE Birr, cards) creating subscription rows via webhook
 - [ ] Free-week trial flow and renewal emails
 - [ ] Weekly progress note by email

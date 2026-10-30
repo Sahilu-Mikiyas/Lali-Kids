@@ -9,7 +9,7 @@ import { Bee } from "./characters";
 const LINKS = [
   { href: "/stories", label: "Stories" },
   { href: "/#worlds", label: "Worlds" },
-  { href: "/#parents", label: "For parents" },
+  { href: "/account", label: "Grown-ups" },
   { href: "/#plans", label: "Plans" },
 ];
 

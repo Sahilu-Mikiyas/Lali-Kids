@@ -36,6 +36,8 @@ npm run build
 | `src/app/globals.css` | Colours, fonts and shared animations |
 | `src/lib/supabase/` | Database and sign-in clients |
 | `src/lib/books/` | PDF rendering, page tokens, watermarking |
+| `src/app/account/` | Grown-ups' corner: children, bedtime limit, plan |
+| `src/lib/family.ts` | Loads the signed-in family, current child and tonight's count |
 | `src/app/library/` | Signed-in library and the protected canvas reader |
 | `src/app/admin/books/` | Upload PDFs (admins only) |
 

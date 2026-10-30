@@ -8,7 +8,9 @@ Everything below takes about ten minutes. You only do it once.
 2. In the left menu, click **SQL Editor**, then **New query**.
 3. Open the file `supabase/migrations/0001_init.sql` from this repo, copy all of it, paste it
    into the editor and click **Run**.
-4. You should see "Success. No rows returned". If it says something already exists, the
+4. Do the same with `supabase/migrations/0002_family.sql` (child avatars, the bedtime
+   limit, and story completions that award stars).
+5. You should see "Success. No rows returned". If it says something already exists, the
    file was already run; that is fine.
 
 This creates: families, children, plans (Reader 400 / Learner 1,200 / VIP 5,000), subscriptions,

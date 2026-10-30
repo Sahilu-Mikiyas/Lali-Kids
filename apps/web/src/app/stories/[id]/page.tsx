@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { SiteNav } from "@/components/site-chrome";
-import { StoryBook } from "@/components/storybook";
+import { StoryBookWithProgress } from "@/components/storybook-with-progress";
 import { getStory, STORIES } from "@/content/stories";
 
 export function generateStaticParams() {
@@ -29,7 +29,7 @@ export default async function StoryPage({ params }: PageProps<"/stories/[id]">) 
           </Link>
           <p className="text-sm font-bold text-muted">Tip: use the arrow keys or swipe to turn pages</p>
         </div>
-        <StoryBook story={story} />
+        <StoryBookWithProgress story={story} />
       </main>
     </>
   );
