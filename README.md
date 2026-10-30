@@ -12,11 +12,15 @@ English, basic maths and values. Parents pay a monthly subscription.
 |---|---|
 | `docs/ROADMAP.md` | The plan: phases, next steps and what we measure |
 | `docs/BRAND.md` | Name, mascot, characters, voice and pricing draft |
+| `docs/TECH_STACK.md` | The tech stack and how books are protected |
+| `docs/SETUP_SUPABASE.md` | How to connect the website to the Supabase project |
+| `supabase/migrations/` | Database tables and privacy rules |
+| `apps/web/` | The Lali website and storybook reader (Next.js) |
+| `apps/mobile/` | The Android and iOS apps (Expo) |
 | `docs/research/` | Market and content research (YouTube channel study, competitors) |
-| `web/prototype/` | The first clickable website prototype (open `index.html` in a browser) |
+| `web/prototype/` | The first design prototype (superseded by `apps/mobile`) |
 
-The app and website code will live in `apps/` once we choose the tech stack
-(see the roadmap).
+To run the website, see `apps/web/README.md`. For the apps, see `apps/mobile/README.md`.
 
 ## Try the prototype
 

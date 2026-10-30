@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/*
+  Lali: a bright highland storybook world. One deliberate daytime look for the site;
+  night appears inside the hero as you scroll and in the bedtime stories.
+*/
+@theme {
+  --color-sky: #86d3ff;
+  --color-sky-soft: #e4f6ff;
+  --color-bg: #f3f9ff;
+  --color-ink: #1b2a4e;
+  --color-muted: #52628a;
+  --color-line: #d3e4f4;
+  --color-coral: #e8513b;
+  --color-coral-deep: #b83826;
+  --color-teal: #0e8c80;
+  --color-teal-deep: #0a6a61;
+  --color-gold: #f5b21e;
+  --color-gold-deep: #c98a0a;
+  --color-berry: #d63b72;
+  --color-blue: #2f5bd3;
+  --color-night: #141b45;
+  --color-night-2: #2a2f6e;
+  --color-paper: #fffdf6;
+  --color-paper-line: #e6dec9;
+  --color-paper-ink: #2a2414;
+  --color-grass: #4dba74;
+  --color-grass-soft: #86d696;
+
+  --font-display: var(--font-grandstander), "Andika", system-ui, sans-serif;
+  --font-body: var(--font-andika), var(--font-noto-ethiopic), system-ui, sans-serif;
+  --font-ethiopic: var(--font-noto-ethiopic), "Nyala", serif;
+
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-bob: bob 0.36s ease-in-out infinite;
+
+  @keyframes float {
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes twinkle {
+    50% { opacity: 0.25; }
+  }
+  @keyframes bob {
+    50% { transform: translateY(-4px); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 4px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Characters blink and Lali's wings flutter. */
+.lali-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-blink 4.5s infinite;
+}
+.lali-wings {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: lali-flutter 0.18s ease-in-out infinite alternate;
+}
+@keyframes lali-blink {
+  0%, 94%, 100% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+@keyframes lali-flutter {
+  to { transform: scaleY(0.7); }
+}
+
+/* Chunky, pressable buttons that sink like toy keys. */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 1.1rem;
+  padding: 0.85rem 1.4rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  transition: transform 0.12s, box-shadow 0.12s;
+  cursor: pointer;
+  &:hover { transform: translateY(-2px); }
+  &:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--edge, transparent); }
+}
+@utility btn-primary {
+  --edge: var(--color-coral-deep);
+  background: var(--color-coral);
+  color: white;
+  box-shadow: 0 6px 0 var(--color-coral-deep);
+}
+@utility btn-plain {
+  --edge: var(--color-line);
+  background: white;
+  color: var(--color-ink);
+  box-shadow: 0 6px 0 var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes pop {
+  40% { transform: translateY(-10px) scale(1.2); }
+}
+@keyframes nudge {
+  50% { transform: translateX(6px) scale(1.06); }
+}
+
+/* The open book in the hero: a page keeps turning. */
+@keyframes page-turn {
+  0%, 30% { transform: rotateY(0); }
+  70%, 100% { transform: rotateY(-180deg); }
+}
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to { transform: translateX(130vw); }
+}
+@keyframes scroll-up {
+  to { transform: translateY(-50%); }
+}

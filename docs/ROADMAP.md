@@ -27,9 +27,8 @@ answers are yes.
 
 ## Phase 2: Product MVP (weeks 6–14)
 
-- [ ] Choose the tech stack (proposal: one React Native / Expo app for Android first,
-      plus a Next.js website, sharing one backend)
-- [ ] Story reader: page turns, read-to-me with word highlighting, English/Amharic toggle
+- [x] Choose the tech stack (`docs/TECH_STACK.md`)
+- [x] Story reader: page turns, read-to-me with word highlighting, English/Amharic toggle
 - [ ] Offline downloads
 - [ ] Parent area behind a lock: child profiles, bedtime timer, weekly progress note
 - [ ] Payments: Telebirr and Chapa (CBE Birr, cards)
