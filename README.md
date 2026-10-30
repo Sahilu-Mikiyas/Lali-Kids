@@ -12,7 +12,9 @@ English, basic maths and values. Parents pay a monthly subscription.
 |---|---|
 | `docs/ROADMAP.md` | The plan: phases, next steps and what we measure |
 | `docs/BRAND.md` | Name, mascot, characters, voice and pricing draft |
-| `docs/TECH_STACK.md` | The tech stack and how stories are stored |
+| `docs/TECH_STACK.md` | The tech stack and how books are protected |
+| `docs/SETUP_SUPABASE.md` | How to connect the website to the Supabase project |
+| `supabase/migrations/` | Database tables and privacy rules |
 | `apps/web/` | The Lali website and storybook reader (Next.js) |
 | `apps/mobile/` | The Android and iOS apps (Expo) |
 | `docs/research/` | Market and content research (YouTube channel study, competitors) |

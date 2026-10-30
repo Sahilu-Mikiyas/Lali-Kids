@@ -76,11 +76,26 @@ Lali's own storybooks are not PDFs at all: they are text, vector art and narrati
 reader assembles live (like the reader already built). There is no file to download. The
 PDF reader is for partner and publisher books that arrive as PDFs.
 
+### What is built
+
+| Piece | Where |
+|---|---|
+| Database tables and privacy rules | `supabase/migrations/0001_init.sql` |
+| Sign-in with an emailed code | `apps/web/src/app/login` |
+| Session refresh and sign-in redirects | `apps/web/src/proxy.ts` |
+| PDF to page images (MuPDF + sharp) | `apps/web/src/lib/books/process.ts` |
+| Page tokens, watermark, rate limit | `apps/web/src/lib/books/protect.ts`, `src/app/api/books/[id]/pages/[page]/route.ts` |
+| Canvas reader | `apps/web/src/app/library/[slug]/reader.tsx` |
+| Admin upload page | `apps/web/src/app/admin/books` |
+
+Connecting it to a Supabase project: `docs/SETUP_SUPABASE.md`.
+
 ## Build order
 
-1. Supabase project: accounts, child profiles, plans, books table
-2. Protected PDF reader: upload worker, signed page endpoint, watermark, canvas reader
+1. ~~Supabase project: accounts, child profiles, plans, books table~~ done
+2. ~~Protected PDF reader: upload worker, signed page endpoint, watermark, canvas reader~~ done
 3. Chapa checkout and subscription status
-4. Admin area for uploading stories and books
-5. Recorded narration with word timings for the storybook reader
-6. Mobile apps connect to the same backend
+4. Child profiles and the grown-ups' area on the website
+5. Admin area for uploading Lali's own stories
+6. Recorded narration with word timings for the storybook reader
+7. Mobile apps connect to the same backend

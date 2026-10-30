@@ -9,7 +9,9 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:3000.
+Then open http://localhost:3000. The home page and storybooks work without any setup.
+Sign-in, the library and the admin area need Supabase: copy `.env.example` to `.env.local`
+and follow `docs/SETUP_SUPABASE.md`.
 
 ## Check before committing
 
@@ -32,5 +34,9 @@ npm run build
 | `src/content/stories.ts` | Story text in English and Amharic (moves to the database later) |
 | `src/content/links.ts` | YouTube, TikTok, Telegram and app store links |
 | `src/app/globals.css` | Colours, fonts and shared animations |
+| `src/lib/supabase/` | Database and sign-in clients |
+| `src/lib/books/` | PDF rendering, page tokens, watermarking |
+| `src/app/library/` | Signed-in library and the protected canvas reader |
+| `src/app/admin/books/` | Upload PDFs (admins only) |
 
 The Amharic story text is a first draft and needs review by a native-speaking editor.
