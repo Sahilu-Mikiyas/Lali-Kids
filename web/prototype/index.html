@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lali Story World</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@500;700;800;900&family=Andika:wght@400;700&family=Abyssinica+SIL&display=swap">
+<style>
+/* Layout: a storybook world you scroll down through — sky and open book, the bookshelf, a read-along page, the learning worlds, a star-counting game, then the grown-ups' corner and plans. Daytime theme by default; "Bedtime" is the dark theme. */
+:root{
+  --bg:#F1F8FF; --surface:#FFFFFF; --ink:#1B2A4E; --muted:#52628A; --line:#D3E4F4;
+  --sky-a:#86D3FF; --sky-b:#E4F6FF; --sun:#FFC83D; --sun-glow:rgba(255,200,61,.38);
+  --hill-1:#86D696; --hill-2:#4DBA74; --hill-3:#2C9A5C; --cloud:#FFFFFF; --star-op:0;
+  --coral:#E8513B; --coral-deep:#B83826; --teal:#0E8C80; --gold:#E79A10; --berry:#D63B72; --blue:#2F5BD3;
+  --page:#FFFDF6; --page-line:#E6DEC9; --on-accent:#FFFFFF;
+  --font-display:'Grandstander','Andika','Abyssinica SIL',system-ui,sans-serif;
+  --font-body:'Andika','Abyssinica SIL','Nyala','Noto Sans Ethiopic',system-ui,sans-serif;
+  --font-ethi:'Abyssinica SIL','Nyala','Noto Sans Ethiopic',serif;
+  --chunk:0 6px 0 rgba(27,42,78,.12);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1631; --surface:#18234B; --ink:#EEF2FF; --muted:#AAB5D8; --line:#2B3968;
+  --sky-a:#0A1029; --sky-b:#2A2F6E; --sun:#F6EDC6; --sun-glow:rgba(246,237,198,.16);
+  --hill-1:#2A6466; --hill-2:#1C4E55; --hill-3:#123B44; --cloud:#3B4584; --star-op:1;
+  --coral:#FF7A63; --coral-deep:#C24A35; --teal:#3CC4B4; --gold:#FFC24A; --berry:#FF6FA0; --blue:#7EA0FF;
+  --page:#F6F0DF; --page-line:#DCD2B6; --on-accent:#1A0E0B;
+  --chunk:0 6px 0 rgba(0,0,0,.35); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0E1631; --surface:#18234B; --ink:#EEF2FF; --muted:#AAB5D8; --line:#2B3968;
+  --sky-a:#0A1029; --sky-b:#2A2F6E; --sun:#F6EDC6; --sun-glow:rgba(246,237,198,.16);
+  --hill-1:#2A6466; --hill-2:#1C4E55; --hill-3:#123B44; --cloud:#3B4584; --star-op:1;
+  --coral:#FF7A63; --coral-deep:#C24A35; --teal:#3CC4B4; --gold:#FFC24A; --berry:#FF6FA0; --blue:#7EA0FF;
+  --page:#F6F0DF; --page-line:#DCD2B6; --on-accent:#1A0E0B;
+  --chunk:0 6px 0 rgba(0,0,0,.35); color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:18px;line-height:1.55;overflow-x:hidden;transition:background .6s,color .6s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sky-a)}
+h1,h2,h3{font-family:var(--font-display);line-height:1.08;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--blue);outline-offset:3px;border-radius:10px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ethi{font-family:var(--font-ethi)}
+
+/* Buttons: chunky, pressable */
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:18px;padding:14px 22px;font-family:var(--font-display);font-weight:800;font-size:19px;text-decoration:none;box-shadow:0 6px 0 var(--coral-deep);background:var(--coral);color:var(--on-accent);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--coral-deep)}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--coral-deep)}
+.btn.ghost{background:var(--surface);color:var(--ink);box-shadow:0 6px 0 var(--line)}
+.btn.ghost:hover{box-shadow:0 8px 0 var(--line)}
+.btn.ghost:active{box-shadow:0 1px 0 var(--line)}
+.btn.small{font-size:16px;padding:10px 16px;border-radius:14px}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--sky-a) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.nav .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:900;font-size:28px;letter-spacing:.5px}
+.logo small{font-family:var(--font-ethi);font-size:20px;font-weight:400;color:var(--muted)}
+.logo svg{width:40px;height:40px}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-links a{text-decoration:none;font-weight:700;padding:8px 12px;border-radius:12px}
+.nav-links a:hover{background:color-mix(in srgb,var(--surface) 60%,transparent)}
+.mode{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:700;box-shadow:0 3px 0 var(--line)}
+.mode svg{width:22px;height:22px}
+@media (max-width:860px){.nav-links{display:none}.mode{margin-left:auto}.nav .btn{display:none}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky-a),var(--sky-b));transition:background .8s}
+.hero .wrap{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center;padding-block:40px 170px}
+.sun{position:absolute;top:48px;right:9%;width:112px;height:112px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 22px var(--sun-glow),0 0 0 48px color-mix(in srgb,var(--sun-glow) 50%,transparent);animation:glow 5s ease-in-out infinite;z-index:1;transition:background .8s}
+.sun::after{content:"";position:absolute;width:22px;height:22px;border-radius:50%;left:24px;top:30px;background:rgba(0,0,0,.08);box-shadow:40px 30px 0 -4px rgba(0,0,0,.07),46px -4px 0 -8px rgba(0,0,0,.06);opacity:var(--star-op);transition:opacity .8s}
+@keyframes glow{50%{transform:scale(1.05)}}
+.stars{position:absolute;inset:0;opacity:var(--star-op);transition:opacity 1s;z-index:0}
+.stars i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.2}}
+.cloud{position:absolute;left:-240px;width:160px;height:48px;border-radius:48px;background:var(--cloud);z-index:1;animation:drift linear infinite;transition:background .8s}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:70px;height:70px;left:22px;top:-34px}
+.cloud::after{width:56px;height:56px;left:76px;top:-24px}
+@keyframes drift{to{transform:translateX(calc(100vw + 480px))}}
+.hills{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:190px;z-index:2}
+.hills path{transition:fill .8s}
+.hill-1{fill:var(--hill-1)}.hill-2{fill:var(--hill-2)}.hill-3{fill:var(--bg)}
+
+.tonight{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border-radius:999px;padding:6px 14px 6px 8px;font-weight:700;font-size:15px;box-shadow:0 3px 0 var(--line)}
+.tonight b{background:var(--gold);color:#2A1A00;border-radius:999px;padding:2px 10px;font-family:var(--font-display)}
+.hero h1{font-size:clamp(48px,7.4vw,92px);font-weight:900;margin-block:18px 16px;letter-spacing:-.5px}
+.hero h1 .w{display:inline-block;white-space:nowrap}
+.hero h1 .ch{display:inline-block;animation:drop .7s cubic-bezier(.3,1.7,.5,1) backwards;transition:transform .25s cubic-bezier(.3,2,.5,1)}
+.hero h1 .ch:hover{transform:translateY(-14px) rotate(-6deg)}
+.hero h1 .w:nth-child(1) .ch{color:var(--coral)}
+.hero h1 .w:nth-child(2) .ch{color:var(--teal)}
+.hero h1 .w:nth-child(3) .ch{color:var(--blue)}
+.hero h1 .w:nth-child(4) .ch{color:var(--berry)}
+@keyframes drop{from{transform:translateY(-60px) rotate(8deg)}}
+.lede{font-size:21px;max-width:34ch;color:var(--ink)}
+.lede .ethi{color:var(--muted)}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+
+.stage{position:relative;height:430px;display:grid;place-items:end center;padding-bottom:30px}
+.cub{position:absolute;left:50%;bottom:205px;width:200px;margin-left:-100px;z-index:1;cursor:pointer;background:none;border:0;padding:0;animation:peek 3.2s ease-in-out infinite}
+.cub svg{width:200px;height:240px;display:block}
+.cub.jump{animation:jump .7s cubic-bezier(.3,1.6,.5,1)}
+@keyframes peek{50%{transform:translateY(-12px)}}
+@keyframes jump{40%{transform:translateY(-70px) rotate(-6deg)}70%{transform:translateY(-10px) rotate(3deg)}}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 4.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.bubble{position:absolute;left:calc(50% + 70px);top:6px;z-index:4;background:var(--surface);color:var(--ink);font-family:var(--font-display);font-weight:800;font-size:18px;padding:10px 16px;border-radius:20px;box-shadow:var(--chunk);max-width:220px;transform-origin:bottom left;transition:transform .35s cubic-bezier(.3,1.7,.5,1),opacity .2s}
+.bubble::after{content:"";position:absolute;left:14px;bottom:-10px;border:10px solid transparent;border-top-color:var(--surface);border-bottom:0}
+.bubble.off{transform:scale(.4);opacity:0}
+
+.book{position:relative;z-index:2;width:340px;height:212px;transform:rotate(-3deg);perspective:1400px;cursor:pointer;border:0;padding:0;background:none}
+.book::before{content:"";position:absolute;inset:-12px -14px -16px;border-radius:16px;background:var(--coral);box-shadow:0 10px 0 var(--coral-deep),0 30px 40px rgba(0,0,0,.18)}
+.pg{position:absolute;top:0;bottom:0;width:50%;background:var(--page);background-image:repeating-linear-gradient(180deg,transparent 0 22px,var(--page-line) 22px 24px);background-position:0 46px;background-clip:content-box;padding:0}
+.pg.l{left:0;border-radius:10px 2px 2px 10px;box-shadow:inset -14px 0 18px -12px rgba(0,0,0,.25)}
+.pg.r{right:0;border-radius:2px 10px 10px 2px;box-shadow:inset 14px 0 18px -12px rgba(0,0,0,.25)}
+.pg.l svg{position:absolute;inset:14px 14px auto;width:calc(100% - 28px);height:auto}
+.flip{position:absolute;top:0;bottom:0;left:50%;width:50%;transform-origin:left center;transform-style:preserve-3d;animation:flip 4.8s cubic-bezier(.6,0,.3,1) infinite}
+.flip .face{position:absolute;inset:0;background:var(--page);background-image:repeating-linear-gradient(180deg,transparent 0 22px,var(--page-line) 22px 24px);background-position:0 46px;border-radius:2px 10px 10px 2px;backface-visibility:hidden}
+.flip .face.back{transform:rotateY(180deg);border-radius:10px 2px 2px 10px}
+@keyframes flip{0%,35%{transform:rotateY(0)}75%,100%{transform:rotateY(-180deg)}}
+.glyphs{position:absolute;inset:0;pointer-events:none;z-index:3}
+.glyph{position:absolute;left:50%;bottom:150px;font-family:var(--font-display);font-weight:900;font-size:34px;animation:rise 3.4s cubic-bezier(.2,.7,.3,1) forwards}
+.glyph.ethi{font-family:var(--font-ethi);font-weight:400}
+.bee{position:absolute;left:50%;top:42%;width:46px;height:46px;margin-left:-23px;z-index:4;pointer-events:none;animation:buzz 10s ease-in-out infinite}
+.bee svg{width:100%;height:100%;animation:bob .35s ease-in-out infinite}
+@keyframes buzz{0%{transform:translate(-170px,-30px)}25%{transform:translate(-40px,-170px) rotate(-8deg)}49%{transform:translate(160px,-80px)}51%{transform:translate(160px,-80px) scaleX(-1)}75%{transform:translate(40px,-10px) scaleX(-1) rotate(6deg)}98%{transform:translate(-170px,-30px) scaleX(-1)}100%{transform:translate(-170px,-30px)}}
+@keyframes rise{0%{transform:translate(-50%,0) scale(.3);opacity:0}15%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),-250px) rotate(var(--rot)) scale(1.15);opacity:0}}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:28px 150px}
+  .stage{height:380px;order:-1}
+  .lede{max-width:none}
+}
+@media (max-width:420px){.book{width:290px;height:184px}.stage{height:350px}.cub{bottom:180px}.bubble{left:auto;right:0}}
+
+/* Sections */
+.band{padding-block:72px}
+.sec-head{display:grid;gap:10px;margin-bottom:30px;max-width:640px}
+.sec-head h2{font-size:clamp(34px,4.6vw,54px);font-weight:900}
+.sec-head p{color:var(--muted);font-size:19px}
+
+/* Shelf */
+.shelf-wrap{position:relative}
+.shelf{display:flex;gap:26px;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 6px 34px;scrollbar-width:thin}
+.plank{height:18px;border-radius:6px;background:var(--gold);box-shadow:0 8px 0 color-mix(in srgb,var(--gold) 55%,#000);margin-top:-38px;position:relative;z-index:-0}
+.bk{flex:0 0 190px;scroll-snap-align:start;background:none;border:0;padding:0;text-align:left;perspective:900px;position:relative;z-index:1}
+.bk .cover{position:relative;aspect-ratio:3/4;max-width:100%;border-radius:6px 14px 14px 6px;overflow:hidden;color:#fff;transition:transform .35s cubic-bezier(.3,1.5,.5,1);box-shadow:inset 10px 0 0 rgba(0,0,0,.18),inset 13px 0 0 rgba(255,255,255,.15),0 12px 18px rgba(0,0,0,.18)}
+.bk:hover .cover,.bk:focus-visible .cover{transform:rotateY(-16deg) translateY(-10px)}
+.bk .cover svg{position:absolute;inset:0;width:100%;height:100%}
+.bk .cover h3{position:absolute;left:22px;right:12px;top:14px;font-size:20px;font-weight:900;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.bk .meta{display:flex;gap:8px;align-items:center;margin-top:14px;font-size:15px;color:var(--muted);font-weight:700}
+.tag{font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;color:#fff}
+.free{position:absolute;right:-8px;top:-10px;z-index:2;background:var(--gold);color:#2A1A00;font-family:var(--font-display);font-weight:900;font-size:14px;border-radius:999px;padding:4px 10px;transform:rotate(8deg);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.lock{position:absolute;inset:auto 10px 10px auto;background:rgba(0,0,0,.45);border-radius:10px;padding:4px 8px;font-size:13px;font-weight:700;opacity:0;transition:opacity .2s}
+.bk.wiggle .cover{animation:wig .5s}
+.bk.wiggle .lock{opacity:1}
+@keyframes wig{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+
+/* Read-along */
+.reader{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:stretch}
+.scene-card{border-radius:28px;overflow:hidden;box-shadow:var(--chunk);background:#141B45}
+.scene-card svg{display:block;width:100%;height:auto}
+.text-card{background:var(--page);color:#2A2414;border-radius:28px;padding:26px 28px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--chunk);min-width:0;transform-origin:left center}
+.text-card.turn{animation:turn .55s cubic-bezier(.5,0,.3,1)}
+@keyframes turn{45%{transform:perspective(1200px) rotateY(-75deg)}100%{transform:none}}
+.reader-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.book-title{font-family:var(--font-display);font-weight:800;font-size:17px;color:#7A6A45}
+.lang{display:flex;background:#EDE5CF;border-radius:999px;padding:4px}
+.lang button{border:0;background:none;border-radius:999px;padding:6px 14px;font-weight:700;color:#5C5032}
+.lang button[aria-pressed="true"]{background:#fff;color:#2A2414;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.story-text{font-size:clamp(24px,2.6vw,31px);line-height:1.5;flex:1;min-height:6.2em}
+.story-text .w{display:inline-block;border-radius:8px;padding:0 3px;margin:0 -1px;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.story-text .w:hover{background:#F3E8C6}
+.story-text .w.on{background:var(--gold);color:#2A1A00;transform:translateY(-3px) scale(1.06)}
+.story-text .w.done{color:#2B6CB0}
+.story-text .w.pop{animation:wpop .5s cubic-bezier(.3,2,.5,1)}
+@keyframes wpop{40%{transform:translateY(-10px) scale(1.2)}}
+.story-text.am{font-family:var(--font-ethi)}
+.reader-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.round{width:54px;height:54px;border-radius:50%;border:0;background:#EDE5CF;color:#2A2414;display:grid;place-items:center;box-shadow:0 4px 0 #D6CBAA;transition:transform .12s}
+.round:active{transform:translateY(4px);box-shadow:none}
+.round:disabled{opacity:.4;cursor:default}
+.round svg{width:24px;height:24px}
+.dots{display:flex;gap:8px;margin-left:auto}
+.dots i{width:12px;height:12px;border-radius:50%;background:#E0D6B8;transition:all .3s}
+.dots i.on{background:var(--coral);width:28px;border-radius:8px}
+#scene .ch{transition:transform 1s cubic-bezier(.4,1.5,.5,1),opacity .6s}
+#scene .cubp{transform:translate(40px,174px)}
+#scene .gugp{transform:translate(330px,176px);opacity:0}
+#scene[data-page="1"] .cubp{transform:translate(104px,174px)}
+#scene[data-page="1"] .gugp{transform:translate(196px,176px);opacity:1}
+#scene[data-page="2"] .cubp,#scene[data-page="3"] .cubp{transform:translate(166px,76px)}
+#scene[data-page="2"] .gugp,#scene[data-page="3"] .gugp{transform:translate(228px,80px);opacity:1}
+#scene .moon{transition:transform 1.4s cubic-bezier(.4,1.4,.5,1);transform:translate(10px,10px)}
+#scene[data-page="3"] .moon{transform:translate(-24px,-34px)}
+#scene .bigstar{transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.3,2,.5,1),fill .4s;fill:#C9CCF2}
+#scene[data-page="2"] .bigstar{transform:scale(1.7);fill:#FFD54A}
+#scene .num{opacity:0;transition:opacity .5s .3s;font-family:var(--font-display);font-weight:900;font-size:18px;fill:#FFD54A}
+#scene[data-page="2"] .num{opacity:1}
+#scene .q{opacity:0;transition:opacity .4s;font-family:var(--font-display);font-weight:900;font-size:34px;fill:#FFD54A}
+#scene[data-page="0"] .q{opacity:1;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+@media (max-width:860px){.reader{grid-template-columns:1fr}}
+
+/* Worlds */
+.worlds{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.world{--c:var(--teal);background:color-mix(in srgb,var(--c) 13%,var(--surface));border-radius:28px;padding:22px;display:grid;gap:10px;align-content:start;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.world:hover{transform:translateY(-8px) rotate(-1deg)}
+.world svg{width:96px;height:96px;animation:float 4s ease-in-out infinite}
+.world:nth-child(2) svg{animation-delay:-1s}.world:nth-child(3) svg{animation-delay:-2s}.world:nth-child(4) svg{animation-delay:-3s}
+.world:hover svg{animation:wiggle .6s}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes wiggle{25%{transform:rotate(-10deg) scale(1.1)}75%{transform:rotate(8deg) scale(1.1)}}
+.world h3{font-size:25px;font-weight:900;color:var(--c)}
+.world p{font-size:16px;color:var(--ink)}
+.world .ex{font-size:14px;font-weight:700;color:var(--muted)}
+@media (max-width:980px){.worlds{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.worlds{grid-template-columns:1fr}}
+
+/* Star game */
+.game{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:center}
+.counter{display:flex;align-items:baseline;gap:18px;margin-block:18px 6px}
+.counter .n{font-family:var(--font-display);font-weight:900;font-size:96px;line-height:1;color:var(--coral);min-width:1.2ch;display:inline-block}
+.counter .n.bump{animation:bump .4s cubic-bezier(.3,2,.5,1)}
+@keyframes bump{40%{transform:scale(1.35)}}
+.counter .g{font-family:var(--font-ethi);font-size:64px;color:var(--teal)}
+.cwords{font-size:22px;font-weight:700;min-height:1.6em}
+.cwords .ethi{color:var(--muted);margin-left:8px}
+.sky-box{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:28px;overflow:hidden;background:radial-gradient(120% 90% at 70% 10%,#3B3F94,#141B45 70%);box-shadow:var(--chunk)}
+.sky-box .hill{position:absolute;left:0;right:0;bottom:0;height:24%}
+.star{position:absolute;width:13%;max-width:72px;aspect-ratio:1;border:0;background:none;padding:0;transform:translate(-50%,-50%);animation:twinkle2 2.6s ease-in-out infinite}
+.star svg{width:100%;height:100%;fill:#5A5FA8;transition:fill .3s,transform .4s cubic-bezier(.3,2,.5,1);filter:drop-shadow(0 0 0 #FFD54A)}
+.star:hover svg{transform:scale(1.15) rotate(12deg)}
+.star.lit{animation:none}
+.star.lit svg{fill:#FFD54A;transform:scale(1.25) rotate(20deg);filter:drop-shadow(0 0 12px rgba(255,213,74,.8))}
+.star .lbl{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-weight:900;color:#5C3A00;font-size:clamp(13px,1.8vw,20px);opacity:0;transition:opacity .3s}
+.star.lit .lbl{opacity:1}
+@keyframes twinkle2{50%{transform:translate(-50%,-50%) scale(.9)}}
+.sky-box .gugu{position:absolute;right:4%;bottom:2%;width:17%;max-width:110px}
+.sky-box .hint{position:absolute;left:16px;bottom:12px;color:#fff;font-weight:700;font-size:15px;background:rgba(0,0,0,.25);padding:4px 12px;border-radius:999px}
+@media (max-width:860px){.game{grid-template-columns:1fr}.sky-box{aspect-ratio:4/3}}
+
+/* Grown-ups */
+.grown{background:var(--surface);border-radius:36px;padding-block:52px;transition:background .6s}
+.grown-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.promises{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;margin-top:8px}
+.promise{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start}
+.promise .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.promise .ic svg{width:24px;height:24px}
+.promise h3{font-size:19px;font-weight:800;margin-bottom:2px}
+.promise p{font-size:16px;color:var(--muted)}
+.report{background:var(--bg);border-radius:28px;padding:24px;display:grid;gap:16px;border:2px dashed var(--line)}
+.report-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.report-top span{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.report h3{font-size:24px;font-weight:900}
+.chart{display:grid;grid-template-columns:auto 1fr;gap:8px}
+.yaxis{display:flex;flex-direction:column;justify-content:space-between;font-size:12px;color:var(--muted);height:110px;font-variant-numeric:tabular-nums;text-align:right}
+.bars{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:110px;background:repeating-linear-gradient(180deg,var(--line) 0 1px,transparent 1px 55px);background-size:100% 55px;border-bottom:2px solid var(--line)}
+.bar{background:var(--teal);border-radius:8px 8px 0 0;min-height:0;transform-origin:bottom;animation:grow 1s cubic-bezier(.3,1.4,.5,1) backwards}
+.bar.zero{background:none}
+@keyframes grow{from{transform:scaleY(0)}}
+.days{grid-column:2;display:grid;grid-template-columns:repeat(7,1fr);gap:8px;font-size:12px;color:var(--muted);text-align:center}
+.words{display:flex;flex-wrap:wrap;gap:8px}
+.words span{background:var(--surface);border-radius:999px;padding:4px 12px;font-weight:700;font-size:15px;box-shadow:0 2px 0 var(--line)}
+@media (max-width:900px){.grown-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.promises{grid-template-columns:1fr}}
+
+/* Plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.plan{background:var(--surface);border-radius:30px;padding:28px 26px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--chunk);border:3px solid transparent;position:relative}
+.plan.feat{border-color:var(--teal)}
+.plan.feat .ribbon{position:absolute;top:-16px;left:24px;background:var(--teal);color:var(--on-accent);font-family:var(--font-display);font-weight:800;font-size:15px;padding:5px 14px;border-radius:999px}
+.plan.vip{background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 22%,var(--surface)),var(--surface) 60%)}
+.plan h3{font-size:28px;font-weight:900}
+.plan .for{color:var(--muted);font-size:16px}
+.price{font-family:var(--font-display);font-weight:900;font-size:48px;line-height:1;font-variant-numeric:tabular-nums}
+.price .ethi{font-size:24px;font-weight:400;margin-left:4px}
+.price small{font-family:var(--font-body);font-size:16px;color:var(--muted);font-weight:400}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;flex:1}
+.plan li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:16px}
+.plan li svg{width:22px;height:22px;color:var(--teal);margin-top:2px}
+.plan .btn{justify-content:center}
+.fine{margin-top:20px;color:var(--muted);font-size:15px}
+@media (max-width:900px){.plans{grid-template-columns:1fr;max-width:480px}}
+
+footer{padding-block:40px 60px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cub" viewBox="0 0 200 240">
+      <ellipse cx="100" cy="200" rx="48" ry="36" fill="#F5B860"/>
+      <ellipse cx="70" cy="230" rx="17" ry="10" fill="#FFD48A"/>
+      <ellipse cx="130" cy="230" rx="17" ry="10" fill="#FFD48A"/>
+      <g fill="#E9782F">
+        <circle cx="156" cy="104" r="24"/><circle cx="148.5" cy="132" r="24"/><circle cx="128" cy="152.5" r="24"/>
+        <circle cx="100" cy="160" r="24"/><circle cx="72" cy="152.5" r="24"/><circle cx="51.5" cy="132" r="24"/>
+        <circle cx="44" cy="104" r="24"/><circle cx="51.5" cy="76" r="24"/><circle cx="72" cy="55.5" r="24"/>
+        <circle cx="100" cy="48" r="24"/><circle cx="128" cy="55.5" r="24"/><circle cx="148.5" cy="76" r="24"/>
+      </g>
+      <circle cx="60" cy="62" r="15" fill="#FFC870"/><circle cx="60" cy="62" r="7" fill="#F59A6B"/>
+      <circle cx="140" cy="62" r="15" fill="#FFC870"/><circle cx="140" cy="62" r="7" fill="#F59A6B"/>
+      <circle cx="100" cy="104" r="50" fill="#FFC870"/>
+      <ellipse cx="68" cy="118" rx="9" ry="6" fill="#FF8A7A" opacity=".55"/>
+      <ellipse cx="132" cy="118" rx="9" ry="6" fill="#FF8A7A" opacity=".55"/>
+      <g class="eye"><ellipse cx="82" cy="98" rx="7" ry="9" fill="#2A1A10"/><circle cx="84.5" cy="94.5" r="2.6" fill="#fff"/></g>
+      <g class="eye"><ellipse cx="118" cy="98" rx="7" ry="9" fill="#2A1A10"/><circle cx="120.5" cy="94.5" r="2.6" fill="#fff"/></g>
+      <ellipse cx="100" cy="123" rx="19" ry="13" fill="#FFE3B0"/>
+      <path d="M92 114 Q100 110 108 114 Q104 122 100 123 Q96 122 92 114Z" fill="#7A3E1D"/>
+      <path d="M100 123 L100 128 M90 128 Q95 134 100 128 Q105 134 110 128" stroke="#7A3E1D" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="gugu" viewBox="0 0 200 240">
+      <ellipse cx="100" cy="190" rx="50" ry="46" fill="#A0714F"/>
+      <path d="M100 210 C76 194 74 174 87 170 C95 168 99 173 100 177 C101 173 105 168 113 170 C126 174 124 194 100 210Z" fill="#E2463F"/>
+      <ellipse cx="72" cy="232" rx="16" ry="8" fill="#6E4A33"/><ellipse cx="128" cy="232" rx="16" ry="8" fill="#6E4A33"/>
+      <ellipse cx="100" cy="96" rx="66" ry="62" fill="#C08B63"/>
+      <circle cx="58" cy="52" r="20" fill="#C08B63"/><circle cx="142" cy="52" r="20" fill="#C08B63"/><circle cx="100" cy="38" r="24" fill="#C08B63"/>
+      <ellipse cx="100" cy="104" rx="37" ry="45" fill="#4A2E24"/>
+      <ellipse cx="100" cy="84" rx="31" ry="10" fill="#5E3B2E"/>
+      <g class="eye"><ellipse cx="86" cy="92" rx="6" ry="7" fill="#F7E6C4"/><circle cx="86" cy="93" r="3.4" fill="#1A0F0A"/></g>
+      <g class="eye"><ellipse cx="114" cy="92" rx="6" ry="7" fill="#F7E6C4"/><circle cx="114" cy="93" r="3.4" fill="#1A0F0A"/></g>
+      <ellipse cx="100" cy="125" rx="21" ry="17" fill="#5E3B2E"/>
+      <circle cx="95" cy="118" r="2.3" fill="#1A0F0A"/><circle cx="105" cy="118" r="2.3" fill="#1A0F0A"/>
+      <path d="M89 130 Q100 139 111 130" stroke="#E8C9A0" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="bee" viewBox="0 0 40 40">
+      <ellipse cx="15" cy="11" rx="8" ry="5.5" fill="#D6F1FF" stroke="#1B2A4E" stroke-width="1.6" transform="rotate(-28 15 11)"/>
+      <ellipse cx="24" cy="10" rx="7" ry="5" fill="#D6F1FF" stroke="#1B2A4E" stroke-width="1.6" transform="rotate(22 24 10)"/>
+      <path d="M7 25 L3 26 L7 28Z" fill="#1B2A4E"/>
+      <ellipse cx="19" cy="25" rx="13" ry="10" fill="#FFC83D"/>
+      <path d="M15 16 V34 M22 15.5 V34.5" stroke="#1B2A4E" stroke-width="3.4"/>
+      <circle cx="32" cy="23" r="6.5" fill="#1B2A4E"/>
+      <circle cx="34" cy="21.5" r="2" fill="#fff"/>
+      <path d="M31 27 Q34 29 36.5 26.5" stroke="#FFC83D" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M33 17 Q34 12 37 11" stroke="#1B2A4E" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 1.8l3 6.5 7 .8-5.2 4.8 1.4 7-6.2-3.6-6.2 3.6 1.4-7L2 9.1l7-.8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Lali home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><use href="#bee"/></svg>
+      Lali <small>ላሊ</small>
+    </a>
+    <div class="nav-links">
+      <a href="#shelf">Stories</a><a href="#try">Read free</a><a href="#worlds">Worlds</a><a href="#grownups">Grown-ups</a><a href="#plans">Plans</a>
+    </div>
+    <button class="mode" id="modeBtn" type="button" aria-label="Switch to bedtime mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg><span id="modeLbl">Bedtime</span>
+    </button>
+    <a class="btn small" href="#plans">Start free week</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="stars" id="stars" aria-hidden="true"></div>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="cloud" style="top:70px;animation-duration:70s;animation-delay:-20s" aria-hidden="true"></div>
+  <div class="cloud" style="top:170px;animation-duration:95s;animation-delay:-60s;scale:.7" aria-hidden="true"></div>
+  <div class="cloud" style="top:30px;animation-duration:120s;animation-delay:-95s;scale:.55" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="copy">
+      <span class="tonight"><b>Tonight</b> Anbessa and the Lost Moon</span>
+      <h1 id="headline" aria-label="One more page, please!">One more page, please!</h1>
+      <p class="lede">Beautiful stories in English and Amharic that turn screen time into reading time. Made in Ethiopia for curious kids aged 3 to 9. <span class="ethi">ለልጆች የተሰሩ ተረቶች።</span></p>
+      <div class="cta-row">
+        <a class="btn" href="#try">Read a story free</a>
+        <a class="btn ghost" href="#worlds">Explore the worlds</a>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="bubble off" id="bubble" aria-live="polite">Selam! I'm Anbessa.</div>
+      <button class="cub" id="cub" type="button" aria-label="Say hello to Anbessa the lion cub">
+        <svg viewBox="0 0 200 240" aria-hidden="true"><use href="#cub"/></svg>
+      </button>
+      <button class="book" id="book" type="button" aria-label="Tap the book to make letters fly">
+        <span class="pg l">
+          <svg viewBox="0 0 120 80" aria-hidden="true">
+            <rect width="120" height="80" rx="8" fill="#2B3A8C"/>
+            <circle cx="92" cy="22" r="11" fill="#F6EDC6"/><circle cx="97" cy="18" r="10" fill="#2B3A8C"/>
+            <circle cx="20" cy="16" r="1.6" fill="#fff"/><circle cx="44" cy="10" r="1.3" fill="#fff"/><circle cx="64" cy="24" r="1.5" fill="#fff"/>
+            <path d="M0 80 L0 58 L30 38 L52 54 L78 30 L120 62 L120 80Z" fill="#1F5E5B"/>
+          </svg>
+        </span>
+        <span class="pg r"></span>
+        <span class="flip"><span class="face"></span><span class="face back"></span></span>
+      </button>
+      <span class="bee" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#bee"/></svg></span>
+      <div class="glyphs" id="glyphs"></div>
+    </div>
+  </div>
+
+  <svg class="hills" id="hills" viewBox="0 0 1440 190" preserveAspectRatio="none" aria-hidden="true">
+    <path class="hill-1" d="M0 70 C180 10 330 20 480 70 S800 140 980 70 S1300 10 1440 60 L1440 190 L0 190Z"/>
+    <path class="hill-2" d="M0 120 C220 70 400 80 620 125 S1000 160 1180 110 S1380 90 1440 105 L1440 190 L0 190Z"/>
+    <path class="hill-3" d="M0 160 C300 130 600 175 900 150 S1300 140 1440 158 L1440 190 L0 190Z"/>
+  </svg>
+</header>
+
+<main>
+  <section class="band" id="shelf">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Tonight's bookshelf</h2>
+        <p>Every book is illustrated, narrated and short enough to finish before bed. Pick one and turn the first page.</p>
+      </div>
+      <div class="shelf-wrap">
+        <div class="shelf" id="shelfRow"></div>
+        <div class="plank" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="try">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Try a page</h2>
+        <p>Tap any word to hear it. Press the big button and the words light up as they're read aloud.</p>
+      </div>
+      <div class="reader">
+        <div class="scene-card">
+          <svg id="scene" data-page="0" viewBox="0 0 400 300" role="img" aria-label="Story picture: Anbessa looks for the moon">
+            <defs>
+              <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141B45"/><stop offset="1" stop-color="#3A3C8A"/></linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#night)"/>
+            <g fill="#fff" opacity=".7">
+              <circle cx="30" cy="30" r="1.4"/><circle cx="120" cy="22" r="1.2"/><circle cx="200" cy="80" r="1.3"/><circle cx="270" cy="20" r="1.5"/>
+              <circle cx="40" cy="110" r="1.2"/><circle cx="140" cy="110" r="1.4"/><circle cx="380" cy="140" r="1.2"/><circle cx="220" cy="30" r="1"/>
+              <circle cx="360" cy="24" r="1.3"/><circle cx="100" cy="150" r="1"/>
+            </g>
+            <use class="bigstar" href="#i-star" x="74" y="48" width="16" height="16"/>
+            <use class="bigstar" href="#i-star" x="150" y="34" width="16" height="16"/>
+            <use class="bigstar" href="#i-star" x="236" y="58" width="16" height="16"/>
+            <text class="num" x="62" y="88">1</text><text class="num" x="140" y="74">2</text><text class="num" x="226" y="98">3</text>
+            <g class="moon">
+              <circle cx="320" cy="70" r="28" fill="#F6EDC6"/>
+              <circle cx="311" cy="66" r="2.6" fill="#5B4A2A"/><circle cx="329" cy="66" r="2.6" fill="#5B4A2A"/>
+              <path d="M310 77 Q320 85 330 77" stroke="#5B4A2A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <circle cx="306" cy="74" r="3.5" fill="#FFB09A" opacity=".6"/><circle cx="334" cy="74" r="3.5" fill="#FFB09A" opacity=".6"/>
+            </g>
+            <g fill="#8E93D6">
+              <circle cx="300" cy="92" r="26"/><circle cx="330" cy="78" r="34"/><circle cx="364" cy="94" r="24"/><ellipse cx="332" cy="106" rx="62" ry="14"/>
+            </g>
+            <path d="M0 300 L0 230 L90 170 L160 210 L230 135 L310 200 L400 160 L400 300Z" fill="#26306E"/>
+            <path d="M0 300 L0 262 Q100 238 200 256 T400 250 L400 300Z" fill="#2E7F6A"/>
+            <text class="q" x="58" y="166">?</text>
+            <use class="ch cubp" href="#cub" width="70" height="84"/>
+            <use class="ch gugp" href="#gugu" width="66" height="80"/>
+          </svg>
+        </div>
+        <div class="text-card" id="textCard">
+          <div class="reader-top">
+            <span class="book-title">Anbessa and the Lost Moon</span>
+            <div class="lang" role="group" aria-label="Story language">
+              <button type="button" data-lang="en" aria-pressed="true">English</button>
+              <button type="button" data-lang="am" aria-pressed="false" class="ethi">አማርኛ</button>
+            </div>
+          </div>
+          <p class="story-text" id="storyText" aria-live="polite"></p>
+          <div class="reader-controls">
+            <button class="round" id="prevBtn" type="button" aria-label="Previous page"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="btn" id="readBtn" type="button">Read to me</button>
+            <button class="round" id="nextBtn" type="button" aria-label="Next page"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="dots" id="dots" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="worlds">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Four worlds to explore</h2>
+        <p>Each world teaches through stories first. Kids follow the characters, and the learning comes along for the ride.</p>
+      </div>
+      <div class="worlds">
+        <article class="world" style="--c:var(--coral)">
+          <svg viewBox="0 0 96 96" aria-hidden="true"><path d="M12 62c12-6 24-6 36 2v18c-12-8-24-8-36-2z" fill="var(--coral)"/><path d="M84 62c-12-6-24-6-36 2v18c12-8 24-8 36-2z" fill="var(--gold)"/><path d="M48 62V36" stroke="var(--teal)" stroke-width="4" stroke-linecap="round"/><ellipse cx="38" cy="40" rx="10" ry="5" fill="var(--teal)" transform="rotate(-30 38 40)"/><circle cx="48" cy="24" r="10" fill="var(--berry)"/><circle cx="48" cy="24" r="4" fill="var(--gold)"/></svg>
+          <h3>Story Garden</h3>
+          <p>A growing library of picture books that builds the habit of reading every day.</p>
+          <span class="ex">Folktales, bedtime stories, adventures</span>
+        </article>
+        <article class="world" style="--c:var(--blue)">
+          <svg viewBox="0 0 96 96" aria-hidden="true"><rect x="8" y="48" width="26" height="26" rx="6" fill="var(--coral)"/><rect x="36" y="40" width="26" height="26" rx="6" fill="var(--blue)" transform="rotate(-6 49 53)"/><rect x="62" y="50" width="26" height="26" rx="6" fill="var(--teal)"/><rect x="34" y="14" width="26" height="26" rx="6" fill="var(--gold)" transform="rotate(8 47 27)"/><g font-family="Grandstander,sans-serif" font-weight="900" font-size="18" fill="#fff" text-anchor="middle"><text x="21" y="68">A</text><text x="49" y="60">B</text><text x="75" y="70">C</text><text x="47" y="34">D</text></g></svg>
+          <h3>Word Market</h3>
+          <p>English sounds, letters and first words, learned while shopping with Lulu at the market.</p>
+          <span class="ex">Phonics, sight words, speaking</span>
+        </article>
+        <article class="world" style="--c:var(--teal)">
+          <svg viewBox="0 0 96 96" aria-hidden="true"><path d="M4 84 L34 30 L50 54 L64 36 L92 84Z" fill="var(--teal)"/><path d="M34 30 L26 44 L34 40 L40 46Z" fill="#fff"/><path d="M64 36 L58 46 L64 43 L69 48Z" fill="#fff"/><g font-family="Grandstander,sans-serif" font-weight="900" font-size="16" fill="var(--gold)" text-anchor="middle"><text x="20" y="22">1</text><text x="50" y="14">2</text><text x="82" y="24">3</text></g></svg>
+          <h3>Number Mountains</h3>
+          <p>Counting, adding and shapes with Gugu the gelada as he climbs the Simien peaks.</p>
+          <span class="ex">Counting, early maths, patterns</span>
+        </article>
+        <article class="world" style="--c:var(--berry)">
+          <svg viewBox="0 0 96 96" aria-hidden="true"><path d="M8 50 L28 32 L48 50 V80 H8Z" fill="var(--gold)"/><path d="M48 50 L68 32 L88 50 V80 H48Z" fill="var(--teal)"/><rect x="22" y="60" width="12" height="20" rx="3" fill="var(--coral)"/><rect x="62" y="60" width="12" height="20" rx="3" fill="var(--coral)"/><path d="M48 30 C38 22 38 10 46 10 C48 10 48 12 48 13 C48 12 48 10 50 10 C58 10 58 22 48 30Z" fill="var(--berry)"/></svg>
+          <h3>Kindness Village</h3>
+          <p>Stories about sharing, honesty and respect for elders, the values families want to pass on.</p>
+          <span class="ex">Feelings, manners, friendship</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="game">
+    <div class="wrap game">
+      <div>
+        <div class="sec-head" style="margin-bottom:0">
+          <h2>Count the stars with Gugu</h2>
+          <p>Tap every star in the sky. Gugu counts with you in English, Amharic and Ge'ez numbers.</p>
+        </div>
+        <div class="counter" aria-live="polite">
+          <span class="n" id="cNum">0</span><span class="g" id="cGeez" aria-hidden="true"></span>
+        </div>
+        <p class="cwords" id="cWords">Tap a star to start counting.</p>
+        <button class="btn ghost small" id="resetBtn" type="button" style="margin-top:14px">Count again</button>
+      </div>
+      <div class="sky-box" id="skyBox">
+        <svg class="hill" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 L0 30 Q100 0 200 24 T400 18 L400 60Z" fill="#2E7F6A"/></svg>
+        <svg class="gugu" viewBox="0 0 200 240" aria-hidden="true"><use href="#gugu"/></svg>
+        <span class="hint" id="hint">10 stars are hiding up here</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="grownups">
+    <div class="wrap">
+      <div class="grown">
+        <div class="wrap grown-grid" style="padding-left:max(16px,4%);padding-right:max(16px,4%)">
+          <div>
+            <div class="sec-head">
+              <h2>For the grown-ups</h2>
+              <p>Lali is built to end. Stories finish, the screen goes quiet, and you can see what your child learned.</p>
+            </div>
+            <div class="promises">
+              <div class="promise" style="--c:var(--coral)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></span><div><h3>No ads, ever</h3><p>No ads, no links out, no strangers' videos.</p></div></div>
+              <div class="promise" style="--c:var(--teal)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span><div><h3>No autoplay</h3><p>A bedtime timer you set. When it ends, Anbessa says goodnight.</p></div></div>
+              <div class="promise" style="--c:var(--blue)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><div><h3>Weekly progress note</h3><p>Stories read, new words, and what to talk about at dinner.</p></div></div>
+              <div class="promise" style="--c:var(--gold)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M4 20h16"/></svg></span><div><h3>Works offline</h3><p>Download stories on Wi-Fi and read without using data.</p></div></div>
+              <div class="promise" style="--c:var(--berry)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M7 15h4"/></svg></span><div><h3>Pay your way</h3><p>Telebirr, CBE Birr or card. Cancel any time.</p></div></div>
+              <div class="promise" style="--c:var(--teal)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h9M8.5 4v2M6 6c0 4 3 7 6 8M11 6c-1 4-4 7-7 8M14 20l3.5-8 3.5 8M15 17.5h5"/></svg></span><div><h3>Two languages</h3><p>Switch any story between English and Amharic with one tap.</p></div></div>
+            </div>
+          </div>
+          <aside class="report" aria-label="Sample weekly progress note">
+            <div class="report-top"><span>Sample weekly note</span><span>Oct 20–26</span></div>
+            <h3>Liya read 6 stories this week</h3>
+            <div class="chart" role="img" aria-label="Stories read per day: Monday 1, Tuesday 0, Wednesday 2, Thursday 1, Friday 0, Saturday 1, Sunday 1">
+              <div class="yaxis"><span>2</span><span>1</span><span>0</span></div>
+              <div class="bars" id="bars"></div>
+              <div class="days"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+            </div>
+            <div>
+              <p style="font-weight:700;margin-bottom:8px">New words</p>
+              <div class="words"><span>brave</span><span>moon</span><span>share</span><span>mountain</span><span class="ethi">ጨረቃ</span><span class="ethi">ኮከብ</span></div>
+            </div>
+            <p style="font-size:16px;color:var(--muted)">Ask Liya: why did the moon hide behind the cloud?</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="plans">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Pick a plan</h2>
+        <p>Every plan starts with a free week. Prices are per family, per month.</p>
+      </div>
+      <div class="plans">
+        <article class="plan">
+          <h3>Reader</h3>
+          <p class="for">For building a daily reading habit</p>
+          <p class="price">400<span class="ethi">ብር</span> <small>/ month</small></p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>The whole Story Garden library</li>
+            <li><svg><use href="#i-check"/></svg>New stories every week</li>
+            <li><svg><use href="#i-check"/></svg>Read-to-me in English and Amharic</li>
+            <li><svg><use href="#i-check"/></svg>Offline downloads</li>
+          </ul>
+          <a class="btn ghost" href="#top">Start free week</a>
+        </article>
+        <article class="plan feat">
+          <span class="ribbon">Most families pick this</span>
+          <h3>Learner</h3>
+          <p class="for">For reading plus real skills</p>
+          <p class="price">1,200<span class="ethi">ብር</span> <small>/ month</small></p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Everything in Reader</li>
+            <li><svg><use href="#i-check"/></svg>Two worlds of your choice: English, Maths or Values</li>
+            <li><svg><use href="#i-check"/></svg>Weekly progress note</li>
+            <li><svg><use href="#i-check"/></svg>Up to 2 child profiles</li>
+          </ul>
+          <a class="btn" href="#top">Start free week</a>
+        </article>
+        <article class="plan vip">
+          <h3>VIP</h3>
+          <p class="for">For families who want everything</p>
+          <p class="price">5,000<span class="ethi">ብር</span> <small>/ month</small></p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Every world and every story</li>
+            <li><svg><use href="#i-check"/></svg>A printed storybook delivered each month</li>
+            <li><svg><use href="#i-check"/></svg>Monthly live reading circle</li>
+            <li><svg><use href="#i-check"/></svg>Up to 4 child profiles and early access</li>
+          </ul>
+          <a class="btn ghost" href="#top">Start free week</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" style="font-size:22px"><svg viewBox="0 0 40 40" aria-hidden="true"><use href="#bee"/></svg>Lali <small>ላሊ</small></a>
+    <p style="max-width:52ch">Our name comes from Lalibela, which legend says means "the bees recognise his greatness." Lali the bee carries stories from book to book. Made in Addis Ababa.</p>
+  </div>
+</footer>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+
+  /* Sound: a soft pop, only after the child taps something */
+  let ac;
+  function tone(freq = 660, dur = .14) {
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      const o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime;
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(freq, t);
+      o.frequency.exponentialRampToValueAtTime(freq * 1.5, t + dur);
+      g.gain.setValueAtTime(.0001, t);
+      g.gain.exponentialRampToValueAtTime(.16, t + .01);
+      g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+      o.connect(g).connect(ac.destination);
+      o.start(t); o.stop(t + dur + .02);
+    } catch (e) {}
+  }
+
+  /* Day / bedtime mode */
+  const SUN = '<circle cx="12" cy="12" r="5" fill="#FFC83D"/><g stroke="#E79A10" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>';
+  const MOON = '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="#6F7FD9"/><circle cx="18" cy="5" r="1.2" fill="#E79A10"/>';
+  try { const s = localStorage.getItem('teret-theme'); if (s) root.dataset.theme = s; } catch (e) {}
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  function paintMode() {
+    const dark = isDark();
+    $('#modeIcon').innerHTML = dark ? SUN : MOON;
+    $('#modeLbl').textContent = dark ? 'Daytime' : 'Bedtime';
+    $('#modeBtn').setAttribute('aria-label', dark ? 'Switch to daytime mode' : 'Switch to bedtime mode');
+  }
+  $('#modeBtn').addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('teret-theme', root.dataset.theme); } catch (e) {}
+    tone(isDark() ? 420 : 760, .25);
+    paintMode();
+  });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', paintMode);
+  new MutationObserver(paintMode).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  paintMode();
+
+  /* Night stars in the hero */
+  const starBox = $('#stars');
+  for (let i = 0; i < 46; i++) {
+    const s = document.createElement('i');
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 62 + '%';
+    s.style.animationDelay = (-Math.random() * 3) + 's';
+    if (Math.random() < .25) { s.style.width = s.style.height = '4px'; }
+    starBox.append(s);
+  }
+
+  /* Headline letters drop in and jump on hover */
+  const h1 = $('#headline');
+  let k = 0;
+  h1.innerHTML = h1.textContent.split(' ').map(word =>
+    '<span class="w" aria-hidden="true">' + [...word].map(c =>
+      `<span class="ch" style="animation-delay:${(k++ * 45)}ms">${c}</span>`).join('') + '</span>'
+  ).join(' ');
+
+  /* Letters float out of the book */
+  const glyphBox = $('#glyphs');
+  const CHARS = ['A','b','c','ሀ','ለ','መ','ሰ','1','2','3','7','★','ፊ','?','Z'];
+  const COLS = ['--coral','--teal','--gold','--berry','--blue'];
+  function spawn(dx) {
+    const s = document.createElement('span');
+    const ch = pick(CHARS);
+    s.className = 'glyph' + (/[ሀ-፿]/.test(ch) ? ' ethi' : '');
+    s.textContent = ch;
+    s.style.setProperty('--dx', (dx ?? (Math.random() * 260 - 130)) + 'px');
+    s.style.setProperty('--rot', (Math.random() * 60 - 30) + 'deg');
+    s.style.color = `var(${pick(COLS)})`;
+    glyphBox.append(s);
+    s.addEventListener('animationend', () => s.remove());
+  }
+  if (!reduce) setInterval(() => { if (!document.hidden) spawn(); }, 750);
+  $('#book').addEventListener('click', () => {
+    for (let i = 0; i < 9; i++) setTimeout(() => spawn(-160 + i * 40), i * 50);
+    tone(520, .2); setTimeout(() => tone(780, .2), 120);
+  });
+
+  /* Anbessa says hello */
+  const LINES = ["Selam! I'm Anbessa.", "Bzzz! That's my friend Lali the bee.", 'ሰላም! እኔ አንበሳ ነኝ።', 'Tap the book!', 'Want to read with me?', 'Have you seen the moon?'];
+  let li = 0, bubbleT;
+  const bubble = $('#bubble'), cub = $('#cub');
+  cub.addEventListener('click', () => {
+    cub.classList.remove('jump'); void cub.offsetWidth; cub.classList.add('jump');
+    bubble.textContent = LINES[li++ % LINES.length];
+    bubble.classList.toggle('ethi', /[ሀ-፿]/.test(bubble.textContent));
+    bubble.classList.remove('off');
+    clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.add('off'), 2600);
+    tone(880, .18);
+  });
+  cub.addEventListener('animationend', e => { if (e.animationName === 'jump') cub.classList.remove('jump'); });
+  setTimeout(() => { bubble.classList.remove('off'); bubbleT = setTimeout(() => bubble.classList.add('off'), 3200); }, 1300);
+
+  /* Gentle parallax on the hero */
+  const hero = $('.hero'), stage = $('#stage'), hills = $('#hills').querySelectorAll('path');
+  if (!reduce && matchMedia('(pointer: fine)').matches) {
+    let raf;
+    hero.addEventListener('pointermove', e => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        stage.style.transform = `translate(${x * 14}px,${y * 8}px)`;
+        hills[0].style.transform = `translateX(${x * -18}px)`;
+        hills[1].style.transform = `translateX(${x * -10}px)`;
+      });
+    });
+  }
+
+  /* Bookshelf */
+  const BOOKS = [
+    { t: 'Anbessa and the Lost Moon', cat: 'Bedtime', age: '3–6', bg: '#2B3A8C', tag: '#E8513B', art: 'moon', free: true },
+    { t: 'Gugu Counts the Stars', cat: 'Maths', age: '4–7', bg: '#0E7F74', tag: '#2F5BD3', art: 'count' },
+    { t: "The Coffee Bird's Secret", cat: 'Values', age: '5–8', bg: '#A84B23', tag: '#D63B72', art: 'bird' },
+    { t: "Lulu's Big Word Market", cat: 'English', age: '4–7', bg: '#C9860A', tag: '#0E8C80', art: 'letters' },
+    { t: 'The Kind Wolf of Simien', cat: 'Values', age: '5–9', bg: '#5B4AA0', tag: '#D63B72', art: 'wolf' },
+    { t: 'Ten Seeds for Grandma', cat: 'Maths', age: '3–6', bg: '#2F7D3A', tag: '#2F5BD3', art: 'seeds' },
+  ];
+  const ART = {
+    moon: b => `<circle cx="84" cy="70" r="16" fill="#F6EDC6"/><circle cx="91" cy="65" r="14" fill="${b}"/>
+      <g fill="#fff"><circle cx="30" cy="80" r="1.6"/><circle cx="56" cy="64" r="1.2"/><circle cx="100" cy="100" r="1.4"/><circle cx="24" cy="104" r="1.1"/></g>
+      <path d="M0 160 L0 128 L40 106 L70 124 L120 100 L120 160Z" fill="#1F5E5B"/>
+      <circle cx="60" cy="132" r="15" fill="#E9782F"/><circle cx="60" cy="133" r="10" fill="#FFC870"/>`,
+    count: b => `<g fill="#FFD54A"><use href="#i-star" x="18" y="76" width="18" height="18"/><use href="#i-star" x="50" y="64" width="22" height="22"/><use href="#i-star" x="86" y="80" width="18" height="18"/></g>
+      <text x="60" y="136" text-anchor="middle" font-family="Grandstander,sans-serif" font-weight="900" font-size="30" fill="#fff">1 2 3</text>`,
+    bird: b => `<path d="M36 112 h48 v16 a16 16 0 0 1 -16 16 h-16 a16 16 0 0 1 -16 -16z" fill="#fff"/><path d="M84 116 a8 8 0 0 1 0 16" stroke="#fff" stroke-width="4" fill="none"/>
+      <path d="M52 104 q-4 -8 0 -14 M64 104 q-4 -8 0 -14" stroke="#F6D9B8" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="80" cy="80" rx="16" ry="11" fill="#2BB3A3"/><circle cx="92" cy="74" r="7" fill="#2BB3A3"/><path d="M98 74 l8 2 -8 3z" fill="#FFC83D"/><circle cx="93" cy="72" r="1.5" fill="#1A0F0A"/>`,
+    letters: b => `<rect x="14" y="96" width="28" height="28" rx="6" fill="#E8513B"/><rect x="46" y="88" width="28" height="28" rx="6" fill="#2F5BD3" transform="rotate(-6 60 102)"/><rect x="78" y="98" width="28" height="28" rx="6" fill="#0E8C80"/>
+      <g font-family="Grandstander,sans-serif" font-weight="900" font-size="19" fill="#fff" text-anchor="middle"><text x="28" y="117">A</text><text x="60" y="109">B</text><text x="92" y="119">C</text></g>`,
+    wolf: b => `<path d="M0 160 L0 120 L34 80 L58 108 L84 72 L120 116 L120 160Z" fill="#3A2F78"/><path d="M84 72 L76 84 L84 81 L90 87Z" fill="#fff"/>
+      <path d="M44 128 L50 112 L56 124 L64 124 L70 112 L76 128 Q60 150 44 128Z" fill="#D9772E"/><circle cx="55" cy="128" r="2" fill="#1A0F0A"/><circle cx="65" cy="128" r="2" fill="#1A0F0A"/><path d="M57 138 h6" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
+    seeds: b => `<g fill="#F6D27A">${Array.from({ length: 10 }, (_, i) => `<ellipse cx="${26 + (i % 5) * 17}" cy="${92 + Math.floor(i / 5) * 18}" rx="6" ry="4"/>`).join('')}</g>
+      <path d="M60 146 v-14" stroke="#9BE27A" stroke-width="3"/><ellipse cx="53" cy="132" rx="7" ry="4" fill="#9BE27A" transform="rotate(-30 53 132)"/><ellipse cx="67" cy="130" rx="7" ry="4" fill="#9BE27A" transform="rotate(30 67 130)"/>`,
+  };
+  $('#shelfRow').innerHTML = BOOKS.map((b, i) => `
+    <button class="bk" type="button" data-i="${i}" aria-label="${b.t.replace(/"/g, '&quot;')}${b.free ? ', free to read' : ''}">
+      ${b.free ? '<span class="free">Free</span>' : ''}
+      <div class="cover" style="background:${b.bg}">
+        <svg viewBox="0 0 120 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${ART[b.art](b.bg)}</svg>
+        <h3>${b.t}</h3>
+        ${b.free ? '' : '<span class="lock">In the full library</span>'}
+      </div>
+      <div class="meta"><span class="tag" style="background:${b.tag}">${b.cat}</span>Ages ${b.age}</div>
+    </button>`).join('');
+  $('#shelfRow').addEventListener('click', e => {
+    const bk = e.target.closest('.bk'); if (!bk) return;
+    if (BOOKS[bk.dataset.i].free) { tone(660); $('#try').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); return; }
+    bk.classList.remove('wiggle'); void bk.offsetWidth; bk.classList.add('wiggle'); tone(300, .12);
+    setTimeout(() => bk.classList.remove('wiggle'), 1600);
+  });
+
+  /* Read-along */
+  const PAGES = [
+    { en: 'One night, little Anbessa looked up at the sky. The moon was gone!', am: 'አንድ ምሽት ትንሹ አንበሳ ወደ ሰማይ ተመለከተ። ጨረቃ ጠፍታ ነበር!' },
+    { en: 'He asked his friend Gugu the gelada, "Have you seen the moon?" Gugu shook his head.', am: 'ጓደኛውን ጉጉ የተባለውን ጭላዳ «ጨረቃን አይተሃል?» ብሎ ጠየቀው። ጉጉ ራሱን ነቀነቀ።' },
+    { en: 'They climbed the tallest mountain and counted the stars. One, two, three!', am: 'ረጅሙን ተራራ ወጥተው ከዋክብትን ቆጠሩ። አንድ፣ ሁለት፣ ሦስት!' },
+    { en: 'Behind a fluffy cloud, the moon was hiding. "There you are!" said Anbessa.', am: 'ጨረቃ ከደመና ጀርባ ተደብቃ ነበር። «እዚህ ነሽ!» አለ አንበሳ።' },
+  ];
+  let page = 0, lang = 'en', timer, fallbackT, offsets = [];
+  const textEl = $('#storyText'), scene = $('#scene'), card = $('#textCard');
+  const dots = $('#dots');
+  dots.innerHTML = PAGES.map(() => '<i></i>').join('');
+  const synth = window.speechSynthesis;
+  function voiceFor(l) {
+    if (!synth) return null;
+    const vs = synth.getVoices();
+    return vs.find(v => v.lang && v.lang.toLowerCase().startsWith(l)) || null;
+  }
+  function render() {
+    const text = PAGES[page][lang];
+    const words = text.split(' ');
+    offsets = []; let o = 0;
+    words.forEach(w => { offsets.push(o); o += w.length + 1; });
+    textEl.innerHTML = words.map((w, i) => `<span class="w" data-i="${i}">${w}</span>`).join(' ');
+    textEl.classList.toggle('am', lang === 'am');
+    scene.dataset.page = page;
+    dots.querySelectorAll('i').forEach((d, i) => d.classList.toggle('on', i === page));
+    $('#prevBtn').disabled = page === 0;
+    $('#nextBtn').setAttribute('aria-label', page === PAGES.length - 1 ? 'Start the story again' : 'Next page');
+    $('#readBtn').textContent = lang === 'am' ? 'አንብብልኝ' : 'Read to me';
+    $('#readBtn').classList.toggle('ethi', lang === 'am');
+  }
+  function stopReading() {
+    clearInterval(timer); clearTimeout(fallbackT);
+    try { synth && synth.cancel(); } catch (e) {}
+  }
+  function mark(i) {
+    textEl.querySelectorAll('.w').forEach((w, j) => {
+      w.classList.toggle('on', j === i);
+      w.classList.toggle('done', j < i);
+    });
+  }
+  function finish() {
+    clearInterval(timer);
+    textEl.querySelectorAll('.w').forEach(w => { w.classList.remove('on'); w.classList.add('done'); });
+    if (page === PAGES.length - 1) burst();
+  }
+  function runTimer() {
+    clearInterval(timer);
+    const n = textEl.querySelectorAll('.w').length;
+    let i = 0; mark(0);
+    timer = setInterval(() => { i++; if (i >= n) { finish(); } else mark(i); }, lang === 'am' ? 560 : 430);
+  }
+  function read() {
+    stopReading();
+    const v = voiceFor(lang);
+    if (v && !reduce) {
+      let gotBoundary = false;
+      const u = new SpeechSynthesisUtterance(PAGES[page][lang]);
+      u.voice = v; u.lang = v.lang; u.rate = .85; u.pitch = 1.15;
+      u.onboundary = e => {
+        if (e.name && e.name !== 'word') return;
+        gotBoundary = true; clearInterval(timer);
+        let i = 0; for (let j = 0; j < offsets.length; j++) if (offsets[j] <= e.charIndex) i = j;
+        mark(i);
+      };
+      u.onend = () => { if (gotBoundary) finish(); };
+      try { synth.speak(u); } catch (e) {}
+      fallbackT = setTimeout(() => { if (!gotBoundary) runTimer(); }, 700);
+    } else {
+      runTimer();
+    }
+  }
+  function speakWord(w) {
+    const v = voiceFor(lang);
+    if (!v) return;
+    try { synth.cancel(); const u = new SpeechSynthesisUtterance(w); u.voice = v; u.lang = v.lang; u.rate = .8; u.pitch = 1.2; synth.speak(u); } catch (e) {}
+  }
+  function go(to) {
+    stopReading();
+    page = (to + PAGES.length) % PAGES.length;
+    if (reduce) { render(); return; }
+    card.classList.remove('turn'); void card.offsetWidth; card.classList.add('turn');
+    setTimeout(render, 240);
+    tone(500, .12);
+  }
+  card.addEventListener('animationend', () => card.classList.remove('turn'));
+  $('#nextBtn').addEventListener('click', () => go(page + 1));
+  $('#prevBtn').addEventListener('click', () => go(page - 1));
+  $('#readBtn').addEventListener('click', read);
+  textEl.addEventListener('click', e => {
+    const w = e.target.closest('.w'); if (!w) return;
+    w.classList.remove('pop'); void w.offsetWidth; w.classList.add('pop');
+    speakWord(w.textContent.replace(/[.,!?"«»።፣]/g, ''));
+    tone(600 + Math.random() * 300, .1);
+  });
+  document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+    stopReading();
+    lang = b.dataset.lang;
+    document.querySelectorAll('.lang button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    render();
+  }));
+  if (synth && synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => {};
+  render();
+
+  /* Star counting game */
+  const EN = ['one','two','three','four','five','six','seven','eight','nine','ten'];
+  const AM = ['አንድ','ሁለት','ሦስት','አራት','አምስት','ስድስት','ሰባት','ስምንት','ዘጠኝ','አሥር'];
+  const GEEZ = ['፩','፪','፫','፬','፭','፮','፯','፰','፱','፲'];
+  const NOTES = [523, 587, 659, 698, 784, 880, 988, 1047, 1175, 1319];
+  const sky = $('#skyBox');
+  let count = 0;
+  function layStars() {
+    sky.querySelectorAll('.star').forEach(s => s.remove());
+    count = 0; updateCount();
+    $('#hint').textContent = '10 stars are hiding up here';
+    const cells = [];
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 5; c++) cells.push([c, r]);
+    cells.sort(() => Math.random() - .5).forEach(([c, r], i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'star';
+      b.setAttribute('aria-label', 'Star');
+      b.style.left = (12 + c * 17 + (Math.random() * 8 - 4)) + '%';
+      b.style.top = (16 + r * 34 + (Math.random() * 12 - 6)) + '%';
+      b.style.animationDelay = (-Math.random() * 2.6) + 's';
+      b.innerHTML = '<svg viewBox="0 0 24 24"><use href="#i-star"/></svg><span class="lbl"></span>';
+      sky.append(b);
+    });
+  }
+  function updateCount() {
+    const n = $('#cNum');
+    n.textContent = count;
+    n.classList.remove('bump'); void n.offsetWidth; if (count) n.classList.add('bump');
+    $('#cGeez').textContent = count ? GEEZ[count - 1] : '';
+    $('#cWords').innerHTML = count
+      ? `${EN[count - 1][0].toUpperCase() + EN[count - 1].slice(1)}!<span class="ethi">${AM[count - 1]}</span>`
+      : 'Tap a star to start counting.';
+  }
+  sky.addEventListener('click', e => {
+    const s = e.target.closest('.star'); if (!s || s.classList.contains('lit')) return;
+    count++;
+    s.classList.add('lit');
+    s.querySelector('.lbl').textContent = count;
+    s.setAttribute('aria-label', 'Star number ' + count);
+    tone(NOTES[count - 1], .22);
+    updateCount();
+    if (count === 10) {
+      $('#cWords').innerHTML = 'You counted ten stars!<span class="ethi">አሥር ኮከቦች!</span>';
+      $('#hint').textContent = 'Gugu is so proud of you';
+      burst();
+      [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => tone(f, .3), 160 + i * 130));
+    }
+  });
+  $('#resetBtn').addEventListener('click', layStars);
+  layStars();
+
+  /* Parent report bars, scaled to a max of 2 stories */
+  const DAYS = [1, 0, 2, 1, 0, 1, 1];
+  $('#bars').innerHTML = DAYS.map((d, i) =>
+    `<div class="bar${d ? '' : ' zero'}" style="height:${d / 2 * 100}%;animation-delay:${i * 80}ms"></div>`).join('');
+
+  /* Confetti */
+  const cv = $('#confetti'), cx = cv.getContext('2d');
+  let parts = [], running = false;
+  function burst() {
+    if (reduce) return;
+    cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio;
+    const cs = getComputedStyle(root);
+    const cols = ['--coral', '--teal', '--gold', '--berry', '--blue'].map(v => cs.getPropertyValue(v).trim());
+    for (let i = 0; i < 160; i++) parts.push({
+      x: innerWidth / 2 + (Math.random() - .5) * 200, y: innerHeight * .45,
+      vx: (Math.random() - .5) * 16, vy: -Math.random() * 16 - 6,
+      r: Math.random() * Math.PI, vr: (Math.random() - .5) * .3,
+      w: 8 + Math.random() * 8, h: 5 + Math.random() * 6, c: pick(cols), life: 0
+    });
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    const d = devicePixelRatio;
+    cx.setTransform(d, 0, 0, d, 0, 0);
+    cx.clearRect(0, 0, innerWidth, innerHeight);
+    parts.forEach(p => {
+      p.vy += .45; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life++;
+      cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c;
+      cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); cx.restore();
+    });
+    parts = parts.filter(p => p.y < innerHeight + 40 && p.life < 240);
+    if (parts.length) requestAnimationFrame(tick);
+    else { running = false; cx.clearRect(0, 0, innerWidth, innerHeight); }
+  }
+})();
+</script>
+
+</html>
