@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import { signPage } from "@/lib/books/protect";
-import { createSupabaseAdmin, createSupabaseServer, currentProfile } from "@/lib/supabase/server";
+import { createSupabaseServer, currentProfile, hasActivePlan } from "@/lib/supabase/server";
 import { BookReader } from "./reader";
 
 export async function generateMetadata({ params }: PageProps<"/library/[slug]">): Promise<Metadata> {
@@ -29,7 +29,7 @@ async function BookPageContent({ params }: PageProps<"/library/[slug]">) {
   if (!book) notFound();
 
   if (!book.is_free) {
-    const { data: allowed } = await createSupabaseAdmin().rpc("has_active_subscription", { family: profile.id });
+    const allowed = await hasActivePlan(profile.id);
     if (!allowed) redirect("/#plans");
   }
 

@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { loadFamily } from "@/lib/family";
-import { createSupabaseAdmin, createSupabaseServer } from "@/lib/supabase/server";
+import { createSupabaseServer, hasActivePlan } from "@/lib/supabase/server";
 import { GrownUpsGate } from "./gate";
 import { AddChildForm, ChildCard, LimitPicker } from "./controls";
 import { allowMoreTonight } from "./actions";
@@ -24,7 +24,7 @@ async function AccountContent() {
   const weekAgo = weekAgoIso();
   const ids = family.children.map((c) => c.id);
   const [{ data: subscribed }, { data: recent }] = await Promise.all([
-    createSupabaseAdmin().rpc("has_active_subscription", { family: family.profile.id }),
+    hasActivePlan(family.profile.id).then((data) => ({ data })),
     ids.length ? supabase.from("completions").select("child_id, item_id, completed_at").in("child_id", ids).gte("completed_at", weekAgo) : Promise.resolve({ data: [] as { child_id: string; item_id: string; completed_at: string }[] }),
   ]);
   const weekByChild = new Map<string, number>();

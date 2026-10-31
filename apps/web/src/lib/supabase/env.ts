@@ -18,6 +18,11 @@ export function supabaseSecretKey(): string {
   return required("SUPABASE_SECRET_KEY", process.env.SUPABASE_SECRET_KEY);
 }
 
+/** True when the server can use the secret key (paid-plan checks, book pages, uploads). */
+export function hasSecretKey(): boolean {
+  return Boolean(process.env.SUPABASE_SECRET_KEY);
+}
+
 export function isSupabaseConfigured(): boolean {
   return Boolean((process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL) && (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.SUPABASE_PUBLISHABLE_KEY));
 }

@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
-import { isSupabaseConfigured, supabasePublishableKey, supabaseSecretKey, supabaseUrl } from "./env";
+import { hasSecretKey, isSupabaseConfigured, supabasePublishableKey, supabaseSecretKey, supabaseUrl } from "./env";
 
 /** A client that acts as the signed-in person. Row-level security applies. */
 export async function createSupabaseServer() {
@@ -40,4 +40,11 @@ export async function currentProfile() {
   if (!data.user) return null;
   const { data: profile } = await supabase.from("profiles").select("id, display_name, role").eq("id", data.user.id).single();
   return profile ? { ...profile, email: data.user.email } : null;
+}
+
+/** Whether a family has a paid or trial plan right now. False until the secret key is set. */
+export async function hasActivePlan(familyId: string): Promise<boolean> {
+  if (!hasSecretKey()) return false;
+  const { data } = await createSupabaseAdmin().rpc("has_active_subscription", { family: familyId });
+  return Boolean(data);
 }

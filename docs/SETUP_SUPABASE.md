@@ -1,6 +1,17 @@
 # Connecting Lali to Supabase
 
-Everything below takes about ten minutes. You only do it once.
+## Current status (31 Oct 2026)
+
+- Supabase project: **lali-kids** (`ihrdwifjtruakztugwll`, Frankfurt), created through the
+  Supabase connector. The older `ransomenterprises@outlook.com's Project` was paused (not
+  deleted) to stay within the free plan's two-project limit.
+- Migrations 0001, 0002 and 0003 are applied. Security advisor: one intentional warning
+  (`is_admin()` must stay callable because the privacy rules use it).
+- Render has `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+- Still to do in the dashboards (they need a person): the secret key on Render, the Site URL,
+  and the email code template. See steps 2 and 3 below.
+
+The rest of this guide explains each step, for setting up a new project from scratch.
 
 ## 1. Create the database tables
 
@@ -9,7 +20,7 @@ Everything below takes about ten minutes. You only do it once.
 3. Open the file `supabase/migrations/0001_init.sql` from this repo, copy all of it, paste it
    into the editor and click **Run**.
 4. Do the same with `supabase/migrations/0002_family.sql` (child avatars, the bedtime
-   limit, and story completions that award stars).
+   limit, and story completions that award stars) and `0003_lock_down_functions.sql`.
 5. You should see "Success. No rows returned". If it says something already exists, the
    file was already run; that is fine.
 
@@ -20,7 +31,9 @@ storage buckets, `book-sources` and `book-pages`, that no browser can reach dire
 
 ## 2. Turn on email sign-in with a code
 
-1. **Authentication → Providers → Email**: make sure Email is enabled.
+1. **Authentication → URL Configuration**: set **Site URL** to `https://lali-kids.onrender.com`
+   (later, your own domain).
+2. **Authentication → Providers → Email**: make sure Email is enabled.
 2. **Authentication → Email Templates → Magic Link**: replace `{{ .ConfirmationURL }}` in the
    template with `{{ .Token }}` so the email contains a 6-digit code instead of a link.
    (Codes work better than links on phones that open email in one app and the browser in another.)
@@ -43,7 +56,7 @@ It signs the short-lived page links.
 Where to put them:
 
 - **For the cloud coding sessions:** in the environment's settings, under secrets or
-  environment variables, using the names above. Also add `ixaojdpmorlsbfkgbajm.supabase.co`
+  environment variables, using the names above. Also add `ihrdwifjtruakztugwll.supabase.co`
   (your project's host) and `api.supabase.com` to the allowed network domains.
 - **For local development:** copy `apps/web/.env.example` to `apps/web/.env.local` and fill it in.
 - **For hosting (Vercel):** Project → Settings → Environment Variables.

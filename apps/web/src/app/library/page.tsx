@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 import { Bee } from "@/components/characters";
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { createSupabaseAdmin, createSupabaseServer, currentProfile } from "@/lib/supabase/server";
+import { createSupabaseServer, currentProfile, hasActivePlan } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Your library" };
 
@@ -16,7 +16,7 @@ async function LibraryPageContent() {
   const supabase = await createSupabaseServer();
   const [{ data: books }, { data: subscribed }] = await Promise.all([
     supabase.from("books").select("id, slug, title, title_am, author, page_count, is_free, category, age_band, cover_path").eq("status", "ready").order("created_at", { ascending: false }),
-    createSupabaseAdmin().rpc("has_active_subscription", { family: profile.id }),
+    hasActivePlan(profile.id).then((data) => ({ data })),
   ]);
 
   return (
