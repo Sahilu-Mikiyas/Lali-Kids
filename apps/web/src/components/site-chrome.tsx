@@ -75,6 +75,8 @@ export function SiteFooter() {
           <p className="font-display text-lg font-bold text-white">Grown-ups</p>
           <Link href="/#parents" className="block hover:text-white">Why Lali</Link>
           <Link href="/#plans" className="block hover:text-white">Plans and prices</Link>
+          <Link href="/privacy" className="block hover:text-white">Privacy policy</Link>
+          <Link href="/terms" className="block hover:text-white">Terms of use</Link>
           <p>Made in Addis Ababa</p>
         </div>
       </div>

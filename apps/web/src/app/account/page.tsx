@@ -5,7 +5,8 @@ import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { loadFamily } from "@/lib/family";
-import { createSupabaseServer, hasActivePlan } from "@/lib/supabase/server";
+import { familyPlan } from "@/lib/payments/subscription";
+import { createSupabaseServer } from "@/lib/supabase/server";
 import { GrownUpsGate } from "./gate";
 import { AddChildForm, ChildCard, LimitPicker } from "./controls";
 import { allowMoreTonight } from "./actions";
@@ -23,8 +24,8 @@ async function AccountContent() {
   const supabase = await createSupabaseServer();
   const weekAgo = weekAgoIso();
   const ids = family.children.map((c) => c.id);
-  const [{ data: subscribed }, { data: recent }] = await Promise.all([
-    hasActivePlan(family.profile.id).then((data) => ({ data })),
+  const [plan, { data: recent }] = await Promise.all([
+    familyPlan(family.profile.id),
     ids.length ? supabase.from("completions").select("child_id, item_id, completed_at").in("child_id", ids).gte("completed_at", weekAgo) : Promise.resolve({ data: [] as { child_id: string; item_id: string; completed_at: string }[] }),
   ]);
   const weekByChild = new Map<string, number>();
@@ -82,13 +83,27 @@ async function AccountContent() {
             </div>
             <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
               <h2 className="font-display text-2xl font-black">Your plan</h2>
-              {subscribed ? (
-                <p className="text-muted">Your plan is active. Every story and book is open.</p>
+              {plan?.isOpen ? (
+                <>
+                  <p>
+                    <b>{plan.planName}</b>
+                    {plan.status === "trialing" ? " · free week" : ""}
+                  </p>
+                  <p className="text-muted">
+                    Open until {new Date(plan.endsAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} (
+                    {plan.daysLeft} {plan.daysLeft === 1 ? "day" : "days"} left). Plans don&rsquo;t renew automatically.
+                  </p>
+                  <Link href="/subscribe" className={`btn !text-base ${plan.daysLeft <= 5 ? "btn-primary" : "btn-plain"}`}>
+                    {plan.status === "trialing" ? "Keep Lali after the free week" : "Add 30 days or change plan"}
+                  </Link>
+                </>
               ) : (
                 <>
-                  <p className="text-muted">You&rsquo;re on the free shelf. Start a plan to open the whole library.</p>
-                  <Link href="/#plans" className="btn btn-primary !text-base">
-                    See plans
+                  <p className="text-muted">
+                    {plan ? `Your ${plan.planName} plan ended. Stars and profiles are kept; paid books are locked.` : "You’re on the free shelf. Start a plan to open the whole library."}
+                  </p>
+                  <Link href="/subscribe" className="btn btn-primary !text-base">
+                    {plan ? "Renew" : "See plans"}
                   </Link>
                 </>
               )}

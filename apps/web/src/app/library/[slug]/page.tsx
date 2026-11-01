@@ -30,7 +30,7 @@ async function BookPageContent({ params }: PageProps<"/library/[slug]">) {
 
   if (!book.is_free) {
     const allowed = await hasActivePlan(profile.id);
-    if (!allowed) redirect("/#plans");
+    if (!allowed) redirect("/subscribe");
   }
 
   // Tokens are minted here, on the server, for this family only.

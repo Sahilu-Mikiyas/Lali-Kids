@@ -43,8 +43,10 @@ answers are yes.
 ### Phase 3: Accounts, payments, parents (weeks 4–10)
 
 - [x] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
-- [ ] Chapa checkout (Telebirr, CBE Birr, cards) creating subscription rows via webhook
-- [ ] Free-week trial flow and renewal emails
+- [x] Chapa checkout (Telebirr, CBE Birr, cards) with server-side verification (`docs/PAYMENTS.md`)
+- [x] Free-week trial (once per family)
+- [ ] Renewal reminder emails (needs an email sender)
+- [x] Draft privacy policy and terms (`/privacy`, `/terms`), pending legal review
 - [ ] Weekly progress note by email
 - [ ] Admin area for uploading Lali's own stories (text, art, audio) without a developer
 - [ ] PostHog analytics for the pilot metrics

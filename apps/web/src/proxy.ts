@@ -36,7 +36,7 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const needsSignIn = path.startsWith("/library") || path.startsWith("/admin") || path.startsWith("/account");
+  const needsSignIn = ["/library", "/admin", "/account", "/subscribe"].some((p) => path.startsWith(p));
   if (!user && needsSignIn) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
@@ -47,5 +47,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/library/:path*", "/admin/:path*", "/account/:path*", "/login", "/api/books/:path*", "/stories/:path*"],
+  matcher: ["/", "/library/:path*", "/admin/:path*", "/account/:path*", "/login", "/api/books/:path*", "/stories/:path*", "/subscribe/:path*"],
 };

@@ -617,7 +617,7 @@ export function Plans() {
                 </li>
               ))}
             </ul>
-            <Link href="/stories" className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
+            <Link href={`/subscribe?plan=${p.name.toLowerCase()}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
               Start free week
             </Link>
           </motion.div>

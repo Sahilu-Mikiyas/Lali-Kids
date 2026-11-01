@@ -63,7 +63,7 @@ async function LibraryPageContent() {
               return (
                 <Link
                   key={b.id}
-                  href={locked ? "/#plans" : `/library/${b.slug}`}
+                  href={locked ? "/subscribe" : `/library/${b.slug}`}
                   className="group overflow-hidden rounded-2xl bg-white shadow-[0_6px_0_var(--color-line)] transition hover:-translate-y-1"
                 >
                   <div className="relative aspect-[3/4] bg-sky-soft">
