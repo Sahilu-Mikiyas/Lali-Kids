@@ -12,8 +12,9 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
   const [stage, setStage] = useState<"email" | "code">("email");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showCode, setShowCode] = useState(false);
 
-  async function sendCode(e: React.FormEvent) {
+  async function sendCode(e: React.SyntheticEvent) {
     e.preventDefault();
     setBusy(true);
     setError(null);
@@ -57,34 +58,51 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
       </button>
     </form>
   ) : (
-    <form onSubmit={verify} className="space-y-4">
-      <div className="space-y-2 rounded-2xl bg-sky-soft p-4">
-        <p className="font-display text-xl font-black">Check your email</p>
+    <div className="space-y-4">
+      <div className="space-y-3 rounded-2xl bg-sky-soft p-5">
+        <p className="font-display text-2xl font-black">Check your email</p>
         <p>
-          We sent a sign-in link to <b>{email}</b>. Open it <b>on this device</b> and you&rsquo;ll be signed in.
+          We sent an email to <b>{email}</b>. Open it and tap the <b>sign-in link</b>. You&rsquo;ll come straight back here,
+          signed in.
+        </p>
+        <p className="text-sm text-muted">
+          Open the link in this same browser. New here? The email may say &ldquo;Confirm your signup&rdquo;; tapping that link signs
+          you in too. Can&rsquo;t find it? Check your spam folder.
         </p>
       </div>
-      <p className="text-sm text-muted">Got a 6-digit code instead? Enter it here.</p>
-      <label className="block space-y-1">
-        <span className="font-bold">6-digit code</span>
-        <input
-          id="login-code"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          required
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          className="w-full rounded-2xl border-2 border-line px-4 py-3 text-center font-display text-3xl tracking-[0.4em] outline-none focus:border-blue"
-          placeholder="123456"
-        />
-      </label>
       {error && <p className="text-coral">{error}</p>}
-      <button type="submit" className="btn btn-primary w-full" disabled={busy}>
-        {busy ? "Checking…" : "Sign in"}
-      </button>
-      <button type="button" className="w-full text-center font-bold text-muted hover:text-ink" onClick={() => setStage("email")}>
-        Use a different email
-      </button>
-    </form>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <button type="button" className="font-bold text-muted hover:text-ink" onClick={() => setStage("email")}>
+          Use a different email
+        </button>
+        <button type="button" className="btn btn-plain !px-4 !py-2 !text-base" disabled={busy} onClick={(e) => sendCode(e)}>
+          {busy ? "Sending…" : "Send the email again"}
+        </button>
+      </div>
+      {showCode ? (
+        <form onSubmit={verify} className="space-y-3 border-t-2 border-line pt-4">
+          <label className="block space-y-1">
+            <span className="font-bold">6-digit code from the email</span>
+            <input
+              id="login-code"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              required
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              className="w-full rounded-2xl border-2 border-line px-4 py-3 text-center font-display text-3xl tracking-[0.4em] outline-none focus:border-blue"
+              placeholder="123456"
+            />
+          </label>
+          <button type="submit" className="btn btn-primary w-full" disabled={busy}>
+            {busy ? "Checking…" : "Sign in with code"}
+          </button>
+        </form>
+      ) : (
+        <button type="button" className="w-full text-center text-sm text-muted underline" onClick={() => setShowCode(true)}>
+          My email has a 6-digit code instead
+        </button>
+      )}
+    </div>
   );
 }
