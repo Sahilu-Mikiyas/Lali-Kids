@@ -8,12 +8,28 @@ import "server-only";
  */
 const API = "https://api.chapa.co/v1";
 
+// CHAPA_SECRET_KEY is the documented name; the others catch common slips when it is added by hand.
+const KEY_NAMES = ["CHAPA_SECRET_KEY", "CHAPA_SECRET", "CHAPA_KEY", "CHAPA_API_KEY", "CHAPA_TEST_SECRET_KEY"];
+
+function findKey(): string | null {
+  for (const name of KEY_NAMES) {
+    const value = process.env[name]?.trim().replace(/^["']|["']$/g, "");
+    if (value) return value;
+  }
+  return null;
+}
+
 export function chapaConfigured(): boolean {
-  return Boolean(process.env.CHAPA_SECRET_KEY);
+  return findKey() !== null;
+}
+
+/** Names (never values) of Chapa-looking settings the server can see, for diagnosing setup. */
+export function chapaSettingNames(): string[] {
+  return Object.keys(process.env).filter((k) => /chapa/i.test(k));
 }
 
 function key(): string {
-  const k = process.env.CHAPA_SECRET_KEY;
+  const k = findKey();
   if (!k) throw new Error("Missing CHAPA_SECRET_KEY. See docs/PAYMENTS.md.");
   return k;
 }

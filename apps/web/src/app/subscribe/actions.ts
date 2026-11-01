@@ -3,7 +3,7 @@
 import { randomBytes } from "node:crypto";
 import { headers } from "next/headers";
 
-import { chapaConfigured, createCheckout } from "@/lib/payments/chapa";
+import { chapaConfigured, chapaSettingNames, createCheckout } from "@/lib/payments/chapa";
 import { planById } from "@/lib/payments/plans";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin, currentProfile } from "@/lib/supabase/server";
@@ -25,7 +25,8 @@ export async function startCheckout(_prev: CheckoutResult, form: FormData): Prom
   const plan = planById(String(form.get("plan")));
   if (!plan) return { error: "Choose a plan first." };
   if (!chapaConfigured()) {
-    console.error("[payments] CHAPA_SECRET_KEY is not set on the server");
+    const seen = chapaSettingNames();
+    console.error(`[payments] CHAPA_SECRET_KEY is not set on the server. Chapa-related settings seen: ${seen.length ? seen.join(", ") : "none"}`);
     return { error: "Online payment isn't connected yet (the Chapa key is missing on the server). Please try again soon." };
   }
   if (!hasSecretKey()) {
