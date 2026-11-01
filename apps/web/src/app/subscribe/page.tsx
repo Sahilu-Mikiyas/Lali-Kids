@@ -4,9 +4,8 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { chapaConfigured } from "@/lib/payments/chapa";
 import { planById } from "@/lib/payments/plans";
-import { canStartTrial, familyPlan } from "@/lib/payments/subscription";
+import { familyPlan } from "@/lib/payments/subscription";
 import { currentProfile } from "@/lib/supabase/server";
 import { PlanForms } from "./plan-forms";
 
@@ -18,7 +17,7 @@ async function SubscribeContent({ searchParams }: PageProps<"/subscribe">) {
   const wanted = planById(typeof plan === "string" ? plan : null)?.id ?? "learner";
   if (!profile) redirect(`/login?next=${encodeURIComponent(`/subscribe?plan=${wanted}`)}`);
 
-  const [current, trialAvailable] = await Promise.all([familyPlan(profile.id), canStartTrial(profile.id)]);
+  const current = await familyPlan(profile.id);
 
   return (
     <>
@@ -28,14 +27,14 @@ async function SubscribeContent({ searchParams }: PageProps<"/subscribe">) {
         {current?.isOpen ? (
           <p className="mt-3 text-lg text-muted">
             You&rsquo;re on <b>{current.planName}</b>
-            {current.status === "trialing" ? " (free week)" : ""} with <b>{current.daysLeft} days</b> left. Paying now adds 30
+            {" "}with <b>{current.daysLeft} days</b> left. Paying now adds 30
             days on top.
           </p>
         ) : (
           <p className="mt-3 text-lg text-muted">Open every story and book for your family.</p>
         )}
         <div className="mt-10">
-          <PlanForms initialPlan={current?.isOpen ? (planById(current.planId)?.id ?? wanted) : wanted} trialAvailable={trialAvailable} paymentsReady={chapaConfigured()} />
+          <PlanForms initialPlan={current?.isOpen ? (planById(current.planId)?.id ?? wanted) : wanted} />
         </div>
         <p className="mt-8 text-center text-sm text-muted">
           By continuing you agree to the{" "}

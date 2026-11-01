@@ -87,14 +87,13 @@ async function AccountContent() {
                 <>
                   <p>
                     <b>{plan.planName}</b>
-                    {plan.status === "trialing" ? " · free week" : ""}
                   </p>
                   <p className="text-muted">
                     Open until {new Date(plan.endsAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} (
                     {plan.daysLeft} {plan.daysLeft === 1 ? "day" : "days"} left). Plans don&rsquo;t renew automatically.
                   </p>
                   <Link href="/subscribe" className={`btn !text-base ${plan.daysLeft <= 5 ? "btn-primary" : "btn-plain"}`}>
-                    {plan.status === "trialing" ? "Keep Lali after the free week" : "Add 30 days or change plan"}
+                    Add 30 days or change plan
                   </Link>
                 </>
               ) : (

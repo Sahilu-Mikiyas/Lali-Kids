@@ -4,14 +4,13 @@
 
 1. A signed-in parent opens **/subscribe** (from the plans on the home page, the library, or the Grown-ups' corner).
 2. They pick Reader (400 birr), Learner (1,200) or VIP (5,000).
-3. **Start free week**: 7 days of the chosen plan, once per family, no payment needed.
-4. **Pay**: Lali creates a pending payment and sends them to Chapa's checkout, where they pay with
+3. **Pay**: Lali creates a pending payment and sends them to Chapa's checkout, where they pay with
    Telebirr, CBE Birr, M-Pesa or a card. Lali never sees payment details.
-5. Chapa sends them back to **/subscribe/done**, which confirms the payment with Chapa before
+4. Chapa sends them back to **/subscribe/done**, which confirms the payment with Chapa before
    showing "Thank you". Chapa also calls **/api/payments/chapa** in the background, so access is
    granted even if the parent closes the tab.
-6. Each payment adds **30 days**. Paying early stacks on top of the days left, and paying during the
-   free week keeps the remaining trial days. Nothing renews automatically.
+5. Each payment adds **30 days**. Paying early stacks on top of the days left. Nothing renews
+   automatically. There is no free trial.
 
 ## Why it's safe
 
@@ -34,8 +33,7 @@
 4. Optional: in Chapa's webhook settings, set the URL to
    `https://lali-kids.onrender.com/api/payments/chapa` (or your own domain later).
 
-Until `CHAPA_SECRET_KEY` is set, the plans page shows "Online payment is being set up" and the free
-week still works.
+Until `CHAPA_SECRET_KEY` is set, pressing Pay shows "Online payment isn't connected yet".
 
 ## Testing with Chapa's test mode
 
@@ -48,4 +46,5 @@ Use the test secret key, pay with Chapa's test numbers or cards on the checkout 
 ## Database
 
 `supabase/migrations/0004_payments.sql`: the `payments` table, one subscription per family, and
-the `activate_payment` and `start_trial` functions (callable only by the server).
+the `activate_payment` function (callable only by the server). `0005_remove_trial.sql` removed the
+free-trial function.

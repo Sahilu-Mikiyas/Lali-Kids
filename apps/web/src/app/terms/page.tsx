@@ -24,7 +24,6 @@ export default function TermsPage() {
       <h2>Plans and payments</h2>
       <ul>
         <li>Plans are priced in Ethiopian birr per month, per family. Current prices are shown on the plans page.</li>
-        <li>New families can try a plan free for 7 days, once per family.</li>
         <li>
           Payments are made through Chapa (Telebirr, CBE Birr, cards and other methods it offers). Each payment covers 30 days
           of access. Plans do not renew automatically; we will remind you before your access ends.

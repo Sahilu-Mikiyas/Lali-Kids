@@ -585,7 +585,7 @@ const PLANS = [
 export function Plans() {
   return (
     <section id="plans" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
-      <SectionHead center eyebrow="Plans" title="Start with a free week" sub="Prices are per family, per month. Pay with Telebirr, CBE Birr or card." />
+      <SectionHead center eyebrow="Plans" title="Simple monthly plans" sub="Prices are per family, per month. Pay with Telebirr, CBE Birr or card." />
       <div className="grid items-stretch gap-6 md:grid-cols-3">
         {PLANS.map((p, i) => (
           <motion.div
@@ -618,7 +618,7 @@ export function Plans() {
               ))}
             </ul>
             <Link href={`/subscribe?plan=${p.name.toLowerCase()}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
-              Start free week
+              Choose {p.name}
             </Link>
           </motion.div>
         ))}

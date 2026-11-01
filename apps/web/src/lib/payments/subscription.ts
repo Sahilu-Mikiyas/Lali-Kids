@@ -35,17 +35,6 @@ export async function familyPlan(familyId: string): Promise<FamilyPlan | null> {
   };
 }
 
-/** A family can start the free week once, before ever paying. */
-export async function canStartTrial(familyId: string): Promise<boolean> {
-  if (!hasSecretKey()) return false;
-  const admin = createSupabaseAdmin();
-  const [{ count: subs }, { count: paid }] = await Promise.all([
-    admin.from("subscriptions").select("id", { count: "exact", head: true }).eq("family_id", familyId),
-    admin.from("payments").select("id", { count: "exact", head: true }).eq("family_id", familyId).eq("status", "paid"),
-  ]);
-  return (subs ?? 0) === 0 && (paid ?? 0) === 0;
-}
-
 export type Confirmation = "paid" | "already" | "pending" | "unknown";
 
 /**

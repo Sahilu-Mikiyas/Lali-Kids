@@ -1,15 +1,20 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 
 import { formatBirr, PLANS, type PlanId } from "@/lib/payments/plans";
-import { startCheckout, startTrial, type StartResult } from "./actions";
+import { startCheckout, type CheckoutResult } from "./actions";
 
-export function PlanForms({ initialPlan, trialAvailable, paymentsReady }: { initialPlan: PlanId; trialAvailable: boolean; paymentsReady: boolean }) {
+export function PlanForms({ initialPlan }: { initialPlan: PlanId }) {
   const [plan, setPlan] = useState<PlanId>(initialPlan);
-  const [payState, pay, paying] = useActionState<StartResult, FormData>(startCheckout, null);
-  const [trialState, trial, starting] = useActionState<StartResult, FormData>(startTrial, null);
+  const [result, pay, paying] = useActionState<CheckoutResult, FormData>(startCheckout, null);
   const chosen = PLANS.find((p) => p.id === plan)!;
+  const leaving = Boolean(result && "url" in result);
+
+  // Go to Chapa's checkout as soon as the server hands back its address.
+  useEffect(() => {
+    if (result && "url" in result) window.location.assign(result.url);
+  }, [result]);
 
   return (
     <div className="space-y-8">
@@ -41,35 +46,18 @@ export function PlanForms({ initialPlan, trialAvailable, paymentsReady }: { init
         ))}
       </div>
 
-      <div className="flex flex-col gap-4 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)] md:flex-row md:items-center">
+      <form action={pay} className="flex flex-col gap-4 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)] md:flex-row md:items-center">
+        <input type="hidden" name="plan" value={plan} />
         <div className="flex-1">
           <p className="font-display text-xl font-black">{chosen.name} plan</p>
-          <p className="text-muted">
-            {trialAvailable ? "Try it free for 7 days, or pay now. " : ""}Each payment gives 30 days. Nothing renews automatically.
-          </p>
+          <p className="text-muted">Each payment gives 30 days of access. Nothing renews automatically.</p>
         </div>
-        <div className="flex flex-wrap gap-3">
-          {trialAvailable && (
-            <form action={trial}>
-              <input type="hidden" name="plan" value={plan} />
-              <button type="submit" className="btn btn-plain" disabled={starting}>
-                {starting ? "Starting…" : "Start free week"}
-              </button>
-            </form>
-          )}
-          <form action={pay}>
-            <input type="hidden" name="plan" value={plan} />
-            <button type="submit" className="btn btn-primary" disabled={paying || !paymentsReady}>
-              {paying ? "Opening Chapa…" : `Pay ${formatBirr(chosen.priceEtb)} birr`}
-            </button>
-          </form>
-        </div>
-      </div>
+        <button type="submit" className="btn btn-primary" disabled={paying || leaving}>
+          {paying ? "Starting payment…" : leaving ? "Opening Chapa…" : `Pay ${formatBirr(chosen.priceEtb)} birr`}
+        </button>
+      </form>
 
-      {!paymentsReady && <p className="text-center text-muted">Online payment is being set up. The free week works now.</p>}
-      {(payState?.error || trialState?.error) && (
-        <p className="rounded-2xl bg-coral/10 p-4 text-center text-coral">{payState?.error ?? trialState?.error}</p>
-      )}
+      {result && "error" in result && <p className="rounded-2xl bg-coral/10 p-4 text-center text-coral" role="alert">{result.error}</p>}
       <p className="text-center text-sm text-muted">
         Pay with Telebirr, CBE Birr, M-Pesa or card on Chapa&rsquo;s secure page. Lali never sees your payment details.
       </p>

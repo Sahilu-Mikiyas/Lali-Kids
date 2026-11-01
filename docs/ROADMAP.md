@@ -44,7 +44,6 @@ answers are yes.
 
 - [x] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
 - [x] Chapa checkout (Telebirr, CBE Birr, cards) with server-side verification (`docs/PAYMENTS.md`)
-- [x] Free-week trial (once per family)
 - [ ] Renewal reminder emails (needs an email sender)
 - [x] Draft privacy policy and terms (`/privacy`, `/terms`), pending legal review
 - [ ] Weekly progress note by email
@@ -53,7 +52,7 @@ answers are yes.
 
 ### Phase 4: Pilot (weeks 10–16)
 
-- [ ] 100 families on the free week, then the Reader plan
+- [ ] 100 paying families on the Reader plan
 - [ ] 1–2 private schools in Addis on a classroom licence
 - [ ] Measure weekly: stories finished per child, days active, trial-to-paid, month-1 renewal
 - [ ] Interview 20 parents; adjust prices and plans

@@ -42,7 +42,7 @@ export async function currentProfile() {
   return profile ? { ...profile, email: data.user.email } : null;
 }
 
-/** Whether a family has a paid or trial plan right now. False until the secret key is set. */
+/** Whether a family has a paid plan right now. False until the secret key is set. */
 export async function hasActivePlan(familyId: string): Promise<boolean> {
   if (!hasSecretKey()) return false;
   const { data } = await createSupabaseAdmin().rpc("has_active_subscription", { family: familyId });
