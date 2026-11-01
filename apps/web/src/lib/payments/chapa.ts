@@ -11,10 +11,17 @@ const API = "https://api.chapa.co/v1";
 // CHAPA_SECRET_KEY is the documented name; the others catch common slips when it is added by hand.
 const KEY_NAMES = ["CHAPA_SECRET_KEY", "CHAPA_SECRET", "CHAPA_KEY", "CHAPA_API_KEY", "CHAPA_TEST_SECRET_KEY"];
 
+const clean = (v: string | undefined) => v?.trim().replace(/^["']|["']$/g, "") ?? "";
+
 function findKey(): string | null {
   for (const name of KEY_NAMES) {
-    const value = process.env[name]?.trim().replace(/^["']|["']$/g, "");
+    const value = clean(process.env[name]);
     if (value) return value;
+  }
+  // Chapa secret keys always start with CHASECK, so recognise one saved under any name.
+  for (const value of Object.values(process.env)) {
+    const v = clean(value);
+    if (/^CHASECK(_TEST)?-/.test(v)) return v;
   }
   return null;
 }
@@ -25,7 +32,9 @@ export function chapaConfigured(): boolean {
 
 /** Names (never values) of Chapa-looking settings the server can see, for diagnosing setup. */
 export function chapaSettingNames(): string[] {
-  return Object.keys(process.env).filter((k) => /chapa/i.test(k));
+  return Object.entries(process.env)
+    .filter(([k, v]) => /chapa/i.test(k) || /^CHASECK/.test(clean(v)))
+    .map(([k]) => k);
 }
 
 function key(): string {

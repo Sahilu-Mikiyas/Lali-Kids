@@ -40,7 +40,7 @@ npm run build
 | `src/lib/family.ts` | Loads the signed-in family, current child and tonight's count |
 | `src/app/library/` | Signed-in library and the protected canvas reader |
 | `src/app/admin/books/` | Upload PDFs (admins only) |
-| `src/app/subscribe/` | Plans, free week and Chapa checkout |
+| `src/app/subscribe/` | Plans and Chapa checkout |
 | `src/lib/payments/` | Chapa client, plan list, payment confirmation |
 | `src/app/privacy`, `src/app/terms` | Draft legal pages |
 
