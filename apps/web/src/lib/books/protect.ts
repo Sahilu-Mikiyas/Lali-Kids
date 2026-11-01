@@ -1,6 +1,6 @@
 import "server-only";
 
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import sharp from "sharp";
 
 /** How many pages one family may fetch in a minute. A reader turns maybe 10. */
@@ -8,10 +8,16 @@ export const PAGES_PER_MINUTE = 40;
 /** A page token works for this long after the reader asks for it. */
 export const TOKEN_SECONDS = 90;
 
+/**
+ * Key for signing page tokens. PAGE_TOKEN_SECRET wins if set; otherwise it is
+ * derived from the Supabase secret key, so no extra secret has to be handled.
+ */
 function secret(): string {
-  const s = process.env.PAGE_TOKEN_SECRET;
-  if (!s) throw new Error("Missing PAGE_TOKEN_SECRET. See docs/SETUP_SUPABASE.md.");
-  return s;
+  const own = process.env.PAGE_TOKEN_SECRET;
+  if (own) return own;
+  const base = process.env.SUPABASE_SECRET_KEY;
+  if (!base) throw new Error("Missing SUPABASE_SECRET_KEY. See docs/SETUP_SUPABASE.md.");
+  return createHash("sha256").update(`lali-page-tokens:${base}`).digest("base64url");
 }
 
 /** A short-lived token tied to one family, one book and one page. */
