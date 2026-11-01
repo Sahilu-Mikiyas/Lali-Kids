@@ -11,7 +11,7 @@ import { LoginForm } from "./login-form";
 export const metadata: Metadata = { title: "Sign in" };
 
 async function LoginPageContent({ searchParams }: PageProps<"/login">) {
-  const { next } = await searchParams;
+  const { next, error } = await searchParams;
   const nextPath = typeof next === "string" && next.startsWith("/") ? next : "/library";
 
   if (isSupabaseConfigured() && (await currentUser())) redirect(nextPath);
@@ -25,9 +25,14 @@ async function LoginPageContent({ searchParams }: PageProps<"/login">) {
             <Bee size={48} />
             <div>
               <h1 className="font-display text-3xl font-black">Grown-ups sign in</h1>
-              <p className="text-muted">We&rsquo;ll email you a 6-digit code. No password to remember.</p>
+              <p className="text-muted">We&rsquo;ll email you a sign-in link. No password to remember.</p>
             </div>
           </div>
+          {error === "link" && (
+            <p className="rounded-2xl bg-coral/10 p-4 text-coral">
+              That sign-in link didn&rsquo;t work. It may have expired or been opened on another device. Request a new one below.
+            </p>
+          )}
           {isSupabaseConfigured() ? (
             <LoginForm nextPath={nextPath} />
           ) : (

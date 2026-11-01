@@ -17,7 +17,11 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const { error } = await createSupabaseBrowser().auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+    const redirect = `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`;
+    const { error } = await createSupabaseBrowser().auth.signInWithOtp({
+      email,
+      options: { shouldCreateUser: true, emailRedirectTo: redirect },
+    });
     setBusy(false);
     if (error) setError(error.message);
     else setStage("code");
@@ -53,14 +57,18 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
       </label>
       {error && <p className="text-coral">{error}</p>}
       <button type="submit" className="btn btn-primary w-full" disabled={busy}>
-        {busy ? "Sending…" : "Email me a code"}
+        {busy ? "Sending…" : "Email me a sign-in link"}
       </button>
     </form>
   ) : (
     <form onSubmit={verify} className="space-y-4">
-      <p className="text-muted">
-        We sent a code to <b>{email}</b>.
-      </p>
+      <div className="space-y-2 rounded-2xl bg-sky-soft p-4">
+        <p className="font-display text-xl font-black">Check your email</p>
+        <p>
+          We sent a sign-in link to <b>{email}</b>. Open it <b>on this device</b> and you&rsquo;ll be signed in.
+        </p>
+      </div>
+      <p className="text-sm text-muted">Got a 6-digit code instead? Enter it here.</p>
       <label className="block space-y-1">
         <span className="font-bold">6-digit code</span>
         <input

@@ -10,6 +10,15 @@ import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "@/lib
 export async function proxy(request: NextRequest) {
   if (!isSupabaseConfigured()) return NextResponse.next();
 
+  // A sign-in link that falls back to the site's home page still signs the person in.
+  if (request.nextUrl.pathname === "/" && request.nextUrl.searchParams.has("code")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/callback";
+    return NextResponse.redirect(url);
+  }
+  // The home page needs no session work; keep it fast.
+  if (request.nextUrl.pathname === "/") return NextResponse.next();
+
   let response = NextResponse.next({ request });
   const supabase = createServerClient(supabaseUrl(), supabasePublishableKey(), {
     cookies: {
@@ -38,5 +47,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/library/:path*", "/admin/:path*", "/account/:path*", "/login", "/api/books/:path*", "/stories/:path*"],
+  matcher: ["/", "/library/:path*", "/admin/:path*", "/account/:path*", "/login", "/api/books/:path*", "/stories/:path*"],
 };
