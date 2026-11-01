@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 async function Shelf() {
+  await connection();
   const family = await loadFamily();
   if (limitReached(family)) {
     return (

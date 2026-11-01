@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -6,11 +7,13 @@ import { Bee } from "@/components/characters";
 import { SiteNav } from "@/components/site-chrome";
 import { familyPlan, confirmPayment, type Confirmation } from "@/lib/payments/subscription";
 import { currentProfile } from "@/lib/supabase/server";
+import { AutoRefresh } from "./auto-refresh";
 
 export const metadata: Metadata = { title: "Payment" };
 
 /** Where Chapa sends the parent after paying. Confirms the payment with Chapa before celebrating. */
 async function DoneContent({ searchParams }: PageProps<"/subscribe/done">) {
+  await connection();
   const { tx_ref } = await searchParams;
   const txRef = typeof tx_ref === "string" && /^lali-[a-z]+-[0-9a-f]{18}$/.test(tx_ref) ? tx_ref : null;
   const profile = await currentProfile();
@@ -59,9 +62,10 @@ async function DoneContent({ searchParams }: PageProps<"/subscribe/done">) {
             <>
               <h1 className="font-display text-3xl font-black">We&rsquo;re checking your payment</h1>
               <p className="text-muted">
-                Chapa hasn&rsquo;t confirmed it yet. This usually takes a moment. Refresh this page in a minute. If you cancelled, you
-                can try again any time.
+                Chapa hasn&rsquo;t confirmed it yet. This usually takes a few seconds and this page will update by itself. If you
+                cancelled, you can try again any time.
               </p>
+              <AutoRefresh />
               <div className="flex flex-wrap justify-center gap-3">
                 <Link href={`/subscribe/done?tx_ref=${txRef}`} className="btn btn-primary">
                   Check again

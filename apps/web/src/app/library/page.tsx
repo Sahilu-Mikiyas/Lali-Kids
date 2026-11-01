@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -10,6 +11,7 @@ import { createSupabaseServer, currentProfile, hasActivePlan } from "@/lib/supab
 export const metadata: Metadata = { title: "Your library" };
 
 async function LibraryPageContent() {
+  await connection();
   const profile = await currentProfile();
   if (!profile) redirect("/login?next=/library");
 

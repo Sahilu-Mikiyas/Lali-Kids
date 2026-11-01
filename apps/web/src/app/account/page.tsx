@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -18,6 +19,7 @@ function weekAgoIso() {
 }
 
 async function AccountContent() {
+  await connection();
   const family = await loadFamily();
   if (!family) redirect("/login?next=/account");
 

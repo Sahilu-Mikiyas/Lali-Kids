@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
@@ -10,6 +11,7 @@ import { setBookStatus } from "./actions";
 export const metadata: Metadata = { title: "Books admin" };
 
 async function AdminBooksPageContent() {
+  await connection();
   const profile = await currentProfile();
   if (!profile) redirect("/login?next=/admin/books");
   if (profile.role !== "admin") redirect("/library");

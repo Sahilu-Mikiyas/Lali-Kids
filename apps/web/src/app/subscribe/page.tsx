@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -12,6 +13,7 @@ import { PlanForms } from "./plan-forms";
 export const metadata: Metadata = { title: "Choose a plan" };
 
 async function SubscribeContent({ searchParams }: PageProps<"/subscribe">) {
+  await connection();
   const { plan } = await searchParams;
   const profile = await currentProfile();
   const wanted = planById(typeof plan === "string" ? plan : null)?.id ?? "learner";

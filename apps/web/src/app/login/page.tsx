@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
@@ -11,6 +12,7 @@ import { LoginForm } from "./login-form";
 export const metadata: Metadata = { title: "Sign in" };
 
 async function LoginPageContent({ searchParams }: PageProps<"/login">) {
+  await connection();
   const { next, error } = await searchParams;
   const nextPath = typeof next === "string" && next.startsWith("/") ? next : "/library";
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -8,6 +9,7 @@ import { createSupabaseServer, currentProfile, hasActivePlan } from "@/lib/supab
 import { BookReader } from "./reader";
 
 export async function generateMetadata({ params }: PageProps<"/library/[slug]">): Promise<Metadata> {
+  await connection();
   const { slug } = await params;
   const supabase = await createSupabaseServer();
   const { data } = await supabase.from("books").select("title").eq("slug", slug).single();
@@ -15,6 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/library/[slug]">)
 }
 
 async function BookPageContent({ params }: PageProps<"/library/[slug]">) {
+  await connection();
   const { slug } = await params;
   const profile = await currentProfile();
   if (!profile) redirect(`/login?next=/library/${slug}`);
