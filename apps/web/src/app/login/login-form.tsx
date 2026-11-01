@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { createSupabaseBrowser } from "@/lib/supabase/client";
+import { sendSignInEmail, verifySignInCode } from "./actions";
 
 export function LoginForm({ nextPath }: { nextPath: string }) {
   const router = useRouter();
@@ -17,13 +17,9 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const redirect = `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextPath)}`;
-    const { error } = await createSupabaseBrowser().auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: true, emailRedirectTo: redirect },
-    });
+    const result = await sendSignInEmail(email, nextPath);
     setBusy(false);
-    if (error) setError(error.message);
+    if (!result.ok) setError(result.error);
     else setStage("code");
   }
 
@@ -31,9 +27,9 @@ export function LoginForm({ nextPath }: { nextPath: string }) {
     e.preventDefault();
     setBusy(true);
     setError(null);
-    const { error } = await createSupabaseBrowser().auth.verifyOtp({ email, token: code.trim(), type: "email" });
+    const result = await verifySignInCode(email, code);
     setBusy(false);
-    if (error) setError("That code didn't work. Check it and try again, or request a new one.");
+    if (!result.ok) setError(result.error);
     else {
       router.replace(nextPath as never);
       router.refresh();
