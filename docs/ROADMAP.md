@@ -54,7 +54,7 @@ answers are yes.
 
 - [ ] 100 paying families on the Reader plan
 - [ ] 1–2 private schools in Addis on a classroom licence
-- [ ] Measure weekly: stories finished per child, days active, trial-to-paid, month-1 renewal
+- [ ] Measure weekly: stories finished per child, days active, sign-up-to-paid, month-1 renewal
 - [ ] Interview 20 parents; adjust prices and plans
 
 ### Phase 5: Apps and growth (after the pilot)
@@ -71,7 +71,7 @@ answers are yes.
 | Metric | Target |
 |---|---|
 | Kids active 3+ days a week | 40% |
-| Free week to paid | 25% |
+| Signed-up families who pay | 25% |
 | Month-1 renewal | 70% |
 | Stories finished per active child per week | 4 |
 
