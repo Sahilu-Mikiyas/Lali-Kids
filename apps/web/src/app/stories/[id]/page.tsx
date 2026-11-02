@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
+import { BookCard } from "@/components/book-card";
 import { SiteNav } from "@/components/site-chrome";
 import { StoryBookWithProgress } from "@/components/storybook-with-progress";
-import { getStory, STORIES } from "@/content/stories";
+import { getStory, STORIES, type Story } from "@/content/stories";
+import { currentProfile } from "@/lib/supabase/server";
+import { storyForReading } from "@/lib/stories";
 
 export function generateStaticParams() {
   return STORIES.map((s) => ({ id: s.id }));
@@ -12,24 +17,58 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/stories/[id]">): Promise<Metadata> {
   const story = getStory((await params).id);
-  return story ? { title: story.title.en, description: story.pages[0].en } : {};
+  return story ? { title: story.title.en, description: story.pages[0].en } : { title: "Story" };
 }
 
-export default async function StoryPage({ params }: PageProps<"/stories/[id]">) {
-  const story = getStory((await params).id);
-  if (!story) notFound();
+function Frame({ story }: { story: Story }) {
+  return (
+    <>
+      <div className="mx-auto mb-8 flex max-w-6xl flex-wrap items-center justify-between gap-3">
+        <Link href="/stories" className="font-bold text-muted hover:text-ink">
+          ← All stories
+        </Link>
+        <p className="text-sm font-bold text-muted">Tip: use the arrow keys or swipe to turn pages</p>
+      </div>
+      <StoryBookWithProgress story={story} />
+    </>
+  );
+}
 
+/** Stories made in the story studio: checked against the family's plan on every visit. */
+async function StudioStory({ id }: { id: string }) {
+  await connection();
+  const profile = await currentProfile();
+  const access = await storyForReading(id, profile?.id ?? null, profile?.role === "admin");
+  if (!access) notFound();
+  if ("story" in access) return <Frame story={access.story} />;
+  return (
+    <div className="mx-auto grid max-w-3xl items-center gap-8 md:grid-cols-2">
+      <BookCard story={access.locked} />
+      <div className="space-y-4">
+        <h1 className="font-display text-4xl font-black">{access.locked.title.en}</h1>
+        <p className="text-lg text-muted">This story opens with any Lali plan.</p>
+        <Link href={profile ? "/subscribe?plan=reader" : `/login?next=${encodeURIComponent(`/stories/${id}`)}`} className="btn btn-primary">
+          {profile ? "See plans" : "Sign in"}
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+async function StoryContent({ params }: PageProps<"/stories/[id]">) {
+  const { id } = await params;
+  const builtIn = getStory(id);
+  return builtIn ? <Frame story={builtIn} /> : <StudioStory id={id} />;
+}
+
+export default function StoryPage(props: PageProps<"/stories/[id]">) {
   return (
     <>
       <SiteNav />
       <main className="min-h-dvh bg-[radial-gradient(ellipse_at_top,var(--color-sky-soft),var(--color-bg)_60%)] px-4 pb-20 pt-28 sm:px-6">
-        <div className="mx-auto mb-8 flex max-w-6xl flex-wrap items-center justify-between gap-3">
-          <Link href="/stories" className="font-bold text-muted hover:text-ink">
-            ← All stories
-          </Link>
-          <p className="text-sm font-bold text-muted">Tip: use the arrow keys or swipe to turn pages</p>
-        </div>
-        <StoryBookWithProgress story={story} />
+        <Suspense fallback={<div className="mx-auto h-96 max-w-6xl animate-pulse rounded-[32px] bg-white" />}>
+          <StoryContent {...props} />
+        </Suspense>
       </main>
     </>
   );

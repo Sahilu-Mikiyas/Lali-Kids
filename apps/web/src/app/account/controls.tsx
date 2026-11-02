@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 
 import { Bee, Cub, Gugu } from "@/components/characters";
 import type { Child } from "@/lib/family";
-import { addChild, chooseChild, removeChild, setNightlyLimit } from "./actions";
+import { addChild, chooseChild, removeChild, setNightlyLimit, setShowAllAges, setGamesMinutes } from "./actions";
 
 export function Avatar({ kind, size = 56 }: { kind: Child["avatar"]; size?: number }) {
   if (kind === "bee") return <Bee size={size} />;
@@ -113,6 +113,46 @@ export function LimitPicker({ value }: { value: number }) {
           className={`rounded-xl border-2 px-4 py-2 font-bold transition ${value === n ? "border-teal bg-teal text-white" : "border-line hover:border-ink"}`}
         >
           {n === 0 ? "No limit" : `${n} stories`}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function GamesPicker({ value }: { value: number }) {
+  const [pending, start] = useTransition();
+  return (
+    <div className="flex flex-wrap gap-2">
+      {[10, 20, 30, 60, 0].map((n) => (
+        <button
+          key={n}
+          type="button"
+          aria-pressed={value === n}
+          disabled={pending}
+          onClick={() => start(() => setGamesMinutes(n))}
+          className={`rounded-xl border-2 px-4 py-2 font-bold transition ${value === n ? "border-teal bg-teal text-white" : "border-line hover:border-ink"}`}
+        >
+          {n === 0 ? "Games off" : `${n} min`}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function AllAgesToggle({ value }: { value: boolean }) {
+  const [pending, start] = useTransition();
+  return (
+    <div className="flex flex-wrap gap-2">
+      {[false, true].map((v) => (
+        <button
+          key={String(v)}
+          type="button"
+          aria-pressed={value === v}
+          disabled={pending}
+          onClick={() => start(() => setShowAllAges(v))}
+          className={`rounded-xl border-2 px-4 py-2 font-bold transition ${value === v ? "border-teal bg-teal text-white" : "border-line hover:border-ink"}`}
+        >
+          {v ? "Every age" : "Their own age group"}
         </button>
       ))}
     </div>

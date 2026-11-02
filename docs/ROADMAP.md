@@ -44,10 +44,14 @@ answers are yes.
 
 - [x] Child profiles and the grown-ups' area on the website (bedtime limit, progress)
 - [x] Chapa checkout (Telebirr, CBE Birr, cards) with server-side verification (`docs/PAYMENTS.md`)
+- [x] Fair plan switching (upgrades by value, downgrades after the current plan), payment history and receipts
 - [ ] Renewal reminder emails (needs an email sender)
 - [x] Draft privacy policy and terms (`/privacy`, `/terms`), pending legal review
 - [ ] Weekly progress note by email
-- [ ] Admin area for uploading Lali's own stories (text, art, audio) without a developer
+- [x] Story studio: admins add stories (both languages, pictures, narration) without a developer
+- [x] Stories and games by age group (3–5, 6–7, 8–9); parents choose own-age or every age
+- [x] Games shelf: web games in a sealed-off frame, daily time limit per child (`docs/GAMES.md`)
+- [ ] Subject packs (English, Maths, Fidel, Values) once the first pack has content
 - [ ] PostHog analytics for the pilot metrics
 
 ### Phase 4: Pilot (weeks 10–16)

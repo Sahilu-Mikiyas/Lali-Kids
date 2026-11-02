@@ -10,7 +10,7 @@ import { formatBirr, planById } from "@/lib/payments/plans";
 import { familyPlan } from "@/lib/payments/subscription";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { GrownUpsGate } from "./gate";
-import { AddChildForm, ChildCard, LimitPicker } from "./controls";
+import { AddChildForm, AllAgesToggle, ChildCard, GamesPicker, LimitPicker } from "./controls";
 import { allowMoreTonight } from "./actions";
 
 export const metadata: Metadata = { title: "Grown-ups' corner" };
@@ -60,9 +60,17 @@ async function AccountContent() {
             </div>
             <div className="flex items-center gap-3">
               {family.profile.role === "admin" && (
-                <Link href="/admin/books" className="btn btn-plain !text-base">
-                  Manage books
-                </Link>
+                <>
+                  <Link href="/admin/stories" className="btn btn-plain !text-base">
+                    Story studio
+                  </Link>
+                  <Link href="/admin/games" className="btn btn-plain !text-base">
+                    Games
+                  </Link>
+                  <Link href="/admin/books" className="btn btn-plain !text-base">
+                    Books
+                  </Link>
+                </>
               )}
               <form action="/auth/signout" method="post">
                 <button type="submit" className="font-bold text-muted hover:text-ink">
@@ -83,6 +91,17 @@ async function AccountContent() {
           </section>
 
           <section className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">Which stories they see</h2>
+              <p className="text-muted">Show each child stories for their own age group, or let them browse every age.</p>
+              <AllAgesToggle value={family.showAllAges} />
+            </div>
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">Games each day</h2>
+              <p className="text-muted">How long each child can play games per day. When time is up, Lali sends them back to the stories.</p>
+              <GamesPicker value={family.gamesMinutes} />
+            </div>
+
             <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
               <h2 className="font-display text-2xl font-black">Bedtime limit</h2>
               <p className="text-muted">After this many stories in one night, Lali says goodnight and the shelf closes until tomorrow.</p>

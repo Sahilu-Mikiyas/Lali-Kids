@@ -7,17 +7,20 @@ import { BookCard } from "@/components/book-card";
 import { Bee } from "@/components/characters";
 import { ChildChooser } from "@/components/child-chooser";
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { STORIES } from "@/content/stories";
+import { AGE_BANDS, type AgeBand } from "@/content/stories";
 import { limitReached, loadFamily } from "@/lib/family";
+import { forAge, shelfStories } from "@/lib/stories";
 
 export const metadata: Metadata = {
   title: "Story library",
   description: "Illustrated, read-aloud stories in English and Amharic for kids aged 3 to 9.",
 };
 
-async function Shelf() {
+const isBand = (v: unknown): v is AgeBand => typeof v === "string" && (AGE_BANDS as string[]).includes(v);
+
+async function Shelf({ searchParams }: { searchParams: PageProps<"/stories">["searchParams"] }) {
   await connection();
-  const family = await loadFamily();
+  const [{ age }, family] = await Promise.all([searchParams, loadFamily()]);
   if (limitReached(family)) {
     return (
       <div className="mx-auto mt-12 max-w-xl space-y-4 rounded-[32px] bg-night p-10 text-center text-white">
@@ -33,20 +36,49 @@ async function Shelf() {
       </div>
     );
   }
+
+  const childBand = isBand(family?.current?.age_band) ? family.current.age_band : null;
+  // A child's shelf stays on their age group unless a grown-up allowed every age.
+  const lockedToChild = Boolean(childBand && family && !family.showAllAges);
+  const band: AgeBand | null = lockedToChild ? childBand : age === "all" ? null : isBand(age) ? age : childBand;
+  const stories = forAge(await shelfStories(family?.profile.id ?? null), band);
+
   return (
     <>
       {family && <ChildChooser childList={family.children} currentId={family.current?.id ?? null} stars={family.current?.stars ?? 0} />}
-      <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-        {STORIES.map((s, i) => (
-          <BookCard key={s.id} story={s} index={i} />
-        ))}
-      </div>
+      <nav className="mt-8 flex flex-wrap items-center gap-2" aria-label="Age group">
+        {lockedToChild ? (
+          <p className="rounded-full bg-white px-4 py-2 font-bold shadow-[0_3px_0_var(--color-line)]">
+            Stories for ages {childBand} <span className="font-normal text-muted">· a grown-up can show every age in the Grown-ups&rsquo; corner</span>
+          </p>
+        ) : (
+          [null, ...AGE_BANDS].map((b) => (
+            <Link
+              key={b ?? "all"}
+              href={`/stories?age=${b ?? "all"}`}
+              aria-current={band === b ? "page" : undefined}
+              className={`rounded-full px-4 py-2 font-bold shadow-[0_3px_0_var(--color-line)] transition ${band === b ? "bg-ink text-white" : "bg-white hover:-translate-y-0.5"}`}
+            >
+              {b ? `Ages ${b}` : "All ages"}
+            </Link>
+          ))
+        )}
+      </nav>
+      {stories.length ? (
+        <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {stories.map((s, i) => (
+            <BookCard key={s.id} story={s} index={i} />
+          ))}
+        </div>
+      ) : (
+        <p className="mt-10 rounded-[28px] bg-white p-8 text-center text-lg text-muted">New stories for this age group are on their way.</p>
+      )}
       <div className="mt-4 h-4 rounded-md bg-gold shadow-[0_8px_0_var(--color-gold-deep)]" aria-hidden />
     </>
   );
 }
 
-export default function StoriesPage() {
+export default function StoriesPage({ searchParams }: PageProps<"/stories">) {
   return (
     <>
       <SiteNav />
@@ -64,7 +96,7 @@ export default function StoriesPage() {
           </div>
         </div>
         <Suspense fallback={<div className="mt-12 h-64 animate-pulse rounded-[32px] bg-white" />}>
-          <Shelf />
+          <Shelf searchParams={searchParams} />
         </Suspense>
         <p className="mt-10 text-center text-muted">New stories arrive every week. The full library opens with a Reader plan.</p>
       </main>

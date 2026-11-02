@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
-import type { Story } from "@/content/stories";
-import { Scene } from "./scenes";
+import { agesLabel, type Story } from "@/content/stories";
+import { PageArt } from "./storybook";
 
 const TAG: Record<Story["category"], string> = {
   Bedtime: "bg-coral",
   Maths: "bg-blue",
   Values: "bg-berry",
   English: "bg-teal",
+  Fidel: "bg-gold-deep",
 };
 
 /** A book on the shelf that tilts toward the pointer and opens when tapped. */
@@ -30,8 +31,8 @@ export function BookCard({ story, index = 0 }: { story: Story; index?: number })
       className="[perspective:900px]"
     >
       <Link
-        href={`/stories/${story.id}`}
-        aria-label={`Read ${story.title.en}`}
+        href={story.locked ? `/subscribe?plan=reader` : `/stories/${story.id}`}
+        aria-label={story.locked ? `${story.title.en}: open with a plan` : `Read ${story.title.en}`}
         onPointerMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect();
           mx.set((e.clientX - r.left) / r.width);
@@ -48,8 +49,11 @@ export function BookCard({ story, index = 0 }: { story: Story; index?: number })
           className="relative overflow-hidden rounded-l-md rounded-r-[22px] shadow-[inset_12px_0_0_rgba(0,0,0,.18),inset_15px_0_0_rgba(255,255,255,.14),0_18px_30px_-12px_rgba(27,42,78,.5)] transition-shadow group-hover:shadow-[inset_12px_0_0_rgba(0,0,0,.18),inset_15px_0_0_rgba(255,255,255,.14),0_30px_45px_-15px_rgba(27,42,78,.6)]"
         >
           <div className="aspect-[4/3] pl-3">
-            <Scene kind={story.scene} page={story.coverPage} />
+            <PageArt story={story} page={story.coverPage} />
           </div>
+          {story.locked && (
+            <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold text-ink shadow">🔒 With a plan</span>
+          )}
           <div className="space-y-0.5 py-4 pl-6 pr-4 text-white">
             <h3 className="font-display text-xl font-extrabold leading-tight">{story.title.en}</h3>
             <p className="font-ethiopic text-sm text-white/85">{story.title.am}</p>
@@ -62,8 +66,8 @@ export function BookCard({ story, index = 0 }: { story: Story; index?: number })
         </motion.div>
         <div className="mt-3 flex items-center gap-2 text-sm font-bold text-muted">
           <span className={`rounded-full px-2.5 py-0.5 text-xs text-white ${TAG[story.category]}`}>{story.category}</span>
-          Ages {story.ages}
-          <span className="ml-auto text-coral opacity-0 transition-opacity group-hover:opacity-100">Open →</span>
+          Ages {agesLabel(story.ageBands)}
+          <span className="ml-auto text-coral opacity-0 transition-opacity group-hover:opacity-100">{story.locked ? "Unlock →" : "Open →"}</span>
         </div>
       </Link>
     </motion.div>

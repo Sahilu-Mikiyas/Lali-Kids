@@ -8,6 +8,7 @@ import { Bee } from "./characters";
 
 const LINKS = [
   { href: "/stories", label: "Stories" },
+  { href: "/games", label: "Games" },
   { href: "/#worlds", label: "Worlds" },
   { href: "/account", label: "Grown-ups" },
   { href: "/#plans", label: "Plans" },
@@ -68,6 +69,7 @@ export function SiteFooter() {
         <div className="space-y-2">
           <p className="font-display text-lg font-bold text-white">Explore</p>
           <Link href="/stories" className="block hover:text-white">Story library</Link>
+          <Link href="/games" className="block hover:text-white">Games</Link>
           <Link href="/#worlds" className="block hover:text-white">Learning worlds</Link>
           <Link href="/#watch" className="block hover:text-white">Videos</Link>
         </div>

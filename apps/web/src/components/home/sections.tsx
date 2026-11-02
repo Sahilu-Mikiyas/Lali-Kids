@@ -521,7 +521,7 @@ export function Watch() {
                 className="overflow-hidden rounded-3xl bg-white shadow-[0_6px_0_var(--color-line)]"
               >
                 <div className="relative aspect-video" style={{ background: s.color }}>
-                  <Scene kind={s.scene} page={i % s.pages.length} />
+                  <Scene kind={s.scene ?? "moon"} page={i % s.pages.length} />
                   <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-sm font-bold text-white">Coming to YouTube</span>
                 </div>
                 <p className="p-4 font-bold">{s.title.en}</p>

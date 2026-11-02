@@ -9,8 +9,25 @@
 4. Chapa sends them back to **/subscribe/done**, which confirms the payment with Chapa before
    showing "Thank you". Chapa also calls **/api/payments/chapa** in the background, so access is
    granted even if the parent closes the tab.
-5. Each payment adds **30 days**. Paying early stacks on top of the days left. Nothing renews
-   automatically. There is no free trial.
+5. Each payment adds **30 days**. Nothing renews automatically. There is no free trial.
+
+## Changing plans
+
+The plans page shows exactly what a payment will do before the parent pays.
+
+| Situation | What happens |
+|---|---|
+| Same plan | 30 days are added on top of the days left. |
+| **Upgrade** (pricier plan) | Starts now. The days left on the old plan are turned into days on the new plan by their value, then 30 days are added. 20 Reader days (about 267 birr) become 6.7 Learner days, so the family gets 36.7 days of Learner. |
+| **Downgrade** (cheaper plan) | Waits until the current plan ends, then the new plan runs for 30 days. Nobody loses paid days. The Grown-ups' corner shows "Then Reader starts…". |
+
+The database function `activate_payment` (`0006_plan_switching.sql`) applies these rules, and
+`previewSwitch` in `apps/web/src/lib/payments/plans.ts` mirrors them for the preview.
+
+## Receipts
+
+The Grown-ups' corner lists every payment, and each has a printable receipt (save as PDF from
+the print dialog) with the Chapa and Lali references.
 
 ## Why it's safe
 

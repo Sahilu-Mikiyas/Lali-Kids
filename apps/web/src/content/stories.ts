@@ -4,17 +4,39 @@ export type SceneKind = 'moon' | 'count' | 'share';
 
 export type StoryPage = Record<Lang, string>;
 
+export type AgeBand = '3-5' | '6-7' | '8-9';
+export const AGE_BANDS: AgeBand[] = ['3-5', '6-7', '8-9'];
+
+export type Category = 'Bedtime' | 'Maths' | 'Values' | 'English' | 'Fidel';
+export const CATEGORIES: Category[] = ['Bedtime', 'Maths', 'Values', 'English', 'Fidel'];
+
 export type Story = {
   id: string;
   title: Record<Lang, string>;
-  category: 'Bedtime' | 'Maths' | 'Values' | 'English';
-  ages: string;
+  category: Category;
+  /** Age groups the story is written for; matches the age group on each child's profile. */
+  ageBands: AgeBand[];
   color: string;
-  scene: SceneKind;
+  /** Drawn scenes for the launch stories. Studio stories use uploaded pictures instead. */
+  scene?: SceneKind;
   /** Page whose picture is used on the cover. */
   coverPage: number;
   pages: StoryPage[];
+  /** Uploaded picture for each page (short-lived links), for stories made in the studio. */
+  pictures?: (string | null)[];
+  /** Recorded narration for each page, when there is one. */
+  audio?: Partial<Record<Lang, string | null>>[];
+  /** Readable without a plan. */
+  isFree: boolean;
+  /** Paid story the family can't open yet (shown on the shelf with a lock). */
+  locked?: boolean;
 };
+
+/** "3-5", "6-7" -> "3–7" */
+export function agesLabel(bands: AgeBand[]): string {
+  const nums = bands.flatMap((b) => b.split('-').map(Number));
+  return `${Math.min(...nums)}–${Math.max(...nums)}`;
+}
 
 // Amharic text is a first draft and needs review by a native-speaking editor.
 export const STORIES: Story[] = [
@@ -22,7 +44,8 @@ export const STORIES: Story[] = [
     id: 'lost-moon',
     title: { en: 'Anbessa and the Lost Moon', am: 'አንበሳ እና የጠፋችው ጨረቃ' },
     category: 'Bedtime',
-    ages: '3–6',
+    ageBands: ['3-5', '6-7'],
+    isFree: true,
     color: '#2B3A8C',
     scene: 'moon',
     coverPage: 3,
@@ -49,7 +72,8 @@ export const STORIES: Story[] = [
     id: 'gugu-counts',
     title: { en: 'Gugu Counts the Sheep', am: 'ጉጉ በጎቹን ይቆጥራል' },
     category: 'Maths',
-    ages: '3–6',
+    ageBands: ['3-5', '6-7'],
+    isFree: true,
     color: '#0E7F74',
     scene: 'count',
     coverPage: 3,
@@ -76,7 +100,8 @@ export const STORIES: Story[] = [
     id: 'lali-shares',
     title: { en: 'Lali Shares the Honey', am: 'ላሊ ማሩን አካፈለች' },
     category: 'Values',
-    ages: '3–7',
+    ageBands: ['3-5', '6-7'],
+    isFree: true,
     color: '#C9860A',
     scene: 'share',
     coverPage: 3,

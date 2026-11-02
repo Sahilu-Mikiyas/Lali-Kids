@@ -24,8 +24,26 @@ function ArtFace({ story, page }: { story: Story; page: number }) {
   const end = page >= story.pages.length;
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }}>
-      {end ? <EndArt /> : <Scene kind={story.scene} page={page} />}
+      {end ? <EndArt /> : <PageArt story={story} page={page} />}
       <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/25 to-transparent" />
+    </div>
+  );
+}
+
+/** The page's uploaded picture, its drawn scene, or a friendly placeholder. */
+export function PageArt({ story, page }: { story: Story; page: number }) {
+  const picture = story.pictures?.[page];
+  if (picture) {
+    // Short-lived private links; next/image would cache them under a public URL.
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={picture} alt="" draggable={false} className="h-full w-full select-none object-cover" onContextMenu={(e) => e.preventDefault()} />;
+  }
+  if (story.scene) return <Scene kind={story.scene} page={page} />;
+  return (
+    <div className="grid h-full w-full place-items-center">
+      <div className="animate-float">
+        <Bee size={88} />
+      </div>
     </div>
   );
 }
@@ -79,7 +97,7 @@ function PageHeader({ story, page, lang }: { story: Story; page: number; lang: L
 
 function LiveText({ story, page, lang, onRead }: { story: Story; page: number; lang: Lang; onRead: () => void }) {
   const text = story.pages[page][lang];
-  const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang, onRead);
+  const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang, onRead, story.audio?.[page]?.[lang]);
   const [popped, setPopped] = useState(-1);
   return (
     <PaperFace>

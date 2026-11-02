@@ -90,3 +90,22 @@ export async function recordStoryFinished(storyId: string): Promise<number | nul
   revalidatePath("/account");
   return data?.stars ?? null;
 }
+
+export async function setShowAllAges(show: boolean) {
+  const profile = await currentProfile();
+  if (!profile) return;
+  const supabase = await createSupabaseServer();
+  await supabase.from("profiles").update({ show_all_ages: Boolean(show) }).eq("id", profile.id);
+  revalidatePath("/account");
+  revalidatePath("/stories");
+  revalidatePath("/games");
+}
+
+export async function setGamesMinutes(minutes: number) {
+  const profile = await currentProfile();
+  if (!profile || ![0, 10, 20, 30, 60].includes(minutes)) return;
+  const supabase = await createSupabaseServer();
+  await supabase.from("profiles").update({ games_minutes: minutes }).eq("id", profile.id);
+  revalidatePath("/account");
+  revalidatePath("/games");
+}

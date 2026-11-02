@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Count the Flowers</title>
+<style>
+  :root { --sky:#E4F6FF; --ink:#1B2A4E; --gold:#FFD54A; --teal:#0FA3A3; --coral:#FF6B5B; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; font-family: system-ui, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:linear-gradient(#BFE9FF, #E4F6FF 60%, #B8E39A 60%); overflow:hidden; user-select:none; }
+  main { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3vmin; padding:3vmin; }
+  h1 { margin:0; font-size:5vmin; }
+  .field { display:flex; flex-wrap:wrap; justify-content:center; gap:2vmin; max-width:90vmin; min-height:30vmin; align-content:center; }
+  .flower { width:12vmin; height:12vmin; animation: pop .4s cubic-bezier(.3,2,.5,1) both; }
+  .answers { display:flex; gap:3vmin; }
+  button { font: inherit; font-size:7vmin; font-weight:900; width:18vmin; height:18vmin; border:0; border-radius:4vmin; background:#fff; color:var(--ink); box-shadow:0 1.2vmin 0 #D9D2BC; cursor:pointer; transition: transform .15s; }
+  button small { display:block; font-size:3.5vmin; font-weight:700; color:#7A6A45; }
+  button:hover { transform: translateY(-.6vmin); }
+  button.right { background:var(--teal); color:#fff; }
+  button.wrong { background:var(--coral); color:#fff; animation: shake .4s; }
+  .score { position:absolute; top:2vmin; right:3vmin; font-size:4vmin; font-weight:900; background:var(--gold); padding:1vmin 3vmin; border-radius:99px; }
+  .bee { position:absolute; font-size:9vmin; left:-12vmin; top:12vmin; }
+  .bee.fly { animation: fly 1.6s ease-in-out; }
+  .end { text-align:center; }
+  .end p { font-size:5vmin; margin: 1vmin 0 3vmin; }
+  .again { width:auto; height:auto; padding:2vmin 6vmin; font-size:5vmin; background:var(--gold); }
+  @keyframes pop { from { transform: scale(0) rotate(-30deg); } to { transform: scale(1); } }
+  @keyframes shake { 25% { transform: translateX(-1.5vmin); } 75% { transform: translateX(1.5vmin); } }
+  @keyframes fly { 0% { left:-12vmin; } 50% { top:4vmin; } 100% { left:105vw; top:14vmin; } }
+</style>
+</head>
+<body>
+<div class="score" id="score">⭐ 0</div>
+<div class="bee" id="bee" aria-hidden="true">🐝</div>
+<main id="app"></main>
+<script>
+/*
+  A small original counting game for Lali, and an example of the message protocol
+  games use to talk to Lali (see docs/GAMES.md):
+    parent.postMessage({ type: "lali:score", score }, "*")
+    parent.postMessage({ type: "lali:finished" }, "*")
+*/
+(function () {
+  var ROUNDS = 10;
+  var GEEZ = ["", "፩", "፪", "፫", "፬", "፭", "፮", "፯", "፰", "፱", "፲"];
+  var COLORS = ["#FF6B5B", "#FFD54A", "#B05CC8", "#3D7BFF", "#FF9F45"];
+  var app = document.getElementById("app");
+  var scoreEl = document.getElementById("score");
+  var bee = document.getElementById("bee");
+  var round = 0, score = 0, busy = false;
+
+  function tell(msg) { if (window.parent !== window) window.parent.postMessage(msg, "*"); }
+  function rand(n) { return Math.floor(Math.random() * n); }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = rand(i + 1); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  function flower(color, delay) {
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", "0 0 40 40");
+    svg.setAttribute("class", "flower");
+    svg.style.animationDelay = delay + "s";
+    for (var k = 0; k < 6; k++) {
+      var p = document.createElementNS(ns, "ellipse");
+      p.setAttribute("cx", "20"); p.setAttribute("cy", "9"); p.setAttribute("rx", "6"); p.setAttribute("ry", "9");
+      p.setAttribute("fill", color); p.setAttribute("transform", "rotate(" + k * 60 + " 20 20)");
+      svg.appendChild(p);
+    }
+    var c = document.createElementNS(ns, "circle");
+    c.setAttribute("cx", "20"); c.setAttribute("cy", "20"); c.setAttribute("r", "6"); c.setAttribute("fill", "#FFD54A");
+    svg.appendChild(c);
+    return svg;
+  }
+
+  function say(text) {
+    try {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text); u.rate = 0.9; u.pitch = 1.2;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  function next() {
+    busy = false;
+    if (round >= ROUNDS) return finish();
+    round++;
+    var max = Math.min(10, 3 + round);           // gets a little harder each round
+    var count = 1 + rand(max);
+    var options = [count];
+    while (options.length < 3) {
+      var o = 1 + rand(Math.min(10, max + 2));
+      if (options.indexOf(o) < 0) options.push(o);
+    }
+    shuffle(options);
+    var color = COLORS[rand(COLORS.length)];
+
+    app.innerHTML = "";
+    var h = document.createElement("h1"); h.textContent = "How many flowers?"; app.appendChild(h);
+    var field = document.createElement("div"); field.className = "field";
+    for (var i = 0; i < count; i++) field.appendChild(flower(color, i * 0.06));
+    app.appendChild(field);
+    var answers = document.createElement("div"); answers.className = "answers";
+    options.forEach(function (n) {
+      var b = document.createElement("button");
+      b.innerHTML = n + "<small>" + GEEZ[n] + "</small>";
+      b.setAttribute("aria-label", String(n));
+      b.onclick = function () { pick(b, n, count); };
+      answers.appendChild(b);
+    });
+    app.appendChild(answers);
+  }
+
+  function pick(button, n, count) {
+    if (busy) return;
+    if (n === count) {
+      busy = true;
+      button.className = "right";
+      score++;
+      scoreEl.textContent = "⭐ " + score;
+      tell({ type: "lali:score", score: score });
+      say(String(count) + "!");
+      bee.className = ""; void bee.offsetWidth; bee.className = "bee fly";
+      setTimeout(next, 1200);
+    } else {
+      button.className = "wrong";
+      setTimeout(function () { button.className = ""; }, 450);
+    }
+  }
+
+  function finish() {
+    app.innerHTML = "";
+    var box = document.createElement("div"); box.className = "end";
+    var h = document.createElement("h1"); h.textContent = "Well done!";
+    var p = document.createElement("p"); p.textContent = "You found " + score + " out of " + ROUNDS + ".";
+    var again = document.createElement("button"); again.className = "again"; again.textContent = "Play again";
+    again.onclick = function () { round = 0; score = 0; scoreEl.textContent = "⭐ 0"; next(); };
+    box.appendChild(h); box.appendChild(p); box.appendChild(again);
+    app.appendChild(box);
+    say("Well done!");
+    tell({ type: "lali:finished" });
+  }
+
+  next();
+})();
+</script>
+</body>
+</html>

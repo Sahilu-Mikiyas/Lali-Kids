@@ -15,9 +15,10 @@ function voiceFor(lang: Lang): SpeechSynthesisVoice | null {
  * Reads a page aloud and reports which word is being spoken.
  * Uses the browser's voice for the language when there is one, with word timing from
  * the speech engine; otherwise it lights words up on a steady beat in silence.
- * Recorded narration with word timings will replace the browser voice.
+ * When the page has recorded narration, that plays instead and the highlight follows it,
+ * spread over the recording by word length (exact word timings can replace this later).
  */
-export function useReadAlong(text: string, lang: Lang, onFinish?: () => void) {
+export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, audioUrl?: string | null) {
   const words = useMemo(() => text.split(" "), [text]);
   const offsets = useMemo(() => words.map((_, i) => words.slice(0, i).reduce((sum, w) => sum + w.length + 1, 0)), [words]);
 
@@ -26,6 +27,7 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void) {
   const [silent, setSilent] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const fallback = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const audio = useRef<HTMLAudioElement | null>(null);
   const finishRef = useRef(onFinish);
   useEffect(() => {
     finishRef.current = onFinish;
@@ -41,6 +43,12 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void) {
   const stop = useCallback(() => {
     clearTimers();
     window.speechSynthesis?.cancel();
+    if (audio.current) {
+      audio.current.pause();
+      audio.current.onended = null;
+      audio.current.ontimeupdate = null;
+      audio.current = null;
+    }
     setReading(false);
   }, [clearTimers]);
 
@@ -65,6 +73,25 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void) {
   const start = useCallback(() => {
     stop();
     setReading(true);
+    if (audioUrl) {
+      const a = new Audio(audioUrl);
+      audio.current = a;
+      setSilent(false);
+      setActive(0);
+      a.ontimeupdate = () => {
+        if (!a.duration) return;
+        const at = (a.currentTime / a.duration) * text.length;
+        let i = 0;
+        for (let j = 0; j < offsets.length; j++) if (offsets[j] <= at) i = j;
+        setActive(i);
+      };
+      a.onended = () => {
+        audio.current = null;
+        finish();
+      };
+      a.play().catch(() => runBeat());
+      return;
+    }
     const voice = voiceFor(lang);
     setSilent(!voice);
     if (!voice) {
@@ -93,7 +120,7 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void) {
     fallback.current = setTimeout(() => {
       if (!gotBoundary) runBeat();
     }, 800);
-  }, [finish, lang, offsets, runBeat, stop, text]);
+  }, [audioUrl, finish, lang, offsets, runBeat, stop, text]);
 
   const speakWord = useCallback(
     (word: string) => {
