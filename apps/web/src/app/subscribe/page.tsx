@@ -6,11 +6,14 @@ import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { planById } from "@/lib/payments/plans";
-import { familyPlan } from "@/lib/payments/subscription";
+import { asCurrentPlan, familyPlan } from "@/lib/payments/subscription";
 import { currentProfile } from "@/lib/supabase/server";
 import { PlanForms } from "./plan-forms";
 
 export const metadata: Metadata = { title: "Choose a plan" };
+
+/** Request time, read once per request (the page waits for the request before rendering). */
+const nowMs = () => Date.now();
 
 async function SubscribeContent({ searchParams }: PageProps<"/subscribe">) {
   await connection();
@@ -29,14 +32,23 @@ async function SubscribeContent({ searchParams }: PageProps<"/subscribe">) {
         {current?.isOpen ? (
           <p className="mt-3 text-lg text-muted">
             You&rsquo;re on <b>{current.planName}</b>
-            {" "}with <b>{current.daysLeft} days</b> left. Paying now adds 30
-            days on top.
+            {" "}with <b>{current.daysLeft} days</b> left
+            {current.next && (
+              <>
+                , then <b>{current.next.planName}</b> for {current.next.days} days
+              </>
+            )}
+            . Pick a plan below to see exactly what a payment would do.
           </p>
         ) : (
           <p className="mt-3 text-lg text-muted">Open every story and book for your family.</p>
         )}
         <div className="mt-10">
-          <PlanForms initialPlan={current?.isOpen ? (planById(current.planId)?.id ?? wanted) : wanted} />
+          <PlanForms
+            initialPlan={typeof plan === "string" ? wanted : current?.isOpen ? (planById(current.planId)?.id ?? wanted) : wanted}
+            current={asCurrentPlan(current)}
+            nowMs={nowMs()}
+          />
         </div>
         <p className="mt-8 text-center text-sm text-muted">
           By continuing you agree to the{" "}

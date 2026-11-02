@@ -2,10 +2,36 @@
 
 import { useActionState, useEffect, useState } from "react";
 
-import { formatBirr, PLANS, type PlanId } from "@/lib/payments/plans";
+import { formatBirr, formatDay, planById, PLANS, previewSwitch, type CurrentPlan, type PlanId } from "@/lib/payments/plans";
 import { startCheckout, type CheckoutResult } from "./actions";
 
-export function PlanForms({ initialPlan }: { initialPlan: PlanId }) {
+function SwitchNote({ current, plan, nowMs }: { current: CurrentPlan; plan: PlanId; nowMs: number }) {
+  const p = previewSwitch(current, plan, nowMs);
+  const to = planById(plan)!.name;
+  const from = current ? planById(current.planId)!.name : "";
+  switch (p.kind) {
+    case "new":
+      return <>30 days of {to}, starting today, until <b>{formatDay(p.endsAtMs)}</b>.</>;
+    case "renew":
+      return <>Adds 30 days to your {to} plan. It will run until <b>{formatDay(p.endsAtMs)}</b>.</>;
+    case "upgrade":
+      return (
+        <>
+          <b>Upgrade today.</b> The days left on {from} are worth {Math.round(p.convertedDays * 10) / 10} days of {to}, so you get those plus
+          30 days: {to} until <b>{formatDay(p.endsAtMs)}</b>.
+        </>
+      );
+    case "downgrade":
+      return (
+        <>
+          You keep {from} until <b>{formatDay(p.startsAtMs)}</b>, then {to} starts and runs until <b>{formatDay(p.endsAtMs)}</b>. You
+          don&rsquo;t lose any days.
+        </>
+      );
+  }
+}
+
+export function PlanForms({ initialPlan, current, nowMs }: { initialPlan: PlanId; current: CurrentPlan; nowMs: number }) {
   const [plan, setPlan] = useState<PlanId>(initialPlan);
   const [result, pay, paying] = useActionState<CheckoutResult, FormData>(startCheckout, null);
   const chosen = PLANS.find((p) => p.id === plan)!;
@@ -49,8 +75,13 @@ export function PlanForms({ initialPlan }: { initialPlan: PlanId }) {
       <form action={pay} className="flex flex-col gap-4 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)] md:flex-row md:items-center">
         <input type="hidden" name="plan" value={plan} />
         <div className="flex-1">
-          <p className="font-display text-xl font-black">{chosen.name} plan</p>
-          <p className="text-muted">Each payment gives 30 days of access. Nothing renews automatically.</p>
+          <p className="font-display text-xl font-black">
+            {chosen.name} plan
+            {current && current.planId === plan && <span className="ml-2 rounded-full bg-teal px-2.5 py-0.5 align-middle text-xs text-white">Your plan</span>}
+          </p>
+          <p className="text-muted">
+            <SwitchNote current={current} plan={plan} nowMs={nowMs} /> Nothing renews automatically.
+          </p>
         </div>
         <button type="submit" className="btn btn-primary" disabled={paying || leaving}>
           {paying ? "Starting payment…" : leaving ? "Opening Chapa…" : `Pay ${formatBirr(chosen.priceEtb)} birr`}

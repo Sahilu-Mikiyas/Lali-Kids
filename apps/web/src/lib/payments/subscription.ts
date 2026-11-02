@@ -3,7 +3,7 @@ import "server-only";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { verifyPayment } from "./chapa";
-import { planById } from "./plans";
+import { planById, type CurrentPlan, type PlanId } from "./plans";
 
 export type FamilyPlan = {
   planId: string;
@@ -12,14 +12,19 @@ export type FamilyPlan = {
   endsAt: string;
   isOpen: boolean;
   daysLeft: number;
+  /** A cheaper plan the family paid for, which starts when this one ends. */
+  next: { planId: string; planName: string; days: number; endsAt: string } | null;
 };
 
 /** The family's plan, or null if they have never had one. */
 export async function familyPlan(familyId: string): Promise<FamilyPlan | null> {
   if (!hasSecretKey()) return null;
-  const { data } = await createSupabaseAdmin()
+  const admin = createSupabaseAdmin();
+  // Starts a waiting (downgraded) plan if the current one has ended.
+  await admin.rpc("settle_subscription", { p_family: familyId });
+  const { data } = await admin
     .from("subscriptions")
-    .select("plan_id, status, current_period_end")
+    .select("plan_id, status, current_period_end, next_plan_id, next_days")
     .eq("family_id", familyId)
     .maybeSingle();
   if (!data) return null;
@@ -32,6 +37,25 @@ export async function familyPlan(familyId: string): Promise<FamilyPlan | null> {
     endsAt: data.current_period_end,
     isOpen: (data.status === "trialing" || data.status === "active") && msLeft > 0,
     daysLeft: Math.max(0, Math.ceil(msLeft / 86_400_000)),
+    next: data.next_plan_id
+      ? {
+          planId: data.next_plan_id,
+          planName: planById(data.next_plan_id)?.name ?? data.next_plan_id,
+          days: Math.round(Number(data.next_days)),
+          endsAt: new Date(ends + Number(data.next_days) * 86_400_000).toISOString(),
+        }
+      : null,
+  };
+}
+
+/** The plan in the shape the plan picker needs to preview a switch. */
+export function asCurrentPlan(p: FamilyPlan | null): CurrentPlan {
+  if (!p?.isOpen) return null;
+  return {
+    planId: p.planId as PlanId,
+    endsAtMs: new Date(p.endsAt).getTime(),
+    nextPlanId: (p.next?.planId as PlanId | undefined) ?? null,
+    nextDays: p.next ? Number(p.next.days) : 0,
   };
 }
 

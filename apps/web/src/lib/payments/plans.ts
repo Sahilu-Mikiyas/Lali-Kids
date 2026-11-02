@@ -32,3 +32,43 @@ export function planById(id: string | null | undefined) {
 export function formatBirr(n: number) {
   return n.toLocaleString("en-US");
 }
+
+const DAY = 86_400_000;
+
+export type CurrentPlan = { planId: PlanId; endsAtMs: number; nextPlanId: PlanId | null; nextDays: number } | null;
+
+export type SwitchPreview = {
+  kind: "new" | "renew" | "upgrade" | "downgrade";
+  /** When the chosen plan starts. */
+  startsAtMs: number;
+  /** When the chosen plan's days run out after this payment. */
+  endsAtMs: number;
+  /** For upgrades: how many days the leftover time is worth on the new plan. */
+  convertedDays: number;
+};
+
+/**
+ * What a payment for `target` would do, mirroring the database function `activate_payment`:
+ * same plan adds 30 days; an upgrade starts now and converts the days left by value;
+ * a downgrade waits until the current plan ends.
+ */
+export function previewSwitch(current: CurrentPlan, target: PlanId, nowMs: number): SwitchPreview {
+  const to = planById(target)!;
+  if (!current || current.endsAtMs <= nowMs) {
+    return { kind: "new", startsAtMs: nowMs, endsAtMs: nowMs + 30 * DAY, convertedDays: 0 };
+  }
+  const from = planById(current.planId)!;
+  if (from.id === to.id) {
+    return { kind: "renew", startsAtMs: nowMs, endsAtMs: current.endsAtMs + 30 * DAY, convertedDays: 0 };
+  }
+  if (to.priceEtb > from.priceEtb) {
+    const converted = ((current.endsAtMs - nowMs) / DAY) * (from.priceEtb / to.priceEtb);
+    return { kind: "upgrade", startsAtMs: nowMs, endsAtMs: nowMs + (converted + 30) * DAY, convertedDays: converted };
+  }
+  const waiting = current.nextPlanId ? current.nextDays * (planById(current.nextPlanId)!.priceEtb / to.priceEtb) : 0;
+  return { kind: "downgrade", startsAtMs: current.endsAtMs, endsAtMs: current.endsAtMs + (waiting + 30) * DAY, convertedDays: 0 };
+}
+
+export function formatDay(ms: number) {
+  return new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Addis_Ababa" });
+}
