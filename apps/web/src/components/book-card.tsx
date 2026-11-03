@@ -45,7 +45,9 @@ export function BookCard({ story, index = 0 }: { story: Story; index?: number })
         className="group block"
       >
         <motion.div
-          style={{ rotateX: rotX, rotateY: rotY, background: story.color }}
+          // Tapping a book gives it a little squeeze, as if it is about to open.
+          whileTap={{ scale: 0.95, rotateY: -10 }}
+          style={{ rotateX: rotX, rotateY: rotY, background: story.color, transformOrigin: "0% 50%" }}
           className="relative overflow-hidden rounded-l-md rounded-r-[22px] shadow-[inset_12px_0_0_rgba(0,0,0,.18),inset_15px_0_0_rgba(255,255,255,.14),0_18px_30px_-12px_rgba(27,42,78,.5)] transition-shadow group-hover:shadow-[inset_12px_0_0_rgba(0,0,0,.18),inset_15px_0_0_rgba(255,255,255,.14),0_30px_45px_-15px_rgba(27,42,78,.6)]"
         >
           <div className="aspect-[4/3] pl-3">
