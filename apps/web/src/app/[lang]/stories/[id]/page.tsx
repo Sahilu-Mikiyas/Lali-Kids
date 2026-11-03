@@ -21,19 +21,9 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/stories/[i
   return story ? { title: story.title.en, description: story.pages[0].en } : { title: "Story" };
 }
 
-async function Frame({ story }: { story: Story }) {
-  const t = await getT();
-  return (
-    <>
-      <div className="mx-auto mb-8 flex max-w-6xl flex-wrap items-center justify-between gap-3">
-        <Link href="/stories" className="font-bold text-muted hover:text-ink">
-          {t.shelf.allStories}
-        </Link>
-        <p className="text-sm font-bold text-muted">{t.shelf.tip}</p>
-      </div>
-      <StoryBookWithProgress story={story} />
-    </>
-  );
+/** The book takes over the whole screen (its own close button leads back to the shelf). */
+function Frame({ story }: { story: Story }) {
+  return <StoryBookWithProgress story={story} />;
 }
 
 /** Stories made in the story studio: checked against the family's plan on every visit. */

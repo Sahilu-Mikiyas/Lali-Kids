@@ -1,213 +1,277 @@
-import { useId, type CSSProperties, type ReactNode } from "react";
+"use client";
+
+import { useId } from "react";
 
 import type { SceneKind } from "@/content/stories";
-import { BeeShape, CubShape, GuguShape, STAR_PATH } from "./characters";
+import {
+  Acacia,
+  BeeFlight,
+  BeeHover,
+  Bubble,
+  CloudShape,
+  DayBackdrop,
+  Daisy,
+  Fireflies,
+  Flower,
+  Grass,
+  Heart,
+  Moon,
+  Mountains,
+  NightBackdrop,
+  NumberBadge,
+  Place,
+  Rock,
+  Sheep,
+  Sky,
+  Stars,
+  Tukul,
+  vars,
+} from "./book/scenery";
+import { FlowerScene } from "./book/new-year-scenes";
+import { CubShape, GuguShape, STAR_PATH } from "./characters";
 
-const MOVE = "transform 1s cubic-bezier(.4,1.5,.5,1), opacity .6s";
+/*
+  The drawn pictures for the launch stories. Each page is its own living picture:
+  the background keeps moving, and what the page says happens a moment after it opens
+  (the cloud slides off the moon, the lost sheep peeps out, the honey pot rises).
+*/
 
-/** Places a character; CSS transitions let it walk between pages. */
-function At({ x, y, s, hidden, children, style }: { x: number; y: number; s: number; hidden?: boolean; children: ReactNode; style?: CSSProperties }) {
-  return (
-    <g style={{ transform: `translate(${x}px, ${y}px) scale(${s})`, transition: MOVE, opacity: hidden ? 0 : 1, ...style }}>{children}</g>
-  );
-}
-
-function Label({ x, y, children, color = "#FFD54A" }: { x: number; y: number; children: string; color?: string }) {
-  return (
-    <text x={x} y={y} fontSize={24} fontFamily="var(--font-grandstander)" fontWeight={900} fill={color} stroke="#1B2A4E" strokeWidth={1} textAnchor="middle">
-      {children}
-    </text>
-  );
-}
+/* ---------- Anbessa and the Lost Moon ---------- */
 
 function MoonScene({ page }: { page: number }) {
-  const id = useId();
-  const cub = [[40, 174], [104, 174], [166, 76], [166, 76]][page] ?? [166, 76];
-  const gugu = [[330, 176], [196, 176], [228, 80], [228, 80]][page] ?? [228, 80];
-  const counting = page === 2;
-  const moonUp = page >= 3;
+  const id = useId().replace(/:/g, "");
+  if (page === 2) {
+    // On top of the tallest mountain, counting the stars.
+    return (
+      <>
+        <Sky id={id} from="#0B1038" mid="#1E2770" to="#3C4194" />
+        <Stars seed={9} n={34} bottom={230} />
+        {[
+          [96, 70, "1", 1.4],
+          [196, 46, "2", 2.1],
+          [296, 74, "3", 2.8],
+        ].map(([x, y, n, d]) => (
+          <g key={n as string}>
+            <g className="lali-pop-in" style={vars({ "--delay": `${d}s` })}>
+              <circle cx={x as number} cy={y as number} r={24} fill="#FFF6C8" opacity={0.16} className="lali-pulse" />
+              <path d={STAR_PATH} fill="#FFD54A" transform={`translate(${(x as number) - 21} ${(y as number) - 21}) scale(1.75)`} />
+            </g>
+            <NumberBadge x={x as number} y={(y as number) + 36} n={n as string} delay={(d as number) + 0.25} color="#2B3A8C" />
+          </g>
+        ))}
+        <Mountains far="#2A3270" mid="#222A62" y={50} />
+        <path d="M60 300 L150 196 Q200 176 250 196 L340 300Z" fill="#1E5A4E" />
+        <path d="M150 196 Q200 176 250 196 L240 206 Q200 190 160 206Z" fill="#2E7F6A" />
+        <Grass y={200} n={8} x0={160} x1={240} color="#2E7F6A" seed={4} />
+        <Place x={180} y={198} s={0.3} from={[110, 262]} dur={2} delay={0.2}>
+          <CubShape pose="stand" mood="wow" look={-2} />
+        </Place>
+        <Place x={228} y={198} s={0.27} flip>
+          <GuguShape pose="point" />
+        </Place>
+      </>
+    );
+  }
+  const found = page >= 3;
   return (
     <>
-      <defs>
-        <linearGradient id={`${id}n`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#141B45" />
-          <stop offset="1" stopColor="#3A3C8A" />
-        </linearGradient>
-      </defs>
-      <rect width={400} height={300} fill={`url(#${id}n)`} />
-      <g fill="#fff" opacity={0.75}>
-        {[[30, 30], [120, 22], [200, 80], [270, 20], [40, 110], [140, 110], [380, 140], [360, 24], [100, 150]].map(([x, y], i) => (
-          <circle key={`${x}-${y}`} cx={x} cy={y} r={1.5} className="animate-twinkle" style={{ animationDelay: `${-i * 0.4}s` }} />
-        ))}
-      </g>
-      {[[82, 56, "1"], [158, 42, "2"], [244, 66, "3"]].map(([x, y, n]) => (
-        <g key={n as string}>
-          <path
-            d={STAR_PATH}
-            fill={counting ? "#FFD54A" : "#C9CCF2"}
-            style={{
-              transform: `translate(${(x as number) - 12}px, ${(y as number) - 12}px)`,
-              transformBox: "fill-box",
-              transformOrigin: "center",
-              scale: counting ? "1.7" : "0.8",
-              transition: "scale .6s cubic-bezier(.3,2,.5,1), fill .4s",
-            }}
-          />
-          <g style={{ opacity: counting ? 1 : 0, transition: "opacity .5s .3s" }}>
-            <Label x={x as number} y={(y as number) + 40}>{n as string}</Label>
-          </g>
+      <NightBackdrop id={id} seed={page + 3} />
+      {/* The moon, and the cloud she hides behind. On the last page the cloud slides away. */}
+      <Moon x={300} y={66} r={27} glow={found} />
+      <g transform={found ? "translate(204 66)" : "translate(300 74)"}>
+        <g
+          className={found ? "lali-move-in" : "lali-parallax"}
+          style={found ? vars({ "--fx": "96px", "--fy": "8px", "--delay": "0.9s", "--dur": "2.2s" }) : vars({ "--px": "5px", "--dur": "5s" })}
+        >
+          <CloudShape s={1.25} color="#8E93D6" shade="#7479C0" />
         </g>
-      ))}
-      <g style={{ transform: moonUp ? "translate(-24px, -34px)" : "translate(10px, 10px)", transition: "transform 1.4s cubic-bezier(.4,1.4,.5,1)" }}>
-        <circle cx={320} cy={70} r={28} fill="#F6EDC6" />
-        <circle cx={311} cy={66} r={2.6} fill="#5B4A2A" />
-        <circle cx={329} cy={66} r={2.6} fill="#5B4A2A" />
-        <path d="M310 77 Q320 85 330 77" stroke="#5B4A2A" strokeWidth={2.4} fill="none" strokeLinecap="round" />
-        <circle cx={306} cy={74} r={3.5} fill="#FFB09A" opacity={0.6} />
-        <circle cx={334} cy={74} r={3.5} fill="#FFB09A" opacity={0.6} />
       </g>
-      <g fill="#8E93D6">
-        <circle cx={300} cy={92} r={26} />
-        <circle cx={330} cy={78} r={34} />
-        <circle cx={364} cy={94} r={24} />
-        <ellipse cx={332} cy={106} rx={62} ry={14} />
-      </g>
-      <path d="M0 300 L0 230 L90 170 L160 210 L230 135 L310 200 L400 160 L400 300Z" fill="#26306E" />
-      <path d="M0 300 L0 262 Q100 238 200 256 T400 250 L400 300Z" fill="#2E7F6A" />
-      <g style={{ opacity: page === 0 ? 1 : 0, transition: "opacity .4s" }} className="animate-float">
-        <Label x={76} y={166}>?</Label>
-      </g>
-      <At x={cub[0]} y={cub[1]} s={0.35}>
-        <CubShape />
-      </At>
-      <At x={gugu[0]} y={gugu[1]} s={0.33} hidden={page === 0}>
-        <GuguShape />
-      </At>
+      <Acacia x={70} y={238} s={0.85} leaf="#1C3F5E" leafDark="#152F4A" trunk="#152F4A" />
+      <Tukul x={346} y={240} s={0.62} glow smoke={false} />
+      <Fireflies seed={page + 5} n={7} top={150} bottom={250} />
+      <Grass y={262} n={12} color="#173F38" seed={page + 1} />
+      {page === 0 && (
+        <>
+          <Place x={170} y={262} s={0.38}>
+            <CubShape pose="stand" mood="worried" look={2} />
+          </Place>
+          <Bubble x={226} y={150} w={44} delay={0.9}>
+            ?
+          </Bubble>
+        </>
+      )}
+      {page === 1 && (
+        <>
+          <Place x={130} y={262} s={0.36} from={[60, 262]} dur={1.4} delay={0.3}>
+            <CubShape pose="walk" mood="worried" />
+          </Place>
+          <Place x={254} y={262} s={0.34} flip>
+            <GuguShape pose="no" mood="worried" />
+          </Place>
+          <Bubble x={160} y={138} w={44} delay={1.2} tail="right">
+            ?
+          </Bubble>
+        </>
+      )}
+      {found && (
+        <>
+          <Place x={150} y={262} s={0.38} className="lali-hop" >
+            <CubShape pose="sit" mood="joy" />
+          </Place>
+          <Place x={240} y={262} s={0.34}>
+            <GuguShape pose="wave" mood="joy" />
+          </Place>
+          <Bubble x={150} y={146} w={128} delay={2.6} tail="right">
+            There you are!
+          </Bubble>
+        </>
+      )}
     </>
   );
 }
 
-function Sheep({ x, y }: { x: number; y: number }) {
-  return (
-    <g transform={`translate(${x} ${y})`}>
-      <rect x={4} y={8} width={5} height={14} rx={2} fill="#3A2E2A" />
-      <rect x={22} y={8} width={5} height={14} rx={2} fill="#3A2E2A" />
-      <g fill="#FFFFFF">
-        <circle cx={0} cy={0} r={13} />
-        <circle cx={14} cy={-5} r={14} />
-        <circle cx={28} cy={0} r={13} />
-        <circle cx={14} cy={7} r={13} />
-      </g>
-      <ellipse cx={40} cy={-3} rx={9} ry={10} fill="#3A2E2A" />
-      <circle cx={43} cy={-5} r={1.8} fill="#fff" />
-    </g>
-  );
-}
+/* ---------- Gugu Counts the Sheep ---------- */
 
 function CountScene({ page }: { page: number }) {
-  const id = useId();
-  const flock: [number, number][] = [[90, 236], [150, 244], [205, 232]];
-  const fourth: [number, number] = page === 3 ? [255, 246] : [318, 236];
-  const gugu = page === 2 ? [236, 150] : [8, 162];
+  const id = useId().replace(/:/g, "");
+  const flock: [number, number][] = [
+    [96, 236],
+    [160, 246],
+    [222, 232],
+  ];
   return (
     <>
-      <defs>
-        <linearGradient id={`${id}d`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#8ED8FF" />
-          <stop offset="1" stopColor="#E4F6FF" />
-        </linearGradient>
-      </defs>
-      <rect width={400} height={300} fill={`url(#${id}d)`} />
-      <circle cx={340} cy={50} r={38} fill="#FFC83D" opacity={0.25} />
-      <circle cx={340} cy={50} r={26} fill="#FFC83D" />
-      <path d="M0 190 Q120 130 240 180 T400 170 L400 300 L0 300Z" fill="#86D696" />
-      <path d="M0 236 Q200 212 400 236 L400 300 L0 300Z" fill="#4DBA74" />
-      <g style={{ transform: `translate(${fourth[0] - 318}px, ${fourth[1] - 236}px)`, transition: MOVE, opacity: page >= 2 ? 1 : 0 }}>
-        <Sheep x={318} y={236} />
-      </g>
-      <path d="M262 254 Q268 198 310 194 Q352 198 358 254Z" fill="#8C8A96" style={{ opacity: page === 3 ? 0.9 : 1 }} />
-      <path d="M282 214 Q296 204 312 206" stroke="#B5B3BF" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <DayBackdrop id={id} sun={[60, 54]} />
+      <Acacia x={350} y={200} s={0.7} />
+      <Tukul x={40} y={206} s={0.5} />
+      <path d="M8 218 L76 218 M8 228 L76 228" stroke="#A97A4E" strokeWidth={3} />
+      {[12, 30, 48, 66].map((x) => (
+        <rect key={x} x={x} y={212} width={4} height={22} rx={2} fill="#8A5E3A" />
+      ))}
+      <Grass y={262} n={14} seed={21} />
+      <Flower x={30} y={250} h={30} color="#FF8FB1" s={0.7} delay={-1} />
+      <Daisy x={380} y={270} h={26} delay={-0.5} />
+      {/* the fourth sheep hides behind the rock until page three */}
+      {page >= 2 && (
+        <g className={page === 2 ? "lali-rise-in" : undefined} style={vars({ "--fy": "34px", "--delay": "1s" })}>
+          <Sheep x={page === 3 ? 290 : 318} y={page === 3 ? 244 : 204} s={0.95} flip={page === 2} />
+        </g>
+      )}
+      {page < 3 && <Rock x={320} y={250} s={1.1} />}
       {flock.map(([x, y], i) => (
         <g key={i}>
-          <Sheep x={x} y={y} />
-          <g style={{ opacity: page >= 1 ? 1 : 0, transition: `opacity .4s ${i * 0.25}s` }}>
-            <Label x={x + 18} y={y - 26} color="#E8513B">{String(i + 1)}</Label>
-          </g>
+          <Sheep x={x} y={y} s={0.95} delay={-i * 0.7} hop={page === 3} />
+          {page >= 1 && <NumberBadge x={x + 4} y={y - 40} n={String(i + 1)} delay={0.8 + i * 0.6} />}
         </g>
       ))}
-      <g style={{ opacity: page >= 2 ? 1 : 0, transition: "opacity .4s .6s" }}>
-        <Label x={fourth[0] + 18} y={fourth[1] - 30} color="#E8513B">4</Label>
-      </g>
-      <g style={{ opacity: page === 1 ? 1 : 0, transition: "opacity .4s" }}>
-        <Label x={310} y={180} color="#E8513B">?</Label>
-      </g>
-      <At x={gugu[0]} y={gugu[1]} s={0.34}>
-        <GuguShape />
-      </At>
+      {page === 1 && (
+        <Bubble x={300} y={150} w={44} delay={2.8}>
+          ?
+        </Bubble>
+      )}
+      {page === 2 && (
+        <Bubble x={330} y={170} w={64} delay={2} tail="right">
+          Baa!
+        </Bubble>
+      )}
+      {page === 3 && <NumberBadge x={294} y={204} n="4" delay={2.6} />}
+      {page === 0 && (
+        <Place x={300} y={262} s={0.34} flip>
+          <GuguShape pose="wave" />
+        </Place>
+      )}
+      {page === 1 && (
+        <Place x={282} y={266} s={0.34} flip>
+          <GuguShape pose="point" mood="worried" />
+        </Place>
+      )}
+      {page === 2 && (
+        <Place x={272} y={268} s={0.34}>
+          <GuguShape pose="sit" mood="wow" />
+        </Place>
+      )}
+      {page === 3 && (
+        <Place x={354} y={264} s={0.32} className="lali-hop">
+          <GuguShape pose="wave" mood="joy" />
+        </Place>
+      )}
     </>
   );
 }
 
-function Flower({ x, y, h, color }: { x: number; y: number; h: number; color: string }) {
-  const petals = [0, 72, 144, 216, 288].map((a) => [Math.cos((a * Math.PI) / 180) * 12, Math.sin((a * Math.PI) / 180) * 12]);
-  return (
-    <g>
-      <path d={`M${x} ${y + h} Q${x - 6} ${y + h / 2} ${x} ${y}`} stroke="#2E9A5B" strokeWidth={4} fill="none" />
-      {petals.map(([dx, dy], i) => (
-        <circle key={i} cx={x + dx} cy={y + dy} r={10} fill={color} />
-      ))}
-      <circle cx={x} cy={y} r={8} fill="#FFC83D" />
-    </g>
-  );
-}
+/* ---------- Lali Shares the Honey ---------- */
 
-function Heart({ x, y, s = 1, delay = 0, show }: { x: number; y: number; s?: number; delay?: number; show: boolean }) {
+function HoneyPot({ x, y }: { x: number; y: number }) {
   return (
-    <path
-      d="M0 8 C-10 0 -8 -10 -2 -10 C0 -10 0 -8 0 -6 C0 -8 0 -10 2 -10 C8 -10 10 0 0 8Z"
-      fill="#E2463F"
-      style={{
-        transform: `translate(${x}px, ${show ? y : y + 30}px) scale(${show ? s : 0})`,
-        transition: `transform .7s cubic-bezier(.3,1.8,.5,1) ${delay}s`,
-      }}
-    />
+    <g transform={`translate(${x} ${y})`}>
+      <ellipse cx={0} cy={2} rx={30} ry={5} fill="#000" opacity={0.12} />
+      <path d="M-26 -30 Q-34 -2 -18 0 L18 0 Q34 -2 26 -30Z" fill="#C9772A" />
+      <rect x={-22} y={-40} width={44} height={11} rx={5} fill="#A65A1A" />
+      <path d="M-20 -30 Q-18 -18 -14 -22 Q-10 -10 -6 -24 Q0 -14 4 -26 Q8 -16 12 -24 Q16 -12 20 -30Z" fill="#FFC83D" />
+      <path d="M-14 -16 Q-18 -8 -14 -6" stroke="#fff" strokeOpacity={0.5} strokeWidth={3} fill="none" strokeLinecap="round" />
+      <text x={0} y={-6} fontSize={9} fontFamily="var(--font-grandstander)" fontWeight={900} fill="#FFE9B0" textAnchor="middle">
+        ማር
+      </text>
+    </g>
   );
 }
 
 function ShareScene({ page }: { page: number }) {
-  const id = useId();
-  const bee = [[96, 108], [210, 96], [176, 146], [214, 104]][page] ?? [214, 104];
+  const id = useId().replace(/:/g, "");
   return (
     <>
-      <defs>
-        <linearGradient id={`${id}m`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#BDE8FF" />
-          <stop offset="1" stopColor="#F2FBFF" />
-        </linearGradient>
-      </defs>
-      <rect width={400} height={300} fill={`url(#${id}m)`} />
-      <path d="M0 210 Q100 180 220 205 T400 195 L400 300 L0 300Z" fill="#7FD08E" />
-      <path d="M0 250 Q200 232 400 252 L400 300 L0 300Z" fill="#4DBA74" />
-      <Flower x={90} y={168} h={80} color="#FF8FB1" />
-      <Flower x={36} y={210} h={44} color="#B98CFF" />
-      <Flower x={150} y={214} h={36} color="#FF7A63" />
-      <Flower x={370} y={206} h={46} color="#FF8FB1" />
-      <g style={{ opacity: page >= 2 ? 1 : 0, transform: page >= 2 ? "none" : "translateY(20px)", transition: MOVE }}>
-        <ellipse cx={196} cy={238} rx={28} ry={24} fill="#D9902A" />
-        <rect x={174} y={208} width={44} height={10} rx={5} fill="#B36F17" />
-        <path d="M184 218 Q186 232 190 226 Q194 238 198 222" fill="#FFC83D" />
-      </g>
-      <At x={250} y={168} s={0.38} hidden={page === 0}>
-        <CubShape sad={page === 1} />
-      </At>
-      <Heart x={196} y={70} s={1.4} show={page === 3} />
-      <Heart x={330} y={84} s={1.1} delay={0.15} show={page === 3} />
-      <Heart x={150} y={100} s={0.9} delay={0.3} show={page === 3} />
-      <At x={bee[0]} y={bee[1]} s={1.5}>
-        <g className="animate-bob">
-          <BeeShape />
+      <DayBackdrop id={id} birds={page !== 1} />
+      <Acacia x={350} y={204} s={0.6} />
+      <Grass y={266} n={16} seed={31} />
+      <Flower x={92} y={164} h={86} color="#FF8FB1" s={1.25} />
+      <Flower x={40} y={214} h={46} color="#B98CFF" delay={-1.2} />
+      <Flower x={150} y={222} h={36} color="#FF7A63" delay={-0.6} />
+      <Flower x={372} y={214} h={46} color="#FF8FB1" delay={-2} />
+      <Daisy x={200} y={276} h={22} delay={-1} />
+      <Daisy x={320} y={280} h={20} delay={-2.2} />
+      {page === 0 && (
+        <>
+          {/* sparkles of nectar in the big flower */}
+          {[
+            [78, 146],
+            [106, 140],
+            [92, 128],
+          ].map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r={2.6} fill="#FFF6B0" className="lali-twinkle" style={vars({ "--delay": `${-i * 0.6}s`, "--dur": "1.4s" })} />
+          ))}
+          <g className="lali-move-in" style={vars({ "--fx": "180px", "--fy": "-60px", "--dur": "2.4s", "--delay": "0.4s" })}>
+            <BeeHover x={126} y={128} s={1.5} flip />
+          </g>
+        </>
+      )}
+      {page >= 1 && (
+        <Place x={250} y={264} s={0.4} className={page === 1 ? "lali-rumble" : page === 3 ? "lali-hop" : undefined}>
+          <CubShape pose="sit" mood={page === 1 ? "sad" : page === 2 ? "wow" : "joy"} />
+        </Place>
+      )}
+      {page === 1 && (
+        <>
+          <g stroke="#E8513B" strokeWidth={2.6} strokeLinecap="round" fill="none" className="lali-shh">
+            <path d="M200 236 q-6 -4 0 -8 q6 -4 0 -8" />
+            <path d="M300 236 q6 -4 0 -8 q6 -4 0 -8" />
+          </g>
+          <BeeHover x={150} y={120} s={1.5} />
+        </>
+      )}
+      {page >= 2 && (
+        <g className={page === 2 ? "lali-rise-in" : undefined} style={vars({ "--fy": "50px", "--delay": "0.9s" })}>
+          <HoneyPot x={182} y={272} />
         </g>
-      </At>
+      )}
+      {page === 2 && <BeeHover x={190} y={150} s={1.5} />}
+      {page === 3 && (
+        <>
+          <Heart x={208} y={170} s={1.4} delay={0} />
+          <Heart x={300} y={150} s={1.1} delay={-1.1} />
+          <Heart x={160} y={190} s={0.9} delay={-2.2} />
+          <BeeFlight path="M150 150 C150 90 250 70 300 110 C330 135 300 165 280 145 C260 125 290 100 320 120 C360 150 260 200 200 180 C170 170 150 165 150 150Z" dur={8} s={1.3} rest={[300, 110]} />
+        </>
+      )}
     </>
   );
 }
@@ -219,6 +283,7 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "moon" && <MoonScene page={page} />}
       {kind === "count" && <CountScene page={page} />}
       {kind === "share" && <ShareScene page={page} />}
+      {kind === "newyear" && <FlowerScene page={page} />}
     </svg>
   );
 }
