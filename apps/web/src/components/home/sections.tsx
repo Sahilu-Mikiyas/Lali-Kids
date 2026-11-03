@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useT } from "@/i18n/provider";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
@@ -87,11 +88,8 @@ export function Marquee() {
 
 const WORLDS = [
   {
-    name: "Story Garden",
     color: "var(--color-coral)",
     tint: "#FDE7E3",
-    text: "A growing library of picture books that builds the habit of reading every day.",
-    tags: "Folktales · bedtime · adventure",
     icon: (
       <>
         <path d="M12 62c12-6 24-6 36 2v18c-12-8-24-8-36-2z" fill="#E8513B" />
@@ -104,11 +102,8 @@ const WORLDS = [
     ),
   },
   {
-    name: "Word Market",
     color: "var(--color-blue)",
     tint: "#E3EAFB",
-    text: "English sounds, letters and first words, learned while shopping with Lulu at the market.",
-    tags: "Phonics · sight words · speaking",
     icon: (
       <>
         <rect x={8} y={48} width={26} height={26} rx={6} fill="#E8513B" />
@@ -125,11 +120,8 @@ const WORLDS = [
     ),
   },
   {
-    name: "Number Mountains",
     color: "var(--color-teal)",
     tint: "#DDF2EF",
-    text: "Counting, adding and shapes with Gugu the gelada as he climbs the Simien peaks.",
-    tags: "Counting · early maths · patterns",
     icon: (
       <>
         <path d="M4 84 L34 30 L50 54 L64 36 L92 84Z" fill="#0E8C80" />
@@ -144,11 +136,8 @@ const WORLDS = [
     ),
   },
   {
-    name: "Kindness Village",
     color: "var(--color-berry)",
     tint: "#FADDE7",
-    text: "Stories about sharing, honesty and respect for elders, the values families want to pass on.",
-    tags: "Feelings · manners · friendship",
     icon: (
       <>
         <path d="M8 50 L28 32 L48 50 V80 H8Z" fill="#F5B21E" />
@@ -162,15 +151,16 @@ const WORLDS = [
 ];
 
 export function Worlds() {
+  const t = useT();
   return (
     <section id="worlds" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
       <SectionHead
-        eyebrow="Four worlds to explore"
-        title="Learning hides inside every story"
-        sub="Kids follow the characters they love. The letters, numbers and values come along for the ride."
+        eyebrow={t.worlds.eyebrow}
+        title={t.worlds.title}
+        sub={t.worlds.sub}
       />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {WORLDS.map((w, i) => (
+        {WORLDS.map((w, i) => ({ ...w, ...t.worlds.list[i] })).map((w, i) => (
           <motion.div
             key={w.name}
             initial={{ opacity: 0, y: 50 }}
@@ -205,18 +195,20 @@ export function Worlds() {
 /* ---------- feed vs book ---------- */
 
 export function FeedVsBook() {
+  const t = useT();
   const thumbs = Array.from({ length: 8 }, (_, i) => i);
   return (
     <section id="parents" className="scroll-mt-24 bg-white py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHead
-          eyebrow="For parents"
+          eyebrow={t.parents.eyebrow}
           title={
             <>
-              Screen time that <span className="text-teal">ends</span>
+              {t.parents.titleA}
+              <span className="text-teal">{t.parents.titleB}</span>
             </>
           }
-          sub="Video apps are built to keep children watching. Lali is built to finish: a story, a star, and goodnight."
+          sub={t.parents.sub}
         />
         <div className="grid gap-8 md:grid-cols-2">
           <motion.div
@@ -225,7 +217,7 @@ export function FeedVsBook() {
             viewport={{ once: true, margin: "-80px" }}
             className="relative overflow-hidden rounded-[32px] bg-[#EEF0F5] p-6"
           >
-            <p className="font-display text-2xl font-black text-muted">The endless feed</p>
+            <p className="font-display text-2xl font-black text-muted">{t.parents.feed}</p>
             <div className="relative mt-5 h-72 overflow-hidden rounded-2xl" aria-hidden>
               <div className="animate-[scroll-up_9s_linear_infinite] space-y-3">
                 {[...thumbs, ...thumbs].map((i) => (
@@ -239,12 +231,12 @@ export function FeedVsBook() {
                 ))}
               </div>
               <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#EEF0F5]" />
-              <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-sm font-bold text-white">Next video in 3…</span>
+              <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-sm font-bold text-white">{t.parents.nextVideo}</span>
             </div>
             <ul className="mt-5 space-y-2 text-muted">
-              <li>Autoplay that never stops</li>
-              <li>Ads and strangers&rsquo; videos</li>
-              <li>No idea what your child learned</li>
+              {t.parents.feedBad.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
             </ul>
           </motion.div>
 
@@ -254,7 +246,7 @@ export function FeedVsBook() {
             viewport={{ once: true, margin: "-80px" }}
             className="relative overflow-hidden rounded-[32px] bg-night p-6 text-white"
           >
-            <p className="font-display text-2xl font-black text-gold">A Lali story</p>
+            <p className="font-display text-2xl font-black text-gold">{t.parents.lali}</p>
             <div className="relative mt-5 grid h-72 place-items-center overflow-hidden rounded-2xl" style={{ background: STORIES[0].color }}>
               <Scene kind="moon" page={3} />
               <motion.span
@@ -262,26 +254,21 @@ export function FeedVsBook() {
                 animate={{ scale: [1, 1.08, 1] }}
                 transition={{ duration: 2.4, repeat: Infinity }}
               >
-                Goodnight! See you tomorrow
+                {t.parents.goodnight}
               </motion.span>
             </div>
             <ul className="mt-5 space-y-2 text-white/85">
-              <li>A bedtime limit you set: after the last story, Lali says goodnight</li>
-              <li>No ads, ever, and no links out of the kids&rsquo; area</li>
-              <li>A weekly note on what your child read and learned</li>
+              {t.parents.laliGood.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
             </ul>
           </motion.div>
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["English and Amharic", "Every story in both. Switch with one tap.", "bg-blue"],
-            ["Read-to-me", "Words light up as they're read, so kids learn to follow along.", "bg-coral"],
-            ["Works offline", "Download stories on Wi-Fi and read without using data.", "bg-teal"],
-            ["Pay your way", "Telebirr, CBE Birr or card. Cancel any time.", "bg-berry"],
-          ].map(([t, d, c], i) => (
+          {t.parents.features.map(([ft, d], i) => [ft, d, ["bg-blue", "bg-coral", "bg-teal", "bg-berry"][i]]).map(([ft, d, c], i) => (
             <motion.div
-              key={t}
+              key={ft}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -289,7 +276,7 @@ export function FeedVsBook() {
               className="rounded-3xl bg-bg p-5"
             >
               <span className={`mb-3 block h-3 w-10 rounded-full ${c}`} />
-              <p className="font-display text-xl font-black">{t}</p>
+              <p className="font-display text-xl font-black">{ft}</p>
               <p className="mt-1 text-muted">{d}</p>
             </motion.div>
           ))}
@@ -332,6 +319,7 @@ function tone(freq: number) {
 }
 
 export function StarGame() {
+  const t = useT();
   const [lit, setLit] = useState<number[]>([]);
   const count = lit.length;
   const done = count === 10;
@@ -340,7 +328,7 @@ export function StarGame() {
     <section className="mx-auto max-w-6xl px-4 py-28 sm:px-6">
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <SectionHead eyebrow="Try it now" title="Count the stars with Gugu" sub="Tap every star. Gugu counts with you in English, Amharic and Ge'ez numerals." />
+          <SectionHead eyebrow={t.starGame.eyebrow} title={t.starGame.title} sub={t.starGame.sub} />
           <div className="-mt-4 flex items-baseline gap-5" aria-live="polite">
             <motion.span key={count} initial={{ scale: 1.5 }} animate={{ scale: 1 }} className="font-display text-8xl font-black tabular-nums text-coral">
               {count}
@@ -350,18 +338,18 @@ export function StarGame() {
           <p className="mt-2 min-h-8 text-2xl font-bold">
             {done ? (
               <>
-                You counted ten stars! <span className="font-ethiopic text-muted">አሥር ኮከቦች!</span>
+                {t.starGame.done} <span className="font-ethiopic text-muted">አሥር ኮከቦች!</span>
               </>
             ) : count ? (
               <>
                 {EN[count - 1][0].toUpperCase() + EN[count - 1].slice(1)}! <span className="font-ethiopic text-muted">{AM[count - 1]}</span>
               </>
             ) : (
-              "Tap a star to start counting."
+              t.starGame.start
             )}
           </p>
           <button type="button" className="btn btn-plain mt-6 !text-base" onClick={() => setLit([])}>
-            Count again
+            {t.starGame.again}
           </button>
         </div>
         <div className="relative aspect-[16/10] overflow-hidden rounded-[32px] bg-[radial-gradient(120%_90%_at_70%_10%,#3B3F94,#141B45_70%)] shadow-[0_10px_0_rgba(27,42,78,.15)]">
@@ -378,7 +366,7 @@ export function StarGame() {
               <motion.button
                 key={i}
                 type="button"
-                aria-label={on ? `Star number ${n + 1}` : "Star"}
+                aria-label={on ? t.starGame.starN(n + 1) : t.starGame.star}
                 onClick={() => {
                   if (on) return;
                   const next = [...lit, i];
@@ -403,7 +391,7 @@ export function StarGame() {
             );
           })}
           <span className="absolute bottom-3 left-4 rounded-full bg-black/30 px-3 py-1 text-sm font-bold text-white">
-            {done ? "Gugu is so proud of you" : "10 stars are hiding up here"}
+            {done ? t.starGame.proud : t.starGame.hiding}
           </span>
         </div>
       </div>
@@ -414,25 +402,26 @@ export function StarGame() {
 /* ---------- parent report ---------- */
 
 const WEEK = [1, 0, 2, 1, 0, 1, 1];
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export function ParentReport() {
+  const t = useT();
+  const DAYS = t.report.days;
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { once: true, margin: "-80px" });
   return (
     <section className="bg-white py-28">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
         <SectionHead
-          eyebrow="Every Sunday"
-          title="See what your child learned"
-          sub="A short weekly note: stories finished, new words in both languages, and a question to ask at dinner."
+          eyebrow={t.report.eyebrow}
+          title={t.report.title}
+          sub={t.report.sub}
         />
         <div ref={ref} className="space-y-5 rounded-[32px] border-2 border-dashed border-line bg-bg p-7">
           <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted">
-            <span>Sample weekly note</span>
-            <span>Oct 20–26</span>
+            <span>{t.report.sample}</span>
+            <span>{t.report.dates}</span>
           </div>
-          <p className="font-display text-3xl font-black">Liya read 6 stories this week</p>
+          <p className="font-display text-3xl font-black">{t.report.headline}</p>
           <div className="grid grid-cols-[auto_1fr] gap-2" role="img" aria-label="Stories per day: Mon 1, Tue 0, Wed 2, Thu 1, Fri 0, Sat 1, Sun 1">
             <div className="flex h-32 flex-col justify-between text-right text-xs tabular-nums text-muted">
               <span>2</span>
@@ -463,7 +452,7 @@ export function ParentReport() {
               </span>
             ))}
           </div>
-          <p className="text-muted">Ask Liya: why did the moon hide behind the cloud?</p>
+          <p className="text-muted">{t.report.ask}</p>
         </div>
       </div>
     </section>
@@ -473,6 +462,7 @@ export function ParentReport() {
 /* ---------- videos and channels ---------- */
 
 function Video({ id, title }: { id: string; title: string }) {
+  const t = useT();
   const [play, setPlay] = useState(false);
   return (
     <div className="overflow-hidden rounded-3xl bg-white shadow-[0_6px_0_var(--color-line)]">
@@ -486,7 +476,7 @@ function Video({ id, title }: { id: string; title: string }) {
             className="absolute inset-0 h-full w-full"
           />
         ) : (
-          <button type="button" onClick={() => setPlay(true)} aria-label={`Play ${title}`} className="group absolute inset-0">
+          <button type="button" onClick={() => setPlay(true)} aria-label={t.watch.play(title)} className="group absolute inset-0">
             {/* eslint-disable-next-line @next/next/no-img-element -- YouTube thumbnails are external and change per video */}
             <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" className="h-full w-full object-cover" />
             <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-coral transition group-hover:scale-110">
@@ -503,11 +493,12 @@ function Video({ id, title }: { id: string; title: string }) {
 }
 
 export function Watch() {
+  const t = useT();
   const networks = Object.keys(SOCIAL) as SocialNetwork[];
   const anyLive = networks.some((n) => SOCIAL[n]);
   return (
     <section id="watch" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
-      <SectionHead eyebrow="Watch and follow" title="Lali on YouTube and TikTok" sub="Short animated stories and songs with Anbessa, Gugu and Lali the bee. New episodes every week." />
+      <SectionHead eyebrow={t.watch.eyebrow} title={t.watch.title} sub={t.watch.sub} />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURED_VIDEOS.length
           ? FEATURED_VIDEOS.slice(0, 6).map((v) => <Video key={v.id} id={v.id} title={v.title} />)
@@ -522,7 +513,7 @@ export function Watch() {
               >
                 <div className="relative aspect-video" style={{ background: s.color }}>
                   <Scene kind={s.scene ?? "moon"} page={i % s.pages.length} />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-sm font-bold text-white">Coming to YouTube</span>
+                  <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-sm font-bold text-white">{t.watch.coming}</span>
                 </div>
                 <p className="p-4 font-bold">{s.title.en}</p>
               </motion.div>
@@ -530,8 +521,8 @@ export function Watch() {
       </div>
       <div className="mt-10 flex flex-wrap items-center gap-6 rounded-[32px] bg-white p-7">
         <div className="min-w-60 flex-1">
-          <p className="font-display text-2xl font-black">Follow Lali</p>
-          <p className="text-muted">{anyLive ? "New stories, songs and colouring pages every week." : "Our channels are launching soon."}</p>
+          <p className="font-display text-2xl font-black">{t.watch.follow}</p>
+          <p className="text-muted">{anyLive ? t.watch.live : t.watch.soon}</p>
         </div>
         <div className="flex flex-wrap gap-3">
           {networks.map((n) => {
@@ -543,11 +534,11 @@ export function Watch() {
               </span>
             );
             return url ? (
-              <a key={n} href={url} target="_blank" rel="noopener" aria-label={`Lali on ${SOCIAL_LABEL[n]}`}>
+              <a key={n} href={url} target="_blank" rel="noopener" aria-label={t.watch.on(SOCIAL_LABEL[n])}>
                 {chip}
               </a>
             ) : (
-              <span key={n} aria-label={`${SOCIAL_LABEL[n]}, coming soon`}>
+              <span key={n} aria-label={t.watch.soonOn(SOCIAL_LABEL[n])}>
                 {chip}
               </span>
             );
@@ -561,35 +552,20 @@ export function Watch() {
 /* ---------- plans ---------- */
 
 const PLANS = [
-  {
-    name: "Reader",
-    price: "400",
-    for: "For building a daily reading habit",
-    items: ["The whole Story Garden library", "New stories every week", "Read-to-me in English and Amharic", "Offline reading in the app"],
-  },
-  {
-    name: "Learner",
-    price: "1,200",
-    for: "For reading plus real skills",
-    items: ["Everything in Reader", "Two worlds: English, Maths or Values", "Weekly progress note", "Up to 2 child profiles"],
-    featured: true,
-  },
-  {
-    name: "VIP",
-    price: "5,000",
-    for: "For families who want everything",
-    items: ["Every world and every story", "A printed storybook each month", "Monthly live reading circle", "Up to 4 child profiles"],
-  },
-];
+  { id: "reader", price: "400" },
+  { id: "learner", price: "1,200", featured: true },
+  { id: "vip", price: "5,000" },
+] as const;
 
 export function Plans() {
+  const t = useT();
   return (
     <section id="plans" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
-      <SectionHead center eyebrow="Plans" title="Simple monthly plans" sub="Prices are per family, per month. Pay with Telebirr, CBE Birr or card." />
+      <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
       <div className="grid items-stretch gap-6 md:grid-cols-3">
-        {PLANS.map((p, i) => (
+        {PLANS.map((p) => ({ ...p, featured: "featured" in p && p.featured, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
           <motion.div
-            key={p.name}
+            key={p.id}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -599,13 +575,13 @@ export function Plans() {
               p.featured ? "bg-ink text-white shadow-[0_8px_0_#0d1530]" : "bg-white"
             }`}
           >
-            {p.featured && <span className="absolute -top-4 left-7 rounded-full bg-gold px-4 py-1 font-display font-black text-[#2A1A00]">Most families pick this</span>}
+            {p.featured && <span className="absolute -top-4 left-7 rounded-full bg-gold px-4 py-1 font-display font-black text-[#2A1A00]">{t.plans.popular}</span>}
             <p className="font-display text-3xl font-black">{p.name}</p>
             <p className={p.featured ? "text-white/75" : "text-muted"}>{p.for}</p>
             <p className="font-display text-5xl font-black tabular-nums">
               {p.price}
               <span className="ml-1 font-ethiopic text-2xl font-normal">ብር</span>
-              <span className={`ml-2 font-body text-base font-normal ${p.featured ? "text-white/70" : "text-muted"}`}>/ month</span>
+              <span className={`ml-2 font-body text-base font-normal ${p.featured ? "text-white/70" : "text-muted"}`}>{t.plans.perMonth}</span>
             </p>
             <ul className="flex-1 space-y-2.5">
               {p.items.map((it) => (
@@ -617,8 +593,8 @@ export function Plans() {
                 </li>
               ))}
             </ul>
-            <Link href={`/subscribe?plan=${p.name.toLowerCase()}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
-              Choose {p.name}
+            <Link href={`/subscribe?plan=${p.id}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
+              {t.plans.choose(p.name)}
             </Link>
           </motion.div>
         ))}
@@ -630,6 +606,7 @@ export function Plans() {
 /* ---------- apps + final call ---------- */
 
 function StoreBadge({ store }: { store: "googlePlay" | "appStore" }) {
+  const t = useT();
   const url = APP_STORES[store];
   const body = (
     <span className={`flex items-center gap-3 rounded-2xl bg-black px-5 py-2.5 text-white transition ${url ? "hover:-translate-y-1" : "opacity-60"}`}>
@@ -649,7 +626,7 @@ function StoreBadge({ store }: { store: "googlePlay" | "appStore" }) {
         )}
       </svg>
       <span className="leading-tight">
-        <span className="block text-[11px]">{url ? (store === "googlePlay" ? "GET IT ON" : "Download on the") : "Coming soon to"}</span>
+        <span className="block text-[11px]">{url ? (store === "googlePlay" ? t.cta.getIt : t.cta.download) : t.cta.soon}</span>
         <span className="block text-lg font-bold">{store === "googlePlay" ? "Google Play" : "App Store"}</span>
       </span>
     </span>
@@ -664,6 +641,7 @@ function StoreBadge({ store }: { store: "googlePlay" | "appStore" }) {
 }
 
 export function GetTheApp() {
+  const t = useT();
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-6">
       <motion.div
@@ -673,11 +651,11 @@ export function GetTheApp() {
         className="relative overflow-hidden rounded-[40px] bg-[linear-gradient(135deg,#E8513B,#D63B72)] p-8 text-white sm:p-14"
       >
         <div className="relative z-10 max-w-xl space-y-5">
-          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] font-black leading-[1.02]">Tonight&rsquo;s story is waiting</h2>
-          <p className="text-xl text-white/90">Read free in your browser now. The Lali app for Android and iPhone adds offline reading for days without data.</p>
+          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] font-black leading-[1.02]">{t.cta.title}</h2>
+          <p className="text-xl text-white/90">{t.cta.sub}</p>
           <div className="flex flex-wrap gap-3">
             <Link href="/stories" className="btn bg-white text-coral shadow-[0_6px_0_rgba(0,0,0,.2)]">
-              Open the library
+              {t.cta.open}
             </Link>
           </div>
           <div className="flex flex-wrap gap-3 pt-2">

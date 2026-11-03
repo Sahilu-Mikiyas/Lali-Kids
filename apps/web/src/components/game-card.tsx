@@ -1,11 +1,13 @@
 import Link from "next/link";
 
 import { agesLabel } from "@/content/stories";
+import { getT } from "@/i18n/server";
 import type { Game } from "@/lib/games";
 import { Bee } from "./characters";
 
 /** A game on the shelf. Locked games lead to the plans page. */
-export function GameCard({ game }: { game: Game }) {
+export async function GameCard({ game }: { game: Game }) {
+  const t = await getT();
   return (
     <Link
       href={game.locked ? "/subscribe?plan=reader" : `/games/${game.slug}`}
@@ -20,15 +22,15 @@ export function GameCard({ game }: { game: Game }) {
             <Bee size={84} />
           </div>
         )}
-        {game.locked && <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold shadow">🔒 With a plan</span>}
+        {game.locked && <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold shadow">{t.games.withPlan}</span>}
       </div>
       <div className="space-y-1 p-5">
         <h3 className="font-display text-xl font-extrabold">{game.title}</h3>
         {game.titleAm && <p className="font-ethiopic text-sm text-muted">{game.titleAm}</p>}
         {game.description && <p className="text-sm text-muted">{game.description}</p>}
         <p className="pt-1 text-sm font-bold text-muted">
-          Ages {agesLabel(game.ageBands)}
-          {game.isFree && <span className="ml-2 rounded-full bg-teal px-2 py-0.5 text-xs text-white">Free</span>}
+          {t.shelf.ages(agesLabel(game.ageBands))}
+          {game.isFree && <span className="ml-2 rounded-full bg-teal px-2 py-0.5 text-xs text-white">{t.games.free}</span>}
         </p>
       </div>
     </Link>

@@ -14,21 +14,23 @@ import {
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
+import { useLang, useT } from "@/i18n/provider";
+
 import { BeeShape, CubShape, GuguShape } from "../characters";
 
 const GLYPHS = ["A", "ሀ", "3", "b", "ለ", "★", "7", "መ", "c", "ሰ", "?", "1"];
 const GLYPH_COLORS = ["#E8513B", "#0E8C80", "#F5B21E", "#D63B72", "#2F5BD3"];
-const BEE_LINES = ["Selam! I'm Lali.", "ሰላም! እኔ ላሊ ነኝ።", "Tap the book!", "Want a story?", "Bzzz!"];
 
 type Glyph = { id: number; char: string; dx: number; rot: number; color: string };
 
 function FlippingBook({ onTap }: { onTap: () => void }) {
+  const t = useT();
   const lines = "bg-[repeating-linear-gradient(180deg,transparent_0_20px,var(--color-paper-line)_20px_22px)] bg-[position:0_40px]";
   return (
     <button
       type="button"
       onClick={onTap}
-      aria-label="Tap the book to make letters fly"
+      aria-label={t.hero.tapBook}
       className="relative z-20 h-[200px] w-[320px] -rotate-3 cursor-pointer [perspective:1400px] sm:h-[220px] sm:w-[350px]"
     >
       <span className="absolute -inset-x-4 -bottom-4 -top-3 rounded-2xl bg-coral shadow-[0_10px_0_var(--color-coral-deep),0_30px_40px_rgba(0,0,0,.2)]" />
@@ -61,6 +63,10 @@ function FlippingBook({ onTap }: { onTap: () => void }) {
 }
 
 export function Hero() {
+  const t = useT();
+  const am = useLang() === "am";
+  const BEE_LINES = t.hero.beeLines;
+  const firstLine = BEE_LINES[0];
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -116,14 +122,14 @@ export function Hero() {
     const t = setInterval(() => {
       if (!document.hidden) spawn();
     }, 800);
-    const hello = setTimeout(() => setLine(BEE_LINES[0]), 1200);
+    const hello = setTimeout(() => setLine(firstLine), 1200);
     const bye = setTimeout(() => setLine(null), 4200);
     return () => {
       clearInterval(t);
       clearTimeout(hello);
       clearTimeout(bye);
     };
-  }, [reduce]);
+  }, [reduce, firstLine]);
 
   const sayHello = () => {
     lineIdx.current = (lineIdx.current + 1) % BEE_LINES.length;
@@ -193,16 +199,11 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 className="hidden items-center gap-2 rounded-full bg-white/90 py-1.5 pl-2 pr-4 sm:inline-flex text-sm font-bold text-ink shadow-[0_3px_0_var(--color-line)]"
               >
-                <span className="rounded-full bg-gold px-2.5 py-0.5 font-display text-[#2A1A00]">New</span>
-                English and Amharic read-along stories
+                <span className="rounded-full bg-gold px-2.5 py-0.5 font-display text-[#2A1A00]">{t.hero.newTag}</span>
+                {t.hero.newText}
               </motion.p>
-              <h1 className="font-display text-[clamp(3.2rem,7.6vw,6.2rem)] font-black leading-[0.95] tracking-tight">
-                {[
-                  ["One", "text-coral"],
-                  ["more", "text-teal"],
-                  ["page,", "text-blue"],
-                  ["please!", "text-berry"],
-                ].map(([word, color], wi) => (
+              <h1 className={`font-display font-black tracking-tight ${am ? "text-[clamp(2.6rem,6vw,4.6rem)] leading-[1.3]" : "text-[clamp(3.2rem,7.6vw,6.2rem)] leading-[0.95]"}`}>
+                {t.hero.headline.map((word, wi) => [word, ["text-coral", "text-teal", "text-blue", "text-berry"][wi]]).map(([word, color], wi) => (
                   <span key={word} className={`mr-[0.25em] inline-block whitespace-nowrap ${color}`}>
                     {[...word].map((ch, ci) => (
                       <motion.span
@@ -220,22 +221,21 @@ export function Hero() {
                 ))}
               </h1>
               <p className="max-w-md text-xl leading-relaxed">
-                Beautiful stories that turn screen time into reading time, made in Ethiopia for curious kids aged 3 to 9.{" "}
-                <span className="font-ethiopic opacity-75">ለልጆች የተሰሩ ተረቶች።</span>
+                {t.hero.sub} <span className="opacity-75">{t.hero.subAlt}</span>
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link href="/stories/lost-moon" className="btn btn-primary">
-                  Read a story free
+                  {t.hero.readFree}
                 </Link>
                 <Link href="#parents" className="btn btn-plain">
-                  For parents
+                  {t.hero.forParents}
                 </Link>
               </div>
             </motion.div>
             <motion.div style={{ opacity: nightCopy }} className="pointer-events-none absolute inset-0 flex flex-col justify-center gap-5" aria-hidden>
-              <p className="font-display text-[clamp(3rem,7vw,5.6rem)] font-black leading-[0.95]">…and then, goodnight.</p>
+              <p className={`font-display font-black ${am ? "text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.3]" : "text-[clamp(3rem,7vw,5.6rem)] leading-[0.95]"}`}>{t.hero.night}</p>
               <p className="max-w-md text-xl leading-relaxed text-white/85">
-                Every Lali story has an ending. No autoplay, no endless feed. Just a story, a star, and sleep.
+                {t.hero.nightSub}
               </p>
             </motion.div>
           </motion.div>
@@ -276,7 +276,7 @@ export function Hero() {
             </div>
             {/* Lali the bee */}
             <motion.div style={{ x: bx, y: by }} className="absolute left-[58%] top-2 z-40 sm:left-[72%]">
-              <button type="button" onClick={sayHello} aria-label="Say hello to Lali the bee" className="block cursor-pointer">
+              <button type="button" onClick={sayHello} aria-label={t.hero.sayHello} className="block cursor-pointer">
                 <motion.svg viewBox="0 0 40 40" className="h-14 w-14 animate-bob drop-shadow-lg" style={{ scaleX: face }}>
                   <BeeShape />
                 </motion.svg>
@@ -310,7 +310,7 @@ export function Hero() {
         </svg>
 
         <motion.p style={{ opacity: dayCopy, color: ink }} className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 text-sm font-bold sm:block" aria-hidden>
-          Scroll for bedtime ↓
+          {t.hero.scroll}
         </motion.p>
       </motion.div>
     </section>

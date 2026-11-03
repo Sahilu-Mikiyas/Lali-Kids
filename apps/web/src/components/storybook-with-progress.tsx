@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 
-import { recordStoryFinished } from "@/app/account/actions";
+import { recordStoryFinished } from "@/app/[lang]/account/actions";
 import type { Story } from "@/content/stories";
 import { StoryBook } from "./storybook";
 

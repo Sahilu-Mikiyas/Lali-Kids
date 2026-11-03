@@ -27,7 +27,7 @@
   --color-grass: #4dba74;
   --color-grass-soft: #86d696;
 
-  --font-display: var(--font-grandstander), "Andika", system-ui, sans-serif;
+  --font-display: var(--font-grandstander), var(--font-noto-ethiopic), "Andika", system-ui, sans-serif;
   --font-body: var(--font-andika), var(--font-noto-ethiopic), system-ui, sans-serif;
   --font-ethiopic: var(--font-noto-ethiopic), "Nyala", serif;
 
@@ -150,4 +150,9 @@ h3 {
 }
 @keyframes scroll-up {
   to { transform: translateY(-50%); }
+}
+
+/* Amharic letters are taller than Latin ones: give big headings room so lines don't overlap. */
+.lang-am :is(h1, h2, h3, p).font-display {
+  line-height: 1.3;
 }

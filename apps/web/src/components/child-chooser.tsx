@@ -3,26 +3,28 @@
 import Link from "next/link";
 import { useTransition } from "react";
 
-import { chooseChild } from "@/app/account/actions";
-import { Avatar } from "@/app/account/controls";
+import { chooseChild } from "@/app/[lang]/account/actions";
+import { Avatar } from "@/app/[lang]/account/controls";
+import { useT } from "@/i18n/provider";
 import type { Child } from "@/lib/family";
 
 /** "Who's reading?" bar for signed-in families. */
 export function ChildChooser({ childList, currentId, stars }: { childList: Child[]; currentId: string | null; stars: number }) {
   const [pending, start] = useTransition();
+  const t = useT();
   if (childList.length === 0) {
     return (
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-[0_4px_0_var(--color-line)]">
-        <p className="font-bold">Add your child so Lali can keep their stars.</p>
+        <p className="font-bold">{t.chooser.add}</p>
         <Link href="/account" className="btn btn-primary !px-4 !py-2 !text-base">
-          Grown-ups&rsquo; corner
+          {t.chooser.corner}
         </Link>
       </div>
     );
   }
   return (
     <div className="mt-8 flex flex-wrap items-center gap-3 rounded-2xl bg-white p-3 shadow-[0_4px_0_var(--color-line)]">
-      <span className="pl-2 font-bold text-muted">Who&rsquo;s reading?</span>
+      <span className="pl-2 font-bold text-muted">{t.chooser.who}</span>
       {childList.map((c) => (
         <button
           key={c.id}

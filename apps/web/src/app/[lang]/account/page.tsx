@@ -1,0 +1,220 @@
+import type { Metadata } from "next";
+import { connection } from "next/server";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+
+import { SiteFooter, SiteNav } from "@/components/site-chrome";
+import { loadFamily } from "@/lib/family";
+import { fmtDate } from "@/i18n/format";
+import { LangSwitch } from "@/i18n/lang-switch";
+import { getLang, getT } from "@/i18n/server";
+import { formatBirr } from "@/lib/payments/plans";
+import { familyPlan } from "@/lib/payments/subscription";
+import { telegramConfigured } from "@/lib/telegram";
+import { createSupabaseServer } from "@/lib/supabase/server";
+import { GrownUpsGate } from "./gate";
+import { AddChildForm, AllAgesToggle, ChildCard, GamesPicker, LimitPicker, TelegramConnect } from "./controls";
+import { allowMoreTonight } from "./actions";
+
+export const metadata: Metadata = { title: "Grown-ups' corner" };
+
+function weekAgoIso() {
+  return new Date(Date.now() - 7 * 86400_000).toISOString();
+}
+
+async function AccountContent() {
+  await connection();
+  const family = await loadFamily();
+  if (!family) redirect("/login?next=/account");
+  const [t, lang] = await Promise.all([getT(), getLang()]);
+  const planName = (id: string) => t.plans.names[id as keyof typeof t.plans.names] ?? id;
+
+  const supabase = await createSupabaseServer();
+  const weekAgo = weekAgoIso();
+  const ids = family.children.map((c) => c.id);
+  const [plan, { data: recent }, { data: payments }, { data: tg }] = await Promise.all([
+    familyPlan(family.profile.id),
+    ids.length ? supabase.from("completions").select("child_id, item_id, completed_at").in("child_id", ids).gte("completed_at", weekAgo) : Promise.resolve({ data: [] as { child_id: string; item_id: string; completed_at: string }[] }),
+    supabase
+      .from("payments")
+      .select("tx_ref, plan_id, amount_etb, kind, provider_ref, paid_at")
+      .eq("family_id", family.profile.id)
+      .eq("status", "paid")
+      .order("paid_at", { ascending: false })
+      .limit(12),
+    supabase.from("profiles").select("telegram_chat_id").eq("id", family.profile.id).single(),
+  ]);
+  const weekByChild = new Map<string, number>();
+  for (const r of recent ?? []) weekByChild.set(r.child_id, (weekByChild.get(r.child_id) ?? 0) + 1);
+
+  return (
+    <>
+      <SiteNav />
+      <main className="mx-auto max-w-5xl px-4 pt-32 sm:px-6">
+        <GrownUpsGate>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 className="font-display text-5xl font-black">{t.account.title}</h1>
+              <p className="mt-2 text-lg text-muted">{t.account.signedInAs(family.profile.email ?? "")}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              {family.profile.role === "admin" && (
+                <>
+                  <Link href="/admin/stories" className="btn btn-plain !text-base">
+                    {t.account.storyStudio}
+                  </Link>
+                  <Link href="/admin/games" className="btn btn-plain !text-base">
+                    {t.account.gamesAdmin}
+                  </Link>
+                  <Link href="/admin/books" className="btn btn-plain !text-base">
+                    {t.account.books}
+                  </Link>
+                </>
+              )}
+              <form action="/auth/signout" method="post">
+                <button type="submit" className="font-bold text-muted hover:text-ink">
+                  {t.account.signOut}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <section className="mt-10 space-y-4">
+            <h2 className="font-display text-2xl font-black">{t.account.children}</h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {family.children.map((c) => (
+                <ChildCard key={c.id} child={c} thisWeek={weekByChild.get(c.id) ?? 0} current={family.current?.id === c.id} />
+              ))}
+              <AddChildForm />
+            </div>
+          </section>
+
+          <section className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">{t.account.whichStories}</h2>
+              <p className="text-muted">{t.account.whichStoriesSub}</p>
+              <AllAgesToggle value={family.showAllAges} />
+            </div>
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">{t.account.gamesDay}</h2>
+              <p className="text-muted">{t.account.gamesDaySub}</p>
+              <GamesPicker value={family.gamesMinutes} />
+            </div>
+
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">{t.account.bedtime}</h2>
+              <p className="text-muted">{t.account.bedtimeSub}</p>
+              <LimitPicker value={family.nightlyLimit} />
+              {family.readTonight > 0 && (
+                <form action={allowMoreTonight}>
+                  <p className="text-sm text-muted">
+                    {t.account.readTonight(family.current?.name ?? "", family.readTonight)}
+                  </p>
+                  <button type="submit" className="btn btn-plain mt-2 !text-base">
+                    {t.account.allowMore}
+                  </button>
+                </form>
+              )}
+            </div>
+            <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <h2 className="font-display text-2xl font-black">{t.account.plan}</h2>
+              {plan?.isOpen ? (
+                <>
+                  <p>
+                    <b>{planName(plan.planId)}</b>
+                  </p>
+                  <p className="text-muted">
+                    {t.account.openUntil(fmtDate(lang, plan.endsAt), plan.daysLeft)}
+                  </p>
+                  {plan.next && (
+                    <p className="rounded-2xl bg-sky-soft p-3 text-sm">
+                      {t.account.thenNext(planName(plan.next.planId), fmtDate(lang, plan.next.endsAt))}
+                    </p>
+                  )}
+                  <Link href="/subscribe" className={`btn !text-base ${plan.daysLeft <= 5 ? "btn-primary" : "btn-plain"}`}>
+                    {t.account.addDays}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="text-muted">
+                    {plan ? t.account.ended(planName(plan.planId)) : t.account.free}
+                  </p>
+                  <Link href="/subscribe" className="btn btn-primary !text-base">
+                    {plan ? t.account.renew : t.account.seePlans}
+                  </Link>
+                </>
+              )}
+            </div>
+          </section>
+
+          <section className="mt-10 flex flex-wrap items-center gap-6 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+            <div className="min-w-0 flex-1 space-y-1">
+              <h2 className="font-display text-2xl font-black">{t.account.language}</h2>
+              <p className="text-muted">{t.account.languageSub}</p>
+            </div>
+            <LangSwitch className="btn btn-plain !text-base" />
+          </section>
+
+          {telegramConfigured() && (
+            <section className="mt-10 flex flex-wrap items-center gap-6 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
+              <div className="min-w-0 flex-1 space-y-1">
+                <h2 className="font-display text-2xl font-black">{t.account.telegram}</h2>
+                <p className="text-muted">
+                  {t.account.telegramSub}
+                </p>
+              </div>
+              <TelegramConnect connected={Boolean(tg?.telegram_chat_id)} />
+            </section>
+          )}
+
+          <section className="mt-10 space-y-4">
+            <h2 className="font-display text-2xl font-black">{t.account.payments}</h2>
+            {payments && payments.length > 0 ? (
+              <div className="overflow-x-auto rounded-[28px] bg-white p-2 shadow-[0_6px_0_var(--color-line)]">
+                <table className="w-full min-w-[520px] text-left">
+                  <thead className="text-sm text-muted">
+                    <tr>
+                      <th className="p-3">{t.account.date}</th>
+                      <th className="p-3">{t.account.planCol}</th>
+                      <th className="p-3">{t.account.what}</th>
+                      <th className="p-3 text-right">{t.account.amount}</th>
+                      <th className="p-3" />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {payments.map((p) => (
+                      <tr key={p.tx_ref} className="border-t-2 border-line">
+                        <td className="p-3">{p.paid_at ? fmtDate(lang, p.paid_at, "short") : ""}</td>
+                        <td className="p-3 font-bold">{planName(p.plan_id)}</td>
+                        <td className="p-3 text-muted">{t.account.kinds[p.kind ?? ""] ?? t.account.kinds.renew}</td>
+                        <td className="p-3 text-right tabular-nums">{t.account.birr(formatBirr(p.amount_etb))}</td>
+                        <td className="p-3 text-right">
+                          <Link href={`/account/receipt/${p.tx_ref}`} className="font-bold text-blue hover:underline">
+                            {t.account.receipt}
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-muted">{t.account.noPayments}</p>
+            )}
+          </section>
+        </GrownUpsGate>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
+
+export default function AccountPage() {
+  return (
+    <Suspense fallback={<main className="grid min-h-dvh place-items-center text-muted">Loading…</main>}>
+      <AccountContent />
+    </Suspense>
+  );
+}
