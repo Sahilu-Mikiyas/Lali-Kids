@@ -4,7 +4,10 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 import { CHILD_COOKIE } from "@/lib/family";
-import { createSupabaseServer, currentProfile } from "@/lib/supabase/server";
+import { randomBytes } from "node:crypto";
+
+import { createSupabaseAdmin, createSupabaseServer, currentProfile } from "@/lib/supabase/server";
+import { botUsername, telegramConfigured } from "@/lib/telegram";
 
 const AGE_BANDS = ["3-5", "6-7", "8-9"];
 const AVATARS = ["cub", "gugu", "bee"];
@@ -108,4 +111,26 @@ export async function setGamesMinutes(minutes: number) {
   await supabase.from("profiles").update({ games_minutes: minutes }).eq("id", profile.id);
   revalidatePath("/account");
   revalidatePath("/games");
+}
+
+/** Makes a one-time Telegram link for this family (valid 30 minutes). */
+export async function telegramLink(): Promise<{ url: string } | { error: string }> {
+  const profile = await currentProfile();
+  if (!profile) return { error: "Please sign in again." };
+  if (!telegramConfigured()) return { error: "Telegram isn't set up on Lali yet." };
+  const bot = await botUsername();
+  if (!bot) return { error: "Couldn't reach Telegram. Please try again." };
+  const code = randomBytes(12).toString("hex");
+  await createSupabaseAdmin()
+    .from("profiles")
+    .update({ telegram_link_code: code, telegram_link_expires: new Date(Date.now() + 30 * 60_000).toISOString() })
+    .eq("id", profile.id);
+  return { url: `https://t.me/${bot}?start=${code}` };
+}
+
+export async function telegramDisconnect() {
+  const profile = await currentProfile();
+  if (!profile) return;
+  await createSupabaseAdmin().from("profiles").update({ telegram_chat_id: null }).eq("id", profile.id);
+  revalidatePath("/account");
 }

@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 
 import { Bee, Cub, Gugu } from "@/components/characters";
 import type { Child } from "@/lib/family";
-import { addChild, chooseChild, removeChild, setNightlyLimit, setShowAllAges, setGamesMinutes } from "./actions";
+import { addChild, chooseChild, removeChild, setGamesMinutes, setNightlyLimit, setShowAllAges, telegramDisconnect, telegramLink } from "./actions";
 
 export function Avatar({ kind, size = 56 }: { kind: Child["avatar"]; size?: number }) {
   if (kind === "bee") return <Bee size={size} />;
@@ -155,6 +155,49 @@ export function AllAgesToggle({ value }: { value: boolean }) {
           {v ? "Every age" : "Their own age group"}
         </button>
       ))}
+    </div>
+  );
+}
+
+export function TelegramConnect({ connected }: { connected: boolean }) {
+  const [pending, start] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+  if (connected) {
+    return (
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="rounded-full bg-teal px-3 py-1 font-bold text-white">✓ Connected</span>
+        <button type="button" disabled={pending} onClick={() => start(() => telegramDisconnect())} className="font-bold text-muted hover:text-ink">
+          Disconnect
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div className="space-y-2">
+      <button
+        type="button"
+        disabled={pending}
+        className="btn btn-primary !text-base"
+        onClick={() =>
+          start(async () => {
+            setError(null);
+            // Open the tab first (pop-up blockers allow it during the click), then point it at Telegram.
+            const tab = window.open("about:blank", "_blank");
+            const r = await telegramLink();
+            if ("url" in r) {
+              if (tab) tab.location.href = r.url;
+              else window.location.href = r.url;
+            } else {
+              tab?.close();
+              setError(r.error);
+            }
+          })
+        }
+      >
+        {pending ? "Opening Telegram…" : "Connect Telegram"}
+      </button>
+      {error && <p className="text-sm text-coral">{error}</p>}
+      <p className="text-sm text-muted">In Telegram, press <b>Start</b>. Then refresh this page.</p>
     </div>
   );
 }
