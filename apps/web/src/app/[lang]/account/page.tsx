@@ -61,6 +61,9 @@ async function AccountContent() {
             <div className="flex items-center gap-3">
               {family.profile.role === "admin" && (
                 <>
+                  <Link href="/admin/stats" className="btn btn-plain !text-base">
+                    Pilot numbers
+                  </Link>
                   <Link href="/admin/stories" className="btn btn-plain !text-base">
                     {t.account.storyStudio}
                   </Link>
