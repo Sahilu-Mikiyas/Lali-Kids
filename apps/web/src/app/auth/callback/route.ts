@@ -9,6 +9,17 @@ import { createSupabaseServer } from "@/lib/supabase/server";
  */
 export async function GET(request: NextRequest) {
   const url = request.nextUrl;
+
+  // Sign-in links requested by the Lali app: hand the one-time code to the app, which holds the
+  // matching secret and finishes the sign-in itself. Nothing is exchanged here.
+  if (url.searchParams.get("app") === "1") {
+    const code = url.searchParams.get("code");
+    const target = new URL("lali://auth");
+    if (code) target.searchParams.set("code", code);
+    else target.searchParams.set("error", url.searchParams.get("error_description") ?? "link");
+    return NextResponse.redirect(target.toString());
+  }
+
   const next = url.searchParams.get("next");
   const target = next && next.startsWith("/") && !next.startsWith("//") ? next : "/account";
   const supabase = await createSupabaseServer();

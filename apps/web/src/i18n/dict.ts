@@ -269,6 +269,7 @@ const en = {
   },
   done: {
     thanks: "Thank you!",
+    backToApp: "Back to the Lali app",
     went: "Your payment went through.",
     openUntil: (plan: string, date: string) => `${plan} is open until ${date}.`,
     start: "Start reading",
@@ -599,6 +600,7 @@ const am: Dict = {
   },
   done: {
     thanks: "እናመሰግናለን!",
+    backToApp: "ወደ ላሊ መተግበሪያ ተመለስ",
     went: "ክፍያዎ ተሳክቷል።",
     openUntil: (plan: string, date: string) => `${plan} እስከ ${date} ክፍት ነው።`,
     start: "ማንበብ ጀምር",

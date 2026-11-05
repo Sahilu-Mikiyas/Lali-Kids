@@ -2,7 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { PAGES_BUCKET } from "@/lib/books/process";
 import { maskIdentity, PAGES_PER_MINUTE, verifyPage, watermark } from "@/lib/books/protect";
-import { createSupabaseAdmin, createSupabaseServer } from "@/lib/supabase/server";
+import { requestUser } from "@/lib/supabase/request-user";
+import { createSupabaseAdmin } from "@/lib/supabase/server";
 
 /**
  * Serves one page image to one signed-in family.
@@ -15,10 +16,9 @@ export async function GET(request: NextRequest, { params }: RouteContext<"/api/b
   const page = Number(pageStr);
   if (!Number.isInteger(page) || page < 1) return NextResponse.json({ error: "Bad page" }, { status: 400 });
 
-  const supabase = await createSupabaseServer();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // The website sends its session cookie; the app sends its access token.
+  const me = await requestUser(request);
+  const user = me?.user;
   if (!user) return NextResponse.json({ error: "Sign in to read" }, { status: 401 });
 
   if (!verifyPage(request.nextUrl.searchParams.get("t"), user.id, id, page)) {

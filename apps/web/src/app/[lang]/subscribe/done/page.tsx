@@ -16,7 +16,8 @@ export const metadata: Metadata = { title: "Payment" };
 /** Where Chapa sends the parent after paying. Confirms the payment with Chapa before celebrating. */
 async function DoneContent({ searchParams }: PageProps<"/[lang]/subscribe/done">) {
   await connection();
-  const { tx_ref } = await searchParams;
+  const { tx_ref, app } = await searchParams;
+  const fromApp = app === "1";
   const txRef = typeof tx_ref === "string" && /^lali-[a-z]+-[0-9a-f]{18}$/.test(tx_ref) ? tx_ref : null;
   const profile = await currentProfile();
 
@@ -47,7 +48,12 @@ async function DoneContent({ searchParams }: PageProps<"/[lang]/subscribe/done">
                 {t.done.went} {plan && t.done.openUntil(t.plans.names[plan.planId as keyof typeof t.plans.names] ?? plan.planName, fmtDate(lang, plan.endsAt))}
               </p>
               <div className="flex flex-wrap justify-center gap-3">
-                <Link href="/stories" className="btn btn-primary">
+                {fromApp && (
+                  <a href="lali://plan" className="btn btn-primary">
+                    {t.done.backToApp}
+                  </a>
+                )}
+                <Link href="/stories" className={`btn ${fromApp ? "btn-plain" : "btn-primary"}`}>
                   {t.done.start}
                 </Link>
                 <Link href="/account" className="btn btn-plain">
