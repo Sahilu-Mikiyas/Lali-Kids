@@ -154,7 +154,9 @@ async function getBooks(ctx: Ctx) {
     .eq("status", "ready")
     .order("created_at", { ascending: false });
   const open = ctx.me ? await hasActivePlan(ctx.me.user.id) : false;
-  return json({ books: (data ?? []).map((b) => ({ ...b, locked: !b.is_free && !open, cover: `/api/books/${b.id}/cover` })) });
+  const origin = originFrom(ctx.request.headers);
+  // Covers need the same Authorization header as the other calls.
+  return json({ books: (data ?? []).map((b) => ({ ...b, locked: !b.is_free && !open, cover: `${origin}/api/books/${b.id}/cover` })) });
 }
 
 async function getBookPages(ctx: Ctx, slug: string) {
