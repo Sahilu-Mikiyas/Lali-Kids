@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react';
-import { Pressable, StyleSheet, Text, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -9,6 +9,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { useUiFonts } from '@/i18n';
 import { fonts, useTheme } from '@/lib/theme';
 import { Bee } from './characters';
 
@@ -27,6 +28,7 @@ type ButtonProps = {
 /** A chunky button that sinks when pressed, like a toy key. */
 export function ChunkyButton({ label, onPress, variant = 'primary', small, disabled, fontFamily, style, accessibilityLabel, icon }: ButtonProps) {
   const t = useTheme();
+  const f = useUiFonts();
   const primary = variant === 'primary';
   const face = primary ? t.coral : t.surface;
   const edge = primary ? t.coralDeep : t.line;
@@ -45,7 +47,7 @@ export function ChunkyButton({ label, onPress, variant = 'primary', small, disab
       ]}
     >
       {icon}
-      <Text style={[styles.btnText, small && styles.btnTextSmall, { color: primary ? t.onAccent : t.ink, fontFamily: fontFamily ?? fonts.displayBold }]}>
+      <Text style={[styles.btnText, small && styles.btnTextSmall, { color: primary ? t.onAccent : t.ink, fontFamily: fontFamily ?? f.displayBold }]}>
         {label}
       </Text>
     </Pressable>
@@ -54,12 +56,52 @@ export function ChunkyButton({ label, onPress, variant = 'primary', small, disab
 
 export function Heading({ children, style }: { children: ReactNode; style?: StyleProp<TextStyle> }) {
   const t = useTheme();
-  return <Text style={[styles.heading, { color: t.ink }, style]}>{children}</Text>;
+  const f = useUiFonts();
+  return <Text accessibilityRole="header" style={[styles.heading, { color: t.ink, fontFamily: f.display }, style]}>{children}</Text>;
 }
 
 export function Body({ children, style }: { children: ReactNode; style?: StyleProp<TextStyle> }) {
   const t = useTheme();
-  return <Text style={[styles.body, { color: t.muted }, style]}>{children}</Text>;
+  const f = useUiFonts();
+  return <Text style={[styles.body, { color: t.muted, fontFamily: f.body }, style]}>{children}</Text>;
+}
+
+/** A rounded white panel, the building block of the grown-ups' screens. */
+export function Card({ children, style }: { children: ReactNode; style?: StyleProp<ViewStyle> }) {
+  const t = useTheme();
+  return <View style={[styles.card, { backgroundColor: t.surface }, style]}>{children}</View>;
+}
+
+/** A small capital label above a card's content. */
+export function Label({ children }: { children: string }) {
+  const t = useTheme();
+  const f = useUiFonts();
+  return <Text style={[styles.label, { color: t.muted, fontFamily: f.bodyBold }]}>{children}</Text>;
+}
+
+/** One option in a row of choices (bedtime limit, language…). */
+export function Choice({ label, selected, onPress, disabled }: { label: string; selected: boolean; onPress: () => void; disabled?: boolean }) {
+  const t = useTheme();
+  const f = useUiFonts();
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected, disabled }}
+      onPress={onPress}
+      disabled={disabled}
+      style={[styles.choice, { borderColor: selected ? t.teal : t.line, backgroundColor: selected ? t.teal : 'transparent', opacity: disabled ? 0.5 : 1 }]}
+    >
+      <Text style={[styles.choiceText, { color: selected ? t.onAccent : t.ink, fontFamily: f.bodyBold }]}>{label}</Text>
+    </Pressable>
+  );
+}
+
+/** A friendly line for errors and notes. */
+export function Note({ children, tone = 'muted' }: { children: ReactNode; tone?: 'muted' | 'error' | 'good' }) {
+  const t = useTheme();
+  const f = useUiFonts();
+  const color = tone === 'error' ? t.coral : tone === 'good' ? t.teal : t.muted;
+  return <Text style={[styles.note, { color, fontFamily: f.bodyBold }]}>{children}</Text>;
 }
 
 /** Lali the bee, flying a slow loop and bobbing. */
@@ -97,4 +139,9 @@ const styles = StyleSheet.create({
   btnTextSmall: { fontSize: 15 },
   heading: { fontFamily: fonts.display, fontSize: 30, lineHeight: 36 },
   body: { fontFamily: fonts.body, fontSize: 17, lineHeight: 25 },
+  card: { borderRadius: 24, padding: 20, gap: 12 },
+  label: { fontSize: 13, letterSpacing: 1.2, textTransform: 'uppercase' },
+  choice: { borderWidth: 2, borderRadius: 14, paddingHorizontal: 14, paddingVertical: 8 },
+  choiceText: { fontSize: 15 },
+  note: { fontSize: 15, lineHeight: 22 },
 });

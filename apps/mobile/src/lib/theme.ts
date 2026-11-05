@@ -57,3 +57,15 @@ export function textFont(lang: 'en' | 'am', bold = false): string {
   if (lang === 'am') return bold ? fonts.ethiopicBold : fonts.ethiopic;
   return bold ? fonts.bodyBold : fonts.body;
 }
+
+/** Font families for interface text in the app language: Ethiopic for Amharic, Lali's faces for English. */
+export function langFonts(lang: 'en' | 'am') {
+  return lang === 'am'
+    ? { display: fonts.ethiopicBold, displayBold: fonts.ethiopicBold, body: fonts.ethiopic, bodyBold: fonts.ethiopicBold }
+    : { display: fonts.display, displayBold: fonts.displayBold, body: fonts.body, bodyBold: fonts.bodyBold };
+}
+
+/** Text from the server (names, titles) may be in Ge'ez script whatever the app language is. */
+export function hasEthiopic(text: string): boolean {
+  return /[ሀ-᎟ⶀ-⷟]/.test(text);
+}

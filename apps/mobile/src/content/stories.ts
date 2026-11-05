@@ -1,4 +1,4 @@
-import type { Lang } from '@/lib/store';
+import type { AgeBand, Lang, ShelfStory } from '@/lib/api';
 
 export type SceneKind = 'moon' | 'count' | 'share';
 
@@ -9,6 +9,7 @@ export type Story = {
   title: Record<Lang, string>;
   category: 'Bedtime' | 'Maths' | 'Values' | 'English';
   ages: string;
+  ageBands: AgeBand[];
   color: string;
   scene: SceneKind;
   /** Page whose picture is used on the cover. */
@@ -23,6 +24,7 @@ export const STORIES: Story[] = [
     title: { en: 'Anbessa and the Lost Moon', am: 'አንበሳ እና የጠፋችው ጨረቃ' },
     category: 'Bedtime',
     ages: '3–6',
+    ageBands: ['3-5', '6-7'],
     color: '#2B3A8C',
     scene: 'moon',
     coverPage: 3,
@@ -50,6 +52,7 @@ export const STORIES: Story[] = [
     title: { en: 'Gugu Counts the Sheep', am: 'ጉጉ በጎቹን ይቆጥራል' },
     category: 'Maths',
     ages: '3–6',
+    ageBands: ['3-5', '6-7'],
     color: '#0E7F74',
     scene: 'count',
     coverPage: 3,
@@ -77,6 +80,7 @@ export const STORIES: Story[] = [
     title: { en: 'Lali Shares the Honey', am: 'ላሊ ማሩን አካፈለች' },
     category: 'Values',
     ages: '3–7',
+    ageBands: ['3-5', '6-7'],
     color: '#C9860A',
     scene: 'share',
     coverPage: 3,
@@ -103,4 +107,36 @@ export const STORIES: Story[] = [
 
 export function getStory(id: string): Story | undefined {
   return STORIES.find((s) => s.id === id);
+}
+
+const SCENES: SceneKind[] = ['moon', 'count', 'share'];
+
+/** The drawn scene the app has for a story from the server, if any. */
+export function knownScene(story: { id: string; scene?: string }): SceneKind | null {
+  if (story.scene && (SCENES as string[]).includes(story.scene)) return story.scene as SceneKind;
+  return getStory(story.id)?.scene ?? null;
+}
+
+let bundled: ShelfStory[] | null = null;
+
+/** The stories inside the app, in the server's shape: the shelf before it has ever loaded. Always the same array. */
+export function bundledShelf(): ShelfStory[] {
+  bundled ??= STORIES.map((s) => ({
+    id: s.id,
+    title: s.title,
+    category: s.category,
+    ageBands: s.ageBands,
+    color: s.color,
+    scene: s.scene,
+    coverPage: s.coverPage,
+    pages: s.pages,
+    isFree: true,
+  }));
+  return bundled;
+}
+
+/** "3-5", "6-7" -> "3–7" */
+export function agesLabel(bands: AgeBand[]): string {
+  const nums = bands.flatMap((b) => b.split('-').map(Number));
+  return nums.length ? `${Math.min(...nums)}–${Math.max(...nums)}` : '';
 }

@@ -1,32 +1,26 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeInLeft,
-  FadeInRight,
-  ZoomIn,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withRepeat,
-  withSequence,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeIn, FadeInLeft, FadeInRight, ZoomIn, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withSpring } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
 import { Bee } from '@/components/characters';
-import { Scene } from '@/components/scenes';
+import { Confetti } from '@/components/confetti';
+import { Goodnight } from '@/components/family';
+import { StoryArt } from '@/components/story-art';
 import { ChunkyButton, Heading } from '@/components/ui';
-import { getStory, type Story } from '@/content/stories';
-import { actions, isLimitReached, useAppState, type Lang } from '@/lib/store';
-import { fonts, textFont, useTheme } from '@/lib/theme';
+import { bundledShelf } from '@/content/stories';
+import { dict, useT, useUiFonts } from '@/i18n';
+import { api, isApiError, type Lang, type ShelfStory } from '@/lib/api';
 import { goBackOr } from '@/lib/nav';
+import { actions, currentChild, getState, isLimitReached, shelfOf, starsOf, uiLangOf, useAppState } from '@/lib/store';
+import { fonts, textFont, useTheme } from '@/lib/theme';
 import { useReadAlong } from '@/lib/use-read-along';
 
 const PAGE_INK = '#2A2414';
+
+const hasText = (s: ShelfStory | undefined | null): s is ShelfStory => Boolean(s?.pages.some((p) => p.en || p.am));
 
 function Arrow({ dir }: { dir: 'left' | 'right' }) {
   return (
@@ -50,8 +44,10 @@ function RoundButton({ label, onPress, disabled, children }: { label: string; on
   );
 }
 
-function PageText({ text, lang, onWordDone }: { text: string; lang: Lang; onWordDone?: () => void }) {
-  const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang);
+/** The page text, with read-along. The story's own language decides the words and the font. */
+function PageText({ text, lang, audioUrl, onWordDone }: { text: string; lang: Lang; audioUrl: string | null; onWordDone?: () => void }) {
+  const tr = dict[lang].reader;
+  const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang, audioUrl);
   const [popped, setPopped] = useState(-1);
 
   useEffect(() => {
@@ -76,12 +72,10 @@ function PageText({ text, lang, onWordDone }: { text: string; lang: Lang; onWord
           </Text>
         ))}
       </Text>
-      {silent && reading && lang === 'am' && (
-        <Text style={styles.hint}>Words light up for now. Recorded Amharic narration is coming.</Text>
-      )}
+      {silent && reading && lang === 'am' && <Text style={[styles.hint, { fontFamily: fonts.ethiopic }]}>{tr.silentHint}</Text>}
       <ChunkyButton
-        label={reading ? (lang === 'am' ? 'አቁም' : 'Stop') : lang === 'am' ? 'አንብብልኝ' : 'Read to me'}
-        fontFamily={lang === 'am' ? fonts.ethiopicBold : undefined}
+        label={reading ? tr.stop : tr.readToMe}
+        fontFamily={lang === 'am' ? fonts.ethiopicBold : fonts.displayBold}
         onPress={reading ? stop : start}
         style={{ alignSelf: 'center' }}
       />
@@ -89,85 +83,130 @@ function PageText({ text, lang, onWordDone }: { text: string; lang: Lang; onWord
   );
 }
 
-function Confetti() {
-  const pieces = Array.from({ length: 14 }, (_, i) => i);
-  return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
-      {pieces.map((i) => (
-        <FallingStar key={i} index={i} />
-      ))}
-    </View>
-  );
-}
-
-function FallingStar({ index }: { index: number }) {
-  const y = useSharedValue(-40);
-  const rot = useSharedValue(0);
-  useEffect(() => {
-    y.value = withDelay(index * 90, withTiming(520, { duration: 2200 + (index % 4) * 300 }));
-    rot.value = withRepeat(withTiming(360, { duration: 1400 }), -1);
-  }, [index, y, rot]);
-  const style = useAnimatedStyle(() => ({ transform: [{ translateY: y.value }, { rotate: `${rot.value}deg` }] }));
-  const colors = ['#F5B21E', '#E8513B', '#0E8C80', '#D63B72', '#2F5BD3'];
-  return (
-    <Animated.Text style={[styles.confetti, { left: `${(index * 37) % 100}%`, color: colors[index % colors.length] }, style]}>★</Animated.Text>
-  );
-}
-
-function TheEnd({ story, lang, onAgain }: { story: Story; lang: Lang; onAgain: () => void }) {
+function TheEnd({ story, lang, onAgain }: { story: ShelfStory; lang: Lang; onAgain: () => void }) {
   const t = useTheme();
-  const stars = useAppState((s) => s.stars);
-  const limitReached = useAppState(isLimitReached);
+  const tr = dict[lang].reader;
+  const f = useUiFonts();
+  const back = useT().reader.backToShelf;
+  const [result, setResult] = useState<{ stars: number; limitReached: boolean } | null>(null);
+  const shownStars = useAppState(starsOf);
   const bounce = useSharedValue(0);
   const awarded = useRef(false);
 
   useEffect(() => {
     if (!awarded.current) {
       awarded.current = true;
-      actions.finishStory(story.id);
+      actions.finishStory(story.id).then(setResult);
     }
     bounce.value = withRepeat(withSequence(withSpring(-14), withSpring(0)), -1);
   }, [story.id, bounce]);
 
   const starStyle = useAnimatedStyle(() => ({ transform: [{ translateY: bounce.value }] }));
+  const stars = result?.stars ?? shownStars;
 
   return (
     <Animated.View entering={ZoomIn.springify()} style={[styles.end, { backgroundColor: t.surface }]}>
       <Confetti />
       <Animated.Text style={[styles.bigStar, starStyle]}>★</Animated.Text>
-      <Heading style={{ textAlign: 'center' }}>{lang === 'am' ? 'ተፈጸመ!' : 'The End!'}</Heading>
-      <Text style={[styles.endText, { color: t.muted }]}>You earned a star. You have {stars} now!</Text>
+      <Heading style={{ textAlign: 'center', fontFamily: lang === 'am' ? fonts.ethiopicBold : fonts.display }}>{tr.theEnd}</Heading>
+      <Text style={[styles.endText, { color: t.muted, fontFamily: textFont(lang) }]}>{result ? tr.earned(stars) : ' '}</Text>
       <Bee size={56} />
       <View style={styles.endButtons}>
-        {limitReached ? (
-          <Text style={[styles.endText, { color: t.ink }]}>That was the last story for tonight. Goodnight!</Text>
+        {result?.limitReached ? (
+          <Text style={[styles.endText, { color: t.ink, fontFamily: textFont(lang) }]}>{tr.lastTonight}</Text>
         ) : (
-          <ChunkyButton variant="plain" label="Read again" onPress={onAgain} />
+          <ChunkyButton variant="plain" label={tr.readAgain} fontFamily={f.displayBold} onPress={onAgain} />
         )}
-        <ChunkyButton label="Back to bookshelf" onPress={() => goBackOr('/read')} />
+        <ChunkyButton label={back} onPress={() => goBackOr('/read')} />
       </View>
     </Animated.View>
   );
 }
 
+type Load = { state: 'loading' } | { state: 'ready'; story: ShelfStory } | { state: 'locked'; story: ShelfStory | null } | { state: 'missing' };
+
+/** The story to read: the server's full copy (pictures and narration), falling back to the shelf's text offline. */
+function useStory(id: string): Load {
+  const fromShelf = useAppState((s) => shelfOf(s).find((x) => x.id === id) ?? bundledShelf().find((x) => x.id === id));
+  const [load, setLoad] = useState<Load>({ state: 'loading' });
+
+  useEffect(() => {
+    let alive = true;
+    api
+      .story(id)
+      .then(({ story }) => alive && setLoad({ state: 'ready', story }))
+      .catch((e: unknown) => {
+        if (!alive) return;
+        if (isApiError(e, 'plan')) {
+          const body = e.body as { locked?: ShelfStory } | null;
+          setLoad({ state: 'locked', story: body?.locked ?? null });
+        } else if (isApiError(e, 'notfound')) setLoad({ state: 'missing' });
+        else setLoad({ state: 'missing' });
+      });
+    return () => {
+      alive = false;
+    };
+  }, [id]);
+
+  if (load.state === 'ready' || load.state === 'locked') return load;
+  // While loading, or when the server can't be reached, read the shelf's copy if it has the words.
+  if (hasText(fromShelf) && !fromShelf.locked) return { state: 'ready', story: fromShelf };
+  return load;
+}
+
 export default function Reader() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const story = getStory(String(id));
+  const load = useStory(String(id));
   const t = useTheme();
-  const lang = useAppState((s) => s.lang);
+  const tr = useT();
+  // Books open in the app language; the switch at the top changes just this book.
+  const [lang, setLang] = useState<Lang>(() => uiLangOf(getState()));
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
   const [pageRead, setPageRead] = useState(false);
+  const [closedTonight] = useState(() => isLimitReached(getState()));
+  const child = useAppState(currentChild);
+  const onWordDone = useCallback(() => setPageRead(true), []);
 
-  if (!story) {
+  if (closedTonight) {
     return (
-      <SafeAreaView style={[styles.screen, { backgroundColor: t.bg, alignItems: 'center', justifyContent: 'center', gap: 16 }]}>
-        <Heading>We couldn’t find that story</Heading>
-        <ChunkyButton label="Back to bookshelf" onPress={() => router.replace('/read')} />
+      <SafeAreaView style={[styles.screen, { backgroundColor: t.bg }]}>
+        <View style={[styles.inner, { gap: 16, paddingTop: 24 }]}>
+          <Goodnight name={child?.name} />
+          <ChunkyButton label={tr.reader.backToShelf} onPress={() => goBackOr('/read')} style={{ alignSelf: 'center' }} />
+        </View>
       </SafeAreaView>
     );
   }
 
+  if (load.state === 'loading') {
+    return (
+      <SafeAreaView style={[styles.screen, { backgroundColor: t.bg, alignItems: 'center', justifyContent: 'center', gap: 16 }]}>
+        <ActivityIndicator size="large" color={t.coral} />
+        <Bee size={56} />
+      </SafeAreaView>
+    );
+  }
+
+  if (load.state === 'missing' || load.state === 'locked') {
+    const locked = load.state === 'locked' ? load.story : null;
+    return (
+      <SafeAreaView style={[styles.screen, { backgroundColor: t.bg }]}>
+        <View style={[styles.inner, { gap: 16, paddingTop: 24, alignItems: 'center' }]}>
+          {locked && (
+            <View style={[styles.art, { backgroundColor: locked.color }]}>
+              <StoryArt story={locked} page={0} />
+            </View>
+          )}
+          <Heading style={{ textAlign: 'center' }}>{load.state === 'locked' ? `🔒 ${tr.reader.locked}` : tr.reader.notFound}</Heading>
+          {load.state === 'locked' && <ChunkyButton label={tr.reader.seePlans} onPress={() => router.replace('/plan')} />}
+          <ChunkyButton variant="plain" label={tr.reader.backToShelf} onPress={() => goBackOr('/read')} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const story = load.story;
   const total = story.pages.length;
   const atEnd = page >= total;
   const go = (to: number) => {
@@ -175,15 +214,17 @@ export default function Reader() {
     setPageRead(false);
     setPage(Math.max(0, Math.min(total, to)));
   };
+  const rt = dict[lang].reader;
+  const text = story.pages[page]?.[lang] || story.pages[page]?.en || '';
 
   return (
     <SafeAreaView style={[styles.screen, { backgroundColor: t.bg }]}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.inner}>
           <View style={styles.topBar}>
-            <ChunkyButton small variant="plain" label="Close" onPress={() => goBackOr('/read')} accessibilityLabel="Close the story" />
+            <ChunkyButton small variant="plain" label={tr.common.close} onPress={() => goBackOr('/read')} accessibilityLabel={tr.reader.closeStory} />
             <Text style={[styles.title, { color: t.muted, fontFamily: lang === 'am' ? fonts.ethiopicBold : fonts.displayBold }]} numberOfLines={1}>
-              {story.title[lang]}
+              {story.title[lang] || story.title.en}
             </Text>
             <View style={styles.langToggle}>
               {(['en', 'am'] as const).map((l) => (
@@ -191,7 +232,8 @@ export default function Reader() {
                   key={l}
                   accessibilityRole="button"
                   accessibilityState={{ selected: lang === l }}
-                  onPress={() => actions.setLang(l)}
+                  accessibilityLabel={l === 'en' ? 'English' : 'አማርኛ'}
+                  onPress={() => setLang(l)}
                   style={[styles.langBtn, lang === l && { backgroundColor: t.surface }]}
                 >
                   <Text style={[styles.langText, { color: t.ink, fontFamily: l === 'am' ? fonts.ethiopicBold : fonts.bodyBold }]}>{l === 'en' ? 'EN' : 'አማ'}</Text>
@@ -205,7 +247,7 @@ export default function Reader() {
           ) : (
             <>
               <Animated.View key={`art-${page}`} entering={FadeIn.duration(500)} style={[styles.art, { backgroundColor: story.color }]}>
-                <Scene kind={story.scene} page={page} />
+                <StoryArt story={story} page={page} accessibilityLabel={rt.picture(page + 1)} />
               </Animated.View>
 
               <Animated.View
@@ -213,25 +255,25 @@ export default function Reader() {
                 entering={(dir === 1 ? FadeInRight : FadeInLeft).springify().damping(16)}
                 style={styles.paper}
               >
-                <PageText text={story.pages[page][lang]} lang={lang} onWordDone={() => setPageRead(true)} />
+                <PageText text={text} lang={lang} audioUrl={story.audio?.[page]?.[lang] ?? null} onWordDone={onWordDone} />
               </Animated.View>
 
               <View style={styles.controls}>
-                <RoundButton label="Previous page" onPress={() => go(page - 1)} disabled={page === 0}>
+                <RoundButton label={rt.previous} onPress={() => go(page - 1)} disabled={page === 0}>
                   <Arrow dir="left" />
                 </RoundButton>
                 <View style={styles.dots}>
                   {story.pages.map((_, i) => (
-                    <View key={i} style={[styles.dot, i === page && [styles.dotOn, { backgroundColor: t.coral }]]} />
+                    <View key={i} style={[styles.dot, total > 8 && styles.dotSmall, i === page && [styles.dotOn, { backgroundColor: t.coral }]]} />
                   ))}
                 </View>
-                <RoundButton label={page === total - 1 ? 'Finish the story' : 'Next page'} onPress={() => go(page + 1)}>
+                <RoundButton label={page === total - 1 ? rt.finish : rt.next} onPress={() => go(page + 1)}>
                   <Arrow dir="right" />
                 </RoundButton>
               </View>
               {pageRead && (
-                <Animated.Text entering={FadeIn} style={[styles.nudge, { color: t.muted }]}>
-                  {page === total - 1 ? 'Tap the arrow to finish!' : 'Tap the arrow to turn the page'}
+                <Animated.Text entering={FadeIn} style={[styles.nudge, { color: t.muted, fontFamily: textFont(lang, true) }]}>
+                  {page === total - 1 ? rt.tapFinish : rt.tapTurn}
                 </Animated.Text>
               )}
             </>
@@ -257,7 +299,7 @@ const styles = StyleSheet.create({
   wordOn: { backgroundColor: '#F5B21E', color: '#2A1A00', borderRadius: 6 },
   wordDone: { color: '#2B6CB0' },
   wordPopped: { color: '#E8513B' },
-  hint: { fontFamily: fonts.body, fontSize: 14, color: '#7A6A45', textAlign: 'center' },
+  hint: { fontSize: 14, color: '#7A6A45', textAlign: 'center' },
   controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   round: {
     width: 58,
@@ -269,13 +311,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderBottomColor: '#D6CBAA',
   },
-  dots: { flexDirection: 'row', gap: 8 },
+  dots: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8, flex: 1, paddingHorizontal: 8 },
   dot: { width: 12, height: 12, borderRadius: 6, backgroundColor: '#D9D2BC' },
+  dotSmall: { width: 8, height: 8, borderRadius: 4 },
   dotOn: { width: 30 },
-  nudge: { textAlign: 'center', fontFamily: fonts.bodyBold, fontSize: 15 },
+  nudge: { textAlign: 'center', fontSize: 15 },
   end: { borderRadius: 28, padding: 28, alignItems: 'center', gap: 12, overflow: 'hidden', minHeight: 440 },
   bigStar: { fontSize: 110, color: '#F5B21E', lineHeight: 120 },
-  endText: { fontFamily: fonts.body, fontSize: 18, textAlign: 'center' },
+  endText: { fontSize: 18, textAlign: 'center' },
   endButtons: { gap: 12, alignItems: 'center', marginTop: 8 },
-  confetti: { position: 'absolute', top: 0, fontSize: 26 },
 });

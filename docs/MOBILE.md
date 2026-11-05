@@ -60,7 +60,17 @@ on every call (the shelf calls also work signed out). Optional headers:
 | `POST checkout` | `{plan: "reader"\|"learner"\|"vip"}` | `{url}` of Chapa's page. Open it with `expo-web-browser`; the thank-you page has a "Back to the Lali app" button (`lali://plan`). Refresh `GET me` when the browser closes |
 
 Errors come back as `{error}` with a matching status (401 sign in, 402 needs a plan, 404, 429
-too fast, 500).
+too fast, 500). Two calls answer differently: a locked `GET stories/:id` is `402 {locked}` (title
+and cover only), and a locked `POST games/:slug/start` is `402 {ok:false, reason:"locked"}`.
+
+Children in `GET me` use the database's names: `{id, name, age_band, preferred_lang, stars,
+avatar}`. `GET books` gives `cover` as a path on the website (`/api/books/<id>/cover`); that route
+reads the website's cookie only, so the app can't show book covers yet.
+
+In the app the calls live in `apps/mobile/src/lib/api.ts`, the settings in `src/lib/config.ts`,
+the sign-in in `src/lib/auth.ts` and `src/app/auth.tsx`, and the family state (with the last
+`GET me` and shelf cached on the phone) in `src/lib/store.ts`. The `lali://auth` link needs a
+development or store build: Expo Go uses its own `exp://` scheme.
 
 ## What the app reads straight from Supabase
 
