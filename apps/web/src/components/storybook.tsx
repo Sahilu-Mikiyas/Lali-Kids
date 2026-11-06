@@ -24,6 +24,7 @@ import { finishStory, useStars } from "@/lib/progress";
 import { useMedia } from "@/lib/use-media";
 import { useReadAlong } from "@/lib/use-read-along";
 import { useLang } from "@/i18n/provider";
+import { tellApp } from "@/lib/in-app";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { CoverBack, CoverFront } from "./book/cover";
 import { EndArt, PageArt } from "./book/page-art";
@@ -80,7 +81,13 @@ function EndText({ story, lang, interactive, onAgain }: { story: Story; lang: La
           <button type="button" className="btn btn-plain" onClick={onAgain}>
             Read again
           </button>
-          <Link href="/stories" className="btn btn-primary">
+          <Link
+            href="/stories"
+            className="btn btn-primary"
+            onClick={(e) => {
+              if (tellApp({ type: "lali:close" })) e.preventDefault();
+            }}
+          >
             More stories
           </Link>
         </div>
@@ -490,7 +497,7 @@ export function StoryBook({
         else go(page + 1);
       }
       if (e.key === "ArrowLeft") go(page - 1);
-      if (e.key === "Escape" && immersive && !document.fullscreenElement) router.push("/stories");
+      if (e.key === "Escape" && immersive && !document.fullscreenElement && !tellApp({ type: "lali:close" })) router.push("/stories");
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -771,6 +778,9 @@ export function StoryBook({
       <div className="relative z-10 flex items-center gap-2 px-3 pt-3 sm:gap-3 sm:px-5 sm:pt-4">
         <Link
           href="/stories"
+          onClick={(e) => {
+            if (tellApp({ type: "lali:close" })) e.preventDefault();
+          }}
           aria-label="Close the book and go back to the shelf"
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-ink shadow-[0_3px_0_rgba(27,42,78,.18)] transition hover:-translate-y-0.5"
         >

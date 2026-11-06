@@ -1,10 +1,11 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInLeft, FadeInRight, ZoomIn, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withSpring } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
+import { AnimatedBook, type BookMessage } from '@/components/animated-book';
 import { Bee } from '@/components/characters';
 import { Confetti } from '@/components/confetti';
 import { Goodnight } from '@/components/family';
@@ -167,6 +168,14 @@ export default function Reader() {
   const [closedTonight] = useState(() => isLimitReached(getState()));
   const child = useAppState(currentChild);
   const onWordDone = useCallback(() => setPageRead(true), []);
+  // Launch stories open in the website's animated book; offline, or for story-studio stories, the app's own reader.
+  const [nativeReader, setNativeReader] = useState(Platform.OS === 'web');
+  // Launch stories come without `pictures` (they're drawn); studio stories always have them.
+  const animated = !nativeReader && load.state === 'ready' && load.story.pictures === undefined;
+  const onBookMessage = useCallback((m: BookMessage) => {
+    if (m.type === 'lali:close') goBackOr('/read');
+    else void actions.finishStory(m.storyId);
+  }, []);
 
   if (closedTonight) {
     return (
@@ -177,6 +186,10 @@ export default function Reader() {
         </View>
       </SafeAreaView>
     );
+  }
+
+  if (animated && load.state === 'ready') {
+    return <AnimatedBook id={load.story.id} lang={lang} onMessage={onBookMessage} onFail={() => setNativeReader(true)} />;
   }
 
   if (load.state === 'loading') {
