@@ -21,14 +21,17 @@ import {
   Tukul,
   vars,
 } from "./scenery";
+import { Glow } from "./glow";
 import { Tappable } from "./tappable";
 
 /*
-  "Gugu and the Rainbow Puddle": one living picture per page (10 pages).
-  Every colour page has the same beat: Gugu jumps into his puddle on a 1.4 s loop,
+  "Gugu and the Rainbow Puddle": one living picture per page (12 pages).
+  Page 3 has Puddle Gugu, his reflection, waving back. Every colour page has the same beat: Gugu jumps into his puddle on a 1.4 s loop,
   lands at 58 % (0.81 s), and the splash, the ripples and the colour bloom all fire on
   that landing. Then the thing of that colour appears beside him.
   Keyframes are rainbow-puddle-* in globals.css (transforms and opacity only).
+  Then a grey page (the cloud slides over the sun and the colours drain away), and the sun
+  peeping out again makes the rainbow.
   Under reduced motion every moving part rests at a pose that still reads well:
   drops hang mid-splash, the taxi sits on the road, petals rest mid-fall.
 */
@@ -560,8 +563,59 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <Glints seed={12} spots={[[340, 196], [370, 206], [318, 214]]} />
         </>
       );
-    // Splish! Splash! RED! Red tomatoes, piled high at the market.
+    // Gugu peeked into the puddle. A little gelada peeked back! He waved, and Puddle Gugu waved too.
     case 2:
+      return (
+        <>
+          <WashedSky id={id} sun={[300, 56]} />
+          <Birds y={84} dur={22} phase={0.6} />
+          <Mountains />
+          <Hills back="#8FD39A" front="#6CC983" backY={190} frontY={214} />
+          <Acacia x={64} y={222} s={0.62} />
+          <Tukul x={346} y={222} s={0.55} />
+          <path d="M-10 230 Q200 220 410 232 L410 310 L-10 310Z" fill="#C99A6A" />
+          {/* the big puddle, with the sky (and a gelada) in it */}
+          <defs>
+            <clipPath id={`${id}-pool`}>
+              <ellipse cx={200} cy={278} rx={160} ry={40} />
+            </clipPath>
+          </defs>
+          <ellipse cx={200} cy={280} rx={168} ry={45} fill="#6E5236" opacity={0.28} />
+          <ellipse cx={200} cy={278} rx={160} ry={40} fill="#7CC4F0" />
+          <g clipPath={`url(#${id}-pool)`}>
+            <rect x={30} y={238} width={340} height={80} fill="#A6DCFA" opacity={0.6} />
+            <g transform="translate(0 476) scale(1 -1)">
+              <circle cx={300} cy={208} r={16} fill="#FFE27A" opacity={0.8} />
+              <g transform="translate(120 214)">
+                <CloudShape s={0.6} />
+              </g>
+            </g>
+            {/* Puddle Gugu, upside down and a little wobbly */}
+            <g className="rainbow-puddle-wobble">
+              <g transform="translate(0 476) scale(1 -1)" opacity={0.75}>
+                <Place x={200} y={238} s={0.36} tap={{ reaction: "wiggle", sound: "giggle" }}>
+                  <GuguShape pose="wave" mood="joy" />
+                </Place>
+              </g>
+            </g>
+            <rect x={30} y={238} width={340} height={80} fill="#3E98D0" opacity={0.18} />
+          </g>
+          {[0, 1].map((d) => (
+            <ellipse key={d} cx={200} cy={282} rx={70} ry={14} fill="none" stroke="#fff" strokeWidth={2} className="lali-ring" style={vars({ "--delay": `${-d * 1.6}s` })} />
+          ))}
+          <path d="M96 262 Q150 252 210 258" stroke="#fff" strokeOpacity={0.8} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+          <Glints spots={[[80, 276], [330, 270], [260, 290], [140, 296]]} />
+          {/* the real Gugu, at the edge, waving down at himself */}
+          <Place x={200} y={240} s={0.36} className="lali-tilt">
+            <GuguShape pose="wave" mood="joy" />
+          </Place>
+          <Butterfly x={330} y={180} delay={-1} />
+          <Daisy x={30} y={262} h={24} delay={-0.4} />
+          <Daisy x={380} y={258} h={22} delay={-1.4} />
+        </>
+      );
+    // Splish! Splash! RED! Red tomatoes, piled high at the market.
+    case 3:
       return (
         <>
           <WashedSky id={id} sun={[60, 50]} />
@@ -584,7 +638,7 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         </>
       );
     // Splish! Splash! ORANGE! A basket of sweet oranges, round as the sun.
-    case 3:
+    case 4:
       return (
         <>
           <Sky id={id} from="#FFB86B" mid="#FFD9A0" to="#FFF3DC" />
@@ -613,7 +667,7 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         </>
       );
     // Splish! Splash! YELLOW! Adey abeba flowers, nodding on the hill.
-    case 4:
+    case 5:
       return (
         <>
           <WashedSky id={id} sun={[330, 50]} />
@@ -634,7 +688,7 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         </>
       );
     // Splish! Splash! GREEN! Tall green teff, swishing in the wind.
-    case 5:
+    case 6:
       return (
         <>
           <WashedSky id={id} sun={[70, 54]} />
@@ -661,7 +715,7 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         </>
       );
     // Splish! Splash! BLUE! A blue-and-white taxi, beep beep, splashing down the road.
-    case 6:
+    case 7:
       return (
         <>
           <WashedSky id={id} sun={[340, 46]} />
@@ -697,7 +751,7 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         </>
       );
     // Splish! Splash! PURPLE! Jacaranda flowers, falling soft as feathers.
-    case 7:
+    case 8:
       return (
         <>
           <WashedSky id={id} sun={[60, 48]} />
@@ -715,8 +769,43 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <SplashGugu x={312} y={276} color={PURPLE} flip seed={7} />
         </>
       );
-    // Then Gugu looked up. Over the Simien mountains stretched a RAINBOW!
-    case 8:
+    // Then a grey cloud covered the sun, and drops began to fall. "Grey," sighed Gugu. "Where did my colours go?"
+    case 9:
+      return (
+        <>
+          <Sky id={id} from="#8E98AA" mid="#B4BCC8" to="#D8DCE2" />
+          {/* the sun is hidden; by the end its light starts to peep round the cloud */}
+          <g className="lali-fade-in" style={vars({ "--delay": "3s", "--dur": "2.4s" })}>
+            <Glow x={346} y={52} r={70} color="#FFF6C8" strength={0.7} />
+            <path d="M350 70 L410 150 L410 190Z M336 84 L372 190 L344 190Z" fill="#FFF6C8" opacity={0.3} />
+          </g>
+          <g transform="translate(300 64)">
+            <g className="lali-parallax" style={vars({ "--px": "5px", "--dur": "6s" })}>
+              <Tappable reaction="wiggle" sound="boing">
+                <CloudShape s={1.6} color="#9AA2B2" shade="#868FA0" />
+              </Tappable>
+            </g>
+          </g>
+          <DriftCloud y={44} s={0.8} dur={60} phase={0.2} color="#A8B0BE" shade="#949CAC" />
+          <Mountains far="#A4ACBA" mid="#8E97A6" />
+          <Hills back="#9AAA9E" front="#86998C" backY={196} frontY={226} />
+          <TinHouse x={30} y={238} w={100} h={56} wall="#B8A898" roof="#9AA4B0" door="#7A8494" />
+          <Ground y={236} grass="#86998C" earth="#A89A8C" />
+          <Puddle x={236} y={272} rx={70} rings={false} />
+          <rect x={160} y={258} width={152} height={30} fill="#8E98AA" opacity={0.5} />
+          <Plinks spots={[[210, 270], [250, 276], [270, 268], [226, 280], [196, 274]]} />
+          {/* flowers droop, grey in the grey light */}
+          {[56, 330, 366].map((x, i) => (
+            <Daisy key={x} x={x} y={294 - (i % 2) * 6} h={26} delay={-i * 0.7} color="#C4C8CE" />
+          ))}
+          <Place x={150} y={276} s={0.42} className="lali-breathe" tap={{ reaction: "wiggle", sound: "boing" }}>
+            <GuguShape pose="sit" mood="sad" />
+          </Place>
+          <Rain seed={14} n={26} color="#E6ECF4" />
+        </>
+      );
+    // Then the sun peeped out, and Gugu looked up. Over the mountains stretched a RAINBOW!
+    case 10:
       return (
         <>
           <Sky id={id} from="#62BCFF" mid="#AEE0FF" to="#F4FCFF" />

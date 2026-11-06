@@ -1657,3 +1657,484 @@ html.lang-arriving body {
 .home-zzz {
   animation: home-zzz 3s ease-out infinite;
 }
+
+/* ------------------------------------------------------------------
+   Anbessa and the Lost Moon (lost-moon-scenes.tsx)
+   ------------------------------------------------------------------ */
+/* Calling out: little sound arcs ripple away from the mouth. */
+@keyframes lost-moon-call {
+  0% { transform: translateX(-3px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(6px); opacity: 0; }
+}
+.lost-moon-call {
+  animation: lost-moon-call 1.6s ease-out var(--delay, 0s) infinite;
+}
+@keyframes lost-moon-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(14px, -30px); opacity: 0; }
+}
+.lost-moon-zzz {
+  animation: lost-moon-zzz 3s ease-out var(--delay, 0s) infinite;
+}
+@keyframes lost-moon-wind {
+  0% { transform: translateX(-60px); opacity: 0; }
+  20%, 75% { opacity: 1; }
+  100% { transform: translateX(130px); opacity: 0; }
+}
+.lost-moon-wind {
+  animation: lost-moon-wind 4s ease-in-out var(--delay, 0s) infinite;
+}
+/* Anbessa waves goodnight. */
+@keyframes lost-moon-wave {
+  from { transform: rotate(-22deg); }
+  to { transform: rotate(16deg); }
+}
+.lost-moon-wave {
+  transform-box: fill-box;
+  transform-origin: 10% 95%;
+  animation: lost-moon-wave 0.5s ease-in-out infinite alternate;
+}
+/* The owl's wing points the way. */
+@keyframes lost-moon-point {
+  0%, 40%, 100% { transform: rotate(0); }
+  55%, 85% { transform: rotate(-16deg); }
+}
+.lost-moon-point {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: lost-moon-point 3s ease-in-out 2s infinite;
+}
+/* The face in the well wobbles with the water. */
+@keyframes lost-moon-reflect {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.07, 0.93); }
+}
+.lost-moon-reflect {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lost-moon-reflect 2.4s ease-in-out infinite;
+}
+@keyframes lost-moon-tiptoe {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+.lost-moon-tiptoe {
+  animation: lost-moon-tiptoe 1.4s ease-in-out infinite alternate;
+}
+/* A cricket rubs its wing to chirp. */
+@keyframes lost-moon-chirp {
+  from { transform: rotate(0); }
+  to { transform: rotate(-22deg); }
+}
+.lost-moon-chirp {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: lost-moon-chirp 0.14s ease-in-out var(--delay, 0s) infinite alternate;
+}
+/* Puffs of breath in the cold air. */
+@keyframes lost-moon-puff {
+  0% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translate(12px, -14px) scale(1.8); opacity: 0; }
+}
+.lost-moon-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lost-moon-puff 2.2s ease-out var(--delay, 0s) infinite;
+}
+@keyframes lost-moon-hug {
+  0%, 100% { transform: translateX(0) scale(1); }
+  50% { transform: translateX(-3px) scale(1.02); }
+}
+.lost-moon-hug {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lost-moon-hug 2.6s ease-in-out infinite;
+}
+/* The wind pushes the cloud a little way off the moon (it rests there). */
+@keyframes lost-moon-slide {
+  from { transform: translateX(-42px); }
+  to { transform: translateX(0); }
+}
+.lost-moon-slide {
+  animation: lost-moon-slide 4.5s ease-in-out 0.8s both;
+}
+/* The moon rocks gently in her cloud blanket. */
+@keyframes lost-moon-rock {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(3deg); }
+}
+.lost-moon-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: lost-moon-rock 4.5s ease-in-out infinite alternate;
+}
+
+/* ------------------------------------------------------------------
+   Gugu Counts the Sheep (counting-scenes.tsx)
+   ------------------------------------------------------------------ */
+/* A sheep trots out of the pen: little bounces while it travels. */
+@keyframes gugu-counts-trot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.gugu-counts-trot {
+  animation: gugu-counts-trot 0.35s ease-in-out var(--delay, 0s) var(--n, 4);
+}
+@keyframes gugu-counts-bob {
+  50% { transform: translateY(-2px); }
+}
+.gugu-counts-bob {
+  animation: gugu-counts-bob 0.35s ease-in-out infinite;
+}
+@keyframes gugu-counts-leg {
+  from { transform: rotate(18deg); }
+  to { transform: rotate(-18deg); }
+}
+.gugu-counts-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: gugu-counts-leg 0.35s ease-in-out var(--delay, 0s) infinite alternate;
+}
+/* Head down to the grass and up again, chewing. */
+@keyframes gugu-counts-munch {
+  0%, 100% { transform: rotate(0); }
+  30%, 60% { transform: rotate(28deg); }
+}
+.gugu-counts-munch {
+  transform-box: fill-box;
+  transform-origin: 0% 60%;
+  animation: gugu-counts-munch var(--dur, 1.4s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes gugu-counts-chew {
+  50% { transform: translateY(1.5px); }
+}
+.gugu-counts-chew {
+  animation: gugu-counts-chew 0.3s ease-in-out infinite;
+}
+@keyframes gugu-counts-bell {
+  from { transform: rotate(-22deg); }
+  to { transform: rotate(22deg); }
+}
+.gugu-counts-bell {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: gugu-counts-bell 0.5s ease-in-out infinite alternate;
+}
+@keyframes gugu-counts-ding {
+  0% { transform: translateX(-2px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(5px); opacity: 0; }
+}
+.gugu-counts-ding {
+  animation: gugu-counts-ding 1.4s ease-out var(--delay, 0s) infinite;
+}
+/* The counting bar sings: each numeral has its turn. */
+@keyframes gugu-counts-sing {
+  0%, 12%, 100% { transform: scale(1); }
+  5% { transform: scale(1.35); }
+}
+.gugu-counts-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gugu-counts-sing 4s ease-in-out var(--delay, 0s) infinite;
+}
+/* The gate swings open on its hinge. */
+@keyframes gugu-counts-gate {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.25); }
+}
+.gugu-counts-gate {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: gugu-counts-gate 0.9s ease-in-out 0.6s both;
+}
+/* Four and Five lean in and bump heads, again and again. */
+@keyframes gugu-counts-butt {
+  0%, 40%, 100% { transform: translateX(0); }
+  52% { transform: translateX(-6px); }
+  60% { transform: translateX(8px); }
+  70% { transform: translateX(-2px); }
+}
+.gugu-counts-butt {
+  animation: gugu-counts-butt 1.8s ease-in-out 1.6s infinite;
+}
+@keyframes gugu-counts-butt-r {
+  0%, 40%, 100% { transform: translateX(0); }
+  52% { transform: translateX(6px); }
+  60% { transform: translateX(-8px); }
+  70% { transform: translateX(2px); }
+}
+.gugu-counts-butt-r {
+  animation: gugu-counts-butt-r 1.8s ease-in-out 1.6s infinite;
+}
+@keyframes gugu-counts-bonk {
+  0%, 55%, 100% { transform: scale(0.2); opacity: 0; }
+  62% { transform: scale(1.2) rotate(12deg); opacity: 1; }
+  80% { transform: scale(1) rotate(0); opacity: 0; }
+}
+.gugu-counts-bonk {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gugu-counts-bonk 1.8s ease-out var(--delay, 1.6s) infinite backwards;
+}
+/* Nine rears back and sneezes: achoo! */
+@keyframes gugu-counts-sneeze {
+  0%, 50%, 100% { transform: translateX(0) rotate(0); }
+  62% { transform: translateX(-3px) rotate(-5deg); }
+  70% { transform: translateX(4px) rotate(4deg); }
+}
+.gugu-counts-sneeze {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugu-counts-sneeze 2.4s ease-in-out 1.4s infinite;
+}
+@keyframes gugu-counts-achoo {
+  0%, 66% { transform: translate(-8px, 0) scale(0.2); opacity: 0; }
+  72% { opacity: 1; }
+  100% { transform: translate(16px, -6px) scale(1.4); opacity: 0; }
+}
+.gugu-counts-achoo {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: gugu-counts-achoo 2.4s ease-out 1.4s infinite;
+}
+@keyframes gugu-counts-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(12px, -26px); opacity: 0; }
+}
+.gugu-counts-zzz {
+  animation: gugu-counts-zzz 3s ease-out var(--delay, 0s) infinite;
+}
+/* The hare hops on the spot. */
+@keyframes gugu-counts-hop {
+  0%, 60%, 100% { transform: translateY(0); }
+  75% { transform: translateY(-10px); }
+}
+.gugu-counts-hop {
+  animation: gugu-counts-hop 1.2s ease-in-out infinite;
+}
+@keyframes gugu-counts-croak {
+  0%, 60%, 100% { transform: scale(1); }
+  70%, 82% { transform: scale(1.7); }
+}
+.gugu-counts-croak {
+  transform-box: fill-box;
+  transform-origin: 50% 30%;
+  animation: gugu-counts-croak 1.6s ease-in-out infinite;
+}
+/* A gust bends the teff right over, and it springs back. */
+@keyframes gugu-counts-gust {
+  0%, 100% { transform: rotate(-3deg); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(8deg); }
+}
+.gugu-counts-gust {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugu-counts-gust 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes gugu-counts-wind {
+  0% { transform: translateX(-60px); opacity: 0; }
+  20%, 75% { opacity: 1; }
+  100% { transform: translateX(160px); opacity: 0; }
+}
+.gugu-counts-wind {
+  animation: gugu-counts-wind 3.6s ease-in-out var(--delay, 0s) infinite;
+}
+/* Gugu lifts his head to listen. */
+@keyframes gugu-counts-listen {
+  0%, 30% { transform: rotate(0); }
+  45%, 100% { transform: rotate(6deg); }
+}
+.gugu-counts-listen {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugu-counts-listen 2.6s ease-in-out 1.6s both;
+}
+/* A big, slow gelada yawn: stretch up, then settle. */
+@keyframes gugu-counts-yawn {
+  0%, 100% { transform: scale(1, 1); }
+  40%, 60% { transform: scale(0.96, 1.06); }
+}
+.gugu-counts-yawn {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugu-counts-yawn 3.4s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------
+   Lali Shares the Honey (honey-scenes.tsx)
+   ------------------------------------------------------------------ */
+/* The sweet-o-meter fills to its level (--lv) when the page opens... */
+@keyframes lali-shares-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(var(--lv, 1)); }
+}
+.lali-shares-fill {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-fill 1.4s cubic-bezier(0.3, 1.2, 0.5, 1) var(--delay, 1.6s) both;
+}
+/* ...and, short of full, shakes its head: not quite sweet enough. */
+@keyframes lali-shares-nope {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-9deg); }
+  40% { transform: rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(3deg); }
+}
+.lali-shares-nope {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-nope 0.8s ease-in-out var(--delay, 3s) 2 both;
+}
+@keyframes lali-shares-sing {
+  50% { transform: scale(1.25, 0.8); }
+}
+.lali-shares-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-shares-sing 0.5s ease-in-out infinite;
+}
+/* Music notes float up and away. */
+@keyframes lali-shares-note {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--dx, 16px), -46px) rotate(14deg); opacity: 0; }
+}
+.lali-shares-note {
+  animation: lali-shares-note 2.4s ease-out var(--delay, 0s) infinite;
+}
+/* Honey wells up over the rim of the pot. */
+@keyframes lali-shares-ooze {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.lali-shares-ooze {
+  animation: lali-shares-ooze 1.8s ease-out 2.6s both;
+}
+/* The log hive hums. */
+@keyframes lali-shares-hive {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(1.6deg); }
+}
+.lali-shares-hive {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: lali-shares-hive 2.6s ease-in-out infinite;
+}
+/* Bees zip round the hive door. */
+@keyframes lali-shares-buzz {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-14px, -10px); }
+  50% { transform: translate(-22px, 4px); }
+  75% { transform: translate(-8px, 12px); }
+  100% { transform: translate(0, 0); }
+}
+.lali-shares-buzz {
+  animation: lali-shares-buzz var(--dur, 2.4s) linear var(--delay, 0s) infinite;
+}
+/* Flowers (and Lali) dance to the song. */
+@keyframes lali-shares-dance {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  25% { transform: rotate(0) translateY(-4px); }
+  50% { transform: rotate(6deg) translateY(0); }
+  75% { transform: rotate(0) translateY(-4px); }
+}
+.lali-shares-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-dance 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+/* A drop of nectar falls into the pot. */
+@keyframes lali-shares-plop {
+  0% { transform: translateY(-40px); opacity: 0; }
+  15% { opacity: 1; }
+  70% { transform: translateY(44px); opacity: 1; }
+  80%, 100% { transform: translateY(48px) scale(1.4, 0.4); opacity: 0; }
+}
+.lali-shares-plop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-plop 2.7s ease-in var(--delay, 0s) infinite backwards;
+}
+/* Fanning hard: a quick side-to-side wobble while the wings blur. */
+@keyframes lali-shares-fan {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+.lali-shares-fan {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-shares-fan 0.22s ease-in-out infinite alternate;
+}
+@keyframes lali-shares-whirr {
+  0% { transform: translateX(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+.lali-shares-whirr {
+  animation: lali-shares-whirr 0.9s ease-out var(--delay, 0s) infinite;
+}
+/* A little dip down to the honey to taste it, and back. */
+@keyframes lali-shares-taste {
+  0%, 20%, 100% { transform: translate(0, 0) rotate(0); }
+  35%, 55% { transform: translate(-6px, 14px) rotate(-14deg); }
+}
+.lali-shares-taste {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-shares-taste 3.2s ease-in-out 0.6s infinite;
+}
+/* A drop of each flower's nectar arcs over (--fx, --fy away) into the pot. */
+@keyframes lali-shares-pour {
+  0% { transform: translate(var(--fx, 0px), var(--fy, -100px)); opacity: 0; animation-timing-function: ease-out; }
+  10% { opacity: 1; }
+  45% { transform: translate(calc(var(--fx, 0px) * 0.45), calc(var(--fy, -100px) * 1.2)); animation-timing-function: ease-in; }
+  85% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(0, 4px) scale(1.3, 0.3); opacity: 0; }
+}
+.lali-shares-pour {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-pour 2.4s var(--delay, 0s) infinite backwards;
+}
+/* Lounging on the leaf: a slow, lazy rock. */
+@keyframes lali-shares-lounge {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(5deg); }
+}
+.lali-shares-lounge {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-shares-lounge 2.6s ease-in-out infinite alternate;
+}
+/* Looking at the honey, then at Anbessa, then the honey... */
+@keyframes lali-shares-look {
+  0%, 40% { transform: scaleX(1); }
+  50%, 90% { transform: scaleX(-1); }
+  100% { transform: scaleX(1); }
+}
+.lali-shares-look {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-shares-look 1.4s steps(1, end) var(--delay, 0s) 2;
+}
+
+/* ------------------------------------------------------------------
+   Gugu and the Rainbow Puddle: the two newer pages
+   ------------------------------------------------------------------ */
+/* Puddle Gugu wobbles with the ripples. */
+@keyframes rainbow-puddle-wobble {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+.rainbow-puddle-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: rainbow-puddle-wobble 2.2s ease-in-out infinite;
+}

@@ -155,7 +155,7 @@ function Heart({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   );
 }
 
-function ShareScene({ page }: { page: number }) {
+function ShareScene({ page, cub = true }: { page: number; cub?: boolean }) {
   const bee = [[96, 108], [210, 96], [176, 146], [214, 104]][page] ?? [214, 104];
   return (
     <>
@@ -179,7 +179,7 @@ function ShareScene({ page }: { page: number }) {
           <Path d="M184 218 Q186 232 190 226 Q194 238 198 222" fill="#FFC83D" />
         </G>
       )}
-      {page >= 1 && (
+      {page >= 1 && cub && (
         <G transform={place(250, 168, 0.38)}>
           <CubShape sad={page === 1} />
         </G>
@@ -198,13 +198,47 @@ function ShareScene({ page }: { page: number }) {
   );
 }
 
+/*
+  The stories are longer than these four pictures each (13 or 14 pages), so every page
+  borrows the picture that fits it best. The website draws a new picture for every page;
+  in the app these stay light, still and readable offline. Any page past the end of a
+  list (a story that grew again) shows the last picture rather than nothing.
+*/
+
+// Anbessa and the Lost Moon. 0: the empty sky, 1: asking Gugu, 2: counting the stars on the mountain, 3: the moon found.
+const MOON_PAGES = [3, 0, 0, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3];
+// Gugu Counts the Sheep. 0: the flock, 1: one missing, 2: behind the rock, 3: everyone counted.
+const COUNT_PAGES = [0, 3, 3, 3, 3, 0, 1, 2, 1, 1, 1, 2, 3, 3];
+// Lali Shares the Honey. 0: the flower, 1: Anbessa hungry, 2: the honey, 3: sharing. `cub`: show Anbessa.
+const SHARE_PAGES: { beat: number; cub?: boolean }[] = [
+  { beat: 0 },
+  { beat: 0 },
+  { beat: 0 },
+  { beat: 2, cub: false },
+  { beat: 2, cub: false },
+  { beat: 2, cub: false },
+  { beat: 2, cub: false },
+  { beat: 2, cub: false },
+  { beat: 1 },
+  { beat: 2 },
+  { beat: 3 },
+  { beat: 3 },
+  { beat: 3 },
+];
+
+function pick<T>(list: T[], page: number): T {
+  const i = Number.isFinite(page) ? Math.min(Math.max(0, Math.floor(page)), list.length - 1) : 0;
+  return list[i];
+}
+
 /** The picture for one page of a story, in a 4:3 box that fills its parent's width. */
 export function Scene({ kind, page }: { kind: SceneKind; page: number }) {
+  const share = pick(SHARE_PAGES, page);
   return (
     <Svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-      {kind === 'moon' && <MoonScene page={page} />}
-      {kind === 'count' && <CountScene page={page} />}
-      {kind === 'share' && <ShareScene page={page} />}
+      {kind === 'moon' && <MoonScene page={pick(MOON_PAGES, page)} />}
+      {kind === 'count' && <CountScene page={pick(COUNT_PAGES, page)} />}
+      {kind === 'share' && <ShareScene page={share.beat} cub={share.cub} />}
     </Svg>
   );
 }
