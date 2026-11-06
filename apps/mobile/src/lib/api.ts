@@ -52,6 +52,8 @@ export type ShelfStory = {
   pages: StoryPage[];
   /** Studio stories: a picture link per page (on the shelf, only the cover). */
   pictures?: (string | null)[];
+  /** For paid launch stories: lets the website's animated book open them inside the app (6 hours). */
+  readPass?: string;
   /** Recorded narration per page and language, when there is one. */
   audio?: Partial<Record<Lang, string | null>>[];
   isFree: boolean;
@@ -181,7 +183,7 @@ export const api = {
 
   stories: () => call<{ stories: ShelfStory[] }>('GET', 'stories'),
   /** A whole story with picture and narration links. A locked story throws ApiError('plan') with `{locked}` as its body. */
-  story: (id: string) => call<{ story: ShelfStory }>('GET', `stories/${enc(id)}`),
+  story: (id: string) => call<{ story: ShelfStory; readPass?: string }>('GET', `stories/${enc(id)}`),
   /** `childId` sends a star for a child other than the one reading now (stars earned offline). */
   progress: (storyId: string, itemType: 'story' | 'book' = 'story', childId?: string) =>
     call<{ stars: number; tonight: Tonight }>('POST', 'progress', { storyId, itemType }, [], childId),

@@ -157,7 +157,7 @@ function useStory(id: string): Load {
     const fromServer = () =>
       api
         .story(id)
-        .then(({ story }) => alive && setLoad({ state: 'ready', story }))
+        .then(({ story, readPass }) => alive && setLoad({ state: 'ready', story: readPass ? { ...story, readPass } : story }))
         .catch((e: unknown) => {
           if (!alive) return;
           if (isApiError(e, 'plan')) {
@@ -221,7 +221,7 @@ export default function Reader() {
   }
 
   if (animated && load.state === 'ready') {
-    return <AnimatedBook id={load.story.id} lang={lang} onMessage={onBookMessage} onFail={() => setNativeReader(true)} />;
+    return <AnimatedBook id={load.story.id} pass={load.story.readPass} lang={lang} onMessage={onBookMessage} onFail={() => setNativeReader(true)} />;
   }
 
   if (load.state === 'loading') {

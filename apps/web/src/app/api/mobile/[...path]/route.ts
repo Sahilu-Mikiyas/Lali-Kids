@@ -11,6 +11,7 @@ import { PLANS } from "@/lib/payments/plans";
 import { familyPlan } from "@/lib/payments/subscription";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
 import { createSupabaseAdmin, hasActivePlan } from "@/lib/supabase/server";
+import { signReadPass } from "@/lib/read-pass";
 import { shelfStories, storyForReading } from "@/lib/stories";
 
 /**
@@ -125,11 +126,14 @@ async function getStories(ctx: Ctx) {
 /** GET stories/:id: one story for reading, with short-lived picture and narration links. */
 async function getStoryForReading(ctx: Ctx, id: string) {
   const builtIn = getStory(id);
-  if (builtIn) return json({ story: builtIn });
+  if (builtIn?.isFree) return json({ story: builtIn });
   const profile = ctx.me ? await profileOf(ctx.me) : null;
   const access = await storyForReading(id, ctx.me?.user.id ?? null, profile?.role === "admin");
   if (!access) return fail(404, "No such story");
-  return "story" in access ? json({ story: access.story }) : json({ locked: access.locked }, 402);
+  if (!("story" in access)) return json({ locked: access.locked }, 402);
+  // Paid launch stories open in the website's animated book inside the app: add ?pass=… to its address.
+  const readPass = builtIn && ctx.me ? signReadPass(ctx.me.user.id, id) : undefined;
+  return json({ story: access.story, readPass });
 }
 
 /** POST progress: { storyId, itemType? } for the current child. Earns a star. */
