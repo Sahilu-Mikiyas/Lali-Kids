@@ -11,6 +11,7 @@ import { duckMusic } from "@/lib/music/synth";
 import { Scene } from "../scenes";
 import { SOCIAL_LABEL, SocialIcon } from "../social-icons";
 import { Buddy } from "./buddies";
+import { Drift } from "./kit";
 import { useAwake } from "./live";
 import { SectionHead } from "./sections";
 
@@ -148,6 +149,64 @@ function PlaylistCard({ video, active, index, onPick }: { video: FeaturedVideo; 
   );
 }
 
+/** The animals in the audience, seen from behind in the dark, lit at the edges by the screen. */
+function Audience({ watching }: { watching: boolean }) {
+  const SIL = "#140C28";
+  const RIM = "#8C6EE0";
+  const heads = [
+    // a walia ibex, with its great curved horns
+    <g key="ibex">
+      <path d="M14 40 C12 26 18 18 26 18 C34 18 40 26 38 40Z" fill={SIL} />
+      <path d="M20 20 C14 8 4 6 0 12 C6 10 12 14 18 22Z M32 20 C38 8 48 6 52 12 C46 10 40 14 34 22Z" fill={SIL} />
+      <path d="M17 26 C18 20 22 18 26 18 C30 18 34 20 35 26" stroke={RIM} strokeWidth={1.4} fill="none" />
+    </g>,
+    // an owl with its ear tufts
+    <g key="owl">
+      <ellipse cx={26} cy={30} rx={14} ry={13} fill={SIL} />
+      <path d="M14 22 L16 10 L22 19Z M38 22 L36 10 L30 19Z" fill={SIL} />
+      <path d="M15 24 C18 18 34 18 37 24" stroke={RIM} strokeWidth={1.4} fill="none" />
+    </g>,
+    // an Ethiopian wolf, ears up
+    <g key="wolf">
+      <path d="M12 40 C10 28 16 20 26 20 C36 20 42 28 40 40Z" fill={SIL} />
+      <path d="M15 24 L14 6 L23 20Z M37 24 L38 6 L29 20Z" fill={SIL} />
+      <path d="M15 22 L14 7 M37 22 L38 7" stroke={RIM} strokeWidth={1.2} />
+    </g>,
+    // a woolly sheep
+    <g key="sheep">
+      <circle cx={18} cy={28} r={9} fill={SIL} />
+      <circle cx={30} cy={25} r={10} fill={SIL} />
+      <circle cx={38} cy={31} r={8} fill={SIL} />
+      <circle cx={26} cy={34} r={10} fill={SIL} />
+      <path d="M10 28 C10 20 18 16 24 18 C30 13 40 16 42 26" stroke={RIM} strokeWidth={1.4} fill="none" />
+    </g>,
+    // a gelada with its shaggy cape
+    <g key="gelada">
+      <path d="M8 40 C6 26 14 16 26 16 C38 16 46 26 44 40Z" fill={SIL} />
+      <circle cx={26} cy={18} r={9} fill={SIL} />
+      <path d="M17 17 C19 10 33 10 35 17" stroke={RIM} strokeWidth={1.4} fill="none" />
+    </g>,
+    // a hippo, round ears
+    <g key="hippo">
+      <ellipse cx={26} cy={32} rx={17} ry={12} fill={SIL} />
+      <circle cx={16} cy={21} r={4} fill={SIL} />
+      <circle cx={36} cy={21} r={4} fill={SIL} />
+      <path d="M11 28 C14 22 38 22 41 28" stroke={RIM} strokeWidth={1.4} fill="none" />
+    </g>,
+  ];
+  return (
+    <div className="pointer-events-none absolute bottom-3 left-1/2 z-10 flex w-[64%] -translate-x-1/2 justify-between sm:w-[58%]" aria-hidden>
+      {heads.map((h, i) => (
+        <span key={i} className={`${i > 3 ? "hidden sm:block" : "block"} w-[13%] ${watching ? "home-bop" : "home-bob"}`} style={{ animationDelay: `${-i * 0.37}s` }}>
+          <svg viewBox="0 0 52 40" className="block w-full overflow-visible">
+            {h}
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function Popcorn() {
   return (
     <svg viewBox="0 0 40 48" className="w-full" aria-hidden>
@@ -231,6 +290,16 @@ function Stage() {
           className="pointer-events-none absolute inset-x-0 top-0 z-30 h-8 bg-[radial-gradient(circle_at_50%_0,#8E1B2D_70%,transparent_72%)] bg-[length:48px_32px] bg-repeat-x sm:h-10 sm:bg-[length:64px_40px]"
           aria-hidden
         />
+
+        {/* the projector's beam, from the back of the room up to the screen, full of dancing dust */}
+        <div
+          className="home-flicker pointer-events-none absolute inset-x-0 bottom-0 top-[6%]"
+          style={{ clipPath: "polygon(47% 100%, 53% 100%, 92% 4%, 8% 4%)", background: "linear-gradient(0deg, rgba(255,248,214,.5), rgba(255,248,214,.16) 40%, rgba(200,190,255,.05))" }}
+          aria-hidden
+        >
+          <Drift kind="dust" n={12} area={[30, 30, 70, 92]} />
+        </div>
+        <span className="pointer-events-none absolute bottom-[-14px] left-1/2 h-10 w-10 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,#FFFBE6,rgba(255,240,180,.6)_35%,rgba(255,240,180,0)_70%)]" aria-hidden />
 
         <div className="relative z-10 mx-auto max-w-3xl">
           {/* the screen, in a chunky TV frame with marquee bulbs */}
@@ -347,6 +416,7 @@ function Stage() {
         <div className={`absolute bottom-0 right-[3%] z-10 w-[84px] sm:right-[6%] sm:w-[118px] ${watching ? "home-bop" : ""}`} style={{ animationDelay: "-0.3s" }}>
           <Buddy who="gugu" pose="sit" bubbleSide="left" />
         </div>
+        <Audience watching={watching} />
         <div className="absolute inset-x-0 bottom-0 h-6 bg-[#160E2C]" aria-hidden />
       </div>
 

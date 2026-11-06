@@ -11,7 +11,9 @@ import { ShootingStar } from "../book/scenery";
 import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
 import { Scene } from "../scenes";
 import { Buddy } from "./buddies";
+import { boop, Drift, Edge, FlyBy, Twinkles, usePointerLook } from "./kit";
 import { useAwake } from "./live";
+import { PAPER_GRAIN, TIBEB } from "./popup-worlds";
 
 /* ---------- shared ---------- */
 
@@ -183,7 +185,9 @@ export function Worlds() {
   const t = useT();
   const ref = useAwake<HTMLElement>();
   return (
-    <section ref={ref} id="worlds" data-bee="worlds" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6 sm:py-28">
+    <section ref={ref} id="worlds" data-bee="worlds" className="relative mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6 sm:py-28">
+      <Drift kind="pollen" n={6} area={[0, 10, 100, 90]} />
+      <FlyBy color="#FF8FB1" top="9%" dur={19} delay={-6} />
       <SectionHead
         eyebrow={t.worlds.eyebrow}
         title={t.worlds.title}
@@ -198,9 +202,24 @@ export function Worlds() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ type: "spring", stiffness: 160, damping: 12, delay: i * 0.1 }}
           >
-            <Tilt className="group h-full space-y-3 rounded-[28px] p-6 transition-shadow hover:shadow-[0_10px_0_rgba(27,42,78,.08)]" style={{ background: w.tint }}>
-                <motion.div className="h-24 w-24" whileHover={{ rotate: [0, -12, 10, 0], scale: 1.12 }} whileTap={{ scale: 0.9, rotate: -10 }}>
-                  <svg viewBox="0 0 96 96" className="home-float h-24 w-24" style={{ animationDelay: `${-i * 0.6}s` }} aria-hidden>
+            <Tilt
+              className="group relative h-full space-y-3 overflow-hidden rounded-[28px] p-6 pt-8 shadow-[0_6px_0_rgba(27,42,78,.07),inset_0_1px_0_rgba(255,255,255,.9)] transition-shadow hover:shadow-[0_14px_0_rgba(27,42,78,.08),0_24px_40px_-18px_rgba(27,42,78,.35)]"
+              style={{ background: `linear-gradient(160deg, #fff 0%, ${w.tint} 46%)` }}
+            >
+                {/* paper grain, a woven tibeb band and a soft light from the top corner */}
+                <span className="pointer-events-none absolute inset-0 opacity-70" style={{ backgroundImage: PAPER_GRAIN }} aria-hidden />
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-2.5" style={{ backgroundImage: TIBEB, backgroundSize: "auto 100%" }} aria-hidden />
+                <span className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,.9),rgba(255,255,255,0)_70%)]" aria-hidden />
+                <Twinkles color={w.color} />
+                <motion.div
+                  className="relative h-24 w-24 cursor-pointer"
+                  whileHover={{ rotate: [0, -12, 10, 0], scale: 1.12 }}
+                  whileTap={{ scaleX: 1.2, scaleY: 0.8, rotate: -10 }}
+                  onTap={(e) => boop((e.target as Element).closest<HTMLElement>("[data-boop]"))}
+                  data-boop
+                >
+                  <span className="absolute inset-x-3 bottom-0 h-3 rounded-[50%] bg-black/10" aria-hidden />
+                  <svg viewBox="0 0 96 96" className="home-float relative h-24 w-24 drop-shadow-[0_6px_6px_rgba(27,42,78,.18)]" style={{ animationDelay: `${-i * 0.6}s` }} aria-hidden>
                     {w.icon}
                   </svg>
                 </motion.div>
@@ -225,7 +244,7 @@ export function FeedVsBook() {
   const ref = useAwake<HTMLElement>();
   return (
     <section ref={ref} id="parents" data-bee="parents" className="relative scroll-mt-24 bg-white pb-28 pt-32">
-      <Wave className="text-bg" />
+      <Edge kind="tear" color="#ffffff" className="!top-[-23px] sm:!top-[-31px]" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHead
           eyebrow={t.parents.eyebrow}
@@ -248,8 +267,8 @@ export function FeedVsBook() {
             <p className="font-display text-2xl font-black text-muted">{t.parents.feed}</p>
             <div className="relative mt-5 h-72 overflow-hidden rounded-2xl" aria-hidden>
               <div className="animate-[scroll-up_9s_linear_infinite] space-y-3">
-                {[...thumbs, ...thumbs].map((i) => (
-                  <div key={i} className="flex gap-3">
+                {[...thumbs, ...thumbs].map((i, k) => (
+                  <div key={k} className="flex gap-3">
                     <div className="h-16 w-28 shrink-0 rounded-xl" style={{ background: ["#C9CED9", "#D5C9D9", "#C9D9D3", "#D9D3C9"][i % 4] }} />
                     <div className="flex-1 space-y-2 py-1">
                       <div className="h-3 w-4/5 rounded bg-[#CBD0DA]" />
@@ -273,11 +292,13 @@ export function FeedVsBook() {
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.12 }}
-            className="relative overflow-hidden rounded-[32px] bg-night p-6 text-white"
+            className="relative overflow-hidden rounded-[32px] bg-[radial-gradient(120%_80%_at_80%_0%,#2E3790,#141B45_60%)] p-6 text-white shadow-[0_20px_40px_-20px_rgba(20,27,69,.6)]"
           >
+            <Drift kind="star" n={8} area={[4, 2, 96, 12]} />
             <p className="font-display text-2xl font-black text-gold">{t.parents.lali}</p>
             <div className="relative mt-5 grid h-72 place-items-center overflow-hidden rounded-2xl" style={{ background: STORIES[0].color }}>
               <Scene kind="moon" page={3} />
+              <Drift kind="firefly" n={6} area={[6, 30, 94, 85]} />
               <span className="home-pulse absolute bottom-4 rounded-full bg-white px-4 py-1.5 font-display text-lg font-black text-night">{t.parents.goodnight}</span>
             </div>
             <ul className="mt-5 space-y-2 text-white/85">
@@ -296,9 +317,13 @@ export function FeedVsBook() {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 200, damping: 14, delay: i * 0.08 }}
-              whileHover={{ y: -6 }}
-              className="rounded-3xl bg-bg p-5"
+              whileHover={{ y: -8, rotate: i % 2 ? 1.5 : -1.5 }}
+              whileTap={{ scaleX: 1.05, scaleY: 0.94 }}
+              onTap={(e) => boop((e.target as Element).closest<HTMLElement>("[data-boop]"))}
+              data-boop
+              className="group relative cursor-default rounded-3xl bg-bg p-5 shadow-[inset_0_1px_0_#fff] transition-shadow hover:shadow-[0_16px_30px_-18px_rgba(27,42,78,.45)]"
             >
+              <Twinkles />
               <span className={`mb-3 block h-3 w-10 rounded-full ${c}`} />
               <p className="font-display text-xl font-black">{ft}</p>
               <p className="mt-1 text-muted">{d}</p>
@@ -351,6 +376,8 @@ export function StarGame() {
   const done = count === 10;
 
   const ref = useAwake<HTMLElement>();
+  const guguRef = useRef<HTMLDivElement>(null);
+  const gugu = usePointerLook(guguRef, 6);
   return (
     <section ref={ref} data-bee="stars" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -382,15 +409,37 @@ export function StarGame() {
             {t.starGame.again}
           </button>
         </div>
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[32px] bg-[radial-gradient(120%_90%_at_70%_10%,#3B3F94,#141B45_70%)] shadow-[0_10px_0_rgba(27,42,78,.15)]">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[32px] bg-[radial-gradient(120%_90%_at_70%_10%,#3B3F94,#141B45_70%)] shadow-[0_10px_0_rgba(27,42,78,.15),0_30px_60px_-30px_rgba(20,27,69,.7)]">
+          {/* the Milky Way, a far range of the Simien and the moon */}
+          <span className="pointer-events-none absolute -left-[10%] top-[30%] h-[30%] w-[130%] -rotate-[16deg] bg-[radial-gradient(ellipse_at_center,rgba(200,210,255,.22),rgba(200,210,255,0)_70%)]" aria-hidden />
+          <Drift kind="star" n={14} area={[2, 2, 98, 70]} />
+          <span className="pointer-events-none absolute right-[6%] top-[8%] h-[16%] w-auto aspect-square rounded-full bg-[radial-gradient(circle_at_40%_35%,#FFFBE6,#F6EDC6_60%,#E2D49A)] shadow-[0_0_0_10px_rgba(246,237,198,.08),0_0_40px_rgba(246,237,198,.45)]" aria-hidden />
+          <svg viewBox="0 0 400 90" preserveAspectRatio="none" className="absolute inset-x-0 bottom-[14%] h-[24%] w-full" aria-hidden>
+            <path d="M0 90 V50 L30 48 L40 28 L80 26 L88 44 L130 42 L142 16 L156 14 L164 38 L210 36 L222 20 L262 18 L270 40 L320 38 L332 22 L370 20 L380 40 L400 38 V90Z" fill="#2B3070" />
+            <rect y={70} width={400} height={20} fill="#3B3F94" opacity={0.35} />
+          </svg>
           <svg viewBox="0 0 400 60" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-1/4 w-full" aria-hidden>
             <path d="M0 60 L0 30 Q100 0 200 24 T400 18 L400 60Z" fill="#2E7F6A" />
+            <path d="M0 30 Q100 0 200 24 T400 18" stroke="#6FD3A8" strokeWidth={2} fill="none" opacity={0.5} />
+            {[30, 90, 150, 250, 310, 370].map((x, k) => (
+              <g key={x} transform={`translate(${x} ${40 + (k % 2) * 8})`}>
+                <path d="M0 0 Q-1 -6 0 -10" stroke="#3E8E4A" strokeWidth={1.2} fill="none" />
+                <path d="M-2 -10 Q0 -15 2 -10Z" fill="#E8B92F" />
+              </g>
+            ))}
+          </svg>
+          {/* lines join the stars in the order they were lit: a constellation */}
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
+            <polyline points={lit.map((k) => STAR_SPOTS[k].join(",")).join(" ")} fill="none" stroke="#FFE27A" strokeOpacity={0.55} strokeWidth={0.5} strokeDasharray="1.4 1.2" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 2 }} />
           </svg>
           <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
             <ShootingStar seed={2} />
           </svg>
-          <div className="absolute bottom-1 right-[3%] z-10 w-[19%]">
+          <div ref={guguRef} className="absolute bottom-1 right-[3%] z-10 w-[19%]">
+            <span className="pointer-events-none absolute -inset-[20%] rounded-full bg-[radial-gradient(circle_at_50%_60%,rgba(255,226,122,.22),rgba(255,226,122,0)_60%)]" aria-hidden />
+            <motion.div style={{ rotate: gugu.lean }} className="origin-bottom">
             <Buddy key={cheer} who="gugu" pose={done ? "hop" : cheer ? "point" : "sit"} mood={done ? "joy" : "happy"} bubbleSide="left" />
+            </motion.div>
           </div>
           {STAR_SPOTS.map(([x, y], i) => {
             const n = lit.indexOf(i);
@@ -418,7 +467,8 @@ export function StarGame() {
                 whileHover={{ scale: on ? 1.25 : 1.15 }}
                 whileTap={{ scale: 0.8 }}
               >
-                <svg viewBox="0 0 24 24" className={on ? "drop-shadow-[0_0_14px_rgba(255,213,74,.85)]" : "home-breathe"} style={on ? undefined : { animationDelay: `${-i * 0.2}s` }}>
+                {on && <span className="pointer-events-none absolute -inset-[40%] rounded-full bg-[radial-gradient(circle,rgba(255,226,122,.5),rgba(255,226,122,0)_65%)]" aria-hidden />}
+                <svg viewBox="0 0 24 24" className={`relative ${on ? "drop-shadow-[0_0_14px_rgba(255,213,74,.85)]" : "home-breathe"}`} style={on ? undefined : { animationDelay: `${-i * 0.2}s` }}>
                   <path d={STAR_PATH} fill={on ? "#FFD54A" : "#5A5FA8"} />
                 </svg>
                 {on && <span className="absolute inset-0 grid place-items-center font-display text-[clamp(.8rem,1.6vw,1.2rem)] font-black text-[#5C3A00]">{n + 1}</span>}
@@ -457,8 +507,12 @@ export function ParentReport() {
           whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ type: "spring", stiffness: 70, damping: 13 }}
-          className="relative space-y-5 rounded-[32px] border-2 border-dashed border-line bg-bg p-7"
+          className="relative space-y-5 rounded-[32px] border-2 border-dashed border-line bg-[#FFFDF6] p-7 shadow-[0_24px_40px_-24px_rgba(27,42,78,.45)]"
+          style={{ backgroundImage: PAPER_GRAIN }}
         >
+          {/* two strips of tape hold the note down */}
+          <span className="pointer-events-none absolute -left-3 -top-3 h-7 w-24 -rotate-[24deg] bg-[#FFE9A6]/80 shadow-[0_1px_2px_rgba(0,0,0,.12)]" aria-hidden />
+          <span className="pointer-events-none absolute -bottom-3 -right-3 h-7 w-24 -rotate-[24deg] bg-[#BDE6F2]/80 shadow-[0_1px_2px_rgba(0,0,0,.12)]" aria-hidden />
           {/* Lali delivers the Sunday note */}
           <motion.span
             initial={{ opacity: 0, x: 80, y: -40 }}
@@ -532,7 +586,9 @@ export function Plans() {
   const t = useT();
   const ref = useAwake<HTMLElement>();
   return (
-    <section ref={ref} id="plans" data-bee="plans" className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-28 pt-16 sm:px-6">
+    <section ref={ref} id="plans" data-bee="plans" className="relative mx-auto max-w-6xl scroll-mt-24 px-4 pb-28 pt-16 sm:px-6">
+      <FlyBy color="#FFD23F" top="4%" dur={22} delay={-3} reverse />
+      <Drift kind="petal" n={5} area={[0, 0, 100, 30]} />
       <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
       <div className="grid items-stretch gap-6 md:grid-cols-3">
         {PLANS.map((p) => ({ ...p, featured: "featured" in p && p.featured, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
@@ -542,8 +598,9 @@ export function Plans() {
             whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 150, damping: 13, delay: i * 0.1 }}
-            whileHover={{ y: -8 }}
-            className={`group relative mt-10 flex flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] ${
+            whileHover={{ y: -10, rotate: (i - 1) * 0.8 }}
+            whileTap={{ scaleX: 1.03, scaleY: 0.97 }}
+            className={`group relative mt-10 flex flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] transition-shadow hover:shadow-[0_8px_0_var(--color-line),0_30px_50px_-24px_rgba(27,42,78,.45)] ${
               p.featured ? "bg-ink text-white shadow-[0_8px_0_#0d1530]" : "bg-white"
             }`}
           >
@@ -555,6 +612,15 @@ export function Plans() {
                 </svg>
               </span>
             </span>
+            <Twinkles />
+            {p.featured && (
+              <>
+                <span className="pointer-events-none absolute inset-x-6 top-0 h-2 rounded-b-md" style={{ backgroundImage: TIBEB, backgroundSize: "auto 100%" }} aria-hidden />
+                <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-[32px]" aria-hidden>
+                  <span className="home-sheen absolute -inset-y-6 left-0 w-1/3 bg-[linear-gradient(100deg,transparent,rgba(255,255,255,.12),transparent)]" />
+                </span>
+              </>
+            )}
             {p.featured && <span className="home-wiggle absolute -top-4 left-7 rounded-full bg-gold px-4 py-1 font-display font-black text-[#2A1A00]">{t.plans.popular}</span>}
             <p className="font-display text-3xl font-black">{p.name}</p>
             <p className={p.featured ? "text-white/75" : "text-muted"}>{p.for}</p>

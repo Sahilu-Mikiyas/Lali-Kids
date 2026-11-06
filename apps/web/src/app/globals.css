@@ -2279,3 +2279,436 @@ html.lang-arriving body {
 .voice-dot {
   animation: voice-dot 1s ease-in-out infinite;
 }
+
+/* ------------------------------------------------------------------
+   Home page, part two: the pop-up book, its animals, the burst of
+   butterflies, and the living sections (components/home).
+   Transforms and opacity only. data-asleep pauses everything off screen,
+   and the reduced-motion rule near the top of this file stops it all.
+   ------------------------------------------------------------------ */
+
+/* animals: blinking, twitching, swishing, grooming */
+.home-blink,
+.home-ear,
+.home-tail,
+.home-headtilt,
+.home-breathe-s,
+.home-nod,
+.home-groom,
+.home-bob,
+.home-ibex-hop,
+.home-glide,
+.home-fin,
+.home-flap-l,
+.home-flap-r {
+  transform-box: fill-box;
+}
+@keyframes home-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+.home-blink {
+  transform-origin: center;
+  animation: home-blink var(--dur, 3.8s) linear var(--d, 0s) infinite;
+}
+@keyframes home-ear {
+  0%, 70%, 100% { transform: rotate(0); }
+  74% { transform: rotate(-14deg); }
+  78% { transform: rotate(6deg); }
+  82% { transform: rotate(-6deg); }
+  86% { transform: rotate(0); }
+}
+.home-ear {
+  animation: home-ear 3.4s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-tail {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(8deg); }
+}
+.home-tail {
+  animation: home-tail var(--dur, 2.4s) ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-headtilt {
+  0%, 40%, 100% { transform: rotate(0); }
+  50%, 70% { transform: rotate(-6deg); }
+  80% { transform: rotate(2deg); }
+}
+.home-headtilt {
+  transform-origin: 50% 90%;
+  animation: home-headtilt 6s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-lookup {
+  0% { transform: rotate(0); }
+  35%, 70% { transform: rotate(-18deg); }
+  100% { transform: rotate(0); }
+}
+.home-acting .home-headtilt {
+  animation: home-lookup 0.9s ease-in-out;
+}
+@keyframes home-breathe-s {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.025, 0.975); }
+}
+.home-breathe-s {
+  transform-origin: 50% 100%;
+  animation: home-breathe-s 3s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-nod {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(8deg); }
+  60% { transform: rotate(3deg); }
+}
+.home-nod {
+  animation: home-nod 2.6s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-groom {
+  0%, 100% { transform: rotate(0) translateX(0); }
+  25% { transform: rotate(-8deg) translateX(-2px); }
+  50% { transform: rotate(4deg) translateX(1px); }
+  75% { transform: rotate(-10deg) translateX(-3px); }
+}
+.home-groom {
+  animation: home-groom 1.3s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.home-bob {
+  animation: home-bob var(--dur, 2.2s) ease-in-out var(--d, 0s) infinite;
+}
+/* the walia ibex hops up its rock now and then */
+@keyframes home-ibex-hop {
+  0%, 74%, 100% { transform: translateY(0) scale(1, 1); }
+  77% { transform: translateY(0) scale(1.06, 0.92); }
+  84% { transform: translateY(-16px) scale(0.96, 1.05); }
+  91% { transform: translateY(0) scale(1.05, 0.95); }
+  95% { transform: translateY(0) scale(1, 1); }
+}
+.home-ibex-hop {
+  transform-origin: 50% 100%;
+  animation: home-ibex-hop 6.5s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-glide {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.82); }
+}
+.home-glide {
+  transform-origin: 50% 50%;
+  animation: home-glide 2.4s ease-in-out infinite;
+}
+@keyframes home-fin {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(14deg); }
+}
+.home-fin {
+  animation: home-fin 0.5s ease-in-out var(--d, 0s) infinite;
+}
+
+/* animals that wander about their card */
+.home-book [data-actor] {
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+}
+@keyframes home-hover {
+  0%, 100% { transform: translate(0, 0) rotate(-4deg); }
+  25% { transform: translate(18%, -14%) rotate(4deg); }
+  50% { transform: translate(36%, 2%) rotate(-2deg); }
+  75% { transform: translate(14%, 10%) rotate(5deg); }
+}
+.home-hover {
+  animation: home-hover 5s ease-in-out infinite;
+}
+@keyframes home-soar {
+  0% { transform: translate(-150%, 10%) rotate(-6deg); }
+  50% { transform: translate(120%, -25%) rotate(5deg); }
+  100% { transform: translate(-150%, 10%) rotate(-6deg); }
+}
+.home-soar {
+  animation: home-soar 16s ease-in-out infinite;
+}
+@keyframes home-float-boat {
+  0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+  50% { transform: translate(-6%, -6%) rotate(2deg); }
+}
+.home-float-boat {
+  animation: home-float-boat 4.5s ease-in-out infinite;
+}
+@keyframes home-swim {
+  0% { transform: translate(0, 0) scaleX(-1); }
+  45% { transform: translate(150%, -14%) scaleX(-1); }
+  50% { transform: translate(150%, -14%) scaleX(1); }
+  95% { transform: translate(0, 4%) scaleX(1); }
+  100% { transform: translate(0, 0) scaleX(-1); }
+}
+.home-swim {
+  animation: home-swim 9s ease-in-out infinite;
+}
+.home-swim-b {
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+.home-swim-c {
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+@keyframes home-firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+  25% { transform: translate(10px, -12px); opacity: 1; }
+  50% { transform: translate(-6px, -20px); opacity: 0.4; }
+  75% { transform: translate(-12px, -6px); opacity: 1; }
+}
+.home-firefly {
+  will-change: transform, opacity;
+  animation: home-firefly var(--dur, 5s) ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-bubble {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(6px, -70px) scale(1); }
+  100% { transform: translate(-4px, -150px) scale(1.1); opacity: 0; }
+}
+.home-bubble {
+  animation: home-bubble var(--dur, 4s) ease-in var(--d, 0s) infinite;
+}
+@keyframes home-shoot {
+  0%, 82% { transform: translate(0, 0) rotate(20deg) scaleX(0.2); opacity: 0; }
+  86% { opacity: 1; }
+  100% { transform: translate(180px, 66px) rotate(20deg) scaleX(1); opacity: 0; }
+}
+.home-shoot {
+  transform-origin: 100% 50%;
+  animation: home-shoot 7s ease-in var(--d, -2s) infinite;
+}
+
+/* the book itself */
+@keyframes home-sheen {
+  0%, 60% { transform: translateX(-120%) skewX(-12deg); }
+  100% { transform: translateX(330%) skewX(-12deg); }
+}
+.home-sheen {
+  animation: home-sheen 5.5s ease-in-out 1s infinite;
+}
+@keyframes home-glow {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.08; }
+}
+.home-glow {
+  animation: home-glow 4s ease-in-out infinite;
+}
+.home-spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 5;
+}
+@keyframes home-tag {
+  0% { transform: translate(-50%, 6px) scale(0.4); opacity: 0; }
+  60% { transform: translate(-50%, -2px) scale(1.08); opacity: 1; }
+  100% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+}
+.home-tag {
+  animation: home-tag 0.35s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+/* the burst: butterflies, leaves, petals, sparkles and birds */
+.home-flyer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.home-bfly .home-wing {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  animation: home-flap 0.19s ease-in-out infinite alternate;
+}
+.home-bfly .home-wing-l {
+  left: 0;
+  transform-origin: 100% 50%;
+}
+.home-bfly .home-wing-r {
+  right: 0;
+  transform-origin: 0% 50%;
+}
+.home-bfly .home-wing-r svg {
+  transform: scaleX(-1);
+}
+.home-bfly-body {
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: 22%;
+  width: 3px;
+  height: 58%;
+  border-radius: 2px;
+  background: #2b1a3a;
+}
+@keyframes home-flap {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.16); }
+}
+.home-resting .home-wing {
+  animation-duration: 1.2s;
+}
+.home-bird {
+  width: 36px;
+  height: 16px;
+}
+.home-bird-in {
+  position: absolute;
+  inset: 0;
+}
+.home-bird .home-wing {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+}
+.home-bird-l {
+  left: 0;
+  transform-origin: 100% 80%;
+  animation: home-bflap 0.26s ease-in-out infinite alternate;
+}
+.home-bird-r {
+  right: 0;
+  transform-origin: 0% 80%;
+  animation: home-bflap-r 0.26s ease-in-out infinite alternate;
+}
+.home-bird-r svg {
+  transform: scaleX(-1);
+}
+.home-bird-body {
+  position: absolute;
+  left: calc(50% - 4px);
+  top: 55%;
+  width: 8px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2b2f55;
+}
+@keyframes home-bflap {
+  from { transform: rotate(22deg); }
+  to { transform: rotate(-26deg); }
+}
+@keyframes home-bflap-r {
+  from { transform: rotate(-22deg); }
+  to { transform: rotate(26deg); }
+}
+
+/* the hero's sky for each world */
+@keyframes home-beam {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.home-beam {
+  animation: home-beam 7s ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-spin {
+  to { transform: rotate(360deg); }
+}
+.home-spin {
+  animation: home-spin 60s linear infinite;
+}
+@keyframes home-rise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(14px, -30vh); }
+  100% { transform: translate(-8px, -62vh); opacity: 0; }
+}
+.home-rise {
+  animation: home-rise var(--dur, 9s) ease-in var(--d, 0s) infinite;
+}
+@keyframes home-shimmer {
+  from { transform: translateX(0); }
+  to { transform: translateX(-91px); }
+}
+.home-shimmer {
+  animation: home-shimmer 6s linear infinite;
+}
+
+/* drifting particles in the sections */
+@keyframes home-mote {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  50% { transform: translate(var(--dx, 30px), -26px); }
+  80% { opacity: 0.8; }
+  100% { transform: translate(calc(var(--dx, 30px) * -0.4), -54px); opacity: 0; }
+}
+.home-mote {
+  animation: home-mote var(--dur, 9s) ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-fall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  35% { transform: translate(var(--dx, 30px), 140px) rotate(140deg); }
+  65% { transform: translate(calc(var(--dx, 30px) * -0.5), 280px) rotate(260deg); }
+  90% { opacity: 1; }
+  100% { transform: translate(var(--dx, 30px), var(--fall, 420px)) rotate(400deg); opacity: 0; }
+}
+.home-fall {
+  animation: home-fall var(--dur, 10s) linear var(--d, 0s) infinite;
+}
+@keyframes home-twinkle {
+  0%, 100% { transform: scale(0.6); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+.home-twinkle {
+  animation: home-twinkle var(--dur, 2.6s) ease-in-out var(--d, 0s) infinite;
+}
+@keyframes home-twinkle-hover {
+  0%, 100% { transform: scale(0.4) rotate(0); }
+  50% { transform: scale(1.1) rotate(45deg); }
+}
+.home-twinkle-hover {
+  transition: opacity 0.25s;
+  animation: home-twinkle-hover 1.2s ease-in-out var(--d, 0s) infinite;
+}
+
+/* a butterfly crossing between sections */
+@keyframes home-flyby {
+  0% { transform: translateX(-60px); }
+  100% { transform: translateX(calc(100vw + 60px)); }
+}
+.home-flyby {
+  animation: home-flyby var(--dur, 16s) linear var(--d, 0s) infinite;
+}
+@keyframes home-flyby-bob {
+  0%, 100% { transform: translateY(0) rotate(6deg); }
+  25% { transform: translateY(-26px) rotate(-8deg); }
+  50% { transform: translateY(6px) rotate(10deg); }
+  75% { transform: translateY(-14px) rotate(-4deg); }
+}
+.home-flyby-bob {
+  animation: home-flyby-bob 3.2s ease-in-out infinite;
+}
+@keyframes home-flap-svg {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.2); }
+}
+.home-flap-l {
+  transform-origin: 100% 50%;
+  animation: home-flap-svg 0.22s ease-in-out infinite alternate;
+}
+.home-flap-r {
+  transform-origin: 0% 50%;
+  animation: home-flap-svg 0.22s ease-in-out infinite alternate;
+}
+
+/* the cinema projector beam flickers softly */
+@keyframes home-flicker {
+  0%, 100% { opacity: 0.85; }
+  20% { opacity: 0.7; }
+  22% { opacity: 0.9; }
+  60% { opacity: 0.78; }
+  63% { opacity: 0.95; }
+}
+.home-flicker {
+  animation: home-flicker 3.2s linear infinite;
+}
