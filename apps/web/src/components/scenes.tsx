@@ -28,6 +28,8 @@ import {
   vars,
 } from "./book/scenery";
 import { FlowerScene } from "./book/new-year-scenes";
+import { CoffeeMysteryScene } from "./book/coffee-mystery-scenes";
+import { LalibelaScene } from "./book/lalibela-scenes";
 import { CubShape, GuguShape, STAR_PATH } from "./characters";
 
 /*
@@ -284,6 +286,8 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "count" && <CountScene page={page} />}
       {kind === "share" && <ShareScene page={page} />}
       {kind === "newyear" && <FlowerScene page={page} />}
+      {kind === "coffee" && <CoffeeMysteryScene page={page} />}
+      {kind === "lalibela" && <LalibelaScene page={page} />}
     </svg>
   );
 }
