@@ -35,6 +35,11 @@ export type Story = {
    * one small activity, in both languages. Optional; the card is skipped without it.
    */
   grownUps?: { talkAbout: Record<Lang, string[]>; activity: Record<Lang, string> };
+  /**
+   * Find Lali: where the tiny bee hides on each page, overriding the spot the reader picks.
+   * x and y are 0–1 across the picture; `peek` is the side she peeks out from. Optional.
+   */
+  lali?: { x: number; y: number; peek: 'left' | 'right' | 'top' | 'bottom' }[];
 };
 
 /** "3-5", "6-7" -> "3–7" */

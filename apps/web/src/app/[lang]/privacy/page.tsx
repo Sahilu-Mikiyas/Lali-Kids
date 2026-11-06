@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy policy" updated="1 November 2026">
+    <LegalPage title="Privacy policy" updated="6 November 2026">
       <p>
         Lali is a reading service for children aged 3 to 9, used with their parents or guardians. We collect as little as we
         can, we never sell it, and we never show advertising. This policy explains what we collect and why.
@@ -40,6 +40,17 @@ export default function PrivacyPage() {
         <li>
           <b>Reading activity:</b> which stories and books were opened and finished, pages read, stars earned and the time
           they were read. This powers stars, the bedtime limit and the weekly note to you.
+        </li>
+        <li>
+          <b>Family voice recordings, if you make them:</b> when a grown-up uses &ldquo;Record your voice&rdquo; to read a
+          story aloud, we keep each page&rsquo;s recording and the name you gave the reader (such as &ldquo;Grandma&rdquo;).
+          Recordings are stored privately, only your family can hear them (through links that expire after a short time),
+          we never use them for anything else, and you can delete any of them, or all of them, at any time under
+          &ldquo;Family voices&rdquo; in the Grown-ups&rsquo; corner.
+        </li>
+        <li>
+          <b>Stickers and Find Lali:</b> which stickers a child has earned, where they stuck them in their sticker book and
+          the pages where they found Lali the bee. Without an account this stays in your browser only.
         </li>
         <li>
           <b>Protection records:</b> when a protected book page is shown, we record the account, the device and the network
@@ -87,6 +98,7 @@ export default function PrivacyPage() {
       <h2>Your choices and rights</h2>
       <ul>
         <li>See, correct or delete your children&rsquo;s profiles at any time in the Grown-ups&rsquo; corner.</li>
+        <li>Listen to and delete your family&rsquo;s voice recordings at any time under &ldquo;Family voices&rdquo; in the Grown-ups&rsquo; corner.</li>
         <li>Ask us for a copy of your family&rsquo;s data, or ask us to delete your account.</li>
         <li>Turn off the weekly email at any time.</li>
       </ul>

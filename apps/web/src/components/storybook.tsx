@@ -28,8 +28,16 @@ import { askForTilt, useDepth } from "@/lib/use-depth";
 import { useMedia } from "@/lib/use-media";
 import { useReadAlong } from "@/lib/use-read-along";
 import { useLang } from "@/i18n/provider";
+import { dict } from "@/i18n/dict";
 import { tellApp } from "@/lib/in-app";
-import { STAR_PATH } from "./characters";
+import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/lib/stickers/catalog";
+import { currentBasis, recordFind, recordFinish, syncStickers, useFindHints } from "@/lib/stickers/store";
+import { useFamilyVoices } from "@/lib/voices/client";
+import type { FamilyVoice } from "@/lib/voices/shared";
+import { BeeShape, STAR_PATH } from "./characters";
+import { FindCounter, HiddenLali } from "./find-lali";
+import { StickerBookButton, StickerReward, type RewardSticker } from "./stickers/sticker-reward";
+import { RecordVoiceModal } from "./voice/record-voice";
 import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { CoverBack, CoverFront } from "./book/cover";
@@ -73,11 +81,19 @@ function Swap({ lang, block = false, className = "", layerClass = "", children }
 
 /* ---------- page faces ---------- */
 
-function ArtFace({ story, page, gutter = "right", tap = false }: { story: Story; page: number; gutter?: "right" | "none"; tap?: boolean }) {
+/** Find Lali, as the reader runs it: which pages she was found on during this read. */
+type Finder = { found: Set<number>; hints: boolean; onFind: (page: number) => void; bump: number; lang: Lang };
+
+function ArtFace({ story, page, gutter = "right", tap = false, finder }: { story: Story; page: number; gutter?: "right" | "none"; tap?: boolean; finder?: Finder }) {
   const end = page >= story.pages.length;
   return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }}>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : page} data-live={tap ? "" : undefined}>
       <TapZone enabled={tap}>{end ? <EndArt /> : <PageArt story={story} page={page} />}</TapZone>
+      {/* Lali hides in the picture; she's clipped by it, so she never covers the words. */}
+      {finder && !end && (
+        <HiddenLali story={story} page={page} live={tap} found={finder.found.has(page)} hints={finder.hints} onFind={finder.onFind} lang={finder.lang} />
+      )}
+      {finder && !end && tap && <FindCounter found={finder.found.size} total={story.pages.length} lang={finder.lang} bump={finder.bump} />}
       {gutter === "right" && <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/30 to-transparent" />}
     </div>
   );
@@ -118,7 +134,35 @@ function MoreStoriesLink({ lang }: { lang: Lang }) {
   );
 }
 
-function EndText({ lang, interactive, onAgain, starLanded }: { lang: Lang; interactive: boolean; onAgain: () => void; starLanded: boolean }) {
+function StickersLink({ lang }: { lang: Lang }) {
+  return (
+    <Link
+      href="/stickers"
+      className="btn btn-plain"
+      data-end-stickers=""
+      onClick={(e) => {
+        if (tellApp({ type: "lali:stickers" })) e.preventDefault();
+      }}
+    >
+      <Swap lang={lang}>{(l) => dict[l].stickers.myBook}</Swap>
+    </Link>
+  );
+}
+
+function EndText({
+  lang,
+  interactive,
+  onAgain,
+  starLanded,
+  finds,
+}: {
+  lang: Lang;
+  interactive: boolean;
+  onAgain: () => void;
+  starLanded: boolean;
+  /** How many pages Lali was found on this time. */
+  finds?: { found: number; total: number };
+}) {
   const stars = useStars();
   // The new star is counted when the flying star lands.
   const shown = starLanded ? stars : Math.max(0, stars - 1);
@@ -150,11 +194,28 @@ function EndText({ lang, interactive, onAgain, starLanded }: { lang: Lang; inter
           )}
         </Swap>
       </p>
+      {interactive && finds && (
+        <p className="flex items-center gap-1.5 rounded-full bg-gold/20 px-3 py-1 text-[0.8em] font-bold text-[#7A3E00]" data-end-finds="">
+          <svg viewBox="0 0 40 40" className="h-[1.4em] w-[1.4em] shrink-0" aria-hidden>
+            <BeeShape />
+          </svg>
+          <Swap lang={lang}>
+            {(l) =>
+              finds.found === 0
+                ? dict[l].findLali.endingNone
+                : finds.found >= finds.total
+                  ? dict[l].findLali.endingAll(finds.total)
+                  : dict[l].findLali.ending(finds.found, finds.total)
+            }
+          </Swap>
+        </p>
+      )}
       {interactive && (
         <div className="flex flex-wrap justify-center gap-3 text-base">
           <button type="button" className="btn btn-plain" onClick={onAgain}>
             <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
           </button>
+          <StickersLink lang={lang} />
           <MoreStoriesLink lang={lang} />
         </div>
       )}
@@ -176,6 +237,10 @@ function TextFace({
   shadow = "left",
   reduce,
   starLanded = false,
+  finds,
+  voice,
+  voiceCount = 0,
+  onNextVoice,
 }: {
   story: Story;
   page: number;
@@ -187,10 +252,38 @@ function TextFace({
   shadow?: "left" | "none";
   reduce: boolean;
   starLanded?: boolean;
+  finds?: { found: number; total: number };
+  /** A family member's recording of this story, read with "Read by Grandma ♥". */
+  voice?: FamilyVoice | null;
+  voiceCount?: number;
+  onNextVoice?: () => void;
 }) {
   const end = page >= story.pages.length;
   const text = end ? "" : story.pages[page][lang];
-  const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang, onRead, end ? null : story.audio?.[page]?.[lang]);
+  const own = useReadAlong(text, lang, onRead, end ? null : story.audio?.[page]?.[lang]);
+  // A family recording of this page plays instead of the browser's voice when there is one.
+  const familyUrl = end ? null : (voice?.pages[lang]?.[page] ?? null);
+  const family = useReadAlong(text, lang, onRead, familyUrl);
+  const [usedFamily, setUsedFamily] = useState(true);
+  const ra = family.reading || (!own.reading && usedFamily && familyUrl) ? family : own;
+  const { words, active, silent, speakWord } = { ...own, active: ra.active, silent: ra.silent };
+  const reading = own.reading || family.reading;
+  const ownStop = own.stop;
+  const familyStop = family.stop;
+  const stop = useCallback(() => {
+    ownStop();
+    familyStop();
+  }, [ownStop, familyStop]);
+  const readOwn = () => {
+    familyStop();
+    setUsedFamily(false);
+    own.start();
+  };
+  const readFamily = () => {
+    ownStop();
+    setUsedFamily(true);
+    family.start();
+  };
   const [popped, setPopped] = useState(-1);
   // The words arrive the first time this page lies open...
   const [opened, setOpened] = useState(live);
@@ -215,7 +308,7 @@ function TextFace({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
       <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
         {end ? (
-          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} />
+          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} />
         ) : (
           <>
             <PageHeader story={story} page={page} lang={lang} />
@@ -278,19 +371,60 @@ function TextFace({
                 );
               })}
             </div>
-            <div className="relative flex justify-center pb-1">
+            <div className="relative flex flex-wrap items-center justify-center gap-2 pb-1">
               {silent && reading && lang === "am" && (
                 <p className="lali-fade absolute inset-x-0 bottom-full mb-2 text-center text-[0.65em] text-[#7A6A45] font-ethiopic">{READER.am.silent}</p>
               )}
-              <button type="button" tabIndex={live ? 0 : -1} className="btn btn-primary !text-base" onClick={reading ? stop : start}>
+              {familyUrl && voice && (
+                // Family voices come first; "Read to me" stays right beside it.
+                <span className="inline-flex items-center gap-1">
+                  <button
+                    type="button"
+                    tabIndex={live ? 0 : -1}
+                    data-read-family={voice.name}
+                    className="btn !bg-berry !text-base !text-white ![--edge:#A12456] shadow-[0_6px_0_#A12456]"
+                    onClick={family.reading ? stop : readFamily}
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
+                      {family.reading ? (
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
+                      ) : (
+                        <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3 1.7-1.8 3.2-3 5.3-3 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="currentColor" />
+                      )}
+                    </svg>
+                    <Swap lang={lang}>{(l) => (family.reading ? READER[l].stop : dict[l].voices.readBy(voice.name))}</Swap>
+                  </button>
+                  {voiceCount > 1 && onNextVoice && (
+                    <button
+                      type="button"
+                      tabIndex={live ? 0 : -1}
+                      aria-label="Another family voice"
+                      onClick={() => {
+                        stop();
+                        onNextVoice();
+                      }}
+                      className="grid h-9 w-9 place-items-center rounded-full bg-white text-berry shadow-[0_3px_0_rgba(27,42,78,.15)]"
+                    >
+                      ⇄
+                    </button>
+                  )}
+                </span>
+              )}
+              <button
+                type="button"
+                tabIndex={live ? 0 : -1}
+                className={`btn !text-base ${familyUrl ? "btn-plain" : "btn-primary"}`}
+                onClick={own.reading ? stop : readOwn}
+                data-read-own=""
+              >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                  {reading ? (
+                  {own.reading ? (
                     <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
                   ) : (
                     <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor" />
                   )}
                 </svg>
-                <Swap lang={lang}>{(l) => (reading ? READER[l].stop : READER[l].readToMe)}</Swap>
+                <Swap lang={lang}>{(l) => (own.reading ? READER[l].stop : READER[l].readToMe)}</Swap>
               </button>
             </div>
           </>
@@ -428,6 +562,37 @@ export function StoryBook({
   const [cover, setCover] = useState<"closed" | "opening" | "open">(immersive ? "closed" : "open");
   const [starLanded, setStarLanded] = useState(false);
   const [cardOpen, setCardOpen] = useState(false);
+
+  /* ----- Find Lali, stickers and family voices ----- */
+  const hints = useFindHints();
+  const [found, setFound] = useState<Set<number>>(() => new Set());
+  const [foundBump, setFoundBump] = useState(0);
+  const [reward, setReward] = useState<RewardSticker[] | null>(null);
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  const [voices, reloadVoices] = useFamilyVoices(story.id);
+  const [voiceIndex, setVoiceIndex] = useState(0);
+  const voice = voices.voices.length ? voices.voices[voiceIndex % voices.voices.length] : null;
+  // Stickers earned before this read, so the ending knows which ones are new.
+  const earnedBefore = useRef<Set<string> | null>(null);
+  const pageCount = useCallback((id: string) => (id === story.id ? total : undefined), [story.id, total]);
+  useEffect(() => {
+    let alive = true;
+    syncStickers().then(() => {
+      if (alive && !earnedBefore.current) earnedBefore.current = earnedStickers(currentBasis(), pageCount);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [pageCount]);
+  const onFind = useCallback(
+    (p: number) => {
+      setFound((f) => (f.has(p) ? f : new Set(f).add(p)));
+      setFoundBump((b) => b + 1);
+      recordFind(story.id, p);
+    },
+    [story.id],
+  );
+  const finder: Finder = { found, hints, onFind, bump: foundBump, lang };
   const wide = useMedia("(min-width: 768px)");
   const fullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenElement), () => false);
   const canFullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenEnabled), () => false);
@@ -658,6 +823,7 @@ export function StoryBook({
     setPageRead(false);
     setStarLanded(false);
     setCardOpen(false);
+    setReward(null);
   }, []);
 
   const go = useCallback(
@@ -758,6 +924,12 @@ export function StoryBook({
     if (!atEnd) return;
     finishStory(story.id);
     onFinish?.(story.id);
+    // The stickers this read earned: the story's own, its golden one, milestones.
+    const before = earnedBefore.current ?? earnedStickers(currentBasis(), pageCount);
+    recordFinish(story.id);
+    const after = earnedStickers(currentBasis(), pageCount);
+    earnedBefore.current = after;
+    const fresh = [...after].filter((id) => !before.has(id)).map((id) => rewardSticker(id, story));
     const timers: ReturnType<typeof setTimeout>[] = [];
     const landed = () => {
       setStarLanded(true);
@@ -766,7 +938,9 @@ export function StoryBook({
       rootRef.current
         ?.querySelector("[data-star-counter]")
         ?.animate([{ transform: "scale(1)" }, { transform: "scale(1.4)" }, { transform: "scale(1)" }], { duration: 520, easing: "cubic-bezier(.3,1.6,.5,1)" });
-      if (immersive && story.grownUps) timers.push(setTimeout(() => setCardOpen(true), reduce ? 1200 : 2600));
+      // New stickers fly into the sticker book first; the grown-ups card comes after them.
+      if (fresh.length) timers.push(setTimeout(() => setReward(fresh), reduce ? 300 : 900));
+      else if (immersive && story.grownUps) timers.push(setTimeout(() => setCardOpen(true), reduce ? 1200 : 2600));
     };
     timers.push(setTimeout(() => flyStar(landed), reduce ? 0 : 700));
     return () => timers.forEach(clearTimeout);
@@ -790,6 +964,7 @@ export function StoryBook({
       const r = rootRef.current?.getBoundingClientRect();
       if (!r || r.bottom < 0 || r.top > innerHeight) return;
       if ((e.target as HTMLElement)?.closest("input,textarea")) return;
+      if (voiceOpen) return;
       if (e.key === "Escape" && cardOpen) {
         setCardOpen(false);
         return;
@@ -803,7 +978,7 @@ export function StoryBook({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page, cover, openCover, immersive, router, cardOpen]);
+  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen]);
 
   // The full-screen book owns the page: no scrolling underneath.
   useEffect(() => {
@@ -889,6 +1064,11 @@ export function StoryBook({
   /* ----- what lies where ----- */
 
   const live = !turn && cover === "open";
+  // Reading again starts a fresh hunt for Lali.
+  const again = () => {
+    setFound(new Set());
+    go(0);
+  };
   const textFace = (idx: number, isLive: boolean, shadow: "left" | "none" = "left") => (
     <TextFace
       story={story}
@@ -896,11 +1076,15 @@ export function StoryBook({
       lang={lang}
       live={isLive}
       onRead={() => setPageRead(true)}
-      onAgain={() => go(0)}
+      onAgain={again}
       fontSize={fontSize}
       shadow={shadow}
       reduce={reduce}
       starLanded={starLanded}
+      finds={{ found: found.size, total }}
+      voice={voice}
+      voiceCount={voices.voices.length}
+      onNextVoice={() => setVoiceIndex((v) => v + 1)}
     />
   );
 
@@ -922,7 +1106,7 @@ export function StoryBook({
                 className="overflow-hidden rounded-l-[16px] rounded-r-[4px]"
                 style={{ ...layer(turn && i === L + 1 ? 30 : 5), transformOrigin: "0 0" }}
               >
-                <ArtFace story={story} page={i} tap={live} />
+                <ArtFace story={story} page={i} tap={live} finder={finder} />
               </div>
             ))}
           </motion.div>
@@ -949,7 +1133,7 @@ export function StoryBook({
       const card = (i: number, isLive: boolean) => (
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
           <div className="relative shrink-0" style={{ height: artH }}>
-            <ArtFace story={story} page={i} gutter="none" tap={isLive} />
+            <ArtFace story={story} page={i} gutter="none" tap={isLive} finder={finder} />
           </div>
           <div className="min-h-0 flex-1">{textFace(i, isLive, "none")}</div>
         </div>
@@ -1079,6 +1263,26 @@ export function StoryBook({
     </div>
   );
 
+  // The sticker reward at the end, and the grown-ups' recorder.
+  const extras = (
+    <>
+      {reward && atEnd && (
+        <StickerReward
+          stickers={reward}
+          lang={lang}
+          reduce={reduce}
+          onDone={() => {
+            setReward(null);
+            if (immersive && story.grownUps) setTimeout(() => setCardOpen(true), reduce ? 400 : 900);
+          }}
+        />
+      )}
+      {voiceOpen && (
+        <RecordVoiceModal story={story} lang={lang} status={voices.status} voices={voices.voices} onClose={() => setVoiceOpen(false)} onSaved={reloadVoices} />
+      )}
+    </>
+  );
+
   if (!immersive) {
     return (
       <div ref={rootRef} className="w-full">
@@ -1090,7 +1294,12 @@ export function StoryBook({
           <PageDots total={total} page={page} />
           {next}
           <LangToggle lang={lang} setLang={setLang} />
+          <StickerBookButton lang={lang} />
+          <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
+            <MicIcon />
+          </RoundButton>
         </div>
+        {extras}
         {flyingStar}
       </div>
     );
@@ -1130,6 +1339,10 @@ export function StoryBook({
         </p>
         <div className="ml-auto flex items-center gap-2 md:ml-0">
           <LangToggle lang={lang} setLang={setLang} />
+          <StickerBookButton lang={lang} />
+          <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
+            <MicIcon />
+          </RoundButton>
           <RoundButton label={muted ? "Turn sounds on" : "Turn sounds off"} pressed={!muted} onClick={() => setPageSoundMuted(!muted)}>
             {muted ? Icon.soundOff : Icon.soundOn}
           </RoundButton>
@@ -1169,12 +1382,31 @@ export function StoryBook({
           onClose={() => setCardOpen(false)}
           onAgain={() => {
             setCardOpen(false);
-            go(0);
+            again();
           }}
         />
       )}
+      {extras}
       {flyingStar}
     </div>
+  );
+}
+
+/** What the end-of-story sheet shows for a sticker id. */
+function rewardSticker(id: string, story: Story): RewardSticker {
+  if (id === storyStickerId(story.id)) return { id, color: story.color, title: story.title };
+  if (id === goldenStickerId(story.id)) return { id, color: story.color, title: { en: `Golden ${story.title.en}`, am: `የወርቅ ${story.title.am}` } };
+  const m = MILESTONES.find((x) => x.id === id);
+  return { id, color: m?.color ?? story.color, title: m?.title ?? story.title };
+}
+
+/** A microphone, for the grown-ups' "Record your voice". */
+function MicIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden>
+      <rect x="8.5" y="3" width="7" height="12" rx="3.5" fill="currentColor" />
+      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M8.5 21h7" stroke="currentColor" strokeWidth={2.2} fill="none" strokeLinecap="round" />
+    </svg>
   );
 }
 

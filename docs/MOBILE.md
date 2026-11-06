@@ -58,6 +58,9 @@ on every call (the shelf calls also work signed out). Optional headers:
 | `POST games/:slug/start` | | `{ok, sessionId, secondsLeft, url}` or `{ok:false, reason: "locked"\|"off"\|"time-up"}` |
 | `POST sessions/:id` | `{seconds?, score?}` | `{secondsLeft}`. Send `seconds` every ~15 s while the game is on screen |
 | `POST checkout` | `{plan: "reader"\|"learner"\|"vip"}` | `{url}` of Chapa's page. Open it with `expo-web-browser`; the thank-you page has a "Back to the Lali app" button (`lali://plan`). Refresh `GET me` when the browser closes |
+| `GET stickers` | | The current child's sticker book: `{childId, earned[], available[], count, total, finds, positions}`. Each sticker is `{id, kind: "story"\|"golden"\|"milestone", storyId?, title {en, am}, color, album, earned}`. Ids: `story:<storyId>`, `gold:<storyId>`, `m:3`, `m:5`, `m:10`, `m:streak7`. Works signed out too (nothing earned) |
+| `POST stickers/finds` | `{storyId, page}` | `{ok, saved}`: the child found Lali on that page (send it when the reader posts `lali:found`). `saved: false` until migration 0009 is applied |
+| `PATCH stickers/:id` | `{page, x, y, r?}` | `{ok, saved}`: where the child stuck a sticker in the album (`x`, `y` from 0 to 1 across album page `page`; `r` tilt in degrees, -30 to 30). URL-encode the id |
 
 Errors come back as `{error}` with a matching status (401 sign in, 402 needs a plan, 404, 429
 too fast, 500). Two calls answer differently: a locked `GET stories/:id` is `402 {locked}` (title
@@ -77,6 +80,50 @@ development or store build: Expo Go uses its own `exp://` scheme.
 Nothing is required beyond the API above, but the signed-in client may also read the family's own
 rows directly (`children`, `completions`, `payments`, `profiles`); row-level security limits it
 to the family's data.
+
+## The website's reader in the app: stickers, Find Lali and family voices
+
+The animated reader runs inside a `react-native-webview`. Besides `lali:close` and
+`lali:finished`, it now posts:
+
+| Message | When | What the app does |
+|---|---|---|
+| `{type: "lali:found", storyId, page}` | The child found Lali the bee on a page | `POST stickers/finds` for the current child (queue it offline like progress) |
+| `{type: "lali:stickers"}` | The child tapped the sticker book (top bar or end screen) | Close the reader and show the app's sticker book from `GET stickers` |
+
+The web view has no website session, so to let the reader use the family's own data (family
+voices, a signed-in child's stickers), inject the parent's access token and the reading child
+before the page loads, with `injectedJavaScriptBeforeContentLoaded`:
+
+```js
+window.LaliApp = { accessToken: "<session.access_token>", childId: "<current child id>" };
+```
+
+The reader then calls `/api/voices` and `/api/stickers` with `Authorization: Bearer …` and
+`X-Lali-Child`. Without it, Find Lali and stickers still work, kept in the web view's own storage,
+and "Record your voice" shows "Sign in to record your voice".
+
+**Family voices** (`GET /api/voices?story=<id>`, `POST /api/voices` multipart with `file`, `story`,
+`lang`, `page`, `name`, `duration` (ms), `GET /api/voices`, `DELETE /api/voices/:id`,
+`DELETE /api/voices?all=1`) are website routes, not under `/api/mobile`; they take the same Bearer
+token. Clips are at most 60 s and 4 MB; WebM/Opus or MP4/AAC.
+
+**The microphone in the web view.** Recording uses `getUserMedia` and `MediaRecorder` inside the
+web view, so the app must allow it (none of this is in `apps/mobile` yet):
+
+- `react-native-webview`: set `mediaCapturePermissionGrantType="grantIfSameHostElsePrompt"` (or
+  `"prompt"`), and on iOS `allowsInlineMediaPlayback` and `mediaPlaybackRequiresUserAction={false}`
+  so the recording can be played back to the grown-up.
+- **Android:** add `android.permission.RECORD_AUDIO` (and `MODIFY_AUDIO_SETTINGS`) to
+  `app.json` → `expo.android.permissions`, and ask for it at runtime (e.g. `expo-av`'s
+  `Audio.requestPermissionsAsync()`) before opening a story, or when the web view's permission
+  request arrives; the web view can only grant what the app already has.
+- **iOS:** add `NSMicrophoneUsageDescription` to `app.json` → `expo.ios.infoPlist`, for example
+  "Lali uses the microphone so a grown-up can record themselves reading a story for their
+  children." iOS 15+ then shows its own prompt the first time the grown-up taps record.
+
+The reader asks for the microphone only when a grown-up taps record (behind the maths question),
+after a line explaining why.
 
 ## Games in the app
 
