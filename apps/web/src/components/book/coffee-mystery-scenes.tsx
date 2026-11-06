@@ -21,6 +21,7 @@ import {
   Tukul,
   vars,
 } from "./scenery";
+import { Tappable } from "./tappable";
 
 /*
   "The Great Coffee Bean Mystery": one living picture per page (14 pages).
@@ -75,6 +76,7 @@ function Basket({ x, y, s = 1, gap = 0, vanish = false, seed = 4, glint = true, 
   const rest = kept.filter((b) => !edge.includes(b));
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
       <ellipse cx={0} cy={9} rx={50} ry={7} fill="#000" opacity={0.12} />
       <ellipse cx={0} cy={3} rx={48} ry={12} fill="#B97E3A" />
       <ellipse cx={0} cy={0} rx={47} ry={11} fill="#E2B565" />
@@ -100,6 +102,7 @@ function Basket({ x, y, s = 1, gap = 0, vanish = false, seed = 4, glint = true, 
           ))}
         </g>
       )}
+      </Tappable>
     </g>
   );
 }
@@ -108,7 +111,9 @@ function Basket({ x, y, s = 1, gap = 0, vanish = false, seed = 4, glint = true, 
 function Print({ x, y, a, s = 1, color = "#9C7440" }: { x: number; y: number; a: number; s?: number; color?: string }) {
   return (
     <g transform={`translate(${x} ${y}) rotate(${a}) scale(${s})`}>
+      <Tappable reaction="grow" sound="pop">
       <path d="M0 0 L7 0 M0 0 L5.6 -3.8 M0 0 L5.6 3.8 M0 0 L-3.4 0" stroke={color} strokeWidth={1.7} strokeLinecap="round" fill="none" />
+      </Tappable>
     </g>
   );
 }
@@ -117,11 +122,13 @@ function Print({ x, y, a, s = 1, color = "#9C7440" }: { x: number; y: number; a:
 function Magnifier({ s = 1 }: { s?: number }) {
   return (
     <g transform={`scale(${s})`}>
+      <Tappable reaction="spin" sound="chime">
       <path d="M11 11 L26 26" stroke="#7A4A2A" strokeWidth={7} strokeLinecap="round" />
       <path d="M19 19 L26 26" stroke="#5A3420" strokeWidth={7} strokeLinecap="round" />
       <circle r={15} fill="#DFF3FF" opacity={0.35} />
       <circle r={15} fill="none" stroke="#C99A3E" strokeWidth={4.5} />
       <path d="M-8 -6 Q-6 -10 -1 -11" stroke="#fff" strokeWidth={2.6} fill="none" strokeLinecap="round" opacity={0.85} />
+      </Tappable>
     </g>
   );
 }
@@ -130,6 +137,7 @@ function Magnifier({ s = 1 }: { s?: number }) {
 function Feather({ s = 1 }: { s?: number }) {
   return (
     <g transform={`scale(${s})`}>
+      <Tappable reaction="spin" sound="pop">
       <path d="M0 0 C-9 -8 -9 -24 0 -34 C9 -24 9 -8 0 0Z" fill="#A87449" />
       <path d="M0 -20 C-6 -24 -6 -30 0 -34 C6 -30 6 -24 0 -20Z" fill="#7E5232" />
       <path d="M0 4 L0 -32" stroke="#F3E1C2" strokeWidth={1.3} strokeLinecap="round" />
@@ -140,6 +148,7 @@ function Feather({ s = 1 }: { s?: number }) {
         <circle cx={2.4} cy={-24} r={1} />
         <circle cx={-2.2} cy={-31.4} r={0.9} />
       </g>
+      </Tappable>
     </g>
   );
 }
@@ -215,9 +224,11 @@ function SleuthHover({ x, y, s = 1.3, flip = false }: { x: number; y: number; s?
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className="lali-float" style={vars({ "--dur": "1.2s", "--rise": "-6px" })}>
-        <g transform={`scale(${flip ? -s : s} ${s}) translate(-20 -24)`}>
-          <SleuthBee />
-        </g>
+        <Tappable reaction="loop" sound="buzz">
+          <g transform={`scale(${flip ? -s : s} ${s}) translate(-20 -24)`}>
+            <SleuthBee />
+          </g>
+        </Tappable>
       </g>
     </g>
   );
@@ -227,9 +238,11 @@ function SleuthHover({ x, y, s = 1.3, flip = false }: { x: number; y: number; s?
 function SleuthFlight({ path, dur = 7, s = 1.3, rest, trail = "#ffffff" }: { path: string; dur?: number; s?: number; rest: [number, number]; trail?: string }) {
   const still = useMedia("(prefers-reduced-motion: reduce)");
   const bee = (
-    <g transform={`scale(${s}) translate(-20 -24)`}>
-      <SleuthBee />
-    </g>
+    <Tappable reaction="loop" sound="buzz">
+      <g transform={`scale(${s}) translate(-20 -24)`}>
+        <SleuthBee />
+      </g>
+    </Tappable>
   );
   return (
     <g>
@@ -256,6 +269,7 @@ function SleuthFlight({ path, dur = 7, s = 1.3, rest, trail = "#ffffff" }: { pat
 function Goat({ x, y, s = 1, flip = false, chew = true, happy = false }: { x: number; y: number; s?: number; flip?: boolean; chew?: boolean; happy?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <Tappable reaction="bounce" sound="baa">
       <ellipse cx={0} cy={0} rx={30} ry={4} fill="#000" opacity={0.12} />
       <g fill="#5A4A40">
         <rect x={-20} y={-22} width={5.5} height={22} rx={2.5} />
@@ -287,6 +301,7 @@ function Goat({ x, y, s = 1, flip = false, chew = true, happy = false }: { x: nu
           {chew && <path d="M-44 -42 L-52 -48 M-44 -42 L-53 -42 M-43 -42 L-50 -36" stroke="#4FAA5E" strokeWidth={1.8} strokeLinecap="round" />}
         </g>
       </g>
+      </Tappable>
     </g>
   );
 }
@@ -331,9 +346,11 @@ function BirdShape({ sing = false }: { sing?: boolean }) {
 function Bird({ x, y, s = 1, flip = false, sing = false, hop = false, delay = 0 }: { x: number; y: number; s?: number; flip?: boolean; sing?: boolean; hop?: boolean; delay?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <Tappable reaction="bounce" sound="chime">
       <g className={hop ? "lali-hop" : "lali-tilt"} style={vars({ "--tilt": "-8deg", "--dur": hop ? "1.1s" : "3.2s", "--delay": `${delay}s` })}>
         <BirdShape sing={sing} />
       </g>
+      </Tappable>
     </g>
   );
 }
@@ -366,6 +383,7 @@ function Nest({ x, y, s = 1, mother = true, chicks = 3 }: { x: number; y: number
   const rim = basketBeans(31, 16).map((b) => ({ ...b, x: r1(b.x * 0.78), y: r1(b.y * 0.5) }));
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="chime">
       <ellipse cx={0} cy={-2} rx={30} ry={8} fill="#6E4A2A" />
       {mother && (
         <g transform="translate(-8 4)">
@@ -387,6 +405,7 @@ function Nest({ x, y, s = 1, mother = true, chicks = 3 }: { x: number; y: number
       {rim.slice(0, 9).map((b, i) => (
         <Bean key={i} x={r1(b.x)} y={r1(b.y + 1)} a={b.a} s={1.05} />
       ))}
+      </Tappable>
     </g>
   );
 }
@@ -420,6 +439,7 @@ function Warka({ x, y, s = 1, figs = true, hideTail = false }: { x: number; y: n
   ];
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="chime">
       {/* trunk and roots */}
       <path d="M-40 0 Q-60 -2 -74 4 L-30 4Z M40 0 Q62 -2 78 4 L30 4Z" fill="#6E4E36" />
       <path d="M-42 4 C-36 -40 -30 -90 -26 -122 L26 -122 C30 -90 36 -40 42 4Z" fill="#8A6648" />
@@ -457,6 +477,7 @@ function Warka({ x, y, s = 1, figs = true, hideTail = false }: { x: number; y: n
           </g>
         </g>
       )}
+      </Tappable>
     </g>
   );
 }
@@ -524,6 +545,7 @@ function Sini({ full = true }: { full?: boolean }) {
 function PouringJebena({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
       {/* the straw ring it rests on */}
       <ellipse cx={0} cy={0} rx={18} ry={5} fill="#C99A4E" />
       <ellipse cx={0} cy={-1} rx={12} ry={3} fill="#A47A3A" />
@@ -536,6 +558,7 @@ function PouringJebena({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
         <path d="M-12 -30 Q-8 -36 -2 -34" stroke="#fff" strokeOpacity={0.35} strokeWidth={3} fill="none" strokeLinecap="round" />
         <path d="M-17 -18 Q0 -10 17 -18" stroke="#B9824E" strokeWidth={2} fill="none" />
       </g>
+      </Tappable>
     </g>
   );
 }
@@ -561,6 +584,7 @@ function Pour({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: numb
 function Roaster({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
       <path d="M-16 0 L-12 -16 L12 -16 L16 0Z" fill="#7A4A30" />
       <g fill="#FF8A3D">
         {[-6, 2].map((dx, i) => (
@@ -577,6 +601,7 @@ function Roaster({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
         </g>
       ))}
       <Steam x={-2} y={-26} n={3} s={0.9} />
+      </Tappable>
     </g>
   );
 }
@@ -602,12 +627,14 @@ function ClueCard({ x, y, tilt, delay, children, w = 92, h = 70 }: { x: number; 
   return (
     <g transform={`translate(${x} ${y}) rotate(${tilt})`}>
       <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
+        <Tappable reaction="wiggle" sound="pop">
         <rect x={-w / 2 + 3} y={-h / 2 + 4} width={w} height={h} rx={6} fill="#000" opacity={0.12} />
         <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={6} fill="#FFFDF4" />
         <rect x={-w / 2 + 5} y={-h / 2 + 5} width={w - 10} height={h - 10} rx={4} fill="none" stroke="#E7DCC0" strokeWidth={1.4} />
         {children}
         <circle cx={0} cy={-h / 2 + 4} r={4.6} fill="#E2463F" />
         <circle cx={-1.4} cy={-h / 2 + 2.6} r={1.4} fill="#fff" opacity={0.6} />
+        </Tappable>
       </g>
     </g>
   );
@@ -624,11 +651,8 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
         <>
           <Yard id={id} />
           {/* the mother bird watching from the fence post (a clue for second readings) */}
-          {/* tappable: the little bird on the fence (she hops and peeps) */}
           <Bird x={304} y={203} s={0.55} hop delay={-0.4} />
-          {/* tappable: the basket (the beans glint and jiggle) */}
           <Basket x={226} y={268} s={1.05} />
-          {/* tappable: Grandma (she hums) */}
           <Place x={132} y={276} s={0.4}>
             <CubShape pose="sit" granny mood="joy" />
           </Place>
@@ -646,9 +670,7 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
         <>
           <Yard id={id} sun={[60, 54]} tukul={null} />
           <Tukul x={36} y={232} s={0.8} />
-          {/* tappable: the basket (another bean vanishes) */}
           <Basket x={236} y={250} s={2.05} gap={0.75} vanish seed={9} glint={false} n={130} />
-          {/* tappable: Grandma (she gasps again) */}
           <Place x={86} y={296} s={0.6}>
             <CubShape pose="sit" granny mood="wow" />
           </Place>
@@ -664,7 +686,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <DayBackdrop id={id} sun={[50, 52]} />
           {/* the goat's yard, behind the fence */}
           <path d="M140 232 Q280 220 410 228 L410 240 L140 240Z" fill="#6CC77E" />
-          {/* tappable: the goat (she looks up, chewing) */}
           <Goat x={318} y={232} s={0.95} />
           <Fence x0={150} x1={406} y={240} />
           <path d="M-10 244 Q200 230 410 242 L410 310 L-10 310Z" fill={DUST} />
@@ -677,7 +698,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               !
             </text>
           </g>
-          {/* tappable: Gugu (he shakes his head: "Detectives look.") */}
           <Place x={70} y={284} s={0.38}>
             <GuguShape pose="no" />
           </Place>
@@ -690,14 +710,12 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
         <>
           <Yard id={id} sun={[350, 50]} tukul={330} fence={false} warka={false} />
           <Grass y={262} n={10} seed={33} x0={0} x1={240} />
-          {/* tappable: Gugu (he hops) */}
           <Place x={134} y={286} s={0.46}>
             <GuguShape pose="wave" mood="joy" />
           </Place>
           <Place x={248} y={286} s={0.36} flip>
             <CubShape pose="sit" mood="joy" />
           </Place>
-          {/* tappable: the magnifying glass (it flips and shines) */}
           <g transform="translate(192 236)">
             <g className="lali-pop-in" style={vars({ "--delay": "1.6s" })}>
               <g className="coffee-mystery-sweep" style={vars({ "--sx": "10px", "--dur": "2.6s" })}>
@@ -746,7 +764,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               </g>
             ))}
           </g>
-          {/* tappable: each footprint (it wiggles and says its number) */}
           {prints.map((p, i) => (
             <g key={i}>
               <g className="lali-pop-in" style={vars({ "--delay": `${0.9 + i * 0.32}s` })}>
@@ -760,7 +777,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               </g>
             </g>
           ))}
-          {/* tappable: the magnifying glass */}
           <g transform="translate(180 214)">
             <g className="coffee-mystery-sweep" style={vars({ "--sx": "90px", "--dur": "4.2s" })}>
               <Magnifier s={1.5} />
@@ -783,7 +799,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           {[0, 1, 2, 3, 4].map((i) => (
             <Print key={i} x={150 + i * 16} y={270 - i * 3 + (i % 2) * 5} a={-14} s={0.9} />
           ))}
-          {/* tappable: the feather (it twirls up again) */}
           <FallingFeather x={226} y={268} delay={0.5} s={1.2} />
           <Place x={56} y={292} s={0.36}>
             <GuguShape pose="point" />
@@ -815,10 +830,11 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <rect x={58} y={222} width={7} height={60} rx={3} fill="#9A6C44" />
           <path d="M14 232 L66 228" stroke="#8A6040" strokeWidth={4} strokeLinecap="round" />
           <Grass y={250} n={14} seed={62} />
-          {/* tappable: each bean of the trail (it hops) */}
           {trail.map((b, i) => (
             <g key={i} className="lali-pop-in" style={vars({ "--delay": `${0.5 + i * 0.28}s` })}>
-              <Bean x={b.x} y={b.y} a={i * 37} s={b.s} />
+              <Tappable reaction="bounce" sound="pop">
+                <Bean x={b.x} y={b.y} a={i * 37} s={b.s} />
+              </Tappable>
             </g>
           ))}
           <Place x={156} y={262} s={0.27} from={[40, 286]} dur={3.6} delay={1}>
@@ -837,12 +853,10 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
         <>
           <Sky id={id} from="#8AD4FF" mid="#C4EBFF" to="#F4FCFF" />
           <Hills back="#8FD39A" front="#6CC77E" backY={250} frontY={272} />
-          {/* tappable: the leaves (they rustle hard and a leaf falls) */}
           <Warka x={200} y={292} s={1.18} />
           <FallingLeaves seed={71} n={5} x0={40} x1={360} top={110} />
           <Song x={278} y={92} n={3} />
           <Grass y={284} n={16} seed={72} />
-          {/* tappable: Anbessa and Gugu (they look up) */}
           <Place x={86} y={298} s={0.26}>
             <CubShape pose="sit" mood="wow" />
           </Place>
@@ -868,7 +882,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <g className="lali-fade-in" style={vars({ "--delay": "2.4s" })}>
             <path d="M84 72 L204 178 M200 54 L204 178 M316 72 L204 178" stroke="#C0392B" strokeWidth={2} fill="none" />
           </g>
-          {/* tappable: each clue card (it lifts and wiggles) */}
           <ClueCard x={84} y={96} tilt={-6} delay={0.5}>
             <Print x={-18} y={10} a={-20} s={2.2} />
             <Print x={14} y={-6} a={-20} s={2.2} />
@@ -892,7 +905,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
             <Song x={18} y={-10} n={2} />
           </ClueCard>
           <Query x={330} y={250} size={64} delay={3} color="#E2463F" />
-          {/* tappable: Gugu (he scratches his chin) */}
           <Place x={72} y={300} s={0.42}>
             <GuguShape pose="sit" mood="wow" />
           </Place>
@@ -924,8 +936,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               <ellipse cx={cx + (cx < 200 ? -8 : 8)} cy={cy - 6} rx={rx * 0.7} ry={ry * 0.7} fill="#3E9B5A" />
             </g>
           ))}
-          {/* tappable: the chicks (they peep with wide-open beaks) */}
-          {/* tappable: the mother bird (she ruffles her feathers) */}
           <Nest x={200} y={214} s={2.3} />
           <Song x={250} y={118} n={3} />
           <SleuthHover x={326} y={150} s={1.4} flip />
@@ -952,10 +962,8 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               <ellipse cx={cx - 8} cy={cy - 6} rx={rx * 0.7} ry={ry * 0.7} fill="#3E9B5A" />
             </g>
           ))}
-          {/* tappable: the mother bird (she ruffles her feathers) */}
           <Bird x={204} y={110} s={1.25} flip sing />
           <Grass y={278} n={14} seed={101} />
-          {/* tappable: Anbessa (his ears droop, then a small brave smile) */}
           <Place x={150} y={292} s={0.46}>
             <CubShape pose="sit" mood="sad" look={1} />
           </Place>
@@ -974,7 +982,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <Fence x0={300} x1={406} y={250} />
           <path d="M-10 256 Q200 242 410 254 L410 310 L-10 310Z" fill="#7FCB6A" />
           <Grass y={262} n={14} seed={111} />
-          {/* tappable: Grandma (she laughs and pours more) */}
           <Place x={62} y={290} s={0.44}>
             <CubShape pose="sit" granny mood="joy" />
           </Place>
@@ -986,13 +993,11 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
               </g>
             ))}
           </g>
-          {/* tappable: the birds pecking at the beans */}
           <Bird x={118} y={292} s={0.9} hop delay={-0.3} />
           <Bird x={200} y={290} s={0.9} flip hop delay={-0.8} />
           <Place x={262} y={292} s={0.38} from={[200, 292]} dur={1.4} delay={0.8}>
             <CubShape pose="walk" mood="joy" />
           </Place>
-          {/* tappable: the goat (she nuzzles Anbessa) */}
           <Goat x={334} y={292} s={0.8} chew={false} happy />
           <Heart x={300} y={234} s={1.2} delay={-0.4} />
           <Heart x={316} y={222} s={0.9} delay={-1.8} />
@@ -1011,14 +1016,11 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <Tukul x={330} y={226} s={0.7} />
           <path d="M-10 236 Q200 224 410 234 L410 310 L-10 310Z" fill="#8ED07A" />
           <Ketema seed={121} n={40} top={240} bottom={300} />
-          {/* tappable: the roasting pan (the beans crackle and pop) */}
           <Roaster x={58} y={286} s={1.15} />
-          {/* tappable: Grandma (she wafts the smoke to her guests) */}
           <Place x={138} y={280} s={0.42}>
             <CubShape pose="sit" granny mood="happy" />
           </Place>
           <g transform="translate(0 -14)">
-            {/* tappable: the jebena (it pours the next cup) */}
             <PouringJebena x={200} y={284} s={1} />
             <Pour x1={244} y1={248} x2={256} y2={258} />
             {/* the tray of cups: one for each round */}
@@ -1051,7 +1053,6 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
           <Mountains far="#9A7AB0" mid="#7E62A0" y={24} />
           <Hills back="#7FB070" front="#6AA65E" backY={226} frontY={250} />
           <Warka x={300} y={254} s={0.72} hideTail />
-          {/* tappable: the nest (the chicks sing louder) */}
           <Nest x={308} y={124} s={0.8} />
           <Song x={330} y={96} n={3} />
           <path d="M-10 262 Q200 248 410 260 L410 310 L-10 310Z" fill="#8ED07A" />
@@ -1063,14 +1064,12 @@ export function CoffeeMysteryScene({ page }: { page: number }) {
             <Sini full />
             <Steam x={0} y={-14} n={1} s={0.6} />
           </g>
-          {/* tappable: Gugu (he raises his cup) */}
           <Place x={158} y={292} s={0.4}>
             <GuguShape pose="wave" mood="joy" />
           </Place>
           <Place x={232} y={292} s={0.36} flip>
             <CubShape pose="sit" mood="joy" />
           </Place>
-          {/* tappable: the goat (she bleats a happy note) */}
           <Goat x={352} y={294} s={0.72} chew={false} happy />
           <Heart x={196} y={210} s={1.1} />
           <Heart x={150} y={196} s={0.8} delay={-1.6} />

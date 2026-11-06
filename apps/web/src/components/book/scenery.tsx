@@ -1,19 +1,35 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { isValidElement, useId, type CSSProperties, type ReactNode } from "react";
 
 import { useMedia } from "@/lib/use-media";
-import { BeeShape } from "../characters";
+import { BeeShape, CubShape, GuguShape } from "../characters";
+import { Tappable, type TappableProps } from "./tappable";
 
 /*
   The scenery kit for the drawn storybook pictures. Every scene is a 400 × 300 SVG;
   pages crop the sides a little on wide spreads, so the action stays in x 30–370.
   Movement is CSS (globals.css, lali-*): transforms and opacity only.
+
+  Depth: the kit's pieces sit on depth layers (<Depth>), so the picture opens up when the
+  reader tilts the phone or moves the mouse. The ground where characters stand is depth 0
+  and stays put; the sky and far hills slide one way (negative), the near foreground the
+  other (positive). Ground drawn by hand in a scene needs nothing; wrap far or near things
+  in <Depth z={...}> to give them a layer.
 */
 
 type XY = [number, number];
 
 export const vars = (v: Record<string, string | number>) => v as CSSProperties;
+
+/**
+ * A depth layer. `z` is how far it drifts when the picture tilts: 0 is the ground the
+ * characters stand on (no drift), -1 the far sky, +1 the very front. Keep it within ±1.
+ * Don't put a `transform` attribute on this element itself: the drift sets its transform.
+ */
+export function Depth({ z, children }: { z: number; children: ReactNode }) {
+  return <g data-depth={z}>{children}</g>;
+}
 
 /** A small seeded random, so pictures look the same on the server and in the browser. */
 export function rand(seed: number) {
@@ -46,7 +62,9 @@ export function Sky({ id, from, to, mid }: { id: string; from: string; to: strin
 
 export function Sun({ x, y, r = 24, face = true }: { x: number; y: number; r?: number; face?: boolean }) {
   return (
-    <g>
+    <Depth z={-0.8}>
+    <Tappable reaction="spin" sound="chime">
+      <circle cx={x} cy={y} r={r * 2.8} fill="#FFF4C0" opacity={0.12} className="lali-pulse" style={vars({ "--dur": "5.5s", "--delay": "-2s" })} />
       <circle cx={x} cy={y} r={r * 1.9} fill="#FFE27A" opacity={0.28} className="lali-pulse" />
       <g className="lali-spin" style={vars({ "--dur": "50s" })}>
         {Array.from({ length: 12 }, (_, i) => {
@@ -71,13 +89,15 @@ export function Sun({ x, y, r = 24, face = true }: { x: number; y: number; r?: n
           <circle cx={x + r * 0.55} cy={y + r * 0.22} r={r * 0.13} fill="#FF9A6B" opacity={0.6} />
         </g>
       )}
-    </g>
+    </Tappable>
+    </Depth>
   );
 }
 
 export function Moon({ x, y, r = 28, sleepy = false, glow = true }: { x: number; y: number; r?: number; sleepy?: boolean; glow?: boolean }) {
   return (
-    <g>
+    <Depth z={-0.8}>
+    <Tappable reaction="grow" sound="chime">
       {glow && <circle cx={x} cy={y} r={r * 1.5} fill="#FFF8D8" opacity={0.14} className="lali-pulse" style={vars({ "--dur": "4.5s" })} />}
       <circle cx={x} cy={y} r={r} fill="#F8EDC4" />
       <circle cx={x + r * 0.35} cy={y - r * 0.4} r={r * 0.16} fill="#E9DCA8" />
@@ -96,7 +116,8 @@ export function Moon({ x, y, r = 28, sleepy = false, glow = true }: { x: number;
       <path d={`M${x - r * 0.3} ${y + r * 0.28} Q${x} ${y + r * 0.55} ${x + r * 0.3} ${y + r * 0.28}`} stroke="#5B4A2A" strokeWidth={r * 0.08} fill="none" strokeLinecap="round" />
       <circle cx={x - r * 0.55} cy={y + r * 0.22} r={r * 0.13} fill="#FFB09A" opacity={0.6} />
       <circle cx={x + r * 0.55} cy={y + r * 0.22} r={r * 0.13} fill="#FFB09A" opacity={0.6} />
-    </g>
+    </Tappable>
+    </Depth>
   );
 }
 
@@ -105,7 +126,7 @@ const SPARKLE = "M0 -5 Q1 -1 5 0 Q1 1 0 5 Q-1 1 -5 0 Q-1 -1 0 -5Z";
 export function Stars({ seed = 3, n = 26, top = 0, bottom = 170, color = "#FFF6D8" }: { seed?: number; n?: number; top?: number; bottom?: number; color?: string }) {
   const rnd = rand(seed);
   return (
-    <g fill={color}>
+    <g fill={color} data-depth={-0.95}>
       {Array.from({ length: n }, (_, i) => {
         const x = r1(rnd() * 400);
         const y = r1(top + rnd() * (bottom - top));
@@ -139,11 +160,13 @@ export function CloudShape({ s = 1, color = "#FFFFFF", shade = "#E3EEF8" }: { s?
 /** A cloud that drifts slowly across the whole sky and comes round again. */
 export function DriftCloud({ y, s = 1, dur = 70, phase = 0, color, shade }: { y: number; s?: number; dur?: number; phase?: number; color?: string; shade?: string }) {
   return (
-    <g transform={`translate(0 ${y})`}>
-      <g className="lali-drift" style={vars({ "--dur": `${dur}s`, "--delay": `${-phase * dur}s` })}>
-        <CloudShape s={s} color={color} shade={shade} />
+    <Depth z={-0.6}>
+      <g transform={`translate(0 ${y})`}>
+        <g className="lali-drift" style={vars({ "--dur": `${dur}s`, "--delay": `${-phase * dur}s` })}>
+          <CloudShape s={s} color={color} shade={shade} />
+        </g>
       </g>
-    </g>
+    </Depth>
   );
 }
 
@@ -153,6 +176,7 @@ export function DriftCloud({ y, s = 1, dur = 70, phase = 0, color, shade }: { y:
 export function Mountains({ far = "#B7C6E6", mid = "#8EA8D4", snow = false, y = 0 }: { far?: string; mid?: string; snow?: boolean; y?: number }) {
   return (
     <g transform={`translate(0 ${y})`}>
+      <Depth z={-0.7}>
       <g className="lali-parallax" style={vars({ "--px": "3px", "--dur": "16s" })}>
         <path
           d="M-20 200 L-20 128 L18 120 L30 96 L44 92 L52 70 L60 68 L66 94 L96 100 L120 86 L150 84 L160 60 L168 58 L176 82 L210 90 L246 78 L262 52 L272 50 L280 76 L318 84 L340 70 L372 68 L390 92 L420 96 L420 200Z"
@@ -160,10 +184,15 @@ export function Mountains({ far = "#B7C6E6", mid = "#8EA8D4", snow = false, y = 
         />
         {snow && <path d="M52 70 L60 68 L63 80 L56 78 L50 82Z M160 60 L168 58 L171 70 L164 68 L158 72Z M262 52 L272 50 L275 64 L268 61 L260 66Z" fill="#fff" opacity={0.8} />}
       </g>
+      </Depth>
+      {/* a soft band of haze between the ranges, for distance */}
+      <rect x={-20} y={118} width={440} height={40} fill="#fff" opacity={0.08} />
+      <Depth z={-0.45}>
       <g className="lali-parallax" style={vars({ "--px": "7px", "--dur": "12s" })}>
         <path d="M-20 210 L-20 150 L30 142 L56 120 L90 118 L104 132 L150 136 L186 112 L222 110 L240 130 L292 134 L330 112 L360 110 L384 128 L420 132 L420 210Z" fill={mid} />
         <path d="M56 120 L90 118 L86 126 L60 128Z M186 112 L222 110 L218 118 L190 120Z M330 112 L360 110 L356 118 L334 120Z" fill="#fff" opacity={0.18} />
       </g>
+      </Depth>
     </g>
   );
 }
@@ -171,7 +200,7 @@ export function Mountains({ far = "#B7C6E6", mid = "#8EA8D4", snow = false, y = 
 export function Hills({ back = "#86D696", front = "#4DBA74", y = 0, backY = 196, frontY = 236 }: { back?: string; front?: string; y?: number; backY?: number; frontY?: number }) {
   return (
     <g transform={`translate(0 ${y})`}>
-      <path d={`M-10 ${backY} Q80 ${backY - 40} 170 ${backY - 6} T420 ${backY - 14} L420 310 L-10 310Z`} fill={back} />
+      <path d={`M-10 ${backY} Q80 ${backY - 40} 170 ${backY - 6} T420 ${backY - 14} L420 310 L-10 310Z`} fill={back} data-depth={-0.25} />
       <path d={`M-10 ${frontY} Q120 ${frontY - 22} 240 ${frontY - 4} T420 ${frontY - 6} L420 310 L-10 310Z`} fill={front} />
     </g>
   );
@@ -217,6 +246,7 @@ export function Daisy({ x, y, h = 30, s = 1, delay = 0, color = "#FFD233" }: { x
 
 export function Flower({ x, y, h, color, delay = 0, s = 1 }: { x: number; y: number; h: number; color: string; delay?: number; s?: number }) {
   return (
+    <Tappable reaction="grow" sound="pop">
     <g className="lali-sway" style={vars({ "--delay": `${delay}s`, "--dur": "3.4s" })}>
       <path d={`M${x} ${y + h} Q${x - 6} ${y + h / 2} ${x} ${y}`} stroke="#2E9A5B" strokeWidth={4} fill="none" />
       <path d={`M${x - 2} ${y + h * 0.6} q-14 -4 -16 -14 q12 2 16 14Z`} fill="#3FAF66" />
@@ -228,6 +258,7 @@ export function Flower({ x, y, h, color, delay = 0, s = 1 }: { x: number; y: num
         <circle r={3} cx={-2} cy={-2} fill="#FFE27A" />
       </g>
     </g>
+    </Tappable>
   );
 }
 
@@ -251,6 +282,7 @@ export function Acacia({ x, y, s = 1, leaf = "#3E9B5A", leafDark = "#2D7D47", tr
 /** A round tukul house with a cone of thatch, and smoke curling from the top. */
 export function Tukul({ x, y, s = 1, glow = false, smoke = true }: { x: number; y: number; s?: number; glow?: boolean; smoke?: boolean }) {
   return (
+    <Tappable reaction="wiggle" sound="pop">
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <path d="M-36 0 L-36 -34 Q0 -42 36 -34 L36 0Z" fill="#D89B62" />
       <path d="M-36 -18 Q0 -24 36 -18 M-36 -8 Q0 -13 36 -8" stroke="#B87A45" strokeWidth={2} fill="none" />
@@ -269,16 +301,19 @@ export function Tukul({ x, y, s = 1, glow = false, smoke = true }: { x: number; 
         </g>
       )}
     </g>
+    </Tappable>
   );
 }
 
 export function Rock({ x, y, s = 1, color = "#9C98A6" }: { x: number; y: number; s?: number; color?: string }) {
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-46 0 Q-44 -46 -4 -50 Q40 -48 48 0Z" fill={color} />
-      <path d="M-28 -30 Q-14 -42 6 -40" stroke="#fff" strokeOpacity={0.35} strokeWidth={5} fill="none" strokeLinecap="round" />
-      <path d="M-46 0 Q0 -10 48 0Z" fill="#000" opacity={0.12} />
-    </g>
+    <Tappable reaction="wiggle" sound="boing">
+      <g transform={`translate(${x} ${y}) scale(${s})`}>
+        <path d="M-46 0 Q-44 -46 -4 -50 Q40 -48 48 0Z" fill={color} />
+        <path d="M-28 -30 Q-14 -42 6 -40" stroke="#fff" strokeOpacity={0.35} strokeWidth={5} fill="none" strokeLinecap="round" />
+        <path d="M-46 0 Q0 -10 48 0Z" fill="#000" opacity={0.12} />
+      </g>
+    </Tappable>
   );
 }
 
@@ -292,6 +327,27 @@ export function Water({ y, h = 40, color = "#5BB8E8", deep = "#3E98D0" }: { y: n
       <g stroke="#fff" strokeOpacity={0.6} strokeWidth={2} fill="none" strokeLinecap="round">
         <path d={`M0 ${y + h * 0.3} ${wave}`} className="lali-ripple" />
         <path d={`M-20 ${y + h * 0.7} ${wave}`} className="lali-ripple" style={vars({ "--dur": "3.4s" })} strokeOpacity={0.35} />
+        <path d={`M-10 ${y + h * 0.5} ${wave}`} className="lali-ripple" style={vars({ "--dur": "5.2s" })} strokeOpacity={0.2} strokeWidth={1.4} />
+      </g>
+      {/* rings spreading where the current catches, and glints of sun */}
+      <g fill="none" stroke="#fff" strokeWidth={1.6}>
+        {[
+          [70, 0.35, 0],
+          [210, 0.62, -1.3],
+          [330, 0.42, -2.4],
+        ].map(([x, k, d]) => (
+          <ellipse key={x} cx={x} cy={r1(y + h * k)} rx={16} ry={3.4} className="lali-ring" style={vars({ "--delay": `${d}s` })} />
+        ))}
+      </g>
+      <g fill="#fff">
+        {[
+          [40, 0.2, 0],
+          [150, 0.45, -0.8],
+          [260, 0.25, -1.6],
+          [370, 0.55, -0.4],
+        ].map(([x, k, d]) => (
+          <path key={x} d={SPARKLE} transform={`translate(${x} ${r1(y + h * k)}) scale(0.7)`} className="lali-twinkle" style={vars({ "--delay": `${d}s`, "--dur": "1.8s" })} />
+        ))}
       </g>
     </g>
   );
@@ -333,6 +389,7 @@ export function Birds({ y = 60, dur = 18, phase = 0, n = 3, color = "#33406E" }:
 
 export function Butterfly({ x, y, color = "#FF8FB1", delay = 0 }: { x: number; y: number; color?: string; delay?: number }) {
   return (
+    <Tappable reaction="spin" sound="pop">
     <g className="lali-float" style={vars({ "--delay": `${delay}s`, "--rise": "-12px", "--dur": "2.6s" })}>
       <g transform={`translate(${x} ${y})`}>
         <g className="lali-wings" style={{ animationDuration: "0.25s" }}>
@@ -344,11 +401,13 @@ export function Butterfly({ x, y, color = "#FF8FB1", delay = 0 }: { x: number; y
         <rect x={-1} y={-6} width={2} height={12} rx={1} fill="#1B2A4E" />
       </g>
     </g>
+    </Tappable>
   );
 }
 
 export function Sheep({ x, y, s = 1, flip = false, hop = false, delay = 0 }: { x: number; y: number; s?: number; flip?: boolean; hop?: boolean; delay?: number }) {
   return (
+    <Tappable reaction="bounce" sound="baa">
     <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
       <ellipse cx={0} cy={22} rx={26} ry={4} fill="#000" opacity={0.12} />
       <g className={hop ? "lali-hop" : "lali-breathe"} style={vars({ "--delay": `${delay}s`, "--dur": "1.6s" })}>
@@ -374,6 +433,7 @@ export function Sheep({ x, y, s = 1, flip = false, hop = false, delay = 0 }: { x
         </g>
       </g>
     </g>
+    </Tappable>
   );
 }
 
@@ -408,6 +468,7 @@ export function DayBackdrop({ id, sun = [334, 56], birds = true, hills = true }:
   return (
     <>
       <Sky id={id} from="#7FCFFF" mid="#B8E6FF" to="#F2FBFF" />
+      {sun && <LightRays x={sun[0]} y={sun[1]} />}
       {sun && <Sun x={sun[0]} y={sun[1]} />}
       <DriftCloud y={44} s={0.8} dur={80} phase={0.15} />
       <DriftCloud y={26} s={0.5} dur={60} phase={0.62} />
@@ -424,6 +485,7 @@ export function NightBackdrop({ id, seed = 3 }: { id: string; seed?: number }) {
     <>
       <Sky id={id} from="#0E1440" mid="#26307A" to="#4A4F9E" />
       <Stars seed={seed} n={30} bottom={160} />
+      <ShootingStar seed={seed} />
       <Mountains far="#3A4488" mid="#2A3370" />
       <Hills back="#24685C" front="#1E5A4E" />
     </>
@@ -432,9 +494,23 @@ export function NightBackdrop({ id, seed = 3 }: { id: string; seed?: number }) {
 
 /* ---------- placing the cast ---------- */
 
+type TapSetting = Omit<TappableProps, "children">;
+
+/** How each of the cast reacts to a tap, when placed with <Place>. */
+function tapFor(children: ReactNode): TapSetting {
+  if (isValidElement(children)) {
+    if (children.type === CubShape) {
+      return (children.props as { granny?: boolean }).granny ? { reaction: "grow", sound: "chime" } : { reaction: "bounce", sound: "giggle" };
+    }
+    if (children.type === GuguShape) return { reaction: "wiggle", sound: "boing" };
+  }
+  return { reaction: "bounce", sound: "pop" };
+}
+
 /**
  * Puts a character (drawn in its 200 × 240 box) with its feet at (x, y).
  * With `from`, it walks there from that spot when the page opens.
+ * Characters react to a tap (see Tappable); `tap={false}` turns it off, or pass your own.
  */
 export function Place({
   x,
@@ -445,6 +521,7 @@ export function Place({
   dur = 2.4,
   delay = 0.6,
   className,
+  tap,
   children,
 }: {
   x: number;
@@ -455,11 +532,11 @@ export function Place({
   dur?: number;
   delay?: number;
   className?: string;
+  tap?: TapSetting | false;
   children: ReactNode;
 }) {
-  const body = (
-    <g transform={`scale(${flip ? -s : s} ${s}) translate(-100 -230)`}>{children}</g>
-  );
+  const drawn = <g transform={`scale(${flip ? -s : s} ${s}) translate(-100 -230)`}>{children}</g>;
+  const body = tap === false ? drawn : <Tappable {...(tap ?? tapFor(children))}>{drawn}</Tappable>;
   return (
     <g transform={`translate(${x} ${y})`}>
       {from ? (
@@ -487,13 +564,32 @@ export function Place({
  * Lali flying along a curving path (an SVG path in scene units), wings a blur,
  * with a dotted trail behind her. Holds still at `rest` for reduced motion.
  */
-export function BeeFlight({ path, dur = 7, s = 1.2, rest, trail = true, trailColor = "#ffffff" }: { path: string; dur?: number; s?: number; rest: XY; trail?: boolean; trailColor?: string }) {
+export function BeeFlight({
+  path,
+  dur = 7,
+  s = 1.2,
+  rest,
+  trail = true,
+  trailColor = "#ffffff",
+  happy = false,
+}: {
+  path: string;
+  dur?: number;
+  s?: number;
+  rest: XY;
+  trail?: boolean;
+  trailColor?: string;
+  /** Loop-the-loops now and then, for joy. */
+  happy?: boolean;
+}) {
   // Hydration-safe: false on the server, then the real setting.
   const still = useMedia("(prefers-reduced-motion: reduce)");
   const bee = (
-    <g transform={`scale(${s}) translate(-20 -24)`}>
-      <BeeShape />
-    </g>
+    <Tappable reaction="loop" sound="buzz">
+      <g transform={`scale(${s}) translate(-20 -24)`}>
+        <BeeShape />
+      </g>
+    </Tappable>
   );
   return (
     <g>
@@ -504,7 +600,7 @@ export function BeeFlight({ path, dur = 7, s = 1.2, rest, trail = true, trailCol
         <g>
           <animateMotion dur={`${dur}s`} repeatCount="indefinite" path={path} />
           <g className="lali-float" style={vars({ "--dur": "0.6s", "--rise": "-3px" })}>
-            {bee}
+            {happy ? <g className="lali-happy-loop">{bee}</g> : bee}
           </g>
         </g>
       )}
@@ -517,9 +613,11 @@ export function BeeHover({ x, y, s = 1.2, flip = false }: { x: number; y: number
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className="lali-float" style={vars({ "--dur": "1.2s", "--rise": "-6px" })}>
-        <g transform={`scale(${flip ? -s : s} ${s}) translate(-20 -24)`}>
-          <BeeShape />
-        </g>
+        <Tappable reaction="loop" sound="buzz">
+          <g transform={`scale(${flip ? -s : s} ${s}) translate(-20 -24)`}>
+            <BeeShape />
+          </g>
+        </Tappable>
       </g>
     </g>
   );
@@ -537,5 +635,134 @@ export function Bubble({ x, y, w = 70, children, delay = 1, tail = "left" }: { x
         {children}
       </text>
     </g>
+  );
+}
+
+/* ---------- light and air ---------- */
+
+/** Soft beams of sunlight fanning down from the sun, slowly breathing in and out. */
+export function LightRays({ x, y, n = 5 }: { x: number; y: number; n?: number }) {
+  const id = useId().replace(/:/g, "");
+  // Fan the beams toward the middle of the picture.
+  const toward = Math.atan2(170 - y, 200 - x);
+  return (
+    <Depth z={-0.8}>
+      <defs>
+        <radialGradient id={`${id}-ray`} cx={x} cy={y} r={330} gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#FFFBE0" stopOpacity={0.9} />
+          <stop offset="0.6" stopColor="#FFFBE0" stopOpacity={0.25} />
+          <stop offset="1" stopColor="#FFFBE0" stopOpacity={0} />
+        </radialGradient>
+      </defs>
+      <g fill={`url(#${id}-ray)`}>
+        {Array.from({ length: n }, (_, i) => {
+          const a = toward + (i - (n - 1) / 2) * 0.32;
+          const w = 0.05 + (i % 2) * 0.03;
+          const L = 340;
+          const d = `M${x} ${y} L${r1(x + Math.cos(a - w) * L)} ${r1(y + Math.sin(a - w) * L)} L${r1(x + Math.cos(a + w) * L)} ${r1(y + Math.sin(a + w) * L)}Z`;
+          return <path key={i} d={d} className="lali-ray" style={vars({ "--delay": `${-i * 1.7}s`, "--dur": `${6 + (i % 3) * 1.5}s` })} />;
+        })}
+      </g>
+    </Depth>
+  );
+}
+
+/** Pollen and dandelion fluff drifting through a sunny scene, in front of everything. */
+export function Pollen({ seed = 5, n = 9, color = "#FFF6C0", top = 90, bottom = 280 }: { seed?: number; n?: number; color?: string; top?: number; bottom?: number }) {
+  const rnd = rand(seed);
+  return (
+    <Depth z={0.5}>
+      <g fill={color}>
+        {Array.from({ length: n }, (_, i) => (
+          <circle
+            key={i}
+            cx={r1(rnd() * 400)}
+            cy={r1(top + rnd() * (bottom - top))}
+            r={r1(1 + rnd() * 1.4)}
+            className="lali-pollen"
+            style={vars({ "--delay": `${r1(-rnd() * 12)}s`, "--dur": `${r1(9 + rnd() * 6)}s`, "--dx": `${r1(20 + rnd() * 30)}px` })}
+          />
+        ))}
+      </g>
+    </Depth>
+  );
+}
+
+/** Now and then a star shoots across the night sky. */
+export function ShootingStar({ seed = 1 }: { seed?: number }) {
+  const rnd = rand(seed + 40);
+  const x = r1(60 + rnd() * 200);
+  const y = r1(20 + rnd() * 50);
+  return (
+    <Depth z={-0.9}>
+      <g transform={`translate(${x} ${y}) rotate(18)`}>
+        <g className="lali-shoot" style={vars({ "--delay": `${r1(-rnd() * 6)}s` })}>
+          <path d="M-46 0 L0 -1.4 L2 0 L0 1.4Z" fill="#FFF6D8" opacity={0.75} />
+          <circle r={2.2} fill="#FFFFFF" />
+        </g>
+      </g>
+    </Depth>
+  );
+}
+
+/**
+ * Falling rain over the whole picture. Each layer is one path of streaks that slides down
+ * and repeats seamlessly, so even heavy rain costs only two moving elements.
+ */
+export function Rain({ heavy = false, color = "#DDEEFF" }: { heavy?: boolean; color?: string }) {
+  const layer = (seed: number, cols: number, len: number) => {
+    const rnd = rand(seed);
+    let d = "";
+    for (let row = -1; row < 6; row++) {
+      for (let c = 0; c < cols; c++) {
+        const x = r1((c + rnd()) * (420 / cols) - 10);
+        const y = r1(row * 60 + rnd() * 60);
+        d += `M${x} ${y} l-3 ${len} `;
+      }
+    }
+    return d;
+  };
+  return (
+    <g stroke={color} strokeLinecap="round" fill="none">
+      <Depth z={-0.3}>
+        <path d={layer(3, heavy ? 16 : 10, 10)} strokeWidth={1.2} opacity={0.45} className="lali-rain" style={vars({ "--dur": "0.9s" })} />
+      </Depth>
+      <Depth z={0.6}>
+        <path d={layer(9, heavy ? 12 : 7, 16)} strokeWidth={2} opacity={0.6} className="lali-rain" style={vars({ "--dur": "0.6s" })} />
+      </Depth>
+    </g>
+  );
+}
+
+/** Big blades of grass right at the front of the picture, the nearest depth layer. */
+export function NearGrass({ color = "#2F8A50", tip = "#45A866" }: { color?: string; tip?: string }) {
+  const tuft = (x: number, flip: boolean, k: number) => (
+    <g transform={`translate(${x} 304) scale(${flip ? -1 : 1} 1)`}>
+      <path
+        d="M-18 0 Q-16 -18 -28 -38 Q-10 -22 -6 -6 Q-4 -30 2 -46 Q4 -24 4 -4 Q10 -20 22 -30 Q12 -14 12 0Z"
+        fill={color}
+        className="lali-sway"
+        style={vars({ "--dur": `${3.2 + k * 0.7}s`, "--delay": `${-k}s` })}
+      />
+      <path d="M-6 -6 Q-4 -30 2 -46 Q0 -26 -2 -6Z" fill={tip} opacity={0.6} className="lali-sway" style={vars({ "--dur": `${3.2 + k * 0.7}s`, "--delay": `${-k}s` })} />
+    </g>
+  );
+  return (
+    <Depth z={0.9}>
+      {tuft(10, false, 0)}
+      {tuft(392, true, 1)}
+    </Depth>
+  );
+}
+
+/** The air of a scene: drifting pollen by day, glowing motes at night, and the near grass. */
+export function Air({ kind = "day", seed = 5, grass = true }: { kind?: "day" | "dusk" | "night"; seed?: number; grass?: boolean }) {
+  return (
+    <>
+      {kind === "day" && <Pollen seed={seed} />}
+      {kind === "dusk" && <Pollen seed={seed} n={7} color="#FFE2A8" />}
+      {kind === "night" && <Pollen seed={seed} n={6} color="#CFE0FF" top={60} bottom={250} />}
+      {grass && (kind === "night" ? <NearGrass color="#141A3C" /> : kind === "dusk" ? <NearGrass color="#3F7A45" /> : <NearGrass />)}
+    </>
   );
 }

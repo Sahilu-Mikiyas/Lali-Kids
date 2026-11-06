@@ -26,11 +26,11 @@ function parse(data: string): BookMessage | null {
  * and the app records the star. If the page can't load (offline), `onFail` lets the app's own
  * reader take over.
  */
-export function AnimatedBook({ id, lang, onMessage, onFail }: { id: string; lang: Lang; onMessage: (m: BookMessage) => void; onFail: () => void }) {
+export function AnimatedBook({ id, pass, lang, onMessage, onFail }: { id: string; pass?: string; lang: Lang; onMessage: (m: BookMessage) => void; onFail: () => void }) {
   const [loading, setLoading] = useState(true);
   const origin = config.apiUrl;
   // /am/… and /en/… set the website's language and then show the plain address.
-  const uri = `${origin}/${lang}/stories/${encodeURIComponent(id)}`;
+  const uri = `${origin}/${lang}/stories/${encodeURIComponent(id)}${pass ? `?pass=${encodeURIComponent(pass)}` : ''}`;
   return (
     <View style={styles.wrap}>
       <WebView

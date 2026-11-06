@@ -54,14 +54,16 @@ function toStory(row: StoryRow, pages: PageRow[], pictures: (string | null)[], l
  * Shelf cards only carry the cover picture; paid stories are marked locked for families without a plan.
  */
 export async function shelfStories(familyId: string | null): Promise<Story[]> {
-  if (!hasSecretKey()) return STORIES;
+  if (!hasSecretKey()) return STORIES.map((st) => (st.isFree ? st : lockedLaunch(st)));
   const admin = createSupabaseAdmin();
   const [{ data: rows }, open] = await Promise.all([
     admin.from("stories").select(STORY_COLUMNS).eq("status", "published").order("created_at", { ascending: false }),
     familyId ? hasActivePlan(familyId) : Promise.resolve(false),
   ]);
+  // Paid launch stories show on the shelf with a lock, and without their text, until the family has a plan.
+  const launch = STORIES.map((st) => (st.isFree || open ? st : lockedLaunch(st)));
   const list = (rows ?? []) as StoryRow[];
-  if (!list.length) return STORIES;
+  if (!list.length) return launch;
 
   const { data: pageRows } = await admin
     .from("story_pages")
@@ -88,7 +90,7 @@ export async function shelfStories(familyId: string | null): Promise<Story[]> {
     ...toStory(r, [{ position: 0, text_en: "", text_am: "", image_path: null, audio_en_path: null, audio_am_path: null }], [covers[i]], !r.is_free && !open),
     coverPage: 0,
   }));
-  return [...studio, ...STORIES];
+  return [...studio, ...launch];
 }
 
 export type StoryAccess = { story: Story } | { locked: Story } | null;
@@ -96,7 +98,11 @@ export type StoryAccess = { story: Story } | { locked: Story } | null;
 /** A whole story for reading, with picture and narration links, if the family may read it. */
 export async function storyForReading(slug: string, familyId: string | null, isAdmin = false): Promise<StoryAccess> {
   const builtIn = getStory(slug);
-  if (builtIn) return { story: builtIn };
+  if (builtIn) {
+    if (builtIn.isFree || isAdmin) return { story: builtIn };
+    const open = familyId && hasSecretKey() ? await hasActivePlan(familyId) : false;
+    return open ? { story: builtIn } : { locked: lockedLaunch(builtIn) };
+  }
   if (!hasSecretKey()) return null;
 
   const admin = createSupabaseAdmin();
@@ -126,6 +132,11 @@ export async function storyForReading(slug: string, familyId: string | null, isA
   const pictures = pages.map((_, i) => links[i * 3]);
   const audio = pages.map((_, i) => ({ en: links[i * 3 + 1], am: links[i * 3 + 2] }));
   return { story: toStory(row as StoryRow, pages, pictures, false, audio) };
+}
+
+/** A paid launch story as a family without a plan sees it: cover and title, no words. */
+export function lockedLaunch(story: Story): Story {
+  return { ...story, pages: story.pages.map(() => ({ en: "", am: "" })), grownUps: undefined, locked: true };
 }
 
 /** Stories for one age group, or all of them. */

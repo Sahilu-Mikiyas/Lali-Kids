@@ -34,6 +34,19 @@ export function setPageSoundMuted(value: boolean) {
   listeners.forEach((l) => l());
 }
 
+/** Whether the reader's sounds are off (page turns, the scene's soundscape and tap sounds). */
+export function isPageSoundMuted(): boolean {
+  return typeof window === "undefined" ? true : readMuted();
+}
+
+/** Listen for the sound toggle; returns an unsubscribe function. */
+export function onPageSoundMutedChange(l: () => void): () => void {
+  listeners.add(l);
+  return () => {
+    listeners.delete(l);
+  };
+}
+
 export function usePageSoundMuted(): boolean {
   return useSyncExternalStore(
     (l) => {
@@ -45,6 +58,11 @@ export function usePageSoundMuted(): boolean {
     readMuted,
     () => false,
   );
+}
+
+/** The one shared AudioContext for every book sound (null where Web Audio is missing). */
+export function bookAudio(): AudioContext | null {
+  return audio();
 }
 
 function audio(): AudioContext | null {

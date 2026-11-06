@@ -22,6 +22,7 @@ import {
   Tukul,
   vars,
 } from "./scenery";
+import { Tappable } from "./tappable";
 
 /*
   "Lali Visits Lalibela": one living picture per page (13 pages).
@@ -54,6 +55,7 @@ const WHITE = "#FFFDF6";
 function Church({ x, y, s = 1, glow = false }: { x: number; y: number; s?: number; glow?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="grow" sound="chime">
       {/* stepped plinth */}
       <rect x={-72} y={-8} width={144} height={8} fill={ROCK_DARK} />
       <rect x={-66} y={-15} width={132} height={7} fill={ROCK} />
@@ -90,6 +92,7 @@ function Church({ x, y, s = 1, glow = false }: { x: number; y: number; s?: numbe
       {glow && <path d="M-10 -21 L-10 -44 Q0 -54 10 -44 L10 -21Z" fill="#FFC85A" className="lali-pulse" style={vars({ "--dur": "3s" })} opacity={0.55} />}
       {/* chisel marks */}
       <path d="M-50 -24 l4 -6 M-26 -30 l3 -5 M46 -26 l-4 -6 M12 -56 l3 -5 M-14 -58 l-3 -5" stroke="#A3563A" strokeWidth={1.2} strokeLinecap="round" opacity={0.6} />
+      </Tappable>
     </g>
   );
 }
@@ -100,6 +103,7 @@ const CROSS = "M-22 -62 H22 V-22 H62 V22 H22 V62 H-22 V22 H-62 V-22 H-22Z";
 function CrossTop({ x, y, s = 1, sy = 1, pit = true }: { x: number; y: number; s?: number; sy?: number; pit?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s} ${s * sy})`}>
+      <Tappable reaction="grow" sound="chime">
       {pit && (
         <>
           <rect x={-96} y={-96} width={192} height={192} rx={18} fill={PIT} />
@@ -113,6 +117,7 @@ function CrossTop({ x, y, s = 1, sy = 1, pit = true }: { x: number; y: number; s
       <path d={CROSS} fill="none" stroke="#C26A45" strokeWidth={4} transform="scale(0.74)" />
       <path d={CROSS} fill="none" stroke="#C26A45" strokeWidth={5} transform="scale(0.46)" />
       <path d="M-22 -62 H22 M62 -22 V22" stroke="#F6B892" strokeWidth={3} />
+      </Tappable>
     </g>
   );
 }
@@ -121,6 +126,7 @@ function CrossTop({ x, y, s = 1, sy = 1, pit = true }: { x: number; y: number; s
 function StoneHouse({ x, y, s = 1, lit = false }: { x: number; y: number; s?: number; lit?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
       <path d="M-30 0 L-30 -50 Q0 -56 30 -50 L30 0 Q0 6 -30 0Z" fill="#9A6A52" />
       <g fill="#B4846A">
         <rect x={-24} y={-44} width={12} height={6} rx={3} />
@@ -135,6 +141,7 @@ function StoneHouse({ x, y, s = 1, lit = false }: { x: number; y: number; s?: nu
       {lit && <rect x={10} y={-44} width={8} height={9} rx={2} fill="#FFF0B0" className="lali-pulse" style={vars({ "--dur": "2.6s" })} />}
       <path d="M-38 -48 Q-14 -66 0 -88 Q14 -66 38 -48 Q0 -56 -38 -48Z" fill="#C9A24E" />
       <path d="M-24 -58 L0 -86 M0 -54 L0 -86 M24 -58 L0 -86" stroke="#A8823A" strokeWidth={1.6} />
+      </Tappable>
     </g>
   );
 }
@@ -146,6 +153,7 @@ function Pilgrim({ candle = true, child = false }: { candle?: boolean; child?: b
   const k = child ? 0.72 : 1;
   return (
     <g transform={`scale(${k})`}>
+      <Tappable reaction="bounce" sound="chime">
       <ellipse cx={0} cy={0} rx={11} ry={2.6} fill="#000" opacity={0.15} />
       <path d="M-11 0 Q-13 -26 -8 -40 L8 -40 Q13 -26 11 0Z" fill="#F1EADB" />
       <ellipse cx={-4} cy={-1} rx={4} ry={2} fill="#4A2A1E" />
@@ -170,6 +178,7 @@ function Pilgrim({ candle = true, child = false }: { candle?: boolean; child?: b
           <path d="M6 -47 Q7.7 -54 9.4 -47 Q7.7 -45.4 6 -47Z" fill="#FFB43D" className="lali-flicker" />
         </g>
       )}
+      </Tappable>
     </g>
   );
 }
@@ -215,6 +224,7 @@ function HandCross({ s = 1 }: { s?: number }) {
 /** The kind old priest, sitting, feet at (0, 0): white turban, white beard, a shawl, his hand cross raised. */
 function Priest({ twinkle = false }: { twinkle?: boolean }) {
   return (
+    <Tappable reaction="bounce" sound="chime">
     <g>
       <ellipse cx={0} cy={2} rx={34} ry={4} fill="#000" opacity={0.15} />
       {/* prayer staff, leaning beside him */}
@@ -262,12 +272,14 @@ function Priest({ twinkle = false }: { twinkle?: boolean }) {
         )}
       </g>
     </g>
+    </Tappable>
   );
 }
 
 /** Baby Lalibela asleep, swaddled in white, in a woven basket (or held). Centre at (0, 0). */
 function Baby({ basket = true }: { basket?: boolean }) {
   return (
+    <Tappable reaction="bounce" sound="giggle">
     <g>
       {basket && (
         <g>
@@ -288,6 +300,7 @@ function Baby({ basket = true }: { basket?: boolean }) {
         <circle cx={-7.6} cy={-5} r={2} fill="#E2463F" opacity={0.3} />
       </g>
     </g>
+    </Tappable>
   );
 }
 
@@ -345,6 +358,7 @@ function Swarm({ cx, cy, n = 14, rx = 70, ry = 34, seed = 5, tight = false, bs =
   const still = useMedia("(prefers-reduced-motion: reduce)");
   const rnd = rand(seed);
   return (
+    <Tappable reaction="spin" sound="buzz">
     <g>
       {Array.from({ length: n }, (_, i) => {
         const k = tight ? 0.85 + rnd() * 0.2 : 0.55 + rnd() * 0.5;
@@ -376,6 +390,7 @@ function Swarm({ cx, cy, n = 14, rx = 70, ry = 34, seed = 5, tight = false, bs =
         );
       })}
     </g>
+    </Tappable>
   );
 }
 
@@ -416,9 +431,11 @@ function Rays({ x, y, n = 5, color = "#FFF2C0", opacity = 0.22, spread = 120, le
 function Candle({ x, y, h = 16 }: { x: number; y: number; h?: number }) {
   return (
     <g transform={`translate(${x} ${y})`}>
+      <Tappable reaction="grow" sound="chime">
       <circle cx={0} cy={-h - 4} r={9} fill="#FFE27A" opacity={0.28} className="lali-pulse" style={vars({ "--dur": "2s" })} />
       <rect x={-1.6} y={-h} width={3.2} height={h} rx={1.2} fill="#F3E3B0" />
       <path d="M-2.2 -16 Q0 -24 2.2 -16 Q0 -14 -2.2 -16Z" transform={`translate(0 ${16 - h})`} fill="#FFB43D" className="lali-flicker" />
+      </Tappable>
     </g>
   );
 }
@@ -447,6 +464,7 @@ function TibebFrame() {
 function HomeJebena({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
       <ellipse cx={0} cy={0} rx={16} ry={4.4} fill="#C99A4E" />
       <ellipse cx={0} cy={-18} rx={17} ry={16} fill="#2E2222" />
       <path d="M-5 -32 L-4 -50 L4 -50 L5 -32Z" fill="#2E2222" />
@@ -459,6 +477,7 @@ function HomeJebena({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
           <circle key={d} cx={28} cy={-46} r={3.6} className="lali-smoke" style={vars({ "--delay": `${-d}s`, "--dur": "2.4s" })} />
         ))}
       </g>
+      </Tappable>
     </g>
   );
 }
@@ -490,11 +509,9 @@ export function LalibelaScene({ page }: { page: number }) {
           <Mountains far="#9A7AB0" mid="#7E62A0" y={24} />
           <Hills back="#7FB070" front="#6AA65E" backY={222} frontY={248} />
           <Tukul x={60} y={248} s={0.95} glow />
-          {/* tappable: Grandma (she points north) */}
           <Place x={156} y={284} s={0.44}>
             <CubShape pose="sit" granny mood="happy" />
           </Place>
-          {/* tappable: the jebena (it steams and bubbles) */}
           <HomeJebena x={214} y={282} />
           {/* Grandma's story: a cross-shaped church, far to the north */}
           <g className="lali-pop-in" style={vars({ "--delay": "1.6s" })}>
@@ -508,7 +525,6 @@ export function LalibelaScene({ page }: { page: number }) {
             <path d="M58 112 L58 92 Q110 80 162 92 L162 112Z" fill="#C8704C" opacity={0.35} />
             <Church x={110} y={112} s={0.42} />
           </g>
-          {/* tappable: Lali (she loops and asks again) */}
           <BeeHover x={286} y={186} s={1.5} flip />
           <Query x={300} y={150} size={30} delay={0.8} color="#E2463F" />
         </>
@@ -565,7 +581,6 @@ export function LalibelaScene({ page }: { page: number }) {
             </g>
           </g>
           <Birds y={110} dur={20} phase={0.4} />
-          {/* tappable: Lali (she does a loop-the-loop) */}
           <BeeFlight path="M40 150 C80 90 140 80 170 110 C194 134 170 160 150 140 C130 120 160 90 210 100 C260 110 280 70 330 80 C360 86 370 110 350 130 C320 160 120 200 40 150Z" dur={8} s={1.4} rest={[210, 100]} />
         </>
       );
@@ -579,16 +594,16 @@ export function LalibelaScene({ page }: { page: number }) {
           {/* the plateau of red rock, with only a thin dark crack in it */}
           <path d="M-10 214 Q200 200 410 212 L410 310 L-10 310Z" fill="#9A5048" />
           <path d="M-10 240 Q200 228 410 238 L410 310 L-10 310Z" fill="#A8584C" />
-          {/* tappable: the crack in the rock (it glows: something is down there) */}
-          <g className="lali-pulse" style={vars({ "--dur": "3s" })}>
-            <ellipse cx={200} cy={262} rx={66} ry={9} fill="#FFD27A" opacity={0.3} />
-          </g>
+          <Tappable reaction="grow" sound="chime">
+            <g className="lali-pulse" style={vars({ "--dur": "3s" })}>
+              <ellipse cx={200} cy={262} rx={66} ry={9} fill="#FFD27A" opacity={0.3} />
+            </g>
+          </Tappable>
           <path d="M132 262 L150 259 L162 263 L178 258 L196 262 L212 257 L228 262 L246 258 L268 262 L246 264 L228 266 L212 262 L196 266 L178 263 L162 267 L150 264Z" fill="#2A1210" />
           <path d="M152 262 L178 260.6 L212 260 L246 260.8" stroke="#FFC85A" strokeWidth={1.4} opacity={0.85} strokeLinecap="round" fill="none" />
           <StoneHouse x={64} y={232} s={0.8} lit />
           <StoneHouse x={344} y={228} s={0.7} />
           <StoneHouse x={300} y={218} s={0.45} lit />
-          {/* tappable: Lali (she looks this way and that) */}
           <BeeHover x={200} y={170} s={1.6} />
           <Query x={166} y={136} size={26} delay={1} />
           <Query x={236} y={128} size={32} delay={1.6} color="#E2463F" />
@@ -646,7 +661,6 @@ export function LalibelaScene({ page }: { page: number }) {
             <path d="M410 -32 Q352 -26 296 -32 Q306 -24 362 -20 Q392 -20 410 -24Z" fill={ROCK_DEEP} />
             <path d="M10 -60 Q50 -66 90 -56" stroke={ROCK_LIGHT} strokeWidth={3} fill="none" strokeLinecap="round" />
           </g>
-          {/* tappable: Lali (she spirals down again) */}
           <g className="lali-lalibela-descend" style={vars({ "--dy": "-110px" })}>
             <g className="lali-lalibela-spiral">
               <BeeHover x={112} y={176} s={1.5} />
@@ -676,7 +690,6 @@ export function LalibelaScene({ page }: { page: number }) {
               </g>
             </g>
           ))}
-          {/* tappable: the cross roof (the three crosses glow one after another) */}
           <CrossTop x={200} y={150} s={1.15} />
           {[1, 0.74, 0.46].map((k, i) => (
             <path key={k} d={CROSS} fill="none" stroke="#FFE2A0" strokeWidth={3} transform={`translate(200 150) scale(${1.15 * k})`} className="lali-lalibela-glow" style={vars({ "--delay": `${i * 0.8}s` })} />
@@ -691,8 +704,8 @@ export function LalibelaScene({ page }: { page: number }) {
               </g>
             </g>
           ))}
-          {/* tappable: the hammer and chisel (tap, tap, tap) */}
           <g transform="translate(336 244) scale(1.5)">
+            <Tappable reaction="wiggle" sound="pop">
             {/* the chisel, its tip on the rock */}
             <path d="M-12 14 L6 -8" stroke="#8A8A98" strokeWidth={4} strokeLinecap="round" />
             <path d="M-14 16 L-11 13" stroke="#5A5A68" strokeWidth={2.4} strokeLinecap="round" />
@@ -709,6 +722,7 @@ export function LalibelaScene({ page }: { page: number }) {
                 <rect x={-14} y={14} width={3} height={3} fill={ROCK_LIGHT} />
               </g>
             ))}
+            </Tappable>
           </g>
           <BeeFlight path="M200 40 C290 40 300 110 270 140 C240 170 220 120 250 110 C300 96 330 200 260 250 C200 290 120 260 110 200 C100 150 130 60 200 40Z" dur={10} s={1.2} rest={[270, 140]} trailColor="#FFF6DD" />
         </>
@@ -746,7 +760,6 @@ export function LalibelaScene({ page }: { page: number }) {
           <Candle x={52} y={198} h={12} />
           <path d="M336 190 L336 166 Q348 154 360 166 L360 190Z" fill="#2A120C" />
           <Candle x={348} y={188} h={12} />
-          {/* tappable: Lali (she says hello and the rock answers) */}
           <circle cx={108} cy={150} r={30} fill="#FFE27A" opacity={0.2} className="lali-pulse" />
           <BeeHover x={108} y={150} s={1.4} />
           <g fill="#FFE2A0">
@@ -776,8 +789,6 @@ export function LalibelaScene({ page }: { page: number }) {
           <path d="M84 236 Q200 210 316 236 L310 244 Q200 222 90 244Z" fill={ROCK_DARK} />
           <CrossTop x={200} y={244} s={0.66} sy={0.28} pit={false} />
           <path d="M-10 266 Q200 254 410 266 L410 310 L-10 310Z" fill="#D27E60" />
-          {/* tappable: each pilgrim (they turn and smile) */}
-          {/* tappable: the candles (they flicker brighter) */}
           <Procession y={296} xs={[20, 110, 168, 250, 340]} s={1.3} child={[2]} />
           <BeeHover x={66} y={170} s={1.3} />
         </>
@@ -812,12 +823,10 @@ export function LalibelaScene({ page }: { page: number }) {
           <rect x={20} y={262} width={170} height={40} rx={4} fill={ROCK_DARK} />
           <rect x={20} y={262} width={170} height={6} fill={ROCK_LIGHT} opacity={0.6} />
           <Rays x={120} y={-20} n={4} spread={40} opacity={0.16} />
-          {/* tappable: the priest (he lifts his cross to bless) */}
           <g transform="translate(110 268) scale(1.3)">
             <Priest />
           </g>
 
-          {/* tappable: Lali (she bows) */}
           <BeeHover x={326} y={150} s={1.4} flip />
         </>
       );
@@ -832,11 +841,9 @@ export function LalibelaScene({ page }: { page: number }) {
           <g transform="translate(96 284) scale(1.45)">
             <Mother />
           </g>
-          {/* tappable: the baby (he smiles in his sleep) */}
           <g transform="translate(206 266) scale(1.5)">
             <Baby />
           </g>
-          {/* tappable: the swarm (it circles faster, humming) */}
           <Swarm cx={206} cy={216} n={20} rx={84} ry={44} seed={8} bs={1.6} />
           <TibebFrame />
         </>
@@ -856,7 +863,6 @@ export function LalibelaScene({ page }: { page: number }) {
           <g transform="translate(132 286) scale(1.6)">
             <Mother holding />
           </g>
-          {/* tappable: baby Lalibela, held close */}
           <g transform="translate(220 232) scale(1.25)">
             <Baby basket={false} />
           </g>
@@ -865,7 +871,6 @@ export function LalibelaScene({ page }: { page: number }) {
             <path d="M182 200 L186 178 L196 190 L203 172 L210 190 L220 178 L224 200Z" fill="#FFD54A" opacity={0.6} />
             <circle cx={203} cy={170} r={3} fill="#FFD54A" />
           </g>
-          {/* tappable: the crown of bees */}
           <Swarm cx={203} cy={186} n={12} rx={44} ry={12} seed={9} tight bs={1.3} />
           <TibebFrame />
         </>
@@ -878,7 +883,8 @@ export function LalibelaScene({ page }: { page: number }) {
           <circle cx={200} cy={110} r={120} fill="#FFF6D8" opacity={0.45} className="lali-pulse" style={vars({ "--dur": "3.6s" })} />
           <Rays x={200} y={110} n={10} spread={340} opacity={0.18} len={260} />
           <path d="M-10 236 Q200 222 410 234 L410 310 L-10 310Z" fill="#D27E60" />
-          {/* tappable: the name (ላሊ lights up, then በላ) */}
+          {/* the name: ላሊ inside ላሊበላ */}
+          <Tappable reaction="grow" sound="chime">
           <g className="lali-pop-in" style={vars({ "--delay": "0.6s" })}>
             <text x={200} y={132} fontSize={66} fontFamily="var(--font-noto-ethiopic), var(--font-grandstander)" fontWeight={900} textAnchor="middle" stroke="#7A3A28" strokeWidth={7} paintOrder="stroke" strokeLinejoin="round">
               <tspan fill="#FFD54A">ላሊ</tspan>
@@ -891,13 +897,13 @@ export function LalibelaScene({ page }: { page: number }) {
               <tspan fill="#FFFDF6">BELA</tspan>
             </text>
           </g>
+          </Tappable>
           <g className="lali-lalibela-glow" style={vars({ "--delay": "2s", "--dur": "2.4s" })}>
             <ellipse cx={150} cy={112} rx={58} ry={34} fill="#FFE27A" opacity={0.3} />
           </g>
           <g transform="translate(70 290) scale(0.95)">
             <Priest twinkle />
           </g>
-          {/* tappable: Lali (she says her name) */}
           <BeeFlight path="M240 220 C200 250 130 240 140 200 C150 170 200 190 190 210 C176 236 250 250 300 220 C350 190 330 150 300 170 C270 190 300 230 240 220Z" dur={7} s={1.4} rest={[300, 220]} trailColor="#FFFDF6" />
           <Heart x={340} y={150} s={1} delay={-0.6} />
           <Heart x={290} y={130} s={0.8} delay={-2} />
@@ -932,7 +938,6 @@ export function LalibelaScene({ page }: { page: number }) {
             <CrossTop x={300} y={256} s={0.42} sy={0.3} pit={false} />
           </g>
           <Birds y={120} dur={24} phase={0.2} color="#3A2050" />
-          {/* tappable: Lali (she waves goodbye) */}
           <BeeFlight path="M300 222 C340 222 350 250 320 262 C290 274 250 262 260 236 C270 210 230 170 180 160 C130 150 80 120 40 100 C80 140 160 180 230 200 C260 210 270 222 300 222Z" dur={9} s={1.2} rest={[180, 160]} trailColor="#FFE7C0" />
         </>
       );
@@ -947,12 +952,10 @@ export function LalibelaScene({ page }: { page: number }) {
           <Hills back="#24685C" front="#1E5A4E" backY={210} frontY={244} />
           <Tukul x={74} y={248} s={1} glow />
           <Fireflies seed={222} n={10} top={180} bottom={270} />
-          {/* tappable: Grandma (she hugs Lali close) */}
           <Place x={196} y={286} s={0.46}>
             <CubShape pose="sit" granny mood="joy" />
           </Place>
           <HomeJebena x={262} y={284} s={0.9} />
-          {/* tappable: Lali (she loops for joy) */}
           <BeeFlight path="M200 150 C200 100 280 90 300 130 C316 162 280 180 266 160 C252 140 280 120 300 150 C320 180 250 210 220 190 C200 176 200 170 200 150Z" dur={7} s={1.3} rest={[300, 130]} />
           <Heart x={170} y={170} s={1.1} />
           <Heart x={224} y={160} s={0.8} delay={-1.6} />
