@@ -30,6 +30,9 @@ import {
   vars,
 } from "./book/scenery";
 import { FlowerScene } from "./book/new-year-scenes";
+import { RainbowPuddleScene } from "./book/rainbow-puddle-scenes";
+import { FidelTrainScene } from "./book/fidel-train-scenes";
+import { FirstDayScene } from "./book/first-day-scenes";
 import { CubShape, GuguShape, STAR_PATH } from "./characters";
 
 /*
@@ -310,6 +313,9 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "count" && <CountScene page={page} />}
       {kind === "share" && <ShareScene page={page} />}
       {kind === "newyear" && <FlowerScene page={page} />}
+      {kind === "rainbow" && <RainbowPuddleScene page={page} />}
+      {kind === "fideltrain" && <FidelTrainScene page={page} />}
+      {kind === "firstday" && <FirstDayScene page={page} />}
       {AIR[kind] && <Air kind={AIR[kind](page)} seed={page * 7 + 3} grass={!(kind === "moon" && page === 2)} />}
     </svg>
   );
