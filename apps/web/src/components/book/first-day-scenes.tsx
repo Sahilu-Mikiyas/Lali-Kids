@@ -5,6 +5,7 @@ import { useId, type ReactNode } from "react";
 import { CubShape, GuguShape, type CubPose, type Mood } from "../characters";
 import { Acacia, BeeHover, Birds, CloudShape, DriftCloud, Grass, Heart, Hills, Mountains, Place, rand, Sky, Sun, Tukul, vars } from "./scenery";
 import { Taxi } from "./rainbow-puddle-scenes";
+import { Tappable } from "./tappable";
 
 /*
   "Anbessa's First Day at School": one living picture per page (12 pages).
@@ -16,6 +17,12 @@ import { Taxi } from "./rainbow-puddle-scenes";
 */
 
 const r1 = (n: number) => Math.round(n * 10) / 10;
+
+/* How each of the new looks reacts to a tap. */
+const TAP_CUB = { reaction: "bounce", sound: "giggle" } as const;
+const TAP_TSEHAY = { reaction: "wiggle", sound: "giggle" } as const;
+const TAP_GRANDMA = { reaction: "grow", sound: "chime" } as const;
+const TAP_TEACHER = { reaction: "grow", sound: "chime" } as const;
 
 const UNIFORM = "#2F6FD6";
 const UNIFORM_DARK = "#2357B0";
@@ -228,7 +235,9 @@ function At({ x, y, s = 1, className, delay, children }: { x: number; y: number;
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className={className} style={delay === undefined ? undefined : vars({ "--delay": `${delay}s` })}>
-        <g transform={`scale(${s})`}>{children}</g>
+        <Tappable reaction="bounce" sound="giggle">
+          <g transform={`scale(${s})`}>{children}</g>
+        </Tappable>
       </g>
     </g>
   );
@@ -418,7 +427,7 @@ function Playground({ y = 232, n = 5 }: { y?: number; n?: number }) {
     <g>
       <path d={`M-10 ${y - 20} H410 V${y + 30} H-10Z`} fill="#E8C990" />
       <g className="first-day-run" style={vars({ "--dur": "7s" })}>
-        <Place x={140} y={y} s={0.2}>
+        <Place x={140} y={y} s={0.2} tap={TAP_CUB}>
           <SchoolCub pose="walk" mood="joy" bag={false} />
         </Place>
       </g>
@@ -536,11 +545,12 @@ function SchoolBell({ x, y }: { x: number; y: number }) {
     <g>
       <rect x={x - 2} y={y} width={4} height={90} fill="#8A8FA0" />
       <path d={`M${x - 14} ${y + 2} H${x + 14}`} stroke="#8A8FA0" strokeWidth={4} />
-      {/* tappable: the bell */}
-      <g className="first-day-bell">
-        <path d={`M${x} ${y + 2} q-12 0 -12 14 l-2 6 h28 l-2 -6 q0 -14 -12 -14Z`} fill="#F5B21E" />
-        <circle cx={x} cy={y + 24} r={3} fill="#B8860B" />
-      </g>
+      <Tappable reaction="wiggle" sound="chime">
+        <g className="first-day-bell">
+          <path d={`M${x} ${y + 2} q-12 0 -12 14 l-2 6 h28 l-2 -6 q0 -14 -12 -14Z`} fill="#F5B21E" />
+          <circle cx={x} cy={y + 24} r={3} fill="#B8860B" />
+        </g>
+      </Tappable>
       <g stroke="#F5B21E" strokeWidth={2.6} fill="none" strokeLinecap="round">
         <path d={`M${x - 22} ${y} q-7 8 0 18`} className="first-day-ding" />
         <path d={`M${x + 22} ${y} q7 8 0 18`} className="first-day-ding" style={vars({ "--delay": "-0.35s" })} />
@@ -565,8 +575,8 @@ export function FirstDayScene({ page }: { page: number }) {
           <Tukul x={92} y={234} s={1} />
           <Acacia x={350} y={232} s={0.6} />
           <Grass y={262} n={14} seed={3} />
-          {/* tappable: Anbessa (spins to show off his uniform) */}
-          <Place x={236} y={272} s={0.5} className="first-day-proud">
+          {/* Anbessa spins to show off his new uniform */}
+          <Place x={236} y={272} s={0.5} className="first-day-proud" tap={{ reaction: "spin", sound: "giggle" }}>
             <SchoolCub pose="stand" mood="joy" />
           </Place>
           {/* new-uniform sparkles */}
@@ -589,7 +599,7 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <HomeInside id={id} />
-          <Place x={250} y={270} s={0.52}>
+          <Place x={250} y={270} s={0.52} tap={TAP_CUB}>
             <SchoolCub pose="sit" mood="worried" look={-2} />
           </Place>
           <g className="lali-fade-in" style={vars({ "--delay": "0.8s" })}>
@@ -617,10 +627,10 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <HomeInside id={id} />
-          <Place x={146} y={272} s={0.62}>
+          <Place x={146} y={272} s={0.62} tap={TAP_GRANDMA}>
             <GrandmaStanding arm="hold" />
           </Place>
-          <Place x={262} y={272} s={0.44} flip>
+          <Place x={262} y={272} s={0.44} flip tap={TAP_CUB}>
             <SchoolCub pose="stand" mood="happy" look={-3} />
           </Place>
           <Knot x={256} y={240} s={0.8} />
@@ -634,21 +644,23 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <AddisStreet id={id} />
-          {/* tappable: the taxi (beep, beep) */}
-          <Taxi x={200} y={240} dur={6} delay={-1} s={0.85} />
+          <Tappable reaction="bounce" sound="boing">
+            <Taxi x={200} y={240} dur={6} delay={-1} s={0.85} />
+          </Tappable>
           <g transform="translate(400 0) scale(-1 1)">
             <Taxi x={200} y={228} dur={8} delay={-5} s={0.7} />
           </g>
-          {/* tappable: the corn seller */}
-          <CornStall x={318} y={282} />
+          <Tappable reaction="wiggle" sound="pop">
+            <CornStall x={318} y={282} />
+          </Tappable>
           <Place x={350} y={282} s={0.28} flip>
             <GuguShape pose="wave" />
           </Place>
           <g className="lali-move-in" style={vars({ "--fx": "-110px", "--fy": "0px", "--dur": "3s", "--delay": "0.5s", "--walk-delay": "0.5s", "--steps": 7 })}>
-            <Place x={150} y={290} s={0.48}>
+            <Place x={150} y={290} s={0.48} tap={TAP_GRANDMA}>
               <GrandmaStanding walking />
             </Place>
-            <Place x={212} y={290} s={0.34} flip>
+            <Place x={212} y={290} s={0.34} flip tap={TAP_CUB}>
               <SchoolCub pose="walk" mood="worried" look={-2} />
             </Place>
             {/* his paw holding the edge of the netela */}
@@ -666,10 +678,10 @@ export function FirstDayScene({ page }: { page: number }) {
           <Playground y={232} />
           <SchoolGate />
           <path d="M-10 250 H410 V310 H-10Z" fill="#D8CBB8" />
-          <Place x={150} y={296} s={0.5}>
+          <Place x={150} y={296} s={0.5} tap={TAP_GRANDMA}>
             <GrandmaStanding />
           </Place>
-          <Place x={226} y={296} s={0.3} className="first-day-shrink">
+          <Place x={226} y={296} s={0.3} className="first-day-shrink" tap={TAP_CUB}>
             <SchoolCub pose="stand" mood="wow" look={-1} />
           </Place>
         </>
@@ -687,11 +699,10 @@ export function FirstDayScene({ page }: { page: number }) {
           </g>
           <path d="M-10 240 H410 V310 H-10Z" fill="#D8CBB8" />
           {/* Anbessa, tucked behind; his tail gives him away */}
-          <Place x={216} y={288} s={0.34} flip className="first-day-tremble">
+          <Place x={216} y={288} s={0.34} flip className="first-day-tremble" tap={TAP_CUB}>
             <SchoolCub pose="stand" mood="sad" bag={false} />
           </Place>
-          {/* tappable: Grandma */}
-          <Place x={200} y={290} s={0.68}>
+          <Place x={200} y={290} s={0.68} tap={TAP_GRANDMA}>
             <GrandmaStanding />
           </Place>
           {/* a small voice */}
@@ -710,16 +721,15 @@ export function FirstDayScene({ page }: { page: number }) {
             <SchoolGate big={false} />
           </g>
           <path d="M-10 240 H410 V310 H-10Z" fill="#D8CBB8" />
-          <Place x={100} y={290} s={0.6}>
+          <Place x={100} y={290} s={0.6} tap={TAP_GRANDMA}>
             <GrandmaStanding />
           </Place>
-          <Place x={168} y={290} s={0.38} className="first-day-peek">
+          <Place x={168} y={290} s={0.38} className="first-day-peek" tap={TAP_CUB}>
             <SchoolCub pose="stand" mood="happy" />
           </Place>
           <Heart x={136} y={160} s={1.1} />
           <Heart x={150} y={150} s={0.8} delay={-1.6} />
-          {/* tappable: the teacher (waves hello) */}
-          <Place x={300} y={292} s={0.58} flip>
+          <Place x={300} y={292} s={0.58} flip tap={TAP_TEACHER}>
             <TeacherShape />
           </Place>
         </>
@@ -733,15 +743,15 @@ export function FirstDayScene({ page }: { page: number }) {
           <At x={60} y={202} s={0.8}>
             <Hare />
           </At>
-          <Place x={340} y={204} s={0.22}>
+          <Place x={340} y={204} s={0.22} tap={TAP_CUB}>
             <SchoolCub pose="sit" mood="happy" bag={false} />
           </Place>
           <Desk x={60} y={196} w={70} />
           <Desk x={340} y={196} w={70} />
-          <Place x={148} y={262} s={0.42}>
+          <Place x={148} y={262} s={0.42} tap={TAP_CUB}>
             <SchoolCub pose="sit" mood="happy" look={3} bag={false} />
           </Place>
-          <Place x={258} y={262} s={0.4} className="first-day-shy">
+          <Place x={258} y={262} s={0.4} className="first-day-shy" tap={TAP_TSEHAY}>
             <TsehayShape mood="worried" />
           </Place>
           <Desk x={150} y={240} w={100} />
@@ -756,12 +766,11 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <Classroom id={id} />
-          <Place x={136} y={262} s={0.42}>
+          <Place x={136} y={262} s={0.42} tap={TAP_CUB}>
             <SchoolCub pose="sit" mood="worried" look={3} bag={false} />
           </Place>
           <Knot x={136} y={232} s={0.8} />
-          {/* tappable: Tsehay */}
-          <Place x={258} y={262} s={0.4}>
+          <Place x={258} y={262} s={0.4} tap={TAP_TSEHAY}>
             <TsehayShape mood="sad" tears />
           </Place>
           <Desk x={140} y={240} w={100} />
@@ -776,12 +785,13 @@ export function FirstDayScene({ page }: { page: number }) {
           {CRAYONS.map((c, i) => {
             const fx = r1(296 - (120 + i * 42));
             return (
-              // tappable: each crayon (rolls)
               <g key={c} transform={`translate(${120 + i * 42} ${280 + (i % 2) * 10})`}>
                 <g className="first-day-scatter" style={vars({ "--fx": `${fx}px`, "--fy": `${-50 - (i % 2) * 10}px`, "--fr": `${-200 + i * 70}deg`, "--delay": `${r1(0.7 + i * 0.12)}s` })}>
-                  <g transform={`rotate(${-30 + i * 25})`}>
-                    <Crayon color={c} />
-                  </g>
+                  <Tappable reaction="spin" sound="pop">
+                    <g transform={`rotate(${-30 + i * 25})`}>
+                      <Crayon color={c} />
+                    </g>
+                  </Tappable>
                 </g>
               </g>
             );
@@ -798,7 +808,7 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <Classroom id={id} />
-          <Place x={258} y={262} s={0.4}>
+          <Place x={258} y={262} s={0.4} tap={TAP_TSEHAY}>
             <TsehayShape mood="happy" />
           </Place>
           <Desk x={140} y={240} w={100} />
@@ -813,7 +823,7 @@ export function FirstDayScene({ page }: { page: number }) {
               </g>
             </g>
           ))}
-          <Place x={190} y={294} s={0.44} flip={false}>
+          <Place x={190} y={294} s={0.44} flip={false} tap={TAP_CUB}>
             <SchoolCub pose="stand" mood="joy" bag={false} />
           </Place>
           {/* the bunch he holds out */}
@@ -835,10 +845,10 @@ export function FirstDayScene({ page }: { page: number }) {
       return (
         <>
           <Classroom id={id} />
-          <Place x={72} y={240} s={0.48}>
+          <Place x={72} y={240} s={0.48} tap={TAP_CUB}>
             <SchoolCub pose="sit" mood="joy" look={3} bag={false} />
           </Place>
-          <Place x={330} y={240} s={0.46}>
+          <Place x={330} y={240} s={0.46} tap={TAP_TSEHAY}>
             <TsehayShape mood="joy" />
           </Place>
           {/* the big sheet of paper on the table */}
@@ -847,10 +857,12 @@ export function FirstDayScene({ page }: { page: number }) {
           <g transform="rotate(-2 200 250)">
             <rect x={108} y={180} width={184} height={118} rx={4} fill="#FFFDF6" />
             <g transform="translate(116 182) scale(0.84)">
+              <Tappable reaction="grow" sound="chime">
               <Drawing x={0} y={0} />
+            </Tappable>
             </g>
           </g>
-          {/* tappable: the crayons in their paws (scribble) */}
+          {/* the crayons in their paws, scribbling */}
           <g transform="translate(122 232)">
             <g className="first-day-scribble">
               <g transform="rotate(-50)">
@@ -886,15 +898,15 @@ export function FirstDayScene({ page }: { page: number }) {
           </g>
           <path d="M-10 240 H410 V310 H-10Z" fill="#E8D2B0" />
           <SchoolBell x={70} y={150} />
-          <Place x={332} y={292} s={0.6}>
+          <Place x={332} y={292} s={0.6} tap={TAP_GRANDMA}>
             <GrandmaStanding arm="open" />
           </Place>
           {/* the two friends, hand in hand */}
           <g className="lali-move-in" style={vars({ "--fx": "-80px", "--fy": "0px", "--dur": "2.2s", "--delay": "0.4s", "--walk-delay": "0.4s", "--steps": 5 })}>
-            <Place x={150} y={292} s={0.36}>
+            <Place x={150} y={292} s={0.36} tap={TAP_TSEHAY}>
               <TsehayShape mood="joy" />
             </Place>
-            <Place x={222} y={292} s={0.4}>
+            <Place x={222} y={292} s={0.4} tap={TAP_CUB}>
               <SchoolCub pose="walk" mood="joy" look={-4} />
             </Place>
             <path d="M168 248 Q180 252 196 248" stroke="#A8744A" strokeWidth={6} fill="none" strokeLinecap="round" />

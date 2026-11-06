@@ -21,6 +21,7 @@ import {
   Tukul,
   vars,
 } from "./scenery";
+import { Tappable } from "./tappable";
 
 /*
   "Gugu and the Rainbow Puddle": one living picture per page (10 pages).
@@ -120,12 +121,13 @@ function SplashGugu({ x, y, color, s = 0.4, flip = false, rx = 46, seed = 1 }: {
   return (
     <g>
       <Puddle x={x} y={y} rx={rx} tint={color} />
-      {/* tappable: Gugu (an extra splash on tap) */}
       <g transform={`translate(${x} ${y + 3})`}>
         <g className="rainbow-puddle-jump">
-          <g transform={`scale(${flip ? -s : s} ${s}) translate(-100 -228)`}>
-            <GuguShape pose="wave" mood="joy" />
-          </g>
+          <Tappable reaction="wiggle" sound="boing">
+            <g transform={`scale(${flip ? -s : s} ${s}) translate(-100 -228)`}>
+              <GuguShape pose="wave" mood="joy" />
+            </g>
+          </Tappable>
         </g>
       </g>
       <Splash x={x} y={y} color={color} seed={seed} />
@@ -503,7 +505,6 @@ export function RainbowPuddleScene({ page }: { page: number }) {
             <rect x={124} y={198} width={58} height={42} rx={3} fill="#FFD27A" />
             <rect x={124} y={198} width={58} height={42} rx={3} fill="#FFF0B8" className="lali-pulse" style={vars({ "--dur": "3s" })} />
             <g clipPath={`url(#${id}-win)`}>
-              {/* tappable: Gugu at the window */}
               <Place x={153} y={268} s={0.34}>
                 <GuguShape mood="happy" />
               </Place>
@@ -573,8 +574,12 @@ export function RainbowPuddleScene({ page }: { page: number }) {
             <TomatoPile x={258} y={208} delay={1.1} />
             <TomatoPile x={322} y={208} delay={1.5} />
           </Stall>
-          <Hen x={196} y={282} delay={-0.4} />
-          <Hen x={372} y={278} flip delay={-1.6} />
+          <Tappable reaction="bounce" sound="pop">
+            <Hen x={196} y={282} delay={-0.4} />
+          </Tappable>
+          <Tappable reaction="bounce" sound="pop">
+            <Hen x={372} y={278} flip delay={-1.6} />
+          </Tappable>
           <SplashGugu x={96} y={266} color={RED} seed={2} />
         </>
       );
@@ -593,7 +598,9 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <Hills back="#B6D98A" front="#8CCB6A" backY={204} frontY={232} />
           <Tukul x={330} y={214} s={0.6} />
           <ColourGlow x={150} y={230} r={70} color={ORANGE} />
-          <OrangeBasket x={150} y={252} s={1.15} />
+          <Tappable reaction="wiggle" sound="pop">
+            <OrangeBasket x={150} y={252} s={1.15} />
+          </Tappable>
           {/* one orange rolls away to Gugu */}
           <g className="lali-move-in" style={vars({ "--fx": "-100px", "--fy": "-10px", "--dur": "1.6s", "--delay": "2.4s" })}>
             <g className="lali-spin" style={vars({ "--dur": "1.2s" })}>
@@ -679,8 +686,9 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <path d="M-10 262 L410 262 L410 310 L-10 310Z" fill="#D8AE7E" />
           <Puddle x={250} y={240} rx={40} rings={false} />
           <ColourGlow x={200} y={200} r={80} color={BLUE} delay={0.9} />
-          {/* tappable: the taxi (beep beep) */}
-          <Taxi x={200} y={248} dur={7} delay={-0.3} />
+          <Tappable reaction="bounce" sound="boing">
+            <Taxi x={200} y={248} dur={7} delay={-0.3} />
+          </Tappable>
           {/* the big wave of water as the taxi's back wheel hits the puddle */}
           <g className="rainbow-puddle-wave" style={vars({ "--dur": "7s", "--delay": "-0.3s" })}>
             <path d="M214 240 Q206 214 222 200 Q226 222 238 226 Q236 204 250 194 Q256 220 266 224 Q272 206 286 204 Q282 226 290 240Z" fill="#CDEEFF" opacity={0.9} />
@@ -696,7 +704,9 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <Mountains />
           <Hills back="#9AD39C" front="#7CC98A" backY={200} frontY={228} />
           <ColourGlow x={250} y={140} r={100} color={PURPLE} delay={0.9} />
-          <Jacaranda x={250} y={250} s={1.1} />
+          <Tappable reaction="wiggle" sound="chime">
+            <Jacaranda x={250} y={250} s={1.1} />
+          </Tappable>
           <Tukul x={70} y={226} s={0.6} />
           {/* a purple carpet of fallen petals */}
           <PetalCarpet />
@@ -711,7 +721,9 @@ export function RainbowPuddleScene({ page }: { page: number }) {
         <>
           <Sky id={id} from="#62BCFF" mid="#AEE0FF" to="#F4FCFF" />
           <Sun x={60} y={60} r={20} />
-          <Rainbow cx={220} cy={214} r={170} w={12} delay={0.6} />
+          <Tappable reaction="grow" sound="chime">
+            <Rainbow cx={220} cy={214} r={170} w={12} delay={0.6} />
+          </Tappable>
           <DriftCloud y={44} s={0.5} dur={80} phase={0.6} />
           <g transform="translate(46 210)">
             <CloudShape s={0.9} />
@@ -750,7 +762,6 @@ export function RainbowPuddleScene({ page }: { page: number }) {
           <Splash x={206} y={276} color={RED} seed={11} n={8} />
           <Splash x={206} y={276} color={YELLOW} seed={12} n={6} delay={-0.7} />
           <DaisyRow />
-          {/* tappable: Gugu */}
           <Place x={206} y={279} s={0.36} className="rainbow-puddle-jump">
             <GuguShape pose="wave" mood="joy" />
           </Place>

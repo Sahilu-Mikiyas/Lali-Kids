@@ -404,7 +404,7 @@ export const STORIES: Story[] = [
     id: 'first-day',
     title: { en: "Anbessa's First Day at School", am: 'የአንበሳ የመጀመሪያ የትምህርት ቀን' },
     category: 'Values',
-    ageBands: ['6-7'],
+    ageBands: ['3-5', '6-7'],
     isFree: false,
     color: '#2E9A8A',
     scene: 'firstday',

@@ -3,6 +3,7 @@
 import { useId, type CSSProperties, type ReactNode } from "react";
 
 import { CubShape } from "../characters";
+import { Tappable } from "./tappable";
 import { Acacia, BeeFlight, BeeHover, Birds, Daisy, DriftCloud, Grass, Hills, Moon, Mountains, Place, rand, Sky, Stars, Sun, Tukul, vars, Water } from "./scenery";
 
 /*
@@ -101,11 +102,19 @@ function Pal({
 }
 
 /** A pal placed at (x, y) with a scale. */
-function At({ x, y, s = 1, className, style, children }: { x: number; y: number; s?: number; className?: string; style?: CSSProperties; children: ReactNode }) {
+function At({ x, y, s = 1, className, style, tap = true, children }: { x: number; y: number; s?: number; className?: string; style?: CSSProperties; tap?: boolean; children: ReactNode }) {
+  const body = <g transform={s === 1 ? undefined : `scale(${s})`}>{children}</g>;
   return (
     <g transform={`translate(${r1(x)} ${r1(y)})`}>
       <g className={className} style={style}>
-        <g transform={s === 1 ? undefined : `scale(${s})`}>{children}</g>
+        {/* a letter hops and chimes when tapped */}
+        {tap ? (
+          <Tappable reaction="bounce" sound="chime">
+            {body}
+          </Tappable>
+        ) : (
+          body
+        )}
       </g>
     </g>
   );
@@ -201,7 +210,7 @@ function Engine({ x, moving = false, ringing = true, main = "#E8513B" }: { x: nu
         {/* cab, with Anbessa at the window */}
         <rect x={0} y={-90} width={48} height={68} rx={4} fill="#B8382A" />
         <rect x={8} y={-84} width={32} height={34} rx={5} fill="#FFE9B0" />
-        {/* tappable: Anbessa the driver */}
+        {/* Anbessa the driver giggles when tapped (Place) */}
         <g>
           <Place x={24} y={-26} s={0.3}>
             <CubShape pose="sit" mood="joy" />
@@ -233,11 +242,12 @@ function Engine({ x, moving = false, ringing = true, main = "#E8513B" }: { x: nu
         </g>
         {/* the bell, swinging */}
         <path d="M74 -64 V-80 H90 V-64" stroke="#2A2E40" strokeWidth={3} fill="none" />
-        {/* tappable: the bell (ding, ding) */}
-        <g className={ringing ? "fidel-train-bell" : undefined}>
-          <path d="M82 -80 Q75 -80 75 -70 L74 -66 H90 L89 -70 Q89 -80 82 -80Z" fill="#F5B21E" />
-          <circle cx={82} cy={-64} r={2.4} fill="#B8860B" />
-        </g>
+        <Tappable reaction="wiggle" sound="chime">
+          <g className={ringing ? "fidel-train-bell" : undefined}>
+            <path d="M82 -80 Q75 -80 75 -70 L74 -66 H90 L89 -70 Q89 -80 82 -80Z" fill="#F5B21E" />
+            <circle cx={82} cy={-64} r={2.4} fill="#B8860B" />
+          </g>
+        </Tappable>
         {ringing && (
           <g stroke="#F5B21E" strokeWidth={2.4} fill="none" strokeLinecap="round">
             <path d="M66 -82 q-6 6 0 12" className="fidel-train-ding" />
@@ -434,7 +444,6 @@ function Boarding({ id, fam, from, to, market = false }: { id: string; fam: Fami
             </g>
           );
         }
-        // tappable: a waiting letter (says its sound)
         return (
           <At key={g} x={platX(i)} y={PLAT_Y} className="lali-hop" style={vars({ "--delay": `${r1(-i * 0.37)}s`, "--dur": "1.1s" })}>
             <Pal g={g} fam={fam} wave={i % 2 === 0} delay={-i * 0.3} look={-1} basket={market} />
@@ -495,9 +504,11 @@ function ChantRow({ fam, y, start, step = 0.42, dur }: { fam: Family; y: number;
       <rect x={30} y={y - 34} width={340} height={44} rx={22} fill="none" stroke={fam.body} strokeWidth={3} />
       {fam.letters.map((g, i) => (
         <g key={g} className="fidel-train-karaoke" style={vars({ "--delay": `${r1(start + i * step)}s`, "--dur": `${dur}s` })}>
+          <Tappable reaction="grow" sound="chime">
           <text x={62 + i * 46} y={y} fontSize={32} fontWeight={700} fill={fam.body} textAnchor="middle" style={FIDEL_FONT}>
             {g}
           </text>
+          </Tappable>
         </g>
       ))}
     </g>
@@ -547,7 +558,6 @@ export function FidelTrainScene({ page }: { page: number }) {
           </g>
           <Platform y={214} />
           {HA.letters.map((g, i) => (
-            // tappable: each letter (says its sound)
             <At key={g} x={platX(i)} y={PLAT_Y} className="lali-hop" style={vars({ "--delay": `${r1(-i * 0.3)}s`, "--dur": "1.6s" })}>
               <Pal g={g} fam={HA} wave={i === 0 || i === 6} delay={-i * 0.3} look={i < 3 ? 1 : -1} />
             </At>
@@ -621,7 +631,6 @@ export function FidelTrainScene({ page }: { page: number }) {
           </g>
           <Platform y={214} />
           {MA.letters.map((g, i) => (
-            // tappable: each letter (says its sound)
             <At key={g} x={platX(i)} y={PLAT_Y} className="lali-hop" style={vars({ "--delay": `${r1(-i * 0.3)}s`, "--dur": "1.6s" })}>
               <Pal g={g} fam={MA} basket wave={i === 6} delay={-i * 0.3} look={1} />
             </At>
@@ -667,7 +676,6 @@ export function FidelTrainScene({ page }: { page: number }) {
             { g: "ላ", seat: 3, x: 158 },
             { g: "ሊ", seat: 2, x: 242 },
           ].map((p, i) => (
-            // tappable: ላ and ሊ (say la, li)
             <At
               key={p.g}
               x={p.x}
@@ -681,10 +689,12 @@ export function FidelTrainScene({ page }: { page: number }) {
           ))}
           {/* the word they make */}
           <g className="lali-pop-in" style={vars({ "--delay": "2.6s" })}>
+            <Tappable reaction="grow" sound="chime">
             <rect x={130} y={34} width={140} height={64} rx={20} fill="#fff" stroke={LA.body} strokeWidth={4} />
             <text x={200} y={83} fontSize={46} fontWeight={700} fill={LA.body} textAnchor="middle" style={FIDEL_FONT}>
               ላሊ
             </text>
+            </Tappable>
           </g>
           <Sparkles seed={7} spots={[[118, 34], [284, 40], [200, 20], [122, 104], [280, 100]]} />
           <BeeFlight path="M330 130 C360 90 390 130 360 160 C330 190 300 160 320 130 C340 100 300 70 280 100" dur={5} s={1.2} rest={[330, 130]} trailColor="#E58A00" />
