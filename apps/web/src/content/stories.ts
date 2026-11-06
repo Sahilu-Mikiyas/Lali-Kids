@@ -30,6 +30,11 @@ export type Story = {
   isFree: boolean;
   /** Paid story the family can't open yet (shown on the shelf with a lock). */
   locked?: boolean;
+  /**
+   * The "For grown-ups" card after The End: two questions to talk about together and
+   * one small activity, in both languages. Optional; the card is skipped without it.
+   */
+  grownUps?: { talkAbout: Record<Lang, string[]>; activity: Record<Lang, string> };
 };
 
 /** "3-5", "6-7" -> "3–7" */
@@ -104,6 +109,22 @@ export const STORIES: Story[] = [
         am: 'ቤት ሲደርስ አያቱ ቡና አፍልታ አጥብቃ አቀፈችው። «መልካም አዲስ ዓመት! በጣም ጀግና ነህ!» አንበሳ ፈገግ አለ። «ቀስ በቀስ፣ እርምጃ በእርምጃ!»',
       },
     ],
+    grownUps: {
+      talkAbout: {
+        en: [
+          'When did Anbessa feel scared, and what helped him keep going?',
+          'What is something hard you did "little by little, step by step"?',
+        ],
+        am: [
+          'አንበሳ መቼ ፈራ? እንዲቀጥል የረዳው ምንድን ነው?',
+          '«ቀስ በቀስ፣ እርምጃ በእርምጃ» ያደረግከው/ሽው ከባድ ነገር ምንድን ነው?',
+        ],
+      },
+      activity: {
+        en: 'Lay five cushions or pieces of paper on the floor as stepping stones. Cross the "river" together, counting each step out loud.',
+        am: 'አምስት ትራስ ወይም ወረቀት መሬት ላይ እንደ መሻገሪያ ድንጋይ አስቀምጡ። እያንዳንዱን እርምጃ ጮክ ብላችሁ እየቆጠራችሁ «ወንዙን» አብራችሁ ተሻገሩ።',
+      },
+    },
   },
   {
     id: 'lost-moon',
@@ -132,6 +153,16 @@ export const STORIES: Story[] = [
         am: 'ጨረቃ ከደመና ጀርባ ተደብቃ ነበር። «እዚህ ነሽ!» አለ አንበሳ።',
       },
     ],
+    grownUps: {
+      talkAbout: {
+        en: ['Where do you think the moon goes when we cannot see it?', 'Who do you ask for help when you lose something?'],
+        am: ['ጨረቃን ማየት ሳንችል የት የምትሄድ ይመስልሃል/ሻል?', 'አንድ ነገር ሲጠፋብህ/ሽ እርዳታ የምትጠይቀው/ቂው ማንን ነው?'],
+      },
+      activity: {
+        en: 'Tonight, look out of the window together. Count the stars you can see, and check whether the moon is hiding behind a cloud.',
+        am: 'ዛሬ ማታ አብራችሁ በመስኮት ተመልከቱ። የምታዩትን ከዋክብት ቁጠሩ፤ ጨረቃ ከደመና ጀርባ ተደብቃ እንደሆነም ፈልጉ።',
+      },
+    },
   },
   {
     id: 'gugu-counts',
@@ -160,6 +191,16 @@ export const STORIES: Story[] = [
         am: 'አንድ፣ ሁለት፣ ሦስት፣ አራት። «ሁሉም ቤት ገቡ!» አለ ጉጉ።',
       },
     ],
+    grownUps: {
+      talkAbout: {
+        en: ['How did Gugu know that one sheep was missing?', 'What could you count in our home right now?'],
+        am: ['ጉጉ አንድ በግ እንደጎደለ እንዴት አወቀ?', 'አሁን ቤታችን ውስጥ ምን መቁጠር ትችላለህ/ያለሽ?'],
+      },
+      activity: {
+        en: 'Line up four toys as the sheep. While your child hides their eyes, hide one, then count together to find which one is missing.',
+        am: 'አራት መጫወቻዎችን እንደ በጎች በመስመር አስቀምጡ። ልጅዎ ዓይኑን/ዓይኗን ሲሸፍን አንዱን ደብቁ፤ ከዚያ አብራችሁ ቆጥራችሁ የጎደለውን ፈልጉ።',
+      },
+    },
   },
   {
     id: 'lali-shares',
@@ -188,6 +229,16 @@ export const STORIES: Story[] = [
         am: '«ማካፈል ማርን ይበልጥ ያጣፍጣል» አለች ላሊ።',
       },
     ],
+    grownUps: {
+      talkAbout: {
+        en: ['How do you think Anbessa felt when Lali shared her honey?', 'When did someone share with you, and how did it feel?'],
+        am: ['ላሊ ማሯን ስታካፍለው አንበሳ ምን የተሰማው ይመስልሃል/ሻል?', 'አንድ ሰው ያካፈለህ/ሽ መቼ ነው? ምን ተሰማህ/ሽ?'],
+      },
+      activity: {
+        en: 'Share a snack together: let your child cut or break it into pieces and hand them out, so everyone gets some.',
+        am: 'አንድ መክሰስ አብራችሁ ተካፈሉ፤ ልጅዎ ቆርሶ ወይም ከፋፍሎ ለሁሉም እንዲያድል ያድርጉ።',
+      },
+    },
   },
 ];
 

@@ -17,6 +17,7 @@ import {
   Grass,
   Heart,
   Hills,
+  LightRays,
   Moon,
   Mountains,
   NumberBadge,
@@ -188,6 +189,7 @@ export function FlowerScene({ page }: { page: number }) {
             <CubShape pose="walk" />
           </Place>
           <Butterfly x={300} y={170} delay={-1} />
+          <Butterfly x={60} y={200} color="#FFD233" delay={-2.2} />
         </>
       );
     // Tomorrow is New Year! "I want to give Grandma the yellow New Year flowers."
@@ -238,7 +240,24 @@ export function FlowerScene({ page }: { page: number }) {
           <Water y={200} h={22} />
           <path d="M-10 222 Q200 208 410 224 L410 310 L-10 310Z" fill="#5CBF73" />
           {/* the long way there */}
-          <path d="M108 262 Q180 236 210 214 M232 196 Q262 176 300 150" stroke="#fff" strokeWidth={3} strokeDasharray="1 8" strokeLinecap="round" fill="none" />
+          <path
+            d="M108 262 Q180 236 210 214 M232 196 Q262 176 300 150"
+            stroke="#fff"
+            strokeWidth={3}
+            strokeDasharray="1 8"
+            strokeLinecap="round"
+            fill="none"
+            className="lali-fade-in"
+            style={vars({ "--delay": "1s", "--dur": "1.6s" })}
+          />
+          {/* far away, the golden hill glitters */}
+          {[
+            [300, 128, 0],
+            [352, 122, -0.9],
+            [390, 132, -1.7],
+          ].map(([x, y, d]) => (
+            <circle key={x} cx={x} cy={y} r={2.4} fill="#FFFBE0" className="lali-twinkle" style={vars({ "--delay": `${d}s`, "--dur": "1.7s" })} />
+          ))}
           <Grass y={270} n={14} seed={13} />
           <Place x={88} y={278} s={0.4}>
             <CubShape pose="stand" mood="worried" look={2} />
@@ -258,6 +277,7 @@ export function FlowerScene({ page }: { page: number }) {
             dur={7}
             s={1.4}
             rest={[250, 96]}
+            happy
           />
           <Place x={150} y={262} s={0.4}>
             <CubShape pose="stand" mood="joy" look={2} />
@@ -385,6 +405,7 @@ export function FlowerScene({ page }: { page: number }) {
       return (
         <>
           <Sky id={id} from="#6FC6FF" mid="#BFE8FF" to="#FFF6D6" />
+          <LightRays x={200} y={70} n={7} />
           <Sun x={200} y={70} r={30} />
           <DriftCloud y={40} s={0.7} dur={80} phase={0.2} />
           <Birds y={90} dur={20} phase={0.6} />
@@ -413,6 +434,7 @@ export function FlowerScene({ page }: { page: number }) {
         <>
           <Sky id={id} from="#4A3C8C" mid="#E07A6A" to="#FFC27A" />
           <Stars seed={91} n={10} bottom={70} />
+          <LightRays x={330} y={170} n={5} />
           <Sun x={330} y={170} r={22} face={false} />
           <Mountains far="#8A6AA8" mid="#6E5296" y={22} />
           <Hills back="#6FA86A" front="#5C9A5A" backY={218} frontY={246} />

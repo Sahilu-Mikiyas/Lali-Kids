@@ -14,8 +14,10 @@ function Eye({ x, y, rx = 7, ry = 9, look = 0 }: { x: number; y: number; rx?: nu
   return (
     <g className="lali-blink">
       <ellipse cx={x} cy={y} rx={rx} ry={ry} fill={INK} />
-      <circle cx={x + 2.4 + look} cy={y - 3.2} r={rx * 0.38} fill="#fff" />
-      <circle cx={x - 2 + look} cy={y + 3.4} r={rx * 0.17} fill="#fff" opacity={0.9} />
+      <g className="lali-look">
+        <circle cx={x + 2.4 + look} cy={y - 3.2} r={rx * 0.38} fill="#fff" />
+        <circle cx={x - 2 + look} cy={y + 3.4} r={rx * 0.17} fill="#fff" opacity={0.9} />
+      </g>
     </g>
   );
 }
@@ -96,10 +98,14 @@ function CubHead({ cx, cy, mood, granny, look = 0, bounce }: { cx: number; cy: n
       )}
       {!granny && (
         <g>
-          <circle cx={cx - 30} cy={cy - 33} r={14} fill={FUR} />
-          <circle cx={cx - 30} cy={cy - 33} r={7} fill="#F59A6B" />
-          <circle cx={cx + 30} cy={cy - 33} r={14} fill={FUR} />
-          <circle cx={cx + 30} cy={cy - 33} r={7} fill="#F59A6B" />
+          <g className={bounce ? "lali-ear" : "lali-ear-twitch"}>
+            <circle cx={cx - 30} cy={cy - 33} r={14} fill={FUR} />
+            <circle cx={cx - 30} cy={cy - 33} r={7} fill="#F59A6B" />
+          </g>
+          <g className={bounce ? "lali-ear" : undefined} style={{ "--ear": "-0.06s" } as CSSProperties}>
+            <circle cx={cx + 30} cy={cy - 33} r={14} fill={FUR} />
+            <circle cx={cx + 30} cy={cy - 33} r={7} fill="#F59A6B" />
+          </g>
         </g>
       )}
       {/* face */}
@@ -127,15 +133,29 @@ function CubHead({ cx, cy, mood, granny, look = 0, bounce }: { cx: number; cy: n
         </g>
       ) : (
         <>
-          <Eye x={cx - 15} y={cy - 3} look={look} />
-          <Eye x={cx + 15} y={cy - 3} look={look} />
-          <Brows x1={cx - 15} x2={cx + 15} y={cy - 17} mood={mood} />
+          <g className="lali-tap-hide">
+            <Eye x={cx - 15} y={cy - 3} look={look} />
+            <Eye x={cx + 15} y={cy - 3} look={look} />
+            <Brows x1={cx - 15} x2={cx + 15} y={cy - 17} mood={mood} />
+          </g>
+          {/* the giggling face, shown while he is tapped */}
+          <g className="lali-tap-show" stroke={INK} strokeWidth={4} fill="none" strokeLinecap="round">
+            <path d={`M${cx - 23} ${cy - 1} Q${cx - 15} ${cy - 11} ${cx - 7} ${cy - 1}`} />
+            <path d={`M${cx + 7} ${cy - 1} Q${cx + 15} ${cy - 11} ${cx + 23} ${cy - 1}`} />
+          </g>
         </>
       )}
       <ellipse cx={cx} cy={cy + 18} rx={18} ry={13} fill={MUZZLE} />
       <path d={`M${cx - 8} ${cy + 9} Q${cx} ${cy + 5} ${cx + 8} ${cy + 9} Q${cx + 4} ${cy + 17} ${cx} ${cy + 17} Q${cx - 4} ${cy + 17} ${cx - 8} ${cy + 9}Z`} fill="#7A3E1D" />
       <circle cx={cx - 3} cy={cy + 9.5} r={1.6} fill="#fff" opacity={0.6} />
-      <Mouth x={cx} y={cy + 17} mood={mood} />
+      <g className={granny ? undefined : "lali-tap-hide"}>
+        <Mouth x={cx} y={cy + 17} mood={mood} />
+      </g>
+      {!granny && (
+        <g className="lali-tap-show">
+          <Mouth x={cx} y={cy + 17} mood="joy" />
+        </g>
+      )}
       <g fill="#C98A4A">
         <circle cx={cx - 10} cy={cy + 22} r={1.3} />
         <circle cx={cx - 13} cy={cy + 18} r={1.3} />
@@ -189,7 +209,9 @@ export function CubShape({
         <ellipse cx={100} cy={232} rx={62} ry={7} fill="#000" opacity={0.13} />
         <g className="lali-tail" style={{ transformOrigin: "0% 100%" }}>
           <path d="M150 214 C176 210 186 190 176 170" stroke={FUR_BODY} strokeWidth={9} fill="none" strokeLinecap="round" />
-          <ellipse cx={175} cy={163} rx={9} ry={12} fill={MANE_DARK} transform="rotate(-15 175 163)" />
+          <g className="lali-tail-tip">
+            <ellipse cx={175} cy={163} rx={9} ry={12} fill={MANE_DARK} transform="rotate(-15 175 163)" />
+          </g>
         </g>
         <g className="lali-breathe">
           <path d="M52 228 C46 180 64 150 100 150 C136 150 154 180 148 228Z" fill={FUR_BODY} />
@@ -213,14 +235,17 @@ export function CubShape({
       <Leg x={62} y={178} color={FUR_SHADE} paw="#F2C27E" phase={-0.42} walking={walking} />
       <Leg x={116} y={180} color={FUR_SHADE} paw="#F2C27E" phase={0} walking={walking} />
       <g className={walking ? "lali-step" : "lali-breathe"}>
-        <g className="lali-tail" style={{ transformOrigin: "100% 100%", "--dur": walking ? "0.84s" : "1.6s" } as CSSProperties}>
+        <g className="lali-tail" style={{ transformOrigin: "100% 100%", "--dur": walking ? "0.42s" : "1.6s" } as CSSProperties}>
           <path d="M44 170 C20 168 10 146 20 122" stroke={FUR_BODY} strokeWidth={9} fill="none" strokeLinecap="round" />
-          <ellipse cx={21} cy={116} rx={9} ry={12} fill={MANE_DARK} />
+          {/* the tuft swings a beat behind the tail: follow-through */}
+          <g className="lali-tail-tip" style={{ "--dur": walking ? "0.42s" : "1.6s" } as CSSProperties}>
+            <ellipse cx={21} cy={116} rx={9} ry={12} fill={MANE_DARK} />
+          </g>
         </g>
         <ellipse cx={90} cy={172} rx={54} ry={33} fill={FUR_BODY} />
         <ellipse cx={98} cy={186} rx={34} ry={15} fill="#FFDCA6" />
         <path d="M54 150 Q66 144 78 150" stroke={FUR_SHADE} strokeWidth={3} fill="none" strokeLinecap="round" opacity={0.6} />
-        <g className={walking ? undefined : "lali-tilt"} style={{ "--tilt": "6deg" } as CSSProperties}>
+        <g className={walking ? "lali-head-bob" : "lali-tilt"} style={{ "--tilt": "6deg" } as CSSProperties}>
           <CubHead cx={134} cy={102} mood={m} look={look + 2} bounce={walking} />
         </g>
       </g>
@@ -297,7 +322,7 @@ export function GuguShape({ pose = "sit", mood = "happy" }: { pose?: GuguPose; m
             )}
           </g>
         ) : (
-          <g>
+          <g className="lali-g-arm">
             <path d="M140 150 C150 170 148 196 134 206" stroke={G_BODY} strokeWidth={15} fill="none" strokeLinecap="round" />
             <ellipse cx={130} cy={208} rx={10} ry={8} fill={G_HAND} />
           </g>
@@ -316,22 +341,26 @@ export function GuguShape({ pose = "sit", mood = "happy" }: { pose?: GuguPose; m
           </g>
           <ellipse cx={100} cy={88} rx={50} ry={48} fill={G_CAPE} />
           {/* ears tucked in the fur */}
-          <ellipse cx={52} cy={84} rx={8} ry={11} fill={G_FACE} />
+          <ellipse cx={52} cy={84} rx={8} ry={11} fill={G_FACE} className="lali-ear-twitch" />
           <ellipse cx={148} cy={84} rx={8} ry={11} fill={G_FACE} />
           {/* the dark face, long from brow to chin */}
           <path d="M100 52 C126 52 136 72 134 96 C132 124 120 140 100 140 C80 140 68 124 66 96 C64 72 74 52 100 52Z" fill={G_FACE} />
           {/* pale eyelids, the gelada's famous flash */}
           <ellipse cx={86} cy={82} rx={11} ry={9} fill="#E8CDB0" />
           <ellipse cx={114} cy={82} rx={11} ry={9} fill="#E8CDB0" />
-          <g className="lali-blink">
+          <g className="lali-blink" style={{ animationDuration: "5.2s" }}>
             <ellipse cx={86} cy={86} rx={7.5} ry={8} fill="#FFF7E6" />
-            <circle cx={87} cy={87} r={5} fill="#1A0F0A" />
-            <circle cx={88.6} cy={85} r={1.8} fill="#fff" />
+            <g className="lali-look" style={{ animationDuration: "8.5s" }}>
+              <circle cx={87} cy={87} r={5} fill="#1A0F0A" />
+              <circle cx={88.6} cy={85} r={1.8} fill="#fff" />
+            </g>
           </g>
-          <g className="lali-blink">
+          <g className="lali-blink" style={{ animationDuration: "5.2s" }}>
             <ellipse cx={114} cy={86} rx={7.5} ry={8} fill="#FFF7E6" />
-            <circle cx={115} cy={87} r={5} fill="#1A0F0A" />
-            <circle cx={116.6} cy={85} r={1.8} fill="#fff" />
+            <g className="lali-look" style={{ animationDuration: "8.5s" }}>
+              <circle cx={115} cy={87} r={5} fill="#1A0F0A" />
+              <circle cx={116.6} cy={85} r={1.8} fill="#fff" />
+            </g>
           </g>
           {mood === "sad" || mood === "worried" ? (
             <g stroke="#E8CDB0" strokeWidth={3} strokeLinecap="round">
@@ -365,7 +394,7 @@ export function BeeShape() {
   return (
     <g>
       <path d="M7.5 25 L3 26.2 L7.5 28Z" fill="#1B2A4E" />
-      <ellipse cx={19} cy={25} rx={13} ry={10} fill="#FFC83D" />
+      <ellipse cx={19} cy={25} rx={13} ry={10} fill="#FFC83D" className="lali-bee-breathe" />
       <path d="M13.5 16.6 Q12 25 13.5 33.4 M20.5 15.2 Q19 25 20.5 34.8" stroke="#1B2A4E" strokeWidth={3.6} fill="none" />
       <ellipse cx={17} cy={20} rx={6} ry={2.4} fill="#fff" opacity={0.45} />
       <g className="lali-wings">
@@ -373,12 +402,18 @@ export function BeeShape() {
         <ellipse cx={24} cy={10} rx={7} ry={5} fill="#E3F6FF" fillOpacity={0.92} stroke="#1B2A4E" strokeWidth={1.5} transform="rotate(22 24 10)" />
       </g>
       <circle cx={31.5} cy={23} r={7} fill="#1B2A4E" />
-      <circle cx={33.6} cy={21.4} r={2.3} fill="#fff" />
-      <circle cx={31.6} cy={24.2} r={0.9} fill="#fff" />
+      <g className="lali-blink" style={{ animationDuration: "3.8s" }}>
+        <g className="lali-look" style={{ animationDuration: "6s", "--look-x": "0.9px" } as CSSProperties}>
+          <circle cx={33.6} cy={21.4} r={2.3} fill="#fff" />
+          <circle cx={31.6} cy={24.2} r={0.9} fill="#fff" />
+        </g>
+      </g>
       <circle cx={36} cy={25.6} r={1.6} fill="#FF8FA3" opacity={0.85} />
       <path d="M31 27.2 Q34 29.6 36.6 26.8" stroke="#FFC83D" strokeWidth={1.4} fill="none" strokeLinecap="round" />
-      <path d="M32 16.5 Q32.5 11.5 36 10.5" stroke="#1B2A4E" strokeWidth={1.6} fill="none" strokeLinecap="round" />
-      <circle cx={36.4} cy={10.3} r={1.7} fill="#1B2A4E" />
+      <g className="lali-antenna">
+        <path d="M32 16.5 Q32.5 11.5 36 10.5" stroke="#1B2A4E" strokeWidth={1.6} fill="none" strokeLinecap="round" />
+        <circle cx={36.4} cy={10.3} r={1.7} fill="#1B2A4E" />
+      </g>
     </g>
   );
 }

@@ -17,35 +17,67 @@ import {
 } from "react";
 
 import type { Lang, Story } from "@/content/stories";
+import { setAmbience } from "@/lib/ambient";
+import { rememberBookLang, useBookLang } from "@/lib/book-lang";
 import { confetti } from "@/lib/confetti";
 import { backClip, backTransform, computeCurl, constrain, cornerPath, points, polygon, type Pt } from "@/lib/page-curl";
 import { playPageTurn, setPageSoundMuted, usePageSoundMuted } from "@/lib/page-sound";
 import { finishStory, useStars } from "@/lib/progress";
+import { playTapSound } from "@/lib/tap-sound";
+import { askForTilt, useDepth } from "@/lib/use-depth";
 import { useMedia } from "@/lib/use-media";
 import { useReadAlong } from "@/lib/use-read-along";
 import { useLang } from "@/i18n/provider";
 import { tellApp } from "@/lib/in-app";
+import { STAR_PATH } from "./characters";
+import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { CoverBack, CoverFront } from "./book/cover";
 import { EndArt, PageArt } from "./book/page-art";
+import { READER } from "./book/reader-words";
+import { TapZone } from "./book/tappable";
 
 export { PageArt };
 
 /** Page shape on a two-page spread (width / height). */
 const PAGE_ASPECT = 1.18;
 const TURN_MS = 820;
+const LANGS: Lang[] = ["en", "am"];
+/** Sparkles kept ready for the page turn (reused round-robin). */
+const SPARKS = 18;
 
 function textFont(lang: Lang) {
   return lang === "am" ? "font-ethiopic" : "font-body";
 }
 
+/**
+ * Both languages stacked in the same spot: the chosen one shows, and switching cross-fades
+ * in place. The box is as big as the longer of the two, so nothing around it moves.
+ */
+function Swap({ lang, block = false, className = "", layerClass = "", children }: { lang: Lang; block?: boolean; className?: string; layerClass?: string; children: (l: Lang) => ReactNode }) {
+  const Box = block ? "div" : "span";
+  return (
+    <Box className={`${block ? "grid" : "inline-grid"} ${className}`}>
+      {LANGS.map((l) => (
+        <Box
+          key={l}
+          aria-hidden={l !== lang || undefined}
+          className={`lali-lang-layer [grid-area:1/1] ${l === "am" ? "font-ethiopic" : ""} ${l === lang ? "" : "pointer-events-none -translate-y-[0.15em] opacity-0"} ${layerClass}`}
+        >
+          {children(l)}
+        </Box>
+      ))}
+    </Box>
+  );
+}
+
 /* ---------- page faces ---------- */
 
-function ArtFace({ story, page, gutter = "right" }: { story: Story; page: number; gutter?: "right" | "none" }) {
+function ArtFace({ story, page, gutter = "right", tap = false }: { story: Story; page: number; gutter?: "right" | "none"; tap?: boolean }) {
   const end = page >= story.pages.length;
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }}>
-      {end ? <EndArt /> : <PageArt story={story} page={page} />}
+      <TapZone enabled={tap}>{end ? <EndArt /> : <PageArt story={story} page={page} />}</TapZone>
       {gutter === "right" && <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/30 to-transparent" />}
     </div>
   );
@@ -54,7 +86,9 @@ function ArtFace({ story, page, gutter = "right" }: { story: Story; page: number
 function PageHeader({ story, page, lang }: { story: Story; page: number; lang: Lang }) {
   return (
     <div className="flex items-center justify-between gap-3 text-[0.8em] font-bold text-[#7A6A45]">
-      <span className={`truncate ${lang === "am" ? "font-ethiopic" : "font-display"}`}>{story.title[lang]}</span>
+      <Swap lang={lang} className="min-w-0" layerClass="truncate">
+        {(l) => <span className={l === "am" ? "font-ethiopic" : "font-display"}>{story.title[l]}</span>}
+      </Swap>
       <span className="shrink-0 tabular-nums">
         {page + 1} / {story.pages.length}
       </span>
@@ -62,39 +96,73 @@ function PageHeader({ story, page, lang }: { story: Story; page: number; lang: L
   );
 }
 
-function EndText({ story, lang, interactive, onAgain }: { story: Story; lang: Lang; interactive: boolean; onAgain: () => void }) {
-  const stars = useStars();
+function StarIcon({ className }: { className?: string }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
-      <p className="font-display text-[2.2em] font-black leading-none text-coral">{lang === "am" ? "ተፈጸመ!" : "The End!"}</p>
+    <svg viewBox="0 0 24 24" className={className} aria-hidden>
+      <path d={STAR_PATH} fill="#FFC83D" stroke="#C98A0A" strokeWidth={1.2} strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function MoreStoriesLink({ lang }: { lang: Lang }) {
+  return (
+    <Link
+      href="/stories"
+      className="btn btn-primary"
+      onClick={(e) => {
+        if (tellApp({ type: "lali:close" })) e.preventDefault();
+      }}
+    >
+      <Swap lang={lang}>{(l) => READER[l].more}</Swap>
+    </Link>
+  );
+}
+
+function EndText({ lang, interactive, onAgain, starLanded }: { lang: Lang; interactive: boolean; onAgain: () => void; starLanded: boolean }) {
+  const stars = useStars();
+  // The new star is counted when the flying star lands.
+  const shown = starLanded ? stars : Math.max(0, stars - 1);
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center gap-[0.55em] text-center">
+      <p className="font-display text-[2.2em] font-black leading-none text-coral">
+        <Swap lang={lang}>{(l) => READER[l].theEnd}</Swap>
+      </p>
+      {interactive && (
+        <div
+          data-star-counter=""
+          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1 font-display text-[1.15em] font-black text-ink shadow-[0_3px_0_rgba(27,42,78,.15)]"
+          aria-label={`${shown} stars`}
+        >
+          <StarIcon className="h-[1.3em] w-[1.3em]" />
+          <span className="tabular-nums">{shown}</span>
+        </div>
+      )}
       <p className="max-w-xs text-[0.85em]">
-        You finished <b>{story.title.en}</b> and earned a star.
-        {interactive && stars > 0 && (
-          <>
-            {" "}
-            You have <b className="tabular-nums">{stars}</b> now!
-          </>
-        )}
+        <Swap lang={lang}>
+          {(l) => (
+            <>
+              {READER[l].finished}
+              {interactive && stars > 0 && (
+                // Room is kept for it, so nothing moves when the star lands.
+                <span className={`transition-opacity duration-500 ${starLanded ? "" : "opacity-0"}`}> {READER[l].starsNow(stars)}</span>
+              )}
+            </>
+          )}
+        </Swap>
       </p>
       {interactive && (
         <div className="flex flex-wrap justify-center gap-3 text-base">
           <button type="button" className="btn btn-plain" onClick={onAgain}>
-            Read again
+            <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
           </button>
-          <Link
-            href="/stories"
-            className="btn btn-primary"
-            onClick={(e) => {
-              if (tellApp({ type: "lali:close" })) e.preventDefault();
-            }}
-          >
-            More stories
-          </Link>
+          <MoreStoriesLink lang={lang} />
         </div>
       )}
     </div>
   );
 }
+
+type WordMode = "hidden" | "arrive" | "swap";
 
 /** The words of a page. When live, the read-along works: tap a word, or "Read to me". */
 function TextFace({
@@ -106,6 +174,8 @@ function TextFace({
   onAgain,
   fontSize,
   shadow = "left",
+  reduce,
+  starLanded = false,
 }: {
   story: Story;
   page: number;
@@ -115,14 +185,27 @@ function TextFace({
   onAgain: () => void;
   fontSize: number;
   shadow?: "left" | "none";
+  reduce: boolean;
+  starLanded?: boolean;
 }) {
   const end = page >= story.pages.length;
   const text = end ? "" : story.pages[page][lang];
   const { words, active, reading, silent, start, stop, speakWord } = useReadAlong(text, lang, onRead, end ? null : story.audio?.[page]?.[lang]);
   const [popped, setPopped] = useState(-1);
+  // The words arrive the first time this page lies open...
+  const [opened, setOpened] = useState(live);
+  if (live && !opened) setOpened(true);
+  // ...and each switch of language brings the other language's words in afresh.
+  const [shownLang, setShownLang] = useState(lang);
+  const [gen, setGen] = useState<Record<Lang, number>>({ en: 0, am: 0 });
+  if (lang !== shownLang) {
+    setShownLang(lang);
+    if (opened) setGen((g) => ({ ...g, [lang]: g[lang] + 1 }));
+  }
   useEffect(() => {
     if (!live) stop();
   }, [live, stop]);
+
   return (
     <div
       className={`relative h-full w-full overflow-hidden bg-paper text-paper-ink ${shadow === "left" ? "shadow-[inset_26px_0_30px_-24px_rgba(0,0,0,.4)]" : ""}`}
@@ -132,33 +215,73 @@ function TextFace({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
       <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
         {end ? (
-          <EndText story={story} lang={lang} interactive={live} onAgain={onAgain} />
+          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} />
         ) : (
           <>
             <PageHeader story={story} page={page} lang={lang} />
-            <p className={`${textFont(lang)} flex-1 leading-[1.55]`} aria-live={live ? "polite" : undefined}>
-              {words.map((w, i) => (
-                <span key={`${i}-${w}`}>
-                  <button
-                    type="button"
-                    tabIndex={live ? 0 : -1}
-                    onClick={() => {
-                      if (!live) return;
-                      setPopped(i);
-                      speakWord(w);
-                    }}
-                    className={`inline-block rounded-lg px-[3px] transition-all duration-200 hover:bg-[#F3E8C6] ${
-                      i === active ? "-translate-y-[3px] scale-105 bg-gold text-[#2A1A00]" : i < active ? "text-blue" : ""
-                    } ${i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)]" : ""}`}
-                    onAnimationEnd={() => setPopped(-1)}
+            <div className="grid flex-1 content-start">
+              {LANGS.map((l) => {
+                const on = l === lang;
+                if (!on) {
+                  // The other language waits underneath as plain text (light to mount), spaced like
+                  // the word buttons so it takes the same room: the page never changes height.
+                  return (
+                    <p
+                      key={`${l}-${gen[l]}`}
+                      aria-hidden
+                      className={`lali-lang-layer pointer-events-none -translate-y-[0.2em] pl-[3px] leading-[1.55] opacity-0 [grid-area:1/1] [word-spacing:6px] ${textFont(l)}`}
+                    >
+                      {story.pages[page][l]}
+                    </p>
+                  );
+                }
+                const ws = words;
+                const mode: WordMode = !opened && !reduce ? "hidden" : gen[l] > 0 ? "swap" : "arrive";
+                return (
+                  <p
+                    key={`${l}-${gen[l]}`}
+                    aria-live={live ? "polite" : undefined}
+                    className={`lali-lang-layer [grid-area:1/1] leading-[1.55] ${textFont(l)}`}
                   >
-                    {w}
-                  </button>{" "}
-                </span>
-              ))}
-            </p>
-            {silent && reading && lang === "am" && <p className="text-center text-sm text-[#7A6A45]">Words light up for now. Recorded Amharic narration is coming.</p>}
-            <div className="flex justify-center pb-1">
+                    {ws.map((w, i) => {
+                      const anim: CSSProperties | undefined =
+                        mode === "hidden"
+                          ? { opacity: 0 }
+                          : mode === "arrive"
+                            ? { animationDelay: `${Math.round(120 + Math.min(i * 45, (1300 * i) / Math.max(1, ws.length)))}ms` }
+                            : { animationDelay: `${Math.min(i * 16, 420)}ms` };
+                      const cls = mode === "arrive" ? "lali-word-in" : mode === "swap" ? "lali-word-swap" : "";
+                      return (
+                        <span key={`${i}-${w}`}>
+                          <span className={`inline-block ${cls}`} style={anim}>
+                            <button
+                              type="button"
+                              tabIndex={live ? 0 : -1}
+                              data-on={i === active ? "" : undefined}
+                              onClick={() => {
+                                if (!live) return;
+                                setPopped(i);
+                                speakWord(w);
+                              }}
+                              className={`lali-word inline-block rounded-lg px-[3px] transition-[transform,color] duration-200 hover:bg-[#F3E8C6] ${
+                                i === active ? "-translate-y-[0.18em] scale-110 text-[#7A3E00]" : i < active ? "text-blue" : ""
+                              } ${i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)] text-coral" : ""}`}
+                              onAnimationEnd={() => setPopped(-1)}
+                            >
+                              {w}
+                            </button>
+                          </span>{" "}
+                        </span>
+                      );
+                    })}
+                  </p>
+                );
+              })}
+            </div>
+            <div className="relative flex justify-center pb-1">
+              {silent && reading && lang === "am" && (
+                <p className="lali-fade absolute inset-x-0 bottom-full mb-2 text-center text-[0.65em] text-[#7A6A45] font-ethiopic">{READER.am.silent}</p>
+              )}
               <button type="button" tabIndex={live ? 0 : -1} className="btn btn-primary !text-base" onClick={reading ? stop : start}>
                 <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
                   {reading ? (
@@ -167,12 +290,62 @@ function TextFace({
                     <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor" />
                   )}
                 </svg>
-                {reading ? (lang === "am" ? "አቁም" : "Stop") : lang === "am" ? "አንብብልኝ" : "Read to me"}
+                <Swap lang={lang}>{(l) => (reading ? READER[l].stop : READER[l].readToMe)}</Swap>
               </button>
             </div>
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+/** After the celebration: a calm card for the parent, with things to talk about and try. */
+function GrownUpsCard({ story, lang, onAgain, onClose }: { story: Story; lang: Lang; onAgain: () => void; onClose: () => void }) {
+  const g = story.grownUps!;
+  return (
+    <div className="absolute inset-0 z-[60] grid place-items-center px-3 pb-[max(12px,env(safe-area-inset-bottom))] pt-[72px] sm:px-6 sm:pb-6">
+      <div className="lali-fade absolute inset-0 bg-[#0B1030]/55" onClick={onClose} aria-hidden />
+      <section
+        role="dialog"
+        aria-label={READER[lang].forGrownUps}
+        data-grown-ups=""
+        className="lali-card-in relative max-h-full w-full max-w-lg overflow-y-auto rounded-[28px] bg-[#FFFBF0] p-5 text-ink shadow-[0_24px_60px_-20px_rgba(0,0,0,.55)] sm:p-7"
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label={READER[lang].backToBook}
+          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full text-muted transition hover:bg-black/5 hover:text-ink"
+        >
+          {Icon.close}
+        </button>
+        <Swap lang={lang} block>
+          {(l) => (
+            <div className={`pr-8 text-left ${l === "am" ? "font-ethiopic" : ""}`}>
+              <p className="text-sm font-bold uppercase tracking-[0.12em] text-teal">{READER[l].forGrownUps}</p>
+              <p className="mt-1 text-[0.95rem] text-muted">{READER[l].grownUpsNote}</p>
+              <h3 className={`mt-4 text-lg font-black ${l === "am" ? "" : "font-display"}`}>{READER[l].talkAbout}</h3>
+              <ol className="mt-2 space-y-2.5">
+                {g.talkAbout[l].map((q, i) => (
+                  <li key={i} className="flex gap-3 leading-snug">
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-sky-soft text-sm font-black text-blue">{i + 1}</span>
+                    <span className="pt-0.5">{q}</span>
+                  </li>
+                ))}
+              </ol>
+              <h3 className={`mt-5 text-lg font-black ${l === "am" ? "" : "font-display"}`}>{READER[l].tryThis}</h3>
+              <p className="mt-2 rounded-2xl bg-gold/15 p-3.5 leading-snug">{g.activity[l]}</p>
+            </div>
+          )}
+        </Swap>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <button type="button" className="btn btn-plain" onClick={onAgain}>
+            <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
+          </button>
+          <MoreStoriesLink lang={lang} />
+        </div>
+      </section>
     </div>
   );
 }
@@ -220,6 +393,10 @@ type Drag = {
  * one page at a time. Pages curl over as they turn: drag a corner (or swipe), press the
  * arrows, or use the arrow keys. Without `compact` it takes over the whole screen and
  * starts with the cover opening.
+ *
+ * Inside: a soundscape for each scene, pictures with depth that follow the mouse or the
+ * phone's tilt, characters that react to taps, words that arrive and light up, and a
+ * celebration at the end followed by a card for grown-ups.
  */
 export function StoryBook({
   story,
@@ -237,12 +414,20 @@ export function StoryBook({
   const reduce = useMedia("(prefers-reduced-motion: reduce)");
   const muted = usePageSoundMuted();
   const [page, setPage] = useState(0);
-  // Books open in the website's language; the toggle switches just this book.
+  // Books open in the language this child last chose here, else the website's language.
   const siteLang = useLang();
-  const [lang, setLang] = useState<Lang>(siteLang);
+  const storedLang = useBookLang();
+  const [chosenLang, setChosenLang] = useState<Lang | null>(null);
+  const lang: Lang = chosenLang ?? storedLang ?? siteLang;
+  const setLang = useCallback((l: Lang) => {
+    setChosenLang(l);
+    rememberBookLang(l);
+  }, []);
   const [turn, setTurn] = useState<Turn | null>(null);
   const [pageRead, setPageRead] = useState(false);
   const [cover, setCover] = useState<"closed" | "opening" | "open">(immersive ? "closed" : "open");
+  const [starLanded, setStarLanded] = useState(false);
+  const [cardOpen, setCardOpen] = useState(false);
   const wide = useMedia("(min-width: 768px)");
   const fullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenElement), () => false);
   const canFullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenEnabled), () => false);
@@ -250,6 +435,10 @@ export function StoryBook({
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
+  const flyRef = useRef<HTMLDivElement>(null);
+  const sweepRef = useRef<HTMLDivElement>(null);
+  const sparkRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sparkAt = useRef({ i: 0, t: 0 });
   const size = useSize(stageRef);
 
   // Page size in pixels.
@@ -288,49 +477,94 @@ export function StoryBook({
   const drag = useRef<Drag | null>(null);
   const suppressClick = useRef(false);
 
-  const applyCurl = useCallback((P: Pt) => {
-    const t = turnRef.current;
-    const { W: w, H: h } = dims.current;
-    if (!t || !w) return;
-    pRef.current = P;
-    const c = computeCurl(constrain(P, w, h, t.cornerY), w, h, t.cornerY);
-    const front = frontRef.current;
-    const back = backRef.current;
-    const under = underRef.current;
-    if (front) front.style.clipPath = polygon(c.front);
-    if (back) {
-      back.style.visibility = c.lifted.length > 2 ? "visible" : "hidden";
-      back.style.transform = backTransform(c, w);
-      back.style.clipPath = backClip(c, w);
-    }
-    if (under) {
-      under.style.opacity = String(0.5 + 0.5 * Math.min(1, c.t * 1.6));
-      under.style.transform = `translateX(${((1 - c.t) * 18).toFixed(1)}px)`;
-    }
-    // Light and shade: a shadow on the page underneath, and a curved highlight on the flap.
-    const fade = Math.min(1, (1 - c.t) * 5, c.depth / 30);
-    const reach = Math.min(c.depth, w * 0.45) + 1;
-    const toSvg = (p: Pt) => ({ x: p.x + w, y: p.y });
-    const m = toSvg(c.M);
-    if (shadowRef.current && shadowGrad.current) {
-      shadowRef.current.setAttribute("points", points(c.lifted, w));
-      shadowRef.current.style.opacity = String(fade);
-      const g = shadowGrad.current;
-      g.setAttribute("x1", String(m.x));
-      g.setAttribute("y1", String(m.y));
-      g.setAttribute("x2", String(m.x + c.n.x * reach * 0.8));
-      g.setAttribute("y2", String(m.y + c.n.y * reach * 0.8));
-    }
-    if (shadeRef.current && shadeGrad.current) {
-      shadeRef.current.setAttribute("points", points(c.flap, w));
-      shadeRef.current.style.opacity = String(fade);
-      const g = shadeGrad.current;
-      g.setAttribute("x1", String(m.x));
-      g.setAttribute("y1", String(m.y));
-      g.setAttribute("x2", String(m.x - c.n.x * reach));
-      g.setAttribute("y2", String(m.y - c.n.y * reach));
-    }
+  /** A few sparkles fly off the fold of the turning page (transforms and opacity only). */
+  const sparkle = useCallback((c: ReturnType<typeof computeCurl>) => {
+    const now = performance.now();
+    if (now - sparkAt.current.t < 55 || c.t < 0.04 || c.t > 0.96 || c.lifted.length < 3) return;
+    sparkAt.current.t = now;
+    const edge = c.lifted.filter((v) => Math.abs((v.x - c.M.x) * c.n.x + (v.y - c.M.y) * c.n.y) < 1);
+    if (edge.length < 2) return;
+    const a = edge[0];
+    const b = edge[edge.length - 1];
+    const k = Math.random();
+    const ox = dims.current.spread ? dims.current.W : 0;
+    const x = a.x + (b.x - a.x) * k + ox;
+    const y = a.y + (b.y - a.y) * k;
+    const el = sparkRefs.current[sparkAt.current.i++ % SPARKS];
+    if (!el) return;
+    const dist = 26 + Math.random() * 44;
+    const dx = -c.n.x * dist + (Math.random() - 0.5) * 18;
+    const dy = -c.n.y * dist - 12 - Math.random() * 22;
+    const s = 0.6 + Math.random() * 0.9;
+    el.animate(
+      [
+        { transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${(s * 0.4).toFixed(2)}) rotate(0deg)`, opacity: 0 },
+        { transform: `translate(${(x + dx * 0.3).toFixed(1)}px, ${(y + dy * 0.3).toFixed(1)}px) scale(${s.toFixed(2)}) rotate(45deg)`, opacity: 1, offset: 0.25 },
+        { transform: `translate(${(x + dx).toFixed(1)}px, ${(y + dy).toFixed(1)}px) scale(${(s * 0.3).toFixed(2)}) rotate(120deg)`, opacity: 0 },
+      ],
+      { duration: 700 + Math.random() * 350, easing: "cubic-bezier(.2,.6,.3,1)" },
+    );
   }, []);
+
+  /** A soft band of light sweeps over newly arrived pages. */
+  const sweep = useCallback(() => {
+    sweepRef.current?.animate(
+      [
+        { transform: "translateX(-120%) skewX(-14deg)", opacity: 0 },
+        { transform: "translateX(40%) skewX(-14deg)", opacity: 1, offset: 0.3 },
+        { transform: "translateX(290%) skewX(-14deg)", opacity: 0 },
+      ],
+      { duration: 1000, easing: "cubic-bezier(.3,.1,.3,1)" },
+    );
+  }, []);
+
+  const applyCurl = useCallback(
+    (P: Pt) => {
+      const t = turnRef.current;
+      const { W: w, H: h } = dims.current;
+      if (!t || !w) return;
+      pRef.current = P;
+      const c = computeCurl(constrain(P, w, h, t.cornerY), w, h, t.cornerY);
+      const front = frontRef.current;
+      const back = backRef.current;
+      const under = underRef.current;
+      if (front) front.style.clipPath = polygon(c.front);
+      if (back) {
+        back.style.visibility = c.lifted.length > 2 ? "visible" : "hidden";
+        back.style.transform = backTransform(c, w);
+        back.style.clipPath = backClip(c, w);
+      }
+      if (under) {
+        under.style.opacity = String(0.5 + 0.5 * Math.min(1, c.t * 1.6));
+        under.style.transform = `translateX(${((1 - c.t) * 18).toFixed(1)}px)`;
+      }
+      // Light and shade: a shadow on the page underneath, and a curved highlight on the flap.
+      const fade = Math.min(1, (1 - c.t) * 5, c.depth / 30);
+      const reach = Math.min(c.depth, w * 0.45) + 1;
+      const toSvg = (p: Pt) => ({ x: p.x + w, y: p.y });
+      const m = toSvg(c.M);
+      if (shadowRef.current && shadowGrad.current) {
+        shadowRef.current.setAttribute("points", points(c.lifted, w));
+        shadowRef.current.style.opacity = String(fade);
+        const g = shadowGrad.current;
+        g.setAttribute("x1", String(m.x));
+        g.setAttribute("y1", String(m.y));
+        g.setAttribute("x2", String(m.x + c.n.x * reach * 0.8));
+        g.setAttribute("y2", String(m.y + c.n.y * reach * 0.8));
+      }
+      if (shadeRef.current && shadeGrad.current) {
+        shadeRef.current.setAttribute("points", points(c.flap, w));
+        shadeRef.current.style.opacity = String(fade);
+        const g = shadeGrad.current;
+        g.setAttribute("x1", String(m.x));
+        g.setAttribute("y1", String(m.y));
+        g.setAttribute("x2", String(m.x - c.n.x * reach));
+        g.setAttribute("y2", String(m.y - c.n.y * reach));
+      }
+      sparkle(c);
+    },
+    [sparkle],
+  );
 
   const clearCurl = useCallback(() => {
     for (const el of [frontRef.current, backRef.current, underRef.current]) {
@@ -352,7 +586,7 @@ export function StoryBook({
       const landed = target === 1 ? t.leaf + 1 : t.leaf;
       setTurn(null);
       setPage(landed);
-      // The page lands with a little bounce.
+      // The page lands with a little bounce, and light sweeps over it.
       if (landed !== t.from) {
         bookRef.current?.animate(
           [
@@ -363,9 +597,10 @@ export function StoryBook({
           ],
           { duration: 420, easing: "ease-out" },
         );
+        sweep();
       }
     },
-    [clearCurl],
+    [clearCurl, sweep],
   );
 
   /** Move the corner from wherever it is to flat (0) or turned (1). */
@@ -418,10 +653,17 @@ export function StoryBook({
 
   const busy = turn !== null || cover !== "open";
 
+  /** Leaving the end page puts the celebration away. */
+  const leave = useCallback(() => {
+    setPageRead(false);
+    setStarLanded(false);
+    setCardOpen(false);
+  }, []);
+
   const go = useCallback(
     (to: number) => {
       if (busy || to < 0 || to > total || to === page || !W) return;
-      setPageRead(false);
+      leave();
       if (reduce || Math.abs(to - page) !== 1) {
         setPage(to);
         return;
@@ -430,7 +672,7 @@ export function StoryBook({
       if (to > page) beginTurn(page, H, 0, { target: 1, strength: 1 });
       else beginTurn(to, H, 1, { target: 0, strength: 1 });
     },
-    [busy, total, page, W, H, reduce, beginTurn],
+    [busy, total, page, W, H, reduce, beginTurn, leave],
   );
 
   /* ----- the cover: it swings open in 3D while the book slides to the middle ----- */
@@ -448,14 +690,16 @@ export function StoryBook({
     const a = animate(rot, -180, { duration: 1.5, ease });
     const b = animate(shift, 0, { duration: 1.5, ease });
     a.then(() => {
-      if (alive) animate(coverFade, 0, { duration: 0.35 }).then(() => alive && setCover("open"));
+      if (!alive) return;
+      sweep();
+      animate(coverFade, 0, { duration: 0.35 }).then(() => alive && setCover("open"));
     });
     return () => {
       alive = false;
       a.stop();
       b.stop();
     };
-  }, [cover, rot, shift, coverFade]);
+  }, [cover, rot, shift, coverFade, sweep]);
 
   const openCover = useCallback(() => {
     if (cover !== "closed") return;
@@ -476,22 +720,80 @@ export function StoryBook({
     return () => clearTimeout(id);
   }, [cover, W, openCover, reduce]);
 
+  /* ----- the ending: a star flies to the counter, confetti, then the grown-ups card ----- */
+  const atEnd = page === total && cover === "open";
+  const flyStar = useCallback(
+    (done: () => void) => {
+      const from = bookRef.current?.querySelector("[data-end-star]")?.getBoundingClientRect();
+      const to = rootRef.current?.querySelector("[data-star-counter] svg")?.getBoundingClientRect();
+      const el = flyRef.current;
+      if (reduce || !from || !to || !el || from.width === 0) {
+        done();
+        return;
+      }
+      const sx = from.left + from.width / 2 - 24;
+      const sy = from.top + from.height / 2 - 24;
+      const ex = to.left + to.width / 2 - 24;
+      const ey = to.top + to.height / 2 - 24;
+      const mx = (sx + ex) / 2;
+      const my = Math.min(sy, ey) - Math.max(60, Math.abs(ex - sx) * 0.2);
+      const s0 = from.width / 48;
+      const s1 = to.width / 48;
+      const at = (x: number, y: number, s: number, r: number) => `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(3)}) rotate(${r}deg)`;
+      el.animate(
+        [
+          { transform: at(sx, sy, s0, 0), opacity: 0 },
+          { transform: at(sx, sy - 10, s0 * 1.15, -10), opacity: 1, offset: 0.14 },
+          { transform: at(mx, my, Math.max(s0, s1) * 1.1, 200), opacity: 1, offset: 0.55 },
+          { transform: at(ex, ey, s1, 360), opacity: 1, offset: 0.94 },
+          { transform: at(ex, ey, s1, 360), opacity: 0 },
+        ],
+        { duration: 1300, easing: "cubic-bezier(.45,0,.3,1)" },
+      ).onfinish = done;
+    },
+    [reduce],
+  );
+
   useEffect(() => {
-    if (page === total && cover === "open") {
-      finishStory(story.id);
-      onFinish?.(story.id);
+    if (!atEnd) return;
+    finishStory(story.id);
+    onFinish?.(story.id);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const landed = () => {
+      setStarLanded(true);
+      playTapSound("chime");
       confetti(0.4);
-    }
+      rootRef.current
+        ?.querySelector("[data-star-counter]")
+        ?.animate([{ transform: "scale(1)" }, { transform: "scale(1.4)" }, { transform: "scale(1)" }], { duration: 520, easing: "cubic-bezier(.3,1.6,.5,1)" });
+      if (immersive && story.grownUps) timers.push(setTimeout(() => setCardOpen(true), reduce ? 1200 : 2600));
+    };
+    timers.push(setTimeout(() => flyStar(landed), reduce ? 0 : 700));
+    return () => timers.forEach(clearTimeout);
     // Only when arriving at the end.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page === total]);
+  }, [atEnd]);
 
-  // Arrow keys turn pages (when the book is on screen); Escape closes the full-screen book.
+  /* ----- sound and depth ----- */
+  // The scene's soundscape (full-screen book only). It shares the sound toggle.
+  const mood = immersive && cover !== "closed" ? ambienceFor(story, page) : null;
+  useEffect(() => {
+    setAmbience(mood);
+  }, [mood]);
+  useEffect(() => () => setAmbience(null), []);
+  // Layers in the pictures drift with the mouse or the phone's tilt.
+  useDepth(stageRef, !reduce && cover === "open", `${page}|${turn ? turn.leaf : "-"}|${cardOpen}`);
+
+  // Arrow keys turn pages (when the book is on screen); Escape closes the card, then the full-screen book.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const r = rootRef.current?.getBoundingClientRect();
       if (!r || r.bottom < 0 || r.top > innerHeight) return;
       if ((e.target as HTMLElement)?.closest("input,textarea")) return;
+      if (e.key === "Escape" && cardOpen) {
+        setCardOpen(false);
+        return;
+      }
       if (e.key === "ArrowRight") {
         if (cover === "closed") openCover();
         else go(page + 1);
@@ -501,7 +803,7 @@ export function StoryBook({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page, cover, openCover, immersive, router]);
+  }, [go, page, cover, openCover, immersive, router, cardOpen]);
 
   // The full-screen book owns the page: no scrolling underneath.
   useEffect(() => {
@@ -546,7 +848,7 @@ export function StoryBook({
       d.started = true;
       d.forward = forward;
       suppressClick.current = true;
-      setPageRead(false);
+      leave();
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       const cornerY = d.y0 < h / 2 ? 0 : h;
       if (forward) beginTurn(page, cornerY, 0);
@@ -597,6 +899,8 @@ export function StoryBook({
       onAgain={() => go(0)}
       fontSize={fontSize}
       shadow={shadow}
+      reduce={reduce}
+      starLanded={starLanded}
     />
   );
 
@@ -618,7 +922,7 @@ export function StoryBook({
                 className="overflow-hidden rounded-l-[16px] rounded-r-[4px]"
                 style={{ ...layer(turn && i === L + 1 ? 30 : 5), transformOrigin: "0 0" }}
               >
-                <ArtFace story={story} page={i} />
+                <ArtFace story={story} page={i} tap={live} />
               </div>
             ))}
           </motion.div>
@@ -645,7 +949,7 @@ export function StoryBook({
       const card = (i: number, isLive: boolean) => (
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
           <div className="relative shrink-0" style={{ height: artH }}>
-            <ArtFace story={story} page={i} gutter="none" />
+            <ArtFace story={story} page={i} gutter="none" tap={isLive} />
           </div>
           <div className="min-h-0 flex-1">{textFace(i, isLive, "none")}</div>
         </div>
@@ -680,7 +984,8 @@ export function StoryBook({
   const book = (
     <motion.div
       ref={bookRef}
-      className="relative touch-pan-y select-none"
+      // While a page turns, the pictures hold still (see .lali-turning in globals.css).
+      className={`relative touch-pan-y select-none ${turn ? "lali-turning" : ""}`}
       style={{ width: bookWidth, height: H, x: shift }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -703,7 +1008,7 @@ export function StoryBook({
       )}
       {!spread && <div className="absolute inset-0 translate-y-2 rounded-[22px] bg-black/15" />}
       {reduce ? (
-        <motion.div key={`${page}-${lang}`} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
+        <motion.div key={page} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
           {pages}
         </motion.div>
       ) : (
@@ -731,6 +1036,25 @@ export function StoryBook({
           <polygon ref={shadeRef} fill="url(#lali-curl-shade)" />
         </svg>
       )}
+      {/* the magic of a page turn: a sweep of light on arrival, and sparkles off the fold */}
+      {W > 0 && !reduce && (
+        <>
+          <div className={`pointer-events-none absolute inset-0 z-[44] overflow-hidden ${spread ? "rounded-[16px]" : "rounded-[22px]"}`} aria-hidden>
+            <div ref={sweepRef} className="lali-sweep" />
+          </div>
+          <div className="pointer-events-none absolute inset-0 z-[45]" aria-hidden>
+            {Array.from({ length: SPARKS }, (_, i) => (
+              <div
+                key={i}
+                ref={(el) => {
+                  sparkRefs.current[i] = el;
+                }}
+                className="lali-spark"
+              />
+            ))}
+          </div>
+        </>
+      )}
       {cover !== "open" && W > 0 && <BookCover story={story} W={W} H={H} spread={spread} opening={cover === "opening"} onOpen={openCover} rot={rot} fade={coverFade} />}
     </motion.div>
   );
@@ -747,6 +1071,14 @@ export function StoryBook({
     />
   );
 
+  // The star that flies from the end picture to the counter.
+  const flyingStar = (
+    <div ref={flyRef} className="pointer-events-none fixed left-0 top-0 z-[90] h-12 w-12 opacity-0 will-change-transform" aria-hidden>
+      <div className="absolute -inset-3 rounded-full bg-[radial-gradient(circle,rgba(255,226,122,.7),rgba(255,226,122,0)_70%)]" />
+      <StarIcon className="relative h-12 w-12" />
+    </div>
+  );
+
   if (!immersive) {
     return (
       <div ref={rootRef} className="w-full">
@@ -759,6 +1091,7 @@ export function StoryBook({
           {next}
           <LangToggle lang={lang} setLang={setLang} />
         </div>
+        {flyingStar}
       </div>
     );
   }
@@ -768,14 +1101,18 @@ export function StoryBook({
       ref={rootRef}
       role="dialog"
       aria-modal="true"
-      aria-label={story.title.en}
+      aria-label={story.title[lang]}
+      lang={lang}
       className="fixed inset-0 z-[70] flex flex-col overflow-hidden"
       style={{
         background: `radial-gradient(120% 90% at 50% 25%, color-mix(in oklab, ${story.color} 26%, #FFF8E8), color-mix(in oklab, ${story.color} 78%, #0B1030))`,
       }}
+      // iOS asks before a page may read the tilt, and only from a tap.
+      onPointerUpCapture={askForTilt}
     >
       <BackdropSparkles />
-      <div className="relative z-10 flex items-center gap-2 px-3 pt-3 sm:gap-3 sm:px-5 sm:pt-4">
+      {/* above the grown-ups card, so its language can still be switched */}
+      <div className="relative z-[65] flex items-center gap-2 px-3 pt-3 sm:gap-3 sm:px-5 sm:pt-4">
         <Link
           href="/stories"
           onClick={(e) => {
@@ -787,11 +1124,13 @@ export function StoryBook({
           {Icon.close}
         </Link>
         <p className="hidden min-w-0 flex-1 truncate text-center font-display text-lg font-black text-white [text-shadow:0_2px_0_rgba(0,0,0,.2)] md:block">
-          {lang === "am" ? <span className="font-ethiopic">{story.title.am}</span> : story.title.en}
+          <Swap lang={lang} className="max-w-full" layerClass="truncate">
+            {(l) => story.title[l]}
+          </Swap>
         </p>
         <div className="ml-auto flex items-center gap-2 md:ml-0">
           <LangToggle lang={lang} setLang={setLang} />
-          <RoundButton label={muted ? "Turn page sounds on" : "Turn page sounds off"} pressed={!muted} onClick={() => setPageSoundMuted(!muted)}>
+          <RoundButton label={muted ? "Turn sounds on" : "Turn sounds off"} pressed={!muted} onClick={() => setPageSoundMuted(!muted)}>
             {muted ? Icon.soundOff : Icon.soundOn}
           </RoundButton>
           {canFullscreen && (
@@ -823,6 +1162,18 @@ export function StoryBook({
         <PageDots total={total} page={page} light />
         {!spread && next}
       </div>
+      {cardOpen && atEnd && story.grownUps && (
+        <GrownUpsCard
+          story={story}
+          lang={lang}
+          onClose={() => setCardOpen(false)}
+          onAgain={() => {
+            setCardOpen(false);
+            go(0);
+          }}
+        />
+      )}
+      {flyingStar}
     </div>
   );
 }
