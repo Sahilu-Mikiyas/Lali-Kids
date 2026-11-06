@@ -499,6 +499,283 @@ html.lang-arriving body {
 }
 
 /* ------------------------------------------------------------------
+   "The Great Coffee Bean Mystery" (coffee-mystery): transforms and opacity only.
+   ------------------------------------------------------------------ */
+
+/* A feather twirls down from the roof and lands. */
+@keyframes coffee-mystery-feather {
+  0% { transform: translate(-40px, -170px) rotate(40deg); opacity: 0; }
+  8% { opacity: 1; }
+  25% { transform: translate(30px, -128px) rotate(-30deg); }
+  50% { transform: translate(-26px, -80px) rotate(26deg); }
+  75% { transform: translate(18px, -34px) rotate(-14deg); }
+  100% { transform: translate(0, 0) rotate(0); opacity: 1; }
+}
+.coffee-mystery-feather {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-feather 4.4s ease-in-out var(--delay, 0.5s) both;
+}
+@keyframes coffee-mystery-note {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  20% { transform: translate(0, -8px) scale(1); opacity: 1; }
+  100% { transform: translate(var(--nx, 10px), -48px) scale(0.9); opacity: 0; }
+}
+.coffee-mystery-note {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-note var(--dur, 3.3s) ease-out var(--delay, 0s) infinite;
+}
+@keyframes coffee-mystery-chew {
+  to { transform: translate(0.6px, 1.2px) rotate(-10deg); }
+}
+.coffee-mystery-chew {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: coffee-mystery-chew 0.32s ease-in-out infinite alternate;
+}
+@keyframes coffee-mystery-ruffle {
+  0%, 62%, 100% { transform: scale(1); }
+  70% { transform: scale(1.14, 0.88); }
+  78% { transform: scale(0.94, 1.08); }
+  86% { transform: scale(1.06, 0.95); }
+}
+.coffee-mystery-ruffle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-ruffle 2.6s ease-in-out infinite;
+}
+@keyframes coffee-mystery-settle {
+  50% { transform: scale(1.03, 0.97) translateY(0.6px); }
+}
+.coffee-mystery-settle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: coffee-mystery-settle 2.2s ease-in-out infinite;
+}
+/* Chicks pop up over the rim of the nest, one after another. */
+@keyframes coffee-mystery-peek {
+  0%, 12% { transform: translateY(12px); }
+  28%, 74% { transform: translateY(0); }
+  34% { transform: translateY(-2px); }
+  90%, 100% { transform: translateY(12px); }
+}
+.coffee-mystery-peek {
+  animation: coffee-mystery-peek var(--dur, 2.8s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes coffee-mystery-wag {
+  0%, 70%, 100% { transform: rotate(0); }
+  78% { transform: rotate(-12deg); }
+  86% { transform: rotate(10deg); }
+}
+.coffee-mystery-wag {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: coffee-mystery-wag 2.4s ease-in-out infinite;
+}
+/* Leaves in the warka rustle. */
+@keyframes coffee-mystery-rustle {
+  0%, 100% { transform: rotate(0) translate(0, 0); }
+  30% { transform: rotate(1.6deg) translate(1px, -1px); }
+  60% { transform: rotate(-1.2deg) translate(-1px, 0); }
+}
+.coffee-mystery-rustle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: coffee-mystery-rustle var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes coffee-mystery-leaf {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(16px, 70px) rotate(160deg); }
+  85% { opacity: 1; }
+  100% { transform: translate(-8px, 150px) rotate(320deg); opacity: 0; }
+}
+.coffee-mystery-leaf {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-leaf var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+}
+/* Coffee steam curls up and away. */
+@keyframes coffee-mystery-steam {
+  0% { transform: translate(0, 4px) scale(0.6, 0.5); opacity: 0; }
+  30% { opacity: 0.85; }
+  100% { transform: translate(4px, -20px) scale(1.15, 1.2); opacity: 0; }
+}
+.coffee-mystery-steam {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: coffee-mystery-steam var(--dur, 2.8s) ease-out var(--delay, 0s) infinite;
+}
+@keyframes coffee-mystery-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(var(--fall, 10px)); opacity: 0.8; }
+}
+.coffee-mystery-drip {
+  animation: coffee-mystery-drip 0.9s linear var(--delay, 0s) infinite;
+}
+/* Roasting beans hop as they crackle. */
+@keyframes coffee-mystery-crackle {
+  0%, 55%, 100% { transform: translateY(0) rotate(0); }
+  70% { transform: translateY(-7px) rotate(50deg); }
+  85% { transform: translateY(0) rotate(90deg); }
+}
+.coffee-mystery-crackle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-crackle 1.1s ease-in-out var(--delay, 0s) infinite;
+}
+/* The magnifying glass sweeps to and fro. */
+@keyframes coffee-mystery-sweep {
+  from { transform: translate(calc(var(--sx, 60px) * -1), 3px) rotate(-10deg); }
+  to { transform: translate(var(--sx, 60px), -4px) rotate(8deg); }
+}
+.coffee-mystery-sweep {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-mystery-sweep var(--dur, 3.4s) ease-in-out infinite alternate;
+}
+/* Anbessa stamps his paw. */
+@keyframes coffee-mystery-stamp {
+  0%, 40%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(0.98, 1.02); }
+  60% { transform: translateY(0) scale(1.04, 0.96); }
+  68% { transform: translateY(0) scale(1); }
+}
+.coffee-mystery-stamp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: coffee-mystery-stamp 1.6s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------
+   "Lali Visits Lalibela" (lali-lalibela): transforms and opacity only.
+   One-off moves come from their start (`from`), so with motion off each
+   picture rests where it ends.
+   ------------------------------------------------------------------ */
+
+/* The camera goes down into the pit: each layer starts --dy lower and rises into place. */
+@keyframes lali-lalibela-descend {
+  from { transform: translateY(var(--dy, 0px)); }
+}
+.lali-lalibela-descend {
+  animation: lali-lalibela-descend 6s cubic-bezier(0.5, 0, 0.25, 1) 0.5s both;
+}
+@keyframes lali-lalibela-spiral {
+  0%, 100% { transform: translateX(-14px); }
+  50% { transform: translateX(14px); }
+}
+.lali-lalibela-spiral {
+  animation: lali-lalibela-spiral 2.2s ease-in-out infinite;
+}
+/* Pilgrims walk slowly along their path and fade at either end. */
+@keyframes lali-lalibela-walk {
+  0% { transform: translateX(var(--from, 0px)); opacity: 0; }
+  6% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { transform: translateX(var(--to, 0px)); opacity: 0; }
+}
+.lali-lalibela-walk {
+  animation: lali-lalibela-walk var(--dur, 40s) linear var(--delay, 0s) infinite;
+}
+@keyframes lali-lalibela-bob {
+  50% { transform: translateY(-1.6px) rotate(1.4deg); }
+}
+.lali-lalibela-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-lalibela-bob 1.4s ease-in-out var(--delay, 0s) infinite;
+}
+/* The swarm: each bee swings on x and y a quarter-turn apart, so it loops an ellipse. */
+@keyframes lali-lalibela-swx {
+  from { transform: translateX(calc(var(--r, 40px) * -1)); }
+  to { transform: translateX(var(--r, 40px)); }
+}
+.lali-lalibela-swx {
+  animation: lali-lalibela-swx var(--dur, 2s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes lali-lalibela-swy {
+  from { transform: translateY(calc(var(--r, 20px) * -1)); }
+  to { transform: translateY(var(--r, 20px)); }
+}
+.lali-lalibela-swy {
+  animation: lali-lalibela-swy var(--dur, 2s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+/* Dawn: the night lifts and the sun climbs. */
+@keyframes lali-lalibela-night-out {
+  from { opacity: 0.85; }
+  to { opacity: 0; }
+}
+.lali-lalibela-night-out {
+  animation: lali-lalibela-night-out 6s ease-in-out 0.3s both;
+}
+@keyframes lali-lalibela-sunrise {
+  from { transform: translateY(90px); }
+}
+.lali-lalibela-sunrise {
+  animation: lali-lalibela-sunrise 7s cubic-bezier(0.3, 0, 0.3, 1) 0.3s both;
+}
+@keyframes lali-lalibela-shimmer {
+  50% { opacity: 0.05; }
+}
+.lali-lalibela-shimmer {
+  animation: lali-lalibela-shimmer var(--dur, 5s) ease-in-out var(--delay, 0s) infinite;
+}
+/* Sunset: gold, then rose, then deep purple, and back again. */
+@keyframes lali-lalibela-dusk {
+  0%, 12% { opacity: 0; }
+  50%, 100% { opacity: var(--max, 1); }
+}
+.lali-lalibela-dusk {
+  animation: lali-lalibela-dusk 8s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes lali-lalibela-sink {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(46px); }
+}
+.lali-lalibela-sink {
+  animation: lali-lalibela-sink 12s ease-in-out infinite alternate;
+}
+/* The rock answers: echo rings roll out of the tunnel. */
+@keyframes lali-lalibela-echo {
+  0% { transform: scale(0.4); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.lali-lalibela-echo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-lalibela-echo 2.7s ease-out var(--delay, 0s) infinite;
+}
+/* Tap, tap, tap: the hammer strikes and stone chips fly. */
+@keyframes lali-lalibela-tap {
+  0%, 100% { transform: rotate(-26deg); }
+  30% { transform: rotate(4deg); }
+  40% { transform: rotate(0); }
+}
+.lali-lalibela-tap {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: lali-lalibela-tap 0.9s ease-in infinite;
+}
+@keyframes lali-lalibela-chip {
+  0%, 30% { transform: translate(0, 0); opacity: 0; }
+  34% { opacity: 1; }
+  100% { transform: translate(var(--cx, -10px), var(--cy, -10px)); opacity: 0; }
+}
+.lali-lalibela-chip {
+  animation: lali-lalibela-chip 0.9s ease-out infinite;
+}
+@keyframes lali-lalibela-glow {
+  0%, 100% { opacity: 0; }
+  30%, 50% { opacity: 1; }
+}
+.lali-lalibela-glow {
+  animation: lali-lalibela-glow var(--dur, 3.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* ------------------------------------------------------------------
    Immersive reader: livelier characters, light and air, tap-to-play,
    words that arrive, and the page-turn magic. Transforms and opacity only.
    ------------------------------------------------------------------ */
