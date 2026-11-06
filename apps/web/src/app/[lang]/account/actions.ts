@@ -8,6 +8,8 @@ import { randomBytes } from "node:crypto";
 
 import { createSupabaseAdmin, createSupabaseServer, currentProfile } from "@/lib/supabase/server";
 import { botUsername, telegramConfigured } from "@/lib/telegram";
+import { deleteFamilyAccount } from "@/lib/account";
+import { redirect } from "next/navigation";
 
 const AGE_BANDS = ["3-5", "6-7", "8-9"];
 const AVATARS = ["cub", "gugu", "bee"];
@@ -133,4 +135,20 @@ export async function telegramDisconnect() {
   if (!profile) return;
   await createSupabaseAdmin().from("profiles").update({ telegram_chat_id: null }).eq("id", profile.id);
   revalidate("/account");
+}
+
+/** Deletes the family's account for good, after the parent typed the confirmation word. */
+export async function deleteAccount(confirmation: string): Promise<{ error: string } | void> {
+  const profile = await currentProfile();
+  if (!profile) return { error: "Please sign in again." };
+  if (!["DELETE", "ሰርዝ"].includes(confirmation.trim().toUpperCase())) return { error: "Type the word exactly to confirm." };
+  const result = await deleteFamilyAccount(profile.id);
+  if (!result.ok) {
+    console.error("[account] delete failed", result.error);
+    return { error: "We couldn't delete the account. Please try again or contact us." };
+  }
+  const supabase = await createSupabaseServer();
+  await supabase.auth.signOut().catch(() => {});
+  (await cookies()).delete(CHILD_COOKIE);
+  redirect("/?deleted=1");
 }

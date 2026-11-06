@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 
+import { sweepOrphanVoiceFolders } from "@/lib/account";
 import { addisMidnightIso } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
 import { planById } from "@/lib/payments/plans";
@@ -19,9 +20,16 @@ type Family = { id: string; telegram_chat_id: number; ui_lang: "en" | "am"; disp
  */
 export async function GET(request: Request) {
   await connection();
-  if (!telegramConfigured() || !hasSecretKey()) return Response.json({ skipped: "not configured" });
+  if (!hasSecretKey()) return Response.json({ skipped: "not configured" });
   if (Date.now() - lastRun < 5 * 60_000) return Response.json({ skipped: "ran recently" });
   lastRun = Date.now();
+
+  // Remove voice recordings left behind by accounts deleted outside the website.
+  const sweptFiles = await sweepOrphanVoiceFolders().catch((e) => {
+    console.error("[cron] voice sweep failed", e);
+    return 0;
+  });
+  if (!telegramConfigured()) return Response.json({ sweptFiles, skipped: "telegram not configured" });
 
   const origin = originFrom(request.headers);
   await ensureWebhook(origin);
@@ -32,7 +40,7 @@ export async function GET(request: Request) {
     .select("id, telegram_chat_id, ui_lang, display_name")
     .not("telegram_chat_id", "is", null);
   const linked = (families ?? []) as Family[];
-  if (!linked.length) return Response.json({ sent: 0 });
+  if (!linked.length) return Response.json({ sent: 0, sweptFiles });
 
   /** Records the message, sends it, and forgets the record if sending failed so it retries next hour. */
   async function once(f: Family, kind: string, key: string, text: string, button?: { text: string; url: string }) {
@@ -134,5 +142,5 @@ export async function GET(request: Request) {
     }
   }
 
-  return Response.json({ sent });
+  return Response.json({ sent, sweptFiles });
 }

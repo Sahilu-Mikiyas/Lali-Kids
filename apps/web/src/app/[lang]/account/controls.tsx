@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 import { Bee, Cub, Gugu } from "@/components/characters";
 import { useT } from "@/i18n/provider";
 import type { Child } from "@/lib/family";
-import { addChild, chooseChild, removeChild, setGamesMinutes, setNightlyLimit, setShowAllAges, telegramDisconnect, telegramLink } from "./actions";
+import { addChild, chooseChild, deleteAccount, removeChild, setGamesMinutes, setNightlyLimit, setShowAllAges, telegramDisconnect, telegramLink } from "./actions";
 
 export function Avatar({ kind, size = 56 }: { kind: Child["avatar"]; size?: number }) {
   if (kind === "bee") return <Bee size={size} />;
@@ -206,5 +206,52 @@ export function TelegramConnect({ connected }: { connected: boolean }) {
       {error && <p className="text-sm text-coral">{error}</p>}
       <p className="text-sm text-muted">{t.account.pressStart}</p>
     </div>
+  );
+}
+
+export function DeleteAccount() {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const [word, setWord] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, start] = useTransition();
+  if (!open) {
+    return (
+      <button type="button" onClick={() => setOpen(true)} className="rounded-xl border-2 border-coral px-4 py-2 font-bold text-coral">
+        {t.account.deleteStart}
+      </button>
+    );
+  }
+  return (
+    <form
+      className="w-full space-y-3"
+      onSubmit={(e) => {
+        e.preventDefault();
+        start(async () => {
+          setError(null);
+          const r = await deleteAccount(word);
+          if (r && "error" in r) setError(r.error);
+        });
+      }}
+    >
+      <label className="block space-y-1">
+        <span className="font-bold">{t.account.deleteType}</span>
+        <input
+          value={word}
+          onChange={(e) => setWord(e.target.value)}
+          autoComplete="off"
+          className="w-full rounded-xl border-2 border-line px-3 py-2 outline-none focus:border-coral"
+        />
+      </label>
+      {error && <p className="text-sm text-coral">{error}</p>}
+      <div className="flex flex-wrap gap-3">
+        <button type="submit" disabled={pending || !word.trim()} className="rounded-xl bg-coral px-4 py-2 font-bold text-white disabled:opacity-50">
+          {pending ? t.account.deleting : t.account.deleteConfirm}
+        </button>
+        <button type="button" onClick={() => setOpen(false)} className="font-bold text-muted hover:text-ink">
+          {t.account.deleteCancel}
+        </button>
+      </div>
+    </form>
   );
 }

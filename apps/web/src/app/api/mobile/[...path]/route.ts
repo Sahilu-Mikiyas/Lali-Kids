@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { getStory } from "@/content/stories";
 import { isLang, type UiLang } from "@/i18n/langs";
 import { signPage, TOKEN_SECONDS } from "@/lib/books/protect";
+import { deleteFamilyAccount } from "@/lib/account";
 import { familyFor, limitReached, type Family } from "@/lib/family";
 import { addisMidnightIso, gameBySlug, secondsPlayedToday, shelfGames } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
@@ -82,6 +83,15 @@ async function patchMe(ctx: Ctx) {
   if (!Object.keys(update).length) return fail(400, "Nothing to change");
   const { error } = await ctx.me.supabase.from("profiles").update(update).eq("id", ctx.me.user.id);
   return error ? fail(400, error.message) : getMe(ctx);
+}
+
+/** DELETE me { confirm: "DELETE" }: deletes the family's account, recordings included. */
+async function deleteMe(ctx: Ctx) {
+  if (!ctx.me) return fail(401, "Sign in");
+  const b = await body<{ confirm: string }>(ctx.request);
+  if (String(b.confirm ?? "").trim().toUpperCase() !== "DELETE") return fail(400, 'Send { "confirm": "DELETE" }');
+  const result = await deleteFamilyAccount(ctx.me.user.id);
+  return result.ok ? json({ ok: true }) : fail(500, "Could not delete the account");
 }
 
 const BANDS = ["3-5", "6-7", "8-9"];
@@ -287,6 +297,8 @@ async function route(request: Request, params: Promise<{ path: string[] }>, meth
     switch (key) {
       case "GET me":
         return await getMe(ctx);
+      case "DELETE me":
+        return await deleteMe(ctx);
       case "PATCH me":
         return await patchMe(ctx);
       case "POST children":

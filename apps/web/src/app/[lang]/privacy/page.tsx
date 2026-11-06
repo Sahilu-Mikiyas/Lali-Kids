@@ -99,7 +99,8 @@ export default function PrivacyPage() {
       <ul>
         <li>See, correct or delete your children&rsquo;s profiles at any time in the Grown-ups&rsquo; corner.</li>
         <li>Listen to and delete your family&rsquo;s voice recordings at any time under &ldquo;Family voices&rdquo; in the Grown-ups&rsquo; corner.</li>
-        <li>Ask us for a copy of your family&rsquo;s data, or ask us to delete your account.</li>
+        <li>Delete your account yourself at any time under &ldquo;Delete my account&rdquo; in the Grown-ups&rsquo; corner. Everything, including recorded voices, is removed straight away; payment records are kept for our accounts without your name.</li>
+        <li>Ask us for a copy of your family&rsquo;s data.</li>
         <li>Turn off the weekly email at any time.</li>
       </ul>
       <p>

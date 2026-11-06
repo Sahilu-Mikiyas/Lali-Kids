@@ -14,7 +14,7 @@ import { familyPlan } from "@/lib/payments/subscription";
 import { telegramConfigured } from "@/lib/telegram";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { GrownUpsGate } from "./gate";
-import { AddChildForm, AllAgesToggle, ChildCard, GamesPicker, LimitPicker, TelegramConnect } from "./controls";
+import { AddChildForm, DeleteAccount, AllAgesToggle, ChildCard, GamesPicker, LimitPicker, TelegramConnect } from "./controls";
 import { allowMoreTonight } from "./actions";
 import { FamilyVoicesCard, FindHintsCard } from "./family-voices";
 import { stickerStories } from "@/lib/stickers/server";
@@ -212,6 +212,11 @@ async function AccountContent() {
             ) : (
               <p className="text-muted">{t.account.noPayments}</p>
             )}
+          </section>
+          <section className="mt-10 space-y-3 rounded-[28px] border-2 border-coral/40 p-6">
+            <h2 className="font-display text-2xl font-black">{t.account.deleteTitle}</h2>
+            <p className="text-muted">{t.account.deleteSub}</p>
+            <DeleteAccount />
           </section>
         </GrownUpsGate>
       </main>
