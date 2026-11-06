@@ -481,6 +481,295 @@ h3 {
   animation: lali-peek 3.2s ease-in-out infinite;
 }
 
+/* Language switch: a soft fade out and back in instead of a jump. */
+html.lang-leaving body {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+html.lang-arriving body {
+  animation: lali-lang-in 0.35s ease-out both;
+}
+@keyframes lali-lang-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.lang-leaving body, html.lang-arriving body { transition: none; animation: none; }
+}
+
+/* ------------------------------------------------------------------
+   Immersive reader: livelier characters, light and air, tap-to-play,
+   words that arrive, and the page-turn magic. Transforms and opacity only.
+   ------------------------------------------------------------------ */
+
+/* Anbessa's walk: a bouncier step with squash and stretch, and parts that follow through. */
+@keyframes lali-step-bouncy {
+  0%, 100% { transform: translateY(0) scale(1.04, 0.96); }
+  18% { transform: translateY(-3px) scale(1, 1); }
+  50% { transform: translateY(-10px) scale(0.97, 1.04); }
+  82% { transform: translateY(-2px) scale(1.01, 0.99); }
+}
+.lali-step {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation-name: lali-step-bouncy;
+}
+.lali-mane {
+  animation-delay: calc(var(--walk-delay, 0s) + 0.06s);
+}
+@keyframes lali-head-bob {
+  0%, 100% { transform: translateY(2px) rotate(1.5deg); }
+  50% { transform: translateY(-3px) rotate(-2deg); }
+}
+.lali-head-bob {
+  transform-box: fill-box;
+  transform-origin: 30% 90%;
+  animation: lali-head-bob 0.42s ease-in-out calc(var(--walk-delay, 0s) + 0.07s) var(--steps, infinite);
+}
+@keyframes lali-ear {
+  0%, 100% { transform: rotate(-9deg); }
+  50% { transform: rotate(10deg); }
+}
+.lali-ear {
+  transform-box: fill-box;
+  transform-origin: 50% 85%;
+  animation: lali-ear 0.42s ease-in-out calc(var(--walk-delay, 0s) + 0.12s + var(--ear, 0s)) var(--steps, infinite);
+}
+@keyframes lali-ear-twitch {
+  0%, 90%, 100% { transform: rotate(0); }
+  93% { transform: rotate(-14deg); }
+  96% { transform: rotate(6deg); }
+}
+.lali-ear-twitch {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: lali-ear-twitch 5.5s ease-in-out infinite;
+}
+@keyframes lali-tail-tip {
+  from { transform: rotate(-22deg); }
+  to { transform: rotate(24deg); }
+}
+.lali-tail-tip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-tail-tip var(--dur, 1.4s) ease-in-out calc(var(--dur, 1.4s) * 0.35) infinite alternate;
+}
+
+/* Eyes that look around now and then. */
+@keyframes lali-look {
+  0%, 30%, 100% { transform: translate(0, 0); }
+  36%, 52% { transform: translate(var(--look-x, 2.6px), -0.6px); }
+  60%, 74% { transform: translate(calc(var(--look-x, 2.6px) * -1), 0.4px); }
+  80% { transform: translate(0, 0); }
+}
+.lali-look {
+  animation: lali-look 7s ease-in-out infinite;
+}
+
+/* Lali the bee breathes, and her antennae bob. */
+@keyframes lali-bee-breathe {
+  50% { transform: scale(1.05, 0.96); }
+}
+.lali-bee-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lali-bee-breathe 1.6s ease-in-out infinite;
+}
+@keyframes lali-antenna {
+  from { transform: rotate(-9deg); }
+  to { transform: rotate(9deg); }
+}
+.lali-antenna {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: lali-antenna 0.9s ease-in-out infinite alternate;
+}
+
+/* light and air */
+@keyframes lali-ray {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.6; }
+}
+.lali-ray {
+  animation: lali-ray var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes lali-pollen {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: 0.9; }
+  50% { transform: translate(var(--dx, 30px), -20px); }
+  85% { opacity: 0.8; }
+  100% { transform: translate(calc(var(--dx, 30px) * 2), -6px); opacity: 0; }
+}
+.lali-pollen {
+  animation: lali-pollen var(--dur, 12s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes lali-shoot {
+  0% { transform: translateX(-30px); opacity: 0; }
+  1.5% { opacity: 1; }
+  7% { transform: translateX(150px); opacity: 0; }
+  100% { transform: translateX(150px); opacity: 0; }
+}
+.lali-shoot {
+  opacity: 0;
+  animation: lali-shoot 9s ease-in var(--delay, 0s) infinite;
+}
+@keyframes lali-rain {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-11px, 60px); }
+}
+.lali-rain {
+  animation: lali-rain var(--dur, 0.7s) linear infinite;
+}
+@keyframes lali-ring {
+  0% { transform: scale(0.25); opacity: 0; }
+  20% { opacity: 0.75; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.lali-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-ring 3.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* tap-to-play */
+.lali-tappable {
+  cursor: pointer;
+  transform-box: fill-box;
+  -webkit-tap-highlight-color: transparent;
+}
+.lali-tap-show {
+  opacity: 0;
+}
+.lali-tapped .lali-tap-show {
+  opacity: 1;
+}
+.lali-tapped .lali-tap-hide {
+  opacity: 0;
+}
+@keyframes lali-g-wave {
+  0%, 100% { transform: rotate(0); }
+  22% { transform: rotate(-150deg); }
+  36% { transform: rotate(-122deg); }
+  50% { transform: rotate(-156deg); }
+  64% { transform: rotate(-122deg); }
+  78% { transform: rotate(-150deg); }
+}
+.lali-tapped .lali-g-arm {
+  transform-box: fill-box;
+  transform-origin: 74% 4%;
+  animation: lali-g-wave 1.15s ease-in-out;
+}
+
+/* the words of a page */
+@keyframes lali-word-in {
+  from { opacity: 0; transform: translateY(0.5em) scale(0.85); }
+  to { opacity: 1; transform: none; }
+}
+.lali-word-in {
+  animation: lali-word-in 0.55s cubic-bezier(0.3, 1.45, 0.5, 1) both;
+}
+@keyframes lali-word-swap {
+  from { opacity: 0; transform: translateY(0.3em); }
+  to { opacity: 1; transform: none; }
+}
+.lali-word-swap {
+  animation: lali-word-swap 0.38s ease-out both;
+}
+.lali-word {
+  position: relative;
+  isolation: isolate;
+}
+/* the glow behind the word being read: a soft halo that fades in (opacity only) */
+.lali-word::after {
+  content: "";
+  position: absolute;
+  inset: -0.35em -0.3em;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(closest-side, rgba(255, 213, 74, 0.75), rgba(255, 213, 74, 0));
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+.lali-word[data-on]::after {
+  opacity: 1;
+}
+.lali-lang-layer {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* page-turn magic: sparkles off the turning edge, and a sweep of light on arrival */
+.lali-spark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff 0 22%, #ffe27a 40%, rgba(255, 226, 122, 0) 70%);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  will-change: transform, opacity;
+}
+.lali-sweep {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 38%;
+  height: 140%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 251, 230, 0.55) 45%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 251, 230, 0.55) 55%, rgba(255, 255, 255, 0) 100%);
+  will-change: transform, opacity;
+}
+
+/* the ending */
+@keyframes lali-card-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.lali-card-in {
+  animation: lali-card-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+@keyframes lali-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lali-fade {
+  animation: lali-fade 0.5s ease both;
+}
+@keyframes lali-happy-loop {
+  0%, 55%, 100% { transform: translate(0, 0) rotate(0); }
+  64% { transform: translate(14px, -16px) rotate(-90deg); }
+  72% { transform: translate(0, -30px) rotate(-180deg); }
+  80% { transform: translate(-14px, -16px) rotate(-270deg); }
+  88% { transform: translate(0, 0) rotate(-360deg); }
+}
+.lali-happy-loop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-happy-loop 3.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes lali-burst-rays {
+  from { transform: rotate(0) scale(1); }
+  50% { transform: rotate(20deg) scale(1.06); }
+  to { transform: rotate(40deg) scale(1); }
+}
+.lali-burst-rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lali-burst-rays 8s linear infinite;
+}
+
+/* While a page turns, the pictures hold still: fewer animations to update each frame keeps the
+   curl smooth on small phones, and the new page's little story begins as it lands. */
+.lali-turning svg,
+.lali-turning svg * {
+  animation-play-state: paused;
+}
+
 /* ------------------------------------------------------------------
    "Gugu and the Rainbow Puddle" (rainbow-puddle-scenes.tsx).
    Gugu's jump is a 1.4 s loop that lands at 58 %; the splash parts fire on that landing.

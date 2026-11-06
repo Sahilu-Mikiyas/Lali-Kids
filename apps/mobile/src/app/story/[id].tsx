@@ -9,13 +9,15 @@ import { AnimatedBook, type BookMessage } from '@/components/animated-book';
 import { Bee } from '@/components/characters';
 import { Confetti } from '@/components/confetti';
 import { Goodnight } from '@/components/family';
+import { KeepSheet } from '@/components/keep-sheet';
 import { StoryArt } from '@/components/story-art';
 import { ChunkyButton, Heading } from '@/components/ui';
 import { bundledShelf } from '@/content/stories';
 import { dict, useT, useUiFonts } from '@/i18n';
 import { api, isApiError, type Lang, type ShelfStory } from '@/lib/api';
+import { downloadsSupported, getDownload, isDownloadLocked, readLocalStory, useDownloads } from '@/lib/downloads';
 import { goBackOr } from '@/lib/nav';
-import { actions, currentChild, getState, isLimitReached, shelfOf, starsOf, uiLangOf, useAppState } from '@/lib/store';
+import { actions, currentChild, getState, isLimitReached, isOffline, shelfOf, starsOf, uiLangOf, useAppState } from '@/lib/store';
 import { fonts, textFont, useTheme } from '@/lib/theme';
 import { useReadAlong } from '@/lib/use-read-along';
 
@@ -88,11 +90,14 @@ function TheEnd({ story, lang, onAgain }: { story: ShelfStory; lang: Lang; onAga
   const t = useTheme();
   const tr = dict[lang].reader;
   const f = useUiFonts();
-  const back = useT().reader.backToShelf;
+  const ui = useT();
+  const back = ui.reader.backToShelf;
   const [result, setResult] = useState<{ stars: number; limitReached: boolean } | null>(null);
   const shownStars = useAppState(starsOf);
   const bounce = useSharedValue(0);
   const awarded = useRef(false);
+  const saved = useDownloads((d) => d.ids.has(story.id) || d.waiting.includes(story.id) || d.busy.includes(story.id));
+  const [keeping, setKeeping] = useState(false);
 
   useEffect(() => {
     if (!awarded.current) {
@@ -119,31 +124,58 @@ function TheEnd({ story, lang, onAgain }: { story: ShelfStory; lang: Lang; onAga
           <ChunkyButton variant="plain" label={tr.readAgain} fontFamily={f.displayBold} onPress={onAgain} />
         )}
         <ChunkyButton label={back} onPress={() => goBackOr('/read')} />
+        {downloadsSupported && !saved && !story.locked && (
+          // For grown-ups: the sheet asks them to hold the button, so a tap here does nothing on its own.
+          <ChunkyButton small variant="plain" label={`⬇ ${ui.downloads.keep}`} fontFamily={f.bodyBold} onPress={() => setKeeping(true)} />
+        )}
       </View>
+      <KeepSheet story={keeping ? story : null} onClose={() => setKeeping(false)} />
     </Animated.View>
   );
 }
 
-type Load = { state: 'loading' } | { state: 'ready'; story: ShelfStory } | { state: 'locked'; story: ShelfStory | null } | { state: 'missing' };
+type Load =
+  | { state: 'loading' }
+  | { state: 'ready'; story: ShelfStory }
+  | { state: 'locked'; story: ShelfStory | null; saved?: boolean }
+  | { state: 'missing' };
 
-/** The story to read: the server's full copy (pictures and narration), falling back to the shelf's text offline. */
+/**
+ * The story to read: the copy kept on this phone when there is one (local text, pictures and
+ * narration), otherwise the server's full copy, falling back to the shelf's text offline.
+ */
 function useStory(id: string): Load {
   const fromShelf = useAppState((s) => shelfOf(s).find((x) => x.id === id) ?? bundledShelf().find((x) => x.id === id));
   const [load, setLoad] = useState<Load>({ state: 'loading' });
 
   useEffect(() => {
     let alive = true;
-    api
-      .story(id)
-      .then(({ story }) => alive && setLoad({ state: 'ready', story }))
-      .catch((e: unknown) => {
+    const saved = getDownload(id);
+    // A paid download whose plan has ended (or hasn't been checked for 7 days) stays on the phone, locked.
+    const savedLocked = (): Load => ({ state: 'locked', story: saved ? { ...saved.card, locked: true } : null, saved: true });
+
+    const fromServer = () =>
+      api
+        .story(id)
+        .then(({ story }) => alive && setLoad({ state: 'ready', story }))
+        .catch((e: unknown) => {
+          if (!alive) return;
+          if (isApiError(e, 'plan')) {
+            const body = e.body as { locked?: ShelfStory } | null;
+            setLoad(saved ? savedLocked() : { state: 'locked', story: body?.locked ?? null });
+          } else if (saved && isApiError(e, 'offline')) setLoad(savedLocked());
+          else setLoad({ state: 'missing' });
+        });
+
+    if (saved && !isDownloadLocked(saved)) {
+      readLocalStory(id).then((story) => {
         if (!alive) return;
-        if (isApiError(e, 'plan')) {
-          const body = e.body as { locked?: ShelfStory } | null;
-          setLoad({ state: 'locked', story: body?.locked ?? null });
-        } else if (isApiError(e, 'notfound')) setLoad({ state: 'missing' });
-        else setLoad({ state: 'missing' });
+        if (story) setLoad({ state: 'ready', story });
+        else fromServer();
       });
+    } else if (saved && isOffline(getState())) {
+      void Promise.resolve().then(() => alive && setLoad(savedLocked()));
+    } else fromServer();
     return () => {
       alive = false;
     };
@@ -169,7 +201,7 @@ export default function Reader() {
   const child = useAppState(currentChild);
   const onWordDone = useCallback(() => setPageRead(true), []);
   // Launch stories open in the website's animated book; offline, or for story-studio stories, the app's own reader.
-  const [nativeReader, setNativeReader] = useState(Platform.OS === 'web');
+  const [nativeReader, setNativeReader] = useState(() => Platform.OS === 'web' || isOffline(getState()));
   // Launch stories come without `pictures` (they're drawn); studio stories always have them.
   const animated = !nativeReader && load.state === 'ready' && load.story.pictures === undefined;
   const onBookMessage = useCallback((m: BookMessage) => {
@@ -211,7 +243,9 @@ export default function Reader() {
               <StoryArt story={locked} page={0} />
             </View>
           )}
-          <Heading style={{ textAlign: 'center' }}>{load.state === 'locked' ? `🔒 ${tr.reader.locked}` : tr.reader.notFound}</Heading>
+          <Heading style={{ textAlign: 'center' }}>
+            {load.state === 'locked' ? `🔒 ${load.saved ? tr.offline.lockedSaved : tr.reader.locked}` : tr.reader.notFound}
+          </Heading>
           {load.state === 'locked' && <ChunkyButton label={tr.reader.seePlans} onPress={() => router.replace('/plan')} />}
           <ChunkyButton variant="plain" label={tr.reader.backToShelf} onPress={() => goBackOr('/read')} />
         </View>

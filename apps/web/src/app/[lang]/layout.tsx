@@ -47,6 +47,14 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   const current = isLang(l) ? l : "en";
   return (
     <html lang={current} className={`${grandstander.variable} ${andika.variable} ${ethiopic.variable} antialiased`}>
+      <head>
+        {/* Fades the page in after a language switch (set by LangSwitch), before the first paint. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("lali-lang-switch")){sessionStorage.removeItem("lali-lang-switch");document.documentElement.classList.add("lang-arriving")}}catch(e){}`,
+          }}
+        />
+      </head>
       <body className={`min-h-dvh overflow-x-hidden ${current === "am" ? "lang-am" : ""}`}>
         <LangProvider lang={current}>{children}</LangProvider>
       </body>

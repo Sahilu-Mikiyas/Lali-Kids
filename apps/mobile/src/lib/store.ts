@@ -3,6 +3,8 @@ import { useSyncExternalStore } from 'react';
 
 import { bundledShelf } from '@/content/stories';
 import { api, isApiError, setApiContext, type AgeBand, type Avatar, type Child, type Lang, type Me, type MePatch, type ShelfStory } from './api';
+import { dayOf, planOpenAt, type Net } from './offline/policy';
+import { createProgressQueue, type SendResult } from './offline/progress-queue';
 import { readItem, writeItem } from './storage';
 import { supabase } from './supabase';
 
@@ -34,9 +36,13 @@ type State = Local & {
   shelf: ShelfStory[] | null;
   shelfStatus: 'loading' | 'live' | 'cached';
   phoneLang: Lang;
+  /** When `GET me` last answered (ms), so the plan is trusted offline for at most 7 days. */
+  meCheckedAt: number | null;
+  /** The phone's connection, from expo-network. */
+  net: Net;
 };
 
-const KEYS = { local: 'lali-state-v1', me: 'lali-me-v1', child: 'lali-child-v1', shelf: 'lali-shelf-v1', email: 'lali-email-v1' };
+const KEYS = { local: 'lali-state-v1', me: 'lali-me-v1', meCheckedAt: 'lali-me-checked-v1', child: 'lali-child-v1', shelf: 'lali-shelf-v1', email: 'lali-email-v1' };
 
 const initialLocal: Local = {
   stars: 0,
@@ -83,10 +89,22 @@ function load(): State {
     shelf: readJson<ShelfStory[]>(KEYS.shelf),
     shelfStatus: 'loading',
     phoneLang: phoneLanguage(),
+    meCheckedAt: Number(readItem(KEYS.meCheckedAt)) || null,
+    net: { online: null, type: null },
   };
 }
 
-const serverDefault: State = { ...initialLocal, session: { ready: false, signedIn: false, email: null }, me: null, childId: null, shelf: null, shelfStatus: 'loading', phoneLang: 'en' };
+const serverDefault: State = {
+  ...initialLocal,
+  session: { ready: false, signedIn: false, email: null },
+  me: null,
+  childId: null,
+  shelf: null,
+  shelfStatus: 'loading',
+  phoneLang: 'en',
+  meCheckedAt: null,
+  net: { online: null, type: null },
+};
 
 let state: State | null = null;
 const listeners = new Set<() => void>();
@@ -110,6 +128,7 @@ function update(fn: (s: State) => State) {
   };
   writeItem(KEYS.local, JSON.stringify(local));
   if (after.me !== before.me) writeItem(KEYS.me, after.me ? JSON.stringify(after.me) : '');
+  if (after.meCheckedAt !== before.meCheckedAt) writeItem(KEYS.meCheckedAt, after.meCheckedAt ? String(after.meCheckedAt) : '');
   if (after.childId !== before.childId) writeItem(KEYS.child, after.childId ?? '');
   if (after.shelf !== before.shelf) writeItem(KEYS.shelf, after.shelf ? JSON.stringify(after.shelf) : '');
   listeners.forEach((l) => l());
@@ -183,6 +202,20 @@ export function shelfOf(s: State): ShelfStory[] {
   return s.shelf?.length ? s.shelf : bundledShelf();
 }
 
+/** No connection: the phone says so, or the shelf couldn't be loaded. */
+export function isOffline(s: State): boolean {
+  return s.net.online === false || s.shelfStatus === 'cached';
+}
+
+/**
+ * Is the family's plan open, as far as this phone knows? The last `GET me` answer is trusted for
+ * at most 7 days without reaching the server (paid downloads lock after that).
+ */
+export function planOpen(s: State): boolean {
+  const me = familyOf(s);
+  return planOpenAt(me?.plan, s.meCheckedAt, Date.now());
+}
+
 setApiContext({ childId: () => currentChild(current())?.id ?? null, lang: () => uiLangOf(current()) });
 
 // ---------------------------------------------------------------- server actions
@@ -191,12 +224,14 @@ let meRequest: Promise<Me | null> | null = null;
 
 async function fetchMe(): Promise<Me | null> {
   if (!current().session.signedIn) return null;
+  // Send stars earned offline first, so the answer below already counts them.
+  if (progressQueue.size()) await progressQueue.flush();
   try {
     const me = await api.me();
     update((s) => {
       // Keep the remembered child if it still exists; otherwise follow the server.
       const keep = s.childId && me.children.some((c) => c.id === s.childId);
-      return { ...s, me, childId: keep ? s.childId : me.currentChildId };
+      return { ...s, me, meCheckedAt: Date.now(), childId: keep ? s.childId : me.currentChildId };
     });
     return me;
   } catch (e) {
@@ -212,6 +247,47 @@ function applyProgress(childId: string, stars: number, tonight: Me['tonight']) {
       ? { ...s, me: { ...s.me, tonight, children: s.me.children.map((c) => (c.id === childId ? { ...c, stars } : c)) } }
       : s,
   );
+}
+
+/** Stars earned offline, sent when the phone is back online (src/lib/offline/progress-queue.ts). */
+const progressQueue = createProgressQueue({
+  kv: { get: readItem, set: writeItem },
+  async send(p): Promise<SendResult> {
+    const s = current();
+    if (!s.session.signedIn || !s.me) return 'retry';
+    // Only ever for a child of the family signed in now.
+    if (!s.me.children.some((c) => c.id === p.childId)) return 'drop';
+    try {
+      await api.progress(p.storyId, p.itemType, p.childId);
+      return 'sent';
+    } catch (e) {
+      // No connection, server trouble or signed out: keep it. A refusal (the child was removed): drop it.
+      if (isApiError(e, 'bad') || isApiError(e, 'notfound') || isApiError(e, 'plan')) return 'drop';
+      return 'retry';
+    }
+  },
+});
+
+/** Queue a signed-in child's finished story and show the star straight away. */
+function queueProgress(child: Child, id: string, itemType: 'story' | 'book') {
+  const added = progressQueue.add({ childId: child.id, storyId: id, itemType, day: dayOf(Date.now()), at: Date.now() });
+  if (added) {
+    update((s) => {
+      if (!s.me) return s;
+      const read = s.me.tonight.read + 1;
+      const limit = s.me.settings.nightlyLimit;
+      return {
+        ...s,
+        me: {
+          ...s.me,
+          tonight: { read, limitReached: limit > 0 && read >= limit },
+          children: s.me.children.map((c) => (c.id === child.id ? { ...c, stars: c.stars + 1 } : c)),
+        },
+      };
+    });
+  }
+  const after = currentChild(current());
+  return { stars: after?.stars ?? child.stars, limitReached: isLimitReached(current()) };
 }
 
 export const actions = {
@@ -254,11 +330,14 @@ export const actions = {
     const child = currentChild(s);
     update((st) => ({ ...st, finished: { ...st.finished, [id]: (st.finished[id] ?? 0) + 1 } }));
     if (child) {
+      // Offline: keep the star in the queue and send it when the phone is back online.
+      if (current().net.online === false) return queueProgress(child, id, itemType);
       try {
         const result = await api.progress(id, itemType);
         applyProgress(child.id, result.stars, result.tonight);
         return { stars: result.stars, limitReached: result.tonight.limitReached };
-      } catch {
+      } catch (e) {
+        if (isApiError(e, 'offline')) return queueProgress(child, id, itemType);
         return { stars: child.stars, limitReached: isLimitReached(current()) };
       }
     }
@@ -312,9 +391,16 @@ export const actions = {
     await actions.refreshMe();
   },
 
+  /** expo-network reports a change. */
+  setNet(net: Net) {
+    const was = current().net;
+    if (was.online === net.online && was.type === net.type) return;
+    update((s) => ({ ...s, net }));
+  },
+
   async signOut() {
     await supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
-    update((s) => ({ ...s, me: null, childId: null, session: { ready: true, signedIn: false, email: null } }));
+    update((s) => ({ ...s, me: null, meCheckedAt: null, childId: null, session: { ready: true, signedIn: false, email: null } }));
     actions.loadShelf();
   },
 

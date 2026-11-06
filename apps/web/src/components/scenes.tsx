@@ -5,9 +5,11 @@ import { useId } from "react";
 import type { SceneKind } from "@/content/stories";
 import {
   Acacia,
+  Air,
   BeeFlight,
   BeeHover,
   Bubble,
+  Butterfly,
   CloudShape,
   DayBackdrop,
   Daisy,
@@ -49,6 +51,7 @@ function MoonScene({ page }: { page: number }) {
       <>
         <Sky id={id} from="#0B1038" mid="#1E2770" to="#3C4194" />
         <Stars seed={9} n={34} bottom={230} />
+        <path d="M96 70 Q146 40 196 46 Q246 52 296 74" stroke="#FFF6C8" strokeOpacity={0.5} strokeWidth={2} strokeDasharray="0.5 7" strokeLinecap="round" fill="none" className="lali-fade-in" style={vars({ "--delay": "3.2s", "--dur": "1.2s" })} />
         {[
           [96, 70, "1", 1.4],
           [196, 46, "2", 2.1],
@@ -81,6 +84,12 @@ function MoonScene({ page }: { page: number }) {
       <NightBackdrop id={id} seed={page + 3} />
       {/* The moon, and the cloud she hides behind. On the last page the cloud slides away. */}
       <Moon x={300} y={66} r={27} glow={found} />
+      {found && (
+        <g className="lali-pop-in" style={vars({ "--delay": "2.4s" })}>
+          <circle cx={300} cy={66} r={52} fill="#FFF8D8" opacity={0.16} className="lali-pulse" style={vars({ "--dur": "3s" })} />
+          <circle cx={300} cy={66} r={34} fill="none" stroke="#FFF8D8" strokeWidth={2} className="lali-ring" style={vars({ "--delay": "2.6s" })} />
+        </g>
+      )}
       <g transform={found ? "translate(204 66)" : "translate(300 74)"}>
         <g
           className={found ? "lali-move-in" : "lali-parallax"}
@@ -154,6 +163,7 @@ function CountScene({ page }: { page: number }) {
       <Grass y={262} n={14} seed={21} />
       <Flower x={30} y={250} h={30} color="#FF8FB1" s={0.7} delay={-1} />
       <Daisy x={380} y={270} h={26} delay={-0.5} />
+      {page !== 2 && <Butterfly x={page === 3 ? 210 : 140} y={170} color="#B98CFF" delay={-0.8} />}
       {/* the fourth sheep hides behind the rock until page three */}
       {page >= 2 && (
         <g className={page === 2 ? "lali-rise-in" : undefined} style={vars({ "--fy": "34px", "--delay": "1s" })}>
@@ -232,6 +242,7 @@ function ShareScene({ page }: { page: number }) {
       <Flower x={372} y={214} h={46} color="#FF8FB1" delay={-2} />
       <Daisy x={200} y={276} h={22} delay={-1} />
       <Daisy x={320} y={280} h={20} delay={-2.2} />
+      {page !== 1 && <Butterfly x={330} y={150} color="#FF7A63" delay={-1.4} />}
       {page === 0 && (
         <>
           {/* sparkles of nectar in the big flower */}
@@ -264,6 +275,13 @@ function ShareScene({ page }: { page: number }) {
       {page >= 2 && (
         <g className={page === 2 ? "lali-rise-in" : undefined} style={vars({ "--fy": "50px", "--delay": "0.9s" })}>
           <HoneyPot x={182} y={272} />
+          {/* golden glints on the honey */}
+          {[
+            [170, 238, 0],
+            [194, 236, -0.7],
+          ].map(([x, y, d]) => (
+            <circle key={x} cx={x} cy={y} r={2.2} fill="#FFF6B0" className="lali-twinkle" style={vars({ "--delay": `${d}s`, "--dur": "1.6s" })} />
+          ))}
         </g>
       )}
       {page === 2 && <BeeHover x={190} y={150} s={1.5} />}
@@ -279,6 +297,14 @@ function ShareScene({ page }: { page: number }) {
   );
 }
 
+/** Pollen, motes and near grass in front of each launch-story picture. */
+const AIR: Partial<Record<SceneKind, (page: number) => "day" | "dusk" | "night">> = {
+  moon: () => "night",
+  count: () => "day",
+  share: () => "day",
+  newyear: (p) => (p === 8 || p === 9 ? "night" : p === 11 ? "dusk" : "day"),
+};
+
 /** The picture for one page of a story. Fills its box, cropping to keep a 4:3 scene. */
 export function Scene({ kind, page, className }: { kind: SceneKind; page: number; className?: string }) {
   return (
@@ -290,6 +316,7 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "rainbow" && <RainbowPuddleScene page={page} />}
       {kind === "fideltrain" && <FidelTrainScene page={page} />}
       {kind === "firstday" && <FirstDayScene page={page} />}
+      {AIR[kind] && <Air kind={AIR[kind](page)} seed={page * 7 + 3} grass={!(kind === "moon" && page === 2)} />}
     </svg>
   );
 }
