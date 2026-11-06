@@ -1,5 +1,5 @@
 import { router, type Href } from 'expo-router';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Platform, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,12 +7,15 @@ import Svg, { Path } from 'react-native-svg';
 
 import { Bee } from '@/components/characters';
 import { ChildChooser, Goodnight } from '@/components/family';
+import { KeepSheet } from '@/components/keep-sheet';
 import { StoryArt } from '@/components/story-art';
 import { BuzzingBee, ChunkyButton, Heading, Note } from '@/components/ui';
 import { agesLabel } from '@/content/stories';
 import { useLang, useT, useUiFonts } from '@/i18n';
 import type { ShelfStory } from '@/lib/api';
-import { actions, currentChild, isLimitReached, shelfAgeBand, shelfOf, starsOf, useAppState } from '@/lib/store';
+import { downloadsSupported, useDownloads } from '@/lib/downloads';
+import { offlineShelf } from '@/lib/offline/policy';
+import { actions, currentChild, isLimitReached, isOffline, planOpen, shelfAgeBand, shelfOf, starsOf, useAppState } from '@/lib/store';
 import { fonts, useTheme } from '@/lib/theme';
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -28,19 +31,27 @@ function openStory(story: ShelfStory) {
   else router.push({ pathname: '/story/[id]', params: { id: story.id } });
 }
 
-function StoryCard({ story, width, index }: { story: ShelfStory; width: number; index: number }) {
+function StoryCard({ story, width, index, onKeep }: { story: ShelfStory; width: number; index: number; onKeep: (s: ShelfStory) => void }) {
   const t = useTheme();
   const tr = useT();
   const lang = useLang();
   const f = useUiFonts();
   const times = useAppState((s) => s.finished[story.id] ?? 0);
+  const saved = useDownloads((d) => d.ids.has(story.id));
+  const pending = useDownloads((d) => d.busy.includes(story.id) || d.waiting.includes(story.id));
   const title = story.title[lang] || story.title.en;
+  // Grown-ups keep a story on the phone with a long press (then a hold to confirm); children just tap to read.
+  const canKeep = downloadsSupported && !story.locked && !saved;
   return (
     <Animated.View entering={FadeInDown.delay(120 + Math.min(index, 8) * 90).springify()} style={{ width }}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={story.locked ? tr.shelf.lockedLabel(title) : tr.shelf.read(title)}
+        accessibilityLabel={story.locked ? tr.shelf.lockedLabel(title) : canKeep ? tr.downloads.keepLabel(tr.shelf.read(title)) : tr.shelf.read(title)}
+        accessibilityActions={canKeep ? [{ name: 'longpress', label: tr.downloads.keep }] : undefined}
+        onAccessibilityAction={(e) => e.nativeEvent.actionName === 'longpress' && canKeep && onKeep(story)}
         onPress={() => openStory(story)}
+        onLongPress={canKeep ? () => onKeep(story) : undefined}
+        delayLongPress={600}
         style={({ pressed }) => [styles.card, { backgroundColor: story.color }, pressed && { transform: [{ scale: 0.96 }] }]}
       >
         <View style={styles.cardArt}>
@@ -57,6 +68,11 @@ function StoryCard({ story, width, index }: { story: ShelfStory; width: number; 
         {times > 0 && (
           <View style={styles.doneBadge}>
             <Text style={styles.doneText}>★ {times}</Text>
+          </View>
+        )}
+        {(saved || pending) && (
+          <View style={[styles.savedBadge, pending && !saved && { opacity: 0.6 }]} accessibilityLabel={saved ? tr.downloads.savedBadge : tr.downloads.savingRow}>
+            <Text style={styles.savedText}>{saved ? '✓' : '…'}</Text>
           </View>
         )}
       </Pressable>
@@ -108,10 +124,15 @@ export default function ReadHome() {
   const all = useAppState(shelfOf);
   const band = useAppState(shelfAgeBand);
   const child = useAppState(currentChild);
-  const status = useAppState((s) => s.shelfStatus);
   const finished = useAppState((s) => s.finished);
+  const offline = useAppState(isOffline);
+  const planIsOpen = useAppState(planOpen);
+  const saved = useDownloads((d) => d.cards);
+  const [keeping, setKeeping] = useState<ShelfStory | null>(null);
 
-  const stories = useMemo(() => (band ? all.filter((s) => s.ageBands.includes(band)) : all), [all, band]);
+  // Offline: only what can be read here, the launch stories and the downloaded ones.
+  const shelf = useMemo(() => (offline ? offlineShelf(all, saved, planIsOpen) : all), [offline, all, saved, planIsOpen]);
+  const stories = useMemo(() => (band ? shelf.filter((s) => s.ageBands.includes(band)) : shelf), [shelf, band]);
   const contentWidth = Math.min(width, 720) - 32;
   const columns = contentWidth > 520 ? 3 : 2;
   const cardWidth = (contentWidth - 16 * (columns - 1)) / columns;
@@ -156,7 +177,7 @@ export default function ReadHome() {
 
           <ShelfTabs />
           <ChildChooser />
-          {status === 'cached' && <Note>{tr.common.offline}</Note>}
+          {offline && <Note>{tr.offline.note}</Note>}
 
           {limitReached ? (
             <Goodnight name={child?.name} />
@@ -191,7 +212,7 @@ export default function ReadHome() {
               ) : (
                 <View style={styles.grid}>
                   {stories.map((s, i) => (
-                    <StoryCard key={s.id} story={s} width={cardWidth} index={i} />
+                    <StoryCard key={s.id} story={s} width={cardWidth} index={i} onKeep={setKeeping} />
                   ))}
                 </View>
               )}
@@ -208,6 +229,7 @@ export default function ReadHome() {
           <Text style={[styles.footer, { color: t.muted, fontFamily: f.body }]}>{tr.shelf.footer}</Text>
         </View>
       </ScrollView>
+      <KeepSheet story={keeping} onClose={() => setKeeping(null)} />
     </SafeAreaView>
   );
 }
@@ -241,6 +263,8 @@ const styles = StyleSheet.create({
   cardTitle: { color: '#fff', fontSize: 17, lineHeight: 23, paddingHorizontal: 12, paddingVertical: 10, minHeight: 66 },
   doneBadge: { position: 'absolute', top: 8, right: 8, backgroundColor: '#F5B21E', borderRadius: 999, paddingHorizontal: 10, paddingVertical: 2 },
   doneText: { fontFamily: fonts.display, color: '#2A1A00', fontSize: 14 },
+  savedBadge: { position: 'absolute', top: 8, left: 8, width: 26, height: 26, borderRadius: 13, backgroundColor: '#0E8C80', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: '#fff' },
+  savedText: { color: '#fff', fontSize: 14, fontWeight: '900', lineHeight: 18 },
   cardMeta: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginTop: 8 },
   tag: { color: '#fff', fontSize: 12, paddingHorizontal: 8, paddingVertical: 2, borderRadius: 999, overflow: 'hidden' },
   metaText: { fontSize: 13 },

@@ -26,6 +26,7 @@ to send unknown paths to `index.html` so links like `/story/lost-moon` work.
 ```bash
 npx tsc --noEmit
 npx eslint src
+npm test          # offline storage logic (node --test, no phone needed)
 ```
 
 ## Where things are
@@ -48,6 +49,7 @@ npx eslint src
 | `src/lib/use-read-along.ts` | Read-to-me with word highlighting |
 | `src/lib/store.ts` | The family from the server (cached for offline), and this phone's own stars when signed out |
 | `src/lib/api.ts`, `src/lib/config.ts` | The website's app API (docs/MOBILE.md) and its settings |
+| `src/lib/downloads.ts`, `src/lib/offline/` | Stories kept on the phone, Wi-Fi only, stars earned offline (docs/MOBILE.md) |
 | `src/i18n/` | Every interface word in English and Amharic |
 
 The app uses the website's backend: see `docs/MOBILE.md`. Sign-in links open the app through

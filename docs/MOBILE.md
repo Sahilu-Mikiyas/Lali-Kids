@@ -84,11 +84,48 @@ Games are web games. Show `url` in a `react-native-webview` with no pop-ups or o
 listen for `{type: "lali:score"}` / `{type: "lali:finished"}` messages (see `docs/GAMES.md`),
 and count time with `POST sessions/:id`.
 
+## Offline downloads (phone app only)
+
+"Download on Wi-Fi, read without data" from the plans page. Nothing new on the server: the app uses
+`GET stories/:id`, `GET me` and `POST progress` above.
+
+- **Keeping a story.** A grown-up long-presses a story on the shelf, or taps "Keep on this phone" at
+  the end of a story. A sheet explains what it does and the grown-up must **hold** the button for a
+  moment to confirm: a toddler tapping around doesn't start a download. The list, sizes and removal
+  are in the Grown-ups' corner, behind the maths question.
+- **What's saved.** Studio stories: the text from `GET stories/:id`, every page picture and every
+  narration recording, downloaded straight away because those links last one hour. Launch stories:
+  just the text (the app draws their scenes). Files go in the app's private document folder,
+  `<document>/stories/<id>-<time>/` (`story.json`, `p0.jpg`…, `a0-en.mp3`…); the list of downloads is
+  in the kv-store (`lali-downloads-v1`). A new copy replaces the old one only once it's complete.
+- **Partner PDF books are never downloaded** (publisher terms). Book pages are only shown and dropped.
+- **Who can download.** Only stories the family can open now: a locked shelf card can't be kept, and
+  `GET stories/:id` answering `402` stops the download. Paid stories download only while the plan is open.
+- **Plan ends.** Downloaded paid stories stay on the shelf and on the phone, locked, until the plan
+  is renewed. Offline, the app uses the last `plan.isOpen` from `GET me` and trusts it for at most
+  **7 days** without reaching the server (and never past the plan's end date).
+- **Wi-Fi only.** A Grown-ups' setting, on by default. A download asked for on mobile data (or with no
+  connection) waits, and starts when Wi-Fi is back while the app is open. Connection and its type
+  come from `expo-network`.
+- **Reading offline.** A downloaded story opens from its files (`file://` pictures, local narration
+  with word highlighting). Launch stories use the app's own reader instead of the website's animated
+  book. With no connection (expo-network, or the shelf failing to load) the shelf shows only what can
+  be read, the launch stories plus the downloaded ones, under "You're offline — here's what's on this
+  phone". Downloaded stories carry a small ✓.
+- **Stars offline.** A signed-in child who finishes a story offline gets the star on screen at once;
+  the `POST progress` call waits in the kv-store (`lali-progress-queue-v1`, one entry per child, story
+  and day) and is sent before the next `GET me` once the phone is back online.
+- **Web build.** No downloads: the buttons and the Grown-ups' card are hidden; everything else works.
+
+The storage logic is plain TypeScript in `apps/mobile/src/lib/offline/` with tests in
+`apps/mobile/tests/` (`npm test`).
+
 ## Rules the app keeps
 
 - Same promise as the website: no ads, no links out of the children's area, grown-ups' settings
   behind the maths gate.
-- Book pages are never saved to the phone; they're shown and dropped. Android blocks screenshots
+- Book pages are never saved to the phone; they're shown and dropped. Stories a grown-up chooses to
+  keep for offline reading are saved (see above). Android blocks screenshots
   on the reading screens.
 - Daily game time and the bedtime limit come from the server, so they're the same on every
   device.

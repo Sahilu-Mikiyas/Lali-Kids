@@ -141,9 +141,9 @@ export async function authHeaders(): Promise<Record<string, string>> {
 
 const TIMEOUT_MS = 20_000;
 
-async function call<T>(method: 'GET' | 'POST' | 'PATCH' | 'DELETE', path: string, body?: unknown, okStatuses: number[] = []): Promise<T> {
+async function call<T>(method: 'GET' | 'POST' | 'PATCH' | 'DELETE', path: string, body?: unknown, okStatuses: number[] = [], childId?: string): Promise<T> {
   const headers: Record<string, string> = { Accept: 'application/json', 'X-Lali-Lang': context.lang(), ...(await authHeaders()) };
-  const child = context.childId();
+  const child = childId ?? context.childId();
   if (child) headers['X-Lali-Child'] = child;
   if (body !== undefined) headers['Content-Type'] = 'application/json';
 
@@ -182,7 +182,9 @@ export const api = {
   stories: () => call<{ stories: ShelfStory[] }>('GET', 'stories'),
   /** A whole story with picture and narration links. A locked story throws ApiError('plan') with `{locked}` as its body. */
   story: (id: string) => call<{ story: ShelfStory }>('GET', `stories/${enc(id)}`),
-  progress: (storyId: string, itemType: 'story' | 'book' = 'story') => call<{ stars: number; tonight: Tonight }>('POST', 'progress', { storyId, itemType }),
+  /** `childId` sends a star for a child other than the one reading now (stars earned offline). */
+  progress: (storyId: string, itemType: 'story' | 'book' = 'story', childId?: string) =>
+    call<{ stars: number; tonight: Tonight }>('POST', 'progress', { storyId, itemType }, [], childId),
 
   books: () => call<{ books: Book[] }>('GET', 'books'),
   bookPages: (slug: string, from: number, to: number) => call<BookPages>('GET', `books/${enc(slug)}?from=${from}&to=${to}`),

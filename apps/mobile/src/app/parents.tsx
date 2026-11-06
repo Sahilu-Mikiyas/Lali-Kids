@@ -11,8 +11,10 @@ import { agesLabel } from '@/content/stories';
 import { formatDay, useLang, useT, useUiFonts } from '@/i18n';
 import { isApiError, type AgeBand, type Avatar, type Child, type Lang, type Me } from '@/lib/api';
 import { WEBSITE_ACCOUNT_URL } from '@/lib/config';
+import { downloads, downloadsSupported, useDownloads } from '@/lib/downloads';
 import { goBackOr } from '@/lib/nav';
-import { actions, currentChild, familyOf, shelfOf, storiesTonight, useAppState } from '@/lib/store';
+import { downloadLocked, formatBytes, waitReason } from '@/lib/offline/policy';
+import { actions, currentChild, familyOf, planOpen, shelfOf, storiesTonight, useAppState } from '@/lib/store';
 import { fonts, hasEthiopic, useTheme } from '@/lib/theme';
 
 const BANDS: AgeBand[] = ['3-5', '6-7', '8-9'];
@@ -232,6 +234,90 @@ function LanguageCard() {
   );
 }
 
+/** Stories kept on this phone for reading without data (phone app only). */
+function DownloadsCard() {
+  const t = useTheme();
+  const tr = useT();
+  const f = useUiFonts();
+  const lang = useLang();
+  const cards = useDownloads((d) => d.cards);
+  const waiting = useDownloads((d) => d.waiting);
+  const busy = useDownloads((d) => d.busy);
+  const wifiOnly = useDownloads((d) => d.wifiOnly);
+  const total = useDownloads((d) => d.totalBytes);
+  const net = useAppState((s) => s.net);
+  const open = useAppState(planOpen);
+  const shelf = useAppState(shelfOf);
+  const [confirmAll, setConfirmAll] = useState(false);
+  if (!downloadsSupported) return null;
+
+  const titleOf = (s: { title: Record<Lang, string> }) => s.title[lang] || s.title.en;
+  const nameFor = (id: string) => {
+    const s = shelf.find((x) => x.id === id);
+    return s ? titleOf(s) : id;
+  };
+  const reason = waitReason(net, wifiOnly);
+  const queued = waiting.filter((id) => !cards.some((c) => c.story.id === id));
+
+  return (
+    <Card>
+      <Label>{tr.downloads.title}</Label>
+      <Body>{tr.downloads.howTo}</Body>
+      <View style={styles.options}>
+        <Choice label={tr.downloads.wifiOnly} selected={wifiOnly} onPress={() => downloads.setWifiOnly(true)} />
+        <Choice label={tr.downloads.anyNetwork} selected={!wifiOnly} onPress={() => downloads.setWifiOnly(false)} />
+      </View>
+      {cards.length === 0 && queued.length === 0 && <Note>{tr.downloads.none}</Note>}
+      {cards.map(({ story, bytes, isFree }) => (
+        <View key={story.id} style={[styles.storyRow, { borderTopColor: t.line, alignItems: 'center' }]}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.storyName, { color: t.ink, fontFamily: lang === 'am' ? fonts.ethiopicBold : fonts.bodyBold }]}>✓ {titleOf(story)}</Text>
+            <Text style={[styles.childMeta, { color: t.muted, fontFamily: f.body }]}>
+              {formatBytes(bytes)}
+              {downloadLocked({ isFree }, open) ? ` · 🔒 ${tr.downloads.lockedRow}` : ''}
+            </Text>
+          </View>
+          <ChunkyButton small variant="plain" label={tr.downloads.remove} accessibilityLabel={`${tr.downloads.remove}: ${titleOf(story)}`} onPress={() => downloads.remove(story.id)} />
+        </View>
+      ))}
+      {queued.map((id) => (
+        <View key={id} style={[styles.storyRow, { borderTopColor: t.line, alignItems: 'center' }]}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.storyName, { color: t.ink, fontFamily: lang === 'am' ? fonts.ethiopicBold : fonts.bodyBold }]}>{nameFor(id)}</Text>
+            <Text style={[styles.childMeta, { color: t.muted, fontFamily: f.body }]}>
+              {busy.includes(id) ? tr.downloads.savingRow : reason === 'offline' ? tr.downloads.waitingOfflineRow : tr.downloads.waitingWifiRow}
+            </Text>
+          </View>
+          {!busy.includes(id) && <ChunkyButton small variant="plain" label={tr.downloads.cancel} onPress={() => downloads.cancelWaiting(id)} />}
+        </View>
+      ))}
+      {cards.length > 0 && (
+        <>
+          <Body>{tr.downloads.spaceUsed(formatBytes(total))}</Body>
+          {confirmAll ? (
+            <>
+              <Body>{tr.downloads.removeAllAsk}</Body>
+              <View style={styles.options}>
+                <ChunkyButton
+                  small
+                  label={tr.downloads.yesRemoveAll}
+                  onPress={() => {
+                    downloads.removeAll();
+                    setConfirmAll(false);
+                  }}
+                />
+                <ChunkyButton small variant="plain" label={tr.parents.keep} onPress={() => setConfirmAll(false)} />
+              </View>
+            </>
+          ) : (
+            <ChunkyButton small variant="plain" label={tr.downloads.removeAll} onPress={() => setConfirmAll(true)} style={{ alignSelf: 'flex-start' }} />
+          )}
+        </>
+      )}
+    </Card>
+  );
+}
+
 function WebsiteCard() {
   const tr = useT();
   return (
@@ -316,6 +402,7 @@ function FamilySettings({ me }: { me: Me }) {
       </Card>
 
       <LanguageCard />
+      <DownloadsCard />
       <PlanCard me={me} />
       <WebsiteCard />
     </Animated.View>
@@ -375,6 +462,7 @@ function PhoneSettings() {
       </Card>
 
       <LanguageCard />
+      <DownloadsCard />
 
       <Card>
         <Label>{tr.parents.plan}</Label>

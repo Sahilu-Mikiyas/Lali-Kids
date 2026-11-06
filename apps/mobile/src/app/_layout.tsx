@@ -8,7 +8,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 
-import { actions, useAppState } from '@/lib/store';
+import { downloads } from '@/lib/downloads';
+import { watchNetwork } from '@/lib/network';
+import { actions, getState, useAppState } from '@/lib/store';
 import { supabase } from '@/lib/supabase';
 import { useTheme } from '@/lib/theme';
 
@@ -39,12 +41,30 @@ function useFamilySync() {
       }
     });
     const app = AppState.addEventListener('change', (state) => {
-      if (state === 'active') actions.refreshMe();
+      if (state === 'active') {
+        actions.refreshMe();
+        void downloads.resume();
+      }
+    });
+
+    // Offline reading: follow the connection, and when it's back, reload the shelf, send stars
+    // earned offline (refreshMe does that) and start downloads that were waiting for Wi-Fi.
+    downloads.init();
+    const stopNet = watchNetwork((net) => {
+      const before = getState();
+      actions.setNet(net);
+      if (net.online === false) return;
+      if (before.net.online === false || before.shelfStatus === 'cached') {
+        actions.loadShelf();
+        actions.refreshMe();
+      }
+      void downloads.resume();
     });
     return () => {
       alive = false;
       sub.subscription.unsubscribe();
       app.remove();
+      stopNet();
     };
   }, []);
 }
