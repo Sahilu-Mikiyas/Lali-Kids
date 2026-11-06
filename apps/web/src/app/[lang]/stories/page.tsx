@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { BookCard } from "@/components/book-card";
 import { Bee } from "@/components/characters";
 import { ChildChooser } from "@/components/child-chooser";
+import { BookIcon } from "@/components/stickers/sticker-reward";
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { AGE_BANDS, type AgeBand } from "@/content/stories";
 import { limitReached, loadFamily } from "@/lib/family";
@@ -46,7 +47,21 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
 
   return (
     <>
-      {family && <ChildChooser childList={family.children} currentId={family.current?.id ?? null} stars={family.current?.stars ?? 0} />}
+      <div className="flex flex-wrap items-end gap-x-4">
+        {family && (
+          <div className="min-w-0 flex-1">
+            <ChildChooser childList={family.children} currentId={family.current?.id ?? null} stars={family.current?.stars ?? 0} />
+          </div>
+        )}
+        <Link
+          href="/stickers"
+          data-shelf-stickers=""
+          className="mt-8 flex items-center gap-2 rounded-2xl bg-white py-2 pl-2 pr-4 font-display text-lg font-extrabold shadow-[0_4px_0_var(--color-line)] transition hover:-translate-y-0.5"
+        >
+          <BookIcon size={40} />
+          {t.stickers.myBook}
+        </Link>
+      </div>
       <nav className="mt-8 flex flex-wrap items-center gap-2" aria-label="Age group">
         {lockedToChild ? (
           <p className="rounded-full bg-white px-4 py-2 font-bold shadow-[0_3px_0_var(--color-line)]">

@@ -13,6 +13,8 @@ import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
 import { createSupabaseAdmin, hasActivePlan } from "@/lib/supabase/server";
 import { signReadPass } from "@/lib/read-pass";
 import { shelfStories, storyForReading } from "@/lib/stories";
+import { cleanPosition, EMPTY_BASIS, isStickerId, isStoryId } from "@/lib/stickers/catalog";
+import { loadStickerBasis, saveFind, savePosition, stickerStories, summarise } from "@/lib/stickers/server";
 
 /**
  * The Lali app's API (apps/mobile, see docs/MOBILE.md). Every call carries the parent's
@@ -229,6 +231,39 @@ async function updateSession(ctx: Ctx, id: string) {
   return json({ secondsLeft: left });
 }
 
+/**
+ * GET stickers: the current child's sticker book. Earned stickers come from their finished
+ * stories (`completions`), golden ones from Find Lali finds, plus the milestones.
+ */
+async function getStickers(ctx: Ctx) {
+  const f = await family(ctx);
+  const stories = await stickerStories(f?.profile.id ?? null);
+  const basis = f?.current && ctx.me ? await loadStickerBasis(ctx.me.supabase, f.current.id) : EMPTY_BASIS;
+  const summary = summarise(stories, basis);
+  return json({ childId: f?.current?.id ?? null, ...summary, finds: basis.finds, positions: basis.positions });
+}
+
+/** POST stickers/finds: { storyId, page } — the child found Lali on that page (sent by the reader as `lali:found`). */
+async function postFind(ctx: Ctx) {
+  if (!ctx.me) return fail(401, "Sign in");
+  const f = await family(ctx);
+  if (!f?.current) return fail(400, "Add a child first");
+  const b = await body<{ storyId: string; page: number }>(ctx.request);
+  const page = Number(b.page);
+  if (!isStoryId(b.storyId) || !Number.isInteger(page) || page < 0 || page > 199) return fail(400, "Which page?");
+  return json({ ok: true, saved: await saveFind(f.current.id, b.storyId, page) });
+}
+
+/** PATCH stickers/:id: { page, x, y, r? } — where the child stuck it in the album (x, y 0–1). */
+async function patchSticker(ctx: Ctx, id: string) {
+  if (!ctx.me) return fail(401, "Sign in");
+  const f = await family(ctx);
+  if (!f?.current) return fail(400, "Add a child first");
+  const pos = cleanPosition(await body<Record<string, unknown>>(ctx.request));
+  if (!isStickerId(id) || !pos) return fail(400, "Which sticker?");
+  return json({ ok: true, saved: await savePosition(f.current.id, id, pos) });
+}
+
 /** POST checkout: { plan } → { url } of Chapa's page. The app opens it in the browser. */
 async function checkout(ctx: Ctx) {
   if (!ctx.me) return fail(401, "Sign in");
@@ -278,6 +313,12 @@ async function route(request: Request, params: Promise<{ path: string[] }>, meth
         return await updateSession(ctx, b);
       case "POST checkout":
         return await checkout(ctx);
+      case "GET stickers":
+        return await getStickers(ctx);
+      case "POST stickers/:x":
+        return b === "finds" ? await postFind(ctx) : fail(404, "Unknown call");
+      case "PATCH stickers/:x":
+        return await patchSticker(ctx, decodeURIComponent(b));
       default:
         return fail(404, "Unknown call");
     }

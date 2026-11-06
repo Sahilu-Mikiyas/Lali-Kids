@@ -16,6 +16,8 @@ import { createSupabaseServer } from "@/lib/supabase/server";
 import { GrownUpsGate } from "./gate";
 import { AddChildForm, AllAgesToggle, ChildCard, GamesPicker, LimitPicker, TelegramConnect } from "./controls";
 import { allowMoreTonight } from "./actions";
+import { FamilyVoicesCard, FindHintsCard } from "./family-voices";
+import { stickerStories } from "@/lib/stickers/server";
 
 export const metadata: Metadata = { title: "Grown-ups' corner" };
 
@@ -45,6 +47,7 @@ async function AccountContent() {
       .limit(12),
     supabase.from("profiles").select("telegram_chat_id").eq("id", family.profile.id).single(),
   ]);
+  const storyTitles = Object.fromEntries((await stickerStories(family.profile.id)).map((s) => [s.id, s.title]));
   const weekByChild = new Map<string, number>();
   for (const r of recent ?? []) weekByChild.set(r.child_id, (weekByChild.get(r.child_id) ?? 0) + 1);
 
@@ -159,6 +162,9 @@ async function AccountContent() {
             </div>
             <LangSwitch className="btn btn-plain !text-base" />
           </section>
+
+          <FamilyVoicesCard titles={storyTitles} />
+          <FindHintsCard />
 
           {telegramConfigured() && (
             <section className="mt-10 flex flex-wrap items-center gap-6 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">
