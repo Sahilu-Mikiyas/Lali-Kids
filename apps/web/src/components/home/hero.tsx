@@ -16,7 +16,9 @@ import { useEffect, useRef, useState } from "react";
 
 import { useLang, useT } from "@/i18n/provider";
 
-import { BeeShape, CubShape, GuguShape } from "../characters";
+import { BeeShape } from "../characters";
+import { Buddy } from "./buddies";
+import { useAwake, useScene, useStill } from "./live";
 
 const GLYPHS = ["A", "ሀ", "3", "b", "ለ", "★", "7", "መ", "c", "ሰ", "?", "1"];
 const GLYPH_COLORS = ["#E8513B", "#0E8C80", "#F5B21E", "#D63B72", "#2F5BD3"];
@@ -97,6 +99,14 @@ export function Hero() {
   const hx = useMotionValue(0);
   const hillShift = useSpring(hx, { stiffness: 50, damping: 15 });
   const hillShiftBack = useTransform(hillShift, (v) => v * 0.5);
+  // Parallax as you scroll: the far hill sinks a little faster than the near one, and the
+  // characters' stage drifts up, so the picture has depth.
+  const still = useStill();
+  const hillBackY = useScene(scrollYProgress, [0, 1], [0, 46], still, 0);
+  const hillFrontY = useScene(scrollYProgress, [0, 1], [0, 18], still, 0);
+  const stageY = useScene(scrollYProgress, [0, 1], [0, -40], still, 0);
+  const cloudsY = useScene(scrollYProgress, [0, 1], [0, 90], still, 0);
+  const sticky = useAwake<HTMLDivElement>("0px");
 
   const [glyphs, setGlyphs] = useState<Glyph[]>([]);
   const [line, setLine] = useState<string | null>(null);
@@ -150,7 +160,7 @@ export function Hero() {
         hx.set((e.clientX / innerWidth - 0.5) * -30);
       }}
     >
-      <motion.div style={{ background: sky }} className="sticky top-0 h-dvh min-h-[640px] overflow-hidden">
+      <motion.div ref={sticky} style={{ background: sky }} className="sticky top-0 h-dvh min-h-[640px] overflow-hidden">
         {/* stars */}
         <motion.div style={{ opacity: night }} className="absolute inset-0" aria-hidden>
           {Array.from({ length: 60 }, (_, i) => (
@@ -177,6 +187,7 @@ export function Hero() {
         </motion.div>
 
         {/* drifting clouds */}
+        <motion.div style={{ y: cloudsY }} className="absolute inset-0" aria-hidden>
         {[
           { top: "14%", dur: 75, delay: -10, scale: 1 },
           { top: "30%", dur: 110, delay: -60, scale: 0.7 },
@@ -189,6 +200,7 @@ export function Hero() {
             </motion.div>
           </div>
         ))}
+        </motion.div>
 
         <div className="relative z-10 mx-auto grid h-full max-w-6xl content-center items-center gap-2 px-4 pb-24 pt-28 sm:gap-6 sm:px-6 sm:pb-32 sm:pt-24 lg:grid-cols-[1.05fr_1fr]">
           {/* copy */}
@@ -241,16 +253,12 @@ export function Hero() {
           </motion.div>
 
           {/* stage */}
-          <div ref={stageRef} className="relative grid h-[300px] origin-bottom scale-[.78] place-items-end justify-center pb-10 sm:h-[420px] sm:scale-100">
-            <div className="absolute bottom-[205px] left-1/2 -ml-[80px] w-40 animate-float sm:bottom-[225px]" aria-hidden>
-              <svg viewBox="0 0 200 240" className="w-40">
-                <CubShape />
-              </svg>
+          <motion.div ref={stageRef} style={{ y: stageY }} className="relative grid h-[300px] origin-bottom scale-[.78] place-items-end justify-center pb-10 sm:h-[420px] sm:scale-100">
+            <div className="absolute bottom-[205px] left-1/2 z-30 -ml-[80px] w-40 animate-float sm:bottom-[225px]">
+              <Buddy who="cub" bubbleSide="left" />
             </div>
-            <div className="absolute bottom-6 right-0 hidden w-24 animate-float [animation-delay:-2s] sm:block" aria-hidden>
-              <svg viewBox="0 0 200 240">
-                <GuguShape />
-              </svg>
+            <div className="absolute bottom-6 right-0 z-30 hidden w-24 animate-float [animation-delay:-2s] sm:block">
+              <Buddy who="gugu" bubbleSide="left" />
             </div>
             <FlippingBook
               onTap={() => {
@@ -299,13 +307,13 @@ export function Hero() {
                 )}
               </AnimatePresence>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* hills */}
         <svg viewBox="0 0 1440 200" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-44 w-full" aria-hidden>
-          <motion.path style={{ fill: hillBack, x: hillShiftBack }} d="M-60 80 C180 10 330 20 480 75 S800 150 980 80 S1300 10 1500 60 L1500 200 L-60 200Z" />
-          <motion.path style={{ fill: hillFront, x: hillShift }} d="M-60 130 C220 80 400 90 620 135 S1000 170 1180 120 S1380 100 1500 115 L1500 200 L-60 200Z" />
+          <motion.path style={{ fill: hillBack, x: hillShiftBack, y: hillBackY }} d="M-60 80 C180 10 330 20 480 75 S800 150 980 80 S1300 10 1500 60 L1500 200 L-60 200Z" />
+          <motion.path style={{ fill: hillFront, x: hillShift, y: hillFrontY }} d="M-60 130 C220 80 400 90 620 135 S1000 170 1180 120 S1380 100 1500 115 L1500 200 L-60 200Z" />
           <path d="M0 175 C300 145 600 190 900 165 S1300 155 1440 172 L1440 200 L0 200Z" fill="var(--color-bg)" />
         </svg>
 

@@ -331,6 +331,60 @@ const en = {
     loading: "Loading…",
     birr: "birr",
   },
+  home: {
+    try: {
+      eyebrow: "Try a page",
+      title: "A real book, on any screen",
+      sub: "Turn the pages, tap any word to hear it, or press Read to me and watch the words light up. Switch to Amharic with one tap.",
+    },
+    music: {
+      on: "Play gentle music",
+      off: "Stop the music",
+      skip: "Next tune",
+      hint: "Tap for music ♪",
+      nowPlaying: "Now playing:",
+    },
+    bee: {
+      label: "Lali the bee is following you. Tap her!",
+      lines: {
+        try: "Turn a page with me!",
+        morning: "Good morning, friends!",
+        worlds: "Which world shall we visit?",
+        stars: "Can you count the stars?",
+        parents: "Shh… stories that end.",
+        report: "I carry the Sunday note!",
+        afternoon: "Off to the cinema!",
+        watch: "Popcorn time! Bzzz!",
+        plans: "Pick one with a grown-up.",
+        bedtime: "Time for bed. Goodnight!",
+      } as Record<string, string>,
+    },
+    buddies: {
+      cub: "Anbessa the lion cub. Tap him!",
+      gugu: "Gugu the gelada. Tap him!",
+      cubSays: ["Roar! A tiny one.", "Let's read!", "Hehehe!", "One more page?"],
+      guguSays: ["Hop, hop!", "I can count to ten!", "Wheee!", "Selam!"],
+      sleepySays: ["Yawn…", "Zzz…", "Goodnight…"],
+    },
+    walk: {
+      morning: "Morning: time to read",
+      afternoon: "Afternoon: time to watch",
+      evening: "Evening: one story, then sleep",
+    },
+    cinema: {
+      samples: "Sample videos",
+      samplesNote: "These videos are from other channels, so you can see how videos play here. Lali's own cartoons are coming soon.",
+      nowShowing: "Now showing",
+      playlist: "More to watch",
+      play: (t: string) => `Play ${t}`,
+      close: "Stop the video",
+      loading: "Getting the video ready…",
+      fallbackTitle: "Oh no, this video won't play right now",
+      fallbackSub: "The internet may be slow or switched off. Let's try again in a moment.",
+      retry: "Try again",
+      noPicture: "Video",
+    },
+  },
 };
 
 export type Dict = typeof en;
@@ -661,6 +715,60 @@ const am: Dict = {
   common: {
     loading: "በመጫን ላይ…",
     birr: "ብር",
+  },
+  home: {
+    try: {
+      eyebrow: "አንድ ገጽ ይሞክሩ",
+      title: "እውነተኛ መጽሐፍ፣ በማንኛውም ስክሪን",
+      sub: "ገጾቹን ይግለጡ፣ ለመስማት ማንኛውንም ቃል ይንኩ፣ ወይም «አንብብልኝ»ን ተጭነው ቃላቱ ሲበሩ ይመልከቱ። በአንድ ንክኪ ወደ እንግሊዝኛ ይቀይሩ።",
+    },
+    music: {
+      on: "ለስላሳ ሙዚቃ አጫውት",
+      off: "ሙዚቃውን አቁም",
+      skip: "ቀጣዩ ዜማ",
+      hint: "ለሙዚቃ ይንኩ ♪",
+      nowPlaying: "አሁን እየተጫወተ ያለው፦",
+    },
+    bee: {
+      label: "ላሊ ንቧ እየተከተለችዎት ነው። ይንኳት!",
+      lines: {
+        try: "ከእኔ ጋር ገጽ ግለጡ!",
+        morning: "እንደምን አደራችሁ ጓደኞቼ!",
+        worlds: "የትኛውን ዓለም እንጎብኝ?",
+        stars: "ኮከቦቹን መቁጠር ትችላለህ?",
+        parents: "ሽሽ… የሚያልቁ ተረቶች።",
+        report: "የእሁዱን ማስታወሻ እኔ አመጣለሁ!",
+        afternoon: "ወደ ሲኒማ እንሂድ!",
+        watch: "የፈንዲሻ ሰዓት! ዝዝዝ!",
+        plans: "ከወላጅ ጋር አንዱን ምረጡ።",
+        bedtime: "የመኝታ ሰዓት ነው። ደህና እደሩ!",
+      },
+    },
+    buddies: {
+      cub: "አንበሳ ግልገሉ። ይንኩት!",
+      gugu: "ጉጉ ጭላዳው። ይንኩት!",
+      cubSays: ["ግርርር! ትንሽዬ ናት።", "እናንብብ!", "ሂሂሂ!", "አንድ ገጽ ብቻ?"],
+      guguSays: ["ዝለል፣ ዝለል!", "እስከ አሥር መቁጠር እችላለሁ!", "ዋው!", "ሰላም!"],
+      sleepySays: ["ኡፍፍ…", "ዝዝዝ…", "ደህና እደሩ…"],
+    },
+    walk: {
+      morning: "ጠዋት፦ የንባብ ሰዓት",
+      afternoon: "ከሰዓት፦ የመመልከቻ ሰዓት",
+      evening: "ምሽት፦ አንድ ተረት፣ ከዚያም እንቅልፍ",
+    },
+    cinema: {
+      samples: "የምሳሌ ቪዲዮዎች",
+      samplesNote: "እነዚህ ቪዲዮዎች ከሌሎች ቻናሎች የተወሰዱ ናቸው፤ ቪዲዮዎች እዚህ እንዴት እንደሚጫወቱ ለማሳየት ነው። የላሊ የራሷ ካርቱኖች በቅርቡ ይመጣሉ።",
+      nowShowing: "አሁን በስክሪኑ ላይ",
+      playlist: "ሌሎች የሚታዩ",
+      play: (t: string) => `${t} አጫውት`,
+      close: "ቪዲዮውን አቁም",
+      loading: "ቪዲዮው እየተዘጋጀ ነው…",
+      fallbackTitle: "ውይ፣ ይህ ቪዲዮ አሁን አይጫወትም",
+      fallbackSub: "ኢንተርኔቱ ቀርፋፋ ወይም ጠፍቶ ሊሆን ይችላል። ትንሽ ቆይተን እንደገና እንሞክር።",
+      retry: "እንደገና ሞክር",
+      noPicture: "ቪዲዮ",
+    },
   },
 };
 

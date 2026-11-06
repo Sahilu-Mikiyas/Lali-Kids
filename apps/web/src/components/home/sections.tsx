@@ -5,27 +5,46 @@ import { useT } from "@/i18n/provider";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import { APP_STORES, FEATURED_VIDEOS, SOCIAL, type SocialNetwork } from "@/content/links";
 import { STORIES } from "@/content/stories";
 import { confetti } from "@/lib/confetti";
-import { Bee, GuguShape, STAR_PATH } from "../characters";
+import { ShootingStar } from "../book/scenery";
+import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
 import { Scene } from "../scenes";
-import { SOCIAL_LABEL, SocialIcon } from "../social-icons";
+import { Buddy } from "./buddies";
+import { useAwake } from "./live";
 
 /* ---------- shared ---------- */
 
 export function SectionHead({ eyebrow, title, sub, center }: { eyebrow?: string; title: ReactNode; sub?: ReactNode; center?: boolean }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial="hidden"
+      whileInView="shown"
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ type: "spring", stiffness: 120, damping: 18 }}
+      variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.09 } } }}
       className={`mb-12 max-w-2xl space-y-4 ${center ? "mx-auto text-center" : ""}`}
     >
-      {eyebrow && <p className="font-display text-lg font-extrabold text-coral">{eyebrow}</p>}
-      <h2 className="font-display text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[1.02]">{title}</h2>
-      {sub && <p className="text-xl leading-relaxed text-muted">{sub}</p>}
+      {eyebrow && (
+        <motion.p
+          variants={{ hidden: { opacity: 0, scale: 0.6, rotate: -8 }, shown: { opacity: 1, scale: 1, rotate: -2 } }}
+          transition={{ type: "spring", stiffness: 420, damping: 14 }}
+          className={`inline-block rounded-full bg-coral/10 px-3 py-0.5 font-display text-lg font-extrabold text-coral ${center ? "origin-center" : "origin-left"}`}
+        >
+          {eyebrow}
+        </motion.p>
+      )}
+      <motion.h2
+        variants={{ hidden: { opacity: 0, y: 34 }, shown: { opacity: 1, y: 0 } }}
+        transition={{ type: "spring", stiffness: 140, damping: 16 }}
+        className="font-display text-[clamp(2.4rem,5vw,3.8rem)] font-black leading-[1.02]"
+      >
+        {title}
+      </motion.h2>
+      {sub && (
+        <motion.p variants={{ hidden: { opacity: 0, y: 20 }, shown: { opacity: 1, y: 0 } }} transition={{ type: "spring", stiffness: 140, damping: 18 }} className="text-xl leading-relaxed text-muted">
+          {sub}
+        </motion.p>
+      )}
     </motion.div>
   );
 }
@@ -54,6 +73,15 @@ function Tilt({ children, className, style }: { children: ReactNode; className?:
   );
 }
 
+/** A soft wavy edge where one section's colour flows into the next. `className` sets its colour. */
+export function Wave({ className = "", flip = false }: { className?: string; flip?: boolean }) {
+  return (
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none" className={`pointer-events-none absolute inset-x-0 h-7 w-full sm:h-9 ${flip ? "bottom-0 rotate-180" : "top-0"} ${className}`} aria-hidden>
+      <path d="M0 0 H1200 V12 C1000 34 820 4 600 18 S200 34 0 10Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /* ---------- marquee ---------- */
 
 const MARQUEE = [
@@ -67,8 +95,9 @@ const MARQUEE = [
 
 export function Marquee() {
   const row = [...MARQUEE, ...MARQUEE];
+  const ref = useAwake<HTMLDivElement>();
   return (
-    <div className="relative -mt-2 overflow-hidden bg-ink py-5 text-white" aria-hidden>
+    <div ref={ref} className="relative -mt-2 overflow-hidden bg-ink py-5 text-white" aria-hidden>
       <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
         {[...row, ...row].map(([en, am], i) => (
           <span key={i} className="flex items-center gap-4 font-display text-3xl font-black">
@@ -152,8 +181,9 @@ const WORLDS = [
 
 export function Worlds() {
   const t = useT();
+  const ref = useAwake<HTMLElement>();
   return (
-    <section id="worlds" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
+    <section ref={ref} id="worlds" data-bee="worlds" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6 sm:py-28">
       <SectionHead
         eyebrow={t.worlds.eyebrow}
         title={t.worlds.title}
@@ -163,22 +193,17 @@ export function Worlds() {
         {WORLDS.map((w, i) => ({ ...w, ...t.worlds.list[i] })).map((w, i) => (
           <motion.div
             key={w.name}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 70, rotate: i % 2 ? 5 : -5, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ type: "spring", stiffness: 120, damping: 15, delay: i * 0.1 }}
+            transition={{ type: "spring", stiffness: 160, damping: 12, delay: i * 0.1 }}
           >
-            <Tilt className="group h-full space-y-3 rounded-[28px] p-6" style={{ background: w.tint }}>
-                <motion.svg
-                  viewBox="0 0 96 96"
-                  className="h-24 w-24"
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, delay: i * 0.6, ease: "easeInOut" }}
-                  whileHover={{ rotate: [0, -12, 10, 0], scale: 1.12 }}
-                  aria-hidden
-                >
-                  {w.icon}
-                </motion.svg>
+            <Tilt className="group h-full space-y-3 rounded-[28px] p-6 transition-shadow hover:shadow-[0_10px_0_rgba(27,42,78,.08)]" style={{ background: w.tint }}>
+                <motion.div className="h-24 w-24" whileHover={{ rotate: [0, -12, 10, 0], scale: 1.12 }} whileTap={{ scale: 0.9, rotate: -10 }}>
+                  <svg viewBox="0 0 96 96" className="home-float h-24 w-24" style={{ animationDelay: `${-i * 0.6}s` }} aria-hidden>
+                    {w.icon}
+                  </svg>
+                </motion.div>
                 <h3 className="font-display text-2xl font-black" style={{ color: w.color }}>
                   {w.name}
                 </h3>
@@ -197,8 +222,10 @@ export function Worlds() {
 export function FeedVsBook() {
   const t = useT();
   const thumbs = Array.from({ length: 8 }, (_, i) => i);
+  const ref = useAwake<HTMLElement>();
   return (
-    <section id="parents" className="scroll-mt-24 bg-white py-28">
+    <section ref={ref} id="parents" data-bee="parents" className="relative scroll-mt-24 bg-white pb-28 pt-32">
+      <Wave className="text-bg" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHead
           eyebrow={t.parents.eyebrow}
@@ -212,9 +239,10 @@ export function FeedVsBook() {
         />
         <div className="grid gap-8 md:grid-cols-2">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -60, rotate: -4 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 110, damping: 15 }}
             className="relative overflow-hidden rounded-[32px] bg-[#EEF0F5] p-6"
           >
             <p className="font-display text-2xl font-black text-muted">{t.parents.feed}</p>
@@ -241,21 +269,16 @@ export function FeedVsBook() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 60, rotate: 4 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.12 }}
             className="relative overflow-hidden rounded-[32px] bg-night p-6 text-white"
           >
             <p className="font-display text-2xl font-black text-gold">{t.parents.lali}</p>
             <div className="relative mt-5 grid h-72 place-items-center overflow-hidden rounded-2xl" style={{ background: STORIES[0].color }}>
               <Scene kind="moon" page={3} />
-              <motion.span
-                className="absolute bottom-4 rounded-full bg-white px-4 py-1.5 font-display text-lg font-black text-night"
-                animate={{ scale: [1, 1.08, 1] }}
-                transition={{ duration: 2.4, repeat: Infinity }}
-              >
-                {t.parents.goodnight}
-              </motion.span>
+              <span className="home-pulse absolute bottom-4 rounded-full bg-white px-4 py-1.5 font-display text-lg font-black text-night">{t.parents.goodnight}</span>
             </div>
             <ul className="mt-5 space-y-2 text-white/85">
               {t.parents.laliGood.map((x) => (
@@ -269,10 +292,11 @@ export function FeedVsBook() {
           {t.parents.features.map(([ft, d], i) => [ft, d, ["bg-blue", "bg-coral", "bg-teal", "bg-berry"][i]]).map(([ft, d, c], i) => (
             <motion.div
               key={ft}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.92 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
+              transition={{ type: "spring", stiffness: 200, damping: 14, delay: i * 0.08 }}
+              whileHover={{ y: -6 }}
               className="rounded-3xl bg-bg p-5"
             >
               <span className={`mb-3 block h-3 w-10 rounded-full ${c}`} />
@@ -321,11 +345,14 @@ function tone(freq: number) {
 export function StarGame() {
   const t = useT();
   const [lit, setLit] = useState<number[]>([]);
+  // Gugu points at the sky each time a star lights up (a new key restarts his little cheer).
+  const [cheer, setCheer] = useState(0);
   const count = lit.length;
   const done = count === 10;
 
+  const ref = useAwake<HTMLElement>();
   return (
-    <section className="mx-auto max-w-6xl px-4 py-28 sm:px-6">
+    <section ref={ref} data-bee="stars" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <SectionHead eyebrow={t.starGame.eyebrow} title={t.starGame.title} sub={t.starGame.sub} />
@@ -348,7 +375,10 @@ export function StarGame() {
               t.starGame.start
             )}
           </p>
-          <button type="button" className="btn btn-plain mt-6 !text-base" onClick={() => setLit([])}>
+          <button type="button" className="btn btn-plain mt-6 !text-base" onClick={() => {
+              setLit([]);
+              setCheer(0);
+            }}>
             {t.starGame.again}
           </button>
         </div>
@@ -356,9 +386,12 @@ export function StarGame() {
           <svg viewBox="0 0 400 60" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-1/4 w-full" aria-hidden>
             <path d="M0 60 L0 30 Q100 0 200 24 T400 18 L400 60Z" fill="#2E7F6A" />
           </svg>
-          <svg viewBox="0 0 200 240" className="absolute bottom-2 right-[4%] w-[17%]" aria-hidden>
-            <GuguShape />
+          <svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
+            <ShootingStar seed={2} />
           </svg>
+          <div className="absolute bottom-1 right-[3%] z-10 w-[19%]">
+            <Buddy key={cheer} who="gugu" pose={done ? "hop" : cheer ? "point" : "sit"} mood={done ? "joy" : "happy"} bubbleSide="left" />
+          </div>
           {STAR_SPOTS.map(([x, y], i) => {
             const n = lit.indexOf(i);
             const on = n >= 0;
@@ -371,6 +404,7 @@ export function StarGame() {
                   if (on) return;
                   const next = [...lit, i];
                   setLit(next);
+                  setCheer(next.length);
                   tone(NOTES[next.length - 1]);
                   if (next.length === 10) {
                     confetti(0.5);
@@ -379,11 +413,12 @@ export function StarGame() {
                 }}
                 className="absolute w-[12%] max-w-[76px] -translate-x-1/2 -translate-y-1/2"
                 style={{ left: `${x}%`, top: `${y}%` }}
-                animate={on ? { scale: 1.25, rotate: 20 } : { scale: [1, 0.88, 1] }}
-                transition={on ? { type: "spring", stiffness: 400, damping: 10 } : { duration: 2.4, repeat: Infinity, delay: i * 0.2 }}
+                animate={on ? { scale: 1.25, rotate: 20 } : { scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 whileHover={{ scale: on ? 1.25 : 1.15 }}
+                whileTap={{ scale: 0.8 }}
               >
-                <svg viewBox="0 0 24 24" className={on ? "drop-shadow-[0_0_14px_rgba(255,213,74,.85)]" : ""}>
+                <svg viewBox="0 0 24 24" className={on ? "drop-shadow-[0_0_14px_rgba(255,213,74,.85)]" : "home-breathe"} style={on ? undefined : { animationDelay: `${-i * 0.2}s` }}>
                   <path d={STAR_PATH} fill={on ? "#FFD54A" : "#5A5FA8"} />
                 </svg>
                 {on && <span className="absolute inset-0 grid place-items-center font-display text-[clamp(.8rem,1.6vw,1.2rem)] font-black text-[#5C3A00]">{n + 1}</span>}
@@ -409,14 +444,33 @@ export function ParentReport() {
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <section className="bg-white py-28">
+    <section data-bee="report" className="relative bg-white pb-28 pt-16">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
         <SectionHead
           eyebrow={t.report.eyebrow}
           title={t.report.title}
           sub={t.report.sub}
         />
-        <div ref={ref} className="space-y-5 rounded-[32px] border-2 border-dashed border-line bg-bg p-7">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, x: 120, y: -80, rotate: 14, scale: 0.7 }}
+          whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ type: "spring", stiffness: 70, damping: 13 }}
+          className="relative space-y-5 rounded-[32px] border-2 border-dashed border-line bg-bg p-7"
+        >
+          {/* Lali delivers the Sunday note */}
+          <motion.span
+            initial={{ opacity: 0, x: 80, y: -40 }}
+            animate={seen ? { opacity: [0, 1, 1, 0], x: [80, 0, -10, -60], y: [-40, -30, -36, -90] } : {}}
+            transition={{ duration: 2.2, times: [0, 0.3, 0.7, 1], delay: 0.3 }}
+            className="pointer-events-none absolute -top-10 right-6 block h-12 w-12"
+            aria-hidden
+          >
+            <svg viewBox="0 0 40 40" className="h-full w-full">
+              <BeeShape />
+            </svg>
+          </motion.span>
           <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-muted">
             <span>{t.report.sample}</span>
             <span>{t.report.dates}</span>
@@ -446,104 +500,21 @@ export function ParentReport() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            {["brave", "moon", "share", "mountain", "ጨረቃ", "ኮከብ"].map((w) => (
-              <span key={w} className={`rounded-full bg-white px-3 py-1 font-bold shadow-[0_2px_0_var(--color-line)] ${/[ሀ-፿]/.test(w) ? "font-ethiopic" : ""}`}>
+            {["brave", "moon", "share", "mountain", "ጨረቃ", "ኮከብ"].map((w, i) => (
+              <motion.span
+                key={w}
+                initial={{ opacity: 0, scale: 0.3 }}
+                animate={seen ? { opacity: 1, scale: 1 } : {}}
+                transition={{ type: "spring", stiffness: 500, damping: 14, delay: 0.9 + i * 0.08 }}
+                whileHover={{ y: -4, rotate: i % 2 ? 4 : -4 }}
+                className={`rounded-full bg-white px-3 py-1 font-bold shadow-[0_2px_0_var(--color-line)] ${/[ሀ-፿]/.test(w) ? "font-ethiopic" : ""}`}
+              >
                 {w}
-              </span>
+              </motion.span>
             ))}
           </div>
           <p className="text-muted">{t.report.ask}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- videos and channels ---------- */
-
-function Video({ id, title }: { id: string; title: string }) {
-  const t = useT();
-  const [play, setPlay] = useState(false);
-  return (
-    <div className="overflow-hidden rounded-3xl bg-white shadow-[0_6px_0_var(--color-line)]">
-      <div className="relative aspect-video bg-black">
-        {play ? (
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}
-            title={title}
-            allow="autoplay; encrypted-media; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 h-full w-full"
-          />
-        ) : (
-          <button type="button" onClick={() => setPlay(true)} aria-label={t.watch.play(title)} className="group absolute inset-0">
-            {/* eslint-disable-next-line @next/next/no-img-element -- YouTube thumbnails are external and change per video */}
-            <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" className="h-full w-full object-cover" />
-            <span className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-coral transition group-hover:scale-110">
-              <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
-                <path d="M8 5 L19 12 L8 19Z" fill="#fff" />
-              </svg>
-            </span>
-          </button>
-        )}
-      </div>
-      <p className="p-4 font-bold">{title}</p>
-    </div>
-  );
-}
-
-export function Watch() {
-  const t = useT();
-  const networks = Object.keys(SOCIAL) as SocialNetwork[];
-  const anyLive = networks.some((n) => SOCIAL[n]);
-  return (
-    <section id="watch" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
-      <SectionHead eyebrow={t.watch.eyebrow} title={t.watch.title} sub={t.watch.sub} />
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURED_VIDEOS.length
-          ? FEATURED_VIDEOS.slice(0, 6).map((v) => <Video key={v.id} id={v.id} title={v.title} />)
-          : STORIES.map((s, i) => (
-              <motion.div
-                key={s.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="overflow-hidden rounded-3xl bg-white shadow-[0_6px_0_var(--color-line)]"
-              >
-                <div className="relative aspect-video" style={{ background: s.color }}>
-                  <Scene kind={s.scene ?? "moon"} page={i % s.pages.length} />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-sm font-bold text-white">{t.watch.coming}</span>
-                </div>
-                <p className="p-4 font-bold">{s.title.en}</p>
-              </motion.div>
-            ))}
-      </div>
-      <div className="mt-10 flex flex-wrap items-center gap-6 rounded-[32px] bg-white p-7">
-        <div className="min-w-60 flex-1">
-          <p className="font-display text-2xl font-black">{t.watch.follow}</p>
-          <p className="text-muted">{anyLive ? t.watch.live : t.watch.soon}</p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {networks.map((n) => {
-            const url = SOCIAL[n];
-            const chip = (
-              <span className={`flex items-center gap-2 rounded-full border-2 border-line px-4 py-2 font-bold transition ${url ? "hover:-translate-y-1 hover:border-ink" : "opacity-50"}`}>
-                <SocialIcon network={n} size={26} />
-                {SOCIAL_LABEL[n]}
-              </span>
-            );
-            return url ? (
-              <a key={n} href={url} target="_blank" rel="noopener" aria-label={t.watch.on(SOCIAL_LABEL[n])}>
-                {chip}
-              </a>
-            ) : (
-              <span key={n} aria-label={t.watch.soonOn(SOCIAL_LABEL[n])}>
-                {chip}
-              </span>
-            );
-          })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -559,23 +530,32 @@ const PLANS = [
 
 export function Plans() {
   const t = useT();
+  const ref = useAwake<HTMLElement>();
   return (
-    <section id="plans" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-28 sm:px-6">
+    <section ref={ref} id="plans" data-bee="plans" className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-28 pt-16 sm:px-6">
       <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
       <div className="grid items-stretch gap-6 md:grid-cols-3">
         {PLANS.map((p) => ({ ...p, featured: "featured" in p && p.featured, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
           <motion.div
             key={p.id}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 60, rotate: (i - 1) * 4 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             viewport={{ once: true }}
-            transition={{ type: "spring", stiffness: 120, damping: 16, delay: i * 0.1 }}
+            transition={{ type: "spring", stiffness: 150, damping: 13, delay: i * 0.1 }}
             whileHover={{ y: -8 }}
-            className={`relative flex flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] ${
+            className={`group relative mt-10 flex flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] ${
               p.featured ? "bg-ink text-white shadow-[0_8px_0_#0d1530]" : "bg-white"
             }`}
           >
-            {p.featured && <span className="absolute -top-4 left-7 rounded-full bg-gold px-4 py-1 font-display font-black text-[#2A1A00]">{t.plans.popular}</span>}
+            {/* a friend peeks over the top of each card, and pops up on hover */}
+            <span className="pointer-events-none absolute -top-[58px] right-6 block h-[58px] w-[76px] overflow-hidden" aria-hidden>
+              <span className={`block w-full transition-transform duration-300 ease-[cubic-bezier(.3,1.6,.5,1)] group-hover:translate-y-0 ${i === 0 ? "translate-y-5" : "translate-y-8"}`}>
+                <svg viewBox={i === 0 ? "0 0 40 40" : "0 0 200 240"} className="block w-full">
+                  {i === 0 ? <BeeShape /> : i === 1 ? <GuguShape pose="wave" /> : <CubShape pose="sit" mood="joy" />}
+                </svg>
+              </span>
+            </span>
+            {p.featured && <span className="home-wiggle absolute -top-4 left-7 rounded-full bg-gold px-4 py-1 font-display font-black text-[#2A1A00]">{t.plans.popular}</span>}
             <p className="font-display text-3xl font-black">{p.name}</p>
             <p className={p.featured ? "text-white/75" : "text-muted"}>{p.for}</p>
             <p className="font-display text-5xl font-black tabular-nums">
@@ -599,79 +579,6 @@ export function Plans() {
           </motion.div>
         ))}
       </div>
-    </section>
-  );
-}
-
-/* ---------- apps + final call ---------- */
-
-function StoreBadge({ store }: { store: "googlePlay" | "appStore" }) {
-  const t = useT();
-  const url = APP_STORES[store];
-  const body = (
-    <span className={`flex items-center gap-3 rounded-2xl bg-black px-5 py-2.5 text-white transition ${url ? "hover:-translate-y-1" : "opacity-60"}`}>
-      <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
-        {store === "googlePlay" ? (
-          <>
-            <path d="M4 2.5 L13.5 12 L4 21.5Z" fill="#00D7FE" />
-            <path d="M4 2.5 L16.8 9.4 L13.5 12Z" fill="#00F076" />
-            <path d="M4 21.5 L16.8 14.6 L13.5 12Z" fill="#FF3A44" />
-            <path d="M16.8 9.4 L20.5 11.4 Q21.5 12 20.5 12.6 L16.8 14.6 L13.5 12Z" fill="#FFD400" />
-          </>
-        ) : (
-          <path
-            d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7zM14.2 5.5c.6-.8 1.1-1.8 1-2.9-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.7-1 2.8 1 .1 2-.5 2.7-1.3z"
-            fill="#fff"
-          />
-        )}
-      </svg>
-      <span className="leading-tight">
-        <span className="block text-[11px]">{url ? (store === "googlePlay" ? t.cta.getIt : t.cta.download) : t.cta.soon}</span>
-        <span className="block text-lg font-bold">{store === "googlePlay" ? "Google Play" : "App Store"}</span>
-      </span>
-    </span>
-  );
-  return url ? (
-    <a href={url} target="_blank" rel="noopener">
-      {body}
-    </a>
-  ) : (
-    body
-  );
-}
-
-export function GetTheApp() {
-  const t = useT();
-  return (
-    <section className="mx-auto max-w-6xl px-4 sm:px-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        className="relative overflow-hidden rounded-[40px] bg-[linear-gradient(135deg,#E8513B,#D63B72)] p-8 text-white sm:p-14"
-      >
-        <div className="relative z-10 max-w-xl space-y-5">
-          <h2 className="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] font-black leading-[1.02]">{t.cta.title}</h2>
-          <p className="text-xl text-white/90">{t.cta.sub}</p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/stories" className="btn bg-white text-coral shadow-[0_6px_0_rgba(0,0,0,.2)]">
-              {t.cta.open}
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-3 pt-2">
-            <StoreBadge store="googlePlay" />
-            <StoreBadge store="appStore" />
-          </div>
-        </div>
-        <motion.div
-          className="absolute -right-6 bottom-0 hidden sm:block"
-          animate={{ y: [0, -14, 0], rotate: [0, 6, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          aria-hidden
-        >
-          <Bee size={260} />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
