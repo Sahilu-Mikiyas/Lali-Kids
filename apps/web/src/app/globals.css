@@ -480,3 +480,20 @@ h3 {
   transform-origin: 100% 100%;
   animation: lali-peek 3.2s ease-in-out infinite;
 }
+
+/* Language switch: a soft fade out and back in instead of a jump. */
+html.lang-leaving body {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+html.lang-arriving body {
+  animation: lali-lang-in 0.35s ease-out both;
+}
+@keyframes lali-lang-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.lang-leaving body, html.lang-arriving body { transition: none; animation: none; }
+}
