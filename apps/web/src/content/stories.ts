@@ -274,12 +274,12 @@ export const STORIES: Story[] = [
         am: 'ላሊ በአየር ላይ ክብ እየሠራች በረረችና የጉጉ አፍንጫ ላይ አረፈች። «እንግዲያው መርማሪዎች እንሁን! ሕጋችን ቀላል ነው፦ በደንብ እንይ፣ በጥሞና እናስብ፣ ከዚያ እንወስን።»',
       },
       {
-        en: 'Clue number one: tiny footprints in the dust, each with three thin toes pointing forward. Gugu counted twelve. "Look! They start in the middle of the yard and stop at the basket. Whoever made them didn\'t walk in…" "They flew in!" said Lali.',
-        am: 'የመጀመሪያው ፍንጭ፦ በአቧራው ላይ ጥቃቅን የእግር ዱካዎች፣ እያንዳንዳቸው ወደ ፊት የሚያመለክቱ ሦስት ቀጭን ጣቶች ያሏቸው። ጉጉ አሥራ ሁለት ቆጠረ። «ተመልከቱ! ዱካዎቹ የሚጀምሩት ከግቢው መሐል ነው፣ የሚቆሙትም ሰፌዱ ጋ ነው። የሠራቸው በእግሩ አልገባም…» «በክንፍ በርሮ ገባ!» አለች ላሊ።',
+        en: 'Clue one: twelve tiny footprints in the dust, each with three thin toes. "Look! They start in the middle of the yard," said Gugu. "Nobody walked in…" "They flew in!" said Lali.',
+        am: 'የመጀመሪያው ፍንጭ፦ በአቧራው ላይ ሦስት ቀጭን ጣቶች ያሏቸው አሥራ ሁለት ጥቃቅን ዱካዎች። «ተመልከቱ! የሚጀምሩት ከግቢው መሐል ነው» አለ ጉጉ። «ማንም በእግሩ አልገባም…» «በክንፍ በርሮ ገባ!» አለች ላሊ።',
       },
       {
-        en: 'Clue number two came twirling down from the roof: a soft brown feather with speckles at the tip. "Three thin toes," said Gugu. "A feather," said Lali. Anbessa\'s eyes went wide. "Goats don\'t have feathers!"',
-        am: 'ሁለተኛው ፍንጭ ከጣሪያው እየተሽከረከረ ወረደ፦ ጫፉ ላይ ነጠብጣብ ያለው ለስላሳ ቡናማ ላባ። «ሦስት ቀጭን ጣቶች» አለ ጉጉ። «ላባ» አለች ላሊ። የአንበሳ ዓይኖች ፈጠጡ። «ፍየሎች ላባ የላቸውም!»',
+        en: 'Clue two twirled down from the roof: a soft brown feather with a speckled tip. "Three thin toes," said Gugu. "A feather," said Lali. "Goats don\'t have feathers!" gasped Anbessa.',
+        am: 'ሁለተኛው ፍንጭ ከጣሪያው እየተሽከረከረ ወረደ፦ ጫፉ ነጠብጣብ ያለው ቡናማ ላባ። «ሦስት ቀጭን ጣቶች» አለ ጉጉ። «ላባ» አለች ላሊ። «ፍየሎች ላባ የላቸውም!» አለ አንበሳ በመገረም።',
       },
       {
         en: 'Clue number three was a trail: one green bean by the gate, then another in the grass, then another, and another, all the way across the field to the big warka tree.',
@@ -294,24 +294,24 @@ export const STORIES: Story[] = [
         am: 'ሦስት ቀጭን ጣቶች። ነጠብጣብ ያለው ላባ። እስከ ዛፉ የሚወስድ የፍሬ መንገድ፣ ቅጠሎቹ ውስጥ ደግሞ ጪው የሚል ድምፅ። መርማሪዎች፣ በደንብ እዩ፣ በጥሞና አስቡ። ምን የሆነ ይመስላችኋል?',
       },
       {
-        en: 'Lali flew up, quiet as a whisper. There, where the branches met, a mother bird sat on a round nest. It was woven from grass and lined with green coffee beans, and three fluffy chicks peeked out. Peep, peep, peep!',
-        am: 'ላሊ እንደ ሹክሹክታ ጸጥ ብላ ወደ ላይ በረረች። እዚያ፣ ቅርንጫፎቹ በሚገናኙበት ቦታ፣ አንዲት እናት ወፍ ክብ ጎጆ ላይ ተቀምጣ ነበር። ጎጆው በሣር የተሠራና በአረንጓዴ የቡና ፍሬ የተነጠፈ ነበር፤ ሦስት ለስላሳ ጫጩቶችም ብቅ ብለው አዩ። ጪው፣ ጪው፣ ጪው!',
+        en: 'Lali flew up, quiet as a whisper. Where the branches met sat a mother bird, on a nest lined with green coffee beans, and three fluffy chicks peeked out. Peep, peep, peep!',
+        am: 'ላሊ እንደ ሹክሹክታ ጸጥ ብላ ወደ ላይ በረረች። ቅርንጫፎቹ በሚገናኙበት ቦታ፣ በአረንጓዴ የቡና ፍሬ በተነጠፈ ጎጆ ላይ አንዲት እናት ወፍ ተቀምጣ ነበር፤ ሦስት ለስላሳ ጫጩቶችም ብቅ አሉ። ጪው፣ ጪው፣ ጪው!',
       },
       {
-        en: 'The mother bird ruffled her feathers. "I\'m sorry," she chirped. "The beans keep my nest warm and dry for my babies." Anbessa\'s ears drooped. "And I blamed the goat," he whispered, "without even looking."',
-        am: 'እናት ወፏ ላባዋን አርገፈገፈች። «ይቅርታ» አለች በቀጭን ድምፅ። «ፍሬዎቹ ጎጆዬን ለልጆቼ ሞቃትና ደረቅ ያደርጉልኛል።» የአንበሳ ጆሮዎች ወደ ታች ወረዱ። «እኔ ደግሞ ሳላይ ፍየሏን ወቀስኳት» አለ በሹክሹክታ።',
+        en: 'The mother bird ruffled her feathers. "Sorry," she chirped. "The beans keep my nest warm." Anbessa\'s ears drooped. "I blamed the goat without even looking," he whispered.',
+        am: 'እናት ወፏ ላባዋን አርገፈገፈች። «ይቅርታ፤ ፍሬዎቹ ጎጆዬን ያሞቁልኛል» አለች። የአንበሳ ጆሮዎች ወደ ታች ወረዱ። «ሳላይ ፍየሏን ወቀስኳት» አለ በሹክሹክታ።',
       },
       {
-        en: 'Nobody scolded. Grandma laughed her warm, crinkly laugh and poured a little hill of beans under the tree. "There is enough for a nest and for coffee too." And Anbessa ran next door to say sorry to the goat.',
-        am: 'ማንም አልተቆጣም። አያቴ ሞቅ ያለ ሳቋን ሳቀችና ከዛፉ ሥር ትንሽ የፍሬ ክምር አፈሰሰች። «ለጎጆም ለቡናም የሚበቃ አለ።» አንበሳም ፍየሏን ይቅርታ ሊጠይቅ ወደ ጎረቤት ሮጠ።',
+        en: 'Nobody scolded. Grandma laughed and poured a little hill of beans under the tree. "Enough for a nest, and for coffee too." And Anbessa ran next door to say sorry to the goat.',
+        am: 'ማንም አልተቆጣም። አያቴ ሳቀችና ከዛፉ ሥር ትንሽ የፍሬ ክምር አፈሰሰች። «ለጎጆም ለቡናም ይበቃል።» አንበሳም ፍየሏን ይቅርታ ሊጠይቅ ወደ ጎረቤት ሮጠ።',
       },
       {
-        en: 'On Sunday, the neighbours sat on fresh green grass. Grandma roasted the beans until they crackled and smelled like toasted bread. Then the jebena poured once, twice, three times: abol, tona and baraka, the cup of blessing.',
-        am: 'እሑድ ጎረቤቶቹ በለምለም ቄጠማ ላይ ተቀመጡ። አያቴ ፍሬዎቹን እስኪንጣጡና እንደ ተጠበሰ ዳቦ እስኪሸቱ ድረስ ቆላች። ከዚያ ጀበናው አንድ ጊዜ፣ ሁለት ጊዜ፣ ሦስት ጊዜ ቀዳ፦ አቦል፣ ቶና እና በረካ፣ የበረከት ስኒ።',
+        en: 'On Sunday, the neighbours sat on fresh green grass. Grandma roasted the beans till they crackled, and the jebena poured three times: abol, tona and baraka, the cup of blessing.',
+        am: 'እሑድ ጎረቤቶቹ በለምለም ቄጠማ ላይ ተቀመጡ። አያቴ ፍሬዎቹን እስኪንጣጡ ቆላች፤ ጀበናውም ሦስት ጊዜ ቀዳ፦ አቦል፣ ቶና እና በረካ፣ የበረከት ስኒ።',
       },
       {
-        en: 'From the warka tree came a brand-new song, peep, peep, peep, and the goat came for coffee too. Gugu raised his cup. "Look closely, think carefully, then decide," he said. "And when you find the answer, be kind."',
-        am: 'ከዋርካው ዛፍ አዲስ ዘፈን ተሰማ፦ ጪው፣ ጪው፣ ጪው። ፍየሏም ለቡና መጣች። ጉጉ ስኒውን ከፍ አደረገ። «በደንብ እንይ፣ በጥሞና እናስብ፣ ከዚያ እንወስን» አለ። «መልሱን ስናገኝ ደግሞ ደግ እንሁን።»',
+        en: 'A new song came from the warka tree, peep, peep, peep, and the goat came for coffee too. Gugu raised his cup: "Look closely, think carefully, then decide. And always be kind."',
+        am: 'ከዋርካው ዛፍ አዲስ ዘፈን ተሰማ፦ ጪው፣ ጪው፣ ጪው። ፍየሏም ለቡና መጣች። ጉጉ ስኒውን ከፍ አደረገ፦ «በደንብ እንይ፣ በጥሞና እናስብ፣ ከዚያ እንወስን። ሁልጊዜም ደግ እንሁን።»',
       },
     ],
     grownUps: {
@@ -352,24 +352,24 @@ export const STORIES: Story[] = [
     coverPage: 4,
     pages: [
       {
-        en: 'One evening, while Grandma\'s coffee steamed, Lali the bee asked a question. "Grandma, why is my name Lali?" Grandma smiled. "Every name is a story, little one. Fly north to Lalibela, and the old stones will tell you yours."',
-        am: 'አንድ ምሽት፣ የአያቴ ቡና በእንፋሎት እየተንቦለቦለ ሳለ፣ ንቧ ላሊ ጥያቄ ጠየቀች። «አያቴ፣ ስሜ ለምን ላሊ ሆነ?» አያቴ ፈገግ አለች። «ልጄ፣ እያንዳንዱ ስም ታሪክ ነው። ወደ ሰሜን ወደ ላሊበላ በሪ፤ የጥንቶቹ ድንጋዮች ያንቺን ታሪክ ይነግሩሻል።»',
+        en: 'One evening, Lali the bee asked, "Grandma, why is my name Lali?" Grandma smiled over her coffee. "Every name is a story. Fly north to Lalibela, and the old stones will tell you yours."',
+        am: 'አንድ ምሽት ንቧ ላሊ «አያቴ፣ ስሜ ለምን ላሊ ሆነ?» ብላ ጠየቀች። አያቴ ቡናዋን ይዛ ፈገግ አለች። «እያንዳንዱ ስም ታሪክ ነው። ወደ ሰሜን ወደ ላሊበላ በሪ፤ የጥንቶቹ ድንጋዮች ታሪክሽን ይነግሩሻል።»',
       },
       {
-        en: 'So Lali flew north, a long, long way: over gold fields of teff, over valleys where rivers sparkled, over mountains with their heads in the clouds. "Every name is a story," she hummed. "What is the story of mine?"',
-        am: 'ስለዚህ ላሊ ወደ ሰሜን ረጅም፣ ረጅም መንገድ በረረች፦ በወርቃማ የጤፍ ማሳዎች ላይ፣ ወንዞች በሚያብረቀርቁባቸው ሸለቆዎች ላይ፣ ራሳቸውን በደመና ውስጥ በደበቁ ተራሮች ላይ። «እያንዳንዱ ስም ታሪክ ነው» ስትል አንጎራጎረች። «የእኔ ስም ታሪክ ምን ይሆን?»',
+        en: 'Lali flew north, a long, long way: over gold fields of teff, over sparkling rivers, over mountains in the clouds. "Every name is a story," she hummed. "What is mine?"',
+        am: 'ላሊ ወደ ሰሜን ረጅም፣ ረጅም መንገድ በረረች፦ በወርቃማ የጤፍ ማሳዎች፣ በሚያብረቀርቁ ወንዞች፣ በደመና በተከበቡ ተራሮች ላይ። «እያንዳንዱ ስም ታሪክ ነው» ስትል አንጎራጎረች። «የእኔስ ምንድን ነው?»',
       },
       {
-        en: 'In the blue hour before dawn, she reached Lalibela, high in the Lasta mountains. She saw round stone houses and red, rocky hills. "But where are the churches?" she wondered. "I can\'t see a single roof!"',
-        am: 'ጎህ ከመቅደዱ በፊት ባለው ሰማያዊ ሰዓት፣ በላስታ ተራሮች ላይ ከፍ ብላ ያለችው ላሊበላ ደረሰች። ክብ የድንጋይ ቤቶችንና ቀይ ድንጋያማ ኮረብቶችን አየች። «ግን አብያተ ክርስቲያናቱ የት ናቸው?» ብላ ተገረመች። «አንድም ጣሪያ አይታየኝም!»',
+        en: 'Before dawn she reached Lalibela, high in the Lasta mountains: round stone houses, red rocky hills. "But where are the churches?" she wondered. "I can\'t see a single roof!"',
+        am: 'ጎህ ሳይቀድ በላስታ ተራሮች ላይ ያለችው ላሊበላ ደረሰች፦ ክብ የድንጋይ ቤቶች፣ ቀይ ድንጋያማ ኮረብቶች። «ግን አብያተ ክርስቲያናቱ የት ናቸው?» ብላ ተገረመች። «አንድም ጣሪያ አይታየኝም!»',
       },
       {
         en: 'Then the ground opened beneath her wings. Down, down, down she flew, past walls of rose-red rock, and there, deep in the earth, stood a church shaped like a cross.',
         am: 'ከዚያ መሬቱ ከክንፎቿ ሥር ተከፈተ። ወደ ታች፣ ወደ ታች፣ ወደ ታች በረረች፤ በጽጌረዳ-ቀይ የአለት ግድግዳዎች አጠገብ አለፈች፤ እዚያም በመሬት ጥልቅ ውስጥ የመስቀል ቅርጽ ያለው ቤተ ክርስቲያን ቆሞ ነበር።',
       },
       {
-        en: 'This was Bete Giyorgis, the Church of Saint George. It was not built up, stone on stone. It was carved down, out of one single rock, about eight hundred years ago, with hammers, chisels and great patience. Tap, tap, tap.',
-        am: 'ይህ ቤተ ጊዮርጊስ ነበር፣ የቅዱስ ጊዮርጊስ ቤተ ክርስቲያን። ድንጋይ በድንጋይ ላይ ተደርቦ አልተሠራም። ከስምንት መቶ ዓመታት ገደማ በፊት፣ በመዶሻ፣ በመሮና በብዙ ትዕግሥት ከአንድ ነጠላ አለት ወደ ታች ተፈልፍሎ ነው የተሠራው። ጠቅ፣ ጠቅ፣ ጠቅ።',
+        en: 'This was Bete Giyorgis, the Church of Saint George. It wasn\'t built up; it was carved down from one rock, about eight hundred years ago, with chisels and patience. Tap, tap, tap.',
+        am: 'ይህ ቤተ ጊዮርጊስ ነው፣ የቅዱስ ጊዮርጊስ ቤተ ክርስቲያን። የተገነባው ወደ ላይ አይደለም፤ ከስምንት መቶ ዓመታት ገደማ በፊት ከአንድ አለት ወደ ታች በመሮና በትዕግሥት ተፈልፍሎ ነው። ጠቅ፣ ጠቅ፣ ጠቅ።',
       },
       {
         en: 'There were eleven churches in all, joined by deep trenches and dark tunnels. In one tunnel Lali buzzed softly, "Hello?" And the rock answered, "Hello… hello… hello…"',
@@ -380,28 +380,28 @@ export const STORIES: Story[] = [
         am: 'ከዚያ ፀሐይ ወጣች፤ ተሳላሚዎችም መጡ፣ ነጭ ነጠላ ተከናንበው፣ ቀስ ብለው እየተራመዱና በለሆሳስ እየዘመሩ። በእጃቸው ያሉት ሻማዎች እንደ ትናንሽ ወርቃማ ንቦች ያበሩ ነበር።',
       },
       {
-        en: 'By a great carved doorway sat a kind old priest in a white turban, holding a cross of carved wood. "Welcome, little bee," he said gently. "Bees have always been welcome in Lalibela."',
-        am: 'በአንድ ትልቅ የተቀረጸ በር አጠገብ ነጭ ጥምጥም የጠመጠሙ ደግ አረጋዊ ቄስ ተቀምጠው ነበር፤ በእጃቸው የተቀረጸ የእንጨት መስቀል ይዘዋል። «እንኳን ደህና መጣሽ፣ ትንሿ ንብ» አሉ በለስላሳ ድምፅ። «ንቦች ሁልጊዜም በላሊበላ የተወደዱ እንግዶች ናቸው።»',
+        en: 'By a great carved doorway sat a kind old priest in a white turban, holding a wooden cross. "Welcome, little bee," he said. "Bees are always welcome in Lalibela."',
+        am: 'በአንድ ትልቅ የተቀረጸ በር አጠገብ ነጭ ጥምጥም የጠመጠሙ ደግ አረጋዊ ቄስ የእንጨት መስቀል ይዘው ተቀምጠው ነበር። «እንኳን ደህና መጣሽ፣ ትንሿ ንብ» አሉ። «ንቦች ሁልጊዜም በላሊበላ የተወደዱ ናቸው።»',
       },
       {
         en: '"Why?" asked Lali. The priest\'s eyes twinkled. "Long ago, a baby boy was born here. A swarm of bees came and circled around him, humming and humming, but not one of them stung him."',
         am: '«ለምን?» ብላ ጠየቀች ላሊ። የቄሱ ዓይኖች አበሩ። «ከብዙ ዘመን በፊት፣ እዚህ አንድ ወንድ ሕፃን ተወለደ። የንብ መንጋ መጥቶ ዙሪያውን ከበበው፤ ያለማቋረጥ ያንጎራጉሩ ነበር፣ ግን አንዷም አልነደፈችውም።»',
       },
       {
-        en: '"His mother watched and said, \'The bees recognise his greatness.\' So she named him Lalibela. The baby grew up to be King Lalibela, and it was he who had these churches carved from the rock."',
-        am: '«እናቱም አይታ ‹ንቦቹ ታላቅነቱን አውቀዋል› አለች። ስለዚህ ላሊበላ ብላ ሰየመችው። ሕፃኑም አድጎ ንጉሥ ላሊበላ ሆነ፤ እነዚህን አብያተ ክርስቲያናት ከአለቱ ያስፈለፈለውም እርሱ ነው።»',
+        en: '"His mother said, \'The bees recognise his greatness,\' and named him Lalibela. He grew up to be King Lalibela, and he had these churches carved from the rock."',
+        am: '«እናቱም ‹ንቦቹ ታላቅነቱን አውቀዋል› አለች፤ ስሙንም ላሊበላ አለችው። አድጎም ንጉሥ ላሊበላ ሆነ፤ እነዚህን አብያተ ክርስቲያናት ከአለቱ ያስፈለፈለውም እርሱ ነው።»',
       },
       {
         en: 'Lali\'s wings went perfectly still. "Lali… Lalibela! My name is inside his name!" The priest nodded and smiled. "Then you carry a little piece of this place wherever you fly."',
         am: 'የላሊ ክንፎች ፍጹም ጸጥ አሉ። «ላሊ… ላሊበላ! ስሜ በስሙ ውስጥ አለ!» ቄሱ በአዎንታ ራሳቸውን ነቅንቀው ፈገግ አሉ። «እንግዲያው በምትበሪበት ሁሉ የዚህን ቦታ ትንሽ ቁራጭ ይዘሽ ትሄጃለሽ።»',
       },
       {
-        en: 'Lali explored all day. Then, as the sun went down, she flew one last loop around the cross and turned for home. The sky glowed gold, then rose, then deep purple. "Every name is a story," she sang, "and now I know mine."',
-        am: 'ላሊ ቀኑን ሙሉ ስትቃኝ ዋለች። ከዚያ ፀሐይ ስትጠልቅ፣ በመስቀሉ ዙሪያ የመጨረሻ ክብ በረረችና ወደ ቤት ተመለሰች። ሰማዩ መጀመሪያ ወርቃማ፣ ከዚያ ሮዝ፣ ከዚያ ጥቁር ወይን ጠጅ ሆነ። «እያንዳንዱ ስም ታሪክ ነው» ብላ ዘመረች፣ «አሁን የእኔን አውቃለሁ።»',
+        en: 'At sunset Lali flew one last loop around the cross and turned for home. The sky glowed gold, then rose, then purple. "Every name is a story," she sang, "and now I know mine."',
+        am: 'ፀሐይ ስትጠልቅ ላሊ በመስቀሉ ዙሪያ የመጨረሻ ክብ በረረችና ወደ ቤት ተመለሰች። ሰማዩ ወርቃማ፣ ከዚያ ሮዝ፣ ከዚያ ወይን ጠጅ ሆነ። «እያንዳንዱ ስም ታሪክ ነው» ብላ ዘመረች፣ «አሁን የእኔን አውቃለሁ።»',
       },
       {
-        en: 'Grandma was waiting under the stars. "Well, little one? Did the stones tell you?" Lali buzzed a happy loop. "My name is a story of bees, and a baby, and churches carved from the rock. And I will carry it everywhere I fly."',
-        am: 'አያቴ በከዋክብት ሥር እየጠበቀቻት ነበር። «እህ፣ ልጄ? ድንጋዮቹ ነገሩሽ?» ላሊ በደስታ ክብ እየሠራች በረረች። «ስሜ የንቦች፣ የአንድ ሕፃን፣ እና ከአለት የተፈለፈሉ አብያተ ክርስቲያናት ታሪክ ነው። በምበርበት ሁሉ ይዤው እሄዳለሁ።»',
+        en: 'Grandma was waiting under the stars. "Did the stones tell you?" Lali buzzed a happy loop. "My name is a story of bees, a baby, and churches carved from rock. I\'ll carry it everywhere!"',
+        am: 'አያቴ በከዋክብት ሥር ትጠብቃት ነበር። «ድንጋዮቹ ነገሩሽ?» ላሊ በደስታ ክብ በረረች። «ስሜ የንቦች፣ የአንድ ሕፃን፣ እና ከአለት የተፈለፈሉ አብያተ ክርስቲያናት ታሪክ ነው። በምበርበት ሁሉ ይዤው እሄዳለሁ!»',
       },
     ],
     grownUps: {
