@@ -1,6 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { motion } from "motion/react";
+import { useId, type ReactNode } from "react";
 
 import type { Lang } from "@/content/stories";
 
@@ -36,7 +37,9 @@ export function Arrow({
   );
 }
 
+/** English ⇄ አማርኛ, with the dark pill gliding across to the chosen language. */
 export function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
+  const id = useId();
   return (
     <div className="flex rounded-full bg-white p-1 shadow-[0_3px_0_rgba(27,42,78,.18)]" role="group" aria-label="Story language">
       {(["en", "am"] as const).map((l) => (
@@ -45,9 +48,12 @@ export function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
           type="button"
           aria-pressed={lang === l}
           onClick={() => setLang(l)}
-          className={`rounded-full px-3.5 py-1.5 font-bold transition sm:px-4 ${lang === l ? "bg-ink text-white" : "text-muted hover:text-ink"} ${l === "am" ? "font-ethiopic" : ""}`}
+          className={`relative rounded-full px-3.5 py-1.5 font-bold transition-colors duration-300 sm:px-4 ${lang === l ? "text-white" : "text-muted hover:text-ink"} ${l === "am" ? "font-ethiopic" : ""}`}
         >
-          {l === "en" ? "English" : "አማርኛ"}
+          {lang === l && (
+            <motion.span layoutId={`lali-lang-pill-${id}`} className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 520, damping: 40 }} />
+          )}
+          <span className="relative">{l === "en" ? "English" : "አማርኛ"}</span>
         </button>
       ))}
     </div>
