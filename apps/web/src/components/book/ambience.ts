@@ -11,8 +11,12 @@ const BY_SCENE: Record<string, Ambience[] | Ambience> = {
   // home, wish, the long way, Lali, river ×4, dark wood ×2, flower hill, home at dusk
   newyear: ["morning", "morning", "day", "day", "water", "water", "water", "water", "wood", "wood", "day", "home"],
   moon: "night",
-  count: "morning",
-  share: "day",
+  // out of the pen ×5, grazing, sunset, rock, river, teff, dark ×4
+  count: ["morning", "morning", "morning", "morning", "morning", "day", "day", "day", "water", "day", "night", "night", "night", "night"],
+  // the meadow ×3, the hive, tasting ×4, Anbessa ×4, sunset
+  share: ["morning", "day", "day", "quiet", "day", "day", "day", "day", "day", "day", "day", "day", "night"],
+  // the night rain, puddle ×2, six colours, the grey shower, the rainbow ×2
+  rainbow: ["rain", "morning", "morning", "day", "day", "day", "day", "day", "day", "rain", "day", "day"],
 };
 
 const WORDS: [RegExp, Ambience][] = [
