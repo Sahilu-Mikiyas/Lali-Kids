@@ -16,6 +16,8 @@ test("shelf: free stories open, paid ones are locked", async ({ page }) => {
 });
 
 test("shelf: the age filter shows each age group's stories", async ({ page, t }) => {
+  // One check per story on a shelf of 40+ books: give it room.
+  test.setTimeout(180_000);
   await page.goto("/stories?age=all");
   await ready(page);
   await page.getByRole("link", { name: t.shelf.ages("8-9"), exact: true }).click();
