@@ -18,15 +18,15 @@ import type { Story } from "../stories";
 // --- slot: fidel-ne
 // import fidelNe from "./fidel-ne";
 // --- slot: ten-tukuls
-// import tenTukuls from "./ten-tukuls";
+import tenTukuls from "./ten-tukuls";
 // --- slot: shapes-safari
-// import shapesSafari from "./shapes-safari";
+import shapesSafari from "./shapes-safari";
 // --- slot: bigger-smaller
-// import biggerSmaller from "./bigger-smaller";
+import biggerSmaller from "./bigger-smaller";
 // --- slot: market-money
-// import marketMoney from "./market-money";
+import marketMoney from "./market-money";
 // --- slot: teff-patterns
-// import teffPatterns from "./teff-patterns";
+import teffPatterns from "./teff-patterns";
 // --- slot: a-is-for-adey
 // import aIsForAdey from "./a-is-for-adey";
 // --- slot: opposites
@@ -82,15 +82,15 @@ export const LIBRARY: Story[] = [
   // --- slot: fidel-ne
   // fidelNe,
   // --- slot: ten-tukuls
-  // tenTukuls,
+  tenTukuls,
   // --- slot: shapes-safari
-  // shapesSafari,
+  shapesSafari,
   // --- slot: bigger-smaller
-  // biggerSmaller,
+  biggerSmaller,
   // --- slot: market-money
-  // marketMoney,
+  marketMoney,
   // --- slot: teff-patterns
-  // teffPatterns,
+  teffPatterns,
   // --- slot: a-is-for-adey
   // aIsForAdey,
   // --- slot: opposites

@@ -1,0 +1,165 @@
+/* Lali's Market Money (market-money.tsx): transforms and opacity only. */
+
+/* Money and goods fly from one paw to another. */
+@keyframes market-money-fly {
+  0% { transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(0.6); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(calc(var(--fx, 0px) * 0.5), calc(var(--fy, 0px) * 0.5 - 24px)) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+.market-money-fly {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-fly var(--dur, 1s) ease-in-out var(--delay, 0.6s) both;
+}
+/* Once paid, the money goes into the seller's tin. */
+@keyframes market-money-paid {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.4) translateY(14px); opacity: 0; }
+}
+.market-money-paid {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-paid 0.5s ease-in calc(var(--delay, 0.6s) + var(--dur, 1s) + 0.6s) both;
+}
+
+/* Price tags swing on their strings; awnings flutter. */
+@keyframes market-money-swing {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.market-money-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: market-money-swing 2.6s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes market-money-flutter {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.94); }
+}
+.market-money-flutter {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: market-money-flutter 1.8s ease-in-out infinite;
+}
+@keyframes market-money-peck {
+  0%, 60%, 100% { transform: rotate(0); }
+  70%, 80% { transform: rotate(24deg); }
+}
+.market-money-peck {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: market-money-peck 1.8s ease-in-out infinite;
+}
+@keyframes market-money-bob {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-6px) rotate(5deg); }
+}
+.market-money-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: market-money-bob 2.4s ease-in-out infinite;
+}
+@keyframes market-money-tail {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.market-money-tail {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: market-money-tail 1.4s ease-in-out infinite;
+}
+@keyframes market-money-soar {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  50% { transform: translate(14px, -10px) rotate(8deg); }
+}
+.market-money-soar {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: market-money-soar 3.4s ease-in-out infinite;
+}
+
+/* Lali points along the coins as she counts; her wings droop when it is not enough. */
+@keyframes market-money-point {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(160px); }
+}
+.market-money-point {
+  animation: market-money-point 3s ease-in-out 0.5s both;
+}
+@keyframes market-money-droop {
+  from { transform: rotate(0) translateY(0); }
+  to { transform: rotate(14deg) translateY(10px); }
+}
+.market-money-droop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-droop 1.2s ease-in-out 2.4s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .market-money-droop { transform: rotate(14deg) translateY(10px); }
+}
+
+/* Anbessa's tummy rumbles, then he munches. */
+@keyframes market-money-rumble {
+  0%, 100% { transform: translateX(-2px); opacity: 0.4; }
+  50% { transform: translateX(2px); opacity: 1; }
+}
+.market-money-rumble {
+  animation: market-money-rumble 0.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes market-money-munch {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-10deg) translateY(-3px); }
+}
+.market-money-munch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: market-money-munch 0.7s ease-in-out 2.6s infinite;
+}
+@keyframes market-money-heart {
+  0% { transform: translateY(14px) scale(0); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-46px) scale(0.8); opacity: 0; }
+}
+.market-money-heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-heart 2.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* The last birr spins while they choose; the sweet fades, the flower wins. */
+@keyframes market-money-flip {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.1); }
+}
+.market-money-flip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-flip 1s ease-in-out 3;
+}
+@keyframes market-money-fade {
+  from { opacity: 1; }
+  to { opacity: 0.3; }
+}
+.market-money-fade {
+  animation: market-money-fade 0.6s ease var(--delay, 2s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .market-money-fade { opacity: 0.3; }
+}
+@keyframes market-money-chosen {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.market-money-chosen {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: market-money-chosen 0.6s ease-out var(--delay, 2s) both;
+}
+
+/* With reduced motion, money that has been paid is simply gone. */
+@media (prefers-reduced-motion: reduce) {
+  .market-money-paid { opacity: 0; }
+}

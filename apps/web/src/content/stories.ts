@@ -55,6 +55,8 @@ export type Story = {
    * x and y are 0–1 across the picture; `peek` is the side she peeks out from. Optional.
    */
   lali?: { x: number; y: number; peek: 'left' | 'right' | 'top' | 'bottom' }[];
+  /** What the story teaches: Fidel letters, numbers or words. Optional. */
+  teaches?: { fidel?: string[]; numbers?: number[]; words?: string[] };
 };
 
 /** "3-5", "6-7" -> "3–7" */

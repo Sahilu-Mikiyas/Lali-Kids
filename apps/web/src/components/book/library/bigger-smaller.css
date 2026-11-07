@@ -1,0 +1,240 @@
+/* Bigger, Smaller, Anbessa! (bigger-smaller.tsx): transforms and opacity only. */
+
+/* The elephant: breathing, ears flapping, trunk swinging, a little tail flick. */
+@keyframes bigger-smaller-breathe {
+  50% { transform: scale(1.015, 0.985); }
+}
+.bigger-smaller-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-breathe 3.4s ease-in-out infinite;
+}
+@keyframes bigger-smaller-ear {
+  0%, 60%, 100% { transform: scaleX(1); }
+  70% { transform: scaleX(0.82); }
+  80% { transform: scaleX(1.04); }
+}
+.bigger-smaller-ear {
+  transform-box: fill-box;
+  transform-origin: 100% 40%;
+  animation: bigger-smaller-ear 2.6s ease-in-out infinite;
+}
+@keyframes bigger-smaller-trunk {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(5deg); }
+}
+.bigger-smaller-trunk {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: bigger-smaller-trunk 3s ease-in-out infinite;
+}
+@keyframes bigger-smaller-tail {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(12deg); }
+}
+.bigger-smaller-tail {
+  transform-box: fill-box;
+  transform-origin: 80% 0%;
+  animation: bigger-smaller-tail 1.2s ease-in-out infinite;
+}
+@keyframes bigger-smaller-nod {
+  0%, 70%, 100% { transform: rotate(0); }
+  80% { transform: rotate(-3deg); }
+}
+.bigger-smaller-nod {
+  transform-box: fill-box;
+  transform-origin: 20% 80%;
+  animation: bigger-smaller-nod 5s ease-in-out infinite;
+}
+/* She stomps in: a heavy bob with every step. */
+@keyframes bigger-smaller-stomp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.bigger-smaller-stomp {
+  animation: bigger-smaller-stomp 0.6s ease-in-out var(--delay, 0s) var(--n, 4);
+}
+@keyframes bigger-smaller-dust {
+  0% { transform: scale(0.3); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.bigger-smaller-dust {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bigger-smaller-dust 0.6s ease-out 0.2s 4;
+  opacity: 0;
+}
+@keyframes bigger-smaller-quake {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.bigger-smaller-quake {
+  animation: bigger-smaller-quake 0.3s ease-in-out 0.2s 8;
+}
+/* She reaches her trunk at the hole and pulls back. */
+@keyframes bigger-smaller-reach {
+  0%, 100% { transform: translateX(0); }
+  40%, 60% { transform: translateX(-14px); }
+}
+.bigger-smaller-reach {
+  animation: bigger-smaller-reach 2.4s ease-in-out 0.4s infinite;
+}
+@keyframes bigger-smaller-lift {
+  from { transform: translateY(110px); }
+  to { transform: translateY(0); }
+}
+.bigger-smaller-lift {
+  animation: bigger-smaller-lift 2s ease-in-out 0.6s both;
+}
+
+/* The ant: legs scurry, and she marches along with her crumb. */
+@keyframes bigger-smaller-scurry {
+  from { transform: rotate(-18deg); }
+  to { transform: rotate(18deg); }
+}
+.bigger-smaller-scurry {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: bigger-smaller-scurry 0.2s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes bigger-smaller-march {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+}
+.bigger-smaller-march {
+  animation: bigger-smaller-march 2.4s ease-in-out infinite;
+}
+@keyframes bigger-smaller-push {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  50% { transform: translateX(2px) rotate(-8deg); }
+}
+.bigger-smaller-push {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-push 0.5s ease-in-out infinite;
+}
+
+/* Birds: the mother hovers and flaps, the baby cheeps and hops. */
+@keyframes bigger-smaller-flap {
+  from { transform: rotate(0); }
+  to { transform: rotate(-38deg); }
+}
+.bigger-smaller-flap {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: bigger-smaller-flap 0.22s ease-in-out infinite alternate;
+}
+@keyframes bigger-smaller-hover {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(4px, -8px); }
+}
+.bigger-smaller-hover {
+  animation: bigger-smaller-hover 1.6s ease-in-out infinite;
+}
+@keyframes bigger-smaller-cheep {
+  0%, 60%, 100% { transform: translateY(0) scale(1); }
+  70% { transform: translateY(-4px) scale(1.06, 0.94); }
+}
+.bigger-smaller-cheep {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-cheep 1s ease-in-out infinite;
+}
+@keyframes bigger-smaller-scoot {
+  from { transform: translateX(-12px); }
+  to { transform: translateX(0); }
+}
+.bigger-smaller-scoot {
+  animation: bigger-smaller-scoot 1.2s ease-in-out 1.6s both;
+}
+@keyframes bigger-smaller-ping {
+  0% { transform: translateX(-2px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(5px); opacity: 0; }
+}
+.bigger-smaller-ping {
+  animation: bigger-smaller-ping 1.3s ease-out var(--delay, 0s) infinite;
+}
+
+/* Anbessa: puffing up big, leaning in with his paw, proud. */
+@keyframes bigger-smaller-puff {
+  0%, 30%, 100% { transform: scale(1); }
+  45%, 80% { transform: scale(1.1, 1.08); }
+}
+.bigger-smaller-puff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-puff 3s ease-in-out 1.6s infinite;
+}
+@keyframes bigger-smaller-lean {
+  from { transform: translateX(24px); }
+  to { transform: translateX(0); }
+}
+.bigger-smaller-lean {
+  animation: bigger-smaller-lean 1.6s ease-in-out 0.4s both;
+}
+@keyframes bigger-smaller-reach-paw {
+  from { transform: scaleX(0.3); }
+  to { transform: scaleX(1); }
+}
+.bigger-smaller-reach-paw {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: bigger-smaller-reach-paw 1.4s ease-in-out 0.8s both;
+}
+@keyframes bigger-smaller-tiptoe {
+  0%, 20%, 100% { transform: translateY(0) scale(1); }
+  40%, 80% { transform: translateY(-12px) scale(1, 1.04); }
+}
+.bigger-smaller-tiptoe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-tiptoe 2.6s ease-in-out 2.2s infinite;
+}
+@keyframes bigger-smaller-proud {
+  0%, 60%, 100% { transform: scale(1); }
+  75% { transform: scale(1.04, 1.07); }
+}
+.bigger-smaller-proud {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-proud 2.4s ease-in-out infinite;
+}
+@keyframes bigger-smaller-grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.6); }
+}
+.bigger-smaller-grow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bigger-smaller-grow 2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes bigger-smaller-heart {
+  0% { transform: translateY(14px) scale(0); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-46px) scale(0.8); opacity: 0; }
+}
+.bigger-smaller-heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bigger-smaller-heart 2.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* Bedtime: the blanket rises and falls, z z z. */
+@keyframes bigger-smaller-blanket {
+  50% { transform: scale(1, 1.03); }
+}
+.bigger-smaller-blanket {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bigger-smaller-blanket 3.6s ease-in-out infinite;
+}
+@keyframes bigger-smaller-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(12px, -26px); opacity: 0; }
+}
+.bigger-smaller-zzz {
+  animation: bigger-smaller-zzz 3s ease-out var(--delay, 0s) infinite;
+}

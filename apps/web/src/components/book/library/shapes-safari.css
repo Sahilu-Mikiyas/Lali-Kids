@@ -1,0 +1,213 @@
+/* Gugu's Shapes Safari (shapes-safari.tsx): transforms and opacity only. */
+
+/* The shape bar sings: each shape has its turn. */
+@keyframes shapes-safari-sing {
+  0%, 12%, 100% { transform: scale(1) rotate(0); }
+  5% { transform: scale(1.3) rotate(-8deg); }
+}
+.shapes-safari-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-sing 4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A found shape's outline pops round the real thing, then glows softly. */
+@keyframes shapes-safari-outline {
+  0% { transform: scale(1.35); opacity: 0; }
+  60% { transform: scale(0.96); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.shapes-safari-outline {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-outline 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 1s) both;
+}
+@keyframes shapes-safari-march {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.shapes-safari-march {
+  animation: shapes-safari-march 1.6s ease-in-out infinite;
+}
+
+/* Gugu's hat drops onto his head. */
+@keyframes shapes-safari-hatdrop {
+  0% { transform: translateY(-70px) rotate(-14deg); opacity: 0; animation-timing-function: ease-in; }
+  20% { opacity: 1; }
+  70% { transform: translateY(0) rotate(0) scale(1.06, 0.92); }
+  85% { transform: translateY(-6px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.shapes-safari-hatdrop {
+  animation: shapes-safari-hatdrop 0.9s 0.7s both;
+}
+
+/* The sun rises over the mountains. */
+@keyframes shapes-safari-sunrise {
+  from { transform: translateY(46px); }
+  to { transform: translateY(0); }
+}
+.shapes-safari-sunrise {
+  animation: shapes-safari-sunrise 2.2s ease-out 0.2s both;
+}
+
+/* Chomp: a bite goes out of the injera, and Gugu lunges for it. */
+@keyframes shapes-safari-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes shapes-safari-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.shapes-safari-bite {
+  animation: shapes-safari-fade-out 0.15s linear 1.7s both;
+}
+.shapes-safari-bitten {
+  animation: shapes-safari-fade-in 0.15s linear 1.7s both;
+}
+@keyframes shapes-safari-lunge {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  45% { transform: translateX(-22px) rotate(-8deg); }
+}
+.shapes-safari-lunge {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shapes-safari-lunge 0.9s ease-in-out 1.2s both;
+}
+@keyframes shapes-safari-crumbs {
+  0% { transform: translate(0, -6px); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(6px, 30px); opacity: 0; }
+}
+.shapes-safari-crumbs {
+  animation: shapes-safari-crumbs 1.4s ease-in 1.7s both;
+}
+
+/* Tsehay pops up at the window, and peeks out from behind the rock. */
+@keyframes shapes-safari-peep {
+  from { transform: translateY(150px); }
+  to { transform: translateY(0); }
+}
+.shapes-safari-peep {
+  animation: shapes-safari-peep 1s cubic-bezier(0.3, 1.4, 0.5, 1) 0.6s both;
+}
+@keyframes shapes-safari-peek {
+  from { transform: translateY(34px); }
+  to { transform: translateY(0); }
+}
+.shapes-safari-peek {
+  animation: shapes-safari-peek 1s cubic-bezier(0.3, 1.4, 0.5, 1) 1.2s both;
+}
+
+/* The tall door swings open; Anbessa stretches up long in the doorway. */
+@keyframes shapes-safari-door {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.22); }
+}
+.shapes-safari-door {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: shapes-safari-door 0.9s ease-in-out 0.5s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shapes-safari-door { transform: scaleX(0.22); }
+}
+@keyframes shapes-safari-stretch {
+  0%, 30%, 100% { transform: scale(1, 1); }
+  50%, 75% { transform: scale(0.94, 1.14); }
+}
+.shapes-safari-stretch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shapes-safari-stretch 2.6s ease-in-out 1.2s infinite;
+}
+
+/* Honey drips from the comb. */
+@keyframes shapes-safari-drip {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(26px) scale(0.9); opacity: 0; }
+}
+.shapes-safari-drip {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: shapes-safari-drip 2.6s ease-in var(--delay, 0s) infinite;
+}
+
+/* Shapes tumbling down the hill, then rolling or rocking where they stop. */
+@keyframes shapes-safari-tumble {
+  from { transform: translate(var(--fx, 0px), var(--fy, 0px)) rotate(0); opacity: 0; }
+  8% { opacity: 1; }
+  to { transform: translate(0, 0) rotate(var(--rot, 360deg)); opacity: 1; }
+}
+.shapes-safari-tumble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-tumble var(--dur, 2s) cubic-bezier(0.4, 0.1, 0.4, 1) var(--delay, 0.6s) both;
+}
+@keyframes shapes-safari-roll {
+  0%, 100% { transform: translateX(-3px) rotate(-24deg); }
+  50% { transform: translateX(3px) rotate(24deg); }
+}
+.shapes-safari-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-roll 1.3s ease-in-out var(--delay, 2s) infinite;
+}
+@keyframes shapes-safari-rock {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.shapes-safari-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shapes-safari-rock 0.8s ease-in-out var(--delay, 2s) 3;
+}
+@keyframes shapes-safari-lines {
+  0% { transform: translateX(10px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateX(-12px); opacity: 0; }
+}
+.shapes-safari-lines {
+  animation: shapes-safari-lines 0.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* Pieces of the shape picture slide into place one by one. */
+@keyframes shapes-safari-place {
+  from { transform: translate(var(--fx, -100px), var(--fy, 40px)) scale(0.5) rotate(-30deg); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+}
+.shapes-safari-place {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-place 0.9s cubic-bezier(0.3, 1.2, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+@keyframes shapes-safari-heart {
+  0% { transform: translateY(16px) scale(0); opacity: 0; }
+  20% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-50px) scale(0.8); opacity: 0; }
+}
+.shapes-safari-heart {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-heart 2.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* The big star twinkles. */
+@keyframes shapes-safari-twinkle {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(1.08) rotate(6deg); }
+}
+.shapes-safari-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shapes-safari-twinkle 2.4s ease-in-out infinite;
+}
+
+/* With reduced motion, things that leave the picture are simply gone. */
+@media (prefers-reduced-motion: reduce) {
+  .shapes-safari-gone { opacity: 0; }
+}

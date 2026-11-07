@@ -19,15 +19,15 @@ import type { ComponentType } from "react";
 // --- slot: fidel-ne
 // import FidelNe from "./fidel-ne";
 // --- slot: ten-tukuls
-// import TenTukuls from "./ten-tukuls";
+import TenTukuls from "./ten-tukuls";
 // --- slot: shapes-safari
-// import ShapesSafari from "./shapes-safari";
+import ShapesSafari from "./shapes-safari";
 // --- slot: bigger-smaller
-// import BiggerSmaller from "./bigger-smaller";
+import BiggerSmaller from "./bigger-smaller";
 // --- slot: market-money
-// import MarketMoney from "./market-money";
+import MarketMoney from "./market-money";
 // --- slot: teff-patterns
-// import TeffPatterns from "./teff-patterns";
+import TeffPatterns from "./teff-patterns";
 // --- slot: a-is-for-adey
 // import AIsForAdey from "./a-is-for-adey";
 // --- slot: opposites
@@ -83,15 +83,15 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: fidel-ne
   // "fidel-ne": FidelNe,
   // --- slot: ten-tukuls
-  // "ten-tukuls": TenTukuls,
+  "ten-tukuls": TenTukuls,
   // --- slot: shapes-safari
-  // "shapes-safari": ShapesSafari,
+  "shapes-safari": ShapesSafari,
   // --- slot: bigger-smaller
-  // "bigger-smaller": BiggerSmaller,
+  "bigger-smaller": BiggerSmaller,
   // --- slot: market-money
-  // "market-money": MarketMoney,
+  "market-money": MarketMoney,
   // --- slot: teff-patterns
-  // "teff-patterns": TeffPatterns,
+  "teff-patterns": TeffPatterns,
   // --- slot: a-is-for-adey
   // "a-is-for-adey": AIsForAdey,
   // --- slot: opposites
