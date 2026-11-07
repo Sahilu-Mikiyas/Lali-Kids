@@ -50,6 +50,8 @@ export type Story = {
    * one small activity, in both languages. Optional; the card is skipped without it.
    */
   grownUps?: { talkAbout: Record<Lang, string[]>; activity: Record<Lang, string> };
+  /** What the story teaches: the fidel letters met, numbers counted, words learnt. Optional. */
+  teaches?: { fidel?: string[]; numbers?: number[]; words?: string[] };
   /**
    * Find Lali: where the tiny bee hides on each page, overriding the spot the reader picks.
    * x and y are 0–1 across the picture; `peek` is the side she peeks out from. Optional.
