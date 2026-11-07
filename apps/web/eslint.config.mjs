@@ -12,7 +12,20 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // End-to-end test builds and results.
+    ".next-e2e/**",
+    "test-results/**",
+    "playwright-report/**",
   ]),
+  // Playwright fixtures call `use()`, which is not React's; the test stubs are plain CommonJS.
+  {
+    files: ["e2e/**"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

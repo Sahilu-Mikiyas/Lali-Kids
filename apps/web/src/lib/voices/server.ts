@@ -19,6 +19,8 @@ import { baseType, cleanName, MAX_BYTES, MAX_SECONDS, VOICE_BUCKET, VOICE_EXT, t
 */
 
 const LINK_SECONDS = 30 * 60;
+/** Recordings one family may keep (a 30-page book read by 3 people in 2 languages is 180). */
+const MAX_RECORDINGS = 1500;
 
 type Row = { id: string; story_id: string; lang: VoiceLang; page: number; recorder_name: string; path: string; duration_ms: number; created_at: string };
 const COLUMNS = "id, story_id, lang, page, recorder_name, path, duration_ms, created_at";
@@ -96,6 +98,9 @@ export async function saveVoice(me: RequestUser, form: FormData): Promise<VoiceR
   const { data: profile } = await me.supabase.from("profiles").select("id").eq("id", me.user.id).maybeSingle();
   if (!profile) return answer(403, { error: "No family" });
   if (!(await storyExists(storyId))) return answer(404, { error: "No such story" });
+  // A cap on what one family can store (each clip is up to 4 MB): far above real use.
+  const { count } = await admin.from("family_recordings").select("id", { count: "exact", head: true }).eq("family_id", me.user.id);
+  if ((count ?? 0) >= MAX_RECORDINGS) return answer(429, { error: "too-many" });
 
   const path = `${me.user.id}/${storyId}/${lang}/${page}-${randomBytes(8).toString("hex")}.${ext}`;
   const up = await admin.storage.from(VOICE_BUCKET).upload(path, file, { contentType: type, upsert: false });

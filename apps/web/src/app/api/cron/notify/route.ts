@@ -1,8 +1,10 @@
+import { timingSafeEqual } from "node:crypto";
+
 import { connection } from "next/server";
 
 import { sweepOrphanVoiceFolders } from "@/lib/account";
 import { addisMidnightIso } from "@/lib/games";
-import { originFrom } from "@/lib/origin";
+import { canonicalOrigin } from "@/lib/origin";
 import { planById } from "@/lib/payments/plans";
 import { pagesReadAloudSince } from "@/lib/read-aloud/server";
 import { hasSecretKey } from "@/lib/supabase/env";
@@ -15,12 +17,26 @@ let lastRun = 0;
 type Family = { id: string; telegram_chat_id: number; ui_lang: "en" | "am"; display_name: string | null };
 
 /**
+ * When CRON_SECRET is set, only a caller that sends it (the database's hourly job, see
+ * 0013_prelaunch_fixes.sql) may run the job. Without it the job still only sends what is due.
+ */
+function cronAllowed(request: Request): boolean {
+  const want = process.env.CRON_SECRET?.trim();
+  if (!want) return true;
+  const got = request.headers.get("x-lali-cron") ?? request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
+  const a = Buffer.from(got);
+  const b = Buffer.from(want);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
+/**
  * Called every hour by the database (pg_cron). Sends plan reminders and, on Sunday evenings,
  * the weekly reading note. Each message is recorded in notifications_sent first, so calling
  * this more often never sends anything twice.
  */
 export async function GET(request: Request) {
   await connection();
+  if (!cronAllowed(request)) return Response.json({ error: "Forbidden" }, { status: 403 });
   if (!hasSecretKey()) return Response.json({ skipped: "not configured" });
   if (Date.now() - lastRun < 5 * 60_000) return Response.json({ skipped: "ran recently" });
   lastRun = Date.now();
@@ -32,7 +48,8 @@ export async function GET(request: Request) {
   });
   if (!telegramConfigured()) return Response.json({ sweptFiles, skipped: "telegram not configured" });
 
-  const origin = originFrom(request.headers);
+  // Never from the request: a forged Host header must not move the bot's webhook or its links.
+  const origin = canonicalOrigin();
   await ensureWebhook(origin);
   const admin = createSupabaseAdmin();
 

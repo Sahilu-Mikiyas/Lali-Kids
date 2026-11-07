@@ -4,8 +4,9 @@ import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
 import { useLang, useT } from "@/i18n/provider";
-import { agesLabel, type Story } from "@/content/stories";
-import { PageArt } from "./storybook";
+import type { Story } from "@/content/stories";
+import { agesLabel } from "@/lib/ages";
+import { PageArt } from "./book/page-art";
 
 const TAG: Record<Story["category"], string> = {
   Bedtime: "bg-coral",

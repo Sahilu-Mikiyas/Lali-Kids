@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useSyncExternalStore, type ReactNode } from "react";
 
 /** A sum a 4-year-old can't do yet keeps settings away from little fingers. */
 function question() {
@@ -10,12 +10,26 @@ function question() {
   return { a, b, answer, options: [answer, answer + 2, answer - 3].sort(() => Math.random() - 0.5) };
 }
 
+const noop = () => () => {};
+
 export function GrownUpsGate({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [current, setQ] = useState(question);
   const [wrong, setWrong] = useState(false);
+  // The sum is random, so it is only shown once the page runs in the browser: the server's
+  // copy would differ and break hydration (React error 418).
+  const live = useSyncExternalStore(noop, () => true, () => false);
 
   if (open) return <>{children}</>;
+  if (!live) {
+    return (
+      <div className="mx-auto max-w-md space-y-5 rounded-[32px] bg-white p-8 text-center shadow-[0_8px_0_var(--color-line)]">
+        <h1 className="font-display text-3xl font-black">Grown-ups only</h1>
+        <p className="text-muted">To open the settings, answer this question.</p>
+        <p className="font-display text-5xl font-black">? + ? = ?</p>
+      </div>
+    );
+  }
   return (
     <div className="mx-auto max-w-md space-y-5 rounded-[32px] bg-white p-8 text-center shadow-[0_8px_0_var(--color-line)]">
       <h1 className="font-display text-3xl font-black">Grown-ups only</h1>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { agesLabel } from "@/content/stories";
+import { agesLabel } from "@/lib/ages";
 import { getT } from "@/i18n/server";
 import type { Game } from "@/lib/games";
 import { Bee } from "./characters";

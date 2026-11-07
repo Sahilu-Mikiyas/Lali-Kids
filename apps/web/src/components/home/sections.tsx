@@ -5,7 +5,6 @@ import { useT } from "@/i18n/provider";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import { STORIES } from "@/content/stories";
 import { confetti } from "@/lib/confetti";
 import { ShootingStar } from "../book/scenery";
 import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
@@ -238,7 +237,8 @@ export function Worlds() {
 
 /* ---------- feed vs book ---------- */
 
-export function FeedVsBook() {
+/** `bookColor`: the first story's colour, passed in by the home page so no story text is bundled here. */
+export function FeedVsBook({ bookColor = "#1F8A5B" }: { bookColor?: string }) {
   const t = useT();
   const thumbs = Array.from({ length: 8 }, (_, i) => i);
   const ref = useAwake<HTMLElement>();
@@ -296,7 +296,7 @@ export function FeedVsBook() {
           >
             <Drift kind="star" n={8} area={[4, 2, 96, 12]} />
             <p className="font-display text-2xl font-black text-gold">{t.parents.lali}</p>
-            <div className="relative mt-5 grid h-72 place-items-center overflow-hidden rounded-2xl" style={{ background: STORIES[0].color }}>
+            <div className="relative mt-5 grid h-72 place-items-center overflow-hidden rounded-2xl" style={{ background: bookColor }}>
               <Scene kind="moon" page={3} />
               <Drift kind="firefly" n={6} area={[6, 30, 94, 85]} />
               <span className="home-pulse absolute bottom-4 rounded-full bg-white px-4 py-1.5 font-display text-lg font-black text-night">{t.parents.goodnight}</span>

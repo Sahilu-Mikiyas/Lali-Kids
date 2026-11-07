@@ -1,9 +1,8 @@
 import { Cinema } from "@/components/home/cinema";
-import { FollowBee } from "@/components/home/follow-bee";
+import { LazyFollowBee as FollowBee, LazyMusicPlayer as MusicPlayer } from "@/components/home/lazy";
 import { Hero } from "@/components/home/hero";
 import { Bedtime, DayWalk } from "@/components/home/journey";
 import { HomeMotion } from "@/components/home/live";
-import { MusicPlayer } from "@/components/home/music-player";
 import { FeedVsBook, Marquee, ParentReport, Plans, SectionHead, StarGame, Worlds } from "@/components/home/sections";
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { StoryBook } from "@/components/storybook";
@@ -28,10 +27,10 @@ export default async function Home() {
         <DayWalk phase="morning" />
         <Worlds />
         <StarGame />
-        <FeedVsBook />
+        <FeedVsBook bookColor={STORIES[0].color} />
         <ParentReport />
         <DayWalk phase="afternoon" above="#ffffff" />
-        <Cinema />
+        <Cinema coming={STORIES.map((s) => ({ id: s.id, title: s.title.en, color: s.color, scene: s.scene, pageCount: s.pages.length }))} />
         <Plans />
         <Bedtime />
       </main>

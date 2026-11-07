@@ -4,6 +4,7 @@ import { getStory, type Story } from "@/content/stories";
 import { isLang, type UiLang } from "@/i18n/langs";
 import { signPage, TOKEN_SECONDS } from "@/lib/books/protect";
 import { deleteFamilyAccount } from "@/lib/account";
+import { reportServerError } from "@/lib/alerts";
 import { familyFor, limitReached, type Family } from "@/lib/family";
 import { addisMidnightIso, gameBySlug, secondsPlayedToday, shelfGames } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
@@ -170,7 +171,7 @@ async function postProgress(ctx: Ctx) {
   const b = await body<{ storyId: string; itemType: string }>(ctx.request);
   const f = await family(ctx);
   if (!f?.current) return fail(400, "Add a child first");
-  if (!b.storyId || String(b.storyId).length > 100) return fail(400, "Which story?");
+  if (!isStoryId(b.storyId)) return fail(400, "Which story?");
   if (limitReached(f)) return json({ stars: f.current.stars, tonight: { read: f.readTonight, limitReached: true } });
   await ctx.me.supabase.from("completions").insert({ child_id: f.current.id, item_type: b.itemType === "book" ? "book" : "story", item_id: b.storyId });
   const after = await family(ctx);
@@ -202,8 +203,9 @@ async function getBookPages(ctx: Ctx, slug: string) {
     .single();
   if (!book) return fail(404, "No such book");
   if (!book.is_free && !(await hasActivePlan(ctx.me.user.id))) return fail(402, "This book needs a Lali plan");
-  const from = Math.max(1, Number(url.searchParams.get("from")) || 1);
-  const to = Math.min(book.page_count, Number(url.searchParams.get("to")) || from + 9);
+  const from = Math.max(1, Math.floor(Number(url.searchParams.get("from"))) || 1);
+  // At most 20 page links per call, so one call can't hand out a whole book.
+  const to = Math.min(book.page_count, from + 19, Math.floor(Number(url.searchParams.get("to"))) || from + 9);
   const origin = originFrom(ctx.request.headers);
   const pages = (book.book_pages as { page_number: number; width: number; height: number }[])
     .filter((p) => p.page_number >= from && p.page_number <= to)
@@ -376,6 +378,7 @@ async function route(request: Request, params: Promise<{ path: string[] }>, meth
     }
   } catch (e) {
     console.error("[mobile api]", key, e);
+    reportServerError(e, `/api/mobile ${key}`);
     return fail(500, "Something went wrong");
   }
 }

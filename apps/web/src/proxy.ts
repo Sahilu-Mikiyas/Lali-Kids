@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { isLang, LANG_COOKIE, type UiLang } from "@/i18n/langs";
+import { AUTH_COOKIE_OPTIONS } from "@/lib/supabase/cookie-options";
 import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "@/lib/supabase/env";
 
 /** Paths that need the sign-in session refreshed. The rest skip that work. */
@@ -52,6 +53,7 @@ export async function proxy(request: NextRequest) {
   if (!isSupabaseConfigured() || !SESSION_PATHS.some((p) => pathname.startsWith(p))) return response;
 
   const supabase = createServerClient(supabaseUrl(), supabasePublishableKey(), {
+    cookieOptions: AUTH_COOKIE_OPTIONS,
     cookies: {
       getAll: () => request.cookies.getAll(),
       setAll: (list) => {

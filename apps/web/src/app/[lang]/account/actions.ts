@@ -4,6 +4,8 @@ import { revalidate } from "@/lib/revalidate";
 import { cookies } from "next/headers";
 
 import { CHILD_COOKIE } from "@/lib/family";
+import { addisMidnightIso } from "@/lib/games";
+import { isStoryId } from "@/lib/stickers/catalog";
 import { randomBytes } from "node:crypto";
 
 import { createSupabaseAdmin, createSupabaseServer, currentProfile } from "@/lib/supabase/server";
@@ -60,10 +62,10 @@ export async function allowMoreTonight() {
   const { data: kids } = await supabase.from("children").select("id").eq("family_id", profile.id);
   const ids = (kids ?? []).map((k) => k.id);
   if (!ids.length) return;
-  const start = new Date();
-  start.setHours(0, 0, 0, 0);
-  const yesterday = new Date(start.getTime() - 1000).toISOString();
-  await supabase.from("completions").update({ completed_at: yesterday }).in("child_id", ids).gte("completed_at", start.toISOString());
+  // "Tonight" is Addis Ababa's day, as everywhere else (the server's own clock runs on UTC).
+  const start = addisMidnightIso();
+  const yesterday = new Date(new Date(start).getTime() - 1000).toISOString();
+  await supabase.from("completions").update({ completed_at: yesterday }).in("child_id", ids).gte("completed_at", start);
   revalidate("/stories");
   revalidate("/account");
 }
@@ -80,6 +82,7 @@ export async function chooseChild(childId: string) {
 
 /** Called by the storybook when a child reaches The End. Returns the child's new star count. */
 export async function recordStoryFinished(storyId: string): Promise<number | null> {
+  if (!isStoryId(storyId)) return null;
   const profile = await currentProfile();
   if (!profile) return null;
   const supabase = await createSupabaseServer();

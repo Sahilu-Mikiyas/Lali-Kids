@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { animate, motion, useMotionValue, useTransform, type AnimationPlaybackControls, type MotionValue } from "motion/react";
 import {
@@ -42,7 +43,6 @@ import type { FamilyVoice } from "@/lib/voices/shared";
 import { BeeShape, STAR_PATH } from "./characters";
 import { FindCounter, HiddenLali } from "./find-lali";
 import { StickerBookButton, StickerReward, type RewardSticker } from "./stickers/sticker-reward";
-import { RecordVoiceModal } from "./voice/record-voice";
 import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { MicButton, MicPanel } from "./book/mic-reader";
@@ -52,6 +52,9 @@ import { READER } from "./book/reader-words";
 import { TapZone } from "./book/tappable";
 
 export { PageArt };
+
+// The grown-ups' recorder only opens on request, so its code loads then (not with every story).
+const RecordVoiceModal = dynamic(() => import("./voice/record-voice").then((m) => m.RecordVoiceModal), { ssr: false });
 
 /** Page shape on a two-page spread (width / height). */
 const PAGE_ASPECT = 1.18;

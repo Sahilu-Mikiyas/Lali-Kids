@@ -721,6 +721,13 @@ const en = {
   narration: {
     credit: (name: string) => `Read by ${name}`,
   },
+  ops: {
+    tooMany: "Too many tries from here just now. Please wait a few minutes and try again.",
+    errorTitle: "Oops! Something went wrong.",
+    errorBody: "Lali has been told. Please try again in a moment.",
+    tryAgain: "Try again",
+    home: "Go to the home page",
+  },
 };
 
 export type Dict = typeof en;
@@ -1441,6 +1448,13 @@ const am: Dict = {
   },
   narration: {
     credit: (name: string) => `አንባቢ፦ ${name}`,
+  },
+  ops: {
+    tooMany: "ከዚህ በጣም ብዙ ሙከራዎች ተደርገዋል። እባክዎ ጥቂት ደቂቃዎች ጠብቀው እንደገና ይሞክሩ።",
+    errorTitle: "ውይ! የሆነ ችግር ተፈጥሯል።",
+    errorBody: "ላሊ ተነግሯታል። እባክዎ ትንሽ ቆይተው እንደገና ይሞክሩ።",
+    tryAgain: "እንደገና ይሞክሩ",
+    home: "ወደ መነሻ ገጽ",
   },
 };
 

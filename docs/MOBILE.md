@@ -53,7 +53,7 @@ on every call (the shelf calls also work signed out). Optional headers:
 | `GET stories/:id` | | `{story}` with page text, `pictures[]` and `audio[]` links (valid 1 hour), or `402 {locked}`. Voice-actor narration is included for **launch stories too**: `audio[page][lang]` is the clip's link, `wordTimes[page][lang]` the start of each word in ms (one per word of the page text split on spaces; `[]` when not timed yet: spread the highlight across the clip), and `narrators[page][lang]` the name for a "Read by …" credit. Pages without narration have no entry |
 | `POST progress` | `{storyId, itemType?: "story"\|"book"}` | `{stars, tonight}`: records a finished story for the current child (earns a star; respects the bedtime limit) |
 | `GET books` | | partner PDF books, `locked` if not on a plan |
-| `GET books/:slug?from=1&to=10` | | page image links for that range, **valid 90 seconds**; fetch each with the same `Authorization` header and ask again for the next pages |
+| `GET books/:slug?from=1&to=10` | | page image links for that range (at most 20 pages per call), **valid 90 seconds**; fetch each with the same `Authorization` header and ask again for the next pages |
 | `GET games` | | `{games[]}` with full `url`s, `locked` if not on a plan |
 | `POST games/:slug/start` | | `{ok, sessionId, secondsLeft, url}` or `{ok:false, reason: "locked"\|"off"\|"time-up"}` |
 | `POST sessions/:id` | `{seconds?, score?}` | `{secondsLeft}`. Send `seconds` every ~15 s while the game is on screen |

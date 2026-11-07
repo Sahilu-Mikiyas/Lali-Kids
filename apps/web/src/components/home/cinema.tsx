@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, u
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { FEATURED_VIDEOS, SOCIAL, type FeaturedVideo, type SocialNetwork } from "@/content/links";
-import { STORIES } from "@/content/stories";
+import type { SceneKind } from "@/content/stories";
 import { useLang, useT } from "@/i18n/provider";
 import { duckMusic } from "@/lib/music/synth";
 
@@ -439,12 +439,18 @@ function Stage() {
   );
 }
 
+/**
+ * What the "coming soon" cards need from each story. The home page (a server component) passes
+ * it in, so the stories' text never reaches the browser's JavaScript.
+ */
+export type ComingStory = { id: string; title: string; color: string; scene?: SceneKind; pageCount: number };
+
 /** Before there are any videos: "coming soon" cards made from the story pictures. */
-function ComingSoon() {
+function ComingSoon({ stories }: { stories: ComingStory[] }) {
   const t = useT();
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {STORIES.map((s, i) => (
+      {stories.map((s, i) => (
         <motion.div
           key={s.id}
           initial={{ opacity: 0, y: 30 }}
@@ -454,17 +460,17 @@ function ComingSoon() {
           className="overflow-hidden rounded-3xl bg-white shadow-[0_6px_0_var(--color-line)]"
         >
           <div className="relative aspect-video" style={{ background: s.color }}>
-            <Scene kind={s.scene ?? "moon"} page={i % s.pages.length} />
+            <Scene kind={s.scene ?? "moon"} page={i % Math.max(1, s.pageCount)} />
             <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-sm font-bold text-white">{t.watch.coming}</span>
           </div>
-          <p className="p-4 font-bold">{s.title.en}</p>
+          <p className="p-4 font-bold">{s.title}</p>
         </motion.div>
       ))}
     </div>
   );
 }
 
-export function Cinema() {
+export function Cinema({ coming = [] }: { coming?: ComingStory[] }) {
   const t = useT();
   const ref = useAwake<HTMLElement>();
   const networks = Object.keys(SOCIAL) as SocialNetwork[];
@@ -472,7 +478,7 @@ export function Cinema() {
   return (
     <section ref={ref} id="watch" data-bee="watch" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-24">
       <SectionHead eyebrow={t.watch.eyebrow} title={t.watch.title} sub={t.watch.sub} />
-      {FEATURED_VIDEOS.length ? <Stage /> : <ComingSoon />}
+      {FEATURED_VIDEOS.length ? <Stage /> : <ComingSoon stories={coming} />}
       <div className="mt-10 flex flex-wrap items-center gap-6 rounded-[32px] bg-white p-7">
         <div className="min-w-60 flex-1">
           <p className="font-display text-2xl font-black">{t.watch.follow}</p>
