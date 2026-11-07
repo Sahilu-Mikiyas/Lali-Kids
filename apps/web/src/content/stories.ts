@@ -1,6 +1,15 @@
+import { LIBRARY } from './library';
+
 export type Lang = 'en' | 'am';
 
-export type SceneKind = 'moon' | 'count' | 'share' | 'newyear' | 'rainbow' | 'fideltrain' | 'firstday' | 'coffee' | 'lalibela';
+export type SceneKind = 'moon' | 'count' | 'share' | 'newyear' | 'rainbow' | 'fideltrain' | 'firstday' | 'coffee' | 'lalibela' | `lib-${string}`;
+
+/**
+ * Which package a story belongs to (see docs/PACKAGES.md). Reader opens `story`; Learner adds the
+ * learning packs; VIP opens everything. Free stories are open to all whatever their pack.
+ */
+export type Pack = 'story' | 'fidel' | 'numbers' | 'english';
+export const PACKS: Pack[] = ['story', 'fidel', 'numbers', 'english'];
 
 export type StoryPage = Record<Lang, string>;
 
@@ -32,6 +41,8 @@ export type Story = {
   narrators?: Partial<Record<Lang, string>>[];
   /** Readable without a plan. */
   isFree: boolean;
+  /** The package it belongs to; `story` (the Story Garden) when left out. */
+  pack?: Pack;
   /** Paid story the family can't open yet (shown on the shelf with a lock). */
   locked?: boolean;
   /**
@@ -53,7 +64,7 @@ export function agesLabel(bands: AgeBand[]): string {
 }
 
 // Amharic text is a first draft and needs review by a native-speaking editor.
-export const STORIES: Story[] = [
+const LAUNCH: Story[] = [
   {
     // The first full-length Lali book. Courage in small steps, friends who help, and a
     // repeated line for children to join in: "Little by little, step by step!"
@@ -226,6 +237,7 @@ export const STORIES: Story[] = [
     // especially the sound words (ቅጭል for the bell, ድው for the bump, ቅርጥፍ for munching,
     // ኩር-ኩር for the frog) and the ordinal forms (አሥረኛዋ).
     id: 'gugu-counts',
+    pack: 'numbers',
     title: { en: 'Gugu Counts the Sheep', am: 'ጉጉ በጎቹን ይቆጥራል' },
     category: 'Maths',
     ageBands: ['3-5', '6-7'],
@@ -389,6 +401,7 @@ export const STORIES: Story[] = [
     // especially the splash sound ፏ! ፏ! (we want a playful water word children love to shout)
     // and the colour words ብርቱካናማ and ወይን ጠጅ.
     id: 'rainbow-puddle',
+    pack: 'english',
     title: { en: 'Gugu and the Rainbow Puddle', am: 'ጉጉ እና የቀስተ ደመናው ኩሬ' },
     category: 'English',
     ageBands: ['3-5'],
@@ -470,6 +483,7 @@ export const STORIES: Story[] = [
     // AMHARIC: first draft, to be checked by a native-speaking editor before launch,
     // especially the train sounds (ቱ ቱ, ቹ ቹ) and how the letter sounds are described.
     id: 'fidel-train',
+    pack: 'fidel',
     title: { en: 'The Fidel Train ሀ ሁ ሂ', am: 'የፊደል ባቡር ሀ ሁ ሂ' },
     category: 'Fidel',
     ageBands: ['3-5'],
@@ -808,6 +822,9 @@ export const STORIES: Story[] = [
     },
   },
 ];
+
+/** Every story in the library: the launch stories, then one file per story in ./library. */
+export const STORIES: Story[] = [...LAUNCH, ...LIBRARY];
 
 export function getStory(id: string): Story | undefined {
   return STORIES.find((s) => s.id === id);

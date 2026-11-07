@@ -11,6 +11,7 @@ import { FidelTrainScene } from "./book/fidel-train-scenes";
 import { FirstDayScene } from "./book/first-day-scenes";
 import { CoffeeMysteryScene } from "./book/coffee-mystery-scenes";
 import { LalibelaScene } from "./book/lalibela-scenes";
+import { LIBRARY_SCENES } from "./book/library";
 
 /*
   The drawn pictures for the stories. Each page is its own living picture: the background
@@ -37,7 +38,14 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "firstday" && <FirstDayScene page={page} />}
       {kind === "coffee" && <CoffeeMysteryScene page={page} />}
       {kind === "lalibela" && <LalibelaScene page={page} />}
+      {kind.startsWith("lib-") && LIBRARY_SCENES[kind.slice(4)] && <LibraryScene kind={kind} page={page} />}
       {AIR[kind] && <Air kind={AIR[kind](page)} seed={page * 7 + 3} />}
     </svg>
   );
+}
+
+/** A library story's scene (src/components/book/library/<id>.tsx). */
+function LibraryScene({ kind, page }: { kind: string; page: number }) {
+  const Comp = LIBRARY_SCENES[kind.slice(4)];
+  return Comp ? <Comp page={page} /> : null;
 }
