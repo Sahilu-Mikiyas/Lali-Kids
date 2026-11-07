@@ -11,7 +11,8 @@ import { beginCheckout } from "@/lib/payments/checkout";
 import { peekGift, redeemGift, type GiftErrorCode } from "@/lib/payments/gift-server";
 import { PLANS } from "@/lib/payments/plans";
 import { dict } from "@/i18n/dict";
-import { familyPlan } from "@/lib/payments/subscription";
+import { activePlanId, familyPlan } from "@/lib/payments/subscription";
+import { packsForPlan, planForPack, packOf } from "@/lib/packs";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
 import { createSupabaseAdmin, hasActivePlan } from "@/lib/supabase/server";
 import { signReadPass } from "@/lib/read-pass";
@@ -66,6 +67,8 @@ async function getMe(ctx: Ctx) {
     f.current ? secondsPlayedToday(f.current.id) : Promise.resolve(0),
     micListenSetting(ctx.me.supabase, f.profile.id).catch(() => null),
   ]);
+  // After familyPlan, which starts a waiting plan if the current one has ended.
+  const openPlan = await activePlanId(f.profile.id).catch(() => null);
   return json({
     profile: { id: profile.id, name: profile.display_name, email: profile.email, role: profile.role, uiLang: profile.ui_lang, telegram: Boolean(profile.telegram_chat_id) },
     children: f.children,
@@ -75,7 +78,9 @@ async function getMe(ctx: Ctx) {
     tonight: { read: f.readTonight, limitReached: limitReached(f) },
     games: { secondsToday: played, secondsLeft: f.gamesMinutes === 0 ? 0 : Math.max(0, f.gamesMinutes * 60 - played) },
     plan,
-    plans: PLANS.map((p) => ({ id: p.id, priceEtb: p.priceEtb })),
+    // The packs the family's plan opens (docs/PACKAGES.md); free stories open whatever these are.
+    packs: packsForPlan(openPlan),
+    plans: PLANS.map((p) => ({ id: p.id, priceEtb: p.priceEtb, packs: packsForPlan(p.id) })),
   });
 }
 
@@ -140,10 +145,14 @@ async function allowMore(ctx: Ctx, id: string) {
   return json({ ok: true });
 }
 
-/** GET stories: the whole shelf. Launch stories come with their text; studio stories with a cover only. */
+/**
+ * GET stories: the whole shelf. Launch stories come with their text; studio stories with a cover
+ * only. Each has its `pack` and whether it is `locked` for this family's plan; locked stories
+ * carry no text and say which plan opens them (`opensWith`).
+ */
 async function getStories(ctx: Ctx) {
   const stories = await shelfStories(ctx.me?.user.id ?? null);
-  return json({ stories });
+  return json({ stories: stories.map((s) => ({ ...s, pack: packOf(s), locked: Boolean(s.locked), ...(s.locked ? { opensWith: planForPack(packOf(s)) } : {}) })) });
 }
 
 /**
@@ -154,11 +163,11 @@ async function getStories(ctx: Ctx) {
 async function getStoryForReading(ctx: Ctx, id: string) {
   const builtIn = getStory(id);
   const narrated = async (story: Story) => withNarration(story, await signedNarration(story.id).catch(() => null));
-  if (builtIn?.isFree) return json({ story: await narrated(builtIn) });
+  if (builtIn?.isFree) return json({ story: await narrated({ ...builtIn, pack: packOf(builtIn) }) });
   const profile = ctx.me ? await profileOf(ctx.me) : null;
   const access = await storyForReading(id, ctx.me?.user.id ?? null, profile?.role === "admin");
   if (!access) return fail(404, "No such story");
-  if (!("story" in access)) return json({ locked: access.locked }, 402);
+  if (!("story" in access)) return json({ locked: access.locked, pack: packOf(access.locked), opensWith: planForPack(packOf(access.locked)) }, 402);
   // Paid launch stories open in the website's animated book inside the app: add ?pass=… to its address.
   const readPass = builtIn && ctx.me ? signReadPass(ctx.me.user.id, id) : undefined;
   return json({ story: await narrated(access.story), readPass });

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
 
 import { Bee, Cub, Gugu } from "@/components/characters";
@@ -37,6 +38,9 @@ export function ChildCard({ child, thisWeek, current }: { child: Child; thisWeek
             </button>
           )}
           {current && <span className="rounded-full bg-teal/15 px-3 py-1 text-sm font-bold text-teal">{t.account.readingNow}</span>}
+          <Link href={`/account/progress/${child.id}`} className="btn btn-plain !px-3 !py-1.5 !text-sm" data-see-progress={child.id}>
+            🗺️ {t.progress.link}
+          </Link>
           {confirm ? (
             <>
               <button type="button" className="btn btn-primary !px-3 !py-1.5 !text-sm" disabled={pending} onClick={() => start(() => removeChild(child.id))}>

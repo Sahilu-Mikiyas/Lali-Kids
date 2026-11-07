@@ -44,13 +44,13 @@ on every call (the shelf calls also work signed out). Optional headers:
 
 | Call | Body | Returns |
 |---|---|---|
-| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes, micListen}` (`micListen` is null until migration 0011), `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `plans[]` |
+| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes, micListen}` (`micListen` is null until migration 0011), `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `packs[]` (the packs the family's plan opens: `story`, `fidel`, `numbers`, `english`; empty without a plan), `plans[]` (each with its `packs`) |
 | `PATCH me` | `{nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name?, micListen?}` | same as `GET me`. `micListen` is the grown-up's "Listen to my child read" choice (see below) |
 | `POST children` | `{name, ageBand: "3-5"\|"6-7"\|"8-9", lang: "en"\|"am", avatar: "cub"\|"gugu"\|"bee"}` | `{child}` |
 | `DELETE children/:id` | | `{ok}` |
 | `POST children/:id/allow-more` | | `{ok}`, reopens tonight's shelf |
-| `GET stories` | | `{stories[]}`: launch stories with their text; studio stories with a cover link, `locked` if the family can't open them yet |
-| `GET stories/:id` | | `{story}` with page text, `pictures[]` and `audio[]` links (valid 1 hour), or `402 {locked}`. Voice-actor narration is included for **launch stories too**: `audio[page][lang]` is the clip's link, `wordTimes[page][lang]` the start of each word in ms (one per word of the page text split on spaces; `[]` when not timed yet: spread the highlight across the clip), and `narrators[page][lang]` the name for a "Read by …" credit. Pages without narration have no entry |
+| `GET stories` | | `{stories[]}`: launch stories with their text; studio stories with a cover link. Each has its `pack` and `locked` (true when the family's plan doesn't open its pack; free stories never are); locked stories carry no text and say which plan opens them (`opensWith`) |
+| `GET stories/:id` | | `{story}` with page text, `pictures[]` and `audio[]` links (valid 1 hour), or `402 {locked, pack, opensWith}`. Voice-actor narration is included for **launch stories too**: `audio[page][lang]` is the clip's link, `wordTimes[page][lang]` the start of each word in ms (one per word of the page text split on spaces; `[]` when not timed yet: spread the highlight across the clip), and `narrators[page][lang]` the name for a "Read by …" credit. Pages without narration have no entry |
 | `POST progress` | `{storyId, itemType?: "story"\|"book"}` | `{stars, tonight}`: records a finished story for the current child (earns a star; respects the bedtime limit) |
 | `GET books` | | partner PDF books, `locked` if not on a plan |
 | `GET books/:slug?from=1&to=10` | | page image links for that range, **valid 90 seconds**; fetch each with the same `Authorization` header and ask again for the next pages |

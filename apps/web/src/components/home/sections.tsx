@@ -5,7 +5,8 @@ import { useT } from "@/i18n/provider";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import { STORIES } from "@/content/stories";
+import { STORIES, type Pack } from "@/content/stories";
+import { PlanPacks } from "../packs/plan-packs";
 import { confetti } from "@/lib/confetti";
 import { ShootingStar } from "../book/scenery";
 import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
@@ -582,7 +583,7 @@ const PLANS = [
   { id: "vip", price: "5,000" },
 ] as const;
 
-export function Plans() {
+export function Plans({ packCounts }: { packCounts: Record<Pack, number> }) {
   const t = useT();
   const ref = useAwake<HTMLElement>();
   return (
@@ -639,6 +640,7 @@ export function Plans() {
                 </li>
               ))}
             </ul>
+            <PlanPacks planId={p.id} counts={packCounts} dark={p.featured} />
             <Link href={`/subscribe?plan=${p.id}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
               {t.plans.choose(p.name)}
             </Link>

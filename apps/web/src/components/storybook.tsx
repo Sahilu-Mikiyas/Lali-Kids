@@ -34,7 +34,7 @@ import { readThreshold } from "@/lib/read-aloud/match";
 import { useMicReader } from "@/lib/read-aloud/use-mic-reader";
 import { useLang } from "@/i18n/provider";
 import { dict } from "@/i18n/dict";
-import { tellApp } from "@/lib/in-app";
+import { inApp, tellApp } from "@/lib/in-app";
 import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/lib/stickers/catalog";
 import { currentBasis, recordFind, recordFinish, recordRead, syncStickers, useFindHints } from "@/lib/stickers/store";
 import { useFamilyVoices } from "@/lib/voices/client";
@@ -155,7 +155,21 @@ function StickersLink({ lang }: { lang: Lang }) {
   );
 }
 
+const noSubscribe = () => () => {};
+
+/** The story's printable activities. Not shown inside the Lali app, whose web view can't print. */
+function ActivitiesLink({ lang, storyId, className = "btn btn-plain" }: { lang: Lang; storyId: string; className?: string }) {
+  const app = useSyncExternalStore(noSubscribe, inApp, () => false);
+  if (app || !storyId) return null;
+  return (
+    <Link href={`/stories/${storyId}/activities`} className={className} data-end-activities="">
+      <span aria-hidden>🖍️</span> <Swap lang={lang}>{(l) => dict[l].packs.activities}</Swap>
+    </Link>
+  );
+}
+
 function EndText({
+  storyId,
   lang,
   interactive,
   onAgain,
@@ -163,6 +177,7 @@ function EndText({
   finds,
   readAloud,
 }: {
+  storyId: string;
   lang: Lang;
   interactive: boolean;
   onAgain: () => void;
@@ -234,6 +249,7 @@ function EndText({
           </button>
           <StickersLink lang={lang} />
           <MoreStoriesLink lang={lang} />
+          <ActivitiesLink lang={lang} storyId={storyId} className="self-center rounded-full px-2 py-1 text-[0.85em] font-bold text-blue underline decoration-2 underline-offset-4 hover:text-ink" />
         </div>
       )}
     </div>
@@ -349,7 +365,7 @@ function TextFace({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
       <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
         {end ? (
-          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} readAloud={readAloud} />
+          <EndText storyId={story.id} lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} readAloud={readAloud} />
         ) : (
           <>
             <PageHeader story={story} page={page} lang={lang} />
@@ -544,6 +560,7 @@ function GrownUpsCard({ story, lang, onAgain, onClose }: { story: Story; lang: L
             <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
           </button>
           <MoreStoriesLink lang={lang} />
+          <ActivitiesLink lang={lang} storyId={story.id} />
         </div>
       </section>
     </div>

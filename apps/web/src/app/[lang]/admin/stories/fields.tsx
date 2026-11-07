@@ -2,9 +2,18 @@ import { AGE_BANDS, CATEGORIES } from "@/content/stories";
 
 export const field = "w-full rounded-xl border-2 border-line px-3 py-2 outline-none focus:border-blue";
 
-type Values = { title_en?: string; title_am?: string | null; category?: string; age_bands?: string[]; color?: string; is_free?: boolean };
+type Values = { title_en?: string; title_am?: string | null; category?: string; age_bands?: string[]; color?: string; is_free?: boolean; pack?: string | null };
 
-/** Title, world, age groups, colour and free/paid: shared by "new story" and the editor. */
+/** The packs in the studio's own (English) words. */
+const PACK_OPTIONS: { value: string; label: string }[] = [
+  { value: "", label: "Follow the world (Fidel → Fidel, Maths → Numbers, English → English, others → Story Garden)" },
+  { value: "story", label: "Story Garden (Reader and up)" },
+  { value: "fidel", label: "Fidel (Learner and VIP)" },
+  { value: "numbers", label: "Numbers (Learner and VIP)" },
+  { value: "english", label: "English (Learner and VIP)" },
+];
+
+/** Title, world, pack, age groups, colour and free/paid: shared by "new story" and the editor. */
 export function StoryFields({ v = {} }: { v?: Values }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
@@ -23,6 +32,17 @@ export function StoryFields({ v = {} }: { v?: Values }) {
             <option key={c}>{c}</option>
           ))}
         </select>
+      </label>
+      <label className="block space-y-1">
+        <span className="font-bold">Pack</span>
+        <select name="pack" defaultValue={v.pack ?? ""} className={field} data-studio-pack="">
+          {PACK_OPTIONS.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+        <span className="block text-sm text-muted">Which plan opens it. Free samples open to everyone whatever their pack.</span>
       </label>
       <label className="block space-y-1">
         <span className="font-bold">Book colour</span>

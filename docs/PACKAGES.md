@@ -41,3 +41,15 @@ Free stories stay open to everyone whatever their pack, so every pack has a tast
 | 37–40 | The Biggest Injera · The Night Visitors of Harar · Tsehay's New Baby Brother · Goodnight, Simien | Story Garden (family and bedtime) | 3–7 |
 
 In each pack, the first story of the pack's set is free, so families can try it.
+
+## In the code
+
+- `apps/web/src/lib/packs.ts` holds the rules: `packsForPlan(planId)` and `canOpen(story, plan)`.
+  The shelf, the reader (launch and studio stories, read passes), narration, printable activities
+  and the app's API all ask it. The plan is read with `activePlanId` (`lib/payments/subscription.ts`).
+- Studio stories get their pack from `stories.pack` (migration 0014), chosen in the story studio or
+  following the world (Fidel → fidel, Maths → numbers, English → english, others → story). Before
+  the migration is applied, studio stories count as `story`.
+- `teaches` on a story (`fidel`, `numbers`, `words`) feeds the progress map and the printable sheets.
+  Stories without it count by their pack.
+- Printable activities: `/stories/<id>/activities`. Progress map: `/account/progress/<childId>`.

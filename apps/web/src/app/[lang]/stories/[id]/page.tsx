@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { BookCard } from "@/components/book-card";
+import { LockedStory } from "@/components/packs/locked-story";
 import { SiteNav } from "@/components/site-chrome";
 import { StoryBookWithProgress } from "@/components/storybook-with-progress";
 import { getStory, STORIES, type Story } from "@/content/stories";
 import { currentProfile } from "@/lib/supabase/server";
 import { verifyReadPass } from "@/lib/read-pass";
 import { storyForReading } from "@/lib/stories";
-import { getT } from "@/i18n/server";
+import { getLang, getT } from "@/i18n/server";
 
 export function generateStaticParams() {
   return STORIES.map((s) => ({ id: s.id }));
@@ -33,21 +32,10 @@ async function StudioStory({ id, pass }: { id: string; pass?: string }) {
   const profile = await currentProfile();
   // Inside the Lali app there's no website session; the app sends a read pass instead.
   const familyId = profile?.id ?? verifyReadPass(pass, id);
-  const [access, t] = await Promise.all([storyForReading(id, familyId, profile?.role === "admin"), getT()]);
+  const [access, t, lang] = await Promise.all([storyForReading(id, familyId, profile?.role === "admin"), getT(), getLang()]);
   if (!access) notFound();
   if ("story" in access) return <Frame story={access.story} />;
-  return (
-    <div className="mx-auto grid max-w-3xl items-center gap-8 md:grid-cols-2">
-      <BookCard story={access.locked} />
-      <div className="space-y-4">
-        <h1 className="font-display text-4xl font-black">{access.locked.title.en}</h1>
-        <p className="text-lg text-muted">{t.shelf.lockedStory}</p>
-        <Link href={profile ? "/subscribe?plan=reader" : `/login?next=${encodeURIComponent(`/stories/${id}`)}`} className="btn btn-primary">
-          {profile ? t.shelf.seePlans : t.shelf.signIn}
-        </Link>
-      </div>
-    </div>
-  );
+  return <LockedStory story={access.locked} planId={access.planId} signedIn={Boolean(profile)} next={`/stories/${id}`} t={t} lang={lang} />;
 }
 
 async function StoryContent({ params, searchParams }: PageProps<"/[lang]/stories/[id]">) {

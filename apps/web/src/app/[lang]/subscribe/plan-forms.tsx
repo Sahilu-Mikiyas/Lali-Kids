@@ -5,6 +5,8 @@ import { useActionState, useEffect, useState } from "react";
 import { fmtDate } from "@/i18n/format";
 import { useLang, useT } from "@/i18n/provider";
 import { formatBirr, PLANS, previewSwitch, type CurrentPlan, type PlanId } from "@/lib/payments/plans";
+import { PlanPacks } from "@/components/packs/plan-packs";
+import type { Pack } from "@/content/stories";
 import { startCheckout, type CheckoutResult } from "./actions";
 
 function SwitchNote({ current, plan, nowMs }: { current: CurrentPlan; plan: PlanId; nowMs: number }) {
@@ -26,7 +28,7 @@ function SwitchNote({ current, plan, nowMs }: { current: CurrentPlan; plan: Plan
   }
 }
 
-export function PlanForms({ initialPlan, current, nowMs }: { initialPlan: PlanId; current: CurrentPlan; nowMs: number }) {
+export function PlanForms({ initialPlan, current, nowMs, packCounts }: { initialPlan: PlanId; current: CurrentPlan; nowMs: number; packCounts: Record<Pack, number> }) {
   const t = useT();
   const [plan, setPlan] = useState<PlanId>(initialPlan);
   const [result, pay, paying] = useActionState<CheckoutResult, FormData>(startCheckout, null);
@@ -64,6 +66,9 @@ export function PlanForms({ initialPlan, current, nowMs }: { initialPlan: PlanId
                 <li key={i}>✓ {i}</li>
               ))}
             </ul>
+            <div className="mt-auto pt-2">
+              <PlanPacks planId={p.id} counts={packCounts} />
+            </div>
           </button>
         ))}
       </div>

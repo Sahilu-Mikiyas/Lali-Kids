@@ -8,6 +8,7 @@ import { FeedVsBook, Marquee, ParentReport, Plans, SectionHead, StarGame, Worlds
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { StoryBook } from "@/components/storybook";
 import { STORIES } from "@/content/stories";
+import { packCounts } from "@/lib/packs";
 import { getT } from "@/i18n/server";
 
 export default async function Home() {
@@ -32,7 +33,7 @@ export default async function Home() {
         <ParentReport />
         <DayWalk phase="afternoon" above="#ffffff" />
         <Cinema />
-        <Plans />
+        <Plans packCounts={packCounts(STORIES)} />
         <Bedtime />
       </main>
       <SiteFooter />

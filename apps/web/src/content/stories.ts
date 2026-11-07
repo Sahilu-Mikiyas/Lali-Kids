@@ -55,6 +55,11 @@ export type Story = {
    * x and y are 0–1 across the picture; `peek` is the side she peeks out from. Optional.
    */
   lali?: { x: number; y: number; peek: 'left' | 'right' | 'top' | 'bottom' }[];
+  /**
+   * What the story teaches, for the progress map and the printable activities: fidel families
+   * (by their first letter, e.g. 'ሀ'), numbers (1–10) and English words. Optional.
+   */
+  teaches?: { fidel?: string[]; numbers?: number[]; words?: string[] };
 };
 
 /** "3-5", "6-7" -> "3–7" */
@@ -245,6 +250,7 @@ const LAUNCH: Story[] = [
     color: '#0E7F74',
     scene: 'count',
     coverPage: 12,
+    teaches: { numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], words: ['sheep', 'ten', 'bell'] },
     pages: [
       {
         en: 'Gugu the gelada loves to count. Every morning he opens the gate of the sheep pen and counts the sheep out to the green hill.',
@@ -409,6 +415,7 @@ const LAUNCH: Story[] = [
     color: '#3D7BD9',
     scene: 'rainbow',
     coverPage: 10,
+    teaches: { words: ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'grey', 'rainbow', 'puddle'] },
     pages: [
       {
         en: 'Drip, drop. Drip, drop. All night long, the big kiremt rain drummed on the tin roofs.',
@@ -491,6 +498,7 @@ const LAUNCH: Story[] = [
     color: '#E0533D',
     scene: 'fideltrain',
     coverPage: 4,
+    teaches: { fidel: ['ሀ', 'ለ', 'መ'] },
     pages: [
       {
         en: 'Toot, toot! Here comes the Fidel Train! Anbessa is the driver, and Lali rings the bell. Ding, ding!',

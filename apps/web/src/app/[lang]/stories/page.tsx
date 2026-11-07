@@ -8,9 +8,12 @@ import { Bee } from "@/components/characters";
 import { ChildChooser } from "@/components/child-chooser";
 import { BookIcon } from "@/components/stickers/sticker-reward";
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { AGE_BANDS, type AgeBand } from "@/content/stories";
+import { PackIcon, PACK_COLOR } from "@/components/packs/pack-icon";
+import { AGE_BANDS, PACKS, type AgeBand, type Pack } from "@/content/stories";
 import { limitReached, loadFamily } from "@/lib/family";
-import { forAge, shelfStories } from "@/lib/stories";
+import { isPack, packsForPlan, planForPack } from "@/lib/packs";
+import { activePlanId } from "@/lib/payments/subscription";
+import { forAge, forPack, shelfStories } from "@/lib/stories";
 import { getT } from "@/i18n/server";
 
 export const metadata: Metadata = {
@@ -22,7 +25,7 @@ const isBand = (v: unknown): v is AgeBand => typeof v === "string" && (AGE_BANDS
 
 async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/stories">["searchParams"] }) {
   await connection();
-  const [{ age }, family, t] = await Promise.all([searchParams, loadFamily(), getT()]);
+  const [{ age, pack: packParam }, family, t] = await Promise.all([searchParams, loadFamily(), getT()]);
   if (limitReached(family)) {
     return (
       <div className="mx-auto mt-12 max-w-xl space-y-4 rounded-[32px] bg-night p-10 text-center text-white">
@@ -43,7 +46,21 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
   // A child's shelf stays on their age group unless a grown-up allowed every age.
   const lockedToChild = Boolean(childBand && family && !family.showAllAges);
   const band: AgeBand | null = lockedToChild ? childBand : age === "all" ? null : isBand(age) ? age : childBand;
-  const stories = forAge(await shelfStories(family?.profile.id ?? null), band);
+  const pack: Pack | null = isPack(packParam) ? packParam : null;
+  const [shelf, planId] = await Promise.all([shelfStories(family?.profile.id ?? null), family ? activePlanId(family.profile.id).catch(() => null) : Promise.resolve(null)]);
+  const stories = forPack(forAge(shelf, band), pack);
+  // Packs the family's plan doesn't open (their free stories still are).
+  const openPacks = packsForPlan(planId);
+  const lockedPacks = new Set(PACKS.filter((p) => !openPacks.includes(p)));
+  const href = (next: { age?: string | null; pack?: string | null }) => {
+    const q = new URLSearchParams();
+    const a = "age" in next ? next.age : age === "all" || isBand(age) ? age : null;
+    const p = "pack" in next ? next.pack : pack;
+    if (a && !lockedToChild) q.set("age", a);
+    if (p) q.set("pack", p);
+    const qs = q.toString();
+    return qs ? `/stories?${qs}` : "/stories";
+  };
 
   return (
     <>
@@ -62,7 +79,33 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
           {t.stickers.myBook}
         </Link>
       </div>
-      <nav className="mt-8 flex flex-wrap items-center gap-2" aria-label="Age group">
+      <nav className="pack-tabs -mx-4 mt-8 flex gap-2.5 overflow-x-auto px-4 pb-2 pt-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" aria-label={t.packs.label} data-pack-tabs="">
+        {([null, ...PACKS] as (Pack | null)[]).map((p) => {
+          const active = pack === p;
+          const locked = p !== null && lockedPacks.has(p);
+          return (
+            <Link
+              key={p ?? "all"}
+              href={href({ pack: p })}
+              aria-current={active ? "page" : undefined}
+              data-pack-tab={p ?? "all"}
+              className={`pack-tab group flex shrink-0 items-center gap-2 rounded-2xl py-1.5 pl-1.5 pr-3.5 font-display text-lg font-extrabold shadow-[0_4px_0_var(--color-line)] transition hover:-translate-y-0.5 ${active ? "text-white" : "bg-white"}`}
+              style={active ? { background: p ? PACK_COLOR[p] : "var(--color-ink)", boxShadow: "0 4px 0 rgba(27,42,78,.25)" } : undefined}
+            >
+              <PackIcon pack={p ?? "all"} size={34} className="transition-transform group-hover:scale-110" />
+              <span className="leading-tight">
+                {p ? t.packs.names[p] : t.packs.all}
+                {locked && (
+                  <span className={`block text-xs font-bold ${active ? "text-white/85" : "text-muted"}`} data-pack-locked={planForPack(p)}>
+                    {t.packs.lockedChip(t.plans.names[planForPack(p)])}
+                  </span>
+                )}
+              </span>
+            </Link>
+          );
+        })}
+      </nav>
+      <nav className="mt-4 flex flex-wrap items-center gap-2" aria-label="Age group">
         {lockedToChild ? (
           <p className="rounded-full bg-white px-4 py-2 font-bold shadow-[0_3px_0_var(--color-line)]">
             {t.shelf.forAges(childBand ?? "")} <span className="font-normal text-muted">· {t.shelf.lockedHint}</span>
@@ -71,7 +114,7 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
           [null, ...AGE_BANDS].map((b) => (
             <Link
               key={b ?? "all"}
-              href={`/stories?age=${b ?? "all"}`}
+              href={href({ age: b ?? "all" })}
               aria-current={band === b ? "page" : undefined}
               className={`rounded-full px-4 py-2 font-bold shadow-[0_3px_0_var(--color-line)] transition ${band === b ? "bg-ink text-white" : "bg-white hover:-translate-y-0.5"}`}
             >
@@ -80,6 +123,15 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
           ))
         )}
       </nav>
+      {pack && lockedPacks.has(pack) && (
+        <div className="mt-6 flex flex-wrap items-center gap-4 rounded-[24px] bg-white p-4 shadow-[0_4px_0_var(--color-line)]" data-pack-locked-note="">
+          <PackIcon pack={pack} size={44} />
+          <p className="min-w-[12rem] flex-1 font-bold">{t.packs.shelfLocked(t.packs.names[pack], t.plans.names[planForPack(pack)])}</p>
+          <Link href={`/subscribe?plan=${planForPack(pack)}`} className="btn btn-primary !text-base">
+            {t.packs.upgrade(t.plans.names[planForPack(pack)])}
+          </Link>
+        </div>
+      )}
       {stories.length ? (
         <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {stories.map((s, i) => (
@@ -87,7 +139,7 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
           ))}
         </div>
       ) : (
-        <p className="mt-10 rounded-[28px] bg-white p-8 text-center text-lg text-muted">{t.shelf.empty}</p>
+        <p className="mt-10 rounded-[28px] bg-white p-8 text-center text-lg text-muted">{pack ? t.packs.emptyPack : t.shelf.empty}</p>
       )}
       <div className="mt-4 h-4 rounded-md bg-gold shadow-[0_8px_0_var(--color-gold-deep)]" aria-hidden />
     </>

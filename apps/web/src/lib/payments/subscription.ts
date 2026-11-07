@@ -1,5 +1,7 @@
 import "server-only";
 
+import { cache } from "react";
+
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { verifyPayment } from "./chapa";
@@ -47,6 +49,27 @@ export async function familyPlan(familyId: string): Promise<FamilyPlan | null> {
       : null,
   };
 }
+
+/**
+ * The plan that is open for a family right now, or null: the same rule as the database's
+ * has_active_subscription. When the current plan has run out and a waiting (downgraded) plan
+ * is still within its days, that plan counts. Read only (no settling), once per request.
+ */
+export const activePlanId = cache(async (familyId: string): Promise<PlanId | null> => {
+  if (!hasSecretKey()) return null;
+  const { data } = await createSupabaseAdmin()
+    .from("subscriptions")
+    .select("plan_id, status, current_period_end, next_plan_id, next_days")
+    .eq("family_id", familyId)
+    .maybeSingle();
+  if (!data || (data.status !== "trialing" && data.status !== "active")) return null;
+  const now = Date.now();
+  const ends = new Date(data.current_period_end).getTime();
+  const known = (id: unknown) => planById(typeof id === "string" ? id : null)?.id ?? null;
+  if (ends > now) return known(data.plan_id);
+  if (data.next_plan_id && ends + Number(data.next_days ?? 0) * 86_400_000 > now) return known(data.next_plan_id);
+  return null;
+});
 
 /** The plan in the shape the plan picker needs to preview a switch. */
 export function asCurrentPlan(p: FamilyPlan | null): CurrentPlan {

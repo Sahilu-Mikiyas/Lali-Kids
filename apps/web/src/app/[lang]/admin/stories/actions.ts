@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { AGE_BANDS, CATEGORIES } from "@/content/stories";
 import { isFile, removeMedia, requireAdmin, slugify, storeAudio, storeImage } from "@/lib/admin";
+import { isPack, packFromCategory } from "@/lib/packs";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 
 const text = (form: FormData, key: string, max = 200) => String(form.get(key) ?? "").trim().slice(0, max);
@@ -13,15 +14,27 @@ function details(form: FormData) {
   const bands = form.getAll("age_bands").map(String).filter((b) => (AGE_BANDS as string[]).includes(b));
   const category = text(form, "category");
   const color = text(form, "color");
+  const pack = text(form, "pack");
+  const world = (CATEGORIES as string[]).includes(category) ? category : "Bedtime";
   return {
     title_en: text(form, "title_en", 120),
     title_am: text(form, "title_am", 120) || null,
-    category: (CATEGORIES as string[]).includes(category) ? category : "Bedtime",
+    category: world,
     age_bands: bands.length ? bands : ["3-5"],
     color: /^#[0-9a-fA-F]{6}$/.test(color) ? color : "#2B3A8C",
     is_free: form.get("is_free") === "on",
+    // Chosen in the studio, or follows the world.
+    pack: isPack(pack) ? pack : packFromCategory(world),
   };
 }
+
+/** Until migration 0014 adds `stories.pack`, writes that include it fail: they go again without it. */
+const missingPack = (error: { message?: string } | null) => Boolean(error && /\bpack\b/.test(error.message ?? "") && /column|schema/i.test(error.message ?? ""));
+const withoutPack = <T extends { pack?: unknown }>(d: T): Omit<T, "pack"> => {
+  const rest = { ...d };
+  delete rest.pack;
+  return rest;
+};
 
 function refresh(id?: string) {
   revalidate("/admin/stories");
@@ -40,11 +53,10 @@ export async function createStory(form: FormData) {
   const d = details(form);
   if (!d.title_en) redirect("/admin/stories?message=Give+the+story+a+title");
   const db = createSupabaseAdmin();
-  const { data, error } = await db
-    .from("stories")
-    .insert({ ...d, slug: slugify(d.title_en), created_by: admin.id })
-    .select("id")
-    .single();
+  const insert = (row: Record<string, unknown>) => db.from("stories").insert(row).select("id").single();
+  const base = { slug: slugify(d.title_en), created_by: admin.id };
+  let { data, error } = await insert({ ...d, ...base });
+  if (missingPack(error)) ({ data, error } = await insert({ ...withoutPack(d), ...base }));
   if (error || !data) redirect(`/admin/stories?message=${encodeURIComponent(error?.message ?? "Could not create the story")}`);
   await db.from("story_pages").insert({ story_id: data.id, position: 0 });
   refresh();
@@ -56,7 +68,13 @@ export async function updateStory(form: FormData) {
   const id = text(form, "id");
   const d = details(form);
   if (!d.title_en) back(id, "The story needs a title.");
-  await createSupabaseAdmin().from("stories").update({ ...d, updated_at: new Date().toISOString() }).eq("id", id);
+  const update = (row: Record<string, unknown>) => createSupabaseAdmin().from("stories").update(row).eq("id", id);
+  const { error } = await update({ ...d, updated_at: new Date().toISOString() });
+  if (missingPack(error)) {
+    await update({ ...withoutPack(d), updated_at: new Date().toISOString() });
+    refresh(id);
+    back(id, "Saved. The pack is kept once the packs migration (0014) is applied.");
+  }
   refresh(id);
   back(id, "Saved.");
 }

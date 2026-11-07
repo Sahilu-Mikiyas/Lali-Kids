@@ -7,21 +7,21 @@ export const PLANS: { id: PlanId; name: string; priceEtb: number; for: string; i
     name: "Reader",
     priceEtb: 400,
     for: "For building a daily reading habit",
-    items: ["The whole Story Garden library", "New stories every week", "Read-to-me in English and Amharic", "Offline reading in the app"],
+    items: ["The Story Garden pack: every picture book", "Printable activities for its stories", "Read-to-me in English and Amharic", "Offline reading in the app"],
   },
   {
     id: "learner",
     name: "Learner",
     priceEtb: 1200,
     for: "For reading plus real skills",
-    items: ["Everything in Reader", "Two worlds: English, Maths or Values", "Weekly progress note", "Up to 2 child profiles"],
+    items: ["Every pack: Story Garden, Fidel, Numbers and English", "Printable activities for every story", "A progress map for each child", "Up to 2 child profiles"],
   },
   {
     id: "vip",
     name: "VIP",
     priceEtb: 5000,
     for: "For families who want everything",
-    items: ["Every world and every story", "A printed storybook each month", "Monthly live reading circle", "Up to 4 child profiles"],
+    items: ["Everything in Learner, every pack", "A printed storybook each month", "Monthly live reading circle", "Up to 4 child profiles"],
   },
 ];
 
