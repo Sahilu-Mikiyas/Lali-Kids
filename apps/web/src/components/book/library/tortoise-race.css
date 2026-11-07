@@ -1,0 +1,315 @@
+/* The Tortoise and the Lion's Race (tortoise-race.tsx): transforms and opacity only. */
+
+/* Gobez: galloping legs, a bobbing body, his mane and headband streaming. */
+@keyframes tortoise-race-gallop-leg {
+  from { transform: rotate(-34deg); }
+  to { transform: rotate(34deg); }
+}
+.tortoise-race-gallop-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: tortoise-race-gallop-leg 0.28s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes tortoise-race-gallop {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+.tortoise-race-gallop {
+  animation: tortoise-race-gallop 0.14s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-stream {
+  from { transform: translateX(2px) scaleX(0.9); }
+  to { transform: translateX(-3px) scaleX(1.08); }
+}
+.tortoise-race-stream {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: tortoise-race-stream 0.24s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-band {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(10deg); }
+}
+.tortoise-race-band {
+  transform-box: fill-box;
+  transform-origin: 100% 30%;
+  animation: tortoise-race-band 0.5s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-tuft {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(14deg); }
+}
+.tortoise-race-tuft {
+  transform-box: fill-box;
+  transform-origin: 30% 50%;
+  animation: tortoise-race-tuft 1.8s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-pant {
+  from { transform: scaleY(0.75); }
+  to { transform: scaleY(1.15); }
+}
+.tortoise-race-pant {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: tortoise-race-pant 0.3s ease-in-out infinite alternate;
+}
+/* Fast asleep: deep, slow snoring breaths. */
+@keyframes tortoise-race-snore {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.03, 1.09); }
+}
+.tortoise-race-snore {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-snore 2.6s ease-in-out infinite;
+}
+@keyframes tortoise-race-snore-bubble {
+  0% { transform: scale(0.3); opacity: 0; }
+  10% { opacity: 0.9; }
+  45% { transform: scale(1.5); opacity: 0.9; }
+  50% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(0.3); opacity: 0; }
+}
+.tortoise-race-snore-bubble {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: tortoise-race-snore-bubble 2.6s ease-in-out infinite;
+}
+/* He yawns, then drops off: the yawning face gives way to the sleeping one. */
+@keyframes tortoise-race-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes tortoise-race-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.tortoise-race-yawn-out {
+  opacity: 0;
+  animation: tortoise-race-out 0.5s ease 2s both;
+}
+.tortoise-race-sleep-in {
+  animation: tortoise-race-in 0.5s ease 2s both;
+}
+
+/* Gobez shows off, roars with laughter, and at last bows. */
+@keyframes tortoise-race-boast {
+  0%, 100% { transform: scale(1) rotate(0); }
+  40% { transform: scale(1.05) rotate(-3deg); }
+}
+.tortoise-race-boast {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-boast 2.2s ease-in-out infinite;
+}
+@keyframes tortoise-race-guffaw {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(4deg); }
+}
+.tortoise-race-guffaw {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-guffaw 0.32s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-bow {
+  0%, 30%, 100% { transform: rotate(0); }
+  50%, 75% { transform: rotate(9deg); }
+}
+.tortoise-race-bow {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: tortoise-race-bow 3.6s ease-in-out 0.8s infinite;
+}
+@keyframes tortoise-race-trot {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+.tortoise-race-trot {
+  animation: tortoise-race-trot 0.3s ease-in-out infinite alternate;
+}
+.tortoise-race-far-run {
+  animation: tortoise-race-trot 0.18s ease-in-out infinite alternate;
+}
+
+/* Eli: slow plodding legs, a gently rocking shell and a nodding head. */
+@keyframes tortoise-race-plod {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(16deg); }
+}
+.tortoise-race-plod {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: tortoise-race-plod 0.9s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes tortoise-race-shell-bob {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(-2px) rotate(-1.5deg); }
+}
+.tortoise-race-shell-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-shell-bob 0.9s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-nod {
+  from { transform: rotate(3deg); }
+  to { transform: rotate(-5deg); }
+}
+.tortoise-race-nod {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: tortoise-race-nod 0.9s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-step {
+  0%, 100% { transform: translateX(-4px); }
+  50% { transform: translateX(6px); }
+}
+.tortoise-race-first-step,
+.tortoise-race-last-step {
+  animation: tortoise-race-step 3.6s ease-in-out infinite;
+}
+
+/* The geladas graze: heads down to the grass and up again. */
+@keyframes tortoise-race-graze {
+  0%, 60%, 100% { transform: rotate(0); }
+  70%, 90% { transform: rotate(10deg) translateY(3px); }
+}
+.tortoise-race-graze {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-graze 4.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Little effects. */
+@keyframes tortoise-race-arc {
+  0% { transform: scale(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+.tortoise-race-arc {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: tortoise-race-arc 1.1s ease-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-dust {
+  0% { transform: scale(0.3); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.tortoise-race-dust {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: tortoise-race-dust 1.4s ease-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-speed {
+  0% { transform: translateX(10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(-30px); opacity: 0; }
+}
+.tortoise-race-speed {
+  animation: tortoise-race-speed 0.6s linear var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-zzz {
+  0% { transform: translate(0, 6px) scale(0.6); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(10px, -22px) scale(1.1); opacity: 0; }
+}
+.tortoise-race-zzz {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: tortoise-race-zzz 3s ease-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-cheer {
+  0% { transform: translateY(10px) scale(0); opacity: 0; }
+  20% { transform: translateY(0) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-40px) scale(0.8); opacity: 0; }
+}
+.tortoise-race-cheer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tortoise-race-cheer 2.6s ease-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-confetti {
+  0% { transform: translate(0, -60px) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(var(--dx, 0px), 200px) rotate(540deg); opacity: 0.9; }
+}
+.tortoise-race-confetti {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tortoise-race-confetti 3s linear var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-sweat {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(12px); opacity: 0; }
+}
+.tortoise-race-sweat {
+  animation: tortoise-race-sweat 1.4s ease-in infinite;
+}
+@keyframes tortoise-race-puff {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0.9; }
+  100% { transform: translate(16px, -12px) scale(1.6); opacity: 0; }
+}
+.tortoise-race-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tortoise-race-puff 1.2s ease-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-heat {
+  0% { transform: translateY(0); opacity: 0; }
+  40% { opacity: 0.8; }
+  100% { transform: translateY(-16px); opacity: 0; }
+}
+.tortoise-race-heat {
+  animation: tortoise-race-heat 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes tortoise-race-tassel {
+  from { transform: rotate(-9deg); }
+  to { transform: rotate(9deg); }
+}
+.tortoise-race-tassel {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: tortoise-race-tassel 2.8s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes tortoise-race-fall {
+  from { transform: translateY(-6px); }
+  to { transform: translateY(8px); }
+}
+.tortoise-race-fall {
+  animation: tortoise-race-fall 0.45s linear infinite;
+}
+@keyframes tortoise-race-mist {
+  from { transform: scale(0.7); opacity: 0.8; }
+  to { transform: scale(1.3); opacity: 0.3; }
+}
+.tortoise-race-mist {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tortoise-race-mist 1.3s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes tortoise-race-flutter {
+  from { transform: rotate(-8deg) scaleY(0.9); }
+  to { transform: rotate(6deg) scaleY(1.05); }
+}
+.tortoise-race-flutter {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: tortoise-race-flutter 0.35s ease-in-out infinite alternate;
+}
+/* Grandma's saying: a little egg on little legs, waddling along. */
+@keyframes tortoise-race-egg {
+  from { transform: rotate(-9deg); }
+  to { transform: rotate(9deg); }
+}
+.tortoise-race-egg {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tortoise-race-egg 0.45s ease-in-out infinite alternate;
+}
+@keyframes tortoise-race-egg-legs {
+  from { transform: translateY(0); }
+  to { transform: translateY(-1.5px); }
+}
+.tortoise-race-egg-legs {
+  animation: tortoise-race-egg-legs 0.22s ease-in-out infinite alternate;
+}

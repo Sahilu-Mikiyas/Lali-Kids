@@ -1,0 +1,247 @@
+/* The Clever Monkey (clever-monkey.tsx): transforms and opacity only. */
+
+/* Tota: a curling tail (shaking when scared), waving arms and a beating heart. */
+@keyframes clever-monkey-tail {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(8deg); }
+}
+.clever-monkey-tail {
+  transform-box: fill-box;
+  transform-origin: 0% 90%;
+  animation: clever-monkey-tail 2.4s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-tail-shake {
+  from { transform: rotate(-5deg); }
+  to { transform: rotate(5deg); }
+}
+.clever-monkey-tail-shake {
+  transform-box: fill-box;
+  transform-origin: 0% 90%;
+  animation: clever-monkey-tail-shake 0.1s linear infinite alternate;
+}
+@keyframes clever-monkey-wave {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(16deg); }
+}
+.clever-monkey-wave-l,
+.clever-monkey-wave-r {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: clever-monkey-wave 0.4s ease-in-out infinite alternate;
+}
+.clever-monkey-wave-l {
+  animation-delay: -0.2s;
+}
+@keyframes clever-monkey-pat {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-14deg); }
+}
+.clever-monkey-pat {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: clever-monkey-pat 0.6s ease-in-out infinite;
+}
+@keyframes clever-monkey-beat {
+  0%, 40%, 100% { transform: scale(1); }
+  15% { transform: scale(1.35); }
+  28% { transform: scale(1.15); }
+}
+.clever-monkey-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: clever-monkey-beat 1.1s ease-in-out infinite;
+}
+.clever-monkey-thump {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: clever-monkey-beat 0.45s ease-in-out infinite;
+}
+@keyframes clever-monkey-swing {
+  from { transform: rotate(-9deg); }
+  to { transform: rotate(9deg); }
+}
+.clever-monkey-swing {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: clever-monkey-swing 1.6s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-giggle {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(4deg); }
+}
+.clever-monkey-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: clever-monkey-giggle 0.3s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-ride {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+.clever-monkey-ride {
+  animation: clever-monkey-ride 0.5s ease-in-out infinite alternate;
+}
+/* Scared at first, then a big calm breath. */
+@keyframes clever-monkey-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes clever-monkey-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.clever-monkey-scared-out {
+  opacity: 0;
+  animation: clever-monkey-out 0.5s ease 2.4s both;
+}
+.clever-monkey-calm-in {
+  animation: clever-monkey-in 0.5s ease 2.4s both;
+}
+@keyframes clever-monkey-breath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05, 1.04); }
+}
+.clever-monkey-breath {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: clever-monkey-breath 3s ease-in-out infinite;
+}
+/* The leap: across and up to the top branch, in an arc. */
+@keyframes clever-monkey-leap-x {
+  from { transform: translateX(100px); }
+  to { transform: translateX(0); }
+}
+@keyframes clever-monkey-leap-y {
+  from { transform: translateY(142px) rotate(-20deg); }
+  to { transform: translateY(0) rotate(0); }
+}
+.clever-monkey-leap-x {
+  animation: clever-monkey-leap-x 1.1s linear 0.8s both;
+}
+.clever-monkey-leap-y {
+  animation: clever-monkey-leap-y 1.1s cubic-bezier(0.15, 0.85, 0.35, 1) 0.8s both;
+}
+@keyframes clever-monkey-whoosh {
+  0%, 100% { opacity: 0; }
+  20%, 60% { opacity: 0.85; }
+}
+.clever-monkey-whoosh {
+  animation: clever-monkey-whoosh 3s ease-in-out 0.8s infinite;
+}
+
+/* Zozo: bobbing, paddling, sweeping his tail, licking his lips and scratching his head. */
+@keyframes clever-monkey-bob {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(3px) rotate(0.8deg); }
+}
+.clever-monkey-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: clever-monkey-bob 1.6s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-paddle {
+  from { transform: translateX(-4px); }
+  to { transform: translateX(4px); }
+}
+.clever-monkey-paddle {
+  animation: clever-monkey-paddle 0.5s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-tail-sweep {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+.clever-monkey-tail-sweep {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: clever-monkey-tail-sweep 0.9s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-lick {
+  0%, 60%, 100% { transform: translateX(-4px) scale(0.3); opacity: 0; }
+  70%, 85% { transform: translateX(0) scale(1); opacity: 1; }
+}
+.clever-monkey-lick {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: clever-monkey-lick 2s ease-in-out infinite;
+}
+@keyframes clever-monkey-scratch {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(8deg); }
+}
+.clever-monkey-scratch {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: clever-monkey-scratch 0.2s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-head {
+  0%, 70%, 100% { transform: rotate(0); }
+  80% { transform: rotate(-3deg); }
+}
+.clever-monkey-head {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: clever-monkey-head 4s ease-in-out infinite;
+}
+@keyframes clever-monkey-cruise {
+  from { transform: translateX(-10px); }
+  to { transform: translateX(10px); }
+}
+.clever-monkey-cruise {
+  animation: clever-monkey-cruise 3s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-wake {
+  0% { transform: translateX(10px); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateX(-40px); opacity: 0; }
+}
+.clever-monkey-wake {
+  animation: clever-monkey-wake 1.6s ease-out var(--delay, 0s) infinite;
+}
+
+/* The river: jumping fish and splashes. */
+@keyframes clever-monkey-fish {
+  0%, 55%, 100% { transform: translate(0, 24px) rotate(0); opacity: 0; }
+  60% { transform: translate(-14px, 4px) rotate(-40deg); opacity: 1; }
+  70% { transform: translate(0, -14px) rotate(0); opacity: 1; }
+  80% { transform: translate(14px, 4px) rotate(40deg); opacity: 1; }
+  85% { transform: translate(18px, 24px) rotate(60deg); opacity: 0; }
+}
+.clever-monkey-fish {
+  animation: clever-monkey-fish 4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes clever-monkey-splash {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  20% { opacity: 1; }
+  60% { transform: translate(var(--dx, 0px), var(--dy, -20px)) scale(1); opacity: 1; }
+  100% { transform: translate(calc(var(--dx, 0px) * 1.4), 6px) scale(0.6); opacity: 0; }
+}
+.clever-monkey-splash {
+  opacity: 0;
+  animation: clever-monkey-splash 1.1s ease-out var(--delay, 0.6s) both;
+}
+@keyframes clever-monkey-fig-drop {
+  0% { transform: translate(-50px, -76px); opacity: 1; }
+  60% { transform: translate(0, 0); opacity: 1; }
+  80% { transform: translate(0, 14px); opacity: 0; }
+  100% { transform: translate(0, 14px); opacity: 0; }
+}
+.clever-monkey-fig-drop {
+  animation: clever-monkey-fig-drop 2.6s ease-in 0.6s infinite;
+}
+@keyframes clever-monkey-dangle {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(12deg); }
+}
+.clever-monkey-dangle {
+  transform-box: view-box;
+  transform-origin: 0 -10px;
+  animation: clever-monkey-dangle 1.4s ease-in-out infinite alternate;
+}
+@keyframes clever-monkey-whirr {
+  to { transform: rotate(360deg); }
+}
+.clever-monkey-whirr {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: clever-monkey-whirr 2.4s linear infinite;
+}

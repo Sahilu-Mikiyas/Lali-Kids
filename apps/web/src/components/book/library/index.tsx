@@ -62,13 +62,13 @@ const GennaGame = dynamic(() => import("./genna-game"), { ssr: false });
 // --- slot: ashenda-song
 const AshendaSong = dynamic(() => import("./ashenda-song"), { ssr: false });
 // --- slot: tortoise-race
-// const TortoiseRace = dynamic(() => import("./tortoise-race"), { ssr: false });
+const TortoiseRace = dynamic(() => import("./tortoise-race"), { ssr: false });
 // --- slot: why-hyena-laughs
-// const WhyHyenaLaughs = dynamic(() => import("./why-hyena-laughs"), { ssr: false });
+const WhyHyenaLaughs = dynamic(() => import("./why-hyena-laughs"), { ssr: false });
 // --- slot: clever-monkey
-// const CleverMonkey = dynamic(() => import("./clever-monkey"), { ssr: false });
+const CleverMonkey = dynamic(() => import("./clever-monkey"), { ssr: false });
 // --- slot: coffee-kaldi
-// const CoffeeKaldi = dynamic(() => import("./coffee-kaldi"), { ssr: false });
+const CoffeeKaldi = dynamic(() => import("./coffee-kaldi"), { ssr: false });
 // --- slot: big-sneeze
 // const BigSneeze = dynamic(() => import("./big-sneeze"), { ssr: false });
 // --- slot: lost-kite
@@ -126,13 +126,13 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: ashenda-song
   "ashenda-song": AshendaSong,
   // --- slot: tortoise-race
-  // "tortoise-race": TortoiseRace,
+  "tortoise-race": TortoiseRace,
   // --- slot: why-hyena-laughs
-  // "why-hyena-laughs": WhyHyenaLaughs,
+  "why-hyena-laughs": WhyHyenaLaughs,
   // --- slot: clever-monkey
-  // "clever-monkey": CleverMonkey,
+  "clever-monkey": CleverMonkey,
   // --- slot: coffee-kaldi
-  // "coffee-kaldi": CoffeeKaldi,
+  "coffee-kaldi": CoffeeKaldi,
   // --- slot: big-sneeze
   // "big-sneeze": BigSneeze,
   // --- slot: lost-kite
