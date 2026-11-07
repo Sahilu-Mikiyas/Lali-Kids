@@ -78,13 +78,13 @@ const HelloFeelings = dynamic(() => import("./hello-feelings"), { ssr: false });
 // --- slot: grandpas-krar
 // const GrandpasKrar = dynamic(() => import("./grandpas-krar"), { ssr: false });
 // --- slot: biggest-injera
-// const BiggestInjera = dynamic(() => import("./biggest-injera"), { ssr: false });
+const BiggestInjera = dynamic(() => import("./biggest-injera"), { ssr: false });
 // --- slot: harar-hyenas
-// const HararHyenas = dynamic(() => import("./harar-hyenas"), { ssr: false });
+const HararHyenas = dynamic(() => import("./harar-hyenas"), { ssr: false });
 // --- slot: new-baby-brother
-// const NewBabyBrother = dynamic(() => import("./new-baby-brother"), { ssr: false });
+const NewBabyBrother = dynamic(() => import("./new-baby-brother"), { ssr: false });
 // --- slot: goodnight-simien
-// const GoodnightSimien = dynamic(() => import("./goodnight-simien"), { ssr: false });
+const GoodnightSimien = dynamic(() => import("./goodnight-simien"), { ssr: false });
 
 export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: fidel-be
@@ -142,11 +142,11 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: grandpas-krar
   // "grandpas-krar": GrandpasKrar,
   // --- slot: biggest-injera
-  // "biggest-injera": BiggestInjera,
+  "biggest-injera": BiggestInjera,
   // --- slot: harar-hyenas
-  // "harar-hyenas": HararHyenas,
+  "harar-hyenas": HararHyenas,
   // --- slot: new-baby-brother
-  // "new-baby-brother": NewBabyBrother,
+  "new-baby-brother": NewBabyBrother,
   // --- slot: goodnight-simien
-  // "goodnight-simien": GoodnightSimien,
+  "goodnight-simien": GoodnightSimien,
 };

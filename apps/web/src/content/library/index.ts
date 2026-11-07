@@ -62,13 +62,13 @@ import helloFeelings from "./hello-feelings";
 // --- slot: grandpas-krar
 // import grandpasKrar from "./grandpas-krar";
 // --- slot: biggest-injera
-// import biggestInjera from "./biggest-injera";
+import biggestInjera from "./biggest-injera";
 // --- slot: harar-hyenas
-// import hararHyenas from "./harar-hyenas";
+import hararHyenas from "./harar-hyenas";
 // --- slot: new-baby-brother
-// import newBabyBrother from "./new-baby-brother";
+import newBabyBrother from "./new-baby-brother";
 // --- slot: goodnight-simien
-// import goodnightSimien from "./goodnight-simien";
+import goodnightSimien from "./goodnight-simien";
 
 export const LIBRARY: Story[] = [
   // --- slot: fidel-be
@@ -126,11 +126,11 @@ export const LIBRARY: Story[] = [
   // --- slot: grandpas-krar
   // grandpasKrar,
   // --- slot: biggest-injera
-  // biggestInjera,
+  biggestInjera,
   // --- slot: harar-hyenas
-  // hararHyenas,
+  hararHyenas,
   // --- slot: new-baby-brother
-  // newBabyBrother,
+  newBabyBrother,
   // --- slot: goodnight-simien
-  // goodnightSimien,
+  goodnightSimien,
 ];

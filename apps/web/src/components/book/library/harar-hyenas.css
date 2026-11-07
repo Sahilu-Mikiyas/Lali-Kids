@@ -1,0 +1,288 @@
+/* The Night Visitors of Harar (harar-hyenas.tsx): transforms and opacity only. */
+
+/* Faces that hold still so a wink or closed eyes stay in place. */
+.harar-hyenas-still .lali-tilt { animation: none; }
+
+/* Abba Yusuf winks now and then. */
+@keyframes harar-hyenas-wink {
+  0%, 62%, 78%, 100% { opacity: 0; }
+  66%, 74% { opacity: 1; }
+}
+.harar-hyenas-wink { opacity: 0; animation: harar-hyenas-wink 3.2s ease-in-out var(--delay, 0.6s) infinite; }
+
+/* A slow, kind nod. */
+@keyframes harar-hyenas-nod {
+  0%, 70%, 100% { transform: rotate(0); }
+  80% { transform: rotate(3deg); }
+  90% { transform: rotate(-1deg); }
+}
+.harar-hyenas-nod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: harar-hyenas-nod 4.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Lantern light breathes and the flame flickers. */
+@keyframes harar-hyenas-lamp {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  45% { transform: scale(0.94); opacity: 0.85; }
+  70% { transform: scale(1.04); opacity: 1; }
+}
+.harar-hyenas-lamp {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-lamp 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+/* A lantern swings a little as it is carried. */
+@keyframes harar-hyenas-swing {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+.harar-hyenas-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: harar-hyenas-swing 1.2s ease-in-out infinite;
+}
+
+/* Shining eyes in the dark: they open, blink, look about. */
+@keyframes harar-hyenas-eyes {
+  0%, 44%, 50%, 100% { transform: scaleY(1); }
+  47% { transform: scaleY(0.1); }
+}
+.harar-hyenas-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-eyes 3.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes harar-hyenas-glance {
+  0%, 30%, 100% { transform: translateX(0); }
+  40%, 60% { transform: translateX(var(--gx, 6px)); }
+  70%, 90% { transform: translateX(calc(var(--gx, 6px) * -0.6)); }
+}
+.harar-hyenas-glance {
+  animation: harar-hyenas-glance 6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* "Whoo-oop!": the sound rises and wobbles away. */
+@keyframes harar-hyenas-whoop {
+  0% { transform: translateY(8px) scale(0.6); opacity: 0; }
+  15% { transform: translateY(0) scale(1.1); opacity: 1; }
+  25% { transform: translateY(-2px) rotate(-3deg) scale(1); }
+  40% { transform: translateY(-4px) rotate(3deg); }
+  70% { transform: translateY(-10px) rotate(-2deg); opacity: 1; }
+  100% { transform: translateY(-22px) rotate(0); opacity: 0; }
+}
+.harar-hyenas-whoop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-whoop 3.4s ease-out var(--delay, 0.6s) infinite;
+}
+
+/* Hiding under the netela: a little shiver, then a peek. */
+@keyframes harar-hyenas-shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.2px); }
+  75% { transform: translateX(1.2px); }
+}
+.harar-hyenas-shiver {
+  animation: harar-hyenas-shiver 0.24s linear infinite;
+}
+@keyframes harar-hyenas-peek {
+  0%, 30%, 100% { transform: translateX(0) rotate(0); }
+  45%, 75% { transform: translateX(var(--px, 10px)) rotate(var(--pr, 6deg)); }
+}
+.harar-hyenas-peek {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: harar-hyenas-peek 4.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Calling softly into the night: rings go out. */
+@keyframes harar-hyenas-call {
+  0% { transform: scale(0.4); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.harar-hyenas-call {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: harar-hyenas-call 2s ease-out var(--delay, 0s) infinite;
+}
+
+/* Hyenas: a trotting bob, a sniffing head, a tail that swishes. */
+@keyframes harar-hyenas-trot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5px); }
+}
+.harar-hyenas-trot { animation: harar-hyenas-trot 0.36s ease-in-out infinite; }
+@keyframes harar-hyenas-leg {
+  from { transform: rotate(18deg); }
+  to { transform: rotate(-18deg); }
+}
+.harar-hyenas-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: harar-hyenas-leg 0.36s ease-in-out var(--leg, 0s) infinite alternate;
+}
+@keyframes harar-hyenas-sniff {
+  0%, 100% { transform: rotate(0) translate(0, 0); }
+  20% { transform: rotate(-4deg) translate(1px, -1px); }
+  30% { transform: rotate(2deg) translate(2px, 0); }
+  40% { transform: rotate(-3deg) translate(1px, -1px); }
+  60% { transform: rotate(0) translate(0, 0); }
+}
+.harar-hyenas-sniff {
+  transform-box: fill-box;
+  transform-origin: 20% 70%;
+  animation: harar-hyenas-sniff 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes harar-hyenas-swish {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(14deg); }
+}
+.harar-hyenas-swish {
+  transform-box: fill-box;
+  transform-origin: 100% 0%;
+  animation: harar-hyenas-swish 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes harar-hyenas-ear {
+  0%, 80%, 100% { transform: rotate(0); }
+  86% { transform: rotate(-14deg); }
+  92% { transform: rotate(6deg); }
+}
+.harar-hyenas-ear {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: harar-hyenas-ear 3.8s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Shy steps: close, then back, then close again. */
+@keyframes harar-hyenas-shy {
+  0%, 100% { transform: translateX(0); }
+  30% { transform: translateX(var(--sx, 18px)); }
+  55% { transform: translateX(var(--sx2, -6px)); }
+  80% { transform: translateX(calc(var(--sx, 18px) * 0.7)); }
+}
+.harar-hyenas-shy { animation: harar-hyenas-shy 5s ease-in-out var(--delay, 0s) infinite; }
+
+/* Neck stretches out to take the meat, then comes back munching. */
+@keyframes harar-hyenas-stretch {
+  0%, 20% { transform: translate(0, 0) rotate(0); }
+  40%, 52% { transform: translate(var(--nx, 12px), var(--ny, -2px)) rotate(var(--nr, -4deg)); }
+  68%, 100% { transform: translate(0, 0) rotate(0); }
+}
+.harar-hyenas-stretch {
+  transform-box: fill-box;
+  transform-origin: 0% 80%;
+  animation: harar-hyenas-stretch var(--dur, 4s) ease-in-out var(--delay, 0.4s) infinite;
+}
+/* The meat on the stick: there, then gone (snap!), then back on for the next go. */
+@keyframes harar-hyenas-meat {
+  0%, 46% { transform: scale(1); opacity: 1; }
+  50%, 88% { transform: scale(0); opacity: 0; }
+  96%, 100% { transform: scale(1); opacity: 1; }
+}
+.harar-hyenas-meat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-meat var(--dur, 4s) ease-in-out var(--delay, 0.4s) infinite;
+}
+@keyframes harar-hyenas-snap {
+  0%, 46% { transform: scale(0); opacity: 0; }
+  52% { transform: scale(1.2); opacity: 1; }
+  76% { transform: scale(1); opacity: 1; }
+  86%, 100% { transform: scale(0.8); opacity: 0; }
+}
+.harar-hyenas-snap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-snap var(--dur, 4s) ease-out var(--delay, 0.4s) infinite;
+}
+@keyframes harar-hyenas-munch {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.8); }
+}
+.harar-hyenas-munch {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: harar-hyenas-munch 0.3s ease-in-out infinite;
+}
+
+/* Wibble-wobble knees. */
+@keyframes harar-hyenas-wobble {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+.harar-hyenas-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: harar-hyenas-wobble 0.3s ease-in-out infinite;
+}
+
+/* The tiny hyena creeps closer. */
+@keyframes harar-hyenas-creep {
+  0% { transform: translateX(var(--cx, -40px)); }
+  40% { transform: translateX(calc(var(--cx, -40px) * 0.5)); }
+  55% { transform: translateX(calc(var(--cx, -40px) * 0.5)); }
+  100% { transform: translateX(0); }
+}
+.harar-hyenas-creep { animation: harar-hyenas-creep 3s ease-in-out var(--delay, 0.4s) both; }
+
+/* Going away into the hills, and gone. */
+@keyframes harar-hyenas-away {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  80% { opacity: 1; }
+  to { transform: translate(var(--ax, 160px), var(--ay, -40px)) scale(0.5); opacity: 0; }
+}
+.harar-hyenas-away {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-away var(--dur, 4s) ease-in var(--delay, 1s) both;
+}
+/* Looking back over the shoulder. */
+@keyframes harar-hyenas-lookback {
+  0%, 25% { transform: scaleX(1); }
+  32%, 80% { transform: scaleX(-1); }
+  88%, 100% { transform: scaleX(1); }
+}
+.harar-hyenas-lookback {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: harar-hyenas-lookback 5s ease-in-out var(--delay, 0.6s) infinite;
+}
+
+/* Lali zips round a corner and pops back out. */
+@keyframes harar-hyenas-zip {
+  0%, 100% { transform: translate(0, 0); }
+  35% { transform: translate(var(--zx, 60px), var(--zy, -10px)); }
+  50% { transform: translate(var(--zx, 60px), var(--zy, -10px)) scale(0.2); opacity: 0; }
+  60% { opacity: 0; }
+  75% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+.harar-hyenas-zip {
+  animation: harar-hyenas-zip 3.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Window shutters swing open; a house cat flicks its tail. */
+@keyframes harar-hyenas-shutter {
+  0%, 30% { transform: scaleX(1); }
+  45%, 85% { transform: scaleX(0.25); }
+  100% { transform: scaleX(1); }
+}
+.harar-hyenas-shutter {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: harar-hyenas-shutter 6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The sun slides down behind the wall. */
+@keyframes harar-hyenas-set {
+  from { transform: translateY(-26px); }
+  to { transform: translateY(0); }
+}
+.harar-hyenas-set { animation: harar-hyenas-set 7s ease-out var(--delay, 0.2s) both; }
+
+/* With reduced motion, things that leave the picture are simply gone. */
+@media (prefers-reduced-motion: reduce) {
+  .harar-hyenas-gone { opacity: 0; }
+}
