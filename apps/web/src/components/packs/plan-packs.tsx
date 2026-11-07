@@ -1,6 +1,7 @@
 "use client";
 
-import { PACKS, type Pack } from "@/content/stories";
+import type { Pack } from "@/content/stories";
+import { PACKS } from "@/lib/packs";
 import { useT } from "@/i18n/provider";
 import { packsForPlan } from "@/lib/packs";
 import { PackIcon } from "./pack-icon";

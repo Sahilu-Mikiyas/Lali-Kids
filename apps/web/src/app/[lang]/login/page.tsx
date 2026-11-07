@@ -7,6 +7,7 @@ import { Bee } from "@/components/characters";
 import { SiteNav } from "@/components/site-chrome";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { getT } from "@/i18n/server";
+import { safeNext } from "@/lib/safe-next";
 import { currentUser } from "@/lib/supabase/server";
 import { LoginForm } from "./login-form";
 
@@ -16,7 +17,7 @@ async function LoginPageContent({ searchParams }: PageProps<"/[lang]/login">) {
   await connection();
   const t = await getT();
   const { next, error } = await searchParams;
-  const nextPath = typeof next === "string" && next.startsWith("/") ? next : "/library";
+  const nextPath = safeNext(next, "/library");
 
   if (isSupabaseConfigured() && (await currentUser())) redirect(nextPath);
 

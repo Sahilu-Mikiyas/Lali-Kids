@@ -832,6 +832,13 @@ const en = {
     times: (n: number) => (n > 1 ? `×${n}` : ""),
     notFound: "We couldn’t find that child in your family.",
   },
+  ops: {
+    tooMany: "Too many tries from here just now. Please wait a few minutes and try again.",
+    errorTitle: "Oops! Something went wrong.",
+    errorBody: "Lali has been told. Please try again in a moment.",
+    tryAgain: "Try again",
+    home: "Go to the home page",
+  },
 };
 
 export type Dict = typeof en;
@@ -1664,6 +1671,13 @@ const am: Dict = {
     allRead: "ለዕድሜያቸው የሚከፈቱትን ተረቶች በሙሉ አንብበዋል። ድንቅ ነው!",
     times: (n: number) => (n > 1 ? `×${n}` : ""),
     notFound: "ይህን ልጅ በቤተሰብዎ ውስጥ ማግኘት አልቻልንም።",
+  },
+  ops: {
+    tooMany: "ከዚህ በጣም ብዙ ሙከራዎች ተደርገዋል። እባክዎ ጥቂት ደቂቃዎች ጠብቀው እንደገና ይሞክሩ።",
+    errorTitle: "ውይ! የሆነ ችግር ተፈጥሯል።",
+    errorBody: "ላሊ ተነግሯታል። እባክዎ ትንሽ ቆይተው እንደገና ይሞክሩ።",
+    tryAgain: "እንደገና ይሞክሩ",
+    home: "ወደ መነሻ ገጽ",
   },
 };
 

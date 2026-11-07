@@ -1,4 +1,8 @@
-import { PACKS, type Category, type Pack, type Story } from "@/content/stories";
+import type { Category, Pack, Story } from "@/content/stories";
+
+// Kept here (not imported from the stories module) so browser code that uses these helpers
+// never pulls the stories' text into a script.
+export const PACKS: Pack[] = ["story", "fidel", "numbers", "english"];
 import type { PlanId } from "@/lib/payments/plans";
 
 /*

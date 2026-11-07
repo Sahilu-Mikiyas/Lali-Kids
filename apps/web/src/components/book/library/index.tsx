@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
 /*
@@ -6,70 +7,75 @@ import type { ComponentType } from "react";
   A story uses them with `scene: "lib-<id>"`. Each scene file imports its own CSS file
   (./<id>.css) for its keyframes, so nobody edits globals.css. To add yours, uncomment its
   two lines below. Keep every "slot" comment line exactly as it is.
+  Each scene is loaded with next/dynamic, so a page only downloads the scenes of the stories it
+  shows. If your branch still has the older `// import X from "./x";` form of a slot line, take
+  this `// const X = dynamic(() => import("./x"));` form when merging, then uncomment it.
 */
+// Keeps the import in use while every slot is still commented out.
+void dynamic;
 
 // --- slot: fidel-be
-// import FidelBe from "./fidel-be";
+// const FidelBe = dynamic(() => import("./fidel-be"));
 // --- slot: fidel-se
-// import FidelSe from "./fidel-se";
+// const FidelSe = dynamic(() => import("./fidel-se"));
 // --- slot: fidel-re
-// import FidelRe from "./fidel-re";
+// const FidelRe = dynamic(() => import("./fidel-re"));
 // --- slot: fidel-te
-// import FidelTe from "./fidel-te";
+// const FidelTe = dynamic(() => import("./fidel-te"));
 // --- slot: fidel-ne
-// import FidelNe from "./fidel-ne";
+// const FidelNe = dynamic(() => import("./fidel-ne"));
 // --- slot: ten-tukuls
-// import TenTukuls from "./ten-tukuls";
+// const TenTukuls = dynamic(() => import("./ten-tukuls"));
 // --- slot: shapes-safari
-// import ShapesSafari from "./shapes-safari";
+// const ShapesSafari = dynamic(() => import("./shapes-safari"));
 // --- slot: bigger-smaller
-// import BiggerSmaller from "./bigger-smaller";
+// const BiggerSmaller = dynamic(() => import("./bigger-smaller"));
 // --- slot: market-money
-// import MarketMoney from "./market-money";
+// const MarketMoney = dynamic(() => import("./market-money"));
 // --- slot: teff-patterns
-// import TeffPatterns from "./teff-patterns";
+// const TeffPatterns = dynamic(() => import("./teff-patterns"));
 // --- slot: a-is-for-adey
-// import AIsForAdey from "./a-is-for-adey";
+// const AIsForAdey = dynamic(() => import("./a-is-for-adey"));
 // --- slot: opposites
-// import Opposites from "./opposites";
+// const Opposites = dynamic(() => import("./opposites"));
 // --- slot: weather-words
-// import WeatherWords from "./weather-words";
+// const WeatherWords = dynamic(() => import("./weather-words"));
 // --- slot: grandmas-kitchen
-// import GrandmasKitchen from "./grandmas-kitchen";
+// const GrandmasKitchen = dynamic(() => import("./grandmas-kitchen"));
 // --- slot: hello-feelings
-// import HelloFeelings from "./hello-feelings";
+// const HelloFeelings = dynamic(() => import("./hello-feelings"));
 // --- slot: meskel-fire
-// import MeskelFire from "./meskel-fire";
+// const MeskelFire = dynamic(() => import("./meskel-fire"));
 // --- slot: timket-river
-// import TimketRiver from "./timket-river";
+// const TimketRiver = dynamic(() => import("./timket-river"));
 // --- slot: genna-game
-// import GennaGame from "./genna-game";
+// const GennaGame = dynamic(() => import("./genna-game"));
 // --- slot: ashenda-song
-// import AshendaSong from "./ashenda-song";
+// const AshendaSong = dynamic(() => import("./ashenda-song"));
 // --- slot: tortoise-race
-// import TortoiseRace from "./tortoise-race";
+// const TortoiseRace = dynamic(() => import("./tortoise-race"));
 // --- slot: why-hyena-laughs
-// import WhyHyenaLaughs from "./why-hyena-laughs";
+// const WhyHyenaLaughs = dynamic(() => import("./why-hyena-laughs"));
 // --- slot: clever-monkey
-// import CleverMonkey from "./clever-monkey";
+// const CleverMonkey = dynamic(() => import("./clever-monkey"));
 // --- slot: coffee-kaldi
-// import CoffeeKaldi from "./coffee-kaldi";
+// const CoffeeKaldi = dynamic(() => import("./coffee-kaldi"));
 // --- slot: big-sneeze
-// import BigSneeze from "./big-sneeze";
+// const BigSneeze = dynamic(() => import("./big-sneeze"));
 // --- slot: lost-kite
-// import LostKite from "./lost-kite";
+// const LostKite = dynamic(() => import("./lost-kite"));
 // --- slot: learn-to-swim
-// import LearnToSwim from "./learn-to-swim";
+// const LearnToSwim = dynamic(() => import("./learn-to-swim"));
 // --- slot: grandpas-krar
-// import GrandpasKrar from "./grandpas-krar";
+// const GrandpasKrar = dynamic(() => import("./grandpas-krar"));
 // --- slot: biggest-injera
-// import BiggestInjera from "./biggest-injera";
+// const BiggestInjera = dynamic(() => import("./biggest-injera"));
 // --- slot: harar-hyenas
-// import HararHyenas from "./harar-hyenas";
+// const HararHyenas = dynamic(() => import("./harar-hyenas"));
 // --- slot: new-baby-brother
-// import NewBabyBrother from "./new-baby-brother";
+// const NewBabyBrother = dynamic(() => import("./new-baby-brother"));
 // --- slot: goodnight-simien
-// import GoodnightSimien from "./goodnight-simien";
+// const GoodnightSimien = dynamic(() => import("./goodnight-simien"));
 
 export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: fidel-be

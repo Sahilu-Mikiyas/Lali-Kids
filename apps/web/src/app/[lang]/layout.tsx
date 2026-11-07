@@ -3,6 +3,7 @@ import { Andika, Grandstander, Noto_Sans_Ethiopic } from "next/font/google";
 
 import { lang } from "next/root-params";
 
+import { ErrorReporter } from "@/components/error-reporter";
 import { LangProvider } from "@/i18n/provider";
 import { isLang, LANGS } from "@/i18n/langs";
 import "../globals.css";
@@ -23,6 +24,9 @@ const ethiopic = Noto_Sans_Ethiopic({
   variable: "--font-noto-ethiopic",
   subsets: ["ethiopic"],
   weight: ["400", "700"],
+  // 200 KB: not preloaded, so English pages on a slow phone don't wait for it. Amharic pages
+  // still fetch it as soon as the page's text needs it (text shows at once with the fallback).
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -57,6 +61,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
       </head>
       <body className={`min-h-dvh overflow-x-hidden ${current === "am" ? "lang-am" : ""}`}>
         <LangProvider lang={current}>{children}</LangProvider>
+        <ErrorReporter />
       </body>
     </html>
   );

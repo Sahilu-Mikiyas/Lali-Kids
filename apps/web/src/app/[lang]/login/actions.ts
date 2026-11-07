@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 
 import { dict } from "@/i18n/dict";
 import { langFromCookie } from "@/i18n/server";
+import { originFrom } from "@/lib/origin";
+import { safeNext } from "@/lib/safe-next";
 import { createSupabaseServer } from "@/lib/supabase/server";
 
 export type AuthResult = { ok: true } | { ok: false; error: string };
@@ -24,8 +26,9 @@ export async function sendSignInEmail(email: string, nextPath: string): Promise<
   const clean = email.trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) return { ok: false, error: dict[await langFromCookie()].login.errEmail };
   const h = await headers();
-  const origin = h.get("origin") ?? `${h.get("x-forwarded-proto") ?? "https"}://${h.get("host")}`;
-  const next = nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/account";
+  // SITE_URL when set, never the browser's Origin header (the link in the email must point here).
+  const origin = originFrom(h);
+  const next = safeNext(nextPath, "/account");
   try {
     const supabase = await createSupabaseServer();
     const { error } = await supabase.auth.signInWithOtp({

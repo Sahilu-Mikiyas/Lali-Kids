@@ -1,6 +1,7 @@
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { safeNext } from "@/lib/safe-next";
 import { createSupabaseServer } from "@/lib/supabase/server";
 
 /**
@@ -15,13 +16,14 @@ export async function GET(request: NextRequest) {
   if (url.searchParams.get("app") === "1") {
     const code = url.searchParams.get("code");
     const target = new URL("lali://auth");
-    if (code) target.searchParams.set("code", code);
-    else target.searchParams.set("error", url.searchParams.get("error_description") ?? "link");
+    // Only a code-shaped value goes to the app (the app keeps the PKCE secret, so a stolen code is useless).
+    if (code && /^[\w.-]{1,512}$/.test(code)) target.searchParams.set("code", code);
+    else target.searchParams.set("error", (url.searchParams.get("error_description") ?? "link").slice(0, 200));
     return NextResponse.redirect(target.toString());
   }
 
-  const next = url.searchParams.get("next");
-  const target = next && next.startsWith("/") && !next.startsWith("//") ? next : "/account";
+  // Only a path on this site: "//evil.com" and "/\\evil.com" would leave it.
+  const target = safeNext(url.searchParams.get("next"), "/account");
   const supabase = await createSupabaseServer();
 
   const code = url.searchParams.get("code");

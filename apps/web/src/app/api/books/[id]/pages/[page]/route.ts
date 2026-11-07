@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { PAGES_BUCKET } from "@/lib/books/process";
 import { maskIdentity, PAGES_PER_MINUTE, verifyPage, watermark } from "@/lib/books/protect";
+import { clientIp } from "@/lib/rate-limit";
 import { requestUser } from "@/lib/supabase/request-user";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -45,14 +46,16 @@ export async function GET(request: NextRequest, { params }: RouteContext<"/api/b
   const { data: file, error } = await admin.storage.from(PAGES_BUCKET).download(row.object_path);
   if (error || !file) return NextResponse.json({ error: "Page unavailable" }, { status: 500 });
 
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? null;
-  await admin.from("page_views").insert({
+  // The view must be recorded before the page goes out: it is what the rate limit above counts.
+  // (A forged X-Forwarded-For like "x" used to make this insert fail, which skipped the limit.)
+  const { error: logError } = await admin.from("page_views").insert({
     family_id: user.id,
     book_id: id,
     page_number: page,
-    device_id: request.cookies.get("lali-device")?.value ?? null,
-    ip,
+    device_id: request.cookies.get("lali-device")?.value?.slice(0, 64) ?? null,
+    ip: clientIp(request.headers),
   });
+  if (logError) return NextResponse.json({ error: "Page unavailable" }, { status: 503 });
 
   const mark = `Lali · ${maskIdentity(user.phone || user.email, user.id)} · ${new Date().toISOString().slice(0, 10)}`;
   const image = await watermark(Buffer.from(await file.arrayBuffer()), mark);

@@ -4,6 +4,7 @@ import { randomBytes } from "node:crypto";
 
 import { dict } from "@/i18n/dict";
 import type { UiLang } from "@/i18n/langs";
+import { allow } from "@/lib/rate-limit";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { chapaConfigured, chapaSettingNames, createCheckout } from "./chapa";
@@ -21,6 +22,8 @@ export async function beginCheckout(payer: Payer, planId: string, origin: string
   const e = dict[lang].errors;
   const plan = planById(planId);
   if (!plan) return { error: e.choosePlan };
+  // Each try writes a pending payment and calls Chapa: 10 in 10 minutes per family is plenty.
+  if (!allow(`pay:${payer.id}`, 10, 10 * 60_000)) return { error: dict[lang].ops.tooMany };
   if (!chapaConfigured()) {
     const seen = chapaSettingNames();
     console.error(`[payments] CHAPA_SECRET_KEY is not set on the server. Chapa-related settings seen: ${seen.length ? seen.join(", ") : "none"}`);

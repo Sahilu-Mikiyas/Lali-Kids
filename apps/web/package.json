@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "e2e": "node e2e/build.mjs && playwright test",
+    "perf": "node e2e/build.mjs && node e2e/perf.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
@@ -20,6 +22,7 @@
     "sharp": "^0.35.5"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,13 +1,17 @@
+import "server-only";
+
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
+import { AUTH_COOKIE_OPTIONS } from "./cookie-options";
 import { hasSecretKey, isSupabaseConfigured, supabasePublishableKey, supabaseSecretKey, supabaseUrl } from "./env";
 
 /** A client that acts as the signed-in person. Row-level security applies. */
 export async function createSupabaseServer() {
   const store = await cookies();
   return createServerClient(supabaseUrl(), supabasePublishableKey(), {
+    cookieOptions: AUTH_COOKIE_OPTIONS,
     cookies: {
       getAll: () => store.getAll(),
       setAll: (list) => {

@@ -82,6 +82,8 @@ export async function createCheckout(input: CheckoutInput): Promise<string> {
     const message = typeof body?.message === "string" ? body.message : JSON.stringify(body?.message ?? res.status);
     throw new Error(`Chapa could not start the payment: ${message}`);
   }
+  // The browser is sent here, so only ever to Chapa's own HTTPS pages.
+  if (!/^https:\/\/([a-z0-9-]+\.)*chapa\.co(\/|$)/i.test(url)) throw new Error("Chapa sent an unexpected checkout address.");
   return url;
 }
 

@@ -1,17 +1,25 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 import type { SceneKind } from "@/content/stories";
 import { Air } from "./book/scenery";
-import { LostMoonScene } from "./book/lost-moon-scenes";
-import { CountingScene } from "./book/counting-scenes";
-import { HoneyScene } from "./book/honey-scenes";
-import { FlowerScene } from "./book/new-year-scenes";
-import { RainbowPuddleScene } from "./book/rainbow-puddle-scenes";
-import { FidelTrainScene } from "./book/fidel-train-scenes";
-import { FirstDayScene } from "./book/first-day-scenes";
-import { CoffeeMysteryScene } from "./book/coffee-mystery-scenes";
-import { LalibelaScene } from "./book/lalibela-scenes";
 import { LIBRARY_SCENES } from "./book/library";
+
+/*
+  Each story's scenes are loaded only when that story is drawn (next/dynamic: rendered on the
+  server too, and the script is fetched in parallel), so a page ships the scenes it shows and not
+  all forty stories' pictures. Library stories load theirs the same way (./book/library).
+*/
+const LostMoonScene = dynamic(() => import("./book/lost-moon-scenes").then((m) => m.LostMoonScene));
+const CountingScene = dynamic(() => import("./book/counting-scenes").then((m) => m.CountingScene));
+const HoneyScene = dynamic(() => import("./book/honey-scenes").then((m) => m.HoneyScene));
+const FlowerScene = dynamic(() => import("./book/new-year-scenes").then((m) => m.FlowerScene));
+const RainbowPuddleScene = dynamic(() => import("./book/rainbow-puddle-scenes").then((m) => m.RainbowPuddleScene));
+const FidelTrainScene = dynamic(() => import("./book/fidel-train-scenes").then((m) => m.FidelTrainScene));
+const FirstDayScene = dynamic(() => import("./book/first-day-scenes").then((m) => m.FirstDayScene));
+const CoffeeMysteryScene = dynamic(() => import("./book/coffee-mystery-scenes").then((m) => m.CoffeeMysteryScene));
+const LalibelaScene = dynamic(() => import("./book/lalibela-scenes").then((m) => m.LalibelaScene));
 
 /*
   The drawn pictures for the stories. Each page is its own living picture: the background

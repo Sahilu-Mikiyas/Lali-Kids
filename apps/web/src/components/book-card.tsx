@@ -5,10 +5,11 @@ import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { useLang, useT } from "@/i18n/provider";
-import { agesLabel, type Story } from "@/content/stories";
+import type { Story } from "@/content/stories";
+import { agesLabel } from "@/lib/ages";
 import { packOf, planForPack } from "@/lib/packs";
 import { PackIcon } from "./packs/pack-icon";
-import { PageArt } from "./storybook";
+import { PageArt } from "./book/page-art";
 
 const TAG: Record<Story["category"], string> = {
   Bedtime: "bg-coral",

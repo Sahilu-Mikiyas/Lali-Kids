@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import { reportServerError } from "@/lib/alerts";
 import { chapaConfigured } from "@/lib/payments/chapa";
 import { confirmGift } from "@/lib/payments/gift-server";
 import { isGiftRef, isPlanRef } from "@/lib/payments/refs";
@@ -25,7 +26,9 @@ async function handle(request: NextRequest) {
   try {
     const outcome = kind === "gift" ? await confirmGift(txRef) : await confirmPayment(txRef);
     return NextResponse.json({ ok: true, kind, outcome });
-  } catch {
+  } catch (e) {
+    console.error("[payments] callback failed", e);
+    reportServerError(e, `/api/payments/chapa (${kind})`);
     return NextResponse.json({ ok: false }, { status: 500 });
   }
 }
