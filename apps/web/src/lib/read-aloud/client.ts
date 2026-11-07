@@ -15,7 +15,12 @@ import { appAuthHeaders } from "@/lib/in-app";
 
 const KEY = "lali-mic-listen";
 
-export type ReaderInfo = { signedIn: boolean; ageBand: string | null; micListen: boolean | null };
+/**
+ * `childName`: the reading child's first name, for `{name}` in stories. It comes from the family's
+ * own session (or a classroom pupil's), is never stored by the reader, and is null when no child
+ * is chosen (the reader then says "friend").
+ */
+export type ReaderInfo = { signedIn: boolean; ageBand: string | null; micListen: boolean | null; childName: string | null };
 
 let info: ReaderInfo | null = null;
 let loading: Promise<ReaderInfo> | null = null;
@@ -54,13 +59,18 @@ export function loadReaderInfo(): Promise<ReaderInfo> {
   loading = fetch("/api/read-aloud", { headers: appAuthHeaders(), cache: "no-store" })
     .then((r) => (r.ok ? r.json() : { signedIn: false }))
     .then((b: Partial<ReaderInfo>) => {
-      info = { signedIn: Boolean(b.signedIn), ageBand: typeof b.ageBand === "string" ? b.ageBand : null, micListen: typeof b.micListen === "boolean" ? b.micListen : null };
+      info = {
+        signedIn: Boolean(b.signedIn),
+        ageBand: typeof b.ageBand === "string" ? b.ageBand : null,
+        micListen: typeof b.micListen === "boolean" ? b.micListen : null,
+        childName: typeof b.childName === "string" ? b.childName.slice(0, 40) : null,
+      };
       if (info.signedIn && info.micListen !== null) writeLocal(info.micListen);
       emit();
       return info;
     })
     .catch(() => {
-      info = { signedIn: false, ageBand: null, micListen: null };
+      info = { signedIn: false, ageBand: null, micListen: null, childName: null };
       emit();
       return info;
     });
@@ -105,7 +115,7 @@ export async function setMicListen(on: boolean): Promise<boolean> {
 export function adoptMicListen(serverValue: boolean | null) {
   if (typeof window === "undefined" || serverValue === null) return;
   writeLocal(serverValue);
-  info = { signedIn: true, ageBand: info?.ageBand ?? null, micListen: serverValue };
+  info = { signedIn: true, ageBand: info?.ageBand ?? null, micListen: serverValue, childName: info?.childName ?? null };
   loading ??= Promise.resolve(info);
   emit();
 }

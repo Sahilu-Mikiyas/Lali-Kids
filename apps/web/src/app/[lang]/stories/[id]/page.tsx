@@ -11,6 +11,7 @@ import { currentProfile } from "@/lib/supabase/server";
 import { verifyReadPass } from "@/lib/read-pass";
 import { storyForReading } from "@/lib/stories";
 import { getLang, getT } from "@/i18n/server";
+import { fillName } from "@/lib/story-path";
 
 export function generateStaticParams() {
   return STORIES.map((s) => ({ id: s.id }));
@@ -18,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/stories/[id]">): Promise<Metadata> {
   const story = getStory((await params).id);
-  return story ? { title: story.title.en, description: story.isFree ? story.pages[0].en : undefined } : { title: "Story" };
+  return story ? { title: story.title.en, description: story.isFree ? fillName(story.pages[0].en, null, "en") : undefined } : { title: "Story" };
 }
 
 /** The book takes over the whole screen (its own close button leads back to the shelf). */

@@ -9,8 +9,8 @@ import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "@/lib
 // Family voice uploads (/api/voices, up to 4 MB) and narration uploads (/api/admin/narration, up to
 // 15 MB) pass through here too: the body is buffered
 // up to experimental.proxyClientMaxBodySize in next.config.ts (110 MB), well above that.
-const SESSION_PATHS = ["/library", "/admin", "/account", "/login", "/stories", "/stickers", "/subscribe", "/gift", "/games", "/api/books", "/api/voices", "/api/stickers", "/api/read-aloud", "/api/narration", "/api/admin"];
-const SIGN_IN_PATHS = ["/library", "/admin", "/account", "/subscribe"];
+const SESSION_PATHS = ["/library", "/admin", "/account", "/login", "/stories", "/stickers", "/subscribe", "/gift", "/games", "/teach", "/api/books", "/api/voices", "/api/stickers", "/api/read-aloud", "/api/narration", "/api/admin"];
+const SIGN_IN_PATHS = ["/library", "/admin", "/account", "/subscribe", "/teach"];
 const YEAR = 60 * 60 * 24 * 365;
 
 function chooseLang(request: NextRequest): UiLang {

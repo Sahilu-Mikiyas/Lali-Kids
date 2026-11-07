@@ -6,6 +6,7 @@ import { cleanPosition, isStickerId, isStoryId } from "@/lib/stickers/catalog";
 import { loadStickerBasis, saveFind, savePosition } from "@/lib/stickers/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
+import { pupilBasis, pupilForRequest } from "@/lib/schools/server";
 
 /*
   The reader's and sticker book's record for the signed-in child (website cookie, or the
@@ -15,6 +16,10 @@ import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
   GET                                → { signedIn, childId, basis }
   POST  { storyId, page }            → saves a Find Lali find
   PATCH { stickerId, page, x, y, r } → saves where a sticker was stuck in the album
+
+  A classroom pupil (X-Lali-Pupil: 1 and the signed pupil cookie, lib/schools) gets their record
+  from pupil_completions and pupil_reader_stars; their finds and album positions aren't kept
+  (docs/SCHOOLS.md), so POST and PATCH answer { ok, saved: false }.
 */
 
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
@@ -32,6 +37,8 @@ async function reader(request: Request): Promise<{ me: RequestUser; child: Child
 
 export async function GET(request: Request) {
   await connection();
+  const pupil = await pupilForRequest(request).catch(() => null);
+  if (pupil) return json({ signedIn: true, pupil: true, childId: pupil.pupil.id, basis: (await pupilBasis(pupil.pupil.id)).basis });
   const who = await reader(request);
   if (!who) return json({ signedIn: false });
   if (!who.child) return json({ signedIn: true, childId: null });
@@ -40,6 +47,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  if (await pupilForRequest(request).catch(() => null)) return json({ ok: true, saved: false });
   const who = await reader(request);
   if (!who?.child) return json({ error: "Sign in" }, 401);
   const b = (await request.json().catch(() => ({}))) as { storyId?: unknown; page?: unknown };
@@ -50,6 +58,7 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
+  if (await pupilForRequest(request).catch(() => null)) return json({ ok: true, saved: false });
   const who = await reader(request);
   if (!who?.child) return json({ error: "Sign in" }, 401);
   const b = (await request.json().catch(() => ({}))) as { stickerId?: unknown };

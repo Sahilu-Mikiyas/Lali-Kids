@@ -4,6 +4,7 @@ import { narrationForFamily } from "@/lib/narration/server";
 import { verifyReadPass } from "@/lib/read-pass";
 import { hasSecretKey, isSupabaseConfigured } from "@/lib/supabase/env";
 import { requestUser } from "@/lib/supabase/request-user";
+import { onShelf, pupilForRequest } from "@/lib/schools/server";
 
 /*
   GET /api/narration?story=<id>[&pass=<read pass>]
@@ -35,6 +36,8 @@ export async function GET(request: Request) {
       familyId = null;
     }
   }
-  const r = await narrationForFamily(story, familyId, isAdmin);
+  // A classroom pupil hears the narration of stories on their class shelf (docs/SCHOOLS.md).
+  const pupil = familyId ? null : await pupilForRequest(request).catch(() => null);
+  const r = await narrationForFamily(story, familyId, isAdmin || Boolean(pupil && onShelf(pupil.cls.age_band, pupil.assigned, story)));
   return Response.json(r.body, { status: r.status, headers: { "Cache-Control": "private, no-store" } });
 }

@@ -11,7 +11,19 @@ export type SceneKind = 'moon' | 'count' | 'share' | 'newyear' | 'rainbow' | 'fi
 export type Pack = 'story' | 'fidel' | 'numbers' | 'english';
 export const PACKS: Pack[] = ['story', 'fidel', 'numbers', 'english'];
 
-export type StoryPage = Record<Lang, string>;
+/**
+ * "Choose what happens next" (docs/LAUNCH_PLAN.md, phase 4). After the page is read the child
+ * picks an option and the book carries on at page `goTo` (an index into `pages`). There is never
+ * a wrong answer, and branches rejoin later (a branch's last page says where with `next`).
+ */
+export type StoryChoice = { prompt: Record<Lang, string>; options: { label: Record<Lang, string>; goTo: number }[] };
+
+/**
+ * One page's words. The text may contain `{name}`, which the reader shows as the reading child's
+ * name (or "friend" / "ጓደኛ"); it stays `{name}` here. `choices` lets the child pick the next
+ * page; `next` sends the reader to another page instead of the following one (the end of a branch).
+ */
+export type StoryPage = Record<Lang, string> & { choices?: StoryChoice; next?: number };
 
 export type AgeBand = '3-5' | '6-7' | '8-9';
 export const AGE_BANDS: AgeBand[] = ['3-5', '6-7', '8-9'];

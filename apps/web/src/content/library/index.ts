@@ -69,6 +69,8 @@ import coffeeKaldi from "./coffee-kaldi";
 // import newBabyBrother from "./new-baby-brother";
 // --- slot: goodnight-simien
 // import goodnightSimien from "./goodnight-simien";
+// --- slot: which-way-lali
+import whichWayLali from "./which-way-lali";
 
 export const LIBRARY: Story[] = [
   // --- slot: fidel-be
@@ -133,4 +135,6 @@ export const LIBRARY: Story[] = [
   // newBabyBrother,
   // --- slot: goodnight-simien
   // goodnightSimien,
+  // --- slot: which-way-lali
+  whichWayLali,
 ];

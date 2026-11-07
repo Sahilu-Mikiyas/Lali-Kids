@@ -85,6 +85,8 @@ const CoffeeKaldi = dynamic(() => import("./coffee-kaldi"), { ssr: false });
 // const NewBabyBrother = dynamic(() => import("./new-baby-brother"), { ssr: false });
 // --- slot: goodnight-simien
 // const GoodnightSimien = dynamic(() => import("./goodnight-simien"), { ssr: false });
+// --- slot: which-way-lali
+const WhichWayLali = dynamic(() => import("./which-way-lali"), { ssr: false });
 
 export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: fidel-be
@@ -149,4 +151,6 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // "new-baby-brother": NewBabyBrother,
   // --- slot: goodnight-simien
   // "goodnight-simien": GoodnightSimien,
+  // --- slot: which-way-lali
+  "which-way-lali": WhichWayLali,
 };

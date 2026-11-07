@@ -53,3 +53,10 @@ In each pack, the first story of the pack's set is free, so families can try it.
 - `teaches` on a story (`fidel`, `numbers`, `words`) feeds the progress map and the printable sheets.
   Stories without it count by their pack.
 - Printable activities: `/stories/<id>/activities`. Progress map: `/account/progress/<childId>`.
+- **School licences** (`docs/SCHOOLS.md`) open every pack for a school's classes, and for its
+  teachers' own accounts, until the licence's end date.
+- **The child's name** (`{name}` in a page's text) and **story choices** (`choices` and `next` on
+  a page) are described on `StoryPage` in `apps/web/src/content/stories.ts`; the helpers are in
+  `apps/web/src/lib/story-path.ts`. "Which Way, Lali?" (`which-way-lali`) is the first story with
+  choices; Ten Tukuls, Opposites and Hello, Feelings! say `{name}`. A `{name}` page always uses the
+  browser's voice, because recorded narration can't say every name.

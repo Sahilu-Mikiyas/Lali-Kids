@@ -43,5 +43,7 @@ export function appAuthHeaders(): Record<string, string> {
   const h: Record<string, string> = {};
   if (info?.accessToken) h.Authorization = `Bearer ${info.accessToken}`;
   if (info?.childId) h["X-Lali-Child"] = info.childId;
+  // On a classroom tablet the reader acts as the signed-in pupil (lib/schools/classroom.ts).
+  if ((window as unknown as { LaliClassroom?: boolean }).LaliClassroom) h["X-Lali-Pupil"] = "1";
   return h;
 }

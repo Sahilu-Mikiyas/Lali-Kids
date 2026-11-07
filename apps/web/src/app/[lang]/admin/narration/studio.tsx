@@ -237,6 +237,12 @@ export function NarrationStudio({ stories, initialStory }: { stories: StudioStor
                 )}
               </div>
               <p className={`rounded-2xl bg-paper p-3 leading-relaxed text-paper-ink ${lang === "am" ? "font-ethiopic" : ""}`}>{text || <span className="text-muted">(no text on this page)</span>}</p>
+              {text.includes("{name}") && (
+                <p className="rounded-2xl bg-gold/20 p-3 text-sm font-bold text-[#7A3E00]" data-narration-name-note="">
+                  This page says the reading child&rsquo;s name ({"{name}"}). A recording can&rsquo;t say every name, so the reader uses the browser&rsquo;s voice
+                  for this page even when narration is uploaded. Narration here is only kept for later.
+                </p>
+              )}
               {clip?.url && <audio controls preload="none" src={clip.url} className="w-full" />}
               <div className="flex flex-wrap items-center gap-3">
                 <label className={`btn btn-plain !py-2 !text-base ${busyPage === i ? "pointer-events-none opacity-50" : "cursor-pointer"}`}>

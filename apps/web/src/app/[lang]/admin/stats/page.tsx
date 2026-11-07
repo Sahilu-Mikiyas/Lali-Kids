@@ -10,6 +10,7 @@ import { getT } from "@/i18n/server";
 import { requireAdmin } from "@/lib/admin";
 import { formatBirr } from "@/lib/payments/plans";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
+import { schoolCounts } from "@/lib/schools/server";
 
 export const metadata: Metadata = { title: "Pilot numbers" };
 
@@ -58,6 +59,8 @@ async function StatsContent() {
     db.from("gifts").select("status, amount_etb").in("status", ["paid", "redeemed"]),
     getT(),
   ]);
+  // Zeros until migration 0015 (schools) is applied.
+  const schools = await schoolCounts(weekAgo).catch(() => null);
   const giftsSold = gifts?.length ?? 0;
   const giftsRedeemed = (gifts ?? []).filter((g) => g.status === "redeemed").length;
   const giftRevenue = (gifts ?? []).reduce((a, g) => a + g.amount_etb, 0);
@@ -165,6 +168,19 @@ async function StatsContent() {
         <Metric label={t.gift.stats.revenue} value={formatBirr(giftRevenue)} hint={t.gift.stats.revenueHint} />
         <Link href="/admin/gifts" className="grid place-items-center rounded-[28px] bg-white p-6 text-center font-display text-xl font-black text-blue shadow-[0_6px_0_var(--color-line)] transition hover:-translate-y-1">
           {t.gift.stats.list} →
+        </Link>
+      </section>
+
+      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-stats-schools="">
+        <Metric
+          label="Schools with a licence open"
+          value={String(schools?.open ?? 0)}
+          hint={schools?.ready ? `${schools.schools} schools in all, ${schools.teachers} teachers, ${schools.classes} classes.` : "Migration 0015 isn't applied yet."}
+        />
+        <Metric label="Pupils" value={String(schools?.pupils ?? 0)} hint="Children in school classes (first names only)." />
+        <Metric label="Pupils active this week" value={String(schools?.activePupils ?? 0)} hint="Signed in on a class tablet or finished a story in the last 7 days." />
+        <Link href="/admin/schools" className="grid place-items-center rounded-[28px] bg-white p-6 text-center font-display text-xl font-black text-blue shadow-[0_6px_0_var(--color-line)] transition hover:-translate-y-1">
+          Schools → <span className="mt-1 block text-sm font-bold text-muted">{schools?.storiesThisWeek ?? 0} class stories finished this week</span>
         </Link>
       </section>
 

@@ -55,6 +55,7 @@ export function useMicReader({
   wantListen,
   threshold,
   onRead,
+  names,
 }: {
   text: string;
   lang: Lang;
@@ -66,6 +67,8 @@ export function useMicReader({
   threshold: number;
   /** The page was read aloud: once per page and visit. */
   onRead: (how: "listened" | "recorded") => void;
+  /** Words of the page that are the child's own name ({name} in the story): any try counts. */
+  names?: ReadonlySet<number>;
 }) {
   const words = useMemo(() => text.split(" "), [text]);
   const targets = useMemo(() => pageTargets(words, lang), [words, lang]);
@@ -94,9 +97,11 @@ export function useMicReader({
   const frame = useRef<number | null>(null);
   const rewarded = useRef(false);
   const onReadRef = useRef(onRead);
+  const namesRef = useRef(names);
   useEffect(() => {
     onReadRef.current = onRead;
-  }, [onRead]);
+    namesRef.current = names;
+  }, [onRead, names]);
 
   const reached = (n: number) => n / need >= threshold;
 
@@ -222,9 +227,9 @@ export function useMicReader({
         const res = e.results[i];
         let best = { hits: [] as number[], next: cursor.current };
         for (let a = 0; a < res.length; a++) {
-          const tries = [align(targets, heardWords(res[a].transcript, lang), lang, cursor.current)];
+          const tries = [align(targets, heardWords(res[a].transcript, lang), lang, cursor.current, namesRef.current)];
           // Started the page again from the top? Line it up from the first word too.
-          if (cursor.current > 0) tries.push(align(targets, heardWords(res[a].transcript, lang), lang, 0));
+          if (cursor.current > 0) tries.push(align(targets, heardWords(res[a].transcript, lang), lang, 0, namesRef.current));
           for (const t of tries) if (t.hits.filter((h) => !heardRef.current.has(h)).length > best.hits.filter((h) => !heardRef.current.has(h)).length) best = t;
         }
         add.push(...best.hits);

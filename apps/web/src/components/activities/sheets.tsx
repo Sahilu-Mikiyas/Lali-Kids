@@ -420,7 +420,7 @@ export function QuestionsSheet({ story, recall, t, lang }: { story: Story; recal
 
 // ---------------------------------------------------------------- certificate
 
-export function CertificateSheet({ story, t, lang }: { story: Story; t: Dict; lang: Lang }) {
+export function CertificateSheet({ story, t, lang, childName }: { story: Story; t: Dict; lang: Lang; childName?: string | null }) {
   return (
     <Sheet id="certificate" title={t.activities.certificate} t={t} lang={lang} name={false}>
       <div className="cert flex flex-1 flex-col items-center justify-center rounded-[1.4em] border-[0.35em] border-double border-black p-[2em] text-center" data-certificate="">
@@ -432,7 +432,9 @@ export function CertificateSheet({ story, t, lang }: { story: Story; t: Dict; la
           ))}
         </div>
         <p className={`mt-[0.3em] text-[4.4em] font-black leading-none ${lang === "am" ? "" : "font-display"}`}>{t.activities.certificate}</p>
-        <div className="mt-[1.4em] w-[70%] border-b-[0.12em] border-black pb-[0.2em] text-[0.8em] text-black/60">&nbsp;</div>
+        <div className={`mt-[1.4em] w-[70%] border-b-[0.12em] border-black pb-[0.2em] ${childName ? "font-display text-[2.2em] font-black text-black" : "text-[0.8em] text-black/60"}`} data-cert-name={childName ?? ""}>
+          {childName || "\u00a0"}
+        </div>
         <p className="mt-[0.2em] text-[0.9em] text-black/60">{t.activities.nameLine}</p>
         <p className="mt-[1.2em] text-[1.3em]">{t.activities.certFor}</p>
         <p className={`text-[2em] font-black leading-tight ${lang === "am" ? "font-ethiopic" : "font-display"}`}>{story.title[lang]}</p>

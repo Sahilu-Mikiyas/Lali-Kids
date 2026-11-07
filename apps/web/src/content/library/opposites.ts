@@ -21,8 +21,8 @@ const story: Story = {
   coverPage: 3,
   pages: [
     {
-      en: '"Wake up, Anbessa!" called Gugu. "Let\'s play the Opposites Game! I do one thing, and you do the other."',
-      am: '«አንበሳ፣ ተነስ!» ብሎ ጠራ ጉጉ። «የተቃራኒዎች ጨዋታ እንጫወት! እኔ አንድ ነገር አደርጋለሁ፣ አንተ ደግሞ ተቃራኒውን ታደርጋለህ።»',
+      en: '"Wake up, Anbessa! Good morning, {name}!" called Gugu. "Let\'s play the Opposites Game! I do one thing, and you do the other."',
+      am: '«አንበሳ፣ ተነስ! እንደምን አደራችሁ፣ {name}!» ብሎ ጠራ ጉጉ። «የተቃራኒዎች ጨዋታ እንጫወት! እኔ አንድ ነገር አደርጋለሁ፣ እናንተ ደግሞ ተቃራኒውን ታደርጋላችሁ።»',
     },
     {
       en: 'Gugu climbed UP the tree. Anbessa climbed up too. "No, no!" laughed Gugu. "I am UP, so you go DOWN!"',
@@ -61,8 +61,8 @@ const story: Story = {
       am: "ፀሐይ ጠለቀች፤ ቀኑ (DAY) ወደ ሌሊት (NIGHT) ተለወጠ። ጨረቃና ከዋክብት ወጡ። ተቃራኒ፣ ተቃራኒ፣ ምን ዓይነት ጨዋታ!",
     },
     {
-      en: 'At bedtime, Gugu had one last one. "What is the opposite of FRIENDS?" Anbessa thought, and thought, and thought.',
-      am: 'የመኝታ ሰዓት ሲደርስ ጉጉ አንድ የመጨረሻ ጥያቄ ነበረው። «የጓደኞች (FRIENDS) ተቃራኒ ምንድን ነው?» አንበሳ አሰበ፣ አሰበ፣ አሰበ።',
+      en: 'At bedtime, Gugu had one last one. "What is the opposite of FRIENDS?" Anbessa and {name} thought, and thought, and thought.',
+      am: 'የመኝታ ሰዓት ሲደርስ ጉጉ አንድ የመጨረሻ ጥያቄ ነበረው። «የጓደኞች (FRIENDS) ተቃራኒ ምንድን ነው?» አንበሳና {name} አሰቡ፣ አሰቡ፣ አሰቡ።',
     },
     {
       en: '"There isn\'t one!" said Anbessa. "Friends are always friends." Gugu hugged him tight. What opposites can YOU find?',

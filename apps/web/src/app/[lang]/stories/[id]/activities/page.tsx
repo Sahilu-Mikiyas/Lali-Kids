@@ -15,6 +15,8 @@ import { packOf } from "@/lib/packs";
 import { verifyReadPass } from "@/lib/read-pass";
 import { storyForReading } from "@/lib/stories";
 import { currentProfile } from "@/lib/supabase/server";
+import { loadFamily } from "@/lib/family";
+import { cleanName, withName } from "@/lib/story-path";
 import { getLang, getT } from "@/i18n/server";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/stories/[id]/activities">): Promise<Metadata> {
@@ -57,7 +59,9 @@ async function Activities({ params, searchParams }: PageProps<"/[lang]/stories/[
     );
   }
 
-  const story = access.story;
+  // `{name}` in the story becomes the chosen child's name on the sheets too (only for this family).
+  const childName = profile ? cleanName((await loadFamily().catch(() => null))?.current?.name) : null;
+  const story = withName(access.story, childName);
   const pack = packOf(story);
   const ws = wordSearches(story);
   const recall = recallQuestions(story);
@@ -116,7 +120,7 @@ async function Activities({ params, searchParams }: PageProps<"/[lang]/stories/[
         {pack === "english" && <EnglishSheets story={story} t={t} lang={lang} />}
         {pack === "story" && <GardenSheet t={t} lang={lang} />}
         <QuestionsSheet story={story} recall={recall} t={t} lang={lang} />
-        <CertificateSheet story={story} t={t} lang={lang} />
+        <CertificateSheet story={story} t={t} lang={lang} childName={childName} />
         <AnswerKeySheet ws={ws} t={t} uiLang={lang} />
       </div>
     </div>

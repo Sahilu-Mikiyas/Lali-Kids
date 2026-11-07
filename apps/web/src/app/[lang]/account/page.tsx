@@ -65,10 +65,18 @@ async function AccountContent() {
               <p className="mt-2 text-lg text-muted">{t.account.signedInAs(family.profile.email ?? "")}</p>
             </div>
             <div className="flex flex-wrap items-center gap-3">
+              {(family.profile.role === "teacher" || family.profile.role === "admin") && (
+                <Link href="/teach" className="btn btn-plain !text-base" data-teach-link="">
+                  {t.teach.title}
+                </Link>
+              )}
               {family.profile.role === "admin" && (
                 <>
                   <Link href="/admin/stats" className="btn btn-plain !text-base">
                     Pilot numbers
+                  </Link>
+                  <Link href="/admin/schools" className="btn btn-plain !text-base">
+                    Schools
                   </Link>
                   <Link href="/admin/stories" className="btn btn-plain !text-base">
                     {t.account.storyStudio}

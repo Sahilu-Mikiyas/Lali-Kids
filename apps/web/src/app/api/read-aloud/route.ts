@@ -6,14 +6,22 @@ import { micListenSetting, saveMicListen, saveReaderStar } from "@/lib/read-alou
 import { isStoryId } from "@/lib/stickers/catalog";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
+import { pupilForRequest, savePupilReaderStar } from "@/lib/schools/server";
 
 /*
   The read-along microphone for the signed-in family (website cookie, or the app's access token
   with X-Lali-Child). Signed-out visitors get { signedIn: false } and keep everything in the browser.
 
-  GET                                   → { signedIn, childId, ageBand, micListen (null until migration 0011) }
+  GET                                   → { signedIn, childId, childName, ageBand, micListen (null until migration 0011) }
   POST  { storyId, page, lang, how }    → saves a reader star for the current child { ok, saved }
   PATCH { micListen: boolean }          → the parent's "Listen to my child read" choice { ok, saved }
+
+  `childName` is the reading child's first name, for `{name}` in stories: it goes only to the
+  family's own session (no-store) and the reader never keeps it.
+
+  On a classroom tablet the reader adds X-Lali-Pupil: 1 and the pupil's signed cookie (lib/schools)
+  answers instead: GET → { signedIn: false, pupil: true, childName, ageBand, micListen: null };
+  POST saves the pupil's reader star (pupil_reader_stars, migration 0015). PATCH is for parents only.
 */
 
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
@@ -31,20 +39,24 @@ async function reader(request: Request): Promise<{ me: RequestUser; child: Child
 
 export async function GET(request: Request) {
   await connection();
+  const pupil = await pupilForRequest(request).catch(() => null);
+  if (pupil) return json({ signedIn: false, pupil: true, childName: pupil.pupil.first_name, ageBand: pupil.cls.age_band, micListen: null });
   const who = await reader(request);
   if (!who) return json({ signedIn: false });
   const micListen = await micListenSetting(who.me.supabase, who.me.user.id);
-  return json({ signedIn: true, childId: who.child?.id ?? null, ageBand: who.child?.age_band ?? null, micListen });
+  return json({ signedIn: true, childId: who.child?.id ?? null, childName: who.child?.name ?? null, ageBand: who.child?.age_band ?? null, micListen });
 }
 
 export async function POST(request: Request) {
-  const who = await reader(request);
-  if (!who?.child) return json({ error: "Sign in" }, 401);
+  const pupil = await pupilForRequest(request).catch(() => null);
+  const who = pupil ? null : await reader(request);
+  if (!pupil && !who?.child) return json({ error: "Sign in" }, 401);
   const b = (await request.json().catch(() => ({}))) as { storyId?: unknown; page?: unknown; lang?: unknown; how?: unknown };
   const page = Number(b.page);
   if (!isStoryId(b.storyId) || !Number.isInteger(page) || page < 0 || page > 199 || (b.lang !== "en" && b.lang !== "am")) return json({ error: "Which page?" }, 400);
   const how = b.how === "listened" ? "listened" : "recorded";
-  return json({ ok: true, saved: await saveReaderStar(who.child.id, b.storyId, page, b.lang, how) });
+  if (pupil) return json({ ok: true, saved: await savePupilReaderStar(pupil.pupil.id, b.storyId, page, b.lang, how) });
+  return json({ ok: true, saved: await saveReaderStar(who!.child!.id, b.storyId, page, b.lang, how) });
 }
 
 export async function PATCH(request: Request) {

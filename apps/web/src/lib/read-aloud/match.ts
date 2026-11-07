@@ -97,8 +97,12 @@ export function heardWords(transcript: string, lang: Lang): string[] {
  * Lines up heard words with page words, from `from` onwards, in reading order. A heard word may
  * skip ahead a few page words (a missed or misheard word); a long, exact word may jump further
  * (the child skipped a line). Returns the page indexes that were read, and where it got to.
+ *
+ * `names`: page words that are the reading child's own name (a story's `{name}`). The speech
+ * service often spells a name its own way, so when the name is the next word to read, any heard
+ * word counts for it, unless that word is clearly the page word after the name.
  */
-export function align(targets: string[], heard: string[], lang: Lang, from = 0): { hits: number[]; next: number } {
+export function align(targets: string[], heard: string[], lang: Lang, from = 0, names?: ReadonlySet<number>): { hits: number[]; next: number } {
   const hits: number[] = [];
   let p = from;
   for (let k = 0; k < heard.length; k++) {
@@ -106,6 +110,15 @@ export function align(targets: string[], heard: string[], lang: Lang, from = 0):
     if (p >= targets.length) break;
     while (p < targets.length && !targets[p]) p++;
     let found = -1;
+    if (names?.has(p) && !similar(targets[p], h, lang)) {
+      let after = p + 1;
+      while (after < targets.length && (!targets[after] || names.has(after))) after++;
+      if (after >= targets.length || !similar(targets[after], h, lang)) {
+        hits.push(p);
+        p += 1;
+        continue;
+      }
+    }
     // Two heard words that make one page word ("on to" for "onto").
     const joined = k + 1 < heard.length ? h + heard[k + 1] : "";
     if (joined && p < targets.length && targets[p] !== h && similar(targets[p], joined, lang) && !similar(targets[p], h, lang)) {

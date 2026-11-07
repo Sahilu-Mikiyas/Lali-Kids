@@ -8,6 +8,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -34,6 +35,7 @@ import { useMicListen, useReaderInfo } from "@/lib/read-aloud/client";
 import { readThreshold } from "@/lib/read-aloud/match";
 import { useMicReader } from "@/lib/read-aloud/use-mic-reader";
 import { useLang } from "@/i18n/provider";
+import { cleanName, fillName, hasName, nameWords, storyPath, withName } from "@/lib/story-path";
 import { dict } from "@/i18n/dict";
 import { inApp, tellApp } from "@/lib/in-app";
 import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/lib/stickers/catalog";
@@ -50,6 +52,7 @@ import { CoverBack, CoverFront } from "./book/cover";
 import { EndArt, PageArt } from "./book/page-art";
 import { READER } from "./book/reader-words";
 import { TapZone } from "./book/tappable";
+import { BookplateArt, BookplateText, ChoiceButtons, ChoicePrompt, PLATE, type ChoiceState } from "./book/choices";
 
 export { PageArt };
 
@@ -91,31 +94,65 @@ function Swap({ lang, block = false, className = "", layerClass = "", children }
 /* ---------- page faces ---------- */
 
 /** Find Lali, as the reader runs it: which pages she was found on during this read. */
-type Finder = { found: Set<number>; hints: boolean; onFind: (page: number) => void; bump: number; lang: Lang };
+type Finder = {
+  found: Set<number>;
+  hints: boolean;
+  onFind: (page: number) => void;
+  bump: number;
+  lang: Lang;
+  /** Pages on this read's path, and on how many of them she was found (story choices skip pages). */
+  total: number;
+  count: number;
+};
 
-function ArtFace({ story, page, gutter = "right", tap = false, finder }: { story: Story; page: number; gutter?: "right" | "none"; tap?: boolean; finder?: Finder }) {
+function ArtFace({
+  story,
+  page,
+  gutter = "right",
+  tap = false,
+  finder,
+  choice,
+  lang = "en",
+  fontSize,
+}: {
+  story: Story;
+  page: number;
+  gutter?: "right" | "none";
+  tap?: boolean;
+  finder?: Finder;
+  /** On a page with choices: the picture buttons sit on the picture. */
+  choice?: ChoiceState;
+  lang?: Lang;
+  fontSize?: number;
+}) {
   const end = page >= story.pages.length;
+  const plate = page === PLATE;
   return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : page} data-live={tap ? "" : undefined}>
-      <TapZone enabled={tap}>{end ? <EndArt /> : <PageArt story={story} page={page} />}</TapZone>
+    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : plate ? "plate" : page} data-live={tap ? "" : undefined}>
+      <TapZone enabled={tap}>{end ? <EndArt /> : plate ? <BookplateArt story={story} /> : <PageArt story={story} page={page} />}</TapZone>
       {/* Lali hides in the picture; she's clipped by it, so she never covers the words. */}
-      {finder && !end && (
+      {finder && !end && !plate && (
         <HiddenLali story={story} page={page} live={tap} found={finder.found.has(page)} hints={finder.hints} onFind={finder.onFind} lang={finder.lang} />
       )}
-      {finder && !end && tap && <FindCounter found={finder.found.size} total={story.pages.length} lang={finder.lang} bump={finder.bump} />}
+      {finder && !end && !plate && tap && <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />}
+      {choice && !end && !plate && (
+        <div className="absolute inset-x-0 bottom-0 z-[8] bg-gradient-to-t from-black/45 via-black/20 to-transparent p-[0.5em] pt-[1.6em]" style={{ fontSize }}>
+          <ChoiceButtons story={story} page={page} lang={lang} live={tap} choice={choice} />
+        </div>
+      )}
       {gutter === "right" && <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/30 to-transparent" />}
     </div>
   );
 }
 
-function PageHeader({ story, page, lang }: { story: Story; page: number; lang: Lang }) {
+function PageHeader({ story, num, of, lang }: { story: Story; num: number; of: number; lang: Lang }) {
   return (
     <div className="flex items-center justify-between gap-3 text-[0.8em] font-bold text-[#7A6A45]">
       <Swap lang={lang} className="min-w-0" layerClass="truncate">
         {(l) => <span className={l === "am" ? "font-ethiopic" : "font-display"}>{story.title[l]}</span>}
       </Swap>
       <span className="shrink-0 tabular-nums">
-        {page + 1} / {story.pages.length}
+        {num} / {of}
       </span>
     </div>
   );
@@ -129,13 +166,14 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
-function MoreStoriesLink({ lang }: { lang: Lang }) {
+function MoreStoriesLink({ lang, href }: { lang: Lang; href?: string }) {
   return (
     <Link
-      href="/stories"
+      href={href ?? "/stories"}
       className="btn btn-primary"
       onClick={(e) => {
         if (tellApp({ type: "lali:close" })) e.preventDefault();
+        else if (href) leaveClassroom(e, href);
       }}
     >
       <Swap lang={lang}>{(l) => READER[l].more}</Swap>
@@ -160,6 +198,15 @@ function StickersLink({ lang }: { lang: Lang }) {
 
 const noSubscribe = () => () => {};
 
+/**
+ * On a classroom tablet, going back to the class shelf loads the page afresh, so nothing the
+ * reader learnt about this pupil (their name, stickers) carries over to the next child.
+ */
+function leaveClassroom(e: { preventDefault: () => void }, href: string) {
+  e.preventDefault();
+  window.location.assign(href);
+}
+
 /** The story's printable activities. Not shown inside the Lali app, whose web view can't print. */
 function ActivitiesLink({ lang, storyId, className = "btn btn-plain" }: { lang: Lang; storyId: string; className?: string }) {
   const app = useSyncExternalStore(noSubscribe, inApp, () => false);
@@ -179,12 +226,24 @@ function EndText({
   starLanded,
   finds,
   readAloud,
+  name,
+  chosen,
+  canTryOther,
+  classroom,
 }: {
   storyId: string;
   lang: Lang;
   interactive: boolean;
   onAgain: () => void;
   starLanded: boolean;
+  /** The reading child's name, when known. */
+  name?: string | null;
+  /** The labels of the choices made on this read ("You chose …!"). */
+  chosen?: Record<Lang, string>[];
+  /** Some choice still has a way the child hasn't tried. */
+  canTryOther?: boolean;
+  /** On a classroom tablet: back to the class shelf, no sticker book or printables. */
+  classroom?: { shelfHref: string } | null;
   /** How many pages Lali was found on this time. */
   finds?: { found: number; total: number };
   /** Pages the child read aloud this time (reader stars). */
@@ -194,10 +253,25 @@ function EndText({
   // The new star is counted when the flying star lands.
   const shown = starLanded ? stars : Math.max(0, stars - 1);
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-[0.55em] text-center">
-      <p className="font-display text-[2.2em] font-black leading-none text-coral">
+    <div className={`flex flex-1 flex-col items-center justify-center text-center ${chosen?.length ? "gap-[0.4em]" : "gap-[0.55em]"}`}>
+      <p className={`font-display font-black leading-none text-coral ${chosen?.length ? "text-[1.8em]" : "text-[2.2em]"}`}>
         <Swap lang={lang}>{(l) => READER[l].theEnd}</Swap>
       </p>
+      {name && (
+        <p className="font-display text-[1.15em] font-black text-ink" data-end-name={name}>
+          <Swap lang={lang}>{(l) => dict[l].storyName.wellDone(name)}</Swap>
+        </p>
+      )}
+      {chosen && chosen.length > 0 && (
+        <p className="rounded-[1em] bg-[#FFF1C9] px-3 py-1 text-[0.8em] font-black leading-snug text-[#7A3E00]" data-end-chosen="">
+          <Swap lang={lang}>{(l) => dict[l].choices.youChose(chosen.map((c) => (l === "en" ? c[l].charAt(0).toLowerCase() + c[l].slice(1) : c[l])).join(` ${dict[l].choices.and} `))}</Swap>
+          {interactive && canTryOther && (
+            <span className="block text-[0.9em] font-bold text-[#A0661A]" data-end-try-other="">
+              <Swap lang={lang}>{(l) => dict[l].choices.tryOther}</Swap>
+            </span>
+          )}
+        </p>
+      )}
       {interactive && (
         <div
           data-star-counter=""
@@ -247,14 +321,17 @@ function EndText({
       )}
       {interactive && (
         <div className="flex flex-wrap justify-center gap-3 text-base">
-          <button type="button" className="btn btn-plain" onClick={onAgain}>
+          <button type="button" className={`btn btn-plain ${canTryOther ? "choice-glow" : ""}`} onClick={onAgain} data-read-again="">
             <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
           </button>
-          <StickersLink lang={lang} />
-          <MoreStoriesLink lang={lang} />
-          <ActivitiesLink lang={lang} storyId={storyId} className="self-center rounded-full px-2 py-1 text-[0.85em] font-bold text-blue underline decoration-2 underline-offset-4 hover:text-ink" />
+          {!classroom && <StickersLink lang={lang} />}
+          <MoreStoriesLink lang={lang} href={classroom?.shelfHref} />
+          {!classroom && (
+            <ActivitiesLink lang={lang} storyId={storyId} className="self-center rounded-full px-2 py-1 text-[0.85em] font-bold text-blue underline decoration-2 underline-offset-4 hover:text-ink" />
+          )}
         </div>
       )}
+
     </div>
   );
 }
@@ -282,6 +359,13 @@ function TextFace({
   micThreshold = 0.7,
   onReadAloud,
   readAloud,
+  pos = page,
+  count = story.pages.length,
+  name = null,
+  choice,
+  chosen,
+  canTryOther,
+  classroom,
 }: {
   story: Story;
   page: number;
@@ -305,9 +389,23 @@ function TextFace({
   micThreshold?: number;
   onReadAloud?: (page: number, how: "listened" | "recorded") => void;
   readAloud?: { read: number; total: number };
+  /** Where this page is on the read's path, and how many pages the path has (for "3 / 10"). */
+  pos?: number;
+  count?: number;
+  /** The reading child's name for `{name}` (null: "friend"). */
+  name?: string | null;
+  /** On a page with choices: what was picked, which ways were tried, and how to choose. */
+  choice?: ChoiceState;
+  chosen?: Record<Lang, string>[];
+  canTryOther?: boolean;
+  classroom?: { shelfHref: string } | null;
 }) {
   const end = page >= story.pages.length;
-  const text = end ? "" : story.pages[page][lang];
+  const plate = page === PLATE;
+  const raw = end || plate ? "" : story.pages[page][lang];
+  // `{name}` becomes the child's name; the mic counts the name however it is heard.
+  const named = useMemo(() => nameWords(raw, name, lang), [raw, name, lang]);
+  const text = named.text;
   // Narration first (exactly on its word times when they fit this text), else the browser's voice.
   const own = useReadAlong(text, lang, onRead, end ? null : (clip?.url ?? null), {
     wordTimes: clip && timesFit(clip.wordTimes, text) ? clip.wordTimes : null,
@@ -320,9 +418,10 @@ function TextFace({
     wantListen: micListen,
     threshold: micThreshold,
     onRead: (how) => onReadAloud?.(page, how),
+    names: named.nameAt.size ? named.nameAt : undefined,
   });
   // A family recording of this page plays instead of the browser's voice when there is one.
-  const familyUrl = end ? null : (voice?.pages[lang]?.[page] ?? null);
+  const familyUrl = end || plate ? null : (voice?.pages[lang]?.[page] ?? null);
   const family = useReadAlong(text, lang, onRead, familyUrl);
   const [usedFamily, setUsedFamily] = useState(true);
   const ra = family.reading || (!own.reading && usedFamily && familyUrl) ? family : own;
@@ -368,10 +467,24 @@ function TextFace({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
       <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
         {end ? (
-          <EndText storyId={story.id} lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} readAloud={readAloud} />
+          <EndText
+            storyId={story.id}
+            lang={lang}
+            interactive={live}
+            onAgain={onAgain}
+            starLanded={starLanded}
+            finds={finds}
+            readAloud={readAloud}
+            name={name}
+            chosen={chosen}
+            canTryOther={canTryOther}
+            classroom={classroom}
+          />
+        ) : plate ? (
+          <BookplateText name={name ?? ""} lang={lang} />
         ) : (
           <>
-            <PageHeader story={story} page={page} lang={lang} />
+            <PageHeader story={story} num={pos + 1} of={count} lang={lang} />
             <div className="grid flex-1 content-start">
               {LANGS.map((l) => {
                 const on = l === lang;
@@ -384,7 +497,7 @@ function TextFace({
                       aria-hidden
                       className={`lali-lang-layer pointer-events-none -translate-y-[0.2em] pl-[3px] leading-[1.55] opacity-0 [grid-area:1/1] [word-spacing:6px] ${textFont(l)}`}
                     >
-                      {story.pages[page][l]}
+                      {fillName(story.pages[page][l], name, l)}
                     </p>
                   );
                 }
@@ -512,6 +625,7 @@ function TextFace({
               )}
             </div>
             )}
+            {choice && <ChoicePrompt story={story} page={page} lang={lang} picked={choice.picked} />}
           </>
         )}
       </div>
@@ -520,7 +634,7 @@ function TextFace({
 }
 
 /** After the celebration: a calm card for the parent, with things to talk about and try. */
-function GrownUpsCard({ story, lang, onAgain, onClose }: { story: Story; lang: Lang; onAgain: () => void; onClose: () => void }) {
+function GrownUpsCard({ story, lang, onAgain, onClose, classroom }: { story: Story; lang: Lang; onAgain: () => void; onClose: () => void; classroom?: { shelfHref: string } | null }) {
   const g = story.grownUps!;
   return (
     <div className="absolute inset-0 z-[60] grid place-items-center px-3 pb-[max(12px,env(safe-area-inset-bottom))] pt-[72px] sm:px-6 sm:pb-6">
@@ -562,8 +676,8 @@ function GrownUpsCard({ story, lang, onAgain, onClose }: { story: Story; lang: L
           <button type="button" className="btn btn-plain" onClick={onAgain}>
             <Swap lang={lang}>{(l) => READER[l].readAgain}</Swap>
           </button>
-          <MoreStoriesLink lang={lang} />
-          <ActivitiesLink lang={lang} storyId={story.id} />
+          <MoreStoriesLink lang={lang} href={classroom?.shelfHref} />
+          {!classroom && <ActivitiesLink lang={lang} storyId={story.id} />}
         </div>
       </section>
     </div>
@@ -622,13 +736,20 @@ export function StoryBook({
   story,
   compact = false,
   onFinish,
+  childName,
+  classroom = null,
 }: {
   story: Story;
   compact?: boolean;
   /** Called once when the child reaches The End; the site records it for the signed-in child. */
   onFinish?: (storyId: string) => void;
+  /** The reading child's first name for `{name}`, when the page already knows it (else the reader asks). */
+  childName?: string | null;
+  /** On a classroom tablet: the shelf to go back to; no sticker book, voices or printables. */
+  classroom?: { shelfHref: string } | null;
 }) {
-  const total = story.pages.length; // index `total` is The End
+  const pagesInBook = story.pages.length;
+  const shelfHref = classroom?.shelfHref ?? "/stories";
   const immersive = !compact;
   const router = useRouter();
   const reduce = useMedia("(prefers-reduced-motion: reduce)");
@@ -649,6 +770,42 @@ export function StoryBook({
   const [starLanded, setStarLanded] = useState(false);
   const [cardOpen, setCardOpen] = useState(false);
 
+  /* ----- the child's name, the bookplate and story choices ----- */
+  const readerInfo = useReaderInfo();
+  const name = cleanName(childName ?? readerInfo?.childName ?? null);
+  const named = useMemo(() => withName(story, name), [story, name]);
+  const [picks, setPicks] = useState<Record<number, number>>({});
+  const [tried, setTried] = useState<Set<string>>(() => new Set());
+  const path = useMemo(() => storyPath(story, picks), [story, picks]);
+  // The bookplate comes before page 1 once the reader knows whose book it is. If the name arrives
+  // after the child has turned a page, the page they are on stays in front of them.
+  const wantPlate = immersive && Boolean(name);
+  const [plate, setPlate] = useState(wantPlate);
+  if (wantPlate !== plate && !turn) {
+    setPlate(wantPlate);
+    if (page > 0) setPage(page + (wantPlate ? 1 : -1));
+  }
+  const seq = useMemo(() => (plate ? [PLATE, ...path.seq] : path.seq), [plate, path.seq]);
+  const total = seq.length; // position `total` is The End
+  /** The story page at a position on this read's path (`pagesInBook` for The End). */
+  const at = useCallback((pos: number) => (pos >= 0 && pos < seq.length ? seq[pos] : pagesInBook), [seq, pagesInBook]);
+  const plateShift = plate ? 1 : 0;
+  const openAt = path.open < 0 ? -1 : path.open + plateShift;
+  const choiceAt = useMemo(() => new Set(seq.flatMap((p, i) => (p >= 0 && story.pages[p]?.choices?.options.length ? [i] : []))), [seq, story.pages]);
+  /** The page at this position waits for a choice before the book can go on. */
+  const waiting = useCallback(
+    (pos: number) => {
+      const p = pos >= 0 && pos < seq.length ? seq[pos] : -1;
+      return p >= 0 && Boolean(story.pages[p]?.choices?.options.length) && picks[p] === undefined;
+    },
+    [seq, story.pages, picks],
+  );
+  const chosen = path.seq.flatMap((p) => {
+    const o = picks[p] !== undefined ? story.pages[p]?.choices?.options[picks[p]] : undefined;
+    return o ? [o.label] : [];
+  });
+  const canTryOther = path.seq.some((p) => story.pages[p]?.choices?.options.some((_, i) => !tried.has(`${p}:${i}`)) ?? false);
+
   /* ----- Find Lali, stickers and family voices ----- */
   const hints = useFindHints();
   const [found, setFound] = useState<Set<number>>(() => new Set());
@@ -661,7 +818,6 @@ export function StoryBook({
   // Voice-actor narration, the grown-up's microphone choice, and pages read aloud this time.
   const clipFor = useNarration(story);
   const micListen = useMicListen();
-  const readerInfo = useReaderInfo();
   const micThreshold = readThreshold(readerInfo?.ageBand ?? (story.ageBands[0] === "3-5" ? "3-5" : null));
   const [readAloud, setReadAloud] = useState<Set<number>>(() => new Set());
   const onReadAloud = useCallback(
@@ -675,7 +831,7 @@ export function StoryBook({
   );
   // Stickers earned before this read, so the ending knows which ones are new.
   const earnedBefore = useRef<Set<string> | null>(null);
-  const pageCount = useCallback((id: string) => (id === story.id ? total : undefined), [story.id, total]);
+  const pageCount = useCallback((id: string) => (id === story.id ? pagesInBook : undefined), [story.id, pagesInBook]);
   useEffect(() => {
     let alive = true;
     syncStickers().then(() => {
@@ -693,7 +849,7 @@ export function StoryBook({
     },
     [story.id],
   );
-  const finder: Finder = { found, hints, onFind, bump: foundBump, lang };
+  const finder: Finder = { found, hints, onFind, bump: foundBump, lang, total: path.seq.length, count: path.seq.filter((p) => found.has(p)).length };
   const wide = useMedia("(min-width: 768px)");
   const fullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenElement), () => false);
   const canFullscreen = useSyncExternalStore(subscribeFullscreen, () => Boolean(document.fullscreenEnabled), () => false);
@@ -930,6 +1086,8 @@ export function StoryBook({
   const go = useCallback(
     (to: number) => {
       if (busy || to < 0 || to > total || to === page || !W) return;
+      // A page with choices waits until the child picks a way.
+      if (to > page && waiting(page)) return;
       leave();
       if (reduce || Math.abs(to - page) !== 1) {
         setPage(to);
@@ -939,8 +1097,24 @@ export function StoryBook({
       if (to > page) beginTurn(page, H, 0, { target: 1, strength: 1 });
       else beginTurn(to, H, 1, { target: 0, strength: 1 });
     },
-    [busy, total, page, W, H, reduce, beginTurn, leave],
+    [busy, total, page, W, H, reduce, beginTurn, leave, waiting],
   );
+
+  // Picking a way turns the page by itself, a moment later, to the page the choice leads to.
+  const [advance, setAdvance] = useState(0);
+  const choose = useCallback((p: number, option: number) => {
+    setPicks((k) => ({ ...k, [p]: option }));
+    setTried((t) => new Set(t).add(`${p}:${option}`));
+    playTapSound("chime");
+    setAdvance((a) => a + 1);
+  }, []);
+  useEffect(() => {
+    if (!advance) return;
+    const id = setTimeout(() => go(page + 1), reduce ? 80 : 650);
+    return () => clearTimeout(id);
+    // Only when a choice is made.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advance]);
 
   /* ----- the cover: it swings open in 3D while the book slides to the middle ----- */
   const rot = useMotionValue(immersive ? 0 : -180);
@@ -1051,7 +1225,7 @@ export function StoryBook({
 
   /* ----- sound and depth ----- */
   // The scene's soundscape (full-screen book only). It shares the sound toggle.
-  const mood = immersive && cover !== "closed" ? ambienceFor(story, page) : null;
+  const mood = immersive && cover !== "closed" ? ambienceFor(story, Math.max(0, at(page))) : null;
   useEffect(() => {
     setAmbience(mood);
   }, [mood]);
@@ -1075,11 +1249,14 @@ export function StoryBook({
         else go(page + 1);
       }
       if (e.key === "ArrowLeft") go(page - 1);
-      if (e.key === "Escape" && immersive && !document.fullscreenElement && !tellApp({ type: "lali:close" })) router.push("/stories");
+      if (e.key === "Escape" && immersive && !document.fullscreenElement && !tellApp({ type: "lali:close" })) {
+        if (classroom) window.location.assign(shelfHref);
+        else router.push(shelfHref);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen]);
+  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen, shelfHref, classroom]);
 
   // The full-screen book owns the page: no scrolling underneath.
   useEffect(() => {
@@ -1117,7 +1294,7 @@ export function StoryBook({
       const dy = p.y - d.y0;
       if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
       const forward = sp ? d.x0 >= 0 : dx < 0;
-      if (forward ? page >= total : page <= 0) {
+      if (forward ? page >= total || waiting(page) : page <= 0) {
         drag.current = null;
         return;
       }
@@ -1169,12 +1346,30 @@ export function StoryBook({
   const again = () => {
     setFound(new Set());
     setReadAloud(new Set());
-    go(0);
+    // A fresh read: the choices can go another way this time.
+    setPicks({});
+    go(plateShift);
   };
-  const textFace = (idx: number, isLive: boolean, shadow: "left" | "none" = "left") => (
+  /** The choice on the page at this position, if it has one. */
+  const choiceOn = (pos: number, isLive: boolean): ChoiceState | undefined => {
+    const idx = at(pos);
+    if (idx < 0 || idx >= pagesInBook || !story.pages[idx].choices?.options.length) return undefined;
+    return { picked: picks[idx], tried, onChoose: (o: number) => choose(idx, o), ready: pageRead && isLive };
+  };
+  const textFace = (pos: number, isLive: boolean, shadow: "left" | "none" = "left") => {
+    const idx = at(pos);
+    const real = idx >= 0 && idx < pagesInBook;
+    return (
     <TextFace
       story={story}
       page={idx}
+      pos={pos - plateShift}
+      count={path.seq.length}
+      name={name}
+      chosen={chosen}
+      canTryOther={canTryOther}
+      classroom={classroom}
+      choice={choiceOn(pos, isLive)}
       lang={lang}
       live={isLive}
       onRead={() => setPageRead(true)}
@@ -1183,17 +1378,19 @@ export function StoryBook({
       shadow={shadow}
       reduce={reduce}
       starLanded={starLanded}
-      finds={{ found: found.size, total }}
+      finds={{ found: finder.count, total: finder.total }}
       voice={voice}
       voiceCount={voices.voices.length}
       onNextVoice={() => setVoiceIndex((v) => v + 1)}
-      clip={idx < total ? clipFor(idx, lang) : null}
+      // Recorded narration can't say every child's name: pages with {name} use the browser's voice.
+      clip={real && !hasName(story.pages[idx][lang]) ? clipFor(idx, lang) : null}
       micListen={micListen}
       micThreshold={micThreshold}
       onReadAloud={onReadAloud}
-      readAloud={{ read: readAloud.size, total }}
+      readAloud={{ read: path.seq.filter((p) => readAloud.has(p)).length, total: path.seq.length }}
     />
-  );
+    );
+  };
 
   const layer = (z: number): CSSProperties => ({ position: "absolute", inset: 0, zIndex: z, willChange: turn ? "transform, clip-path" : undefined });
 
@@ -1208,19 +1405,19 @@ export function StoryBook({
           <motion.div className="absolute top-0" style={{ left: 0, width: W, height: H, opacity: leftShown }}>
             {left.map((i) => (
               <div
-                key={`a${i}`}
+                key={`a${i}-${at(i)}`}
                 ref={turn && i === L + 1 ? backRef : undefined}
                 className="overflow-hidden rounded-l-[16px] rounded-r-[4px]"
                 style={{ ...layer(turn && i === L + 1 ? 30 : 5), transformOrigin: "0 0" }}
               >
-                <ArtFace story={story} page={i} tap={live} finder={finder} />
+                <ArtFace story={story} page={at(i)} tap={live} finder={finder} choice={choiceOn(i, live)} lang={lang} fontSize={fontSize} />
               </div>
             ))}
           </motion.div>
           <div className="absolute top-0" style={{ left: W, width: W, height: H }}>
             {right.map((i) => (
               <div
-                key={`t${i}`}
+                key={`t${i}-${at(i)}`}
                 ref={turn ? (i === L ? frontRef : underRef) : undefined}
                 className="overflow-hidden rounded-r-[16px] rounded-l-[4px]"
                 style={layer(turn && i === L ? 20 : 10)}
@@ -1240,7 +1437,7 @@ export function StoryBook({
       const card = (i: number, isLive: boolean) => (
         <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
           <div className="relative shrink-0" style={{ height: artH }}>
-            <ArtFace story={story} page={i} gutter="none" tap={isLive} finder={finder} />
+            <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} />
           </div>
           <div className="min-h-0 flex-1">{textFace(i, isLive, "none")}</div>
         </div>
@@ -1249,7 +1446,7 @@ export function StoryBook({
         <>
           {cards.map((i) => (
             <div
-              key={`c${i}`}
+              key={`c${i}-${at(i)}`}
               ref={turn ? (i === L ? frontRef : underRef) : undefined}
               className="rounded-[22px]"
               style={layer(turn && i === L ? 20 : 10)}
@@ -1357,7 +1554,7 @@ export function StoryBook({
       big={immersive}
       label={cover === "closed" ? "Open the book" : page === total - 1 ? "Finish the story" : "Next page"}
       onClick={() => (cover === "closed" ? openCover() : go(page + 1))}
-      disabled={page === total || (busy && cover !== "closed")}
+      disabled={page === total || (busy && cover !== "closed") || (cover === "open" && waiting(page))}
       pulse={(pageRead && page < total) || cover === "closed"}
     />
   );
@@ -1385,7 +1582,7 @@ export function StoryBook({
         />
       )}
       {voiceOpen && (
-        <RecordVoiceModal story={story} lang={lang} status={voices.status} voices={voices.voices} onClose={() => setVoiceOpen(false)} onSaved={reloadVoices} />
+        <RecordVoiceModal story={named} lang={lang} status={voices.status} voices={voices.voices} onClose={() => setVoiceOpen(false)} onSaved={reloadVoices} />
       )}
     </>
   );
@@ -1398,13 +1595,15 @@ export function StoryBook({
         </div>
         <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-4">
           {prev}
-          <PageDots total={total} page={page} />
+          <PageDots total={total} page={page} choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
           {next}
           <LangToggle lang={lang} setLang={setLang} />
-          <StickerBookButton lang={lang} />
-          <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
-            <MicIcon />
-          </RoundButton>
+          {!classroom && <StickerBookButton lang={lang} />}
+          {!classroom && (
+            <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
+              <MicIcon />
+            </RoundButton>
+          )}
         </div>
         {extras}
         {flyingStar}
@@ -1430,9 +1629,10 @@ export function StoryBook({
       {/* above the grown-ups card, so its language can still be switched */}
       <div className="relative z-[65] flex items-center gap-2 px-3 pt-3 sm:gap-3 sm:px-5 sm:pt-4">
         <Link
-          href="/stories"
+          href={shelfHref}
           onClick={(e) => {
             if (tellApp({ type: "lali:close" })) e.preventDefault();
+            else if (classroom) leaveClassroom(e, shelfHref);
           }}
           aria-label="Close the book and go back to the shelf"
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-ink shadow-[0_3px_0_rgba(27,42,78,.18)] transition hover:-translate-y-0.5"
@@ -1446,10 +1646,12 @@ export function StoryBook({
         </p>
         <div className="ml-auto flex items-center gap-2 md:ml-0">
           <LangToggle lang={lang} setLang={setLang} />
-          <StickerBookButton lang={lang} />
-          <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
-            <MicIcon />
-          </RoundButton>
+          {!classroom && <StickerBookButton lang={lang} />}
+          {!classroom && (
+            <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
+              <MicIcon />
+            </RoundButton>
+          )}
           <RoundButton label={muted ? "Turn sounds on" : "Turn sounds off"} pressed={!muted} onClick={() => setPageSoundMuted(!muted)}>
             {muted ? Icon.soundOff : Icon.soundOn}
           </RoundButton>
@@ -1479,12 +1681,13 @@ export function StoryBook({
 
       <div className="relative z-10 flex items-center justify-center gap-3 px-3 pb-[max(14px,env(safe-area-inset-bottom))] pt-3">
         {!spread && prev}
-        <PageDots total={total} page={page} light />
+        <PageDots total={total} page={page} light choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
         {!spread && next}
       </div>
       {cardOpen && atEnd && story.grownUps && (
         <GrownUpsCard
-          story={story}
+          story={named}
+          classroom={classroom}
           lang={lang}
           onClose={() => setCardOpen(false)}
           onAgain={() => {
