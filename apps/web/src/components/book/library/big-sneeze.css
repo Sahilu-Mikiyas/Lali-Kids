@@ -1,0 +1,386 @@
+/* Gugu's Big Sneeze (big-sneeze.tsx): transforms and opacity only. */
+
+/* Anbessa wears a hat (or a nest), so his head keeps still under it. */
+.big-sneeze-steady .lali-tilt {
+  animation: none;
+}
+
+/* Gugu skips along: a quick bounce while he walks in. */
+@keyframes big-sneeze-skip {
+  0%, 100% { transform: translateY(0) scale(1.04, 0.96); }
+  45% { transform: translateY(-16px) scale(0.97, 1.04); }
+}
+.big-sneeze-skip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-skip 0.5s ease-in-out infinite;
+}
+
+/* The tickle: pollen drifts from the flower into Gugu's nose. */
+@keyframes big-sneeze-pollen {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(var(--dx, -40px), var(--dy, 0px)) scale(1); opacity: 0; }
+}
+.big-sneeze-pollen {
+  animation: big-sneeze-pollen 2.6s ease-in var(--delay, 0s) infinite;
+}
+@keyframes big-sneeze-tickle {
+  0%, 100% { transform: translateX(0); opacity: 0.2; }
+  50% { transform: translateX(-6px); opacity: 1; }
+}
+.big-sneeze-tickle {
+  animation: big-sneeze-tickle 0.6s ease-in-out infinite;
+}
+@keyframes big-sneeze-nose {
+  0%, 100% { transform: rotate(-4deg) scale(1); }
+  50% { transform: rotate(4deg) scale(1.06, 0.96); }
+}
+.big-sneeze-nose {
+  transform-box: fill-box;
+  transform-origin: 50% 30%;
+  animation: big-sneeze-nose 0.32s ease-in-out infinite;
+}
+@keyframes big-sneeze-squint {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.55); }
+}
+.big-sneeze-squint {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-squint 0.45s ease-in-out infinite;
+}
+
+/* Ah… ah… AH…: the head tips back in three goes, the chest fills, the mouth opens wide. */
+@keyframes big-sneeze-tipback {
+  0% { transform: rotate(0); }
+  18% { transform: rotate(-6deg); }
+  28% { transform: rotate(-4deg); }
+  48% { transform: rotate(-11deg); }
+  58% { transform: rotate(-9deg); }
+  82%, 92% { transform: rotate(-17deg); }
+  100% { transform: rotate(0); }
+}
+.big-sneeze-tipback {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: big-sneeze-tipback 3.4s ease-in-out infinite;
+}
+@keyframes big-sneeze-inhale {
+  0%, 100% { transform: scale(1); }
+  82%, 92% { transform: scale(1.06, 1.04); }
+}
+.big-sneeze-inhale {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-inhale 3.4s ease-in-out infinite;
+}
+@keyframes big-sneeze-gasp {
+  0%, 100% { transform: scale(0.7); }
+  82%, 92% { transform: scale(1.3); }
+}
+.big-sneeze-gasp {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-gasp 3.4s ease-in-out infinite;
+}
+
+/* CHOO!: back, back, back, then the head snaps forward (at about 1.6s). */
+@keyframes big-sneeze-snap {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-7deg); }
+  45% { transform: rotate(-11deg); }
+  64% { transform: rotate(-17deg); animation-timing-function: cubic-bezier(0.6, 0, 1, 1); }
+  69% { transform: rotate(15deg); }
+  82% { transform: rotate(2deg); }
+  100% { transform: rotate(5deg); }
+}
+.big-sneeze-snap {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: big-sneeze-snap 2.2s ease-in-out 0.2s both;
+}
+/* The burst and the gusts of wind it sends rolling out. */
+@keyframes big-sneeze-burst {
+  0% { transform: scale(0); opacity: 0; }
+  15% { transform: scale(1.35); opacity: 1; }
+  30% { transform: scale(1); }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+.big-sneeze-burst {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-burst 1.6s ease-out var(--delay, 1.6s) both;
+}
+@keyframes big-sneeze-gust {
+  0% { transform: translateX(-20px) scaleX(0.4); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateX(60px) scaleX(1.1); opacity: 0; }
+}
+.big-sneeze-gust {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: big-sneeze-gust 0.9s ease-out var(--delay, 1.6s) 4 both;
+}
+/* Whoever the blast hits leans back, then rights themselves. */
+@keyframes big-sneeze-blown {
+  0%, 100% { transform: rotate(0) translateX(0); }
+  18% { transform: rotate(-9deg) translateX(10px); }
+  40% { transform: rotate(-5deg) translateX(6px); }
+}
+.big-sneeze-blown {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: big-sneeze-blown 1.8s ease-out var(--delay, 1.7s) both;
+}
+
+/* The hat flies up, up, up and lands on the goat. */
+@keyframes big-sneeze-hatfly {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0) scale(var(--fs, 1)); animation-timing-function: ease-out; }
+  45% { transform: translate(calc(var(--fx) * 0.55), -96px) rotate(-260deg) scale(1.1); animation-timing-function: ease-in; }
+  85% { transform: translate(0, -6px) rotate(-372deg) scale(1); }
+  92% { transform: translate(0, 0) rotate(-360deg) scale(1.1, 0.9); }
+  100% { transform: translate(0, 0) rotate(-360deg) scale(1); }
+}
+.big-sneeze-hatfly {
+  animation: big-sneeze-hatfly 2s linear var(--delay, 1.8s) both;
+}
+/* ...and later hops home again, over Gugu, onto Anbessa. */
+@keyframes big-sneeze-hathome {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0) scale(var(--fs, 1)); animation-timing-function: ease-out; }
+  50% { transform: translate(calc(var(--fx) * 0.5), calc(var(--fy) * 0.5 - 70px)) rotate(200deg) scale(1.2); animation-timing-function: ease-in; }
+  88% { transform: translate(0, 0) rotate(360deg) scale(1.1, 0.9); }
+  100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+}
+.big-sneeze-hathome {
+  animation: big-sneeze-hathome 1.8s linear var(--delay, 2s) both;
+}
+/* The nest tumbles down onto Anbessa's head, plop. */
+@keyframes big-sneeze-tumble {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0) scale(var(--fs, 1)); animation-timing-function: ease-out; }
+  30% { transform: translate(calc(var(--fx) * 0.7), calc(var(--fy) - 20px)) rotate(-40deg) scale(calc(var(--fs, 1) * 0.9)); animation-timing-function: ease-in; }
+  78% { transform: translate(0, 0) rotate(10deg) scale(1.15, 0.85); }
+  90% { transform: translate(0, -6px) rotate(-4deg) scale(0.95, 1.05); }
+  100% { transform: translate(0, 0) rotate(0) scale(1); }
+}
+.big-sneeze-tumble {
+  animation: big-sneeze-tumble 1.5s linear var(--delay, 1.8s) both;
+}
+/* The netela flies off Grandma and away into the sky. */
+@keyframes big-sneeze-away {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0) scale(0.6); opacity: 0.4; }
+  15% { opacity: 1; }
+  45% { transform: translate(calc(var(--fx) * 0.6), calc(var(--fy) * 0.45)) rotate(-24deg) scale(0.9); }
+  100% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+}
+.big-sneeze-away {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-away 2.6s ease-out var(--delay, 1.8s) both;
+}
+@keyframes big-sneeze-billow {
+  from { transform: scale(1, 1) rotate(-3deg); }
+  to { transform: scale(1.06, 0.78) rotate(4deg); }
+}
+.big-sneeze-billow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-billow 0.45s ease-in-out infinite alternate;
+}
+/* Leaves torn off the tree tumble down and land; others keep swirling. */
+@keyframes big-sneeze-blow {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0); opacity: 0; }
+  8% { opacity: 1; }
+  45% { transform: translate(calc(var(--fx) * 0.45 + 24px), calc(var(--fy) * 0.55 - 10px)) rotate(calc(var(--rot, 40deg) * 3)); }
+  75% { transform: translate(calc(var(--fx) * 0.12 - 8px), calc(var(--fy) * 0.15)) rotate(calc(var(--rot, 40deg) * 5)); }
+  100% { transform: translate(0, 0) rotate(calc(var(--rot, 40deg) * 6)); opacity: 1; }
+}
+.big-sneeze-blow {
+  animation: big-sneeze-blow 2.6s ease-out var(--delay, 1.7s) both;
+}
+@keyframes big-sneeze-swirl {
+  0% { transform: rotate(0) translate(14px, 0) rotate(0); }
+  100% { transform: rotate(360deg) translate(14px, 0) rotate(-720deg); }
+}
+@keyframes big-sneeze-appear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.big-sneeze-swirl {
+  animation: big-sneeze-appear 0.4s ease var(--delay, 1.8s) both, big-sneeze-swirl 2.4s linear var(--delay, 1.8s) infinite;
+}
+/* The tree crown shivers in the blast. */
+@keyframes big-sneeze-shake {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(4deg); }
+}
+.big-sneeze-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-shake 0.35s ease-in-out infinite;
+}
+
+/* Birds: the chicks peep, the mother flaps and fusses. */
+@keyframes big-sneeze-peep {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.big-sneeze-peep {
+  animation: big-sneeze-peep 0.5s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes big-sneeze-flap {
+  from { transform: rotate(10deg); }
+  to { transform: rotate(-30deg); }
+}
+.big-sneeze-flap {
+  transform-box: fill-box;
+  transform-origin: 90% 80%;
+  animation: big-sneeze-flap 0.16s ease-in-out infinite alternate;
+}
+@keyframes big-sneeze-flutter {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-6px, -8px); }
+  50% { transform: translate(-14px, 2px); }
+  75% { transform: translate(-4px, 6px); }
+}
+.big-sneeze-flutter {
+  animation: big-sneeze-flutter 1.6s ease-in-out infinite;
+}
+@keyframes big-sneeze-homecoming {
+  0% { transform: translate(110px, -50px); }
+  70% { transform: translate(0, -10px); }
+  85% { transform: translate(0, 2px); }
+  100% { transform: translate(0, 0); }
+}
+.big-sneeze-homecoming {
+  animation: big-sneeze-homecoming 1.6s ease-out var(--delay, 2s) both;
+}
+
+/* Putting things back. */
+@keyframes big-sneeze-lift {
+  0% { transform: translateY(var(--fy, 40px)); }
+  100% { transform: translateY(0); }
+}
+.big-sneeze-lift {
+  animation: big-sneeze-lift 1.4s cubic-bezier(0.3, 1.3, 0.5, 1) var(--delay, 0.8s) both;
+}
+@keyframes big-sneeze-nod {
+  0%, 30%, 100% { transform: rotate(0); }
+  40% { transform: rotate(-14deg); }
+  50% { transform: rotate(0); }
+  60% { transform: rotate(-14deg); }
+  70% { transform: rotate(0); }
+}
+.big-sneeze-nod {
+  transform-box: fill-box;
+  transform-origin: 80% 80%;
+  animation: big-sneeze-nod 3.2s ease-in-out infinite;
+}
+@keyframes big-sneeze-sweep {
+  0%, 100% { transform: rotate(10deg); }
+  50% { transform: rotate(-14deg); }
+}
+.big-sneeze-sweep {
+  transform-box: fill-box;
+  transform-origin: 100% 0%;
+  animation: big-sneeze-sweep 0.8s ease-in-out infinite;
+}
+@keyframes big-sneeze-pile {
+  0% { transform: scale(0.35); }
+  30% { transform: scale(0.55); }
+  60% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+.big-sneeze-pile {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-pile 3.2s ease-out 0.4s both;
+}
+@keyframes big-sneeze-gone {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-60px, -6px); opacity: 0; }
+}
+.big-sneeze-gone-leaves {
+  animation: big-sneeze-gone 2.6s ease-in 0.6s both;
+}
+
+/* Holding on tight: everyone trembles a little. */
+@keyframes big-sneeze-tremble {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-1.6deg); }
+  75% { transform: rotate(1.6deg); }
+}
+.big-sneeze-tremble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-tremble 0.24s linear var(--delay, 0s) infinite;
+}
+@keyframes big-sneeze-brace {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.94); }
+}
+.big-sneeze-brace {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-brace 0.5s ease-in-out infinite;
+}
+
+/* The tiniest sneeze, and a leaf that wobbles down; then everyone laughs. */
+@keyframes big-sneeze-tiny {
+  0%, 50%, 100% { transform: rotate(0); }
+  56% { transform: rotate(4deg) translateY(2px); }
+  66% { transform: rotate(-1deg); }
+}
+.big-sneeze-tiny {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-tiny 2.4s ease-in-out infinite;
+}
+@keyframes big-sneeze-flutterdown {
+  0% { transform: translate(0, -40px) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  30% { transform: translate(14px, -10px) rotate(40deg); }
+  55% { transform: translate(-10px, 30px) rotate(-30deg); }
+  80% { transform: translate(10px, 70px) rotate(30deg); opacity: 1; }
+  100% { transform: translate(0, 100px) rotate(0); opacity: 0; }
+}
+.big-sneeze-flutterdown {
+  animation: big-sneeze-flutterdown 4.4s ease-in-out 1.4s infinite;
+}
+@keyframes big-sneeze-laugh {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(-3px) scale(0.98, 1.03); }
+}
+.big-sneeze-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-laugh 0.34s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes big-sneeze-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes big-sneeze-twinkle {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(0.75) rotate(20deg); }
+}
+.big-sneeze-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: big-sneeze-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--delay, 1s) both, big-sneeze-twinkle 1.6s ease-in-out calc(var(--delay, 1s) + 0.5s) infinite;
+}
+@keyframes big-sneeze-cheer {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.big-sneeze-cheer {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: big-sneeze-cheer 0.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .big-sneeze-gone-leaves { opacity: 0; }
+}

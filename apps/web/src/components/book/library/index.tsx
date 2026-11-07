@@ -70,13 +70,13 @@ const CleverMonkey = dynamic(() => import("./clever-monkey"), { ssr: false });
 // --- slot: coffee-kaldi
 const CoffeeKaldi = dynamic(() => import("./coffee-kaldi"), { ssr: false });
 // --- slot: big-sneeze
-// const BigSneeze = dynamic(() => import("./big-sneeze"), { ssr: false });
+const BigSneeze = dynamic(() => import("./big-sneeze"), { ssr: false });
 // --- slot: lost-kite
-// const LostKite = dynamic(() => import("./lost-kite"), { ssr: false });
+const LostKite = dynamic(() => import("./lost-kite"), { ssr: false });
 // --- slot: learn-to-swim
-// const LearnToSwim = dynamic(() => import("./learn-to-swim"), { ssr: false });
+const LearnToSwim = dynamic(() => import("./learn-to-swim"), { ssr: false });
 // --- slot: grandpas-krar
-// const GrandpasKrar = dynamic(() => import("./grandpas-krar"), { ssr: false });
+const GrandpasKrar = dynamic(() => import("./grandpas-krar"), { ssr: false });
 // --- slot: biggest-injera
 // const BiggestInjera = dynamic(() => import("./biggest-injera"), { ssr: false });
 // --- slot: harar-hyenas
@@ -136,13 +136,13 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: coffee-kaldi
   "coffee-kaldi": CoffeeKaldi,
   // --- slot: big-sneeze
-  // "big-sneeze": BigSneeze,
+  "big-sneeze": BigSneeze,
   // --- slot: lost-kite
-  // "lost-kite": LostKite,
+  "lost-kite": LostKite,
   // --- slot: learn-to-swim
-  // "learn-to-swim": LearnToSwim,
+  "learn-to-swim": LearnToSwim,
   // --- slot: grandpas-krar
-  // "grandpas-krar": GrandpasKrar,
+  "grandpas-krar": GrandpasKrar,
   // --- slot: biggest-injera
   // "biggest-injera": BiggestInjera,
   // --- slot: harar-hyenas
