@@ -208,3 +208,13 @@ The storage logic is plain TypeScript in `apps/mobile/src/lib/offline/` with tes
   on the reading screens.
 - Daily game time and the bedtime limit come from the server, so they're the same on every
   device.
+
+## The child's name and story choices (phase 4)
+
+- Story text may contain `{name}`. The website's reader (which the app shows in its web view)
+  fills it in from `GET /api/read-aloud` (`childName`, for the `X-Lali-Child` child). Anything the
+  app shows natively, including offline copies, should replace `{name}` with the reading child's
+  first name, or "friend" / "ጓደኛ" when no child is chosen. The text is never stored with a name.
+- A page may have `choices` (`{ prompt, options: [{ label, goTo }] }`) and `next` (go to that page
+  instead of the following one). The web reader handles both; a native reader that doesn't should
+  open such stories in the web view.

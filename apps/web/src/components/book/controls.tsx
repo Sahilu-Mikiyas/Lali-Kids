@@ -104,18 +104,39 @@ export const Icon = {
   ),
 };
 
-/** One dot per page (a diamond for The End). */
-export function PageDots({ total, page, light = false }: { total: number; page: number; light?: boolean }) {
+/**
+ * One dot per page of this read (a diamond for The End). In a story with choices the dots follow
+ * the path taken: `choiceAt` marks the pages where the child chose (a ring), and the dots from
+ * `unsureFrom` on are only a guess until the next choice is made (hollow).
+ */
+export function PageDots({
+  total,
+  page,
+  light = false,
+  choiceAt,
+  unsureFrom = -1,
+}: {
+  total: number;
+  page: number;
+  light?: boolean;
+  choiceAt?: ReadonlySet<number>;
+  unsureFrom?: number;
+}) {
   return (
-    <div className="flex max-w-[60vw] flex-wrap items-center justify-center gap-1.5 sm:gap-2" aria-hidden>
-      {Array.from({ length: total + 1 }, (_, i) => (
-        <span
-          key={i}
-          className={`h-2.5 rounded-full transition-all duration-300 sm:h-3 ${i === page ? "w-7 bg-coral sm:w-8" : `w-2.5 sm:w-3 ${light ? "bg-white/55" : "bg-[#D9D2BC]"}`} ${
-            i === total ? "rotate-45 rounded-[3px]" : ""
-          }`}
-        />
-      ))}
+    <div className="flex max-w-[60vw] flex-wrap items-center justify-center gap-1.5 sm:gap-2" aria-hidden data-dots={total} data-dots-page={page}>
+      {Array.from({ length: total + 1 }, (_, i) => {
+        const unsure = unsureFrom >= 0 && i >= unsureFrom && i !== page;
+        const fill = i === page ? "w-7 bg-coral sm:w-8" : unsure ? `w-2.5 sm:w-3 border-2 border-dashed ${light ? "border-white/60" : "border-[#C9BF9F]"}` : `w-2.5 sm:w-3 ${light ? "bg-white/55" : "bg-[#D9D2BC]"}`;
+        return (
+          <span
+            key={i}
+            data-dot-choice={choiceAt?.has(i) ? "" : undefined}
+            className={`h-2.5 rounded-full transition-all duration-300 sm:h-3 ${fill} ${i === total ? "rotate-45 rounded-[3px]" : ""} ${
+              choiceAt?.has(i) ? "ring-2 ring-gold ring-offset-1 ring-offset-transparent" : ""
+            }`}
+          />
+        );
+      })}
     </div>
   );
 }

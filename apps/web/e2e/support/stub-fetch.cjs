@@ -61,8 +61,23 @@ const DEFAULTS = {
   gifts: () => ({ id: uuid(), status: "pending", created_at: now(), paid_at: null, redeemed_at: null, redeemed_by: null, provider_ref: null }),
   game_sessions: () => ({ id: uuid(), started_at: now(), seconds: 0, best_score: null }),
   family_recordings: () => ({ id: uuid(), created_at: now() }),
+  // Schools (migration 0015).
+  schools: () => ({ id: uuid(), seats: 30, contact_name: null, contact_phone: null, contact_email: null, created_at: now() }),
+  teachers: () => ({ added_at: now() }),
+  classes: () => ({ id: uuid(), created_at: now() }),
+  pupils: () => ({ id: uuid(), failed_tries: 0, locked_at: null, last_active_at: null, created_at: now() }),
+  class_assignments: () => ({ assigned_at: now() }),
+  pupil_completions: () => ({ id: Math.floor(Math.random() * 1e9), completed_at: now() }),
 };
-const KEYS = { notifications_sent: ["family_id", "kind", "key"], lali_finds: ["child_id", "story_id", "page"], sticker_positions: ["child_id", "sticker_id"], reader_stars: ["child_id", "story_id", "page"] };
+const KEYS = {
+  notifications_sent: ["family_id", "kind", "key"],
+  lali_finds: ["child_id", "story_id", "page"],
+  sticker_positions: ["child_id", "sticker_id"],
+  reader_stars: ["child_id", "story_id", "page"],
+  teachers: ["profile_id"],
+  class_assignments: ["class_id", "story_id"],
+  pupil_reader_stars: ["pupil_id", "story_id", "page"],
+};
 
 const json = (body, status = 200, headers = {}) =>
   new Response(body === undefined || status === 204 ? null : JSON.stringify(body), { status, headers: { "content-type": "application/json", ...headers } });
@@ -112,6 +127,11 @@ async function auth(u, method, headers, body) {
     return userFromToken(token) ? json(session(token)) : json({ error_code: "refresh_token_not_found", msg: "Invalid Refresh Token" }, 400);
   }
   if (u.pathname === "/auth/v1/logout") return new Response(null, { status: 204 });
+  // The admin's user list (for adding a teacher by email): everyone the fake has seen.
+  if (u.pathname === "/auth/v1/admin/users" && method === "GET") {
+    const users = db.profiles.map((p) => ({ id: p.id, email: `parent-${p.id.slice(0, 8)}@example.com`, aud: "authenticated", role: "authenticated", created_at: p.created_at }));
+    return json({ users, aud: "authenticated" });
+  }
   const admin = /^\/auth\/v1\/admin\/users\/([0-9a-f-]{36})$/.exec(u.pathname);
   if (admin && method === "DELETE") {
     deleteUser(admin[1]);

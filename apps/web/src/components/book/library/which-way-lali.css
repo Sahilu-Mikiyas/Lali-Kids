@@ -1,0 +1,258 @@
+/*
+  "Which Way, Lali?" (which-way-lali.tsx): transforms, opacity and dash offsets only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* Lali sets off from home: a little rise and a tilt. */
+@keyframes wwl-set-off {
+  0% { transform: translate(-60px, 40px) rotate(-8deg); }
+  60% { transform: translate(6px, -6px) rotate(4deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+.wwl-set-off {
+  animation: wwl-set-off 2s cubic-bezier(0.3, 0.9, 0.4, 1) 0.4s both;
+}
+
+/* Spun round and round by the wind. */
+@keyframes wwl-spin {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  50% { transform: rotate(200deg) translate(10px, -8px); }
+  100% { transform: rotate(360deg) translate(0, 0); }
+}
+.wwl-spin {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: wwl-spin var(--dur, 1.6s) ease-in-out infinite;
+}
+
+/* Looking left, then right: where am I? */
+@keyframes wwl-look {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-10px) rotate(-8deg); }
+  60% { transform: translateX(10px) rotate(8deg); }
+}
+.wwl-look {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: wwl-look 3.2s ease-in-out infinite;
+}
+
+/* The question mark wiggles. */
+@keyframes wwl-wiggle {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-12deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-5deg); }
+}
+.wwl-wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wwl-wiggle 1.8s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The wind: a dash of white racing along a swirl. */
+@keyframes wwl-whoosh {
+  from { stroke-dashoffset: 720; opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 0; }
+}
+.wwl-whoosh {
+  animation: wwl-whoosh 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The tree bends in the wind. */
+@keyframes wwl-bend {
+  0%, 100% { transform: skewX(0deg); }
+  50% { transform: skewX(-9deg); }
+}
+.wwl-bend {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wwl-bend 1.4s ease-in-out infinite;
+}
+
+/* Leaves blown across the picture. */
+@keyframes wwl-leaf {
+  from { transform: translate(-80px, 20px) rotate(0); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  to { transform: translate(420px, -40px) rotate(720deg); opacity: 0; }
+}
+.wwl-leaf {
+  animation: wwl-leaf 3s linear var(--delay, 0s) infinite;
+}
+
+/* Signpost arrows nudge their way. */
+@keyframes wwl-sign-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
+}
+@keyframes wwl-sign-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.wwl-sign-left {
+  animation: wwl-sign-left 1.6s ease-in-out infinite;
+}
+.wwl-sign-right {
+  animation: wwl-sign-right 1.6s ease-in-out 0.8s infinite;
+}
+
+/* Frog hops from stone to stone: 1, 2, 3. */
+@keyframes wwl-frog-hop {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(40px, -40px); }
+  20% { transform: translate(80px, -10px); }
+  33% { transform: translate(80px, -10px); }
+  43% { transform: translate(120px, -40px); }
+  53% { transform: translate(160px, 0); }
+  66% { transform: translate(160px, 0); }
+  76% { transform: translate(200px, -40px); }
+  86%, 100% { transform: translate(240px, -10px); }
+}
+.wwl-frog-hop {
+  animation: wwl-frog-hop var(--dur, 3.6s) ease-in-out 0.6s both;
+}
+
+/* Lali follows the frog across. */
+@keyframes wwl-follow {
+  from { transform: translateX(0); }
+  to { transform: translateX(240px); }
+}
+.wwl-follow {
+  animation: wwl-follow 3.6s ease-in-out 0.9s both;
+}
+
+/* "shhh" whispers fade in and out. */
+@keyframes wwl-shh {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.85; }
+}
+.wwl-shh {
+  animation: wwl-shh 3s ease-in-out infinite;
+}
+
+/* Through the tunnel of flowers. */
+@keyframes wwl-zoom {
+  0% { transform: translate(-200px, 40px) scale(0.7); }
+  55% { transform: translate(20px, -20px) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.wwl-zoom {
+  animation: wwl-zoom 2.4s cubic-bezier(0.3, 0.9, 0.4, 1) 0.6s both;
+}
+
+/* The owl's wings flap. */
+@keyframes wwl-owl-flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(-0.4); }
+}
+.wwl-owl-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: wwl-owl-flap var(--dur, 0.9s) ease-in-out infinite;
+}
+
+/* The night flight across the sky. */
+@keyframes wwl-fly-across {
+  0% { transform: translate(-40px, calc(150px + var(--y, 0px))); }
+  50% { transform: translate(200px, calc(90px + var(--y, 0px))); }
+  100% { transform: translate(440px, calc(120px + var(--y, 0px))); }
+}
+.wwl-fly-across {
+  animation: wwl-fly-across 7s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Butterflies circling Lali. */
+@keyframes wwl-orbit {
+  to { transform: rotate(360deg); }
+}
+.wwl-orbit {
+  animation: wwl-orbit var(--dur, 9s) linear infinite;
+}
+
+/* The ribbon of flower smell drifts along. */
+@keyframes wwl-smell {
+  to { stroke-dashoffset: -140; }
+}
+.wwl-smell {
+  animation: wwl-smell 3s linear infinite;
+}
+
+/* Music notes float up. */
+@keyframes wwl-notes {
+  0% { transform: translateY(10px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+.wwl-notes {
+  animation: wwl-notes 2.6s ease-out infinite;
+}
+
+/* The cousins buzz around the honey tree. */
+@keyframes wwl-buzz-around {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(8px, -6px); }
+  50% { transform: translate(0, -10px); }
+  75% { transform: translate(-8px, -4px); }
+}
+.wwl-buzz-around {
+  animation: wwl-buzz-around var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Honey drips over the full pot's edge. */
+@keyframes wwl-drip {
+  0%, 100% { transform: scaleY(0.6); }
+  50% { transform: scaleY(1.2); }
+}
+.wwl-drip {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: wwl-drip 2s ease-in-out infinite;
+}
+
+/* Sleepy z's at the end. */
+@keyframes wwl-zzz {
+  0% { transform: translate(0, 6px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(8px, -16px); opacity: 0; }
+}
+.wwl-zzz {
+  animation: wwl-zzz 3s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wwl-set-off,
+  .wwl-spin,
+  .wwl-look,
+  .wwl-wiggle,
+  .wwl-whoosh,
+  .wwl-bend,
+  .wwl-leaf,
+  .wwl-sign-left,
+  .wwl-sign-right,
+  .wwl-frog-hop,
+  .wwl-follow,
+  .wwl-shh,
+  .wwl-zoom,
+  .wwl-owl-flap,
+  .wwl-orbit,
+  .wwl-smell,
+  .wwl-notes,
+  .wwl-buzz-around,
+  .wwl-drip,
+  .wwl-zzz {
+    animation: none !important;
+  }
+  .wwl-fly-across {
+    animation: none !important;
+    transform: translate(200px, calc(110px + var(--y, 0px)));
+  }
+  .wwl-follow {
+    transform: translateX(240px);
+  }
+  .wwl-frog-hop {
+    transform: translate(240px, -10px);
+  }
+}

@@ -59,16 +59,16 @@ const story: Story = {
       am: "አንበሳና ጉጉ ተቃቀፉ። መተቃቀፍም ይረዳል። ከዚያ ከድንጋዩ ኋላ አጮልቀው አዩ። ትንሽ ፍየል ብቻ ነበረች! «ሜ-ኤ-ኤ!»",
     },
     {
-      en: '"SURPRISE!" Shy little Tsehay jumped out with flowers, just for him. Anbessa\'s eyes went big and round. "Hello, SURPRISED!"',
-      am: "«ሰርፕራይዝ!» ዓይናፋሯ ትንሿ ፀሐይ ለእሱ ብቻ የሆኑ አበቦች ይዛ ዘላ ወጣች። የአንበሳ ዓይኖች ትልቅና ክብ ሆኑ። «ሰላም፣ መደነቅ – SURPRISED!»",
+      en: '"SURPRISE!" Shy little Tsehay and {name} jumped out with flowers, just for him. Anbessa\'s eyes went big and round. "Hello, SURPRISED!"',
+      am: "«ሰርፕራይዝ!» ዓይናፋሯ ትንሿ ፀሐይ እና {name} ለእሱ ብቻ የሆኑ አበቦች ይዘው ዘለው ወጡ። የአንበሳ ዓይኖች ትልቅና ክብ ሆኑ። «ሰላም፣ መደነቅ – SURPRISED!»",
     },
     {
       en: 'In the evening, they sat by the warm fire. Slow breaths, soft stars, a sleepy yawn. "Hello, CALM," whispered Anbessa. "I like you."',
       am: "ማታ ሞቃቱ እሳት አጠገብ ተቀመጡ። ቀስ ያለ ትንፋሽ፣ ለስላሳ ከዋክብት፣ የእንቅልፍ ማዛጋት። «ሰላም፣ መረጋጋት – CALM» አለ አንበሳ በሹክሹክታ። «እወድሃለሁ።»",
     },
     {
-      en: "Happy, sad, angry, scared, surprised and calm. All my feelings came to visit today! Hello, feelings. Goodnight. How do YOU feel today?",
-      am: "ደስታ፣ ሐዘን፣ ንዴት፣ ፍርሃት፣ መደነቅ እና መረጋጋት። ዛሬ ሁሉም ስሜቶቼ ሊጠይቁኝ መጡ! ሰላም፣ ስሜቶች። ደህና እደሩ። እናንተስ ዛሬ ምን ይሰማችኋል?",
+      en: "Happy, sad, angry, scared, surprised and calm. All my feelings came to visit today! Hello, feelings. Goodnight, {name}. How do YOU feel today?",
+      am: "ደስታ፣ ሐዘን፣ ንዴት፣ ፍርሃት፣ መደነቅ እና መረጋጋት። ዛሬ ሁሉም ስሜቶቼ ሊጠይቁኝ መጡ! ሰላም፣ ስሜቶች። ደህና እደሩ፣ {name}። እናንተስ ዛሬ ምን ይሰማችኋል?",
     },
   ],
   grownUps: {

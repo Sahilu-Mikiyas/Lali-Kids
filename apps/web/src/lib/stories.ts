@@ -4,6 +4,7 @@ import { getStory, STORIES, type AgeBand, type Category, type Pack, type Story }
 import { canOpen, isPack, packOf } from "@/lib/packs";
 import type { PlanId } from "@/lib/payments/plans";
 import { activePlanId } from "@/lib/payments/subscription";
+import { schoolPlanFor } from "@/lib/schools/server";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 
@@ -34,7 +35,9 @@ const rowPack = (row: Pick<StoryRow, "pack">): Pack => (isPack(row.pack) ? row.p
 
 /** The plan open for a family right now (null without one), which decides the packs it opens. */
 async function planOf(familyId: string | null): Promise<PlanId | null> {
-  return familyId && hasSecretKey() ? activePlanId(familyId).catch(() => null) : null;
+  if (!familyId || !hasSecretKey()) return null;
+  // A teacher's open school licence opens every pack too (docs/SCHOOLS.md).
+  return (await activePlanId(familyId).catch(() => null)) ?? (await schoolPlanFor(familyId).catch(() => null));
 }
 
 /** Turns storage paths into short-lived links, keeping order (null stays null). */

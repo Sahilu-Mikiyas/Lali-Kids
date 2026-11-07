@@ -30,8 +30,8 @@ const story: Story = {
       am: "ፍጭ፣ ፍጭ! አንበሳ ጭቃውን ረገጠ። ጉጉ ገለባውን አሰረ። «ጭቃ፣ ገለባ፣ ጣሪያ ከላይ!» አንድ ጎጆ! ትንሽ ተጣሞ ነበር።",
     },
     {
-      en: 'Gugu counted the poles. "We need more!" Mud, straw, roof on top! Two tukuls, three tukuls. "One, two, three," counted Gugu.',
-      am: "ጉጉ ምሰሶዎቹን ቆጠረ። «ተጨማሪ ያስፈልገናል!» ጭቃ፣ ገለባ፣ ጣሪያ ከላይ! ሁለት ጎጆዎች፣ ሦስት ጎጆዎች። «አንድ፣ ሁለት፣ ሦስት» ብሎ ቆጠረ ጉጉ።",
+      en: 'Gugu counted the poles. "We need more! {name}, come and help us!" Mud, straw, roof on top! Two tukuls, three tukuls. "One, two, three," counted Gugu and {name}.',
+      am: "ጉጉ ምሰሶዎቹን ቆጠረ። «ተጨማሪ ያስፈልገናል! {name}፣ አብረን እንሥራ!» ጭቃ፣ ገለባ፣ ጣሪያ ከላይ! ሁለት ጎጆዎች፣ ሦስት ጎጆዎች። «አንድ፣ ሁለት፣ ሦስት» ብለው ቆጠሩ ጉጉና {name}።",
     },
     {
       en: "Buzz! Lali carried the straw, one piece at a time, back and forth, back and forth. Mud, straw, roof on top! Four tukuls! Five tukuls!",
@@ -74,8 +74,8 @@ const story: Story = {
       am: "ሁሉም በአንድነት፦ ጭቃ፣ ገለባ፣ ጣሪያ ከላይ! ስምንት፣ ዘጠኝ፣ አሥር! እንደገና አሥር ጎጆዎች፤ ጣሪያዎቻቸው በጠንካራ ገመድ ታስረዋል።",
     },
     {
-      en: 'That night there was coffee, bread and dancing. Ten tukuls, one village. "We built it together," said Anbessa. "One by one!"',
-      am: "በዚያች ሌሊት ቡና፣ ዳቦና ጭፈራ ነበር። አሥር ጎጆዎች፣ አንድ መንደር። «አብረን ነው የሠራነው» አለ አንበሳ። «አንድ በአንድ!»",
+      en: 'That night there was coffee, bread and dancing. Ten tukuls, one village. "We built it together," said Anbessa. "Gugu, Lali, {name} and me. One by one!"',
+      am: "በዚያች ሌሊት ቡና፣ ዳቦና ጭፈራ ነበር። አሥር ጎጆዎች፣ አንድ መንደር። «አብረን ነው የሠራነው» አለ አንበሳ። «ጉጉ፣ ላሊ፣ {name} እና እኔ። አንድ በአንድ!»",
     },
   ],
   grownUps: {
