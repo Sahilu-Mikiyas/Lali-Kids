@@ -54,13 +54,13 @@ import helloFeelings from "./hello-feelings";
 // --- slot: coffee-kaldi
 // import coffeeKaldi from "./coffee-kaldi";
 // --- slot: big-sneeze
-// import bigSneeze from "./big-sneeze";
+import bigSneeze from "./big-sneeze";
 // --- slot: lost-kite
-// import lostKite from "./lost-kite";
+import lostKite from "./lost-kite";
 // --- slot: learn-to-swim
-// import learnToSwim from "./learn-to-swim";
+import learnToSwim from "./learn-to-swim";
 // --- slot: grandpas-krar
-// import grandpasKrar from "./grandpas-krar";
+import grandpasKrar from "./grandpas-krar";
 // --- slot: biggest-injera
 // import biggestInjera from "./biggest-injera";
 // --- slot: harar-hyenas
@@ -118,13 +118,13 @@ export const LIBRARY: Story[] = [
   // --- slot: coffee-kaldi
   // coffeeKaldi,
   // --- slot: big-sneeze
-  // bigSneeze,
+  bigSneeze,
   // --- slot: lost-kite
-  // lostKite,
+  lostKite,
   // --- slot: learn-to-swim
-  // learnToSwim,
+  learnToSwim,
   // --- slot: grandpas-krar
-  // grandpasKrar,
+  grandpasKrar,
   // --- slot: biggest-injera
   // biggestInjera,
   // --- slot: harar-hyenas

@@ -1,0 +1,228 @@
+/* Grandpa's Krar (grandpas-krar.tsx): transforms and opacity only. */
+
+/* The krar: strings shimmer as they sound, tassels swing, the playing hand plucks. */
+@keyframes grandpas-krar-string {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.4px); }
+  75% { transform: translateX(1.4px); }
+}
+.grandpas-krar-string {
+  animation: grandpas-krar-string 0.12s linear var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-tassel {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.grandpas-krar-tassel {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: grandpas-krar-tassel 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-pluck {
+  0%, 100% { transform: translate(0, 0); }
+  30% { transform: translate(-5px, -3px); }
+  50% { transform: translate(3px, 1px); }
+  80% { transform: translate(-2px, -1px); }
+}
+.grandpas-krar-pluck {
+  animation: grandpas-krar-pluck 0.7s ease-in-out infinite;
+}
+@keyframes grandpas-krar-glow {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.5; }
+}
+.grandpas-krar-glow {
+  animation: grandpas-krar-glow 1.8s ease-in-out infinite;
+}
+
+/* Music: notes float up; numbered notes sway. */
+@keyframes grandpas-krar-note {
+  0% { transform: translate(0, 0) scale(0.5) rotate(0); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(var(--dx, 10px), -40px) scale(1) rotate(-10deg); }
+  85% { opacity: 1; }
+  100% { transform: translate(calc(var(--dx, 10px) * -0.4), -84px) scale(0.9) rotate(8deg); opacity: 0; }
+}
+.grandpas-krar-note {
+  animation: grandpas-krar-note 3.6s ease-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.grandpas-krar-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-sway 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The grumpy fly zigzags out of the bad note. */
+@keyframes grandpas-krar-fly {
+  0% { transform: translate(-40px, 50px) rotate(-10deg); }
+  25% { transform: translate(-10px, 10px) rotate(10deg); }
+  50% { transform: translate(20px, 26px) rotate(-14deg); }
+  75% { transform: translate(40px, -10px) rotate(8deg); }
+  100% { transform: translate(-40px, 50px) rotate(-10deg); }
+}
+.grandpas-krar-fly {
+  animation: grandpas-krar-fly 3s ease-in-out infinite;
+}
+@keyframes grandpas-krar-buzz {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.grandpas-krar-buzz {
+  animation: grandpas-krar-buzz 0.3s linear infinite;
+}
+
+/* The cast. */
+@keyframes grandpas-krar-hum {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+.grandpas-krar-hum {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-hum 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-lean {
+  0%, 100% { transform: rotate(4deg) translateX(0); }
+  50% { transform: rotate(7deg) translateX(4px); }
+}
+.grandpas-krar-lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-lean 3s ease-in-out infinite;
+}
+@keyframes grandpas-krar-lean-in {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-5deg); }
+}
+.grandpas-krar-lean-in {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-lean-in 3s ease-in-out infinite;
+}
+@keyframes grandpas-krar-whisper {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  40%, 70% { opacity: 1; }
+  100% { transform: translate(6px, -6px); }
+}
+.grandpas-krar-whisper {
+  animation: grandpas-krar-whisper 2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-chuckle {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(-2px) scale(0.99, 1.02); }
+}
+.grandpas-krar-chuckle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-chuckle 0.36s ease-in-out infinite;
+}
+@keyframes grandpas-krar-sore {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.7; }
+}
+.grandpas-krar-sore {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandpas-krar-sore 1s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-silly {
+  0%, 100% { transform: rotate(-12deg) translateY(0); }
+  25% { transform: rotate(0) translateY(-12px); }
+  50% { transform: rotate(12deg) translateY(0); }
+  75% { transform: rotate(0) translateY(-12px); }
+}
+.grandpas-krar-silly {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-silly 1.2s ease-in-out infinite;
+}
+@keyframes grandpas-krar-flutter {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.5px); }
+  75% { transform: translateX(1.5px); }
+}
+.grandpas-krar-flutter {
+  animation: grandpas-krar-flutter 0.3s linear infinite;
+}
+@keyframes grandpas-krar-shake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-1.4deg); }
+  75% { transform: rotate(1.4deg); }
+}
+.grandpas-krar-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-shake 0.22s linear infinite;
+}
+@keyframes grandpas-krar-clap-l {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(3px); }
+}
+@keyframes grandpas-krar-clap-r {
+  0%, 100% { transform: translateX(6px); }
+  50% { transform: translateX(-3px); }
+}
+.grandpas-krar-clap-l {
+  animation: grandpas-krar-clap-l 0.45s ease-in-out infinite;
+}
+.grandpas-krar-clap-r {
+  animation: grandpas-krar-clap-r 0.45s ease-in-out infinite;
+}
+@keyframes grandpas-krar-peck {
+  0%, 60%, 100% { transform: rotate(0); }
+  70%, 80% { transform: rotate(40deg); }
+}
+.grandpas-krar-peck {
+  transform-box: fill-box;
+  transform-origin: 20% 100%;
+  animation: grandpas-krar-peck 1.8s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-listen {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-14deg); }
+}
+.grandpas-krar-listen {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandpas-krar-listen 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-incense {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateY(-24px); opacity: 0; }
+}
+.grandpas-krar-incense {
+  animation: grandpas-krar-incense 3s ease-out var(--delay, 0s) infinite;
+}
+@keyframes grandpas-krar-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.grandpas-krar-bounce {
+  animation: grandpas-krar-bounce 0.5s ease-in-out infinite;
+}
+@keyframes grandpas-krar-tear {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(2px); opacity: 1; }
+}
+.grandpas-krar-tear {
+  animation: grandpas-krar-tear 1.6s ease-in-out infinite;
+}
+@keyframes grandpas-krar-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes grandpas-krar-twinkle {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(0.75) rotate(20deg); }
+}
+.grandpas-krar-cheer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandpas-krar-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--delay, 1s) both, grandpas-krar-twinkle 1.6s ease-in-out calc(var(--delay, 1s) + 0.5s) infinite;
+}

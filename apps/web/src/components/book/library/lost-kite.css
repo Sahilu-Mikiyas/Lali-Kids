@@ -1,0 +1,243 @@
+/* Lali and the Lost Kite (lost-kite.tsx): transforms and opacity only. */
+
+/* The kite on its string swings round the hand (origin set inline), bobs, and its tail waves. */
+@keyframes lost-kite-swing {
+  from { transform: rotate(-4deg); }
+  to { transform: rotate(3deg); }
+}
+.lost-kite-swing {
+  animation: lost-kite-swing 3.2s ease-in-out infinite alternate;
+}
+@keyframes lost-kite-bob {
+  0%, 100% { transform: rotate(-9deg) translateY(0); }
+  50% { transform: rotate(8deg) translateY(-4px); }
+}
+.lost-kite-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 30%;
+  animation: lost-kite-bob 1.8s ease-in-out infinite;
+}
+@keyframes lost-kite-tailseg {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(16deg); }
+}
+.lost-kite-tailseg {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: lost-kite-tailseg 0.7s ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+/* The wind: streaks, flapping washing, a fluttering awning. */
+@keyframes lost-kite-gust {
+  0% { transform: translateX(-30px); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translateX(90px); opacity: 0; }
+}
+.lost-kite-gust {
+  animation: lost-kite-gust 2.4s ease-out var(--delay, 0s) infinite;
+}
+@keyframes lost-kite-flap {
+  0%, 100% { transform: rotate(-4deg) scale(1, 1); }
+  50% { transform: rotate(14deg) scale(0.9, 0.96); }
+}
+.lost-kite-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: lost-kite-flap 0.8s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes lost-kite-awning {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.9); }
+}
+.lost-kite-awning {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: lost-kite-awning 1.1s ease-in-out infinite;
+}
+@keyframes lost-kite-smell {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+.lost-kite-smell {
+  animation: lost-kite-smell 2.6s ease-out var(--delay, 0s) infinite;
+}
+@keyframes lost-kite-petal {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(var(--dx, 16px), 80px) rotate(160deg); }
+  90% { opacity: 1; }
+  100% { transform: translate(calc(var(--dx, 16px) * -0.5), 160px) rotate(320deg); opacity: 0; }
+}
+.lost-kite-petal {
+  animation: lost-kite-petal 7s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes lost-kite-light {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.lost-kite-light {
+  animation: lost-kite-light 3s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* SNAP: a burst where the string breaks; the kite sails off; the string droops. */
+@keyframes lost-kite-snap {
+  0% { transform: scale(0); opacity: 0; }
+  20% { transform: scale(1.5); opacity: 1; }
+  60% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+.lost-kite-snap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lost-kite-snap 1.4s ease-out var(--delay, 1s) both;
+}
+@keyframes lost-kite-away {
+  0% { transform: translate(var(--fx), var(--fy)) scale(1.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.lost-kite-away {
+  animation: lost-kite-away 3.4s cubic-bezier(0.3, 0.1, 0.4, 1) var(--delay, 1s) both;
+}
+@keyframes lost-kite-droop {
+  from { transform: rotate(-26deg); }
+  to { transform: rotate(0); }
+}
+.lost-kite-droop {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: lost-kite-droop 1.2s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 1s) both;
+}
+
+/* Lali points the way, and nudges Anbessa to keep going. */
+@keyframes lost-kite-point {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.lost-kite-point {
+  animation: lost-kite-point 0.8s ease-in-out infinite;
+}
+@keyframes lost-kite-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-8px); }
+}
+.lost-kite-nudge {
+  animation: lost-kite-nudge 1.2s ease-in-out infinite;
+}
+
+/* The street: a taxi drives by, beeping. */
+@keyframes lost-kite-drive {
+  from { transform: translateX(-440px); }
+  to { transform: translateX(220px); }
+}
+.lost-kite-drive {
+  animation: lost-kite-drive 7s linear -3.4s infinite;
+}
+@keyframes lost-kite-beep {
+  0%, 60%, 100% { opacity: 0; }
+  70%, 90% { opacity: 1; }
+}
+.lost-kite-beep {
+  animation: lost-kite-beep 1.4s linear infinite;
+}
+
+/* Caught on the dish, tugging; then the wind pulls it free. */
+@keyframes lost-kite-free {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(30deg); }
+  30% { transform: translate(calc(var(--fx) * 0.8), calc(var(--fy) * 0.6)) rotate(-20deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+.lost-kite-free {
+  animation: lost-kite-free 2.2s cubic-bezier(0.3, 0.1, 0.4, 1) var(--delay, 2.8s) both;
+}
+@keyframes lost-kite-stretch {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.97, 1.08); }
+}
+.lost-kite-stretch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lost-kite-stretch 0.9s ease-in-out infinite;
+}
+
+/* Tsehay leans out of her window. */
+@keyframes lost-kite-lean {
+  0% { transform: translateY(24px); }
+  40% { transform: translateY(-4px); }
+  60%, 100% { transform: translateY(0); }
+}
+.lost-kite-lean {
+  animation: lost-kite-lean 1.4s cubic-bezier(0.3, 1.3, 0.5, 1) 0.6s both;
+}
+
+/* The jacaranda: the kite tugs at the branch; the tower of friends wobbles. */
+@keyframes lost-kite-stuck {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(7deg); }
+}
+.lost-kite-stuck {
+  transform-box: fill-box;
+  transform-origin: 70% 90%;
+  animation: lost-kite-stuck 1.3s ease-in-out infinite;
+}
+@keyframes lost-kite-wobble {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.lost-kite-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lost-kite-wobble 1.3s ease-in-out infinite;
+}
+@keyframes lost-kite-brace {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-4deg); }
+}
+.lost-kite-brace {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lost-kite-brace 1.3s ease-in-out infinite;
+}
+
+/* Lali undoes the knots: the tangle fades, and the tail hangs free. */
+@keyframes lost-kite-untie {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+.lost-kite-untie {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lost-kite-untie 1.2s ease-in var(--delay, 2.6s) both;
+}
+@keyframes lost-kite-loose {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lost-kite-loose {
+  animation: lost-kite-loose 0.8s ease var(--delay, 3.2s) both;
+}
+
+/* It floats down, zigzag, into Anbessa's paws; Tsehay's ribbon flies over to mend it. */
+@keyframes lost-kite-float {
+  0% { transform: translate(80px, -170px) rotate(24deg); }
+  30% { transform: translate(-44px, -112px) rotate(-16deg); }
+  60% { transform: translate(34px, -52px) rotate(12deg); }
+  85% { transform: translate(-6px, -8px) rotate(-3deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+.lost-kite-float {
+  animation: lost-kite-float 2.6s ease-in-out var(--delay, 0.4s) both;
+}
+@keyframes lost-kite-ribbon {
+  0% { transform: translate(var(--fx), var(--fy)) scale(1.4); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(calc(var(--fx) * 0.5), calc(var(--fy) - 30px)) scale(1.2) rotate(180deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(360deg); opacity: 1; }
+}
+.lost-kite-ribbon {
+  animation: lost-kite-ribbon 1.2s ease-in-out var(--delay, 3s) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lost-kite-gone { opacity: 0; }
+}
