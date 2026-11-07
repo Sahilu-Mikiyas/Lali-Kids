@@ -1,0 +1,146 @@
+/* The Teff Harvest Patterns (teff-patterns.tsx): transforms and opacity only. */
+
+/* The "?" box: the question mark goes, and the answer pops in. */
+@keyframes teff-patterns-ask {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+@keyframes teff-patterns-ask-out {
+  to { transform: scale(0); opacity: 0; }
+}
+.teff-patterns-ask {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: teff-patterns-ask 0.8s ease-in-out infinite, teff-patterns-ask-out 0.25s ease-in var(--delay, 3s) forwards;
+}
+@keyframes teff-patterns-answer {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.teff-patterns-answer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: teff-patterns-answer 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) calc(var(--delay, 3s) + 0.2s) both;
+}
+/* A finished pattern sings, piece by piece. */
+@keyframes teff-patterns-sing {
+  0%, 12%, 100% { transform: scale(1); }
+  5% { transform: scale(1.35); }
+}
+.teff-patterns-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: teff-patterns-sing 4s ease-in-out var(--delay, 0s) infinite;
+}
+.teff-patterns-swap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: teff-patterns-answer 0.6s cubic-bezier(0.3, 1.6, 0.5, 1) var(--delay, 2s) both;
+}
+
+/* The oxen go round the threshing floor: across, turn, back. */
+@keyframes teff-patterns-circle {
+  0% { transform: translateX(-50px) scaleX(1); }
+  45% { transform: translateX(50px) scaleX(1); }
+  50% { transform: translateX(50px) scaleX(-1); }
+  95% { transform: translateX(-50px) scaleX(-1); }
+  100% { transform: translateX(-50px) scaleX(1); }
+}
+.teff-patterns-circle {
+  animation: teff-patterns-circle 7s linear infinite;
+}
+@keyframes teff-patterns-trot {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(12deg); }
+}
+.teff-patterns-trot {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: teff-patterns-trot 0.3s ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+/* Clapping and stamping along. */
+@keyframes teff-patterns-clap {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-6px) scale(1.03, 0.97); }
+}
+.teff-patterns-clap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: teff-patterns-clap 0.6s ease-in-out infinite;
+}
+@keyframes teff-patterns-stamp {
+  0%, 40%, 100% { transform: translateY(0); }
+  60% { transform: translateY(-10px); }
+  70% { transform: translateY(0) scale(1.05, 0.95); }
+}
+.teff-patterns-stamp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: teff-patterns-stamp 1.2s ease-in-out infinite;
+}
+@keyframes teff-patterns-giggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.teff-patterns-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: teff-patterns-giggle 0.5s ease-in-out 1.6s 4;
+}
+@keyframes teff-patterns-ping {
+  0% { transform: translateX(-2px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(5px); opacity: 0; }
+}
+.teff-patterns-ping {
+  animation: teff-patterns-ping 1.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* Grain pours into the baskets. */
+@keyframes teff-patterns-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.teff-patterns-fall {
+  animation: teff-patterns-fall 0.9s ease-in var(--delay, 0s) infinite;
+}
+
+/* Anbessa pulls out the green stitch that doesn't belong. */
+@keyframes teff-patterns-pull {
+  0%, 30% { transform: translate(-13px, 6px) rotate(0); }
+  60% { transform: translate(8px, -30px) rotate(200deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+.teff-patterns-pull {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: teff-patterns-pull 1.4s ease-in-out 1.2s both;
+}
+
+/* The birds scatter up and away. */
+@keyframes teff-patterns-scatter {
+  from { transform: translate(0, 0); opacity: 1; }
+  to { transform: translate(var(--dx, 80px), -150px); opacity: 0; }
+}
+.teff-patterns-scatter {
+  animation: teff-patterns-scatter 1.4s ease-in var(--delay, 2s) both;
+}
+
+/* Lali buzzes in to the end of the row. */
+@keyframes teff-patterns-arrive {
+  from { transform: translate(90px, -60px); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translate(0, 0); opacity: 1; }
+}
+.teff-patterns-arrive {
+  animation: teff-patterns-arrive 1.4s ease-out 2.6s both;
+}
+
+/* With reduced motion, things that leave the picture are simply gone. */
+@media (prefers-reduced-motion: reduce) {
+  .teff-patterns-gone { opacity: 0; }
+}
