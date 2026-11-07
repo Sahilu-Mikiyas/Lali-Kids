@@ -48,25 +48,26 @@ export type SwitchPreview = {
 };
 
 /**
- * What a payment for `target` would do, mirroring the database function `activate_payment`:
- * same plan adds 30 days; an upgrade starts now and converts the days left by value;
- * a downgrade waits until the current plan ends.
+ * What a payment for `target` would do, mirroring the database function `apply_plan_days`
+ * (used by `activate_payment` and `redeem_gift`): same plan adds the days; an upgrade starts now
+ * and converts the days left by value; a downgrade waits until the current plan ends.
+ * A payment adds 30 days; a gift adds months x 30.
  */
-export function previewSwitch(current: CurrentPlan, target: PlanId, nowMs: number): SwitchPreview {
+export function previewSwitch(current: CurrentPlan, target: PlanId, nowMs: number, days = 30): SwitchPreview {
   const to = planById(target)!;
   if (!current || current.endsAtMs <= nowMs) {
-    return { kind: "new", startsAtMs: nowMs, endsAtMs: nowMs + 30 * DAY, convertedDays: 0 };
+    return { kind: "new", startsAtMs: nowMs, endsAtMs: nowMs + days * DAY, convertedDays: 0 };
   }
   const from = planById(current.planId)!;
   if (from.id === to.id) {
-    return { kind: "renew", startsAtMs: nowMs, endsAtMs: current.endsAtMs + 30 * DAY, convertedDays: 0 };
+    return { kind: "renew", startsAtMs: nowMs, endsAtMs: current.endsAtMs + days * DAY, convertedDays: 0 };
   }
   if (to.priceEtb > from.priceEtb) {
     const converted = ((current.endsAtMs - nowMs) / DAY) * (from.priceEtb / to.priceEtb);
-    return { kind: "upgrade", startsAtMs: nowMs, endsAtMs: nowMs + (converted + 30) * DAY, convertedDays: converted };
+    return { kind: "upgrade", startsAtMs: nowMs, endsAtMs: nowMs + (converted + days) * DAY, convertedDays: converted };
   }
   const waiting = current.nextPlanId ? current.nextDays * (planById(current.nextPlanId)!.priceEtb / to.priceEtb) : 0;
-  return { kind: "downgrade", startsAtMs: current.endsAtMs, endsAtMs: current.endsAtMs + (waiting + 30) * DAY, convertedDays: 0 };
+  return { kind: "downgrade", startsAtMs: current.endsAtMs, endsAtMs: current.endsAtMs + (waiting + days) * DAY, convertedDays: 0 };
 }
 
 export function formatDay(ms: number) {

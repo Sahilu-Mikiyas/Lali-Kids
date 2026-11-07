@@ -5,6 +5,7 @@ import { Suspense } from "react";
 
 import { Bee } from "@/components/characters";
 import { SiteNav } from "@/components/site-chrome";
+import { isPlanRef } from "@/lib/payments/refs";
 import { familyPlan, confirmPayment, type Confirmation } from "@/lib/payments/subscription";
 import { currentProfile } from "@/lib/supabase/server";
 import { fmtDate } from "@/i18n/format";
@@ -18,7 +19,7 @@ async function DoneContent({ searchParams }: PageProps<"/[lang]/subscribe/done">
   await connection();
   const { tx_ref, app } = await searchParams;
   const fromApp = app === "1";
-  const txRef = typeof tx_ref === "string" && /^lali-[a-z]+-[0-9a-f]{18}$/.test(tx_ref) ? tx_ref : null;
+  const txRef = isPlanRef(tx_ref) ? tx_ref : null;
   const profile = await currentProfile();
 
   let outcome: Confirmation = "unknown";

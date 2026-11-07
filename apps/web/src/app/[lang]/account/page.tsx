@@ -152,6 +152,12 @@ async function AccountContent() {
                   </Link>
                 </>
               )}
+              <p className="border-t-2 border-dashed border-line pt-3 text-sm">
+                <b>{t.gift.haveCode}</b> {t.gift.haveCodeSub}{" "}
+                <Link href="/gift/redeem" className="font-bold text-blue hover:underline">
+                  {t.gift.addCode}
+                </Link>
+              </p>
             </div>
           </section>
 

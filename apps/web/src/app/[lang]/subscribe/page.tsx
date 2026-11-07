@@ -47,7 +47,13 @@ async function SubscribeContent({ searchParams }: PageProps<"/[lang]/subscribe">
             nowMs={nowMs()}
           />
         </div>
-        <p className="mt-8 text-center text-sm text-muted">
+        <p className="mt-8 text-center text-lg">
+          {t.gift.haveCode}{" "}
+          <Link href="/gift/redeem" className="font-bold text-blue underline">
+            {t.gift.addCode}
+          </Link>
+        </p>
+        <p className="mt-3 text-center text-sm text-muted">
           {t.subscribe.agree}{" "}
           <Link href="/terms" className="underline">
             {t.subscribe.terms}

@@ -6,6 +6,7 @@ import { Suspense } from "react";
 
 import { SiteNav } from "@/components/site-chrome";
 import { getStory } from "@/content/stories";
+import { getT } from "@/i18n/server";
 import { requireAdmin } from "@/lib/admin";
 import { formatBirr } from "@/lib/payments/plans";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
@@ -46,14 +47,20 @@ async function StatsContent() {
   const weekAgo = new Date(now - 7 * DAY).toISOString();
   const monthAgo = new Date(now - 30 * DAY).toISOString();
 
-  const [{ data: profiles }, { data: kids }, { data: payments }, { data: subs }, { data: done }, { data: play }] = await Promise.all([
+  const [{ data: profiles }, { data: kids }, { data: payments }, { data: subs }, { data: done }, { data: play }, { data: gifts }, t] = await Promise.all([
     db.from("profiles").select("id, role, created_at"),
     db.from("children").select("id, family_id"),
     db.from("payments").select("family_id, amount_etb, paid_at, status").eq("status", "paid"),
     db.from("subscriptions").select("family_id, status, current_period_end"),
     db.from("completions").select("child_id, item_id, completed_at").gte("completed_at", monthAgo),
     db.from("game_sessions").select("child_id, seconds, started_at").gte("started_at", weekAgo),
+    // Empty until migration 0012 is applied.
+    db.from("gifts").select("status, amount_etb").in("status", ["paid", "redeemed"]),
+    getT(),
   ]);
+  const giftsSold = gifts?.length ?? 0;
+  const giftsRedeemed = (gifts ?? []).filter((g) => g.status === "redeemed").length;
+  const giftRevenue = (gifts ?? []).reduce((a, g) => a + g.amount_etb, 0);
 
   const admins = new Set((profiles ?? []).filter((p) => p.role === "admin").map((p) => p.id));
   const families = (profiles ?? []).filter((p) => !admins.has(p.id));
@@ -150,6 +157,15 @@ async function StatsContent() {
         <Metric label="Revenue, last 30 days" value={`${formatBirr(revenue30)}`} hint="Birr, from confirmed Chapa payments." />
         <Metric label="New families this week" value={String(newFamilies)} hint="Accounts created in the last 7 days." />
         <Metric label="Game minutes this week" value={String(gameMinutes)} hint="All children together." />
+      </section>
+
+      <section className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Metric label={`🎁 ${t.gift.stats.sold}`} value={String(giftsSold)} hint={t.gift.stats.soldHint(giftsSold - giftsRedeemed)} />
+        <Metric label={t.gift.stats.redeemed} value={String(giftsRedeemed)} hint={t.gift.stats.redeemedHint} />
+        <Metric label={t.gift.stats.revenue} value={formatBirr(giftRevenue)} hint={t.gift.stats.revenueHint} />
+        <Link href="/admin/gifts" className="grid place-items-center rounded-[28px] bg-white p-6 text-center font-display text-xl font-black text-blue shadow-[0_6px_0_var(--color-line)] transition hover:-translate-y-1">
+          {t.gift.stats.list} →
+        </Link>
       </section>
 
       <section className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">

@@ -2712,3 +2712,116 @@ html.lang-arriving body {
 .home-flicker {
   animation: home-flicker 3.2s linear infinite;
 }
+
+/* ---------- gift pages (/gift, /gift/done, /gift/redeem) ---------- */
+
+/* the present hops and its lid pops a little */
+@keyframes gift-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-6px) rotate(-2deg); }
+  60% { transform: translateY(-2px) rotate(1.5deg); }
+}
+.gift-bounce {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gift-bounce 2.6s ease-in-out infinite;
+}
+@keyframes gift-lid {
+  0%, 70%, 100% { transform: translateY(0) rotate(0deg); }
+  78% { transform: translateY(-7px) rotate(-4deg); }
+  86% { transform: translateY(-2px) rotate(2deg); }
+}
+.gift-lid {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: gift-lid 3.4s ease-in-out infinite;
+}
+
+/* Lali hovers beside the card */
+@keyframes gift-hover {
+  0%, 100% { transform: translate(0, 0) rotate(-4deg); }
+  50% { transform: translate(-4px, -8px) rotate(4deg); }
+}
+.gift-hover {
+  display: inline-block;
+  animation: gift-hover 3s ease-in-out infinite;
+}
+
+/* the discount badge wiggles now and then */
+@keyframes gift-wiggle {
+  0%, 82%, 100% { transform: rotate(0deg); }
+  86% { transform: rotate(-8deg); }
+  90% { transform: rotate(7deg); }
+  94% { transform: rotate(-3deg); }
+}
+.gift-wiggle {
+  animation: gift-wiggle 4s ease-in-out infinite;
+}
+
+/* hero: a warm sun, drifting clouds, Lali flying in with a letter, little hearts */
+@keyframes gift-sun {
+  50% { transform: scale(1.06); opacity: 0.9; }
+}
+.gift-sun {
+  animation: gift-sun 6s ease-in-out infinite;
+}
+@keyframes gift-cloud {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(28px); }
+}
+.gift-cloud {
+  animation: gift-cloud 18s ease-in-out infinite;
+}
+@keyframes gift-path {
+  to { stroke-dashoffset: -56; }
+}
+.gift-path {
+  animation: gift-path 2.4s linear infinite;
+}
+@keyframes gift-fly {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  25% { transform: translate(-10px, -10px) rotate(-2deg); }
+  50% { transform: translate(-4px, 6px) rotate(-8deg); }
+  75% { transform: translate(8px, -4px) rotate(-3deg); }
+}
+.gift-fly {
+  animation: gift-fly 5s ease-in-out infinite;
+}
+@keyframes gift-heart {
+  0% { transform: translateY(10px) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-46px) scale(1.05); opacity: 0; }
+}
+.gift-heart {
+  animation: gift-heart 3.6s ease-out infinite;
+}
+
+/* printing the gift card: only the card, on white, nothing fixed or shadowed */
+@media print {
+  body:has(.gift-print-area) {
+    background: #fff;
+  }
+  body:has(.gift-print-area) header,
+  body:has(.gift-print-area) footer,
+  .gift-noprint {
+    display: none !important;
+  }
+  .gift-print-page {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .gift-print-page > div:not(.gift-noprint) {
+    display: block !important;
+    margin: 0 !important;
+  }
+  .gift-print-area {
+    max-width: 720px;
+    margin: 12mm auto 0;
+    break-inside: avoid;
+  }
+  .gift-card {
+    box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

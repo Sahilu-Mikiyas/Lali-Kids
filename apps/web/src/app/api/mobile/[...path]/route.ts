@@ -8,7 +8,9 @@ import { familyFor, limitReached, type Family } from "@/lib/family";
 import { addisMidnightIso, gameBySlug, secondsPlayedToday, shelfGames } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
 import { beginCheckout } from "@/lib/payments/checkout";
+import { peekGift, redeemGift, type GiftErrorCode } from "@/lib/payments/gift-server";
 import { PLANS } from "@/lib/payments/plans";
+import { dict } from "@/i18n/dict";
 import { familyPlan } from "@/lib/payments/subscription";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
 import { createSupabaseAdmin, hasActivePlan } from "@/lib/supabase/server";
@@ -284,6 +286,28 @@ async function checkout(ctx: Ctx) {
   return "url" in result ? json(result) : json(result, 400);
 }
 
+const GIFT_STATUS: Record<GiftErrorCode, number> = { format: 400, invalid: 404, used: 409, usedMine: 409, rate: 429, off: 503 };
+
+/**
+ * POST gifts/check { code }: what a gift code would give, before adding it.
+ * POST gifts/redeem { code }: adds it to the family's plan, once, with the same rules as a payment.
+ */
+async function giftCall(ctx: Ctx, step: string) {
+  if (!ctx.me) return fail(401, "Sign in");
+  if (step !== "check" && step !== "redeem") return fail(404, "Unknown call");
+  const b = await body<{ code: string }>(ctx.request);
+  const code = String(b.code ?? "").slice(0, 40);
+  const e = dict[ctx.lang].gift.errors;
+  if (step === "check") {
+    const peek = await peekGift(code, ctx.me.user.id, Date.now());
+    if (!peek.ok) return json({ error: e[peek.error], reason: peek.error }, GIFT_STATUS[peek.error]);
+    return json({ gift: peek });
+  }
+  const result = await redeemGift(code, ctx.me.user.id);
+  if (!result.ok) return json({ error: e[result.error], reason: result.error }, GIFT_STATUS[result.error]);
+  return json({ gift: result, plan: await familyPlan(ctx.me.user.id) });
+}
+
 // ---------------------------------------------------------------- routing
 
 async function route(request: Request, params: Promise<{ path: string[] }>, method: string) {
@@ -325,6 +349,8 @@ async function route(request: Request, params: Promise<{ path: string[] }>, meth
         return await updateSession(ctx, b);
       case "POST checkout":
         return await checkout(ctx);
+      case "POST gifts/:x":
+        return await giftCall(ctx, b);
       case "GET stickers":
         return await getStickers(ctx);
       case "POST stickers/:x":

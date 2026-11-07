@@ -80,6 +80,7 @@ export function SiteFooter() {
           <p className="font-display text-lg font-bold text-white">{t.footer.grownUps}</p>
           <Link href="/#parents" className="block hover:text-white">{t.footer.why}</Link>
           <Link href="/#plans" className="block hover:text-white">{t.footer.plans}</Link>
+          <Link href="/gift" className="block font-bold text-gold hover:text-white">{t.gift.footerLink}</Link>
           <Link href="/privacy" className="block hover:text-white">{t.footer.privacy}</Link>
           <Link href="/terms" className="block hover:text-white">{t.footer.terms}</Link>
           <p>{t.footer.made}</p>

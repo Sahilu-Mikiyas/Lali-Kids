@@ -645,6 +645,9 @@ export function Plans() {
           </motion.div>
         ))}
       </div>
+      <p className="mt-10 text-center">
+        <Link href="/gift" className="btn btn-plain">{t.gift.homeLink}</Link>
+      </p>
     </section>
   );
 }
