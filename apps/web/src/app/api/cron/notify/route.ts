@@ -4,6 +4,7 @@ import { sweepOrphanVoiceFolders } from "@/lib/account";
 import { addisMidnightIso } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
 import { planById } from "@/lib/payments/plans";
+import { pagesReadAloudSince } from "@/lib/read-aloud/server";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { ensureWebhook, esc, sendMessage, telegramConfigured } from "@/lib/telegram";
@@ -122,6 +123,8 @@ export async function GET(request: Request) {
           admin.from("game_sessions").select("child_id, seconds").in("child_id", ids).gte("started_at", since),
         ])
       : [{ data: [] }, { data: [] }];
+    // Pages read aloud with the read-along microphone (empty before migration 0011).
+    const aloud = await pagesReadAloudSince(ids, since).catch(() => new Map<string, number>());
 
     for (const f of linked) {
       const mine = (kids ?? []).filter((k) => k.family_id === f.id);
@@ -129,9 +132,10 @@ export async function GET(request: Request) {
       const lines = mine.map((k) => {
         const stories = (done ?? []).filter((d) => d.child_id === k.id).length;
         const minutes = Math.round((play ?? []).filter((p) => p.child_id === k.id).reduce((a, p) => a + p.seconds, 0) / 60);
+        const read = aloud.get(k.id) ?? 0;
         return f.ui_lang === "am"
-          ? `• <b>${esc(k.name)}</b>: ${stories} ተረቶች${minutes ? `፣ ${minutes} ደቂቃ ጨዋታ` : ""} · ⭐ ${k.stars}`
-          : `• <b>${esc(k.name)}</b>: ${stories} ${stories === 1 ? "story" : "stories"}${minutes ? `, ${minutes} min of games` : ""} · ⭐ ${k.stars}`;
+          ? `• <b>${esc(k.name)}</b>: ${stories} ተረቶች${read ? `፣ እና ${read} ገጽ ጮክ ብለው አንብበዋል` : ""}${minutes ? `፣ ${minutes} ደቂቃ ጨዋታ` : ""} · ⭐ ${k.stars}`
+          : `• <b>${esc(k.name)}</b>: ${stories} ${stories === 1 ? "story" : "stories"}${read ? ` and read ${read} ${read === 1 ? "page" : "pages"} aloud` : ""}${minutes ? `, ${minutes} min of games` : ""} · ⭐ ${k.stars}`;
       });
       const quiet = mine.every((k) => !(done ?? []).some((d) => d.child_id === k.id));
       const text =

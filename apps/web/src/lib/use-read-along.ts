@@ -17,19 +17,42 @@ export function canSpeak(lang: Lang): boolean {
   return voiceFor(lang) !== null;
 }
 
+/** Optional timing for a recording: exact word starts (ms), and its length when the file can't say. */
+export type ClipTiming = { wordTimes?: number[] | null; durationMs?: number | null };
+
+/** The word lit at `ms` into a clip: from exact word starts, else spread across it by text length. */
+export function wordAtMs(ms: number, durationMs: number, offsets: number[], textLength: number, wordTimes?: number[] | null): number {
+  if (wordTimes && wordTimes.length === offsets.length && wordTimes.length > 0) {
+    let i = 0;
+    for (let j = 0; j < wordTimes.length; j++) if (wordTimes[j] <= ms) i = j;
+    return i;
+  }
+  if (!(durationMs > 0)) return 0;
+  const at = (ms / durationMs) * textLength;
+  let i = 0;
+  for (let j = 0; j < offsets.length; j++) if (offsets[j] <= at) i = j;
+  return i;
+}
+
+/** The character offset where each word starts. */
+export const wordOffsets = (words: string[]) => words.map((_, i) => words.slice(0, i).reduce((sum, w) => sum + w.length + 1, 0));
+
 /**
  * Reads a page aloud and reports which word is being spoken.
  * Uses the browser's voice for the language when there is one, with word timing from
  * the speech engine; otherwise it lights words up on a steady beat in silence.
- * When the page has recorded narration, that plays instead and the highlight follows it,
- * spread over the recording by word length (exact word timings can replace this later).
+ * When the page has recorded narration, that plays instead and the highlight follows it: on the
+ * exact start of each word when `timing.wordTimes` has one per word, otherwise spread over the
+ * recording by word length.
  *
  * If the text changes while it is reading (the reader switched language), it carries on
  * reading the same page in the new language. The scene's soundscape dips while it reads.
  */
-export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, audioUrl?: string | null) {
+export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, audioUrl?: string | null, timing?: ClipTiming) {
   const words = useMemo(() => text.split(" "), [text]);
-  const offsets = useMemo(() => words.map((_, i) => words.slice(0, i).reduce((sum, w) => sum + w.length + 1, 0)), [words]);
+  const offsets = useMemo(() => wordOffsets(words), [words]);
+  const wordTimes = timing?.wordTimes ?? null;
+  const knownMs = timing?.durationMs ?? null;
 
   // The highlighted word belongs to one text; a new text (language) starts unlit.
   const [lit, setLit] = useState<{ text: string; i: number }>({ text, i: -1 });
@@ -38,7 +61,9 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
   const [silent, setSilent] = useState(false);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const fallback = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const frame = useRef<number | null>(null);
   const audio = useRef<HTMLAudioElement | null>(null);
+  const snippet = useRef<HTMLAudioElement | null>(null);
   const utterance = useRef<SpeechSynthesisUtterance | null>(null);
   const finishRef = useRef(onFinish);
   useEffect(() => {
@@ -48,8 +73,10 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
   const clearTimers = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
     if (fallback.current) clearTimeout(fallback.current);
+    if (frame.current !== null) cancelAnimationFrame(frame.current);
     timer.current = null;
     fallback.current = null;
+    frame.current = null;
   }, []);
 
   /** Silence the voice and timers, but keep `reading` as it is. */
@@ -68,6 +95,8 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
       audio.current.ontimeupdate = null;
       audio.current = null;
     }
+    snippet.current?.pause();
+    snippet.current = null;
   }, [clearTimers]);
 
   const stop = useCallback(() => {
@@ -102,12 +131,16 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
       audio.current = a;
       setSilent(false);
       setLit({ text, i: 0 });
-      a.ontimeupdate = () => {
-        if (!a.duration) return;
-        const at = (a.currentTime / a.duration) * text.length;
-        let i = 0;
-        for (let j = 0; j < offsets.length; j++) if (offsets[j] <= at) i = j;
-        setLit({ text, i });
+      // Every frame while it plays, so words light up on their exact start times.
+      const follow = () => {
+        if (audio.current !== a) return;
+        const total = Number.isFinite(a.duration) && a.duration > 0 ? a.duration * 1000 : (knownMs ?? 0);
+        const i = wordAtMs(a.currentTime * 1000, total, offsets, text.length, wordTimes);
+        setLit((l) => (l.text === text && l.i === i ? l : { text, i }));
+        frame.current = requestAnimationFrame(follow);
+      };
+      a.onplaying = () => {
+        if (frame.current === null) frame.current = requestAnimationFrame(follow);
       };
       a.onended = () => {
         audio.current = null;
@@ -145,10 +178,34 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
     fallback.current = setTimeout(() => {
       if (!gotBoundary) runBeat();
     }, 800);
-  }, [audioUrl, finish, lang, offsets, runBeat, stop, text]);
+  }, [audioUrl, finish, knownMs, lang, offsets, runBeat, stop, text, wordTimes]);
 
   const speakWord = useCallback(
-    (word: string) => {
+    (word: string, index?: number) => {
+      // With timed narration, a tapped word is said in the narrator's own voice.
+      if (audioUrl && wordTimes && index !== undefined && wordTimes.length === words.length && index >= 0 && index < words.length) {
+        if (reading) stop();
+        snippet.current?.pause();
+        const a = new Audio(audioUrl);
+        snippet.current = a;
+        const from = wordTimes[index] / 1000;
+        const to = index + 1 < wordTimes.length ? wordTimes[index + 1] / 1000 : from + 1.2;
+        const cut = () => {
+          if (snippet.current !== a) return;
+          if (a.currentTime >= to - 0.02) {
+            a.pause();
+            return;
+          }
+          requestAnimationFrame(cut);
+        };
+        a.preload = "auto";
+        a.onloadedmetadata = () => {
+          a.currentTime = from;
+          a.play().catch(() => {});
+        };
+        a.onplaying = () => requestAnimationFrame(cut);
+        return;
+      }
       const voice = voiceFor(lang);
       if (!voice) return;
       if (reading) stop();
@@ -159,7 +216,7 @@ export function useReadAlong(text: string, lang: Lang, onFinish?: () => void, au
       u.rate = 0.8;
       window.speechSynthesis.speak(u);
     },
-    [lang, reading, stop],
+    [audioUrl, lang, reading, stop, wordTimes, words.length],
   );
 
   // A language switch while reading: let the words cross-fade, then read on in the new language.

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
+import { ReadMyselfArt } from "./read-myself";
 
 /*
   One sticker for each launch story, drawn in a 120 x 120 box in the Lali style: chunky shapes,
@@ -391,6 +392,7 @@ export function StickerArt({ id, color }: { id: string; color: string }) {
     return Art ? <Art /> : <GenericArt color={color} />;
   }
   if (id === "m:streak7") return <StreakArt />;
+  if (id === "m:readself") return <ReadMyselfArt />;
   const n = /^m:(\d+)$/.exec(id)?.[1];
   return <RosetteArt n={n ?? "★"} color={color} />;
 }

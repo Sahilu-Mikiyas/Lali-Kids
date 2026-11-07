@@ -18,6 +18,8 @@ import { AddChildForm, DeleteAccount, AllAgesToggle, ChildCard, GamesPicker, Lim
 import { allowMoreTonight } from "./actions";
 import { FamilyVoicesCard, FindHintsCard } from "./family-voices";
 import { stickerStories } from "@/lib/stickers/server";
+import { MicListenSetting } from "@/components/mic-listen-setting";
+import { micListenSetting } from "@/lib/read-aloud/server";
 
 export const metadata: Metadata = { title: "Grown-ups' corner" };
 
@@ -47,7 +49,8 @@ async function AccountContent() {
       .limit(12),
     supabase.from("profiles").select("telegram_chat_id").eq("id", family.profile.id).single(),
   ]);
-  const storyTitles = Object.fromEntries((await stickerStories(family.profile.id)).map((s) => [s.id, s.title]));
+  const [stickerList, micListen] = await Promise.all([stickerStories(family.profile.id), micListenSetting(supabase, family.profile.id).catch(() => null)]);
+  const storyTitles = Object.fromEntries(stickerList.map((s) => [s.id, s.title]));
   const weekByChild = new Map<string, number>();
   for (const r of recent ?? []) weekByChild.set(r.child_id, (weekByChild.get(r.child_id) ?? 0) + 1);
 
@@ -61,7 +64,7 @@ async function AccountContent() {
               <h1 className="font-display text-5xl font-black">{t.account.title}</h1>
               <p className="mt-2 text-lg text-muted">{t.account.signedInAs(family.profile.email ?? "")}</p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               {family.profile.role === "admin" && (
                 <>
                   <Link href="/admin/stats" className="btn btn-plain !text-base">
@@ -69,6 +72,9 @@ async function AccountContent() {
                   </Link>
                   <Link href="/admin/stories" className="btn btn-plain !text-base">
                     {t.account.storyStudio}
+                  </Link>
+                  <Link href="/admin/narration" className="btn btn-plain !text-base">
+                    {t.account.narrationAdmin}
                   </Link>
                   <Link href="/admin/games" className="btn btn-plain !text-base">
                     {t.account.gamesAdmin}
@@ -171,6 +177,7 @@ async function AccountContent() {
 
           <FamilyVoicesCard titles={storyTitles} />
           <FindHintsCard />
+          <MicListenSetting lang={lang} serverValue={micListen} />
 
           {telegramConfigured() && (
             <section className="mt-10 flex flex-wrap items-center gap-6 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">

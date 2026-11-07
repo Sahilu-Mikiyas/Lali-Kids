@@ -36,6 +36,7 @@ function readLocal(): StickerBasis {
       days: Array.isArray(v.days) ? v.days.filter((s) => typeof s === "string") : [],
       finds: v.finds && typeof v.finds === "object" ? v.finds : {},
       positions: v.positions && typeof v.positions === "object" ? v.positions : {},
+      reads: v.reads && typeof v.reads === "object" ? v.reads : {},
     };
   } catch {
     local = { ...EMPTY_BASIS };
@@ -131,6 +132,21 @@ export function recordFind(storyId: string, page: number) {
   if (!had.includes(page)) update((b) => ({ ...b, finds: { ...b.finds, [storyId]: [...(b.finds[storyId] ?? []), page] } }));
   send("POST", { storyId, page });
   tellApp({ type: "lali:found", storyId, page });
+}
+
+/**
+ * The child read this page aloud (a reader star). Saved in the browser, or for a signed-in child
+ * on the server (reader_stars, migration 0011) by the read-aloud API.
+ */
+export function recordRead(storyId: string, page: number, lang: "en" | "am", how: "listened" | "recorded") {
+  const had = currentBasis().reads?.[storyId] ?? [];
+  if (!had.includes(page)) update((b) => ({ ...b, reads: { ...(b.reads ?? {}), [storyId]: [...(b.reads?.[storyId] ?? []), page] } }));
+  if (mode !== "server") return;
+  fetch("/api/read-aloud", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...appAuthHeaders() },
+    body: JSON.stringify({ storyId, page, lang, how }),
+  }).catch(() => {});
 }
 
 /** The child stuck a sticker somewhere in the album. */

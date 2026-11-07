@@ -6,6 +6,7 @@ import type { Lang } from "@/content/stories";
   - Each story has a sticker, earned by finishing it.
   - Finding Lali on every page of a story earns the golden version of its sticker.
   - Milestones: 3, 5 and 10 different stories finished, and stories on 7 days in a row.
+  - "I read it myself": reading every page of a book aloud (the read-along microphone).
 
   Nothing here is stored as "earned": it is worked out from what the child did (finished
   stories, the days they read, the pages where they found Lali), so it can't drift.
@@ -35,21 +36,37 @@ export type StickerBasis = {
   finds: Record<string, number[]>;
   /** Where the child stuck each sticker in the album. */
   positions: Record<string, StickerPosition>;
+  /** Pages the child read aloud, by story (reader stars). Optional: older records lack it. */
+  reads?: Record<string, number[]>;
 };
 
 export type StickerPosition = { page: number; x: number; y: number; r?: number };
 
-export const EMPTY_BASIS: StickerBasis = { finished: [], days: [], finds: {}, positions: {} };
+export const EMPTY_BASIS: StickerBasis = { finished: [], days: [], finds: {}, positions: {}, reads: {} };
 
 /** The stories the album knows about: launch stories and studio stories. */
 export type StickerStory = { id: string; title: Record<Lang, string>; color: string; pageCount: number };
 
-export const MILESTONES: { id: string; n?: number; streak?: number; title: Record<Lang, string>; color: string }[] = [
+/** The "I read it myself" sticker: every page of a book read aloud. */
+export const READ_MYSELF_ID = "m:readself";
+
+export const MILESTONES: { id: string; n?: number; streak?: number; readAll?: boolean; title: Record<Lang, string>; color: string }[] = [
   { id: "m:3", n: 3, title: { en: "3 stories!", am: "3 ተረቶች!" }, color: "#2F5BD3" },
   { id: "m:5", n: 5, title: { en: "5 stories!", am: "5 ተረቶች!" }, color: "#0E8C80" },
   { id: "m:10", n: 10, title: { en: "10 stories!", am: "10 ተረቶች!" }, color: "#D63B72" },
   { id: "m:streak7", streak: 7, title: { en: "7 days in a row", am: "7 ቀን በተከታታይ" }, color: "#F5B21E" },
+  // AMHARIC: first draft, to be checked by a native-speaking editor.
+  { id: READ_MYSELF_ID, readAll: true, title: { en: "I read it myself!", am: "ራሴ አነበብኩት!" }, color: "#1E9E5A" },
 ];
+
+/** Whether every page of some story was read aloud. */
+export function readEveryPage(reads: Record<string, number[]> | undefined, pageCount: (storyId: string) => number | undefined): boolean {
+  for (const [storyId, pages] of Object.entries(reads ?? {})) {
+    const n = pageCount(storyId);
+    if (n && new Set(pages.filter((p) => p >= 0 && p < n)).size >= n) return true;
+  }
+  return false;
+}
 
 export const storyStickerId = (storyId: string) => `story:${storyId}`;
 export const goldenStickerId = (storyId: string) => `gold:${storyId}`;
@@ -101,9 +118,11 @@ export function earnedStickers(basis: StickerBasis, pageCount: (storyId: string)
     if (found.size >= n) earned.add(goldenStickerId(storyId));
   }
   const streak = longestStreak(basis.days);
+  const readAll = readEveryPage(basis.reads, pageCount);
   for (const m of MILESTONES) {
     if (m.n && finished.size >= m.n) earned.add(m.id);
     if (m.streak && streak >= m.streak) earned.add(m.id);
+    if (m.readAll && readAll) earned.add(m.id);
   }
   return earned;
 }
@@ -115,7 +134,7 @@ export function stickerStory(id: string): string | null {
 }
 
 /** Ids we accept from browsers and the app. */
-export const isStickerId = (v: unknown): v is string => typeof v === "string" && /^(story:|gold:)[a-z0-9-]{1,100}$|^m:(3|5|10|streak7)$/.test(v);
+export const isStickerId = (v: unknown): v is string => typeof v === "string" && /^(story:|gold:)[a-z0-9-]{1,100}$|^m:(3|5|10|streak7|readself)$/.test(v);
 export const isStoryId = (v: unknown): v is string => typeof v === "string" && /^[a-z0-9-]{1,100}$/.test(v);
 
 /** A position from outside, made safe (0–1 across the album page). */

@@ -44,13 +44,13 @@ on every call (the shelf calls also work signed out). Optional headers:
 
 | Call | Body | Returns |
 |---|---|---|
-| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes}`, `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `plans[]` |
-| `PATCH me` | `{nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name?}` | same as `GET me` |
+| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes, micListen}` (`micListen` is null until migration 0011), `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `plans[]` |
+| `PATCH me` | `{nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name?, micListen?}` | same as `GET me`. `micListen` is the grown-up's "Listen to my child read" choice (see below) |
 | `POST children` | `{name, ageBand: "3-5"\|"6-7"\|"8-9", lang: "en"\|"am", avatar: "cub"\|"gugu"\|"bee"}` | `{child}` |
 | `DELETE children/:id` | | `{ok}` |
 | `POST children/:id/allow-more` | | `{ok}`, reopens tonight's shelf |
 | `GET stories` | | `{stories[]}`: launch stories with their text; studio stories with a cover link, `locked` if the family can't open them yet |
-| `GET stories/:id` | | `{story}` with page text, `pictures[]` and `audio[]` links (valid 1 hour), or `402 {locked}` |
+| `GET stories/:id` | | `{story}` with page text, `pictures[]` and `audio[]` links (valid 1 hour), or `402 {locked}`. Voice-actor narration is included for **launch stories too**: `audio[page][lang]` is the clip's link, `wordTimes[page][lang]` the start of each word in ms (one per word of the page text split on spaces; `[]` when not timed yet: spread the highlight across the clip), and `narrators[page][lang]` the name for a "Read by …" credit. Pages without narration have no entry |
 | `POST progress` | `{storyId, itemType?: "story"\|"book"}` | `{stars, tonight}`: records a finished story for the current child (earns a star; respects the bedtime limit) |
 | `GET books` | | partner PDF books, `locked` if not on a plan |
 | `GET books/:slug?from=1&to=10` | | page image links for that range, **valid 90 seconds**; fetch each with the same `Authorization` header and ask again for the next pages |
@@ -60,7 +60,7 @@ on every call (the shelf calls also work signed out). Optional headers:
 | `POST checkout` | `{plan: "reader"\|"learner"\|"vip"}` | `{url}` of Chapa's page. Open it with `expo-web-browser`; the thank-you page has a "Back to the Lali app" button (`lali://plan`). Refresh `GET me` when the browser closes |
 | `POST gifts/check` | `{code}` | `{gift: {code, planId, months, giverName, recipient, message, preview: {kind, startsAtMs, endsAtMs, convertedDays}, currentPlanId}}`: what a gift code would give, before adding it. Codes look like `LALI-XXXX-XXXX`; spaces, missing dashes and lower case are fine |
 | `POST gifts/redeem` | `{code}` | `{gift: {planId, months, giverName, kind, startsAt, endsAt}, plan}`: adds the gift (months × 30 days, same rules as a payment) to the family's plan, once. Errors come as `{error, reason}`: `400` not a code (`format`), `404` unknown or unpaid (`invalid`), `409` already used (`used`, or `usedMine` if this family added it), `429` too many wrong codes (`rate`, 10 an hour), `503` gifts not switched on (`off`) |
-| `GET stickers` | | The current child's sticker book: `{childId, earned[], available[], count, total, finds, positions}`. Each sticker is `{id, kind: "story"\|"golden"\|"milestone", storyId?, title {en, am}, color, album, earned}`. Ids: `story:<storyId>`, `gold:<storyId>`, `m:3`, `m:5`, `m:10`, `m:streak7`. Works signed out too (nothing earned) |
+| `GET stickers` | | The current child's sticker book: `{childId, earned[], available[], count, total, finds, positions}`. Each sticker is `{id, kind: "story"\|"golden"\|"milestone", storyId?, title {en, am}, color, album, earned}`. Ids: `story:<storyId>`, `gold:<storyId>`, `m:3`, `m:5`, `m:10`, `m:streak7`, `m:readself` ("I read it myself!": every page of a book read aloud). Also `reads {storyId: pages[]}`, the pages read aloud. Works signed out too (nothing earned) |
 | `POST stickers/finds` | `{storyId, page}` | `{ok, saved}`: the child found Lali on that page (send it when the reader posts `lali:found`). `saved: false` until migration 0009 is applied |
 | `PATCH stickers/:id` | `{page, x, y, r?}` | `{ok, saved}`: where the child stuck a sticker in the album (`x`, `y` from 0 to 1 across album page `page`; `r` tilt in degrees, -30 to 30). URL-encode the id |
 
@@ -127,6 +127,30 @@ web view, so the app must allow it (none of this is in `apps/mobile` yet):
 The reader asks for the microphone only when a grown-up taps record (behind the maths question),
 after a line explaining why.
 
+**The read-along microphone ("🎤 I'll read!") needs the same microphone permission.** The child
+reads a page aloud; the reader asks for the microphone on the first tap only, after a friendly line,
+and handles "denied" kindly (it suggests "Read to me" instead). Two ways it works:
+
+- **Listening** (only if a grown-up turned on *Listen to my child read*, `micListen`, in the
+  Grown-ups' corner or the reader's grown-ups menu): the browser's `SpeechRecognition` /
+  `webkitSpeechRecognition` (`en-US` / `am-ET`) lights words up as they're said. This sends audio to
+  the browser maker's speech service, which is why it's off by default. **Android web views don't
+  have it and iOS web views often refuse it**; the reader notices and falls back to recording.
+- **Record and listen** (everywhere else): `getUserMedia` + `MediaRecorder` record on the device,
+  play it back with the words highlighted, and nothing is uploaded. So the web view also needs
+  inline playback (`allowsInlineMediaPlayback`, `mediaPlaybackRequiresUserAction={false}` on iOS).
+
+A page read aloud is a "reader star", sent by the reader to the website's `POST /api/read-aloud`
+`{storyId, page, lang, how}` with the injected Bearer token and `X-Lali-Child` (no app message is
+needed). `GET /api/read-aloud` gives `{signedIn, childId, ageBand, micListen}`; `PATCH /api/read-aloud`
+`{micListen}` saves the choice. Signed out, both stay in the web view's own storage.
+
+**Narration in the reader.** The reader asks `GET /api/narration?story=<id>` (with the Bearer token,
+and for paid launch stories the `pass` from the page address, which it forwards itself) for
+voice-actor narration with links valid for an hour; "Read to me" then plays it with the words
+lighting up exactly on `wordTimes`. Order of preference: a family voice the child picked, then the
+narrator, then the browser's voice.
+
 ## Games in the app
 
 Games are web games. Show `url` in a `react-native-webview` with no pop-ups or outside links,
@@ -144,7 +168,13 @@ and count time with `POST sessions/:id`.
   are in the Grown-ups' corner, behind the maths question.
 - **What's saved.** Studio stories: the text from `GET stories/:id`, every page picture and every
   narration recording, downloaded straight away because those links last one hour. Launch stories:
-  just the text (the app draws their scenes). Files go in the app's private document folder,
+  the text (the app draws their scenes) and, now that `GET stories/:id` includes it, their
+  voice-actor narration: `downloads-core.ts` already saves every `audio[page][lang]` link it is given,
+  so this needs no app change. **For the app team:** `wordTimes` and `narrators` are kept in
+  `story.json` as they come, but the app's own reader (`apps/mobile/src/lib/use-read-along.ts`) still
+  spreads the highlight across the clip; to light words up exactly offline, read
+  `story.wordTimes[page][lang]` there (start of each word in ms, one per space-separated word) and
+  show `narrators[page][lang]` as "Read by …". Files go in the app's private document folder,
   `<document>/stories/<id>-<time>/` (`story.json`, `p0.jpg`…, `a0-en.mp3`…); the list of downloads is
   in the kv-store (`lali-downloads-v1`). A new copy replaces the old one only once it's complete.
 - **Partner PDF books are never downloaded** (publisher terms). Book pages are only shown and dropped.

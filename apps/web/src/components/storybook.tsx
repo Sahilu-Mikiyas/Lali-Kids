@@ -27,11 +27,16 @@ import { playTapSound } from "@/lib/tap-sound";
 import { askForTilt, useDepth } from "@/lib/use-depth";
 import { useMedia } from "@/lib/use-media";
 import { useReadAlong } from "@/lib/use-read-along";
+import { useNarration, type Clip } from "@/lib/narration/client";
+import { timesFit } from "@/lib/narration/shared";
+import { useMicListen, useReaderInfo } from "@/lib/read-aloud/client";
+import { readThreshold } from "@/lib/read-aloud/match";
+import { useMicReader } from "@/lib/read-aloud/use-mic-reader";
 import { useLang } from "@/i18n/provider";
 import { dict } from "@/i18n/dict";
 import { tellApp } from "@/lib/in-app";
 import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/lib/stickers/catalog";
-import { currentBasis, recordFind, recordFinish, syncStickers, useFindHints } from "@/lib/stickers/store";
+import { currentBasis, recordFind, recordFinish, recordRead, syncStickers, useFindHints } from "@/lib/stickers/store";
 import { useFamilyVoices } from "@/lib/voices/client";
 import type { FamilyVoice } from "@/lib/voices/shared";
 import { BeeShape, STAR_PATH } from "./characters";
@@ -40,6 +45,7 @@ import { StickerBookButton, StickerReward, type RewardSticker } from "./stickers
 import { RecordVoiceModal } from "./voice/record-voice";
 import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
+import { MicButton, MicPanel } from "./book/mic-reader";
 import { CoverBack, CoverFront } from "./book/cover";
 import { EndArt, PageArt } from "./book/page-art";
 import { READER } from "./book/reader-words";
@@ -155,6 +161,7 @@ function EndText({
   onAgain,
   starLanded,
   finds,
+  readAloud,
 }: {
   lang: Lang;
   interactive: boolean;
@@ -162,6 +169,8 @@ function EndText({
   starLanded: boolean;
   /** How many pages Lali was found on this time. */
   finds?: { found: number; total: number };
+  /** Pages the child read aloud this time (reader stars). */
+  readAloud?: { read: number; total: number };
 }) {
   const stars = useStars();
   // The new star is counted when the flying star lands.
@@ -210,6 +219,14 @@ function EndText({
           </Swap>
         </p>
       )}
+      {interactive && readAloud && readAloud.read > 0 && (
+        <p className="flex items-center gap-1.5 rounded-full bg-[#DDF5D9] px-3 py-1 text-[0.8em] font-bold text-[#13723F]" data-end-read-aloud={readAloud.read}>
+          <span aria-hidden className="tracking-[-0.2em]">
+            {"⭐".repeat(Math.min(5, readAloud.read))}
+          </span>
+          <Swap lang={lang}>{(l) => (readAloud.read >= readAloud.total ? dict[l].mic.readAll : dict[l].mic.readPages(readAloud.read))}</Swap>
+        </p>
+      )}
       {interactive && (
         <div className="flex flex-wrap justify-center gap-3 text-base">
           <button type="button" className="btn btn-plain" onClick={onAgain}>
@@ -241,6 +258,11 @@ function TextFace({
   voice,
   voiceCount = 0,
   onNextVoice,
+  clip = null,
+  micListen = false,
+  micThreshold = 0.7,
+  onReadAloud,
+  readAloud,
 }: {
   story: Story;
   page: number;
@@ -257,10 +279,29 @@ function TextFace({
   voice?: FamilyVoice | null;
   voiceCount?: number;
   onNextVoice?: () => void;
+  /** Voice-actor narration of this page in this language, if any: "Read to me" plays it. */
+  clip?: Clip | null;
+  /** A grown-up let the browser's speech service listen to the child read. */
+  micListen?: boolean;
+  micThreshold?: number;
+  onReadAloud?: (page: number, how: "listened" | "recorded") => void;
+  readAloud?: { read: number; total: number };
 }) {
   const end = page >= story.pages.length;
   const text = end ? "" : story.pages[page][lang];
-  const own = useReadAlong(text, lang, onRead, end ? null : story.audio?.[page]?.[lang]);
+  // Narration first (exactly on its word times when they fit this text), else the browser's voice.
+  const own = useReadAlong(text, lang, onRead, end ? null : (clip?.url ?? null), {
+    wordTimes: clip && timesFit(clip.wordTimes, text) ? clip.wordTimes : null,
+    durationMs: clip?.durationMs ?? null,
+  });
+  const mic = useMicReader({
+    text,
+    lang,
+    live: live && !end,
+    wantListen: micListen,
+    threshold: micThreshold,
+    onRead: (how) => onReadAloud?.(page, how),
+  });
   // A family recording of this page plays instead of the browser's voice when there is one.
   const familyUrl = end ? null : (voice?.pages[lang]?.[page] ?? null);
   const family = useReadAlong(text, lang, onRead, familyUrl);
@@ -308,7 +349,7 @@ function TextFace({
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
       <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
         {end ? (
-          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} />
+          <EndText lang={lang} interactive={live} onAgain={onAgain} starLanded={starLanded} finds={finds} readAloud={readAloud} />
         ) : (
           <>
             <PageHeader story={story} page={page} lang={lang} />
@@ -344,6 +385,8 @@ function TextFace({
                             ? { animationDelay: `${Math.round(120 + Math.min(i * 45, (1300 * i) / Math.max(1, ws.length)))}ms` }
                             : { animationDelay: `${Math.min(i * 16, 420)}ms` };
                       const cls = mode === "arrive" ? "lali-word-in" : mode === "swap" ? "lali-word-swap" : "";
+                      const said = mic.heard.has(i) || (mic.playIndex >= 0 && i <= mic.playIndex);
+                      const tryIt = mic.missed.indexOf(i);
                       return (
                         <span key={`${i}-${w}`}>
                           <span className={`inline-block ${cls}`} style={anim}>
@@ -351,14 +394,18 @@ function TextFace({
                               type="button"
                               tabIndex={live ? 0 : -1}
                               data-on={i === active ? "" : undefined}
+                              data-heard={said ? "" : undefined}
+                              data-try={tryIt === 0 ? dict[l].mic.tryThis : tryIt > 0 ? "" : undefined}
                               onClick={() => {
                                 if (!live) return;
                                 setPopped(i);
-                                speakWord(w);
+                                speakWord(w, i);
                               }}
-                              className={`lali-word inline-block rounded-lg px-[3px] transition-[transform,color] duration-200 hover:bg-[#F3E8C6] ${
+                              className={`lali-word inline-block rounded-lg px-[3px] transition-[transform,color,background-color] duration-200 hover:bg-[#F3E8C6] ${
                                 i === active ? "-translate-y-[0.18em] scale-110 text-[#7A3E00]" : i < active ? "text-blue" : ""
-                              } ${i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)] text-coral" : ""}`}
+                              } ${said ? "mic-heard" : ""} ${i === mic.playIndex ? "-translate-y-[0.14em] scale-110" : ""} ${tryIt >= 0 ? "mic-try" : ""} ${
+                                i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)] text-coral" : ""
+                              }`}
                               onAnimationEnd={() => setPopped(-1)}
                             >
                               {w}
@@ -371,6 +418,11 @@ function TextFace({
                 );
               })}
             </div>
+            {mic.phase !== "idle" ? (
+              <div className="pb-1">
+                <MicPanel mic={mic} lang={lang} live={live} />
+              </div>
+            ) : (
             <div className="relative flex flex-wrap items-center justify-center gap-2 pb-1">
               {silent && reading && lang === "am" && (
                 <p className="lali-fade absolute inset-x-0 bottom-full mb-2 text-center text-[0.65em] text-[#7A6A45] font-ethiopic">{READER.am.silent}</p>
@@ -426,7 +478,21 @@ function TextFace({
                 </svg>
                 <Swap lang={lang}>{(l) => (own.reading ? READER[l].stop : READER[l].readToMe)}</Swap>
               </button>
+              <MicButton
+                lang={lang}
+                live={live}
+                onClick={() => {
+                  stop();
+                  void mic.begin();
+                }}
+              />
+              {clip?.narrator && (
+                <p className="w-full text-center text-[0.62em] font-bold text-[#7A6A45]" data-narrator={clip.narrator}>
+                  {dict[lang].narration.credit(clip.narrator)}
+                </p>
+              )}
             </div>
+            )}
           </>
         )}
       </div>
@@ -572,6 +638,21 @@ export function StoryBook({
   const [voices, reloadVoices] = useFamilyVoices(story.id);
   const [voiceIndex, setVoiceIndex] = useState(0);
   const voice = voices.voices.length ? voices.voices[voiceIndex % voices.voices.length] : null;
+  // Voice-actor narration, the grown-up's microphone choice, and pages read aloud this time.
+  const clipFor = useNarration(story);
+  const micListen = useMicListen();
+  const readerInfo = useReaderInfo();
+  const micThreshold = readThreshold(readerInfo?.ageBand ?? (story.ageBands[0] === "3-5" ? "3-5" : null));
+  const [readAloud, setReadAloud] = useState<Set<number>>(() => new Set());
+  const onReadAloud = useCallback(
+    (p: number, how: "listened" | "recorded") => {
+      setReadAloud((r) => (r.has(p) ? r : new Set(r).add(p)));
+      recordRead(story.id, p, lang, how);
+      playTapSound("chime");
+      confetti(0.5);
+    },
+    [story.id, lang],
+  );
   // Stickers earned before this read, so the ending knows which ones are new.
   const earnedBefore = useRef<Set<string> | null>(null);
   const pageCount = useCallback((id: string) => (id === story.id ? total : undefined), [story.id, total]);
@@ -1067,6 +1148,7 @@ export function StoryBook({
   // Reading again starts a fresh hunt for Lali.
   const again = () => {
     setFound(new Set());
+    setReadAloud(new Set());
     go(0);
   };
   const textFace = (idx: number, isLive: boolean, shadow: "left" | "none" = "left") => (
@@ -1085,6 +1167,11 @@ export function StoryBook({
       voice={voice}
       voiceCount={voices.voices.length}
       onNextVoice={() => setVoiceIndex((v) => v + 1)}
+      clip={idx < total ? clipFor(idx, lang) : null}
+      micListen={micListen}
+      micThreshold={micThreshold}
+      onReadAloud={onReadAloud}
+      readAloud={{ read: readAloud.size, total }}
     />
   );
 

@@ -1,6 +1,6 @@
 import { connection } from "next/server";
 
-import { getStory } from "@/content/stories";
+import { getStory, type Story } from "@/content/stories";
 import { isLang, type UiLang } from "@/i18n/langs";
 import { signPage, TOKEN_SECONDS } from "@/lib/books/protect";
 import { deleteFamilyAccount } from "@/lib/account";
@@ -18,6 +18,8 @@ import { signReadPass } from "@/lib/read-pass";
 import { shelfStories, storyForReading } from "@/lib/stories";
 import { cleanPosition, EMPTY_BASIS, isStickerId, isStoryId } from "@/lib/stickers/catalog";
 import { loadStickerBasis, saveFind, savePosition, stickerStories, summarise } from "@/lib/stickers/server";
+import { signedNarration, withNarration } from "@/lib/narration/server";
+import { micListenSetting, saveMicListen } from "@/lib/read-aloud/server";
 
 /**
  * The Lali app's API (apps/mobile, see docs/MOBILE.md). Every call carries the parent's
@@ -59,12 +61,17 @@ async function getMe(ctx: Ctx) {
   if (!ctx.me) return fail(401, "Sign in");
   const [profile, f] = await Promise.all([profileOf(ctx.me), family(ctx)]);
   if (!profile || !f) return fail(404, "No profile");
-  const [plan, played] = await Promise.all([familyPlan(f.profile.id), f.current ? secondsPlayedToday(f.current.id) : Promise.resolve(0)]);
+  const [plan, played, micListen] = await Promise.all([
+    familyPlan(f.profile.id),
+    f.current ? secondsPlayedToday(f.current.id) : Promise.resolve(0),
+    micListenSetting(ctx.me.supabase, f.profile.id).catch(() => null),
+  ]);
   return json({
     profile: { id: profile.id, name: profile.display_name, email: profile.email, role: profile.role, uiLang: profile.ui_lang, telegram: Boolean(profile.telegram_chat_id) },
     children: f.children,
     currentChildId: f.current?.id ?? null,
-    settings: { nightlyLimit: f.nightlyLimit, showAllAges: f.showAllAges, gamesMinutes: f.gamesMinutes },
+    // micListen: "Listen to my child read" (null until migration 0011 is applied).
+    settings: { nightlyLimit: f.nightlyLimit, showAllAges: f.showAllAges, gamesMinutes: f.gamesMinutes, micListen },
     tonight: { read: f.readTonight, limitReached: limitReached(f) },
     games: { secondsToday: played, secondsLeft: f.gamesMinutes === 0 ? 0 : Math.max(0, f.gamesMinutes * 60 - played) },
     plan,
@@ -72,17 +79,19 @@ async function getMe(ctx: Ctx) {
   });
 }
 
-/** PATCH me: { nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name? } */
+/** PATCH me: { nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name?, micListen? } */
 async function patchMe(ctx: Ctx) {
   if (!ctx.me) return fail(401, "Sign in");
-  const b = await body<{ nightlyLimit: number; showAllAges: boolean; gamesMinutes: number; uiLang: string; name: string }>(ctx.request);
+  const b = await body<{ nightlyLimit: number; showAllAges: boolean; gamesMinutes: number; uiLang: string; name: string; micListen: boolean }>(ctx.request);
+  // Saved on its own, so the other settings still save before migration 0011 adds the column.
+  const micSaved = typeof b.micListen === "boolean" ? await saveMicListen(ctx.me.supabase, ctx.me.user.id, b.micListen) : null;
   const update: Record<string, unknown> = {};
   if (Number.isInteger(b.nightlyLimit) && b.nightlyLimit! >= 0 && b.nightlyLimit! <= 20) update.nightly_limit = b.nightlyLimit;
   if (typeof b.showAllAges === "boolean") update.show_all_ages = b.showAllAges;
   if ([0, 10, 20, 30, 60].includes(Number(b.gamesMinutes))) update.games_minutes = Number(b.gamesMinutes);
   if (isLang(b.uiLang)) update.ui_lang = b.uiLang;
   if (typeof b.name === "string") update.display_name = b.name.trim().slice(0, 60);
-  if (!Object.keys(update).length) return fail(400, "Nothing to change");
+  if (!Object.keys(update).length) return micSaved === null ? fail(400, "Nothing to change") : getMe(ctx);
   const { error } = await ctx.me.supabase.from("profiles").update(update).eq("id", ctx.me.user.id);
   return error ? fail(400, error.message) : getMe(ctx);
 }
@@ -137,17 +146,22 @@ async function getStories(ctx: Ctx) {
   return json({ stories });
 }
 
-/** GET stories/:id: one story for reading, with short-lived picture and narration links. */
+/**
+ * GET stories/:id: one story for reading, with short-lived picture and narration links. Voice-actor
+ * narration (launch and studio stories) comes as `audio[page][lang]`, with `wordTimes[page][lang]`
+ * (start of each word in ms) and `narrators[page][lang]`.
+ */
 async function getStoryForReading(ctx: Ctx, id: string) {
   const builtIn = getStory(id);
-  if (builtIn?.isFree) return json({ story: builtIn });
+  const narrated = async (story: Story) => withNarration(story, await signedNarration(story.id).catch(() => null));
+  if (builtIn?.isFree) return json({ story: await narrated(builtIn) });
   const profile = ctx.me ? await profileOf(ctx.me) : null;
   const access = await storyForReading(id, ctx.me?.user.id ?? null, profile?.role === "admin");
   if (!access) return fail(404, "No such story");
   if (!("story" in access)) return json({ locked: access.locked }, 402);
   // Paid launch stories open in the website's animated book inside the app: add ?pass=… to its address.
   const readPass = builtIn && ctx.me ? signReadPass(ctx.me.user.id, id) : undefined;
-  return json({ story: access.story, readPass });
+  return json({ story: await narrated(access.story), readPass });
 }
 
 /** POST progress: { storyId, itemType? } for the current child. Earns a star. */
@@ -252,7 +266,7 @@ async function getStickers(ctx: Ctx) {
   const stories = await stickerStories(f?.profile.id ?? null);
   const basis = f?.current && ctx.me ? await loadStickerBasis(ctx.me.supabase, f.current.id) : EMPTY_BASIS;
   const summary = summarise(stories, basis);
-  return json({ childId: f?.current?.id ?? null, ...summary, finds: basis.finds, positions: basis.positions });
+  return json({ childId: f?.current?.id ?? null, ...summary, finds: basis.finds, positions: basis.positions, reads: basis.reads ?? {} });
 }
 
 /** POST stickers/finds: { storyId, page } — the child found Lali on that page (sent by the reader as `lali:found`). */

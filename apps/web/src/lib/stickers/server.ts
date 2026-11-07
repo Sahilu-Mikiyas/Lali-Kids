@@ -17,17 +17,22 @@ import { addisDay, earnedStickers, EMPTY_BASIS, stickerCatalog, type StickerBasi
 
 /** Reads the child's record with the reading parent's client (row-level security applies). */
 export async function loadStickerBasis(supabase: SupabaseClient, childId: string): Promise<StickerBasis> {
-  const [done, finds, places] = await Promise.all([
+  const [done, finds, places, reads] = await Promise.all([
     supabase.from("completions").select("item_id, completed_at").eq("child_id", childId).eq("item_type", "story").limit(5000),
     supabase.from("lali_finds").select("story_id, page").eq("child_id", childId).limit(5000),
     supabase.from("sticker_positions").select("sticker_id, album_page, x, y, rotation").eq("child_id", childId).limit(500),
+    // Reader stars (migration 0011); empty until it is applied.
+    supabase.from("reader_stars").select("story_id, page").eq("child_id", childId).limit(5000),
   ]);
-  const basis: StickerBasis = { ...EMPTY_BASIS, finds: {}, positions: {} };
+  const basis: StickerBasis = { ...EMPTY_BASIS, finds: {}, positions: {}, reads: {} };
   const rows = (done.data ?? []) as { item_id: string; completed_at: string }[];
   basis.finished = [...new Set(rows.map((r) => r.item_id))];
   basis.days = [...new Set(rows.map((r) => addisDay(r.completed_at)))];
   for (const f of (finds.error ? [] : (finds.data ?? [])) as { story_id: string; page: number }[]) {
     (basis.finds[f.story_id] ??= []).push(f.page);
+  }
+  for (const r of (reads.error ? [] : (reads.data ?? [])) as { story_id: string; page: number }[]) {
+    (basis.reads![r.story_id] ??= []).push(r.page);
   }
   for (const p of (places.error ? [] : (places.data ?? [])) as { sticker_id: string; album_page: number; x: number; y: number; rotation: number }[]) {
     basis.positions[p.sticker_id] = { page: p.album_page, x: p.x, y: p.y, r: p.rotation };

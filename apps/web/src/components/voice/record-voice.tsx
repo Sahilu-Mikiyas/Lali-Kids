@@ -9,6 +9,7 @@ import { uploadVoice, type VoicesStatus } from "@/lib/voices/client";
 import { MAX_BYTES, MAX_SECONDS, RECORDING_TYPES, type FamilyVoice } from "@/lib/voices/shared";
 import { dict } from "@/i18n/dict";
 import { MathsGate } from "../maths-gate";
+import { MicListenSetting } from "../mic-listen-setting";
 
 /*
   "Record your voice": a grown-up reads the story page by page for their own children.
@@ -300,6 +301,7 @@ export function RecordVoiceModal({
             ))}
           </div>
         </div>
+        <MicListenSetting lang={lang} card={false} />
       </div>
     );
   } else if (step === "name") {

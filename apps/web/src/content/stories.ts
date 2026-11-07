@@ -26,6 +26,10 @@ export type Story = {
   pictures?: (string | null)[];
   /** Recorded narration for each page, when there is one. */
   audio?: Partial<Record<Lang, string | null>>[];
+  /** With voice-actor narration: the start of each word in ms (one per word), by page and language. */
+  wordTimes?: Partial<Record<Lang, number[]>>[];
+  /** With voice-actor narration: who reads each page, for the "Read by …" credit. */
+  narrators?: Partial<Record<Lang, string>>[];
   /** Readable without a plan. */
   isFree: boolean;
   /** Paid story the family can't open yet (shown on the shelf with a lock). */

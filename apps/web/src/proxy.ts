@@ -5,9 +5,10 @@ import { isLang, LANG_COOKIE, type UiLang } from "@/i18n/langs";
 import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "@/lib/supabase/env";
 
 /** Paths that need the sign-in session refreshed. The rest skip that work. */
-// Family voice uploads (/api/voices, up to 4 MB) pass through here too: the body is buffered
+// Family voice uploads (/api/voices, up to 4 MB) and narration uploads (/api/admin/narration, up to
+// 15 MB) pass through here too: the body is buffered
 // up to experimental.proxyClientMaxBodySize in next.config.ts (110 MB), well above that.
-const SESSION_PATHS = ["/library", "/admin", "/account", "/login", "/stories", "/stickers", "/subscribe", "/gift", "/games", "/api/books", "/api/voices", "/api/stickers"];
+const SESSION_PATHS = ["/library", "/admin", "/account", "/login", "/stories", "/stickers", "/subscribe", "/gift", "/games", "/api/books", "/api/voices", "/api/stickers", "/api/read-aloud", "/api/narration", "/api/admin"];
 const SIGN_IN_PATHS = ["/library", "/admin", "/account", "/subscribe"];
 const YEAR = 60 * 60 * 24 * 365;
 

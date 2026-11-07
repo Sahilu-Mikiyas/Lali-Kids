@@ -134,6 +134,27 @@ export async function storyForReading(slug: string, familyId: string | null, isA
   return { story: toStory(row as StoryRow, pages, pictures, false, audio) };
 }
 
+/**
+ * Whether a family may open a story, by the same rules as storyForReading (free stories for
+ * anyone, admins see everything including studio drafts, paid stories with a plan), without
+ * signing any links. `free` says whether the story is free; null when there's no such story.
+ */
+export async function storyOpenFor(slug: string, familyId: string | null, isAdmin = false): Promise<{ open: boolean; free: boolean } | null> {
+  const builtIn = getStory(slug);
+  if (builtIn) {
+    if (builtIn.isFree || isAdmin) return { open: true, free: builtIn.isFree };
+    const open = familyId && hasSecretKey() ? await hasActivePlan(familyId) : false;
+    return { open, free: false };
+  }
+  if (!hasSecretKey()) return null;
+  let query = createSupabaseAdmin().from("stories").select("id, is_free").eq("slug", slug);
+  if (!isAdmin) query = query.eq("status", "published");
+  const { data: row } = await query.maybeSingle();
+  if (!row) return null;
+  const open = isAdmin || row.is_free || (familyId ? await hasActivePlan(familyId) : false);
+  return { open, free: Boolean(row.is_free) };
+}
+
 /** A paid launch story as a family without a plan sees it: cover and title, no words. */
 export function lockedLaunch(story: Story): Story {
   return { ...story, pages: story.pages.map(() => ({ en: "", am: "" })), grownUps: undefined, locked: true };

@@ -2825,3 +2825,100 @@ html.lang-arriving body {
     print-color-adjust: exact;
   }
 }
+/* ---------- read-along microphone: the child reads the page aloud ---------- */
+/* words the child has said light up green */
+.lali-word.mic-heard {
+  color: #13723f;
+  background-color: #ddf5d9;
+}
+/* a missed word: a gentle wiggle, never anything red */
+@keyframes mic-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-4deg) scale(1.04); }
+  40% { transform: rotate(3deg) scale(1.04); }
+  60% { transform: rotate(-2deg); }
+  80% { transform: rotate(1deg); }
+}
+.lali-word.mic-try {
+  animation: mic-wiggle 1.1s ease-in-out 0.2s 3 both;
+  text-decoration: underline dotted #f5b21e 0.12em;
+  text-underline-offset: 0.22em;
+}
+.lali-word.mic-try[data-try]:not([data-try=""])::before {
+  content: attr(data-try);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.2em);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.1em 0.55em;
+  border-radius: 999px;
+  background: #fff6d6;
+  color: #7a3e00;
+  font-size: 0.55em;
+  font-weight: 800;
+  box-shadow: 0 2px 0 rgba(201, 138, 10, 0.35);
+  pointer-events: none;
+  animation: mic-bubble 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes mic-bubble {
+  from { opacity: 0; transform: translate(-50%, 0.4em) scale(0.7); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+/* the microphone while it listens or records: soft rings */
+@keyframes mic-ring {
+  from { transform: scale(1); opacity: 0.55; }
+  to { transform: scale(1.75); opacity: 0; }
+}
+.mic-live {
+  isolation: isolate;
+}
+.mic-live::before,
+.mic-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: inherit;
+  z-index: -1;
+  animation: mic-ring 1.6s ease-out infinite;
+}
+.mic-live::after {
+  animation-delay: 0.8s;
+}
+/* the reader star pops in */
+@keyframes mic-star-pop {
+  0% { transform: scale(0) rotate(-120deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(12deg); opacity: 1; }
+  80% { transform: scale(0.92) rotate(-4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.mic-star {
+  animation: mic-star-pop 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+@keyframes mic-burst {
+  0% { transform: scale(0.2); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.mic-burst {
+  animation: mic-burst 1.1s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lali-word.mic-try,
+  .mic-live::before,
+  .mic-live::after,
+  .mic-star,
+  .mic-burst {
+    animation: none;
+  }
+}
+
+/* ---------- narration timing tool (admin) ---------- */
+@keyframes narr-tap {
+  from { transform: scale(0.94); }
+  to { transform: scale(1); }
+}
+.narr-tapped {
+  animation: narr-tap 0.18s ease-out;
+}
