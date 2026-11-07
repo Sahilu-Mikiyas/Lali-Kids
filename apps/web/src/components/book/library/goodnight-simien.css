@@ -1,0 +1,216 @@
+/* Goodnight, Simien (goodnight-simien.tsx): slow, soft movement; transforms and opacity only. */
+
+/* Faces that hold still so their closed eyes stay in place. */
+.goodnight-simien-still .lali-tilt { animation: none; }
+
+/* The sun slides down behind the mountains. */
+@keyframes goodnight-simien-set {
+  from { transform: translateY(-34px); }
+  to { transform: translateY(0); }
+}
+.goodnight-simien-set { animation: goodnight-simien-set 9s ease-out var(--delay, 0.2s) both; }
+
+/* The moon rises over the cliffs. */
+@keyframes goodnight-simien-rise {
+  from { transform: translateY(60px); }
+  to { transform: translateY(0); }
+}
+.goodnight-simien-rise { animation: goodnight-simien-rise 8s ease-out var(--delay, 0.2s) both; }
+
+/* Tonight's new star: it appears slowly, then glimmers. */
+@keyframes goodnight-simien-star-in {
+  0% { transform: scale(0) rotate(-40deg); opacity: 0; }
+  70% { transform: scale(1.25) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.goodnight-simien-star-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goodnight-simien-star-in 2.4s ease-out var(--delay, 1.2s) both;
+}
+@keyframes goodnight-simien-glimmer {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.82); opacity: 0.7; }
+}
+.goodnight-simien-glimmer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goodnight-simien-glimmer var(--dur, 4.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Slow, sleepy breathing for sleeping animals. */
+@keyframes goodnight-simien-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.03, 0.96); }
+}
+.goodnight-simien-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: goodnight-simien-breathe var(--dur, 4.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A slow nod: the head droops, lifts a little, droops again. */
+@keyframes goodnight-simien-nod {
+  0%, 100% { transform: rotate(0); }
+  40%, 60% { transform: rotate(var(--nod, 6deg)); }
+}
+.goodnight-simien-nod {
+  transform-box: fill-box;
+  transform-origin: 30% 90%;
+  animation: goodnight-simien-nod var(--dur, 5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Munching grass: the head dips down and up. */
+@keyframes goodnight-simien-munch {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.goodnight-simien-munch { animation: goodnight-simien-munch 1.6s ease-in-out var(--delay, 0s) infinite; }
+
+/* Walking slowly along a path, one careful step at a time. */
+@keyframes goodnight-simien-step {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+.goodnight-simien-step { animation: goodnight-simien-step 0.8s ease-in-out var(--delay, 0s) infinite; }
+@keyframes goodnight-simien-leg {
+  from { transform: rotate(14deg); }
+  to { transform: rotate(-14deg); }
+}
+.goodnight-simien-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: goodnight-simien-leg 0.8s ease-in-out var(--leg, 0s) infinite alternate;
+}
+
+/* Tip, tap: little hoof clicks that fade. */
+@keyframes goodnight-simien-tap {
+  0%, 60%, 100% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1); opacity: 0.9; }
+  90% { transform: scale(1.3); opacity: 0; }
+}
+.goodnight-simien-tap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goodnight-simien-tap 1.6s ease-out var(--delay, 0s) infinite;
+}
+
+/* The lammergeier glides one last slow circle. */
+@keyframes goodnight-simien-circle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.goodnight-simien-circle {
+  animation: goodnight-simien-circle var(--dur, 16s) linear var(--delay, 0s) infinite;
+}
+/* ...and folds her great wings. */
+@keyframes goodnight-simien-fold {
+  0%, 20% { transform: rotate(var(--open, -60deg)); }
+  100% { transform: rotate(0); }
+}
+.goodnight-simien-fold {
+  transform-box: fill-box;
+  transform-origin: var(--ox, 90%) var(--oy, 20%);
+  animation: goodnight-simien-fold 4s ease-in-out var(--delay, 0.8s) both;
+}
+
+/* Going one place and arriving at another: fade out, fade in. */
+@keyframes goodnight-simien-out {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.goodnight-simien-out { animation: goodnight-simien-out var(--dur, 4s) ease var(--delay, 0s) both; }
+@keyframes goodnight-simien-in {
+  0%, 80% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.goodnight-simien-in { animation: goodnight-simien-in var(--dur, 4s) ease var(--delay, 0s) both; }
+
+/* Hyraxes wriggle into the heap, then lie still. */
+@keyframes goodnight-simien-wriggle {
+  0% { transform: rotate(-8deg) translateY(-3px); }
+  15% { transform: rotate(7deg); }
+  30% { transform: rotate(-5deg); }
+  45% { transform: rotate(3deg); }
+  60%, 100% { transform: rotate(0) translateY(0); }
+}
+.goodnight-simien-wriggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: goodnight-simien-wriggle 3.6s ease-out var(--delay, 0.4s) both;
+}
+
+/* Wind in the lobelias: a slow sway. */
+@keyframes goodnight-simien-sway {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+.goodnight-simien-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: goodnight-simien-sway var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+}
+/* A breath of wind passing by. */
+@keyframes goodnight-simien-wind {
+  0% { transform: translateX(-40px); opacity: 0; }
+  30%, 70% { opacity: 0.7; }
+  100% { transform: translateX(60px); opacity: 0; }
+}
+.goodnight-simien-wind { animation: goodnight-simien-wind var(--dur, 6s) ease-in-out var(--delay, 0s) infinite; }
+
+/* The waterfall streams down, over and over; its mist breathes. */
+@keyframes goodnight-simien-fall {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(0); }
+}
+.goodnight-simien-fall { animation: goodnight-simien-fall 1.8s linear infinite; }
+
+/* Sleepy z's drift up slowly. */
+@keyframes goodnight-simien-zzz {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translate(14px, -30px) scale(1.1); opacity: 0; }
+}
+.goodnight-simien-zzz {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goodnight-simien-zzz 5s ease-out var(--delay, 0s) infinite;
+}
+
+/* Dream bubbles drift up one by one. */
+@keyframes goodnight-simien-dream {
+  0% { transform: translateY(16px) scale(0.6); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.goodnight-simien-dream {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: goodnight-simien-dream 1.8s ease-out var(--delay, 0.8s) both;
+}
+@keyframes goodnight-simien-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.goodnight-simien-bob { animation: goodnight-simien-bob var(--dur, 5s) ease-in-out var(--delay, 0s) infinite; }
+
+/* The lamp goes out: the warm glow fades away and the room turns to moonlight. */
+@keyframes goodnight-simien-lamp-out {
+  0%, 30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.goodnight-simien-lamp-out { animation: goodnight-simien-lamp-out 3.4s ease var(--delay, 1s) both; }
+@keyframes goodnight-simien-puff {
+  0%, 40% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  55% { opacity: 0.8; }
+  100% { transform: translate(6px, -26px) scale(1.4); opacity: 0; }
+}
+.goodnight-simien-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: goodnight-simien-puff 3.4s ease-out var(--delay, 1s) both;
+}
+
+/* With reduced motion, things that leave the picture are simply gone. */
+@media (prefers-reduced-motion: reduce) {
+  .goodnight-simien-gone { opacity: 0; }
+}
