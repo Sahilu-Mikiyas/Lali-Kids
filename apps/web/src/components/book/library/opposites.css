@@ -1,0 +1,215 @@
+/*
+  "Opposites with Anbessa" (opposites.tsx). Transforms and opacity only.
+  The global reduced-motion rule stops every animation; resting poses read on their own:
+  Gugu half out of the basket, the hare mid-dash, the drops mid-spray.
+*/
+
+/* Characters wearing something on their heads keep their heads still, so it stays on. */
+.opposites-still .lali-tilt {
+  animation: none;
+}
+
+/* A word card pops up and then floats. */
+@keyframes opposites-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r0, -2deg)); }
+  50% { transform: translateY(-4px) rotate(var(--r1, 2deg)); }
+}
+.opposites-float {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: opposites-float var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Arrows nudge the way they point. */
+@keyframes opposites-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--ny, -5px)); }
+}
+.opposites-nudge {
+  animation: opposites-nudge 0.9s ease-in-out infinite;
+}
+
+/* Anbessa slides down the trunk and lands with a bump (page 3). */
+@keyframes opposites-slide {
+  0% { transform: translate(-6px, -96px) rotate(-8deg); }
+  55% { transform: translate(0, 0) rotate(0); }
+  64% { transform: translate(0, 0) scale(1.08, 0.9); }
+  76%, 100% { transform: translate(0, 0) scale(1, 1); }
+}
+.opposites-slide {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: opposites-slide 1.6s cubic-bezier(0.5, 0, 0.6, 1) var(--delay, 0.6s) both;
+}
+@keyframes opposites-dust {
+  0%, 30% { transform: scale(0.3); opacity: 0; }
+  45% { opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.opposites-dust {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: opposites-dust 1.8s ease-out var(--delay, 0.6s) both;
+}
+
+/* Leaves twirl down from the tree. */
+@keyframes opposites-leaf {
+  0% { transform: translate(0, -20px) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(14px, 40px) rotate(120deg); }
+  90% { opacity: 1; }
+  100% { transform: translate(-6px, 100px) rotate(260deg); opacity: 0; }
+}
+.opposites-leaf {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: opposites-leaf var(--dur, 5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The hare dashes across; the tortoise plods a little way. */
+@keyframes opposites-dash {
+  0% { transform: translateX(-260px); }
+  45%, 100% { transform: translateX(260px); }
+}
+.opposites-dash {
+  animation: opposites-dash 2.8s cubic-bezier(0.4, 0, 0.7, 1) var(--delay, 0s) infinite;
+}
+@keyframes opposites-bound {
+  0%, 100% { transform: translateY(0) rotate(4deg); }
+  50% { transform: translateY(-10px) rotate(-6deg); }
+}
+.opposites-bound {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: opposites-bound 0.28s ease-in-out infinite;
+}
+@keyframes opposites-plod {
+  from { transform: translateX(-18px); }
+  to { transform: translateX(18px); }
+}
+.opposites-plod {
+  animation: opposites-plod 9s linear infinite alternate;
+}
+@keyframes opposites-step {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+.opposites-step {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: opposites-step 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Gugu hides in the basket, then pops out. Rests popped out. */
+@keyframes opposites-peekaboo {
+  0%, 30% { transform: translateY(70px); }
+  42% { transform: translateY(-12px); }
+  50%, 88% { transform: translateY(0); }
+  100% { transform: translateY(70px); }
+}
+.opposites-peekaboo {
+  animation: opposites-peekaboo 4s cubic-bezier(0.3, 1.3, 0.5, 1) var(--delay, 0s) infinite;
+}
+@keyframes opposites-rock {
+  0%, 30%, 60%, 100% { transform: rotate(0); }
+  36% { transform: rotate(-5deg); }
+  42% { transform: rotate(4deg); }
+  48% { transform: rotate(-2deg); }
+}
+.opposites-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: opposites-rock 4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A wet gelada shakes; the spray flies out. */
+@keyframes opposites-shake {
+  0%, 40%, 100% { transform: rotate(0); }
+  45% { transform: rotate(-7deg); }
+  52% { transform: rotate(7deg); }
+  59% { transform: rotate(-6deg); }
+  66% { transform: rotate(5deg); }
+  73% { transform: rotate(0); }
+}
+.opposites-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 90%;
+  animation: opposites-shake 2.4s ease-in-out infinite;
+}
+@keyframes opposites-spray {
+  0%, 42% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  50% { opacity: 1; }
+  80% { transform: translate(var(--sx), var(--sy)) scale(1); opacity: 1; }
+  100% { transform: translate(var(--sx), calc(var(--sy) + 20px)) scale(0.8); opacity: 0; }
+}
+.opposites-spray {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: opposites-spray 2.4s ease-out infinite;
+}
+
+/* Drum beats: big for loud, tiny for quiet. */
+@keyframes opposites-beat {
+  0%, 100% { transform: rotate(-24deg); }
+  45% { transform: rotate(10deg); }
+}
+.opposites-beat {
+  transform-box: fill-box;
+  transform-origin: 90% 90%;
+  animation: opposites-beat var(--dur, 0.6s) ease-in var(--delay, 0s) infinite;
+}
+@keyframes opposites-wave {
+  0% { transform: scale(0.5); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.opposites-wave {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: opposites-wave var(--dur, 1.2s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Little things float up and fade: notes, z's, hearts, question marks. */
+@keyframes opposites-up {
+  0% { transform: translate(0, 6px) scale(0.6); opacity: 0; }
+  20% { transform: translate(2px, 0) scale(1); opacity: 1; }
+  100% { transform: translate(10px, -30px) scale(0.9); opacity: 0; }
+}
+.opposites-up {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: opposites-up var(--dur, 2.6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A rooster crows: the head goes up. */
+@keyframes opposites-crow {
+  0%, 50%, 100% { transform: rotate(0); }
+  60%, 80% { transform: rotate(-24deg); }
+}
+.opposites-crow {
+  transform-box: fill-box;
+  transform-origin: 30% 90%;
+  animation: opposites-crow 3s ease-in-out infinite;
+}
+
+/* Gugu's arm pats Anbessa's back in the hug. */
+@keyframes opposites-pat {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-8deg); }
+}
+.opposites-pat {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: opposites-pat 1.2s ease-in-out infinite;
+}
+
+/* Thinking: the thought dots pop in one by one, then the question mark wobbles. */
+@keyframes opposites-ponder {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.08); }
+}
+.opposites-ponder {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: opposites-ponder 1.8s ease-in-out infinite;
+}

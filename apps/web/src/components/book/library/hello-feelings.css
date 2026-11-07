@@ -1,0 +1,209 @@
+/*
+  "Hello, Feelings!" (hello-feelings.tsx). Transforms and opacity only.
+  The global reduced-motion rule stops every animation; the resting poses read on their
+  own: the tower fallen, the shadow at full size, Tsehay out with her flowers.
+*/
+
+/* Faces drawn over the shared cub need his head to keep still. */
+.hello-feelings-still .lali-tilt {
+  animation: none;
+}
+
+/* A feeling card floats. */
+@keyframes hello-feelings-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r0, -2deg)); }
+  50% { transform: translateY(-4px) rotate(var(--r1, 2deg)); }
+}
+.hello-feelings-float {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-float var(--dur, 2.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Happy feet: a little dance, side to side and up. */
+@keyframes hello-feelings-dance {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  25% { transform: translateY(-12px) rotate(0); }
+  50% { transform: translateY(0) rotate(6deg); }
+  75% { transform: translateY(-12px) rotate(0); }
+}
+.hello-feelings-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-dance 1.2s ease-in-out infinite;
+}
+
+/* Stompy angry feet: bump, bump. */
+@keyframes hello-feelings-stomp {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  20% { transform: translateY(-8px) scale(0.97, 1.03); }
+  35% { transform: translateY(0) scale(1.05, 0.95); }
+  55% { transform: translateY(-8px) scale(0.97, 1.03); }
+  70% { transform: translateY(0) scale(1.05, 0.95); }
+}
+.hello-feelings-stomp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-stomp 1.1s ease-in-out infinite;
+}
+
+/* A scared shiver. */
+@keyframes hello-feelings-shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.6px); }
+  75% { transform: translateX(1.6px); }
+}
+.hello-feelings-shiver {
+  animation: hello-feelings-shiver 0.16s linear infinite;
+}
+
+/* Steam puffs off an angry head. */
+@keyframes hello-feelings-steam {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(var(--sx, 8px), -26px) scale(1.4); opacity: 0; }
+}
+.hello-feelings-steam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hello-feelings-steam 1.4s ease-out var(--delay, 0s) infinite;
+}
+
+/* A feeling shrinks as it is looked after. Rests small. */
+@keyframes hello-feelings-shrink {
+  0%, 20% { transform: scale(1.6); opacity: 0.9; }
+  100% { transform: scale(0.7); opacity: 0.55; }
+}
+.hello-feelings-shrink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hello-feelings-shrink 4s ease-in-out var(--delay, 0.6s) both;
+}
+
+/* Breathing: in (grow), and out (shrink). */
+@keyframes hello-feelings-breathe {
+  0%, 100% { transform: scale(1); }
+  45%, 55% { transform: scale(1.08); }
+}
+.hello-feelings-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-breathe 4s ease-in-out infinite;
+}
+@keyframes hello-feelings-in {
+  0%, 100% { transform: translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  45% { transform: translateX(var(--bx, 30px)); opacity: 1; }
+  55%, 99% { opacity: 0; }
+}
+.hello-feelings-in {
+  animation: hello-feelings-in 4s ease-in-out infinite;
+}
+@keyframes hello-feelings-out {
+  0%, 50% { transform: translateX(0); opacity: 0; }
+  60% { opacity: 1; }
+  95% { transform: translateX(var(--bx, 30px)); opacity: 1; }
+  100% { opacity: 0; }
+}
+.hello-feelings-out {
+  animation: hello-feelings-out 4s ease-in-out infinite;
+}
+
+/* The candle flame bends away when Anbessa breathes out. */
+@keyframes hello-feelings-blow {
+  0%, 50%, 100% { transform: rotate(0) scale(1); }
+  70%, 90% { transform: rotate(28deg) scale(0.8, 1); }
+}
+.hello-feelings-blow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-blow 4s ease-in-out infinite;
+}
+
+/* Stones fall from the tower (page 5). Rests fallen. */
+@keyframes hello-feelings-tumble {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0); }
+  60% { transform: translate(0, 0) rotate(var(--fr, 90deg)); }
+  75% { transform: translate(0, -5px) rotate(var(--fr, 90deg)); }
+  100% { transform: translate(0, 0) rotate(var(--fr, 90deg)); }
+}
+.hello-feelings-tumble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hello-feelings-tumble 1.2s cubic-bezier(0.5, 0, 0.7, 1) var(--delay, 0.5s) both;
+}
+
+/* Stones stack up into a new tower (page 7). Rests built. */
+@keyframes hello-feelings-stack {
+  0% { transform: translateY(-40px); opacity: 0; }
+  40% { opacity: 1; }
+  80% { transform: translateY(2px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.hello-feelings-stack {
+  animation: hello-feelings-stack 0.6s ease-in var(--delay, 0.5s) both;
+}
+
+/* The shadow creeps up the grass. Rests at full size. */
+@keyframes hello-feelings-creep {
+  from { transform: scaleY(0.5) scaleX(0.8); opacity: 0.4; }
+  to { transform: scaleY(1) scaleX(1); opacity: 1; }
+}
+.hello-feelings-creep {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: hello-feelings-creep 3s ease-in-out var(--delay, 0.3s) both;
+}
+
+/* The goat peeks round the rock. */
+@keyframes hello-feelings-peek {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  50% { transform: translateX(-6px) rotate(-6deg); }
+}
+.hello-feelings-peek {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hello-feelings-peek 2.2s ease-in-out infinite;
+}
+
+/* Surprise! Tsehay springs out from behind the bush. Rests out. */
+@keyframes hello-feelings-spring {
+  0% { transform: translateY(60px); }
+  50% { transform: translateY(-14px); }
+  70% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+.hello-feelings-spring {
+  animation: hello-feelings-spring 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0.6s) both;
+}
+@keyframes hello-feelings-confetti {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(var(--cx), var(--cy)) rotate(300deg); opacity: 0; }
+}
+.hello-feelings-confetti {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hello-feelings-confetti 2.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* Little words float up and fade. */
+@keyframes hello-feelings-up {
+  0% { transform: translate(0, 6px) scale(0.6); opacity: 0; }
+  20% { transform: translate(2px, 0) scale(1); opacity: 1; }
+  100% { transform: translate(10px, -30px) scale(0.9); opacity: 0; }
+}
+.hello-feelings-up {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hello-feelings-up var(--dur, 2.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Feeling clouds drift slowly. */
+@keyframes hello-feelings-drift {
+  from { transform: translateX(calc(var(--px, 10px) * -1)); }
+  to { transform: translateX(var(--px, 10px)); }
+}
+.hello-feelings-drift {
+  animation: hello-feelings-drift var(--dur, 8s) ease-in-out var(--delay, 0s) infinite alternate;
+}
