@@ -38,13 +38,13 @@ import grandmasKitchen from "./grandmas-kitchen";
 // --- slot: hello-feelings
 import helloFeelings from "./hello-feelings";
 // --- slot: meskel-fire
-// import meskelFire from "./meskel-fire";
+import meskelFire from "./meskel-fire";
 // --- slot: timket-river
-// import timketRiver from "./timket-river";
+import timketRiver from "./timket-river";
 // --- slot: genna-game
-// import gennaGame from "./genna-game";
+import gennaGame from "./genna-game";
 // --- slot: ashenda-song
-// import ashendaSong from "./ashenda-song";
+import ashendaSong from "./ashenda-song";
 // --- slot: tortoise-race
 // import tortoiseRace from "./tortoise-race";
 // --- slot: why-hyena-laughs
@@ -102,13 +102,13 @@ export const LIBRARY: Story[] = [
   // --- slot: hello-feelings
   helloFeelings,
   // --- slot: meskel-fire
-  // meskelFire,
+  meskelFire,
   // --- slot: timket-river
-  // timketRiver,
+  timketRiver,
   // --- slot: genna-game
-  // gennaGame,
+  gennaGame,
   // --- slot: ashenda-song
-  // ashendaSong,
+  ashendaSong,
   // --- slot: tortoise-race
   // tortoiseRace,
   // --- slot: why-hyena-laughs

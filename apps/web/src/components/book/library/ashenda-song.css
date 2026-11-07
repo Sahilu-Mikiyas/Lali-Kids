@@ -1,0 +1,223 @@
+/* Ashenda's Song (ashenda-song.tsx): transforms and opacity only. */
+
+/* A door swings open (it folds back against the wall). */
+@keyframes ashenda-song-door {
+  0%, 20% { transform: scaleX(1); }
+  100% { transform: scaleX(0.18); }
+}
+.ashenda-song-door {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: ashenda-song-door 1.2s ease-in-out 0.4s both;
+}
+@keyframes ashenda-song-come-out {
+  0% { transform: translateY(-6px) scale(0.8); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.ashenda-song-come-out {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-come-out 1s ease-out 1.4s both;
+}
+
+/* Shy at first: a little sway from side to side, looking down. */
+@keyframes ashenda-song-shy {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.ashenda-song-shy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-shy 2.6s ease-in-out infinite;
+}
+@keyframes ashenda-song-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.ashenda-song-hop {
+  animation: ashenda-song-hop 0.5s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Auntie's busy hands, braiding. */
+@keyframes ashenda-song-braid {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+.ashenda-song-braid {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-braid 0.8s ease-in-out infinite;
+}
+
+/* Twirling in the new grass skirts, and the swish lines. */
+@keyframes ashenda-song-twirl {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(5deg) translateY(-4px); }
+}
+.ashenda-song-twirl {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-twirl 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes ashenda-song-swishes {
+  0%, 100% { transform: translateX(-4px); opacity: 0.2; }
+  50% { transform: translateX(4px); opacity: 1; }
+}
+.ashenda-song-swishes {
+  animation: ashenda-song-swishes 0.6s ease-in-out infinite;
+}
+
+/* Singing out: a lift on every line. */
+@keyframes ashenda-song-sing {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.03, 1.05); }
+}
+.ashenda-song-sing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-sing 0.7s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes ashenda-song-dance {
+  0% { transform: rotate(-6deg) translateY(0); }
+  50% { transform: rotate(0) translateY(-8px); }
+  100% { transform: rotate(6deg) translateY(0); }
+}
+.ashenda-song-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-dance 0.7s ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+/* Hiding behind the drum, and the silent bubble shrinking away. */
+@keyframes ashenda-song-hide {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(4px) scale(1.02, 0.96); }
+}
+.ashenda-song-hide {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-hide 2.4s ease-in-out infinite;
+}
+@keyframes ashenda-song-shrink {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.85); }
+}
+.ashenda-song-shrink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ashenda-song-shrink 2.4s ease-in-out infinite;
+}
+@keyframes ashenda-song-beat {
+  0%, 100% { transform: scale(0.8); opacity: 0; }
+  15% { transform: scale(1); opacity: 1; }
+  45% { transform: scale(1.2); opacity: 0; }
+}
+.ashenda-song-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ashenda-song-beat 0.9s ease-out var(--delay, 0s) infinite;
+}
+
+/* Lali flies in and lands on the drum. */
+@keyframes ashenda-song-land {
+  0% { transform: translate(120px, -110px) rotate(20deg); }
+  60% { transform: translate(10px, -30px) rotate(-10deg); }
+  85% { transform: translate(0, 4px) rotate(0); }
+  100% { transform: translate(0, 0); }
+}
+.ashenda-song-land {
+  animation: ashenda-song-land 2s ease-out 0.4s both;
+}
+
+/* The old grandmother beckons; then gives the bread. */
+@keyframes ashenda-song-beckon {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-22deg); }
+}
+.ashenda-song-beckon {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: ashenda-song-beckon 1s ease-in-out infinite;
+}
+@keyframes ashenda-song-give {
+  0% { transform: translateX(-14px); }
+  100% { transform: translateX(0); }
+}
+.ashenda-song-give {
+  animation: ashenda-song-give 1.2s ease-out 0.6s both;
+}
+@keyframes ashenda-song-step {
+  0% { transform: translateX(-40px); }
+  100% { transform: translateX(0); }
+}
+.ashenda-song-step {
+  animation: ashenda-song-step 2s ease-out 0.8s both;
+}
+
+/* The first small, wobbly notes. */
+@keyframes ashenda-song-wobble {
+  0%, 100% { transform: translateX(-2px) rotate(-3deg); }
+  50% { transform: translateX(2px) rotate(3deg); }
+}
+.ashenda-song-wobble {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: ashenda-song-wobble 0.5s ease-in-out infinite;
+}
+
+/* Glowing with pride; a little bird singing along. */
+@keyframes ashenda-song-glow-up {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(-6px) scale(1.02, 1.03); }
+}
+.ashenda-song-glow-up {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-glow-up 1.2s ease-in-out infinite;
+}
+@keyframes ashenda-song-bird {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-6px) rotate(-6deg); }
+  50% { transform: translateY(0) rotate(0); }
+}
+.ashenda-song-bird {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-bird 1.4s ease-in-out infinite;
+}
+@keyframes ashenda-song-flap {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-30deg); }
+}
+.ashenda-song-flap {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: ashenda-song-flap 0.3s ease-in-out infinite;
+}
+
+/* Bedtime: the skirt sways on its peg, Tsehay breathes slow, her whisper drifts up. */
+@keyframes ashenda-song-hang {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.ashenda-song-hang {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: ashenda-song-hang 4s ease-in-out infinite;
+}
+@keyframes ashenda-song-sleepy {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-3deg); }
+}
+.ashenda-song-sleepy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ashenda-song-sleepy 4s ease-in-out infinite;
+}
+@keyframes ashenda-song-whisper {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.ashenda-song-whisper {
+  animation: ashenda-song-whisper 3s ease-in-out infinite;
+}

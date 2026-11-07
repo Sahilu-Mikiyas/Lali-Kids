@@ -1,0 +1,291 @@
+/* The Genna Game (genna-game.tsx): transforms and opacity only. */
+
+/* Team flags flutter on the goal posts. */
+@keyframes genna-game-flag {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.75); }
+}
+.genna-game-flag {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: genna-game-flag 0.8s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A ball flying in an arc: across at an even pace, up then down. */
+@keyframes genna-game-fly-x {
+  from { transform: translateX(var(--fx, -100px)); }
+  to { transform: translateX(0); }
+}
+.genna-game-fly-x {
+  animation: genna-game-fly-x var(--dur, 1.2s) linear var(--delay, 0.8s) both;
+}
+@keyframes genna-game-fly-y {
+  0% { transform: translateY(var(--fy, 0px)); animation-timing-function: ease-out; }
+  45% { transform: translateY(var(--lift, -60px)); animation-timing-function: ease-in; }
+  100% { transform: translateY(0); }
+}
+.genna-game-fly-y {
+  animation: genna-game-fly-y var(--dur, 1.2s) var(--delay, 0.8s) both;
+}
+@keyframes genna-game-streak {
+  0%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.genna-game-streak {
+  opacity: 0;
+  animation: genna-game-streak var(--dur, 1.2s) linear var(--delay, 0.8s) both;
+}
+
+/* Dust kicked up by running feet. */
+@keyframes genna-game-dust {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translate(-20px, -10px) scale(1.6); opacity: 0; }
+}
+.genna-game-dust {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: genna-game-dust 1s ease-out var(--delay, 0s) infinite;
+}
+
+/* Sticks: held ready (a little waggle), or swung hard. */
+@keyframes genna-game-ready {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-8deg); }
+}
+.genna-game-ready {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: genna-game-ready 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes genna-game-swing {
+  0% { transform: rotate(0); }
+  35% { transform: rotate(-70deg); }
+  55% { transform: rotate(30deg); }
+  75%, 100% { transform: rotate(0); }
+}
+.genna-game-swing {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: genna-game-swing 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Home: Grandma stirs, the smell wafts, Anbessa sniffs. */
+@keyframes genna-game-stir {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.genna-game-stir {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: genna-game-stir 1.6s ease-in-out infinite;
+}
+@keyframes genna-game-stir-body {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.genna-game-stir-body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-stir-body 1.6s ease-in-out infinite;
+}
+@keyframes genna-game-waft {
+  0% { transform: translate(-20px, 6px); opacity: 0; }
+  30%, 70% { opacity: 1; }
+  100% { transform: translate(20px, -6px); opacity: 0; }
+}
+.genna-game-waft {
+  animation: genna-game-waft 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes genna-game-sniff {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  20% { transform: translateY(-4px) rotate(-3deg); }
+  40% { transform: translateY(0) rotate(0); }
+  60% { transform: translateY(-4px) rotate(-3deg); }
+}
+.genna-game-sniff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-sniff 2s ease-in-out infinite;
+}
+
+/* The game: hops, bounces, the crouch before "go", cheering. */
+@keyframes genna-game-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.genna-game-hop {
+  animation: genna-game-hop 0.5s ease-in-out infinite;
+}
+@keyframes genna-game-bounce {
+  0%, 100% { transform: translateY(0) scale(1.2, 0.8); animation-timing-function: ease-out; }
+  10% { transform: translateY(-4px) scale(1, 1); }
+  50% { transform: translateY(-40px); animation-timing-function: ease-in; }
+}
+.genna-game-bounce {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-bounce 0.8s infinite;
+}
+@keyframes genna-game-crouch {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.95); }
+}
+.genna-game-crouch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-crouch 0.8s ease-in-out infinite;
+}
+@keyframes genna-game-go {
+  0%, 60%, 100% { transform: translateY(0) rotate(0); }
+  70% { transform: translateY(-10px) rotate(-6deg); }
+  85% { transform: translateY(-10px) rotate(6deg); }
+}
+.genna-game-go {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-go 2s ease-in-out 1s infinite;
+}
+@keyframes genna-game-cheer {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.06, 0.92); }
+  45% { transform: translateY(-20px) scale(0.95, 1.06); }
+  75% { transform: translateY(0) scale(1.04, 0.96); }
+}
+.genna-game-cheer {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-cheer 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Back and forth: the two players lean in and out, the ball pings between them. */
+@keyframes genna-game-tussle {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+}
+.genna-game-tussle {
+  animation: genna-game-tussle 1.4s ease-in-out infinite;
+}
+@keyframes genna-game-pingpong {
+  0%, 100% { transform: translate(-36px, 0); animation-timing-function: ease-out; }
+  25% { transform: translate(0, -16px); animation-timing-function: ease-in; }
+  50% { transform: translate(36px, 0); animation-timing-function: ease-out; }
+  75% { transform: translate(0, -16px); animation-timing-function: ease-in; }
+}
+.genna-game-pingpong {
+  animation: genna-game-pingpong 1.4s infinite;
+}
+@keyframes genna-game-clack {
+  0%, 20%, 100% { opacity: 0; transform: scale(0.6); }
+  8% { opacity: 1; transform: scale(1.1); }
+}
+.genna-game-clack {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-clack 0.7s ease-out infinite;
+}
+
+/* The big miss: a swing that spins him round, and a whoosh of empty air. */
+@keyframes genna-game-spin-miss {
+  0%, 30% { transform: rotate(0); }
+  45% { transform: rotate(-10deg); }
+  60% { transform: rotate(6deg); }
+  75%, 100% { transform: rotate(0); }
+}
+.genna-game-spin-miss {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-spin-miss 1.6s ease-in-out infinite;
+}
+@keyframes genna-game-whoosh {
+  0%, 30% { opacity: 0; }
+  50% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+.genna-game-whoosh {
+  animation: genna-game-whoosh 1.6s ease-in-out infinite;
+}
+
+/* Cross: a stamp, the stick thudding down, steam puffing. */
+@keyframes genna-game-stomp {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  10% { transform: translateY(-6px) scale(0.98, 1.03); }
+  20% { transform: translateY(0) scale(1.04, 0.96); }
+  30% { transform: translateY(0) scale(1, 1); }
+}
+.genna-game-stomp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-stomp 2.2s ease-in-out 0.6s infinite;
+}
+@keyframes genna-game-thud {
+  0% { transform: translate(60px, -60px) rotate(-60deg); }
+  40% { transform: translate(0, 0) rotate(0); }
+  55% { transform: translate(-4px, -10px) rotate(6deg); }
+  70%, 100% { transform: translate(0, 0) rotate(0); }
+}
+.genna-game-thud {
+  animation: genna-game-thud 1.2s ease-in 0.4s both;
+}
+@keyframes genna-game-steam {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(var(--sx, 8px), -30px) scale(1.4); opacity: 0; }
+}
+.genna-game-steam {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: genna-game-steam 1.4s ease-out var(--delay, 0s) infinite;
+}
+
+/* Calming down: a long slow breath in and out. */
+@keyframes genna-game-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.05, 1.05); }
+}
+.genna-game-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-breathe 4s ease-in-out infinite;
+}
+@keyframes genna-game-breath {
+  0%, 100% { transform: scale(0.6); opacity: 0.4; }
+  50% { transform: scale(2); opacity: 0.9; }
+}
+.genna-game-breath {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: genna-game-breath 4s ease-in-out infinite;
+}
+
+/* Paws reach out and shake. */
+@keyframes genna-game-shake {
+  0% { transform: translateX(-20px); opacity: 0; }
+  30% { transform: translateX(0); opacity: 1; }
+  40%, 60%, 80% { transform: translateY(-4px); }
+  50%, 70%, 90%, 100% { transform: translateY(2px); }
+}
+.genna-game-shake {
+  animation: genna-game-shake 2.4s ease-in-out 0.6s both;
+}
+
+/* At the feast: a happy nod. */
+@keyframes genna-game-nod {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(4deg); }
+}
+.genna-game-nod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: genna-game-nod 1.6s ease-in-out infinite;
+}
+
+/* With reduced motion, the dust, steam and whoosh simply are not there. */
+@media (prefers-reduced-motion: reduce) {
+  .genna-game-dust,
+  .genna-game-steam {
+    opacity: 0;
+  }
+}

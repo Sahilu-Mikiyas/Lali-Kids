@@ -54,13 +54,13 @@ const GrandmasKitchen = dynamic(() => import("./grandmas-kitchen"), { ssr: false
 // --- slot: hello-feelings
 const HelloFeelings = dynamic(() => import("./hello-feelings"), { ssr: false });
 // --- slot: meskel-fire
-// const MeskelFire = dynamic(() => import("./meskel-fire"), { ssr: false });
+const MeskelFire = dynamic(() => import("./meskel-fire"), { ssr: false });
 // --- slot: timket-river
-// const TimketRiver = dynamic(() => import("./timket-river"), { ssr: false });
+const TimketRiver = dynamic(() => import("./timket-river"), { ssr: false });
 // --- slot: genna-game
-// const GennaGame = dynamic(() => import("./genna-game"), { ssr: false });
+const GennaGame = dynamic(() => import("./genna-game"), { ssr: false });
 // --- slot: ashenda-song
-// const AshendaSong = dynamic(() => import("./ashenda-song"), { ssr: false });
+const AshendaSong = dynamic(() => import("./ashenda-song"), { ssr: false });
 // --- slot: tortoise-race
 // const TortoiseRace = dynamic(() => import("./tortoise-race"), { ssr: false });
 // --- slot: why-hyena-laughs
@@ -118,13 +118,13 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: hello-feelings
   "hello-feelings": HelloFeelings,
   // --- slot: meskel-fire
-  // "meskel-fire": MeskelFire,
+  "meskel-fire": MeskelFire,
   // --- slot: timket-river
-  // "timket-river": TimketRiver,
+  "timket-river": TimketRiver,
   // --- slot: genna-game
-  // "genna-game": GennaGame,
+  "genna-game": GennaGame,
   // --- slot: ashenda-song
-  // "ashenda-song": AshendaSong,
+  "ashenda-song": AshendaSong,
   // --- slot: tortoise-race
   // "tortoise-race": TortoiseRace,
   // --- slot: why-hyena-laughs

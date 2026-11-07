@@ -1,0 +1,164 @@
+/* Meskel Fire (meskel-fire.tsx): transforms and opacity only. */
+
+/* Daisies open one after another, like little suns coming up. */
+@keyframes meskel-fire-open {
+  0% { transform: scale(0.2, 0.2); opacity: 0; }
+  60% { transform: scale(1.1, 1.1); opacity: 1; }
+  100% { transform: scale(1, 1); opacity: 1; }
+}
+.meskel-fire-open {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-open 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0.5s) both;
+}
+
+/* A daisy hops from Anbessa's paw into the basket, again and again. */
+@keyframes meskel-fire-toss {
+  0% { transform: translate(-64px, 10px) scale(0.8); opacity: 0; }
+  10% { opacity: 1; }
+  45% { transform: translate(-30px, -36px) scale(1.1); }
+  80% { transform: translate(0, 4px) scale(1); opacity: 1; }
+  100% { transform: translate(0, 10px) scale(0.6); opacity: 0; }
+}
+.meskel-fire-toss {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: meskel-fire-toss 1.8s ease-in-out 0.6s infinite;
+}
+
+/* Bump, bump over the grass while dragging sticks. */
+@keyframes meskel-fire-bump {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(-2deg); }
+}
+.meskel-fire-bump {
+  animation: meskel-fire-bump 0.45s ease-in-out 6;
+}
+
+/* The sticks stand up into the Demera; the cross drops on top. */
+@keyframes meskel-fire-rise {
+  0% { transform: scaleY(0.08); opacity: 0.4; }
+  70% { transform: scaleY(1.06); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+.meskel-fire-rise {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-rise 1.8s cubic-bezier(0.3, 1.2, 0.5, 1) 0.5s both;
+}
+@keyframes meskel-fire-drop {
+  0% { transform: translateY(-80px); opacity: 0; animation-timing-function: ease-in; }
+  20% { opacity: 1; }
+  70% { transform: translateY(0) scale(1.1, 0.9); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.meskel-fire-drop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-drop 0.9s var(--delay, 3s) both;
+}
+
+/* Anbessa stretches up on tiptoe, again and again, but can't reach. */
+@keyframes meskel-fire-stretch {
+  0%, 100% { transform: scale(1, 1); }
+  45%, 60% { transform: scale(0.97, 1.06); }
+}
+.meskel-fire-stretch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-stretch 2.2s ease-in-out 0.6s infinite;
+}
+@keyframes meskel-fire-reach {
+  0%, 100% { transform: translateY(0); }
+  45%, 60% { transform: translateY(-12px); }
+}
+.meskel-fire-reach {
+  animation: meskel-fire-reach 2.2s ease-in-out 0.6s infinite;
+}
+
+/* Lali flies the daisy up from Anbessa's paw to the cross. */
+@keyframes meskel-fire-carry {
+  0% { transform: translate(-70px, 170px); }
+  35% { transform: translate(-90px, 90px); }
+  70% { transform: translate(-30px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+.meskel-fire-carry {
+  animation: meskel-fire-carry 2.6s ease-in-out 0.4s both;
+}
+@keyframes meskel-fire-cheer {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.06, 0.92); }
+  45% { transform: translateY(-20px) scale(0.95, 1.06); }
+  75% { transform: translateY(0) scale(1.04, 0.96); }
+}
+.meskel-fire-cheer {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-cheer 0.9s ease-in-out 3s infinite;
+}
+
+/* The torch-bearers walk round the Demera: across the front, gently swaying along. */
+@keyframes meskel-fire-circle {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.meskel-fire-circle {
+  animation: meskel-fire-circle 6s ease-in-out infinite;
+}
+
+/* The fire catches: it grows from small to full. */
+@keyframes meskel-fire-catch {
+  0% { transform: scale(0.88); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.meskel-fire-catch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-catch 2s ease-out 0.2s both;
+}
+@keyframes meskel-fire-lean {
+  0%, 100% { transform: rotate(0); }
+  40%, 60% { transform: rotate(12deg); }
+}
+.meskel-fire-lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-lean 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Grandma's paw reaches over and draws the little cross. */
+@keyframes meskel-fire-mark {
+  0% { transform: translate(-20px, 20px); opacity: 0; }
+  30% { opacity: 1; }
+  60%, 80% { transform: translate(0, 0); }
+  100% { transform: translate(-6px, 6px); }
+}
+.meskel-fire-mark {
+  animation: meskel-fire-mark 2.4s ease-in-out 0.5s both;
+}
+
+/* Flames climb the Demera from the bottom up when the torches touch it. */
+@keyframes meskel-fire-climb {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.meskel-fire-climb {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: meskel-fire-climb 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0.4s) both;
+}
+
+/* A new stick drops onto the heap. */
+@keyframes meskel-fire-land {
+  0% { transform: translateY(-40px) rotate(-10deg); opacity: 0; }
+  60% { transform: translateY(2px) rotate(2deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(0); opacity: 1; }
+}
+.meskel-fire-land {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: meskel-fire-land 0.6s ease-in var(--delay, 2.4s) both;
+}

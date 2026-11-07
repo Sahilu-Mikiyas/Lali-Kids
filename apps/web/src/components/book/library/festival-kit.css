@@ -1,0 +1,190 @@
+/* The festival kit (festival-kit.tsx): transforms and opacity only. */
+
+/* People: a gentle sway, a walking bob, nodding heads, clapping hands, waving arms. */
+@keyframes festival-kit-sway {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+.festival-kit-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-sway 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-walk-bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-3px) rotate(1.5deg); }
+}
+.festival-kit-walk-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-walk-bob 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-nod {
+  0%, 60%, 100% { transform: rotate(0); }
+  70% { transform: rotate(-6deg); }
+  85% { transform: rotate(4deg); }
+}
+.festival-kit-nod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-nod 3.4s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-clap {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.9); }
+}
+.festival-kit-clap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: festival-kit-clap 0.6s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-arms-up {
+  0%, 100% { transform: translateY(0) scaleX(1); }
+  50% { transform: translateY(2px) scaleX(1.12); }
+}
+.festival-kit-arms-up {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-arms-up 0.8s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-sing {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.2, 0.55); }
+}
+.festival-kit-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: festival-kit-sing 0.7s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Umbrellas rock on their poles, and the fringe swings a beat behind. */
+@keyframes festival-kit-umbrella {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.festival-kit-umbrella {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-umbrella 3s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-fringe {
+  0%, 100% { transform: translateX(-1.2px); }
+  50% { transform: translateX(1.2px); }
+}
+.festival-kit-fringe {
+  animation: festival-kit-fringe 1.5s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-tabot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.2px); }
+}
+.festival-kit-tabot {
+  animation: festival-kit-tabot 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-sprinkle {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-24deg); }
+  40% { transform: rotate(10deg); }
+}
+.festival-kit-sprinkle {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: festival-kit-sprinkle 1.8s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-drum {
+  0%, 100% { transform: scale(1, 1); }
+  15% { transform: scale(1.06, 0.93); }
+  30% { transform: scale(1, 1); }
+  45% { transform: scale(1.06, 0.93); }
+}
+.festival-kit-drum {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-drum 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Song notes float up and away. */
+@keyframes festival-kit-note {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  20% { transform: translate(2px, -8px) scale(1); opacity: 1; }
+  100% { transform: translate(14px, -46px) scale(0.9); opacity: 0; }
+}
+.festival-kit-note {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: festival-kit-note 3.3s ease-out var(--delay, 0s) infinite;
+}
+
+/* Glows breathe; flames dance; sparks fly; smoke climbs, leaning the way it points. */
+@keyframes festival-kit-glow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.7; }
+}
+.festival-kit-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: festival-kit-glow var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-flame {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  25% { transform: scale(0.95, 1.08) skewX(-3deg); }
+  50% { transform: scale(1.04, 0.94) skewX(2deg); }
+  75% { transform: scale(0.98, 1.05) skewX(3deg); }
+}
+.festival-kit-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: festival-kit-flame var(--dur, 0.8s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-ember {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(var(--ex, 10px), var(--ey, -80px)) scale(0.3); opacity: 0; }
+}
+.festival-kit-ember {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: festival-kit-ember var(--dur, 2.4s) ease-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-smoke {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  15% { opacity: 0.7; }
+  50% { transform: translate(var(--mx, 10px), var(--my, -80px)) scale(1.5); opacity: 0.55; }
+  100% { transform: translate(var(--sx, 60px), var(--sy, -160px)) scale(2.6); opacity: 0; }
+}
+.festival-kit-smoke {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: festival-kit-smoke var(--dur, 6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Ashenda: the grass skirt swishes, the braids swing. */
+@keyframes festival-kit-swish {
+  0%, 100% { transform: skewX(0deg); }
+  25% { transform: skewX(7deg); }
+  75% { transform: skewX(-7deg); }
+}
+.festival-kit-swish {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: festival-kit-swish 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes festival-kit-braids {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(3deg); }
+}
+.festival-kit-braids {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: festival-kit-braids 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* With reduced motion, sparks and smoke puffs are still pictures: the trails show instead. */
+@media (prefers-reduced-motion: reduce) {
+  .festival-kit-ember,
+  .festival-kit-smoke {
+    opacity: 0;
+  }
+}
