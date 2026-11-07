@@ -1,0 +1,247 @@
+/*
+  "A is for Adey Abeba" (a-is-for-adey.tsx). Transforms and opacity only.
+  The global reduced-motion rule stops every animation, and each element's resting
+  state is a readable still pose: letters landed, the fish mid-leap, popcorn mid-pop.
+*/
+
+/* A letter flies in on the wind and lands with a little bounce. */
+@keyframes a-is-for-adey-land {
+  0% { transform: translate(var(--fx, 0px), var(--fy, -90px)) rotate(var(--fr, -30deg)) scale(0.6); opacity: 0; }
+  15% { opacity: 1; }
+  70% { transform: translate(0, 4px) rotate(4deg) scale(1.05); }
+  85% { transform: translate(0, -3px) rotate(-2deg) scale(0.98); }
+  100% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+}
+.a-is-for-adey-land {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-land var(--dur, 1.3s) cubic-bezier(0.3, 0.7, 0.4, 1) var(--delay, 0.5s) both;
+}
+
+/* Letters bob gently once they have landed. */
+@keyframes a-is-for-adey-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+.a-is-for-adey-bob {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: a-is-for-adey-bob var(--dur, 2.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Page 1: the letters swirl out of the hive on the wind, round and round. */
+@keyframes a-is-for-adey-swirl {
+  0% { transform: translate(var(--fx), var(--fy)) rotate(0) scale(0.3); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translate(0, 0) rotate(var(--fr, 360deg)) scale(1); opacity: 1; }
+}
+.a-is-for-adey-swirl {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-swirl var(--dur, 2.4s) cubic-bezier(0.2, 0.6, 0.3, 1) var(--delay, 0.3s) both;
+}
+@keyframes a-is-for-adey-tumble {
+  0%, 100% { transform: translate(0, 0) rotate(-8deg); }
+  50% { transform: translate(6px, -7px) rotate(10deg); }
+}
+.a-is-for-adey-tumble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-tumble var(--dur, 2.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Wind lines streak across. */
+@keyframes a-is-for-adey-gust {
+  0% { transform: translateX(-60px); opacity: 0; }
+  30%, 60% { opacity: 0.9; }
+  100% { transform: translateX(90px); opacity: 0; }
+}
+.a-is-for-adey-gust {
+  animation: a-is-for-adey-gust var(--dur, 2.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A sleepy camel chews. */
+@keyframes a-is-for-adey-chew {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(1.5px, 2px); }
+}
+.a-is-for-adey-chew {
+  animation: a-is-for-adey-chew 0.7s ease-in-out infinite;
+}
+
+/* The drum: the sticks come down, the drum squashes, the boom rings out. */
+@keyframes a-is-for-adey-stick {
+  0%, 100% { transform: rotate(-26deg); }
+  40% { transform: rotate(8deg); }
+  55% { transform: rotate(-4deg); }
+}
+.a-is-for-adey-stick {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: a-is-for-adey-stick 0.8s ease-in var(--delay, 0s) infinite;
+}
+@keyframes a-is-for-adey-thump {
+  0%, 35%, 100% { transform: scale(1, 1); }
+  45% { transform: scale(1.06, 0.93); }
+  60% { transform: scale(0.98, 1.02); }
+}
+.a-is-for-adey-thump {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: a-is-for-adey-thump 0.8s ease-out var(--delay, 0s) infinite;
+}
+@keyframes a-is-for-adey-boom {
+  0%, 38% { transform: scale(0.4); opacity: 0; }
+  48% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1.6) translateY(-10px); opacity: 0; }
+}
+.a-is-for-adey-boom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-boom 0.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* A flag waving in the wind. */
+@keyframes a-is-for-adey-wave {
+  0%, 100% { transform: skewY(-3deg) scaleX(1); }
+  50% { transform: skewY(4deg) scaleX(0.94); }
+}
+.a-is-for-adey-wave {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: a-is-for-adey-wave 1.6s ease-in-out infinite;
+}
+
+/* A fish leaps out of the lake and dives back in. */
+@keyframes a-is-for-adey-leap {
+  0%, 20% { transform: translate(-30px, 30px) rotate(-50deg); opacity: 0; }
+  28% { opacity: 1; }
+  50% { transform: translate(0, -18px) rotate(0deg); }
+  72% { opacity: 1; }
+  80%, 100% { transform: translate(30px, 30px) rotate(60deg); opacity: 0; }
+}
+.a-is-for-adey-leap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-leap var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The hyena laughs: quick little nods. */
+@keyframes a-is-for-adey-laugh {
+  0%, 60%, 100% { transform: rotate(0); }
+  66% { transform: rotate(-9deg); }
+  74% { transform: rotate(3deg); }
+  82% { transform: rotate(-8deg); }
+  90% { transform: rotate(2deg); }
+}
+.a-is-for-adey-laugh {
+  transform-box: fill-box;
+  transform-origin: 70% 80%;
+  animation: a-is-for-adey-laugh 1.8s ease-in-out infinite;
+}
+
+/* Little words and notes float up and fade. */
+@keyframes a-is-for-adey-up {
+  0% { transform: translate(0, 6px) scale(0.6); opacity: 0; }
+  20% { transform: translate(2px, 0) scale(1); opacity: 1; }
+  100% { transform: translate(10px, -30px) scale(0.9); opacity: 0; }
+}
+.a-is-for-adey-up {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-up var(--dur, 2.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Krar strings shiver. */
+@keyframes a-is-for-adey-twang {
+  0%, 100% { transform: scaleX(1); }
+  25% { transform: scaleX(2.2); }
+  50% { transform: scaleX(0.6); }
+  75% { transform: scaleX(1.5); }
+}
+.a-is-for-adey-twang {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-twang 0.3s linear var(--delay, 0s) infinite;
+}
+
+/* The ostrich runs across and back again. */
+@keyframes a-is-for-adey-run {
+  0% { transform: translateX(-110px); opacity: 0; }
+  10%, 85% { opacity: 1; }
+  100% { transform: translateX(120px); opacity: 0; }
+}
+.a-is-for-adey-run {
+  animation: a-is-for-adey-run 3.6s linear infinite;
+}
+@keyframes a-is-for-adey-stride {
+  from { transform: rotate(32deg); }
+  to { transform: rotate(-32deg); }
+}
+.a-is-for-adey-stride {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: a-is-for-adey-stride 0.22s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes a-is-for-adey-jog {
+  50% { transform: translateY(-4px); }
+}
+.a-is-for-adey-jog {
+  animation: a-is-for-adey-jog 0.22s ease-in-out infinite;
+}
+
+/* Popcorn pops up out of the pan. Rests at the top of its jump. */
+@keyframes a-is-for-adey-pop {
+  0% { transform: translate(var(--ax), var(--ay)) scale(0.3); opacity: 0; }
+  15% { opacity: 1; }
+  45% { transform: translate(0, 0) scale(1) rotate(90deg); }
+  100% { transform: translate(var(--bx), var(--by)) scale(1) rotate(200deg); opacity: 0; }
+}
+.a-is-for-adey-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-pop var(--dur, 1.6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Falling water slides down the waterfall. */
+@keyframes a-is-for-adey-fall {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(0); }
+}
+.a-is-for-adey-fall {
+  animation: a-is-for-adey-fall var(--dur, 0.6s) linear infinite;
+}
+
+/* Sleepy z's drift up. */
+@keyframes a-is-for-adey-zzz {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(16px, -36px) scale(1.1); opacity: 0; }
+}
+.a-is-for-adey-zzz {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: a-is-for-adey-zzz 3s ease-out var(--delay, 0s) infinite;
+}
+
+/* The bunting of letters swings a little. */
+@keyframes a-is-for-adey-swing {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.a-is-for-adey-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: a-is-for-adey-swing var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* An ox nods as it chews. */
+@keyframes a-is-for-adey-nod {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(6deg); }
+}
+.a-is-for-adey-nod {
+  transform-box: fill-box;
+  transform-origin: 20% 30%;
+  animation: a-is-for-adey-nod 2.4s ease-in-out infinite;
+}

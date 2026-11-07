@@ -28,15 +28,15 @@ import type { Story } from "../stories";
 // --- slot: teff-patterns
 // import teffPatterns from "./teff-patterns";
 // --- slot: a-is-for-adey
-// import aIsForAdey from "./a-is-for-adey";
+import aIsForAdey from "./a-is-for-adey";
 // --- slot: opposites
-// import opposites from "./opposites";
+import opposites from "./opposites";
 // --- slot: weather-words
-// import weatherWords from "./weather-words";
+import weatherWords from "./weather-words";
 // --- slot: grandmas-kitchen
-// import grandmasKitchen from "./grandmas-kitchen";
+import grandmasKitchen from "./grandmas-kitchen";
 // --- slot: hello-feelings
-// import helloFeelings from "./hello-feelings";
+import helloFeelings from "./hello-feelings";
 // --- slot: meskel-fire
 // import meskelFire from "./meskel-fire";
 // --- slot: timket-river
@@ -92,15 +92,15 @@ export const LIBRARY: Story[] = [
   // --- slot: teff-patterns
   // teffPatterns,
   // --- slot: a-is-for-adey
-  // aIsForAdey,
+  aIsForAdey,
   // --- slot: opposites
-  // opposites,
+  opposites,
   // --- slot: weather-words
-  // weatherWords,
+  weatherWords,
   // --- slot: grandmas-kitchen
-  // grandmasKitchen,
+  grandmasKitchen,
   // --- slot: hello-feelings
-  // helloFeelings,
+  helloFeelings,
   // --- slot: meskel-fire
   // meskelFire,
   // --- slot: timket-river

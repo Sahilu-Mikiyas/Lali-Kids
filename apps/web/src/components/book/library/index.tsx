@@ -29,15 +29,15 @@ import type { ComponentType } from "react";
 // --- slot: teff-patterns
 // import TeffPatterns from "./teff-patterns";
 // --- slot: a-is-for-adey
-// import AIsForAdey from "./a-is-for-adey";
+import AIsForAdey from "./a-is-for-adey";
 // --- slot: opposites
-// import Opposites from "./opposites";
+import Opposites from "./opposites";
 // --- slot: weather-words
-// import WeatherWords from "./weather-words";
+import WeatherWords from "./weather-words";
 // --- slot: grandmas-kitchen
-// import GrandmasKitchen from "./grandmas-kitchen";
+import GrandmasKitchen from "./grandmas-kitchen";
 // --- slot: hello-feelings
-// import HelloFeelings from "./hello-feelings";
+import HelloFeelings from "./hello-feelings";
 // --- slot: meskel-fire
 // import MeskelFire from "./meskel-fire";
 // --- slot: timket-river
@@ -93,15 +93,15 @@ export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: teff-patterns
   // "teff-patterns": TeffPatterns,
   // --- slot: a-is-for-adey
-  // "a-is-for-adey": AIsForAdey,
+  "a-is-for-adey": AIsForAdey,
   // --- slot: opposites
-  // "opposites": Opposites,
+  "opposites": Opposites,
   // --- slot: weather-words
-  // "weather-words": WeatherWords,
+  "weather-words": WeatherWords,
   // --- slot: grandmas-kitchen
-  // "grandmas-kitchen": GrandmasKitchen,
+  "grandmas-kitchen": GrandmasKitchen,
   // --- slot: hello-feelings
-  // "hello-feelings": HelloFeelings,
+  "hello-feelings": HelloFeelings,
   // --- slot: meskel-fire
   // "meskel-fire": MeskelFire,
   // --- slot: timket-river

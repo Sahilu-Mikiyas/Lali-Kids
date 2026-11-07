@@ -1,0 +1,190 @@
+/*
+  "What's in Grandma's Kitchen?" (grandmas-kitchen.tsx). Transforms and opacity only.
+  The global reduced-motion rule stops every animation; the resting poses read on their
+  own: the milk mid-pour, the egg caught in Gugu's hand, the injera bubbles showing.
+*/
+
+/* A word card floats. */
+@keyframes grandmas-kitchen-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r0, -2deg)); }
+  50% { transform: translateY(-4px) rotate(var(--r1, 2deg)); }
+}
+.grandmas-kitchen-float {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandmas-kitchen-float var(--dur, 2.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Bubbles rise in a pot and pop. */
+@keyframes grandmas-kitchen-bubble {
+  0% { transform: translateY(6px) scale(0.3); opacity: 0; }
+  30% { opacity: 1; }
+  80% { transform: translateY(-4px) scale(1); opacity: 1; }
+  100% { transform: translateY(-6px) scale(1.4); opacity: 0; }
+}
+.grandmas-kitchen-bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-bubble var(--dur, 1.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Something pouring: the stream slides down, on a loop. */
+@keyframes grandmas-kitchen-pour {
+  from { transform: translateY(-14px); }
+  to { transform: translateY(0); }
+}
+.grandmas-kitchen-pour {
+  animation: grandmas-kitchen-pour var(--dur, 0.4s) linear infinite;
+}
+
+/* The jug tips to pour. Rests tipped. */
+@keyframes grandmas-kitchen-tip {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-6deg); }
+}
+.grandmas-kitchen-tip {
+  transform-box: fill-box;
+  transform-origin: 80% 80%;
+  animation: grandmas-kitchen-tip 2s ease-in-out infinite;
+}
+
+/* An egg rolls off the table and into Gugu's hand. Rests caught. */
+@keyframes grandmas-kitchen-roll {
+  0% { transform: translate(-70px, -30px) rotate(-360deg); }
+  45% { transform: translate(-20px, -30px) rotate(-90deg); }
+  70% { transform: translate(0, 0) rotate(0); }
+  80% { transform: translate(0, -6px) rotate(10deg); }
+  90%, 100% { transform: translate(0, 0) rotate(0); }
+}
+.grandmas-kitchen-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-roll 2.4s ease-in var(--delay, 0.8s) both;
+}
+
+/* Bread puffs up as it bakes. */
+@keyframes grandmas-kitchen-puff {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.05, 1.1); }
+}
+.grandmas-kitchen-puff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandmas-kitchen-puff 2.4s ease-in-out infinite;
+}
+
+/* Sniff, sniff: noses lift. */
+@keyframes grandmas-kitchen-sniff {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  20% { transform: translateY(-2px) rotate(-4deg); }
+  30% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-2px) rotate(-4deg); }
+  50% { transform: translateY(0) rotate(0); }
+}
+.grandmas-kitchen-sniff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: grandmas-kitchen-sniff 2.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Smells and steam curl up. */
+@keyframes grandmas-kitchen-waft {
+  0% { transform: translate(0, 0) scaleX(1); opacity: 0; }
+  20% { opacity: 0.85; }
+  50% { transform: translate(6px, -20px) scaleX(-1); }
+  100% { transform: translate(-4px, -44px) scaleX(1); opacity: 0; }
+}
+.grandmas-kitchen-waft {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-waft var(--dur, 3.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The injera batter spreads out in a spiral, then the holes pop. */
+@keyframes grandmas-kitchen-spread {
+  from { transform: scale(0.15); }
+  to { transform: scale(1); }
+}
+.grandmas-kitchen-spread {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-spread 2.4s ease-out var(--delay, 0.6s) both;
+}
+@keyframes grandmas-kitchen-hole {
+  0%, 30% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.4); opacity: 1; }
+  70%, 100% { transform: scale(1); opacity: 1; }
+}
+.grandmas-kitchen-hole {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-hole 4.2s ease-out var(--delay, 0s) both;
+}
+
+/* Gugu reaches for the bananas. */
+@keyframes grandmas-kitchen-reach {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-12deg); }
+}
+.grandmas-kitchen-reach {
+  transform-box: fill-box;
+  transform-origin: 10% 90%;
+  animation: grandmas-kitchen-reach 1.6s ease-in-out infinite;
+}
+
+/* The roasting pan shakes over the fire; beans jump. */
+@keyframes grandmas-kitchen-shake {
+  0%, 100% { transform: translateX(-4px) rotate(-2deg); }
+  50% { transform: translateX(4px) rotate(2deg); }
+}
+.grandmas-kitchen-shake {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: grandmas-kitchen-shake 0.5s ease-in-out infinite;
+}
+@keyframes grandmas-kitchen-jump {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-7px) rotate(60deg); }
+}
+.grandmas-kitchen-jump {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-jump 0.5s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Little words float up and fade. */
+@keyframes grandmas-kitchen-up {
+  0% { transform: translate(0, 6px) scale(0.6); opacity: 0; }
+  20% { transform: translate(2px, 0) scale(1); opacity: 1; }
+  100% { transform: translate(10px, -30px) scale(0.9); opacity: 0; }
+}
+.grandmas-kitchen-up {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: grandmas-kitchen-up var(--dur, 2.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Knock, knock: the door shakes. */
+@keyframes grandmas-kitchen-knock {
+  0%, 40%, 100% { transform: rotate(0); }
+  45% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  55% { transform: rotate(-2deg); }
+  60% { transform: rotate(0); }
+}
+.grandmas-kitchen-knock {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: grandmas-kitchen-knock 2s ease-in-out infinite;
+}
+
+/* Grandma's hand brings the gursha to Anbessa. */
+@keyframes grandmas-kitchen-feed {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-10deg); }
+}
+.grandmas-kitchen-feed {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: grandmas-kitchen-feed 2.4s ease-in-out infinite;
+}
