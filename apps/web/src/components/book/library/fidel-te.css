@@ -1,0 +1,143 @@
+/*
+  "Tiny Turtle's Trip te" (fidel-te.tsx): transforms and opacity only.
+  With reduced motion everyone rests in a clear, still pose.
+*/
+
+/* Tiny Turtle's slow, steady steps. */
+@keyframes fidel-te-step {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(14deg); }
+}
+.fidel-te-step {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: fidel-te-step 0.9s ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes fidel-te-plod {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-1.5px) rotate(-1.5deg); }
+}
+.fidel-te-plod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-te-plod 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A slow walk that only creeps a little way while the page is open. */
+@keyframes fidel-te-creep {
+  from { transform: translateX(var(--fx, -30px)); }
+  to { transform: translateX(0); }
+}
+.fidel-te-creep {
+  animation: fidel-te-creep var(--dur, 9s) linear var(--delay, 0s) both;
+}
+
+/* A goat zooms across from the left and on to its place ahead. */
+@keyframes fidel-te-zoom {
+  0% { transform: translateX(var(--fx, -320px)); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.fidel-te-zoom {
+  animation: fidel-te-zoom var(--dur, 1.1s) cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay, 0.5s) both;
+}
+
+/* Bouncy goat hops. */
+@keyframes fidel-te-hop {
+  0%, 100% { transform: translateY(0) scale(1.04, 0.94); }
+  45% { transform: translateY(var(--h, -14px)) scale(0.96, 1.05); }
+}
+.fidel-te-hop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-te-hop var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Round and round, chasing butterflies (a circle made of straight moves, so no turning point is needed). */
+@keyframes fidel-te-orbit {
+  0%, 100% { transform: translate(var(--r, 26px), 0); }
+  12.5% { transform: translate(calc(var(--r, 26px) * 0.7), calc(var(--r, 26px) * 0.35)); }
+  25% { transform: translate(0, calc(var(--r, 26px) * 0.5)); }
+  37.5% { transform: translate(calc(var(--r, 26px) * -0.7), calc(var(--r, 26px) * 0.35)); }
+  50% { transform: translate(calc(var(--r, 26px) * -1), 0); }
+  62.5% { transform: translate(calc(var(--r, 26px) * -0.7), calc(var(--r, 26px) * -0.35)); }
+  75% { transform: translate(0, calc(var(--r, 26px) * -0.5)); }
+  87.5% { transform: translate(calc(var(--r, 26px) * 0.7), calc(var(--r, 26px) * -0.35)); }
+}
+.fidel-te-orbit {
+  animation: fidel-te-orbit var(--dur, 3s) linear var(--delay, 0s) infinite;
+}
+
+/* Dizzy: a wobbly spin, and stars that circle the head. */
+@keyframes fidel-te-dizzy {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+.fidel-te-dizzy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-te-dizzy 0.7s ease-in-out infinite;
+}
+@keyframes fidel-te-circle {
+  to { transform: rotate(360deg); }
+}
+.fidel-te-circle {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: fidel-te-circle var(--dur, 1.6s) linear infinite;
+}
+
+/* Swimming: a gentle rise and fall in the water. */
+@keyframes fidel-te-swim {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(2.5px) rotate(1.5deg); }
+}
+.fidel-te-swim {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-te-swim 1.8s ease-in-out infinite;
+}
+
+/* Little Zs float up from a sleeper. */
+@keyframes fidel-te-zzz {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(14px, -30px) scale(1.1); opacity: 0; }
+}
+.fidel-te-zzz {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-te-zzz 2.6s ease-out var(--delay, 0s) infinite;
+}
+
+/* Confetti tumbling down at the party. */
+@keyframes fidel-te-confetti {
+  0% { transform: translateY(-40px) rotate(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(170px) rotate(540deg); opacity: 0.2; }
+}
+.fidel-te-confetti {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-te-confetti var(--dur, 4s) linear var(--delay, 0s) infinite;
+}
+
+/* Lanterns on their string sway a little. */
+@keyframes fidel-te-swing {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+.fidel-te-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: fidel-te-swing var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+/* The sun sinks to touch the hills. */
+@keyframes fidel-te-sink {
+  from { transform: translateY(-50px); }
+  to { transform: translateY(0); }
+}
+.fidel-te-sink {
+  animation: fidel-te-sink 5s ease-out 0.2s both;
+}

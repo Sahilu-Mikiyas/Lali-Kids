@@ -9,15 +9,15 @@ import type { ComponentType } from "react";
 */
 
 // --- slot: fidel-be
-// import FidelBe from "./fidel-be";
+import FidelBe from "./fidel-be";
 // --- slot: fidel-se
-// import FidelSe from "./fidel-se";
+import FidelSe from "./fidel-se";
 // --- slot: fidel-re
-// import FidelRe from "./fidel-re";
+import FidelRe from "./fidel-re";
 // --- slot: fidel-te
-// import FidelTe from "./fidel-te";
+import FidelTe from "./fidel-te";
 // --- slot: fidel-ne
-// import FidelNe from "./fidel-ne";
+import FidelNe from "./fidel-ne";
 // --- slot: ten-tukuls
 // import TenTukuls from "./ten-tukuls";
 // --- slot: shapes-safari
@@ -73,15 +73,15 @@ import type { ComponentType } from "react";
 
 export const LIBRARY_SCENES: Record<string, ComponentType<{ page: number }>> = {
   // --- slot: fidel-be
-  // "fidel-be": FidelBe,
+  "fidel-be": FidelBe,
   // --- slot: fidel-se
-  // "fidel-se": FidelSe,
+  "fidel-se": FidelSe,
   // --- slot: fidel-re
-  // "fidel-re": FidelRe,
+  "fidel-re": FidelRe,
   // --- slot: fidel-te
-  // "fidel-te": FidelTe,
+  "fidel-te": FidelTe,
   // --- slot: fidel-ne
-  // "fidel-ne": FidelNe,
+  "fidel-ne": FidelNe,
   // --- slot: ten-tukuls
   // "ten-tukuls": TenTukuls,
   // --- slot: shapes-safari

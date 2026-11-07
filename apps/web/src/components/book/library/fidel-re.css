@@ -1,0 +1,130 @@
+/*
+  "Race to the River re" (fidel-re.tsx): transforms and opacity only.
+  With reduced motion every runner rests in a clear, still pose.
+*/
+
+/* Running legs and pumping arms. */
+@keyframes fidel-re-leg {
+  from { transform: rotate(-38deg); }
+  to { transform: rotate(38deg); }
+}
+.fidel-re-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: fidel-re-leg var(--dur, 0.26s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes fidel-re-arm {
+  from { transform: rotate(-40deg); }
+  to { transform: rotate(40deg); }
+}
+.fidel-re-arm {
+  transform-box: fill-box;
+  transform-origin: 50% 10%;
+  animation: fidel-re-arm var(--dur, 0.26s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+@keyframes fidel-re-bob {
+  50% { transform: translateY(-3px); }
+}
+.fidel-re-bob {
+  animation: fidel-re-bob calc(var(--dur, 0.26s)) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The ground rushes past under the runners. */
+@keyframes fidel-re-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(var(--w, 400px) * -1)); }
+}
+.fidel-re-scroll {
+  animation: fidel-re-scroll var(--dur, 2s) linear infinite;
+}
+
+/* A dash off the start line. */
+@keyframes fidel-re-dash {
+  0%, 20% { transform: translateX(var(--fx, -90px)); }
+  100% { transform: translateX(0); }
+}
+.fidel-re-dash {
+  animation: fidel-re-dash var(--dur, 1.6s) cubic-bezier(0.5, 0, 0.3, 1) var(--delay, 0.6s) both;
+}
+
+/* Dust puffs swell and fade. */
+@keyframes fidel-re-puff {
+  0% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translate(var(--dx, -26px), -10px) scale(1.4); opacity: 0; }
+}
+.fidel-re-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-re-puff var(--dur, 1s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Rolling like a ball. */
+@keyframes fidel-re-roll {
+  to { transform: rotate(360deg); }
+}
+.fidel-re-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-re-roll var(--dur, 0.9s) linear var(--delay, 0s) infinite;
+}
+
+/* Tripping over the root: a tip forward and a wobble. */
+@keyframes fidel-re-trip {
+  0%, 30% { transform: rotate(0); }
+  50% { transform: rotate(38deg); }
+  65% { transform: rotate(28deg); }
+  80%, 100% { transform: rotate(34deg); }
+}
+.fidel-re-trip {
+  transform-box: fill-box;
+  transform-origin: 70% 100%;
+  animation: fidel-re-trip 2.4s ease-out var(--delay, 0.4s) both;
+}
+
+/* Bump! A runner slides into the one in front and squashes. */
+@keyframes fidel-re-bump {
+  0% { transform: translateX(var(--fx, -40px)) scale(1, 1); }
+  60% { transform: translateX(0) scale(1, 1); }
+  72% { transform: translateX(3px) scale(0.86, 1.08); }
+  86% { transform: translateX(-2px) scale(1.04, 0.97); }
+  100% { transform: translateX(0) scale(1, 1); }
+}
+.fidel-re-bump {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: fidel-re-bump 1.1s ease-in var(--delay, 0.6s) both;
+}
+
+/* The big giggling ball rolls down the hill to the river. */
+@keyframes fidel-re-tumble {
+  from { transform: translate(var(--fx, -150px), var(--fy, -90px)); }
+  to { transform: translate(0, 0); }
+}
+.fidel-re-tumble {
+  animation: fidel-re-tumble 3.6s cubic-bezier(0.5, 0, 0.6, 1) var(--delay, 0.3s) both;
+}
+
+/* Water drops fly up from a splash and fall. */
+@keyframes fidel-re-drop {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  12% { opacity: 1; }
+  45% { transform: translate(calc(var(--dx, 20px) * 0.6), var(--up, -50px)) scale(1); }
+  100% { transform: translate(var(--dx, 20px), 10px) scale(0.7); opacity: 0; }
+}
+.fidel-re-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-re-drop var(--dur, 1.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Splashing arms. */
+@keyframes fidel-re-paddle {
+  from { transform: rotate(-30deg); }
+  to { transform: rotate(25deg); }
+}
+.fidel-re-paddle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-re-paddle 0.4s ease-in-out var(--delay, 0s) infinite alternate;
+}

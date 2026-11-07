@@ -8,15 +8,15 @@ import type { Story } from "../stories";
 */
 
 // --- slot: fidel-be
-// import fidelBe from "./fidel-be";
+import fidelBe from "./fidel-be";
 // --- slot: fidel-se
-// import fidelSe from "./fidel-se";
+import fidelSe from "./fidel-se";
 // --- slot: fidel-re
-// import fidelRe from "./fidel-re";
+import fidelRe from "./fidel-re";
 // --- slot: fidel-te
-// import fidelTe from "./fidel-te";
+import fidelTe from "./fidel-te";
 // --- slot: fidel-ne
-// import fidelNe from "./fidel-ne";
+import fidelNe from "./fidel-ne";
 // --- slot: ten-tukuls
 // import tenTukuls from "./ten-tukuls";
 // --- slot: shapes-safari
@@ -72,15 +72,15 @@ import type { Story } from "../stories";
 
 export const LIBRARY: Story[] = [
   // --- slot: fidel-be
-  // fidelBe,
+  fidelBe,
   // --- slot: fidel-se
-  // fidelSe,
+  fidelSe,
   // --- slot: fidel-re
-  // fidelRe,
+  fidelRe,
   // --- slot: fidel-te
-  // fidelTe,
+  fidelTe,
   // --- slot: fidel-ne
-  // fidelNe,
+  fidelNe,
   // --- slot: ten-tukuls
   // tenTukuls,
   // --- slot: shapes-safari

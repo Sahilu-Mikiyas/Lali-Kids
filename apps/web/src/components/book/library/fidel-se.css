@@ -1,0 +1,84 @@
+/*
+  "Seven Sheep for se" (fidel-se.tsx): transforms and opacity only.
+  With reduced motion every sheep rests in its final place.
+*/
+
+/* Little legs trotting. */
+@keyframes fidel-se-leg {
+  from { transform: rotate(-16deg); }
+  to { transform: rotate(16deg); }
+}
+.fidel-se-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: fidel-se-leg 0.28s ease-in-out var(--delay, 0s) var(--steps, infinite) alternate;
+}
+
+/* Munching: the head dips to the grass and comes up chewing. */
+@keyframes fidel-se-munch {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  20%, 45% { transform: rotate(var(--mr, 14deg)) translateY(5px); }
+  55% { transform: rotate(0) translateY(0); }
+  62% { transform: translateY(1px); }
+  70% { transform: translateY(0); }
+}
+.fidel-se-munch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-se-munch var(--dur, 3.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A sheep trots into its place in the line, bobbing as it comes. */
+@keyframes fidel-se-trot {
+  0% { transform: translate(var(--fx, -120px), 0); }
+  100% { transform: translate(0, 0); }
+}
+.fidel-se-trot {
+  animation: fidel-se-trot var(--dur, 1.8s) cubic-bezier(0.35, 0, 0.35, 1) var(--delay, 0.6s) both;
+}
+@keyframes fidel-se-bob {
+  50% { transform: translateY(-4px); }
+}
+.fidel-se-bob {
+  animation: fidel-se-bob 0.28s ease-in-out var(--delay, 0.6s) var(--steps, 6);
+}
+
+/* A snore rises from the sleeper: the letter floats up, grows and fades. */
+@keyframes fidel-se-snore {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(var(--sx, 18px), -46px) scale(1.15); opacity: 0; }
+}
+.fidel-se-snore {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fidel-se-snore 3s ease-out var(--delay, 0s) infinite;
+}
+
+/* A big, slow sleeping breath. */
+@keyframes fidel-se-sleep {
+  50% { transform: scale(1.05, 0.95); }
+}
+.fidel-se-sleep {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fidel-se-sleep 3s ease-in-out infinite;
+}
+
+/* The sun slides down to the hills as the page opens. */
+@keyframes fidel-se-sink {
+  from { transform: translateY(-40px); }
+  to { transform: translateY(0); }
+}
+.fidel-se-sink {
+  animation: fidel-se-sink 4s ease-out 0.2s both;
+}
+
+/* The lizard peeks out from behind the rock, and hides again. */
+@keyframes fidel-se-peek {
+  0%, 15%, 85%, 100% { transform: translateX(16px); }
+  30%, 70% { transform: translateX(0); }
+}
+.fidel-se-peek {
+  animation: fidel-se-peek 4s ease-in-out var(--delay, 0s) infinite;
+}
