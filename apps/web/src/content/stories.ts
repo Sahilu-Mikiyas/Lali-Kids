@@ -1,3 +1,4 @@
+import { COURSE_STORIES } from './courses/stories';
 import { LIBRARY } from './library';
 
 export type Lang = 'en' | 'am';
@@ -53,6 +54,8 @@ export type Story = {
   narrators?: Partial<Record<Lang, string>>[];
   /** Readable without a plan. */
   isFree: boolean;
+  /** For a learning package's teaching story: the course it belongs to (src/content/courses). */
+  course?: import('./courses/types').CourseId;
   /** The package it belongs to; `story` (the Story Garden) when left out. */
   pack?: Pack;
   /** Paid story the family can't open yet (shown on the shelf with a lock). */
@@ -844,7 +847,7 @@ const LAUNCH: Story[] = [
 ];
 
 /** Every story in the library: the launch stories, then one file per story in ./library. */
-export const STORIES: Story[] = [...LAUNCH, ...LIBRARY];
+export const STORIES: Story[] = [...LAUNCH, ...LIBRARY, ...COURSE_STORIES];
 
 export function getStory(id: string): Story | undefined {
   return STORIES.find((s) => s.id === id);

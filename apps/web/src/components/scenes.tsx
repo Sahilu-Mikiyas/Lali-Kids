@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 
 import type { SceneKind } from "@/content/stories";
 import { Air } from "./book/scenery";
+import { COURSE_SCENES } from "./book/courses";
 import { LIBRARY_SCENES } from "./book/library";
 
 /*
@@ -46,7 +47,7 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "firstday" && <FirstDayScene page={page} />}
       {kind === "coffee" && <CoffeeMysteryScene page={page} />}
       {kind === "lalibela" && <LalibelaScene page={page} />}
-      {kind.startsWith("lib-") && LIBRARY_SCENES[kind.slice(4)] && <LibraryScene kind={kind} page={page} />}
+      {kind.startsWith("lib-") && (LIBRARY_SCENES[kind.slice(4)] || COURSE_SCENES[kind.slice(4)]) && <LibraryScene kind={kind} page={page} />}
       {AIR[kind] && <Air kind={AIR[kind](page)} seed={page * 7 + 3} />}
     </svg>
   );
@@ -54,6 +55,6 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
 
 /** A library story's scene (src/components/book/library/<id>.tsx). */
 function LibraryScene({ kind, page }: { kind: string; page: number }) {
-  const Comp = LIBRARY_SCENES[kind.slice(4)];
+  const Comp = LIBRARY_SCENES[kind.slice(4)] ?? COURSE_SCENES[kind.slice(4)];
   return Comp ? <Comp page={page} /> : null;
 }

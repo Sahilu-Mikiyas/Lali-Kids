@@ -1,62 +1,50 @@
-# Lali packages
+# Lali plans and learning packages (v2)
 
-Every story belongs to one **pack** (`pack` on `Story` in `apps/web/src/content/stories.ts`;
-`story` when left out). The plan a family pays for decides which packs open.
+Decided with the founder on 8 November 2026. This replaces the earlier "packs" model.
 
-| Pack | What's in it | Ages | Opens with |
+## Monthly plans: the story library
+
+| Plan (internal id) | Price | What it opens |
+|---|---|---|
+| **Starter** (`reader`) | 400 birr / month | The Story Garden library (picture books, about 25 at launch, 4 new a month), 1 child, stickers, Find Lali, the read-aloud mic, printables for these stories |
+| **Family** (`learner`) | 650 birr / month | Everything in Starter + up to 3 children, games, family voices, narration, the progress map, the weekly Telegram note, offline reading in the app |
+| **VIP** (`vip`) | 2,500 birr / month | Everything, up to 4 children, **every learning package** (one at a time per child, see below), printed book and live reading circle |
+
+The internal ids stay `reader`, `learner` and `vip` so existing subscriptions, payments and gifts
+keep working; only the names, prices and contents change.
+
+**Free tasters:** about 5 picture books, plus the first story of each live learning package.
+
+## Learning packages: buy once, keep for good
+
+About **1,500 birr each**, bought once per family (every child in the family can use it, each with
+their own progress). Each package is a **course**: 5–6 levels, each with 4–5 teaching stories,
+interactive demonstrations, practice and a level quiz; then a final mastery test and a certificate.
+About 25–30 stories, 40+ activities and 6+ quizzes per package; 6–10 weeks of learning at 3–4
+sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
+
+| # | Package (id) | Ages | Status |
 |---|---|---|---|
-| **Story Garden** (`story`) | Picture books: bedtime, festivals, folk tales, everyday adventures, kindness and courage | 3–9 | Reader, Learner, VIP |
-| **Fidel** (`fidel`) | The Amharic letters, a family at a time: sounds, chants, first words | 3–7 | Learner, VIP |
-| **Numbers** (`numbers`) | Counting with Ge'ez numerals, shapes, sizes, patterns, money | 3–9 | Learner, VIP |
-| **English** (`english`) | Letters, first words, opposites, feelings, everyday vocabulary | 3–7 | Learner, VIP |
+| 1 | Fidel Foundations (`fidel-foundations`) | 3–6 | **Launch** |
+| 2 | Amharic Readers (`amharic-readers`) | 6–9 | Coming soon |
+| 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Launch** |
+| 4 | Maths Explorers (`maths-explorers`) | 6–9 | Coming soon |
+| 5 | English First Words (`english-first-words`) | 3–6 | Coming soon |
+| 6 | English Readers (`english-readers`) | 6–9 | Coming soon |
+| 7 | Values & Character (`values-character`) | 3–9 | **Launch** |
+| 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | Coming soon |
+| 9 | Science & Nature (`science-nature`) | 5–9 | Coming soon |
+| 10 | Healthy & Safe (`healthy-safe`) | 3–7 | Coming soon |
 
-| Plan | Price | Packs | Extras |
-|---|---|---|---|
-| **Free** | 0 | A few free stories from each pack | Stickers, Find Lali, read-along mic |
-| **Reader** | 400 birr / 30 days | Story Garden | Printable activities for its stories, 1 child |
-| **Learner** | 1,200 birr / 30 days | Story Garden + Fidel + Numbers + English | All printables, progress map, up to 2 children |
-| **VIP** | 5,000 birr / 30 days | Everything | Everything in Learner, up to 4 children, printed book and live reading circle (run by the Lali team) |
+The six Fidel stories become the first levels of Fidel Foundations and the six Numbers stories the
+first levels of Numbers & Counting. The six English stories stay in the Story Garden library until
+English First Words launches.
 
-Free stories stay open to everyone whatever their pack, so every pack has a taster.
+## VIP: one package at a time, by mastery
 
-## The 40-story launch library
-
-| # | Story | Pack | Ages |
-|---|---|---|---|
-| 1 | Anbessa and the New Year Flowers | Story Garden | 3–7 (free) |
-| 2 | Anbessa and the Lost Moon | Story Garden | 3–7 (free) |
-| 3 | Gugu Counts the Sheep | Numbers | 3–7 (free) |
-| 4 | Lali Shares the Honey | Story Garden | 3–7 (free) |
-| 5 | Gugu and the Rainbow Puddle | English | 3–5 |
-| 6 | The Fidel Train ሀ ሁ ሂ | Fidel | 3–5 |
-| 7 | Anbessa's First Day at School | Story Garden | 3–7 |
-| 8 | The Great Coffee Bean Mystery | Story Garden | 6–9 |
-| 9 | Lali Visits Lalibela | Story Garden | 6–9 |
-| 10–14 | The Busy Bees of በ · Seven Sheep for ሰ · Race to the River ረ · Tiny Turtle's Trip ተ · Nana's Night Market ነ | Fidel | 3–7 |
-| 15–19 | Ten Tukuls · Gugu's Shapes Safari · Bigger, Smaller, Anbessa! · Lali's Market Money · The Teff Harvest Patterns | Numbers | 3–9 |
-| 20–24 | A is for Adey Abeba · Opposites with Anbessa · Lali's Weather Words · What's in Grandma's Kitchen? · Hello, Feelings! | English | 3–7 |
-| 25–28 | Meskel Fire · Timket by the River · The Genna Game · Ashenda's Song | Story Garden (festivals) | 3–9 |
-| 29–32 | The Tortoise and the Lion's Race · Why the Hyena Laughs · The Clever Monkey · Kaldi and the Dancing Goats | Story Garden (folk tales) | 3–9 |
-| 33–36 | Gugu's Big Sneeze · Lali and the Lost Kite · Anbessa Learns to Swim · Grandpa's Krar | Story Garden (adventures) | 3–7 |
-| 37–40 | The Biggest Injera · The Night Visitors of Harar · Tsehay's New Baby Brother · Goodnight, Simien | Story Garden (family and bedtime) | 3–7 |
-
-In each pack, the first story of the pack's set is free, so families can try it.
-
-## In the code
-
-- `apps/web/src/lib/packs.ts` holds the rules: `packsForPlan(planId)` and `canOpen(story, plan)`.
-  The shelf, the reader (launch and studio stories, read passes), narration, printable activities
-  and the app's API all ask it. The plan is read with `activePlanId` (`lib/payments/subscription.ts`).
-- Studio stories get their pack from `stories.pack` (migration 0014), chosen in the story studio or
-  following the world (Fidel → fidel, Maths → numbers, English → english, others → story). Before
-  the migration is applied, studio stories count as `story`.
-- `teaches` on a story (`fidel`, `numbers`, `words`) feeds the progress map and the printable sheets.
-  Stories without it count by their pack.
-- Printable activities: `/stories/<id>/activities`. Progress map: `/account/progress/<childId>`.
-- **School licences** (`docs/SCHOOLS.md`) open every pack for a school's classes, and for its
-  teachers' own accounts, until the licence's end date.
-- **The child's name** (`{name}` in a page's text) and **story choices** (`choices` and `next` on
-  a page) are described on `StoryPage` in `apps/web/src/content/stories.ts`; the helpers are in
-  `apps/web/src/lib/story-path.ts`. "Which Way, Lali?" (`which-way-lali`) is the first story with
-  choices; Ten Tukuls, Opposites and Hello, Feelings! say `{name}`. A `{name}` page always uses the
-  browser's voice, because recorded narration can't say every name.
+- **Per child**: each child has one active package at a time (siblings aren't held back).
+- **Mastery**: a level unlocks after the previous level's quiz is passed (80%); the package is
+  complete when the final test is passed (80%).
+- **Pace**: at most one new level every 4 days, so a package takes at least about a month.
+- Finished packages stay open while the family is VIP; only *starting* a new one is gated.
+- Families who **bought** a package have no pace limit on it (mastery still unlocks levels).
