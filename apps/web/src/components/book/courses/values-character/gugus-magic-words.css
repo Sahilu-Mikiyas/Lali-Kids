@@ -1,0 +1,34 @@
+/* Gugu's Magic Words (gugus-magic-words.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Lines burst out when a door bangs shut, then fade. */
+@keyframes gugus-magic-words-bang {
+  0% { transform: scale(0.3); opacity: 0; }
+  20% { transform: scale(1.15); opacity: 1; }
+  60% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+.gugus-magic-words-bang {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-magic-words-bang 1.2s ease-out var(--delay, 1.5s) both;
+}
+
+/* Gugu runs in from the left. */
+@keyframes gugus-magic-words-run {
+  from { transform: translateX(-160px); }
+  to { transform: translateX(0); }
+}
+.gugus-magic-words-run { animation: gugus-magic-words-run 1.2s ease-out 0.2s both; }
+
+/* The wind snatches the ribbon away up into the air. */
+@keyframes gugus-magic-words-snatch {
+  0% { transform: translate(-70px, 80px) rotate(0deg); }
+  60% { transform: translate(0, 0) rotate(20deg); }
+  80% { transform: translate(6px, -6px) rotate(-10deg); }
+  100% { transform: translate(0, 0) rotate(8deg); }
+}
+.gugus-magic-words-snatch {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gugus-magic-words-snatch 1.6s ease-out 0.8s both;
+}

@@ -1,0 +1,64 @@
+/* A Promise Is a Promise (promise-is-a-promise.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Feast flags flutter on their string. */
+@keyframes promise-is-a-promise-flag {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(6deg); }
+}
+.promise-is-a-promise-flag {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: promise-is-a-promise-flag 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Wedding dancing: shoulders up and down (eskista-style bounce) and a sway. */
+@keyframes promise-is-a-promise-dance {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  25% { transform: translateY(-6px) rotate(0deg); }
+  50% { transform: translateY(0) rotate(4deg); }
+  75% { transform: translateY(-6px) rotate(0deg); }
+}
+.promise-is-a-promise-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: promise-is-a-promise-dance 0.9s ease-in-out infinite;
+}
+
+/* Friends running off to the right. */
+@keyframes promise-is-a-promise-run-right {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(60px); }
+}
+.promise-is-a-promise-run-right { animation: promise-is-a-promise-run-right 3s ease-in 0.2s both; }
+
+/* Torn two ways: leaning toward one side, then the other. */
+@keyframes promise-is-a-promise-torn {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+.promise-is-a-promise-torn {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: promise-is-a-promise-torn 2.4s ease-in-out infinite;
+}
+
+/* A dash across the picture. */
+@keyframes promise-is-a-promise-dash {
+  from { transform: translateX(-260px); }
+  to { transform: translateX(40px); }
+}
+.promise-is-a-promise-dash { animation: promise-is-a-promise-dash 2.2s ease-out 0.2s both; }
+
+/* Carrying the jerrycan home together, step by step. */
+@keyframes promise-is-a-promise-carry {
+  0%, 100% { transform: translate(40px, 0); }
+  50% { transform: translate(0, -3px); }
+}
+.promise-is-a-promise-carry { animation: promise-is-a-promise-carry 3s ease-in-out infinite; }
+
+/* The wedding arrives from the left. */
+@keyframes promise-is-a-promise-arrive {
+  from { transform: translateX(-200px); }
+  to { transform: translateX(0); }
+}
+.promise-is-a-promise-arrive { animation: promise-is-a-promise-arrive 3s ease-out 0.3s both; }

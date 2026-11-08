@@ -1,6 +1,42 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
+/*
+  Animated scenes for the Values & Character stories, by story id (story `scene: "lib-<id>"`).
+  Each story has its own file here (./<id>.tsx with ./<id>.css); they share the course's cast,
+  places and props (./kit-cast.tsx, ./kit-places.tsx, ./kit-props.tsx, ./kit.css).
+  Loaded in the browser only (ssr: false), like the library's scenes.
+*/
+// Level 1: respect and kindness at home
+const TallestTower = dynamic(() => import("./tallest-tower"), { ssr: false });
+const GugusMagicWords = dynamic(() => import("./gugus-magic-words"), { ssr: false });
+const TsehaysLittleHands = dynamic(() => import("./tsehays-little-hands"), { ssr: false });
+const HawiSaysHello = dynamic(() => import("./hawi-says-hello"), { ssr: false });
+// Level 2: honesty and responsibility
+const WhoAteTheBread = dynamic(() => import("./who-ate-the-bread"), { ssr: false });
+const PromiseIsAPromise = dynamic(() => import("./promise-is-a-promise"), { ssr: false });
+const AyansRedSandals = dynamic(() => import("./ayans-red-sandals"), { ssr: false });
+const BallInTheGarden = dynamic(() => import("./ball-in-the-garden"), { ssr: false });
+// Level 3: sharing and hospitality
+const TheBestBite = dynamic(() => import("./the-best-bite"), { ssr: false });
+const AlwaysRoom = dynamic(() => import("./always-room"), { ssr: false });
+const ThreeCupsOfCoffee = dynamic(() => import("./three-cups-of-coffee"), { ssr: false });
+const DeboDay = dynamic(() => import("./debo-day"), { ssr: false });
+
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
-export const SCENES: Record<string, ComponentType<{ page: number }>> = {};
+export const SCENES: Record<string, ComponentType<{ page: number }>> = {
+  "tallest-tower": TallestTower,
+  "gugus-magic-words": GugusMagicWords,
+  "tsehays-little-hands": TsehaysLittleHands,
+  "hawi-says-hello": HawiSaysHello,
+  "who-ate-the-bread": WhoAteTheBread,
+  "promise-is-a-promise": PromiseIsAPromise,
+  "ayans-red-sandals": AyansRedSandals,
+  "ball-in-the-garden": BallInTheGarden,
+  "the-best-bite": TheBestBite,
+  "always-room": AlwaysRoom,
+  "three-cups-of-coffee": ThreeCupsOfCoffee,
+  "debo-day": DeboDay,
+};

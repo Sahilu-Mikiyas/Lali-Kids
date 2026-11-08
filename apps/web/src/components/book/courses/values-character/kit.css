@@ -1,0 +1,303 @@
+/* Values and Character course: shared moves for every story's scenes (kit.tsx).
+   Transforms and opacity only; the reduced-motion rule in globals.css stops all of it. */
+
+/* A head that holds still (sleeping or special faces drawn over it). */
+.vc-still .lali-tilt { animation: none; }
+
+/* Clapping paws. */
+@keyframes vc-clap-l {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(9px); }
+}
+@keyframes vc-clap-r {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-9px); }
+}
+.vc-clap-l { animation: vc-clap-l 0.5s ease-in-out infinite; }
+.vc-clap-r { animation: vc-clap-r 0.5s ease-in-out infinite; }
+
+/* A bow: lean forward, hold, and come back up. */
+@keyframes vc-bow {
+  0%, 15% { transform: rotate(0deg); }
+  35%, 70% { transform: rotate(var(--bow, 22deg)); }
+  90%, 100% { transform: rotate(0deg); }
+}
+.vc-bow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-bow var(--dur, 3.4s) ease-in-out var(--delay, 0.6s) infinite;
+}
+
+/* A wagging tail. */
+@keyframes vc-wag {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(14deg); }
+}
+.vc-wag {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: vc-wag var(--dur, 0.35s) ease-in-out infinite alternate;
+}
+
+/* Rising hearts, stars and notes. */
+@keyframes vc-rise {
+  0% { transform: translate(0, 10px) scale(0.3); opacity: 0; }
+  20% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx, 6px), -46px) scale(0.8); opacity: 0; }
+}
+.vc-rise {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-rise var(--dur, 3s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Something set down or placed: drops in from above and settles. */
+@keyframes vc-drop {
+  0% { transform: translateY(var(--fy, -40px)); opacity: 0; }
+  60% { transform: translateY(4px); opacity: 1; }
+  80% { transform: translateY(-2px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.vc-drop { animation: vc-drop var(--dur, 0.9s) ease-out var(--delay, 0.6s) both; }
+
+/* Grow up from the ground (a tower, a plant, a stack). */
+@keyframes vc-grow-up {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.vc-grow-up {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-grow-up var(--dur, 0.6s) cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* Something tumbling down and staying down. */
+@keyframes vc-tumble {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(var(--tx, 20px), var(--ty, 40px)) rotate(var(--tr, 90deg)); }
+}
+.vc-tumble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-tumble var(--dur, 0.7s) cubic-bezier(0.5, 0, 0.8, 0.6) var(--delay, 1s) both;
+}
+
+/* A gentle rocking (cradle, a worried body). */
+@keyframes vc-rock {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.vc-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-rock var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Steam from a cup or a pot. */
+@keyframes vc-steam {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translate(var(--sx, 4px), -26px) scale(1.4); opacity: 0; }
+}
+.vc-steam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-steam var(--dur, 2.6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A shaking "uh-oh" tremble. */
+@keyframes vc-tremble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.4px); }
+  75% { transform: translateX(1.4px); }
+}
+.vc-tremble { animation: vc-tremble 0.25s linear infinite; }
+
+/* Pouring: a jug tips forward and back. */
+@keyframes vc-pour {
+  0%, 100% { transform: rotate(0deg); }
+  30%, 70% { transform: rotate(var(--tip, 30deg)); }
+}
+.vc-pour {
+  transform-box: fill-box;
+  transform-origin: 30% 80%;
+  animation: vc-pour var(--dur, 3s) ease-in-out var(--delay, 0.4s) infinite;
+}
+
+/* A stream of water or coffee, flickering as it falls. */
+@keyframes vc-stream {
+  0%, 25%, 75%, 100% { opacity: 0; transform: scaleY(0.2); }
+  35%, 65% { opacity: 1; transform: scaleY(1); }
+}
+.vc-stream {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: vc-stream var(--dur, 3s) ease-in-out var(--delay, 0.4s) infinite;
+}
+
+/* A sweeping broom. */
+@keyframes vc-sweep {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(16deg); }
+}
+.vc-sweep {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: vc-sweep var(--dur, 1s) ease-in-out infinite;
+}
+
+/* Dust or crumbs kicked up and settling. */
+@keyframes vc-puff {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translate(var(--px, 10px), -14px) scale(1.4); opacity: 0; }
+}
+.vc-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-puff var(--dur, 1.4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* The heavy stone of a secret: it grows and sinks. */
+@keyframes vc-heavy {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(3px) scale(1.05, 0.95); }
+}
+.vc-heavy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-heavy 1.8s ease-in-out infinite;
+}
+
+/* Floating up and away (a lifted stone, a kite). */
+@keyframes vc-away {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--ax, 30px), var(--ay, -120px)) scale(0.4); opacity: 0; }
+}
+.vc-away {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-away var(--dur, 2.4s) ease-in var(--delay, 1s) both;
+}
+
+/* A kite dancing on the wind. */
+@keyframes vc-kite {
+  0%, 100% { transform: translate(0, 0) rotate(-8deg); }
+  33% { transform: translate(8px, -10px) rotate(6deg); }
+  66% { transform: translate(-6px, -4px) rotate(-2deg); }
+}
+.vc-kite {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-kite var(--dur, 3.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A kite tail ribbon flicking. */
+@keyframes vc-flick {
+  0%, 100% { transform: rotate(-10deg) scaleX(1); }
+  50% { transform: rotate(10deg) scaleX(0.85); }
+}
+.vc-flick {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: vc-flick var(--dur, 0.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Rain on a page: a door shaking with a knock. */
+@keyframes vc-knock {
+  0%, 60%, 100% { transform: translateX(0); }
+  65%, 75%, 85% { transform: translateX(-2px); }
+  70%, 80%, 90% { transform: translateX(2px); }
+}
+.vc-knock { animation: vc-knock 1.8s linear var(--delay, 0s) infinite; }
+
+/* Little sleepy z's float up. */
+@keyframes vc-zzz {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(14px, -30px) scale(1.1); opacity: 0; }
+}
+.vc-zzz { animation: vc-zzz 3.6s ease-out var(--delay, 0s) infinite; }
+
+/* A sickle swinging, a drumstick beating. */
+@keyframes vc-swing {
+  0%, 100% { transform: rotate(-24deg); }
+  50% { transform: rotate(18deg); }
+}
+.vc-swing {
+  transform-box: fill-box;
+  transform-origin: var(--ox, 20%) var(--oy, 90%);
+  animation: vc-swing var(--dur, 0.9s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A gursha travelling from one hand to another mouth. */
+@keyframes vc-pass {
+  0%, 10% { transform: translate(0, 0) scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  60% { transform: translate(var(--fx, 40px), var(--fy, -10px)) scale(1); opacity: 1; }
+  75%, 100% { transform: translate(var(--fx, 40px), var(--fy, -10px)) scale(0); opacity: 0; }
+}
+.vc-pass {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-pass var(--dur, 4s) ease-in-out var(--delay, 0.6s) infinite;
+}
+
+/* Popcorn and roasting beans hopping in a pan. */
+@keyframes vc-pop {
+  0%, 60%, 100% { transform: translateY(0); }
+  70% { transform: translateY(-9px); }
+  85% { transform: translateY(-3px); }
+}
+.vc-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vc-pop var(--dur, 1.2s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A gentle nod (sleepy, or yes). */
+@keyframes vc-nod {
+  0%, 60%, 100% { transform: rotate(0); }
+  75% { transform: rotate(5deg); }
+  88% { transform: rotate(2deg); }
+}
+.vc-nod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vc-nod var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Henna, a drawing or a glow appearing. */
+@keyframes vc-glow {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.vc-glow { animation: vc-glow var(--dur, 2.2s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A door swinging shut or open (scaled from its hinge on the left). */
+@keyframes vc-door-close {
+  from { transform: scaleX(0.08); }
+  to { transform: scaleX(1); }
+}
+@keyframes vc-door-open {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.08); }
+}
+.vc-door-close {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: vc-door-close 0.35s cubic-bezier(0.6, 0, 0.9, 0.6) var(--delay, 1.2s) both;
+}
+.vc-door-open {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: vc-door-open 0.9s ease-out var(--delay, 1.2s) both;
+}
+
+/* With reduced motion, things that would have left the picture are simply gone. */
+/* And things that move to where the page leaves them rest there. */
+@media (prefers-reduced-motion: reduce) {
+  .vc-gone { opacity: 0; }
+  .vc-door-open { transform: scaleX(0.08); }
+  .vc-tumble { transform: translate(var(--tx, 20px), var(--ty, 40px)) rotate(var(--tr, 90deg)); }
+}

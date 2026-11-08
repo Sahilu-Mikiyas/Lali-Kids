@@ -1,0 +1,16 @@
+/* There's Always Room (always-room.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Raindrops dripping off wet guests. */
+@keyframes always-room-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(36px); opacity: 0; }
+}
+.always-room-drip { animation: always-room-drip 1.4s ease-in var(--delay, 0s) infinite; }
+
+/* Walking the guests along the path, part of the way home. */
+@keyframes always-room-walk {
+  from { transform: translateX(-70px); }
+  to { transform: translateX(40px); }
+}
+.always-room-walk { animation: always-room-walk 5s ease-in-out 0.3s both; }

@@ -1,0 +1,66 @@
+/* The Ball in the Garden (ball-in-the-garden.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The big kick: the ball arcs up and over the fence, and is gone. */
+@keyframes ball-in-the-garden-fly {
+  0% { transform: translate(0, 0); opacity: 1; }
+  50% { transform: translate(60px, -170px); opacity: 1; }
+  90% { transform: translate(110px, -110px) scale(0.6); opacity: 1; }
+  100% { transform: translate(120px, -100px) scale(0.5); opacity: 0; }
+}
+.ball-in-the-garden-fly { animation: ball-in-the-garden-fly 1.6s cubic-bezier(0.2, 0.6, 0.6, 1) 0.8s both; }
+
+/* The kicker swings forward. */
+@keyframes ball-in-the-garden-kick {
+  0%, 30% { transform: rotate(-6deg); }
+  45% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+.ball-in-the-garden-kick {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ball-in-the-garden-kick 1.6s ease-out 0.3s both;
+}
+
+/* A plant falls over when the ball lands. */
+@keyframes ball-in-the-garden-fall {
+  from { transform: rotate(-80deg); }
+  to { transform: rotate(0deg); }
+}
+.ball-in-the-garden-fall {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: ball-in-the-garden-fall 0.5s ease-in var(--delay, 0.2s) both;
+}
+
+/* Green tomatoes roll away in the dirt. */
+@keyframes ball-in-the-garden-roll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--rx, 40px)); }
+}
+.ball-in-the-garden-roll { animation: ball-in-the-garden-roll 1s ease-out var(--delay, 0.8s) both; }
+
+/* Running off toward the tree. */
+@keyframes ball-in-the-garden-flee {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(0); }
+}
+.ball-in-the-garden-flee { animation: ball-in-the-garden-flee 1.4s ease-out 0.3s both; }
+
+/* A heart going thump, thump. */
+@keyframes ball-in-the-garden-thump {
+  0%, 40%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.35); }
+  20% { transform: scale(1.1); }
+}
+.ball-in-the-garden-thump {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ball-in-the-garden-thump 1.2s ease-in-out infinite;
+}
+
+/* Passing the ball back and forth on the big field. */
+@keyframes ball-in-the-garden-pass {
+  0%, 100% { transform: translate(-90px, 0); }
+  50% { transform: translate(90px, -30px); }
+}
+.ball-in-the-garden-pass { animation: ball-in-the-garden-pass 2.4s ease-in-out infinite; }

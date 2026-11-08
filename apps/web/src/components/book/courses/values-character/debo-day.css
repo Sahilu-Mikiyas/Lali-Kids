@@ -1,0 +1,27 @@
+/* Debo Day (debo-day.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* A storm cloud creeping in over the mountains. */
+@keyframes debo-day-cloud {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(40px); }
+}
+.debo-day-cloud { animation: debo-day-cloud 12s ease-in-out infinite alternate; }
+
+/* Laughing together. */
+@keyframes debo-day-laugh {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+.debo-day-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: debo-day-laugh 0.5s ease-in-out infinite;
+}
+
+/* Hurrying along the last row. */
+@keyframes debo-day-rush {
+  0%, 100% { transform: translateX(10px); }
+  50% { transform: translateX(-16px); }
+}
+.debo-day-rush { animation: debo-day-rush 1.2s ease-in-out infinite; }

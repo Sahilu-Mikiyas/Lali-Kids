@@ -1,0 +1,47 @@
+/* Who Ate the Bread? (who-ate-the-bread.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The smell of warm bread drifts across the room. */
+@keyframes who-ate-the-bread-smell {
+  0% { transform: translateX(0); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateX(-60px); opacity: 0; }
+}
+.who-ate-the-bread-smell { animation: who-ate-the-bread-smell 3s ease-out infinite; }
+
+/* Dimmet creeps toward the corner, and pounces. */
+@keyframes who-ate-the-bread-prowl {
+  0%, 100% { transform: translateX(40px); }
+  60% { transform: translateX(0); }
+  70% { transform: translate(-10px, -10px); }
+  80% { transform: translateX(-6px); }
+}
+.who-ate-the-bread-prowl { animation: who-ate-the-bread-prowl 4s ease-in-out infinite; }
+
+/* The mice scurry behind the water pot. */
+@keyframes who-ate-the-bread-hide {
+  from { transform: translateX(120px); }
+  to { transform: translateX(0); }
+}
+.who-ate-the-bread-hide { animation: who-ate-the-bread-hide 1.2s ease-out 0.6s both; }
+
+/* Weighed down: a slow, heavy sag. */
+@keyframes who-ate-the-bread-sink {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(3px) scale(1.02, 0.97); }
+}
+.who-ate-the-bread-sink {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: who-ate-the-bread-sink 2.4s ease-in-out infinite;
+}
+
+/* Kneading the dough. */
+@keyframes who-ate-the-bread-knead {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.1, 0.85); }
+}
+.who-ate-the-bread-knead {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: who-ate-the-bread-knead 0.8s ease-in-out infinite;
+}
