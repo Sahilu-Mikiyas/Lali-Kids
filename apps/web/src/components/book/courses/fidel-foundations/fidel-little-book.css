@@ -1,0 +1,48 @@
+/*
+  "Anbessa's Little Book" (fidel-little-book.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* A page turning over: it folds flat toward the spine and back open. */
+@keyframes flb-turn {
+  0% { transform: scaleX(-1); opacity: 0.4; }
+  60% { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+.flb-turn {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: flb-turn 0.9s ease-out var(--delay, 0.3s) both;
+}
+
+/* A tear rolling down. */
+@keyframes flb-tear {
+  0%, 20% { transform: translateY(0); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+.flb-tear {
+  animation: flb-tear 2s ease-in var(--delay, 0.6s) infinite;
+}
+
+/* A little book being folded: two halves close together and open again. */
+@keyframes flb-fold {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.15); }
+}
+.flb-fold {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: flb-fold 2.6s ease-in-out 0.6s infinite;
+}
+
+/* Held to the heart: a slow, gentle rock. */
+@keyframes flb-rock {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.flb-rock {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: flb-rock 2.4s ease-in-out infinite;
+}

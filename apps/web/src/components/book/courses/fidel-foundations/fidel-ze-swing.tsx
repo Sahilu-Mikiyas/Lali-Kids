@@ -77,7 +77,7 @@ function ElephantShape({ mood = "happy" as const, spray = false }: { mood?: "hap
   );
 }
 
-function Elephant({ x, y, s = 1, flip = false, mood, spray, className, style }: { x: number; y: number; s?: number; flip?: boolean; mood?: "happy" | "joy" | "wow" | "sad" | "worried"; spray?: boolean; className?: string; style?: React.CSSProperties }) {
+export function Elephant({ x, y, s = 1, flip = false, mood, spray, className, style }: { x: number; y: number; s?: number; flip?: boolean; mood?: "happy" | "joy" | "wow" | "sad" | "worried"; spray?: boolean; className?: string; style?: React.CSSProperties }) {
   return (
     <At x={x} y={y} s={s} flip={flip} className={className} style={style} reaction="wiggle" sound="boing">
       <ElephantShape mood={mood} spray={spray} />
