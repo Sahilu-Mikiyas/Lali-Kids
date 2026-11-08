@@ -1,4 +1,5 @@
 import type { Story } from "../../../stories";
+import abdiPlaysToo from "./abdi-plays-too";
 import alwaysRoom from "./always-room";
 import ayansLemonTree from "./ayans-lemon-tree";
 import ayansRedSandals from "./ayans-red-sandals";
@@ -9,9 +10,13 @@ import gugusMagicWords from "./gugus-magic-words";
 import habenReadsAloud from "./haben-reads-aloud";
 import hawiSaysHello from "./hawi-says-hello";
 import hawisFirstBasket from "./hawis-first-basket";
+import hawisStormyDay from "./hawis-stormy-day";
+import littlePeacemakers from "./little-peacemakers";
+import missingAabo from "./missing-aabo";
 import promiseIsAPromise from "./promise-is-a-promise";
 import tallestTower from "./tallest-tower";
 import theBestBite from "./the-best-bite";
+import theTornLamb from "./the-torn-lamb";
 import threeCupsOfCoffee from "./three-cups-of-coffee";
 import tsehaysLittleHands from "./tsehays-little-hands";
 import whoAteTheBread from "./who-ate-the-bread";
@@ -39,5 +44,10 @@ export const STORIES: Story[] = [
   guguAsksForHelp,
   ayansLemonTree,
   // Level 5: feelings, forgiveness and friendship
+  hawisStormyDay,
+  theTornLamb,
+  abdiPlaysToo,
+  littlePeacemakers,
+  missingAabo,
   // Level 6: caring for others and our world
 ];

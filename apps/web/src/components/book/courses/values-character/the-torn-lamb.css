@@ -1,0 +1,26 @@
+/* The Torn Lamb (the-torn-lamb.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Tug-of-war: pulled this way and that. */
+@keyframes the-torn-lamb-tug {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.the-torn-lamb-tug { animation: the-torn-lamb-tug 0.8s ease-in-out infinite; }
+
+/* The needle going in and out. */
+@keyframes the-torn-lamb-sew {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6px, 8px); }
+}
+.the-torn-lamb-sew { animation: the-torn-lamb-sew 1s ease-in-out infinite; }
+
+/* Leaning back on the rope. */
+@keyframes the-torn-lamb-pull {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.the-torn-lamb-pull {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: the-torn-lamb-pull 1.2s ease-in-out infinite;
+}

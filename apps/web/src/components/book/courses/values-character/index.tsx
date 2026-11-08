@@ -30,6 +30,11 @@ const HabenReadsAloud = dynamic(() => import("./haben-reads-aloud"), { ssr: fals
 const GuguAsksForHelp = dynamic(() => import("./gugu-asks-for-help"), { ssr: false });
 const AyansLemonTree = dynamic(() => import("./ayans-lemon-tree"), { ssr: false });
 // Level 5: feelings, forgiveness and friendship
+const HawisStormyDay = dynamic(() => import("./hawis-stormy-day"), { ssr: false });
+const TheTornLamb = dynamic(() => import("./the-torn-lamb"), { ssr: false });
+const AbdiPlaysToo = dynamic(() => import("./abdi-plays-too"), { ssr: false });
+const LittlePeacemakers = dynamic(() => import("./little-peacemakers"), { ssr: false });
+const MissingAabo = dynamic(() => import("./missing-aabo"), { ssr: false });
 // Level 6: caring for others and our world
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
@@ -50,4 +55,9 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "haben-reads-aloud": HabenReadsAloud,
   "gugu-asks-for-help": GuguAsksForHelp,
   "ayans-lemon-tree": AyansLemonTree,
+  "hawis-stormy-day": HawisStormyDay,
+  "the-torn-lamb": TheTornLamb,
+  "abdi-plays-too": AbdiPlaysToo,
+  "little-peacemakers": LittlePeacemakers,
+  "missing-aabo": MissingAabo,
 };

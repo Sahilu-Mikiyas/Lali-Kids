@@ -1,0 +1,31 @@
+/* The Little Peacemakers (little-peacemakers.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The swing going back and forth from its branch. */
+@keyframes little-peacemakers-swing {
+  0%, 100% { transform: rotate(-24deg); }
+  50% { transform: rotate(24deg); }
+}
+.little-peacemakers-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: little-peacemakers-swing 2.4s ease-in-out infinite;
+}
+
+/* Tugging the rope this way and that. */
+@keyframes little-peacemakers-tug {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.little-peacemakers-tug { animation: little-peacemakers-tug 0.7s ease-in-out infinite; }
+
+/* A big laugh. */
+@keyframes little-peacemakers-laugh {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+.little-peacemakers-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: little-peacemakers-laugh 0.5s ease-in-out infinite;
+}
