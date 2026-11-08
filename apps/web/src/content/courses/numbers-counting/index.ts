@@ -1,4 +1,5 @@
 import type { Course, Question, T } from "../types";
+import { FINAL_TEST, LEVELS_4_6 } from "./levels-4-6";
 import { geez } from "./numbers";
 
 /*
@@ -11,10 +12,13 @@ import { geez } from "./numbers";
        corners); bigger and smaller, longer and shorter (line up the ends); patterns.
     3. Counting to 20, more and less: the teens as "ten and some more" (Amharic says it too:
        አሥራ አንድ, and so do Ge'ez numerals: ፲፩), one more and one less, number lines, comparing.
-    4-6 come in a later round: counting to 100 in tens, adding and taking away within 20, money.
+    4. Adding and taking away within 10 (number bonds, + and −, story sums).
+    5. Money and time (birr and santim, o'clock and Ethiopian hours, days and months).
+    6. Numbers to 100 (tens and ones, counting in tens, fives and twos, doubles and halves).
+  Levels 4-6 and the full final test live in ./levels-4-6.ts.
 
   Stories: the six original Numbers stories are reused (gugu-counts, ten-tukuls, shapes-safari,
-  bigger-smaller, teff-patterns; market-money is kept for level 5) plus this course's own in
+  bigger-smaller, teff-patterns, and market-money in level 5) plus this course's own in
   ./stories. Demos: ./demos. Quiz pictures: ./art.tsx.
 
   AMHARIC: a first draft throughout, to be checked by a native-speaking editor before launch.
@@ -409,98 +413,6 @@ const L3_QUIZ: Question[] = [
   },
 ];
 
-/* ---------- final test (levels 1-3 for now) ---------- */
-
-const FINAL: Question[] = [
-  {
-    kind: "count",
-    prompt: t("How many cups?", "ስንት ሲኒዎች ናቸው?"),
-    pic: { art: "cup", count: 8 },
-    answer: 8,
-    numerals: "both",
-    explain: t("Touch each cup once: eight cups, ፰.", "እያንዳንዱን ሲኒ አንድ ጊዜ ንኩ፦ ስምንት ሲኒዎች፣ ፰።"),
-  },
-  {
-    kind: "choice",
-    prompt: t("An empty plate. How many rolls are on it?", "ባዶ ሳህን። በላዩ ላይ ስንት ጥቅልሎች አሉ?"),
-    pic: { art: "plate" },
-    options: [{ label: d(0) }, { label: d(1) }, { label: d(2) }],
-    answer: 0,
-    explain: t("None at all: zero, 0.", "ምንም የለም፦ ዜሮ፣ 0።"),
-  },
-  {
-    kind: "match",
-    prompt: t("Match each numeral to the right number of beans.", "እያንዳንዱን ቁጥር ከልክ የሆነው የፍሬ ብዛት ጋር አገናኙ።"),
-    pairs: [
-      { left: { label: b(4) }, right: { pic: { art: "bean", count: 4 } } },
-      { left: { label: b(1) }, right: { pic: { art: "bean", count: 1 } } },
-      { left: { label: b(6) }, right: { pic: { art: "bean", count: 6 } } },
-    ],
-    explain: t("Count the beans in each group to find its number.", "የእያንዳንዱን ቡድን ቁጥር ለማግኘት ፍሬዎቹን ቁጠሩ።"),
-  },
-  {
-    kind: "choice",
-    prompt: t("Which one is a triangle?", "ሦስት ማዕዘን የሆነው የትኛው ነው?"),
-    options: [{ pic: { art: "door" } }, { pic: { art: "injera" } }, { pic: { art: "sambusa" } }],
-    answer: 2,
-    explain: t("The sambusa has three sides and three corners.", "ሳምቡሳው ሦስት ጎኖችና ሦስት ማዕዘኖች አሉት።"),
-  },
-  {
-    kind: "truefalse",
-    prompt: t("A square has four corners.", "ካሬ አራት ማዕዘኖች አሉት።"),
-    pic: { art: "square" },
-    answer: true,
-    explain: t("Yes: four corners and four sides, all the same length.", "አዎ፦ አራት ማዕዘኖችና አራት እኩል ጎኖች።"),
-  },
-  {
-    kind: "order",
-    prompt: t("Order the sticks from longest to shortest.", "በትሮቹን ከረጅሙ እስከ አጭሩ አስቀምጡ።"),
-    items: [{ pic: { art: "stick-long" } }, { pic: { art: "stick-mid" } }, { pic: { art: "stick-short" } }],
-    explain: t("Longest, shorter, shortest. Line up the ends to see!", "ረጅሙ፣ አጠር ያለ፣ አጭሩ። ለማየት ጫፎቻቸውን አስተካክሉ!"),
-  },
-  {
-    kind: "choice",
-    prompt: t("Red, red, yellow, red, red, yellow, red, red… What comes next?", "ቀይ፣ ቀይ፣ ቢጫ፣ ቀይ፣ ቀይ፣ ቢጫ፣ ቀይ፣ ቀይ… ቀጥሎ ምን ይመጣል?"),
-    options: [{ pic: { art: "bead-red" } }, { pic: { art: "bead-yellow" } }],
-    answer: 1,
-    explain: t("Two reds, then a yellow, every time.", "ሁልጊዜ ሁለት ቀይ፣ ከዚያ አንድ ቢጫ።"),
-  },
-  {
-    kind: "count",
-    prompt: t("How many eggs? (A full box is ten.)", "ስንት እንቁላሎች ናቸው? (ሙሉ ሳጥን አሥር ነው።)"),
-    pic: { art: "frame-15" },
-    answer: 15,
-    numerals: "both",
-    explain: t("Ten and five more: fifteen, ፲፭.", "አሥርና አምስት ተጨማሪ፦ አሥራ አምስት፣ ፲፭።"),
-  },
-  {
-    kind: "choice",
-    prompt: t("What is one more than 19?", "ከ19 አንድ የሚበልጠው ስንት ነው?"),
-    options: [{ label: b(18) }, { label: b(20) }, { label: b(10) }],
-    answer: 1,
-    explain: t("19 and one more is 20, ሃያ: two full tens.", "19ና አንድ ተጨማሪ 20 ነው፣ ሃያ፦ ሁለት ሙሉ አሥሮች።"),
-  },
-  {
-    kind: "choice",
-    prompt: t("Which group has more sheep?", "ብዙ በጎች ያሉት የትኛው ቡድን ነው?"),
-    options: [{ pic: { art: "sheep", count: 8 } }, { pic: { art: "sheep", count: 9 } }],
-    answer: 1,
-    explain: t("Nine is one more than eight. When it is hard to see, count!", "ዘጠኝ ከስምንት በአንድ ይበልጣል። ለማየት ሲከብድ ቁጠሩ!"),
-  },
-  {
-    kind: "truefalse",
-    prompt: t("Thirteen is written 31.", "አሥራ ሦስት 31 ተብሎ ይጻፋል።"),
-    answer: false,
-    explain: t("Thirteen is 13: first the 1 for the ten, then the 3. In Ge'ez, ፲፫.", "አሥራ ሦስት 13 ነው፦ መጀመሪያ የአሥሩ 1፣ ከዚያ 3። በግዕዝ ፲፫።"),
-  },
-  {
-    kind: "order",
-    prompt: t("Put the numbers in order, smallest first.", "ቁጥሮቹን ከትንሹ ጀምራችሁ አስቀምጡ።"),
-    items: [{ label: d(0) }, { label: b(6) }, { label: b(11) }, { label: b(20) }],
-    explain: t("Zero is the smallest, then 6, then 11, then 20.", "ዜሮ ትንሹ ነው፤ ከዚያ 6፣ ከዚያ 11፣ ከዚያ 20።"),
-  },
-];
-
 const course: Course = {
   id: "numbers-counting",
   title: { en: "Numbers & Counting", am: "ቁጥሮችና መቁጠር" },
@@ -575,8 +487,9 @@ const course: Course = {
       ],
       quiz: { id: "numbers-counting-3-quiz", title: { en: "Level 3 quiz", am: "የደረጃ 3 ፈተና" }, questions: L3_QUIZ },
     },
+    ...LEVELS_4_6,
   ],
-  finalTest: { id: "numbers-counting-final", title: { en: "Numbers & Counting: final test", am: "ቁጥሮችና መቁጠር፦ የመጨረሻ ፈተና" }, questions: FINAL },
+  finalTest: { id: "numbers-counting-final", title: { en: "Numbers & Counting: final test", am: "ቁጥሮችና መቁጠር፦ የመጨረሻ ፈተና" }, questions: FINAL_TEST },
 };
 
 export default course;

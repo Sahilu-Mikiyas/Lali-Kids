@@ -1,0 +1,43 @@
+/* Tsehay's Kolo Stall (kolo-stall.tsx): transforms and opacity only. */
+
+/* The price sign glows. */
+@keyframes kolo-stall-glow {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.kolo-stall-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kolo-stall-glow 0.8s ease-out var(--delay, 1s) both;
+}
+
+/* Two fifty-santim coins slide together. */
+@keyframes kolo-stall-join-l {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(0); }
+}
+@keyframes kolo-stall-join-r {
+  from { transform: translateX(40px); }
+  to { transform: translateX(0); }
+}
+.kolo-stall-join-l {
+  animation: kolo-stall-join-l 0.8s ease-out 0.6s both;
+}
+.kolo-stall-join-r {
+  animation: kolo-stall-join-r 0.8s ease-out 0.6s both;
+}
+
+/* A coin drops into the saving box. */
+@keyframes kolo-stall-drop {
+  0% { transform: translateY(-20px); opacity: 0; }
+  20% { opacity: 1; }
+  80% { transform: translateY(62px); opacity: 1; }
+  100% { transform: translateY(70px); opacity: 0; }
+}
+.kolo-stall-drop {
+  animation: kolo-stall-drop 0.9s ease-in var(--delay, 1s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kolo-stall-drop { opacity: 0; }
+}

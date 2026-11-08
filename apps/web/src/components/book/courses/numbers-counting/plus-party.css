@@ -1,0 +1,78 @@
+/* Anbessa's Plus Party (plus-party.tsx): transforms and opacity only. */
+
+/* Bunting flutters. */
+@keyframes plus-party-flag {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.plus-party-flag {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: plus-party-flag 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Anbessa bouncing with excitement. */
+@keyframes plus-party-bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+}
+.plus-party-bounce {
+  animation: plus-party-bounce 0.8s ease-in-out infinite;
+}
+
+/* A sign on the slate glows in its turn. */
+@keyframes plus-party-glow {
+  0% { transform: scale(0); opacity: 0; }
+  40% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.plus-party-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: plus-party-glow 0.8s ease-out var(--delay, 1s) both;
+}
+
+/* Dancers bob up and down. */
+@keyframes plus-party-dance {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-6px) rotate(-4deg); }
+  75% { transform: translateY(-6px) rotate(4deg); }
+}
+.plus-party-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: plus-party-dance 0.9s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Candle flames flicker; the last two are lit a little later. */
+@keyframes plus-party-flame {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.85, 1.12); }
+}
+.plus-party-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: plus-party-flame 0.5s ease-in-out infinite;
+}
+@keyframes plus-party-light {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.plus-party-flame-late {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: plus-party-light 0.5s ease-out var(--delay, 1.6s) both;
+}
+
+/* The camera flash. */
+@keyframes plus-party-flash {
+  0%, 70%, 100% { opacity: 0; }
+  75% { opacity: 0.85; }
+}
+.plus-party-flash {
+  pointer-events: none;
+  animation: plus-party-flash 3s ease-out 1s 2 both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .plus-party-flash { opacity: 0; }
+}

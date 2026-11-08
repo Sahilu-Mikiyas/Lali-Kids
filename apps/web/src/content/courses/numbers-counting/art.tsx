@@ -244,6 +244,124 @@ const Frame = ({ n, ...p }: ArtProps & { n: number }) => {
   );
 };
 
+
+/* ---------- levels 4-6 ---------- */
+
+const CoinArt = ({ kind, ...p }: ArtProps & { kind: "birr" | "s50" | "s25" }) => {
+  const c = kind === "birr" ? ["#B8902A", "#E8C15A", "1"] : kind === "s50" ? ["#9A9A9A", "#D9D9D9", "50"] : ["#A8743A", "#E3B07A", "25"];
+  const r = kind === "birr" ? 26 : kind === "s50" ? 22 : 20;
+  return (
+    <Box {...p}>
+      <circle cx={32} cy={32} r={r} fill={c[0]} />
+      <circle cx={32} cy={32} r={r - 3} fill={c[1]} />
+      <text x={32} y={kind === "birr" ? 41 : 38} fontSize={kind === "birr" ? 26 : 17} fontWeight={900} fill="#5A3A10" textAnchor="middle" fontFamily="var(--font-grandstander)">
+        {c[2]}
+      </text>
+    </Box>
+  );
+};
+
+const Note10 = (p: ArtProps) => (
+  <Box {...p}>
+    <rect x={4} y={16} width={56} height={32} rx={3} fill="#8FC79A" stroke="#4E8A5A" strokeWidth={2} />
+    <circle cx={20} cy={32} r={8} fill="#B8DDBF" />
+    <text x={42} y={39} fontSize={18} fontWeight={900} fill="#2E5A3A" textAnchor="middle" fontFamily="var(--font-grandstander)">
+      10
+    </text>
+  </Box>
+);
+
+/** A clock face at an o'clock hour. */
+const ClockArt = ({ hour, ...p }: ArtProps & { hour: number }) => {
+  const a = ((hour % 12) * 30 * Math.PI) / 180;
+  return (
+    <Box {...p}>
+      <circle cx={32} cy={32} r={29} fill="#8A5A36" />
+      <circle cx={32} cy={32} r={26} fill="#FFFDF4" />
+      {[12, 3, 6, 9].map((n) => {
+        const t = (n * Math.PI) / 6;
+        return (
+          <text key={n} x={32 + Math.sin(t) * 19} y={32 - Math.cos(t) * 19 + 3.5} fontSize={9} fontWeight={900} fill="#2A2414" textAnchor="middle" fontFamily="var(--font-grandstander)">
+            {n}
+          </text>
+        );
+      })}
+      {Array.from({ length: 12 }, (_, i) => (i % 3 ? <circle key={i} cx={32 + Math.sin((i * Math.PI) / 6) * 20} cy={32 - Math.cos((i * Math.PI) / 6) * 20} r={1.3} fill="#8A7A6A" /> : null))}
+      <line x1={32} y1={32} x2={32} y2={12} stroke="#2F5BD3" strokeWidth={2.4} strokeLinecap="round" />
+      <line x1={32} y1={32} x2={32 + Math.sin(a) * 13} y2={32 - Math.cos(a) * 13} stroke="#E8513B" strokeWidth={4} strokeLinecap="round" />
+      <circle cx={32} cy={32} r={2.5} fill="#2A2414" />
+    </Box>
+  );
+};
+
+/** The sky at a time of day, with the sun or moon in its place. */
+const SkyArt = ({ when, ...p }: ArtProps & { when: "morning" | "midday" | "night" }) => (
+  <Box {...p}>
+    <rect x={2} y={2} width={60} height={60} rx={10} fill={when === "night" ? "#26307A" : when === "morning" ? "#FFD6B0" : "#9ED8FF"} />
+    <path d="M2 46 Q32 38 62 46 V52 Q62 62 52 62 H12 Q2 62 2 52Z" fill={when === "night" ? "#1E5A4E" : "#5CBF73"} />
+    {when === "night" ? (
+      <g fill="#FFF6D8">
+        <circle cx={44} cy={18} r={7} />
+        <circle cx={16} cy={14} r={1.4} />
+        <circle cx={26} cy={26} r={1.2} />
+      </g>
+    ) : (
+      <circle cx={when === "morning" ? 14 : 32} cy={when === "morning" ? 40 : 14} r={8} fill="#FFD54A" />
+    )}
+  </Box>
+);
+
+const BundleArt = (p: ArtProps) => (
+  <Box {...p}>
+    {[-8, -6, -4, -2, 0, 2, 4, 6, 8, 1].map((dx, i) => (
+      <path key={i} d={`M${32 + dx * 0.4} 60 L${32 + dx * 0.3} 36 L${32 + dx * 1.2} 6`} stroke={i % 2 ? "#C8A040" : "#B8892A"} strokeWidth={2.6} fill="none" />
+    ))}
+    <rect x={25} y={31} width={14} height={6} rx={2} fill="#8A4A2A" />
+  </Box>
+);
+
+const StalkArt = (p: ArtProps) => (
+  <Box {...p}>
+    <path d="M32 60 Q31 34 32 10" stroke="#C8A040" strokeWidth={2.6} fill="none" />
+    <path d="M32 10 q-6 5 -7 13 M32 10 q6 5 7 13" stroke="#B8892A" strokeWidth={2} fill="none" />
+  </Box>
+);
+
+const Bird = (p: ArtProps) => (
+  <Box {...p}>
+    <path d="M28 52 v6 M36 52 v6" stroke="#7A5A3A" strokeWidth={2} />
+    <ellipse cx={30} cy={40} rx={16} ry={12} fill="#F5C92E" />
+    <path d="M14 40 l-9 -3 l3 8Z" fill="#C9A01E" />
+    <circle cx={44} cy={28} r={9} fill="#F5C92E" />
+    <path d="M40 21 q7 -3 10 3 l0 6 q-7 0 -10 -4Z" fill="#3A2A1A" />
+    <path d="M52 28 l7 2 l-7 3Z" fill="#3A2A1A" />
+  </Box>
+);
+
+const CabbageArt = (p: ArtProps) => (
+  <Box {...p}>
+    <circle cx={32} cy={34} r={22} fill="#7CC46A" />
+    <path d="M12 38 Q30 8 52 34 M18 46 Q32 24 48 46" stroke="#4E9A44" strokeWidth={3} fill="none" />
+  </Box>
+);
+
+/** An injera cut in two: a fair half (two equal parts) or an unfair one. */
+const InjeraCut = ({ fair, ...p }: ArtProps & { fair: boolean }) => (
+  <Box {...p}>
+    {fair ? (
+      <>
+        <path d="M30 6 A26 26 0 0 0 30 58Z" fill="#E2C79A" />
+        <path d="M34 6 A26 26 0 0 1 34 58Z" fill="#EBD3A8" />
+      </>
+    ) : (
+      <>
+        <path d="M42 8 A26 26 0 1 0 42 56 Q36 32 42 8Z" fill="#E2C79A" />
+        <path d="M46 9 Q40 32 46 55 A26 26 0 0 0 46 9Z" fill="#EBD3A8" />
+      </>
+    )}
+  </Box>
+);
+
 /** The same picture with some props fixed (sizes, colours). */
 function at<P extends object>(C: ComponentType<ArtProps & P>, extra: P): ComponentType<ArtProps> {
   const Fixed = (p: ArtProps) => <C {...p} {...extra} />;
@@ -286,4 +404,19 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   "scale-right": at(Scale, { side: "right" as const }),
   "scale-level": at(Scale, { side: "level" as const }),
   ...Object.fromEntries(Array.from({ length: 21 }, (_, n) => [`frame-${n}`, at(Frame, { n })])),
+  // levels 4-6
+  "coin-birr": at(CoinArt, { kind: "birr" as const }),
+  "coin-50": at(CoinArt, { kind: "s50" as const }),
+  "coin-25": at(CoinArt, { kind: "s25" as const }),
+  "note-10": Note10,
+  ...Object.fromEntries(Array.from({ length: 12 }, (_, i) => [`clock-${i + 1}`, at(ClockArt, { hour: i + 1 })])),
+  "sky-morning": at(SkyArt, { when: "morning" as const }),
+  "sky-midday": at(SkyArt, { when: "midday" as const }),
+  "sky-night": at(SkyArt, { when: "night" as const }),
+  bundle: BundleArt,
+  stalk: StalkArt,
+  bird: Bird,
+  cabbage: CabbageArt,
+  "injera-half": at(InjeraCut, { fair: true }),
+  "injera-unfair": at(InjeraCut, { fair: false }),
 };

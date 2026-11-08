@@ -1,0 +1,78 @@
+/* Count by Fives (count-by-fives.tsx): transforms and opacity only. */
+
+/* A hand shoots up into the air. */
+@keyframes count-by-fives-up {
+  0% { transform: translateY(40px); opacity: 0; }
+  60% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.count-by-fives-up {
+  animation: count-by-fives-up 0.6s ease-out var(--delay, 1s) both;
+}
+
+/* Umbrellas sway in the procession. */
+@keyframes count-by-fives-sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.count-by-fives-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: count-by-fives-sway 2.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Dancing in the procession. */
+@keyframes count-by-fives-dance {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.count-by-fives-dance {
+  animation: count-by-fives-dance 0.7s ease-in-out infinite;
+}
+
+/* The drum skin thumps. */
+@keyframes count-by-fives-drum {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1, 0.8); }
+}
+.count-by-fives-drum {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: count-by-fives-drum 0.5s ease-in-out infinite;
+}
+
+/* Two hands clapping. */
+@keyframes count-by-fives-clap-l {
+  0%, 100% { transform: translateX(-18px); }
+  50% { transform: translateX(0); }
+}
+@keyframes count-by-fives-clap-r {
+  0%, 100% { transform: translateX(18px); }
+  50% { transform: translateX(0); }
+}
+.count-by-fives-clap-l {
+  animation: count-by-fives-clap-l 0.6s ease-in-out 0.3s infinite;
+}
+.count-by-fives-clap-r {
+  animation: count-by-fives-clap-r 0.6s ease-in-out 0.3s infinite;
+}
+
+/* A tally stroke is drawn. */
+@keyframes count-by-fives-stroke {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.count-by-fives-stroke {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: count-by-fives-stroke 0.25s ease-out var(--delay, 1s) both;
+}
+
+/* River splashes. */
+@keyframes count-by-fives-splash {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  40% { transform: translateY(-16px); opacity: 1; }
+}
+.count-by-fives-splash {
+  animation: count-by-fives-splash 1s ease-out 0.4s infinite;
+}

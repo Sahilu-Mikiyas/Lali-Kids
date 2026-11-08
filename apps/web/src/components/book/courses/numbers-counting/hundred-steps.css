@@ -1,0 +1,21 @@
+/* One Hundred Steps (hundred-steps.tsx): transforms and opacity only. */
+
+/* Jumping for joy at the top. */
+@keyframes hundred-steps-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+.hundred-steps-jump {
+  animation: hundred-steps-jump 0.7s ease-in-out 1s 5;
+}
+
+/* A big sleepy yawn. */
+@keyframes hundred-steps-yawn {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+.hundred-steps-yawn {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hundred-steps-yawn 2.4s ease-in-out infinite;
+}
