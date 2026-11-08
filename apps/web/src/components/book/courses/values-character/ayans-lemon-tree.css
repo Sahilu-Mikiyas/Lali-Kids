@@ -1,0 +1,20 @@
+/* Ayan's Lemon Tree (ayans-lemon-tree.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Water dripping from the cup into the tin. */
+@keyframes ayans-lemon-tree-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(26px); opacity: 0; }
+}
+.ayans-lemon-tree-drip { animation: ayans-lemon-tree-drip 1s ease-in var(--delay, 0s) infinite; }
+
+/* The sprout pushes up out of the soil. */
+@keyframes ayans-lemon-tree-sprout {
+  from { transform: translateY(10px) scaleY(0.2); opacity: 0.4; }
+  to { transform: translateY(0) scaleY(1); opacity: 1; }
+}
+.ayans-lemon-tree-sprout {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ayans-lemon-tree-sprout 1.6s cubic-bezier(0.3, 1.3, 0.5, 1) 0.6s both;
+}
