@@ -1,0 +1,27 @@
+/*
+  "Grandma's Seven Hats" (fidel-seven-hats.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* Knitting needles clicking together. */
+@keyframes fsh-click {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(10deg); }
+}
+.fsh-click {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fsh-click 0.5s ease-in-out infinite;
+}
+
+/* A breath fogs the window, then fades. */
+@keyframes fsh-fog {
+  0%, 20% { transform: scale(0.2); opacity: 0; }
+  45% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.fsh-fog {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fsh-fog 2.8s ease-out 0.8s infinite;
+}

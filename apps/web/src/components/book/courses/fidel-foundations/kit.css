@@ -1,0 +1,186 @@
+/*
+  Shared moves for the Fidel Foundations scenes (kit.tsx). Transforms and opacity only.
+  The global reduced-motion rule stops all of these, leaving every piece in its final pose.
+  (Never put Ethiopic letters in a comment here: it breaks the stylesheet.)
+*/
+
+/* Sleepy Z shapes float up and fade. */
+@keyframes ff-zzz {
+  0% { transform: translate(0, 4px) scale(0.6); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: translate(10px, -24px) scale(1.1); opacity: 0; }
+}
+.ff-zzz {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ff-zzz 2.1s ease-out var(--delay, 0s) infinite;
+}
+
+/* A puff of magic: dots burst out once and fade. */
+@keyframes ff-poof {
+  0% { transform: scale(0.2); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.ff-poof {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ff-poof 0.9s ease-out var(--delay, 0.6s) both;
+}
+
+/* Marching dashes along a path. */
+@keyframes ff-march {
+  to { stroke-dashoffset: -20; }
+}
+.ff-march {
+  animation: ff-march 1s linear infinite;
+}
+
+/* Shivering with cold. */
+@keyframes ff-shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.5px); }
+  75% { transform: translateX(1.5px); }
+}
+.ff-shiver {
+  animation: ff-shiver 0.18s linear infinite;
+}
+
+/* Something drops from above and lands with a little bounce. */
+@keyframes ff-drop {
+  0% { transform: translateY(var(--fy, -120px)); opacity: 0; }
+  10% { opacity: 1; }
+  60% { transform: translateY(0); }
+  75% { transform: translateY(-10px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.ff-drop {
+  animation: ff-drop var(--dur, 1.2s) cubic-bezier(0.5, 0, 0.6, 1) var(--delay, 0.6s) both;
+}
+
+/* A hat flies onto a head from the side. */
+@keyframes ff-hat-on {
+  0% { transform: translate(var(--fx, -60px), var(--fy, -50px)) rotate(-40deg); opacity: 0; }
+  20% { opacity: 1; }
+  80% { transform: translate(0, -6px) rotate(6deg); }
+  100% { transform: translate(0, 0) rotate(0); opacity: 1; }
+}
+.ff-hat-on {
+  animation: ff-hat-on 1s cubic-bezier(0.3, 1.2, 0.5, 1) var(--delay, 0.8s) both;
+}
+
+/* One letter turns into the next: the old one shrinks away, the new one pops up. */
+@keyframes ff-out {
+  0%, 40% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.3); opacity: 0; }
+}
+.ff-out {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ff-out 0.8s ease-in var(--delay, 0.4s) both;
+}
+
+/* Rolling along the ground (a watermelon, a ball). */
+@keyframes ff-roll {
+  from { transform: translateX(var(--fx, -120px)) rotate(var(--rot, -360deg)); }
+  to { transform: translateX(0) rotate(0); }
+}
+.ff-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ff-roll var(--dur, 1.6s) cubic-bezier(0.3, 0.7, 0.4, 1) var(--delay, 0.5s) both;
+}
+
+/* Gliding over water, rocking gently. */
+@keyframes ff-rock {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(2px); }
+}
+.ff-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: ff-rock 2.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Clapping or nodding: a quick bob. */
+@keyframes ff-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.ff-bob {
+  animation: ff-bob var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Peeking out from behind something, now and then. */
+@keyframes ff-peek {
+  0%, 30%, 100% { transform: translate(0, 0); }
+  45%, 85% { transform: translate(var(--px, 0px), var(--py, -14px)); }
+}
+.ff-peek {
+  animation: ff-peek var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Growing up out of the ground (a seedling, a sign). */
+@keyframes ff-grow {
+  0% { transform: scale(0.1, 0); opacity: 0; }
+  40% { opacity: 1; }
+  80% { transform: scale(1.05, 1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ff-grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ff-grow var(--dur, 1.2s) cubic-bezier(0.3, 1.3, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* Pouring: a tilt back and forth. */
+@keyframes ff-pour {
+  0%, 100% { transform: rotate(0); }
+  40%, 70% { transform: rotate(var(--deg, -40deg)); }
+}
+.ff-pour {
+  transform-box: fill-box;
+  transform-origin: 20% 80%;
+  animation: ff-pour var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Falling drops of water. */
+@keyframes ff-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(var(--dy, 30px)); opacity: 0; }
+}
+.ff-drip {
+  animation: ff-drip var(--dur, 0.9s) ease-in var(--delay, 0s) infinite;
+}
+
+/* Something sliding away to the side and off. */
+@keyframes ff-away {
+  from { transform: translate(0, 0); }
+  to { transform: translate(var(--tx, 200px), var(--ty, 0px)); }
+}
+.ff-away {
+  animation: ff-away var(--dur, 6s) ease-in var(--delay, 0.5s) both;
+}
+
+/* A gentle knock: a quick double tap forward. */
+@keyframes ff-knock {
+  0%, 30%, 60%, 100% { transform: rotate(0); }
+  10%, 40% { transform: rotate(-18deg); }
+}
+.ff-knock {
+  transform-box: fill-box;
+  transform-origin: 20% 90%;
+  animation: ff-knock 1.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Swinging (a bell, a branch, hanging upside down). */
+@keyframes ff-swing {
+  0%, 100% { transform: rotate(var(--a, -8deg)); }
+  50% { transform: rotate(calc(var(--a, -8deg) * -1)); }
+}
+.ff-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: ff-swing var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
+}

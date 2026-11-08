@@ -1,0 +1,38 @@
+/*
+  "The Cow and the Lemon Tree" (fidel-cow-lemon.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The cow's tail swishes. */
+@keyframes fcl-tail {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(14deg); }
+}
+.fcl-tail {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: fcl-tail 1.8s ease-in-out infinite;
+}
+
+/* Munching grass: the head dips and comes up. */
+@keyframes fcl-munch {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(6px) rotate(-6deg); }
+}
+.fcl-munch {
+  transform-box: fill-box;
+  transform-origin: 80% 20%;
+  animation: fcl-munch 0.9s ease-in-out infinite;
+}
+
+/* A happy "moo": sound lines spread out and fade, again and again. */
+@keyframes fcl-moo {
+  0% { transform: scale(0.5); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.fcl-moo {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: fcl-moo 1.4s ease-out var(--delay, 0s) infinite;
+}

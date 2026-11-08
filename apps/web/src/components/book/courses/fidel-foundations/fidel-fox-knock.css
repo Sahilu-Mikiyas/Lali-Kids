@@ -1,0 +1,83 @@
+/*
+  "Knock, Knock, Little Fox" (fidel-fox-knock.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The fox's tail wags. */
+@keyframes ffk-wag {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-16deg); }
+}
+.ffk-wag {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: ffk-wag 0.5s ease-in-out infinite;
+}
+
+/* Ears pricking up. */
+@keyframes ffk-ears {
+  0%, 60%, 100% { transform: translateY(0); }
+  70% { transform: translateY(-3px); }
+  80% { transform: translateY(0); }
+}
+.ffk-ears {
+  animation: ffk-ears 2.4s ease-in-out infinite;
+}
+
+/* Panting with a hot tongue. */
+@keyframes ffk-pant {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.3); }
+}
+.ffk-pant {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: ffk-pant 0.3s ease-in-out infinite;
+}
+
+/* A door swings open (squashes towards its hinge). */
+@keyframes ffk-door {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.15); }
+}
+.ffk-door {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: ffk-door 0.6s ease-out var(--delay, 0.8s) both;
+}
+
+/* A knock burst: pops out, then fades, again and again. */
+@keyframes ffk-knock {
+  0%, 100% { transform: scale(0.3); opacity: 0; }
+  12% { transform: scale(1.15); opacity: 1; }
+  40% { transform: scale(1); opacity: 0; }
+}
+.ffk-knock {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ffk-knock 2.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* A plop ring spreading where the drop lands. */
+@keyframes ffk-plop {
+  0%, 55% { transform: scale(0.2); opacity: 0; }
+  65% { opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.ffk-plop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ffk-plop 1.6s ease-out infinite;
+}
+
+/* A clap: each part pops in turn. */
+@keyframes ffk-clap {
+  0%, 100% { transform: scale(1); }
+  8% { transform: scale(1.3); }
+  16% { transform: scale(1); }
+}
+.ffk-clap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ffk-clap 2.4s ease-out var(--delay, 0s) infinite;
+}

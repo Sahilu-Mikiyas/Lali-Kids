@@ -1,0 +1,26 @@
+/*
+  "The Boat Letter" (fidel-boat-ha.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* Little ripples on the lake slide and fade. */
+@keyframes fbh-ripple {
+  0% { transform: translateX(-6px); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+.fbh-ripple {
+  animation: fbh-ripple 3.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A splash as the family jumps out of the boat. */
+@keyframes fbh-splash {
+  0%, 100% { transform: scale(0.4); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  45% { transform: scale(1.2); opacity: 0; }
+}
+.fbh-splash {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fbh-splash 1.6s ease-out var(--delay, 0.5s) infinite;
+}
