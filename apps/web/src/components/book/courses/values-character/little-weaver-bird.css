@@ -1,0 +1,48 @@
+/* The Little Weaver Bird (little-weaver-bird.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Weavers flitting between nests. */
+@keyframes little-weaver-bird-flit {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(40px, -14px); }
+  50% { transform: translate(80px, 6px); }
+  75% { transform: translate(30px, 10px); }
+}
+.little-weaver-bird-flit { animation: little-weaver-bird-flit 5s ease-in-out var(--delay, 0s) infinite; }
+
+/* The mother hops on her branch, calling. */
+@keyframes little-weaver-bird-call {
+  0%, 60%, 100% { transform: translateY(0); }
+  70% { transform: translateY(-6px); }
+  80% { transform: translateY(0); }
+  90% { transform: translateY(-4px); }
+}
+.little-weaver-bird-call { animation: little-weaver-bird-call 1.2s ease-out infinite; }
+
+/* Dimmet creeps in, meets Gugu, and slinks off. */
+@keyframes little-weaver-bird-cat {
+  0% { transform: translateX(90px); }
+  25%, 65% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+.little-weaver-bird-cat { animation: little-weaver-bird-cat 7s ease-in-out infinite; }
+
+/* Lifted gently up to the nest. */
+@keyframes little-weaver-bird-lift {
+  from { transform: translate(28px, 144px); }
+  to { transform: translate(0, 0); }
+}
+.little-weaver-bird-lift { animation: little-weaver-bird-lift 2.6s ease-in-out 0.4s both; }
+
+/* The mother arrives at the nest door with breakfast. */
+@keyframes little-weaver-bird-feed {
+  0% { transform: translate(-120px, -60px); }
+  40%, 100% { transform: translate(0, 0); }
+}
+.little-weaver-bird-feed { animation: little-weaver-bird-feed 2.4s ease-out 0.3s both; }
+
+/* The young bird's first flight, down to the water dish. */
+@keyframes little-weaver-bird-fly-down {
+  from { transform: translate(10px, -150px); }
+  to { transform: translate(0, 0); }
+}
+.little-weaver-bird-fly-down { animation: little-weaver-bird-fly-down 2.2s ease-out 0.4s both; }

@@ -29,17 +29,17 @@ const VISITORS: Visitor[] = [
       { label: { en: "Stand up, bow low and kiss his knees.", am: "ተነሥቶ፣ ጎንበስ ብሎ ጉልበታቸውን መሳም።" }, good: true, result: { en: "", am: "" } },
       { label: { en: "Give him a high five!", am: "እጅ ለእጅ ማጨብጨብ!" }, good: false, result: { en: "Grandpa laughs and gives you a wobbly high five! But for an elder, the respectful way is to stand up and bow.", am: "አባ ቶሎሳ ሳቁና እየተንቀጠቀጡ አጨበጨቡ! ለታላቅ ሰው ግን የክብሩ መንገድ ተነሥቶ እጅ መንሳት ነው።" } },
     ],
-    great: { en: "Grandpa Tolosa rests his paw on your head: \"Grow and flourish, child!\"", am: "አባ ቶሎሳ እጃቸውን ራስህ ላይ አሳረፉ፦ «እደግ ተመንደግ፣ ልጄ!»" },
+    great: { en: "Grandpa Tolosa rests his paw on your head: \"Grow and flourish, child!\"", am: "አባ ቶሎሳ እጃቸውን ራሳችን ላይ አሳረፉ፦ «እደግ ተመንደግ፣ ልጄ!»" },
   },
   {
     who: "friend",
-    intro: { en: "Here comes Gugu, your best friend!", am: "የቅርብ ጓደኛህ ጉጉ መጣ!" },
+    intro: { en: "Here comes Gugu, your best friend!", am: "የቅርብ ጓደኛችን ጉጉ መጣ!" },
     options: [
-      { label: { en: "Bow and kiss his knees.", am: "ጎንበስ ብሎ ጉልበቱን መሳም።" }, good: false, result: { en: "Gugu giggles: \"I'm not your grandpa!\" Bowing is for elders. For a friend, a hug or a high five is just right.", am: "ጉጉ ሳቀ፦ «እኔ አያትህ አይደለሁም!» እጅ መንሳት ለታላላቆች ነው። ለጓደኛ ማቀፍ ወይም ማጨብጨብ ልክ ነው።" } },
-      { label: { en: "Hide behind the door.", am: "ከበሩ ጀርባ መደበቅ።" }, good: false, result: { en: "Gugu thinks you don't want to play. A friendly hello helps friends feel welcome.", am: "ጉጉ መጫወት የማትፈልግ መሰለው። የወዳጅነት ሰላምታ ጓደኞች እንደተፈለጉ እንዲሰማቸው ያደርጋል።" } },
+      { label: { en: "Bow and kiss his knees.", am: "ጎንበስ ብሎ ጉልበቱን መሳም።" }, good: false, result: { en: "Gugu giggles: \"I'm not your grandpa!\" Bowing is for elders. For a friend, a hug or a high five is just right.", am: "ጉጉ ሳቀ፦ «እኔ አያታችሁ አይደለሁም!» እጅ መንሳት ለታላላቆች ነው። ለጓደኛ ማቀፍ ወይም ማጨብጨብ ልክ ነው።" } },
+      { label: { en: "Hide behind the door.", am: "ከበሩ ጀርባ መደበቅ።" }, good: false, result: { en: "Gugu thinks you don't want to play. A friendly hello helps friends feel welcome.", am: "ጉጉ መጫወት የማንፈልግ መሰለው። የወዳጅነት ሰላምታ ጓደኞች እንደተፈለጉ እንዲሰማቸው ያደርጋል።" } },
       { label: { en: "Jump up and give him a big hug!", am: "ዘልሎ ተነሥቶ በደንብ ማቀፍ!" }, good: true, result: { en: "", am: "" } },
     ],
-    great: { en: "A hug for a friend! Gugu hugs you back and wants to play.", am: "ለጓደኛ ማቀፍ! ጉጉ መልሶ አቀፈህ፤ መጫወትም ፈለገ።" },
+    great: { en: "A hug for a friend! Gugu hugs you back and wants to play.", am: "ለጓደኛ ማቀፍ! ጉጉ መልሶ አቀፈን፤ መጫወትም ፈለገ።" },
   },
   {
     who: "baby",
@@ -47,9 +47,9 @@ const VISITORS: Visitor[] = [
     options: [
       { label: { en: "Greet Mama first, then a soft hello for the baby.", am: "መጀመሪያ እማማን ሰላም ማለት፣ ከዚያ ለሕፃኑ በለስላሳ ድምፅ ሰላም ማለት።" }, good: true, result: { en: "", am: "" } },
       { label: { en: "Run to the baby and shout HELLO!", am: "ወደ ሕፃኑ ሮጦ «ሰላም!» ብሎ መጮኽ!" }, good: false, result: { en: "Waaah! Baby Dawit got a fright. Babies like soft voices and gentle touches, and Mama likes a hello too.", am: "ዋ! ሕፃኑ ዳዊት ደነገጠ። ሕፃናት ለስላሳ ድምፅና ቀስ ያለ መዳበስ ይወዳሉ፤ እማማም ሰላምታ ትወዳለች።" } },
-      { label: { en: "Ask Mama for a snack.", am: "እማማን መክሰስ መጠየቅ።" }, good: false, result: { en: "Mama smiles, but she hasn't even sat down yet! First a hello, then she can help you.", am: "እማማ ፈገግ አለች፤ ግን ገና አልተቀመጠችም! መጀመሪያ ሰላምታ፣ ከዚያ ልትረዳህ ትችላለች።" } },
+      { label: { en: "Ask Mama for a snack.", am: "እማማን መክሰስ መጠየቅ።" }, good: false, result: { en: "Mama smiles, but she hasn't even sat down yet! First a hello, then she can help you.", am: "እማማ ፈገግ አለች፤ ግን ገና አልተቀመጠችም! መጀመሪያ ሰላምታ፣ ከዚያ ልትረዳን ትችላለች።" } },
     ],
-    great: { en: "Mama kisses your cheeks, and baby Dawit smiles at you.", am: "እማማ ጉንጭህን ሳመችህ፤ ሕፃኑ ዳዊትም ፈገግ አለልህ።" },
+    great: { en: "Mama kisses your cheeks, and baby Dawit smiles at you.", am: "እማማ ጉንጫችንን ሳመች፤ ሕፃኑ ዳዊትም ፈገግ አለልን።" },
   },
   {
     who: "guest",
@@ -77,7 +77,7 @@ const VISITORS: Visitor[] = [
     options: [
       { label: { en: "Stare at her and whisper to your friends.", am: "እያፈጠጡ ለጓደኞች ሹክ ማለት።" }, good: false, result: { en: "Haben feels shy and alone. A smile is the same in every language.", am: "ሐበን ዓይናፋርነትና ብቸኝነት ተሰማት። ፈገግታ በሁሉም ቋንቋ አንድ ነው።" } },
       { label: { en: "Smile, say \"Selam!\" and show her where to sit.", am: "ፈገግ ብሎ «ሰላም!» ማለትና የምትቀመጥበትን ማሳየት።" }, good: true, result: { en: "", am: "" } },
-      { label: { en: "Talk very LOUDLY so she understands.", am: "እንድትገባት በጣም ጮክ ብሎ መናገር።" }, good: false, result: { en: "Loud words can be scary! Haben is still learning Amharic. Speak gently, and smile.", am: "ጩኸት ሊያስፈራ ይችላል! ሐበን ገና አማርኛ እየተማረች ነው። በቀስታ ተናገር፤ ፈገግም በል።" } },
+      { label: { en: "Talk very LOUDLY so she understands.", am: "እንድትገባት በጣም ጮክ ብሎ መናገር።" }, good: false, result: { en: "Loud words can be scary! Haben is still learning Amharic. Speak gently, and smile.", am: "ጩኸት ሊያስፈራ ይችላል! ሐበን ገና አማርኛ እየተማረች ነው። በቀስታ እንናገር፤ ፈገግም እንበል።" } },
     ],
     great: { en: "Haben smiles back: \"Selam!\" Now she has a new friend.", am: "ሐበን መልሳ ፈገግ አለች፦ «ሰላም!» አሁን አዲስ ጓደኛ አገኘች።" },
   },
@@ -179,7 +179,7 @@ export default function GreetingGame({ lang, onDone }: DemoProps) {
   };
 
   return (
-    <DemoFrame lang={lang} title={{ en: "The Greeting Game", am: "የሰላምታ ጨዋታ" }} goal={{ en: "Who is at the door? Choose the best way to greet each visitor.", am: "በሩ ላይ ማን አለ? እያንዳንዱን እንግዳ ሰላም የምትልበትን ምርጥ መንገድ ምረጥ።" }} step={i} total={VISITORS.length}>
+    <DemoFrame lang={lang} title={{ en: "The Greeting Game", am: "የሰላምታ ጨዋታ" }} goal={{ en: "Who is at the door? Choose the best way to greet each visitor.", am: "በሩ ላይ ማን አለ? እያንዳንዱን እንግዳ ሰላም የምትሉበትን ምርጥ መንገድ ምረጡ።" }} step={i} total={VISITORS.length}>
       <Stage label={done ? undefined : t(lang, v.intro)}>
         <Home id={id} time="day" door="open">
           {done ? (
@@ -225,11 +225,11 @@ export default function GreetingGame({ lang, onDone }: DemoProps) {
         <>
           <p className="mt-4 font-display text-xl font-extrabold text-ink">{t(lang, v.intro)}</p>
           {chosen?.good ? (
-            <Feedback tone="great" action={<Next onClick={next}>{t(lang, i === VISITORS.length - 1 ? { en: "Finish", am: "ጨርስ" } : { en: "Next visitor", am: "ቀጣዩ እንግዳ" })}</Next>}>
+            <Feedback tone="great" action={<Next onClick={next}>{t(lang, i === VISITORS.length - 1 ? { en: "Finish", am: "ጨርሱ" } : { en: "Next visitor", am: "ቀጣዩ እንግዳ" })}</Next>}>
               {t(lang, v.great)}
             </Feedback>
           ) : chosen ? (
-            <Feedback tone="gentle" action={<Next onClick={() => setPick(null)} color="#C98A0A">{t(lang, { en: "Try another way", am: "ሌላ መንገድ ሞክር" })}</Next>}>
+            <Feedback tone="gentle" action={<Next onClick={() => setPick(null)} color="#C98A0A">{t(lang, { en: "Try another way", am: "ሌላ መንገድ ሞክሩ" })}</Next>}>
               {t(lang, chosen.result)}
             </Feedback>
           ) : (

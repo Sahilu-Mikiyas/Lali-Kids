@@ -1,0 +1,47 @@
+/* Gugu Asks for Help (gugu-asks-for-help.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The wind blows the kite up into the tree. */
+@keyframes gugu-asks-for-help-blow {
+  from { transform: translate(120px, 160px) rotate(-30deg); }
+  to { transform: translate(0, 0) rotate(0); }
+}
+.gugu-asks-for-help-blow { animation: gugu-asks-for-help-blow 1.6s ease-out 0.4s both; }
+
+/* The thin branch bends and bounces under Gugu. */
+@keyframes gugu-asks-for-help-creak {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+.gugu-asks-for-help-creak {
+  transform-box: view-box;
+  transform-origin: 160px 142px;
+  animation: gugu-asks-for-help-creak 1.6s ease-in-out infinite;
+}
+
+/* Climbing down, step by step. */
+@keyframes gugu-asks-for-help-down {
+  0% { transform: translate(90px, -40px); }
+  30% { transform: translate(40px, -30px); }
+  60% { transform: translate(10px, 10px); }
+  100% { transform: translate(56px, 46px); }
+}
+.gugu-asks-for-help-down { animation: gugu-asks-for-help-down 3.4s ease-in-out 0.4s both; }
+
+/* The kite floats down. */
+@keyframes gugu-asks-for-help-float {
+  from { transform: translate(0, 0) rotate(0); }
+  to { transform: translate(-60px, 150px) rotate(-20deg); }
+}
+.gugu-asks-for-help-float { animation: gugu-asks-for-help-float 3s ease-in-out 0.8s both; }
+
+/* A big belly laugh. */
+@keyframes gugu-asks-for-help-laugh {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+.gugu-asks-for-help-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugu-asks-for-help-laugh 0.5s ease-in-out infinite;
+}

@@ -445,7 +445,7 @@ const BEADS = ["#E2463F", "#FFFFFF", "#1B1B1B", "#F5B21E"];
  * muzzle, big pointed ears and a bushy tail with a dark tip. `elder` is Grandpa Tolosa:
  * greyer fur, a white gabi round his shoulders and his walking stick.
  */
-export function Wolf({ mood = "happy", elder = false, wag = false, ears = "up", arm, item, hood = false, dress }: { mood?: Mood; elder?: boolean; wag?: boolean; ears?: "up" | "flat"; arm?: "wave" | "give" | "bless"; item?: ReactNode; hood?: boolean; dress?: string }) {
+export function Wolf({ mood = "happy", elder = false, wag = false, ears = "up", arm, item, hood = false, dress, sleepy = false }: { mood?: Mood; elder?: boolean; wag?: boolean; ears?: "up" | "flat"; arm?: "wave" | "give" | "bless"; item?: ReactNode; hood?: boolean; dress?: string; sleepy?: boolean }) {
   const fur = elder ? "#B97A52" : RUST;
   const furD = elder ? "#96603E" : RUST_D;
   return (
@@ -532,7 +532,11 @@ export function Wolf({ mood = "happy", elder = false, wag = false, ears = "up", 
             <path d="M54 110 Q56 50 100 46 Q144 50 146 110" stroke="#F5B21E" strokeWidth={1.6} strokeDasharray="3 3" fill="none" />
           </g>
         )}
-        <Eyes x1={84} x2={116} y={92} r={5.6} mood={mood} />
+        {sleepy ? (
+          <path d="M76 92 Q84 98 92 92 M108 92 Q116 98 124 92" stroke={INK} strokeWidth={3.2} fill="none" strokeLinecap="round" />
+        ) : (
+          <Eyes x1={84} x2={116} y={92} r={5.6} mood={mood} />
+        )}
         <ellipse cx={74} cy={108} rx={6} ry={4} fill="#FF8A7A" opacity={0.4} />
         <ellipse cx={126} cy={108} rx={6} ry={4} fill="#FF8A7A" opacity={0.4} />
         <MouthFor x={100} y={140} mood={mood} s={0.8} color="#7A3E1D" />
@@ -552,8 +556,8 @@ const SAND_L = "#E8C08A";
  * Hooyo's long green shawl (and she is drawn taller), Abdi's white koofiyad cap.
  * `henna` paints flowers on the front feet; `kneel` folds the legs to sit.
  */
-export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = false, henna = false, item }: { who?: "ayan" | "hooyo" | "abdi"; mood?: Mood; walk?: boolean; kneel?: boolean; henna?: boolean; item?: ReactNode }) {
-  const tall = who === "hooyo";
+export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = false, henna = false, item }: { who?: "ayan" | "hooyo" | "abdi" | "aabo"; mood?: Mood; walk?: boolean; kneel?: boolean; henna?: boolean; item?: ReactNode }) {
+  const tall = who === "hooyo" || who === "aabo";
   const legH = kneel ? 22 : tall ? 74 : 62;
   const legY = 228 - legH;
   const bodyY = legY - 8;
@@ -605,6 +609,13 @@ export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = fals
               <g>
                 <path d="M134 74 Q150 40 184 56 L180 66 Q158 56 150 76 L150 130 Q132 126 128 100Z" fill="#2E8A5A" />
                 <path d="M136 80 Q150 50 182 60" stroke="#F5B21E" strokeWidth={2.4} strokeDasharray="4 3" fill="none" />
+              </g>
+            )}
+            {who === "aabo" && (
+              <g>
+                <path d="M144 60 Q160 40 180 54 L178 62 Q160 52 146 64Z" fill="#FFFFFF" />
+                <path d="M148 58 Q160 48 176 56" stroke="#2E9A8A" strokeWidth={2} strokeDasharray="3 2" fill="none" />
+                <path d="M140 96 Q150 104 160 96 L156 120 Q148 124 140 118Z" fill="#E2463F" opacity={0.9} />
               </g>
             )}
             {who === "abdi" && (
@@ -738,6 +749,29 @@ export function Mouse({ s = 1, shake = false }: { s?: number; shake?: boolean })
         <circle cx={10} cy={-5} r={1.2} fill={INK} />
         <circle cx={14} cy={-4} r={1} fill="#E88A9A" />
       </g>
+    </g>
+  );
+}
+
+/** Teacher Meron: a gelada in a blue dress with a white collar and round glasses. */
+export function Teacher({ mood = "happy", pose = "sit", item }: { mood?: Mood; pose?: GuguPose; item?: ReactNode }) {
+  return (
+    <g>
+      <GuguShape mood={mood} pose={pose} />
+      <g className="lali-breathe">
+        <path d="M54 232 C48 200 58 176 72 170 Q100 186 128 170 C142 176 152 200 146 232Z" fill="#2F6FD0" />
+        <path d="M72 170 Q100 192 128 170 L120 166 Q100 180 80 166Z" fill="#FFFFFF" />
+        <ellipse cx={70} cy={208} rx={10} ry={8} fill={G_HAND} />
+      </g>
+      {item && (pose === "wave" || pose === "point") && <g transform="translate(160 84)">{item}</g>}
+      <OnHead>
+        <g stroke="#1B2A4E" strokeWidth={2.4} fill="none">
+          <circle cx={86} cy={86} r={11} />
+          <circle cx={114} cy={86} r={11} />
+          <path d="M97 86 h6" />
+        </g>
+        <path d="M60 50 Q100 10 140 50 Q100 34 60 50Z" fill="#1B1B2A" />
+      </OnHead>
     </g>
   );
 }

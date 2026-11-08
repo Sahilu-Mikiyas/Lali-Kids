@@ -1,0 +1,40 @@
+/* Hawi's First Basket (hawis-first-basket.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The coil springs loose and unrolls across the floor. */
+@keyframes hawis-first-basket-unroll {
+  from { transform: scaleX(0.05); }
+  to { transform: scaleX(1); }
+}
+.hawis-first-basket-unroll {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: hawis-first-basket-unroll 0.6s cubic-bezier(0.2, 1.4, 0.5, 1) 0.6s both;
+}
+
+/* A cross little stamp. */
+@keyframes hawis-first-basket-stamp {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-6px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-6px); }
+}
+.hawis-first-basket-stamp { animation: hawis-first-basket-stamp 1.4s ease-in-out infinite; }
+
+/* Laughing together. */
+@keyframes hawis-first-basket-laugh {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+.hawis-first-basket-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hawis-first-basket-laugh 0.5s ease-in-out infinite;
+}
+
+/* The basket grows, stripe by stripe: each stage appears in turn and stays. */
+@keyframes hawis-first-basket-grow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hawis-first-basket-grow { animation: hawis-first-basket-grow 0.3s ease-out var(--delay, 0s) both; }

@@ -21,15 +21,15 @@ type Step = "grass" | "incense" | "roast" | "smell" | "grind" | "boil" | "abol" 
 const STEPS: Step[] = ["grass", "incense", "roast", "smell", "grind", "boil", "abol", "tona", "bereka", "end"];
 
 const SAY: Record<Step, T> = {
-  grass: { en: "First, spread fresh green grass on the floor. Tap the floor!", am: "መጀመሪያ ትኩስ ቄጠማ ወለሉ ላይ ጎዝጉዝ። ወለሉን ንካ!" },
-  incense: { en: "Light the incense, so the room smells sweet.", am: "ክፍሉ እንዲያውድ ዕጣኑን አጫው።" },
-  roast: { en: "Roast the green beans: tap the pan three times. Crackle, pop!", am: "አረንጓዴውን ቡና ቁላው፦ ምጣዱን ሦስት ጊዜ ንካ። ቋ፣ ቋ!" },
-  smell: { en: "Carry the smoking pan round, so every guest can smell it.", am: "ሁሉም እንግዳ እንዲያሸተው የሚጨሰውን ምጣድ ይዘህ ዙር።" },
-  grind: { en: "Pound the beans in the mortar: tap it four times.", am: "ቡናውን በሙቀጫ ውቀጠው፦ አራት ጊዜ ንካው።" },
-  boil: { en: "Into the jebena it goes. Tap the jebena to boil the coffee.", am: "ወደ ጀበናው ገባ። ቡናው እንዲፈላ ጀበናውን ንካ።" },
-  abol: { en: "Abol, the first round! Serve the eldest guest first.", am: "አቦል፣ የመጀመሪያው ዙር! መጀመሪያ ከሁሉ ታላቁን እንግዳ አስተናግድ።" },
-  tona: { en: "Tona, the second round. Tap the jebena to pour again.", am: "ቶና፣ ሁለተኛው ዙር። እንደገና ለመቅዳት ጀበናውን ንካ።" },
-  bereka: { en: "Bereka, the third round: the blessing. Tap the jebena!", am: "በረካ፣ ሦስተኛው ዙር፦ ምርቃቱ። ጀበናውን ንካ!" },
+  grass: { en: "First, spread fresh green grass on the floor. Tap the floor!", am: "መጀመሪያ ትኩስ ቄጠማ ወለሉ ላይ እንጎዝጉዝ። ወለሉን ንኩ!" },
+  incense: { en: "Light the incense, so the room smells sweet.", am: "ክፍሉ እንዲያውድ ዕጣኑን እናጫው።" },
+  roast: { en: "Roast the green beans: tap the pan three times. Crackle, pop!", am: "አረንጓዴውን ቡና እንቁላው፦ ምጣዱን ሦስት ጊዜ ንኩ። ቋ፣ ቋ!" },
+  smell: { en: "Carry the smoking pan round, so every guest can smell it.", am: "ሁሉም እንግዳ እንዲያሸተው የሚጨሰውን ምጣድ ይዘን እንዙር።" },
+  grind: { en: "Pound the beans in the mortar: tap it four times.", am: "ቡናውን በሙቀጫ እንውቀጠው፦ አራት ጊዜ ንኩት።" },
+  boil: { en: "Into the jebena it goes. Tap the jebena to boil the coffee.", am: "ወደ ጀበናው ገባ። ቡናው እንዲፈላ ጀበናውን ንኩ።" },
+  abol: { en: "Abol, the first round! Serve the eldest guest first.", am: "አቦል፣ የመጀመሪያው ዙር! መጀመሪያ ከሁሉ ታላቁን እንግዳ እናስተናግድ።" },
+  tona: { en: "Tona, the second round. Tap the jebena to pour again.", am: "ቶና፣ ሁለተኛው ዙር። እንደገና ለመቅዳት ጀበናውን ንኩ።" },
+  bereka: { en: "Bereka, the third round: the blessing. Tap the jebena!", am: "በረካ፣ ሦስተኛው ዙር፦ ምርቃቱ። ጀበናውን ንኩ!" },
   end: { en: "Abol, tona, bereka!", am: "አቦል፣ ቶና፣ በረካ!" },
 };
 
@@ -105,7 +105,7 @@ export default function CoffeeCeremony({ lang, onDone }: DemoProps) {
   if (step === "boil" || step === "tona" || step === "bereka") target = <><Glow x={300} y={244} /><Hit x={300} y={244} onTap={go} label={t(lang, SAY[step])} /></>;
 
   return (
-    <DemoFrame lang={lang} title={{ en: "The Coffee Ceremony", am: "የቡና ሥነ-ሥርዓት" }} goal={{ en: "Help Grandma make coffee for the neighbours. Tap whatever is glowing.", am: "አያቴን ለጎረቤቶች ቡና እንድታፈላ እርዳት። የሚያበራውን ንካ።" }} step={Math.min(s, STEPS.length - 1)} total={STEPS.length - 1} color="#6A3A22">
+    <DemoFrame lang={lang} title={{ en: "The Coffee Ceremony", am: "የቡና ሥነ-ሥርዓት" }} goal={{ en: "Help Grandma make coffee for the neighbours. Tap whatever is glowing.", am: "አያቴን ለጎረቤቶች ቡና እንድታፈላ እንርዳት። የሚያበራውን ንኩ።" }} step={Math.min(s, STEPS.length - 1)} total={STEPS.length - 1} color="#6A3A22">
       <Stage label={t(lang, SAY[step])}>
         <Home id={id} time={at("bereka") ? "evening" : "day"} shelf={false}>
           {at("incense") && <Qetema x={200} y={262} w={320} />}
@@ -224,14 +224,14 @@ export default function CoffeeCeremony({ lang, onDone }: DemoProps) {
           {step !== "abol" && step !== "tona" && step !== "bereka" && (
             <div className="mt-3 flex justify-end">
               <Next color="#6A3A22" onClick={() => (step === "roast" ? tapTimes(3) : step === "grind" ? tapTimes(4) : go())}>
-                {t(lang, step === "roast" || step === "grind" ? { en: "Tap!", am: "ንካ!" } : { en: "Do it", am: "አድርግ" })}
+                {t(lang, step === "roast" || step === "grind" ? { en: "Tap!", am: "ንኩ!" } : { en: "Do it", am: "እናድርግ" })}
               </Next>
             </div>
           )}
           {(step === "tona" || step === "bereka") && (
             <div className="mt-3 flex justify-end">
               <Next color="#6A3A22" onClick={go}>
-                {t(lang, { en: "Pour", am: "ቅዳ" })}
+                {t(lang, { en: "Pour", am: "ቅዱ" })}
               </Next>
             </div>
           )}

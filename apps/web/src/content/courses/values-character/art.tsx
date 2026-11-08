@@ -2,15 +2,36 @@
 
 import type { ComponentType, ReactNode } from "react";
 
-import { AuntieSheep, Baby, Camel, Cat, Cub, Grandma, Gugu, Ibex, Mama, Tsehay, Wolf } from "@/components/book/courses/values-character/kit-cast";
+import { AuntieSheep, Baby, Camel, Cat, Cub, Grandma, Gugu, Ibex, Mama, Papa, Tsehay, Wolf } from "@/components/book/courses/values-character/kit-cast";
+import {
+  AshendaSkirt,
+  Book,
+  Demera,
+  EdirBox,
+  GennaStick,
+  GrassBundle,
+  KnotString,
+  LemonPlant,
+  Litter,
+  Nest,
+  NoLitterSign,
+  Seedling,
+  Spring,
+  StormCloud,
+  Truck,
+  WeaveBasket,
+  WeaverBird,
+} from "@/components/book/courses/values-character/kit-more";
 import {
   Ball,
   Broom,
   CoffeeTray,
   Cup,
   Dabo,
+  Drum,
   Feather,
   Gursha,
+  Hearth,
   HeavyStone,
   Jebena,
   Jerrycan,
@@ -22,10 +43,13 @@ import {
   Sandals,
   Sheaf,
   SnackBowl,
+  Steam,
   Stool,
   TomatoPlant,
   WashSet,
+  WateringCan,
 } from "@/components/book/courses/values-character/kit-props";
+import { Sheep } from "@/components/book/scenery";
 import type { ArtProps } from "../types";
 
 /*
@@ -336,4 +360,180 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   kolo: thing(<SnackBowl x={50} y={72} s={1.6} kind="kolo" />),
   sheaf: thing(<Sheaf x={50} y={86} s={1.5} />, "#FFF4D0"),
   heart: thing(<path d="M50 80 C20 58 26 26 44 26 C48 26 50 30 50 34 C50 30 52 26 56 26 C74 26 80 58 50 80Z" fill="#E2463F" />, "#FFE9EE"),
+
+  /* level 4 to 6 */
+  ayan: who(<Camel who="ayan" mood="joy" />),
+  basket: thing(<WeaveBasket x={50} y={80} s={1.5} rows={6} lid />, "#FFF4D0"),
+  "wobbly-basket": thing(<WeaveBasket x={50} y={80} s={1.5} rows={4} lid lopsided old />, "#FFF4D0"),
+  "give-up": scene(
+    <g>
+      {at(170, 290, 0.6, <Wolf mood="worried" ears="flat" />)}
+      <GrassBundle x={262} y={286} s={1.6} loose />
+    </g>,
+    "#FFF0E0",
+  ),
+  "try-again": scene(
+    <g>
+      {at(160, 290, 0.6, <Wolf mood="joy" arm="give" item={<GrassBundle x={0} y={8} s={0.7} />} />)}
+      <WeaveBasket x={262} y={288} s={1.6} rows={3} />
+    </g>,
+    "#FFF0E0",
+  ),
+  "climb-high": scene(
+    <g>
+      <path d="M90 200 Q200 176 310 186" stroke="#7A5236" strokeWidth={10} fill="none" strokeLinecap="round" />
+      <path d="M110 150 q30 -30 70 -10 q40 -30 80 0 q30 -10 50 20 Q200 190 110 150Z" fill="#3E9B5A" />
+      {at(230, 196, 0.36, <Gugu mood="worried" />)}
+    </g>,
+    "#E4F6FF",
+  ),
+  "ask-help": scene(
+    <g>
+      {at(150, 290, 0.5, <Gugu mood="happy" pose="wave" />)}
+      {at(262, 290, 0.56, <Papa mood="joy" pose="wave" />, true)}
+    </g>,
+    "#E4F6FF",
+  ),
+  "hot-pot": thing(
+    <g transform="translate(50 78) scale(1.5)">
+      <Hearth x={0} y={0} />
+    </g>,
+  ),
+  seed: thing(<LemonPlant x={50} y={86} s={1.7} stage={0} />, "#E4F7EA"),
+  sprout: thing(<LemonPlant x={50} y={86} s={1.7} stage={1} />, "#E4F7EA"),
+  "lemon-tree": thing(<LemonPlant x={50} y={92} s={0.9} stage={5} />, "#E4F7EA"),
+  watering: thing(<WateringCan x={46} y={64} s={1.8} pour />, "#E4F6FF"),
+  book: thing(<Book x={50} y={56} s={2.4} />, "#E4F6FF"),
+  "read-aloud": scene(
+    <g>
+      {at(170, 290, 0.56, <Ibex mood="happy" pose="point" />)}
+      <Book x={250} y={226} s={1.6} />
+    </g>,
+    "#E4F6FF",
+  ),
+  storm: thing(<StormCloud x={50} y={52} size={0.9} bolt />, "#EEF0F6"),
+  "coffee-breath": thing(
+    <g>
+      <Cup x={50} y={84} s={3.2} />
+      <Steam x={50} y={46} />
+    </g>,
+  ),
+  lamb: thing(<Sheep x={50} y={62} s={0.9} />, "#E4F7EA"),
+  drum: thing(<Drum x={50} y={74} s={1.6} />),
+  "left-out": scene(
+    <g>
+      <rect x={100} y={250} width={110} height={30} rx={4} fill="#C9A06A" />
+      {at(160, 256, 0.44, <Camel who="abdi" mood="sad" />)}
+      <Ball x={286} y={274} s={1.4} />
+    </g>,
+    "#E4F6FF",
+  ),
+  "join-in": scene(
+    <g>
+      {at(150, 290, 0.5, <Camel who="abdi" mood="joy" item={<Ball x={0} y={0} s={1.2} />} />)}
+      {at(262, 290, 0.5, <Camel who="ayan" mood="joy" />, true)}
+    </g>,
+    "#E4F6FF",
+  ),
+  quarrel: scene(
+    <g>
+      {at(150, 290, 0.5, <Gugu mood="worried" />)}
+      {at(262, 290, 0.5, <Ibex mood="worried" />, true)}
+      <StormCloud x={200} y={150} size={0.8} bolt />
+    </g>,
+    "#EEF0F6",
+  ),
+  "speaking-stick": thing(
+    <g transform="translate(50 54) rotate(20)">
+      <rect x={-4} y={-38} width={8} height={80} rx={4} fill="#7A5236" />
+      <circle cx={0} cy={-38} r={7} fill="#8A6040" />
+    </g>,
+  ),
+  knots: thing(<KnotString x={10} y={50} n={4} total={7} />),
+  truck: thing(<Truck x={56} y={72} s={0.55} />, "#E4F6FF"),
+  "edir-box": thing(<EdirBox x={50} y={80} s={1.4} open />),
+  soup: thing(
+    <g transform="translate(50 70) scale(2.2)">
+      <path d="M-16 -14 Q-18 2 -8 4 L8 4 Q18 2 16 -14Z" fill="#8A4A2A" />
+      <ellipse cx={0} cy={-14} rx={16} ry={4} fill="#E8A86A" />
+      <Steam x={0} y={-22} />
+    </g>,
+  ),
+  "sick-bed": scene(
+    <g>
+      <rect x={110} y={270} width={180} height={14} rx={7} fill="#2E9A8A" />
+      {at(200, 286, 0.5, <Wolf elder mood="worried" sleepy />)}
+    </g>,
+    "#FFF0E0",
+  ),
+  nest: thing(<Nest x={50} y={50} s={2.6} />, "#E4F7EA"),
+  chick: thing(<WeaverBird x={50} y={70} s={2.6} chick />, "#E4F7EA"),
+  bird: thing(<WeaverBird x={46} y={64} s={2.6} />, "#E4F6FF"),
+  box: thing(
+    <g transform="translate(50 74) scale(1.8)">
+      <path d="M-16 0 L-16 -20 L16 -20 L16 0Z" fill="#C9A06A" />
+      <path d="M-16 -20 L-6 -28 L26 -28 L16 -20Z" fill="#D9B080" />
+      <path d="M16 0 L26 -8 L26 -28 L16 -20Z" fill="#B88A50" />
+    </g>,
+  ),
+  "water-dish": thing(
+    <g>
+      <ellipse cx={50} cy={78} rx={34} ry={9} fill="#B8683E" />
+      <ellipse cx={50} cy={76} rx={28} ry={6} fill="#9FD4F0" />
+      <WeaverBird x={42} y={66} s={1.4} />
+    </g>,
+    "#E4F7EA",
+  ),
+  litter: thing(
+    <g>
+      <Litter x={36} y={70} kind="bag" s={2} />
+      <Litter x={70} y={80} kind="bottle" s={1.6} rot={60} />
+    </g>,
+    "#F4EEE0",
+  ),
+  "bin-sign": thing(<NoLitterSign x={50} y={96} s={1.2} />, "#E4F7EA"),
+  seedling: thing(<Seedling x={50} y={88} s={2.4} />, "#E4F7EA"),
+  "spring-clean": thing(
+    <g transform="translate(50 66) scale(0.4)">
+      <Spring x={0} y={0} bright />
+    </g>,
+    "#E4F7EA",
+  ),
+  "spring-dirty": thing(
+    <g>
+      <g transform="translate(50 66) scale(0.4)">
+        <Spring x={0} y={0} dirty />
+      </g>
+      <Litter x={40} y={62} kind="bag" s={0.8} />
+      <Litter x={62} y={66} kind="bottle" s={0.8} rot={70} />
+    </g>,
+    "#F4EEE0",
+  ),
+  demera: thing(<Demera x={50} y={96} s={0.5} lit />, "#3A4488"),
+  plate: thing(
+    <g transform="translate(50 64) scale(2.6)">
+      <ellipse cx={0} cy={2} rx={16} ry={4} fill="#E8E2D2" stroke="#B8AE98" />
+      <path d="M-12 1 Q-10 -12 0 -13 Q10 -12 12 1Z" fill="#E2463F" />
+      <path d="M-6 -6 h4 M2 -9 h4 M-2 -2 h5" stroke="#FFD233" strokeWidth={2} strokeLinecap="round" />
+    </g>,
+  ),
+  genna: thing(
+    <g transform="translate(42 20) scale(1.6)">
+      <GennaStick ball />
+    </g>,
+    "#E4F7EA",
+  ),
+  ashenda: who(
+    <g>
+      <Ibex mood="joy" pose="wave" />
+      <AshendaSkirt />
+    </g>,
+  ),
+  irreecha: thing(
+    <g>
+      <path d="M0 60 Q50 50 100 60 V100 H0Z" fill="#5BB8E8" />
+      <GrassBundle x={50} y={66} s={1.8} />
+    </g>,
+    "#E4F7EA",
+  ),
 };

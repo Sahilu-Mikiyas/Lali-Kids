@@ -29,7 +29,7 @@ type Moment = { word: Word; say: T; great: T; bonus?: T; scene: (good: boolean) 
 const MOMENTS: Moment[] = [
   {
     word: "thanks",
-    say: { en: "Grandma gives you a piece of warm bread.", am: "አያቴ ትኩስ ዳቦ ቆርሳ ሰጠችህ።" },
+    say: { en: "Grandma gives you a piece of warm bread.", am: "አያቴ ትኩስ ዳቦ ቆርሳ ሰጠችን።" },
     great: { en: "Grandma smiles: \"You're welcome, my dear.\"", am: "አያቴ ፈገግ አለች፦ «ምንም አይደል፣ ልጄ።»" },
     bonus: { en: "In Amharic: Amesegnalehu!", am: "በአማርኛ፦ አመሰግናለሁ!" },
     scene: (good) => (
@@ -45,8 +45,8 @@ const MOMENTS: Moment[] = [
   },
   {
     word: "please",
-    say: { en: "You are thirsty, and Tsehay has the water jug.", am: "ጠምቶሃል፤ የውሃው ማንቆርቆሪያ ደግሞ ፀሐይ ጋ ነው።" },
-    great: { en: "Tsehay pours you a cup of cool water.", am: "ፀሐይ ቀዝቃዛ ውሃ በኩባያ ቀዳችልህ።" },
+    say: { en: "You are thirsty, and Tsehay has the water jug.", am: "ጠምቶናል፤ የውሃው ማንቆርቆሪያ ደግሞ ፀሐይ ጋ ነው።" },
+    great: { en: "Tsehay pours you a cup of cool water.", am: "ፀሐይ ቀዝቃዛ ውሃ በኩባያ ቀዳችልን።" },
     scene: (good) => (
       <>
         <Place x={140} y={294} s={0.46} tap={TAP.cub}>
@@ -64,8 +64,8 @@ const MOMENTS: Moment[] = [
   },
   {
     word: "sorry",
-    say: { en: "Oops! You bumped into Gugu and his kolo spilled.", am: "ውይ! ጉጉን ገጨኸውና ቆሎው ተደፋ።" },
-    great: { en: "Gugu says: \"That's all right!\" and you pick up the kolo together.", am: "ጉጉ «ችግር የለም!» አለ፤ ቆሎውን አብራችሁ ለቀማችሁ።" },
+    say: { en: "Oops! You bumped into Gugu and his kolo spilled.", am: "ውይ! ጉጉን ገጭተነው ቆሎው ተደፋ።" },
+    great: { en: "Gugu says: \"That's all right!\" and you pick up the kolo together.", am: "ጉጉ «ችግር የለም!» አለ፤ ቆሎውን አብረን ለቀምን።" },
     scene: (good) => (
       <>
         <Place x={150} y={294} s={0.46} tap={TAP.cub}>
@@ -80,7 +80,7 @@ const MOMENTS: Moment[] = [
   },
   {
     word: "thanks",
-    say: { en: "Hawi helps you carry your heavy school bag.", am: "ሀዊ ከባዱን የትምህርት ቤት ቦርሳህን አገዘችህ።" },
+    say: { en: "Hawi helps you carry your heavy school bag.", am: "ሀዊ ከባዱን የትምህርት ቤት ቦርሳችንን አገዘችን።" },
     great: { en: "Hawi wags her tail. Helping a friend feels good!", am: "ሀዊ ጭራዋን አወዛወዘች። ጓደኛን መርዳት ደስ ያሰኛል!" },
     bonus: { en: "Hawi's family says: Galatoomi!", am: "የሀዊ ቤተሰብ «ገለቶሚ!» ይላሉ።" },
     scene: (good) => (
@@ -96,8 +96,8 @@ const MOMENTS: Moment[] = [
   },
   {
     word: "please",
-    say: { en: "You would love a turn with Haben's kite.", am: "የሐበንን ካይት ተራ ቢደርስህ ደስ ይልሃል።" },
-    great: { en: "Haben hands you the string: \"Your turn!\"", am: "ሐበን ክሩን ሰጠችህ፦ «ያንተ ተራ!»" },
+    say: { en: "You would love a turn with Haben's kite.", am: "የሐበንን ካይት ተራ ቢደርሰን ደስ ይለናል።" },
+    great: { en: "Haben hands you the string: \"Your turn!\"", am: "ሐበን ክሩን ሰጠችን፦ «የእናንተ ተራ!»" },
     scene: (good) => (
       <>
         <Kite x={good ? 160 : 250} y={80} s={0.8} sx={good ? -20 : 10} sy={150} />
@@ -112,8 +112,8 @@ const MOMENTS: Moment[] = [
   },
   {
     word: "sorry",
-    say: { en: "You forgot to give back the pencil you borrowed from Ayan.", am: "ከአያን የተዋስከውን እርሳስ መመለስ ረሳህ።" },
-    great: { en: "Ayan smiles: \"Thank you for bringing it back!\"", am: "አያን ፈገግ አለች፦ «ስለመለስክልኝ አመሰግናለሁ!»" },
+    say: { en: "You forgot to give back the pencil you borrowed from Ayan.", am: "ከአያን የተዋስነውን እርሳስ መመለስ ረሳን።" },
+    great: { en: "Ayan smiles: \"Thank you for bringing it back!\"", am: "አያን ፈገግ አለች፦ «ስለመለሳችሁልኝ አመሰግናለሁ!»" },
     scene: (good) => (
       <>
         <Place x={140} y={294} s={0.46} tap={TAP.cub}>
@@ -209,7 +209,7 @@ export default function KindWords({ lang, onDone }: DemoProps) {
   };
 
   return (
-    <DemoFrame lang={lang} title={{ en: "Magic Words", am: "አስማተኛ ቃላት" }} goal={{ en: "Please, thank you or sorry? Pick the word that opens the door.", am: "እባክህ፣ አመሰግናለሁ ወይስ ይቅርታ? በሩን የሚከፍተውን ቃል ምረጥ።" }} step={i} total={MOMENTS.length} color="#2E9A8A">
+    <DemoFrame lang={lang} title={{ en: "Magic Words", am: "አስማተኛ ቃላት" }} goal={{ en: "Please, thank you or sorry? Pick the word that opens the door.", am: "እባክህ፣ አመሰግናለሁ ወይስ ይቅርታ? በሩን የሚከፍተውን ቃል ምረጡ።" }} step={i} total={MOMENTS.length} color="#2E9A8A">
       <Stage label={done ? undefined : t(lang, m.say)}>
         {done ? (
           <Village id={id} time="day">
@@ -259,12 +259,12 @@ export default function KindWords({ lang, onDone }: DemoProps) {
         <>
           <p className="mt-4 font-display text-xl font-extrabold text-ink">{t(lang, m.say)}</p>
           {pick && good ? (
-            <Feedback tone="great" action={<Next onClick={next} color="#2E9A8A">{t(lang, i === MOMENTS.length - 1 ? { en: "Finish", am: "ጨርስ" } : { en: "Next", am: "ቀጣይ" })}</Next>}>
+            <Feedback tone="great" action={<Next onClick={next} color="#2E9A8A">{t(lang, i === MOMENTS.length - 1 ? { en: "Finish", am: "ጨርሱ" } : { en: "Next", am: "ቀጣይ" })}</Next>}>
               <p>{t(lang, m.great)}</p>
               {m.bonus && <p className="mt-1 font-display font-extrabold text-teal-deep">{t(lang, m.bonus)}</p>}
             </Feedback>
           ) : pick ? (
-            <Feedback tone="gentle" action={<Next onClick={() => setPick(null)} color="#C98A0A">{t(lang, { en: "Try another word", am: "ሌላ ቃል ሞክር" })}</Next>}>
+            <Feedback tone="gentle" action={<Next onClick={() => setPick(null)} color="#C98A0A">{t(lang, { en: "Try another word", am: "ሌላ ቃል ሞክሩ" })}</Next>}>
               {t(lang, WORDS[pick].job)} {t(lang, { en: "Which word fits here?", am: "እዚህ የሚስማማው የትኛው ቃል ነው?" })}
             </Feedback>
           ) : (

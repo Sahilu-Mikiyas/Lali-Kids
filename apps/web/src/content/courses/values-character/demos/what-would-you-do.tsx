@@ -37,11 +37,11 @@ const Note = () => (
 const MOMENTS: Moment[] = [
   {
     place: "home",
-    say: { en: "Playing ball inside, you broke Grandma's coffee cup. Grandma is coming!", am: "ቤት ውስጥ ኳስ ስትጫወት የአያቴን የቡና ስኒ ሰበርከው። አያቴ እየመጣች ነው!" },
+    say: { en: "Playing ball inside, you broke Grandma's coffee cup. Grandma is coming!", am: "ቤት ውስጥ ኳስ ስንጫወት የአያቴን የቡና ስኒ ሰበርነው። አያቴ እየመጣች ነው!" },
     picks: [
       { key: "hide", best: false, label: { en: "Hide the pieces under the mat.", am: "ስብርባሪዎቹን ከምንጣፉ ሥር መደበቅ።" }, result: { en: "Later Grandma finds the pieces under the mat. Now she is sad twice: about the cup, and about the hiding.", am: "ቆየት ብሎ አያቴ ስብርባሪዎቹን ከምንጣፉ ሥር አገኘቻቸው። አሁን ሁለት ጊዜ አዘነች፦ ለስኒው፣ ለመደበቁም።" } },
-      { key: "cat", best: false, label: { en: "Say that Dimmet the cat did it.", am: "«ድመቷ ዲመት ነች የሰበረችው» ማለት።" }, result: { en: "Dimmet is sent outside, and she didn't do anything! Your tummy feels heavy, like a stone.", am: "ዲመት ወደ ውጭ ተባረረች፤ ምንም ሳታጠፋ! ሆድህ እንደ ድንጋይ ከበደ።" } },
-      { key: "truth", best: true, label: { en: "Tell Grandma the truth, and help clean up.", am: "ለአያቴ እውነቱን መናገርና ማጽዳቱን ማገዝ።" }, result: { en: "Grandma hugs you: \"Thank you for telling me. Cups can break, but truth is precious.\" You sweep up together.", am: "አያቴ አቀፈችህ፦ «ስለነገርከኝ አመሰግናለሁ። ስኒ ይሰበራል፤ እውነት ግን ውድ ነው።» አብራችሁ ጠረጋችሁ።" } },
+      { key: "cat", best: false, label: { en: "Say that Dimmet the cat did it.", am: "«ድመቷ ዲመት ነች የሰበረችው» ማለት።" }, result: { en: "Dimmet is sent outside, and she didn't do anything! Your tummy feels heavy, like a stone.", am: "ዲመት ወደ ውጭ ተባረረች፤ ምንም ሳታጠፋ! ሆዳችን እንደ ድንጋይ ከበደ።" } },
+      { key: "truth", best: true, label: { en: "Tell Grandma the truth, and help clean up.", am: "ለአያቴ እውነቱን መናገርና ማጽዳቱን ማገዝ።" }, result: { en: "Grandma hugs you: \"Thank you for telling me. Cups can break, but truth is precious.\" You sweep up together.", am: "አያቴ አቀፈችን፦ «ስለነገርከኝ አመሰግናለሁ። ስኒ ይሰበራል፤ እውነት ግን ውድ ነው።» አብረን ጠረግን።" } },
     ],
     better: { en: "A better way: tell Grandma what happened, say sorry, and help sweep up.", am: "የተሻለው መንገድ፦ የሆነውን ለአያቴ መንገር፣ ይቅርታ መጠየቅና መጥረግ ማገዝ።" },
     scene: (key) => (
@@ -76,13 +76,13 @@ const MOMENTS: Moment[] = [
   },
   {
     place: "village",
-    say: { en: "You promised to play with Tsehay after lunch. Now Gugu asks you to fly kites!", am: "ከምሳ በኋላ ከፀሐይ ጋር ልትጫወት ቃል ገብተሃል። አሁን ጉጉ ካይት እናብር አለህ!" },
+    say: { en: "You promised to play with Tsehay after lunch. Now Gugu asks you to fly kites!", am: "ከምሳ በኋላ ከፀሐይ ጋር ልንጫወት ቃል ገብተናል። አሁን ጉጉ «ካይት እናብር» አለን!" },
     picks: [
       { key: "run", best: false, label: { en: "Run off with Gugu and say nothing.", am: "ምንም ሳይናገሩ ከጉጉ ጋር መሮጥ።" }, result: { en: "Tsehay waits and waits by her door. She feels forgotten.", am: "ፀሐይ በሯ ላይ ጠበቀች፣ ጠበቀች። እንደተረሳች ተሰማት።" } },
-      { key: "together", best: true, label: { en: "Ask Tsehay: \"Shall we all fly kites together?\"", am: "ፀሐይን «ሁላችንም አብረን ካይት እናብር?» ብሎ መጠየቅ።" }, result: { en: "Tsehay claps! Now three friends fly kites, and your promise is kept.", am: "ፀሐይ አጨበጨበች! አሁን ሦስት ጓደኛሞች ካይት ያበራሉ፤ ቃልህም ተጠበቀ።" } },
+      { key: "together", best: true, label: { en: "Ask Tsehay: \"Shall we all fly kites together?\"", am: "ፀሐይን «ሁላችንም አብረን ካይት እናብር?» ብሎ መጠየቅ።" }, result: { en: "Tsehay claps! Now three friends fly kites, and your promise is kept.", am: "ፀሐይ አጨበጨበች! አሁን ሦስት ጓደኛሞች ካይት ያበራሉ፤ ቃላችንም ተጠበቀ።" } },
       { key: "later", best: false, label: { en: "Tell Tsehay \"maybe later\" and go.", am: "ለፀሐይ «ምናልባት በኋላ» ብሎ መሄድ።" }, result: { en: "Tsehay's face falls. \"Maybe later\" isn't the same as a promise kept.", am: "የፀሐይ ፊት ጠቆረ። «ምናልባት በኋላ» ቃልን ከመጠበቅ ጋር አንድ አይደለም።" } },
     ],
-    better: { en: "A better way: keep your promise. You could even invite Tsehay to fly kites with you both!", am: "የተሻለው መንገድ፦ ቃልህን መጠበቅ። ፀሐይንም ከሁለታችሁ ጋር ካይት እንድታበር መጋበዝ ትችላለህ!" },
+    better: { en: "A better way: keep your promise. You could even invite Tsehay to fly kites with you both!", am: "የተሻለው መንገድ፦ ቃላችንን መጠበቅ። ፀሐይንም አብራን ካይት እንድታበር መጋበዝ እንችላለን!" },
     scene: (key) => (
       <>
         <Kite x={key === "together" ? 200 : 300} y={80} s={0.8} sx={-30} sy={150} />
@@ -101,7 +101,7 @@ const MOMENTS: Moment[] = [
   },
   {
     place: "village",
-    say: { en: "On the path you find a 10-birr note.", am: "በመንገዱ ላይ አሥር ብር አገኘህ።" },
+    say: { en: "On the path you find a 10-birr note.", am: "በመንገዱ ላይ አሥር ብር አገኘን።" },
     picks: [
       { key: "keep", best: false, label: { en: "Keep it and buy sweets.", am: "ይዞ ከረሜላ መግዛት።" }, result: { en: "The sweets taste nice, but someone is walking up and down the path, looking worried.", am: "ከረሜላው ይጣፍጣል፤ ግን አንድ ሰው ተጨንቆ በመንገዱ ላይ ወዲያና ወዲህ እየፈለገ ነው።" } },
       { key: "leave", best: false, label: { en: "Leave it where it is.", am: "ባለበት መተው።" }, result: { en: "Someone else might pick it up and keep it, and whoever lost it may never get it back.", am: "ሌላ ሰው አንሥቶ ሊወስደው ይችላል፤ የጠፋበት ሰውም ላያገኘው ይችላል።" } },
@@ -136,13 +136,13 @@ const MOMENTS: Moment[] = [
   },
   {
     place: "garden",
-    say: { en: "Your job today is watering the tomatoes. But your friends are playing football!", am: "የዛሬ ሥራህ ቲማቲሞቹን ውሃ ማጠጣት ነው። ጓደኞችህ ግን ኳስ እየተጫወቱ ነው!" },
+    say: { en: "Your job today is watering the tomatoes. But your friends are playing football!", am: "የዛሬ ሥራችን ቲማቲሞቹን ውሃ ማጠጣት ነው። ጓደኞቻችን ግን ኳስ እየተጫወቱ ነው!" },
     picks: [
-      { key: "later", best: false, label: { en: "Play first, water later… if you remember.", am: "መጀመሪያ መጫወት፣ ውሃውን በኋላ… ካስታወሱ።" }, result: { en: "You forget! By evening the tomato plants are droopy and thirsty.", am: "ረሳኸው! ምሽት ላይ የቲማቲም ተክሎቹ ጠውልገውና ተጠምተው ነበር።" } },
+      { key: "later", best: false, label: { en: "Play first, water later… if you remember.", am: "መጀመሪያ መጫወት፣ ውሃውን በኋላ… ካስታወሱ።" }, result: { en: "You forget! By evening the tomato plants are droopy and thirsty.", am: "ረሳነው! ምሽት ላይ የቲማቲም ተክሎቹ ጠውልገውና ተጠምተው ነበር።" } },
       { key: "first", best: true, label: { en: "Water the tomatoes, then go and play.", am: "ቲማቲሞቹን ውሃ አጠጥቶ ከዚያ መጫወት።" }, result: { en: "The plants drink and stand up tall. And there's still time for football!", am: "ተክሎቹ ውሃ ጠጥተው ቀጥ አሉ። ለኳስ ጨዋታም ገና ጊዜ አለ!" } },
-      { key: "friend", best: false, label: { en: "Ask a friend to do your job for you.", am: "ጓደኛን ሥራህን እንዲሠራልህ መጠየቅ።" }, result: { en: "Gugu wants to play too, and it's your job, not his. The plants are still waiting for you.", am: "ጉጉም መጫወት ይፈልጋል፤ ሥራው ደግሞ ያንተ እንጂ የእሱ አይደለም። ተክሎቹ አሁንም እየጠበቁህ ነው።" } },
+      { key: "friend", best: false, label: { en: "Ask a friend to do your job for you.", am: "ጓደኛችን ሥራችንን እንዲሠራልን መጠየቅ።" }, result: { en: "Gugu wants to play too, and it's your job, not his. The plants are still waiting for you.", am: "ጉጉም መጫወት ይፈልጋል፤ ሥራው ደግሞ የእኛ እንጂ የእሱ አይደለም። ተክሎቹ አሁንም እየጠበቁን ነው።" } },
     ],
-    better: { en: "A better way: do your job first, then play. Jobs done well feel good!", am: "የተሻለው መንገድ፦ መጀመሪያ ሥራህን፣ ከዚያ ጨዋታ። በደንብ የተሠራ ሥራ ደስ ያሰኛል!" },
+    better: { en: "A better way: do your job first, then play. Jobs done well feel good!", am: "የተሻለው መንገድ፦ መጀመሪያ ሥራችንን፣ ከዚያ ጨዋታ። በደንብ የተሠራ ሥራ ደስ ያሰኛል!" },
     scene: (key) => (
       <>
         <Fence y={250} />
@@ -187,7 +187,7 @@ export default function WhatWouldYouDo({ lang, onDone }: DemoProps) {
     setKey(null);
     setShowBetter(false);
   };
-  const nextLabel = t(lang, i === MOMENTS.length - 1 ? { en: "Finish", am: "ጨርስ" } : { en: "Next", am: "ቀጣይ" });
+  const nextLabel = t(lang, i === MOMENTS.length - 1 ? { en: "Finish", am: "ጨርሱ" } : { en: "Next", am: "ቀጣይ" });
 
   const scene = (
     <g key={`${i}-${shownKey ?? "x"}`}>
@@ -196,7 +196,7 @@ export default function WhatWouldYouDo({ lang, onDone }: DemoProps) {
   );
 
   return (
-    <DemoFrame lang={lang} title={{ en: "What Would You Do?", am: "አንተ ምን ታደርጋለህ?" }} goal={{ en: "Choose what to do, and watch what happens next.", am: "የምታደርገውን ምረጥ፤ ቀጥሎ የሚሆነውንም ተመልከት።" }} step={i} total={MOMENTS.length} color="#E2463F">
+    <DemoFrame lang={lang} title={{ en: "What Would You Do?", am: "እናንተ ምን ታደርጋላችሁ?" }} goal={{ en: "Choose what to do, and watch what happens next.", am: "የምታደርጉትን ምረጡ፤ ቀጥሎ የሚሆነውንም ተመልከቱ።" }} step={i} total={MOMENTS.length} color="#E2463F">
       <Stage label={done ? undefined : t(lang, m.say)}>
         {done ? (
           <Yard id={id} time="evening">
@@ -230,7 +230,7 @@ export default function WhatWouldYouDo({ lang, onDone }: DemoProps) {
       </Stage>
 
       {done ? (
-        <Finale lang={lang} text={{ en: "Four tricky moments, and you found the kind, honest way!", am: "አራት አስቸጋሪ ጊዜያት፤ ደግና ታማኝ መንገዱን አገኘህ!" }} onDone={onDone} color="#E2463F" />
+        <Finale lang={lang} text={{ en: "Four tricky moments, and you found the kind, honest way!", am: "አራት አስቸጋሪ ጊዜያት፤ ደግና ታማኝ መንገዱን አገኛችሁ!" }} onDone={onDone} color="#E2463F" />
       ) : (
         <>
           <p className="mt-4 font-display text-xl font-extrabold text-ink">{t(lang, m.say)}</p>
@@ -244,10 +244,10 @@ export default function WhatWouldYouDo({ lang, onDone }: DemoProps) {
               action={
                 <>
                   <Next onClick={() => setKey(null)} color="#7A8AA8">
-                    {t(lang, { en: "Choose again", am: "እንደገና ምረጥ" })}
+                    {t(lang, { en: "Choose again", am: "እንደገና ምረጡ" })}
                   </Next>
                   <Next onClick={() => { setShowBetter(true); sound.good(); }} color="#C98A0A">
-                    {t(lang, { en: "Show me the better way", am: "የተሻለውን መንገድ አሳየኝ" })}
+                    {t(lang, { en: "Show me the better way", am: "የተሻለውን መንገድ አሳዩን" })}
                   </Next>
                 </>
               }

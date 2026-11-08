@@ -1,0 +1,30 @@
+/* Abdi Plays Too (abdi-plays-too.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Players running about the field. */
+@keyframes abdi-plays-too-run {
+  0%, 100% { transform: translateX(-20px); }
+  50% { transform: translateX(20px); }
+}
+.abdi-plays-too-run { animation: abdi-plays-too-run 2.4s ease-in-out var(--delay, 0s) infinite; }
+
+/* The ball zig-zagging between feet. */
+@keyframes abdi-plays-too-ball {
+  0%, 100% { transform: translateX(-70px); }
+  50% { transform: translateX(80px); }
+}
+.abdi-plays-too-ball { animation: abdi-plays-too-ball 2.4s ease-in-out infinite; }
+
+/* Gugu's big shot flies at the little goal. */
+@keyframes abdi-plays-too-shot {
+  from { transform: translate(190px, 20px); }
+  to { transform: translate(0, 0); }
+}
+.abdi-plays-too-shot { animation: abdi-plays-too-shot 1s ease-out 0.6s both; }
+
+/* Abdi jumps for it. */
+@keyframes abdi-plays-too-save {
+  0%, 50% { transform: translateY(0); }
+  70% { transform: translateY(-24px); }
+  100% { transform: translateY(0); }
+}
+.abdi-plays-too-save { animation: abdi-plays-too-save 1.6s ease-out 0.2s both; }

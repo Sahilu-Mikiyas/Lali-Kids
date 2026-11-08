@@ -1,13 +1,26 @@
 import type { Story } from "../../../stories";
+import abdiPlaysToo from "./abdi-plays-too";
 import alwaysRoom from "./always-room";
+import ayansLemonTree from "./ayans-lemon-tree";
 import ayansRedSandals from "./ayans-red-sandals";
 import ballInTheGarden from "./ball-in-the-garden";
+import cleanSpring from "./clean-spring";
 import deboDay from "./debo-day";
+import everybodysHolidays from "./everybodys-holidays";
+import guguAsksForHelp from "./gugu-asks-for-help";
 import gugusMagicWords from "./gugus-magic-words";
+import habenReadsAloud from "./haben-reads-aloud";
 import hawiSaysHello from "./hawi-says-hello";
+import hawisFirstBasket from "./hawis-first-basket";
+import hawisStormyDay from "./hawis-stormy-day";
+import littlePeacemakers from "./little-peacemakers";
+import littleWeaverBird from "./little-weaver-bird";
+import missingAabo from "./missing-aabo";
 import promiseIsAPromise from "./promise-is-a-promise";
 import tallestTower from "./tallest-tower";
 import theBestBite from "./the-best-bite";
+import theEdirBox from "./the-edir-box";
+import theTornLamb from "./the-torn-lamb";
 import threeCupsOfCoffee from "./three-cups-of-coffee";
 import tsehaysLittleHands from "./tsehays-little-hands";
 import whoAteTheBread from "./who-ate-the-bread";
@@ -29,4 +42,20 @@ export const STORIES: Story[] = [
   alwaysRoom,
   threeCupsOfCoffee,
   deboDay,
+  // Level 4: courage and perseverance
+  hawisFirstBasket,
+  habenReadsAloud,
+  guguAsksForHelp,
+  ayansLemonTree,
+  // Level 5: feelings, forgiveness and friendship
+  hawisStormyDay,
+  theTornLamb,
+  abdiPlaysToo,
+  littlePeacemakers,
+  missingAabo,
+  // Level 6: caring for others and our world
+  theEdirBox,
+  littleWeaverBird,
+  cleanSpring,
+  everybodysHolidays,
 ];

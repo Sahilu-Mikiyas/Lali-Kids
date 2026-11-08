@@ -1,0 +1,67 @@
+/* Hawi's Stormy Day (hawis-stormy-day.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Breathing in (the ring grows) and out (it shrinks), slowly. */
+@keyframes hawis-stormy-day-breath {
+  0%, 100% { transform: scale(0.7); opacity: 0.5; }
+  45%, 55% { transform: scale(1.3); opacity: 1; }
+}
+.hawis-stormy-day-breath {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hawis-stormy-day-breath 4s ease-in-out infinite;
+}
+
+/* A whole body breathing in and out with it. */
+@keyframes hawis-stormy-day-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 1.03); }
+}
+.hawis-stormy-day-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hawis-stormy-day-breathe 4s ease-in-out infinite;
+}
+
+/* The storm cloud shrinks away. */
+@keyframes hawis-stormy-day-shrink {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.5); opacity: 0.4; }
+}
+.hawis-stormy-day-shrink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hawis-stormy-day-shrink 6s ease-in-out 0.6s both;
+}
+
+/* The picture's colours run in the rain. */
+@keyframes hawis-stormy-day-run {
+  from { transform: translateY(0) scaleY(1); }
+  to { transform: translateY(6px) scaleY(1.3); }
+}
+.hawis-stormy-day-run {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hawis-stormy-day-run 2s ease-in 0.4s both;
+}
+
+/* Running in, too slow, behind. */
+@keyframes hawis-stormy-day-run-in {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(0); }
+}
+.hawis-stormy-day-run-in { animation: hawis-stormy-day-run-in 2s ease-out 0.2s both; }
+
+/* Stamping crossly. */
+@keyframes hawis-stormy-day-stamp {
+  0%, 100% { transform: translateY(0); }
+  20%, 60% { transform: translateY(-6px); }
+  40%, 80% { transform: translateY(0); }
+}
+.hawis-stormy-day-stamp { animation: hawis-stormy-day-stamp 1s ease-in-out infinite; }
+
+/* The race to the acacia. */
+@keyframes hawis-stormy-day-race {
+  from { transform: translateX(-200px); }
+  to { transform: translateX(0); }
+}
+.hawis-stormy-day-race { animation: hawis-stormy-day-race 2.6s ease-out 0.3s both; }

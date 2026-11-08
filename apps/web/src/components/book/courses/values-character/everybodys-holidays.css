@@ -1,0 +1,9 @@
+/* Everybody's Holidays (everybodys-holidays.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The Genna ball, hit across the field between the two goal stones. */
+@keyframes everybodys-holidays-ball {
+  0%, 30% { transform: translate(0, 0); }
+  70% { transform: translate(80px, -14px); }
+  85%, 100% { transform: translate(110px, -12px); }
+}
+.everybodys-holidays-ball { animation: everybodys-holidays-ball 2.6s ease-out 0.8s infinite; }
