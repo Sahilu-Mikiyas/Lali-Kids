@@ -1,0 +1,11 @@
+/* Numbers & Counting scene kit, levels 4-6 (kit-more.tsx): transforms and opacity only. */
+
+/* A clock hand turning from one hour to another. */
+@keyframes nc-turn-to {
+  from { transform: rotate(var(--from, 0deg)); }
+  to { transform: rotate(var(--tilt, 0deg)); }
+}
+.nc-turn-to {
+  transform-box: view-box;
+  animation: nc-turn-to var(--dur, 1.6s) ease-in-out var(--delay, 0.8s) both;
+}

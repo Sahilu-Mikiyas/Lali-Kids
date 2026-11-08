@@ -46,7 +46,7 @@ export function NumTag({ x, y, n, delay = 0.8, s = 1, color = NUM }: { x: number
             {g}
           </text>
           <circle cx={w / 2 - 2} cy={12} r={n >= 10 ? 9 : 7.5} fill={color} />
-          <text x={w / 2 - 2} y={15.6} fontSize={n >= 10 ? 9.5 : 10} fontFamily={LATIN} fontWeight={900} fill="#fff" textAnchor="middle">
+          <text x={w / 2 - 2} y={15.6} fontSize={n >= 100 ? 7 : n >= 10 ? 9.5 : 10} fontFamily={LATIN} fontWeight={900} fill="#fff" textAnchor="middle">
             {n}
           </text>
         </>
@@ -72,7 +72,7 @@ export function NumberCard({ x, y, steps, s = 1, color = NUM }: { x: number; y: 
         const next = steps[i + 1];
         const inner = (
           <g>
-            <text x={n >= 10 ? -20 : -22} y={12} fontSize={30} fontFamily={LATIN} fontWeight={900} fill={color} textAnchor="middle">
+            <text x={n >= 10 ? -20 : -22} y={n >= 100 ? 9 : 12} fontSize={n >= 100 ? 22 : 30} fontFamily={LATIN} fontWeight={900} fill={color} textAnchor="middle">
               {n}
             </text>
             <line x1={0} y1={-16} x2={0} y2={16} stroke={color} strokeOpacity={0.3} strokeWidth={2} />

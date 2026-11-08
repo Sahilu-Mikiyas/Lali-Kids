@@ -1,0 +1,45 @@
+/* Five Birds, Two Branches (five-birds.tsx): transforms and opacity only. */
+
+/* Leaves blow over the hiding birds, then blow away again. */
+@keyframes five-birds-leaf {
+  0% { transform: translate(-60px, -20px); opacity: 0; }
+  20%, 70% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(60px, -10px); opacity: 0; }
+}
+.five-birds-leaf {
+  animation: five-birds-leaf 2.4s ease-in-out var(--delay, 1s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .five-birds-leaf { opacity: 0; }
+}
+
+/* A gust of wind blowing across. */
+@keyframes five-birds-gust {
+  from { transform: translateX(-60px); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translateX(260px); opacity: 0; }
+}
+.five-birds-gust {
+  animation: five-birds-gust 2s ease-in 0.6s 2 both;
+}
+
+/* A finger folds down. */
+@keyframes five-birds-fold {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.38); }
+}
+.five-birds-fold {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: five-birds-fold 0.5s ease-in var(--delay, 1s) both;
+}
+
+/* Z z z. */
+@keyframes five-birds-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(10px, -24px); opacity: 0; }
+}
+.five-birds-zzz {
+  animation: five-birds-zzz 2.7s ease-out var(--delay, 0s) infinite;
+}

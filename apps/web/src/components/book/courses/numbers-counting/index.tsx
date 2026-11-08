@@ -17,6 +17,17 @@ const TenAndMore = dynamic(() => import("./ten-and-more"), { ssr: false });
 const BlueMinibus = dynamic(() => import("./blue-minibus"), { ssr: false });
 const SteppingStones = dynamic(() => import("./stepping-stones"), { ssr: false });
 const WhoHasMore = dynamic(() => import("./who-has-more"), { ssr: false });
+const FiveBirds = dynamic(() => import("./five-birds"), { ssr: false });
+const HidingSheep = dynamic(() => import("./hiding-sheep"), { ssr: false });
+const PlusParty = dynamic(() => import("./plus-party"), { ssr: false });
+const CheekyGoats = dynamic(() => import("./cheeky-goats"), { ssr: false });
+const KoloStall = dynamic(() => import("./kolo-stall"), { ssr: false });
+const GugusDay = dynamic(() => import("./gugus-day"), { ssr: false });
+const SevenDays = dynamic(() => import("./seven-days"), { ssr: false });
+const TeffBundles = dynamic(() => import("./teff-bundles"), { ssr: false });
+const HundredSteps = dynamic(() => import("./hundred-steps"), { ssr: false });
+const CountByFives = dynamic(() => import("./count-by-fives"), { ssr: false });
+const DoubleHalf = dynamic(() => import("./double-half"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -29,4 +40,15 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "blue-minibus": BlueMinibus,
   "stepping-stones": SteppingStones,
   "who-has-more": WhoHasMore,
+  "five-birds": FiveBirds,
+  "hiding-sheep": HidingSheep,
+  "plus-party": PlusParty,
+  "cheeky-goats": CheekyGoats,
+  "kolo-stall": KoloStall,
+  "gugus-day": GugusDay,
+  "seven-days": SevenDays,
+  "teff-bundles": TeffBundles,
+  "hundred-steps": HundredSteps,
+  "count-by-fives": CountByFives,
+  "double-half": DoubleHalf,
 };

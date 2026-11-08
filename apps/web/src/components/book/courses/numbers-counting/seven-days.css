@@ -1,0 +1,33 @@
+/* A Week with Grandma (seven-days.tsx): transforms and opacity only. */
+
+/* Washing flaps on the line. */
+@keyframes seven-days-flap {
+  0%, 100% { transform: skewX(0deg); }
+  50% { transform: skewX(-8deg); }
+}
+.seven-days-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: seven-days-flap 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Splashes at the river. */
+@keyframes seven-days-splash {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  50% { transform: translateY(-14px); opacity: 1; }
+}
+.seven-days-splash {
+  animation: seven-days-splash 1.2s ease-out 0.4s infinite;
+}
+
+/* The week turns like a wheel. */
+@keyframes seven-days-wheel {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+.seven-days-wheel {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: seven-days-wheel 14s linear infinite;
+}

@@ -1,0 +1,34 @@
+/* Bundles of Ten (teff-bundles.tsx): transforms and opacity only. */
+
+/* Loose stalks spread out, then gather together to be tied. */
+@keyframes teff-bundles-gather {
+  0% { transform: translateX(var(--fx, 0px)); }
+  100% { transform: translateX(0); }
+}
+.teff-bundles-gather {
+  animation: teff-bundles-gather 0.8s ease-in-out var(--delay, 2s) both;
+}
+
+/* The counting tags fade once the bundle is tied. */
+@keyframes teff-bundles-hide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.teff-bundles-hide {
+  animation: teff-bundles-hide 0.5s ease-out var(--delay, 2s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .teff-bundles-hide { opacity: 0; }
+}
+
+/* Anbessa's head spins from counting. */
+@keyframes teff-bundles-dizzy {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+.teff-bundles-dizzy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: teff-bundles-dizzy 0.8s ease-in-out 1s 4;
+}

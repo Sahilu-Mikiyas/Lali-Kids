@@ -1,0 +1,51 @@
+/* Gugu's Busy Day (gugus-day.tsx): transforms and opacity only. */
+
+/* The morning sun rising. */
+@keyframes gugus-day-rise {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.gugus-day-rise {
+  animation: gugus-day-rise 2.4s ease-out 0.2s both;
+}
+
+/* Gugu stretches awake. */
+@keyframes gugus-day-stretch {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(0.96, 1.08); }
+}
+.gugus-day-stretch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-day-stretch 1.6s ease-in-out 0.6s 3;
+}
+
+/* A sleepy sway. */
+@keyframes gugus-day-nap {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(5deg); }
+}
+.gugus-day-nap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-day-nap 3s ease-in-out infinite;
+}
+
+/* Z z z. */
+@keyframes gugus-day-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(10px, -24px); opacity: 0; }
+}
+.gugus-day-zzz {
+  animation: gugus-day-zzz 2.7s ease-out var(--delay, 0s) infinite;
+}
+
+/* A dream of tomorrow's sunrise floats and glows. */
+@keyframes gugus-day-dream {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+.gugus-day-dream {
+  animation: gugus-day-dream 3s ease-in-out infinite;
+}
