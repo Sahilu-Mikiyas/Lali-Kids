@@ -1,0 +1,86 @@
+/*
+  "Water, Water" (fidel-we-water.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+@keyframes fww-ripple {
+  0% { transform: translateX(-6px); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+.fww-ripple {
+  animation: fww-ripple 3s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Heat shimmering up. */
+@keyframes fww-heat {
+  0% { transform: translateY(6px); opacity: 0; }
+  40% { opacity: 0.8; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+.fww-heat {
+  animation: fww-heat 1.8s ease-out var(--delay, 0s) infinite;
+}
+
+/* A frog's throat puffing. */
+@keyframes fww-gulp {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05, 0.95); }
+}
+.fww-gulp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fww-gulp 1.4s ease-in-out infinite;
+}
+
+/* A belly flop from the log into the water. */
+@keyframes fww-flop {
+  0% { transform: translate(40px, -30px) rotate(-20deg); }
+  50% { transform: translate(20px, -60px) rotate(10deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+.fww-flop {
+  animation: fww-flop 1.2s ease-in 0.2s both;
+}
+@keyframes fww-splash {
+  0%, 100% { transform: scale(0.3); opacity: 0; }
+  20% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0; }
+}
+.fww-splash {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fww-splash 1.8s ease-out var(--delay, 1s) infinite;
+}
+
+/* Bobbing in the water. */
+@keyframes fww-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.fww-bob {
+  animation: fww-bob 1.6s ease-in-out infinite;
+}
+
+/* The fish wiggles as it swims. */
+@keyframes fww-swim {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.fww-swim {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fww-swim 0.8s ease-in-out infinite;
+}
+
+/* Bubbles rising and popping. */
+@keyframes fww-bubble {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-30px) scale(1.2); opacity: 0; }
+}
+.fww-bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fww-bubble 1.5s ease-out var(--delay, 0s) infinite;
+}

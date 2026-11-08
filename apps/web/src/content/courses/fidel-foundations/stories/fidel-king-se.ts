@@ -26,7 +26,7 @@ const story: Story = {
   color: "#C2861A",
   scene: "lib-fidel-king-se",
   coverPage: 2,
-  teaches: { fidel: ["ሠ"], words: ["ንጉሥ", "ሣር", "ሥዕል", "ሦስት"] },
+  teaches: { fidel: ["ሠ", "ሰ"], words: ["ንጉሥ", "ሣር", "ሥዕል", "ሦስት"] },
   pages: [
     {
       en: `Anbessa has found a golden paper crown. "Lions are kings," he roars. "Today I am King Anbessa!" Grrr… it is a very small roar.`,

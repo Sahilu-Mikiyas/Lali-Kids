@@ -63,13 +63,13 @@ const l1Practice: Question[] = [
   },
   {
     kind: "match",
-    prompt: { en: "Match each word to its picture.", am: "እያንዳንዱን ቃል ከሥዕሉ ጋር አዛምዱ።" },
+    prompt: { en: "Match each picture to the letter its word starts with.", am: "እያንዳንዱን ሥዕል ቃሉ ከሚጀምርበት ፊደል ጋር አዛምዱ።" },
     pairs: [
-      { left: { label: same("ላም") }, right: { pic: pic("cow") } },
-      { left: { label: same("ሎሚ") }, right: { pic: pic("lemon") } },
-      { left: { label: same("ሐብሐብ") }, right: { pic: pic("watermelon") } },
+      { left: { label: same("ላ") }, right: { pic: pic("cow") } },
+      { left: { label: same("ሎ") }, right: { pic: pic("lemon") } },
+      { left: { label: same("ሐ") }, right: { pic: pic("watermelon") } },
     ],
-    explain: { en: "ላም is a cow, ሎሚ is a lemon, and ሐብሐብ is a watermelon.", am: "ላም፣ ሎሚ፣ ሐብሐብ።" },
+    explain: { en: "ላም starts with ላ, ሎሚ with ሎ, and ሐብሐብ with ሐ.", am: "ላም በላ፣ ሎሚ በሎ፣ ሐብሐብ በሐ ይጀምራሉ።" },
   },
   {
     kind: "choice",
@@ -127,7 +127,7 @@ const l1Quiz: Question[] = [
     kind: "choice",
     prompt: { en: "Which letter is at the end of ንጉሥ, king?", am: "በንጉሥ መጨረሻ ላይ ያለው የትኛው ፊደል ነው?" },
     pic: pic("crown"),
-    options: [{ label: same("ሥ") }, { label: same("ስ") }, { label: same("ሽ") }],
+    options: [{ label: same("ሥ") }, { label: same("ሡ") }, { label: same("ሦ") }],
     answer: 0,
     explain: { en: "ሥ, from the king's ሠ family.", am: "ሥ፣ ከንጉሡ ሠ ቤተሰብ።" },
   },
@@ -190,20 +190,20 @@ const l2Practice: Question[] = [
   {
     kind: "choice",
     prompt: { en: "Choose the word for this picture.", am: "የዚህን ሥዕል ቃል ምረጡ።" },
-    pic: pic("house"),
-    options: [{ label: same("ቤት") }, { label: same("ቡና") }, { label: same("በግ") }],
+    pic: pic("kolo"),
+    options: [{ label: same("ቆሎ") }, { label: same("ሽሮ") }, { label: same("ቅቤ") }],
     answer: 0,
-    explain: { en: "ቤ… ት… ቤት, home!", am: "ቤ… ት… ቤት!" },
+    explain: { en: "ቆ… ሎ… ቆሎ, roasted grain!", am: "ቆ… ሎ… ቆሎ!" },
   },
   {
     kind: "match",
     prompt: { en: "Match each word to its picture.", am: "እያንዳንዱን ቃል ከሥዕሉ ጋር አዛምዱ።" },
     pairs: [
-      { left: { label: same("ቡና") }, right: { pic: pic("coffee") } },
-      { left: { label: same("በግ") }, right: { pic: pic("sheep") } },
-      { left: { label: same("ርግብ") }, right: { pic: pic("dove") } },
+      { left: { label: same("ሰላም") }, right: { pic: pic("hello") } },
+      { left: { label: same("ሽሮ") }, right: { pic: pic("shiro") } },
+      { left: { label: same("ቅቤ") }, right: { pic: pic("butter") } },
     ],
-    explain: { en: "ቡና is coffee, በግ is a sheep, ርግብ is a dove.", am: "ቡና፣ በግ፣ ርግብ።" },
+    explain: { en: "ሰላም is hello, ሽሮ is in the pot, and ቅቤ is butter.", am: "ሰላም፣ ሽሮ፣ ቅቤ።" },
   },
   {
     kind: "truefalse",
@@ -252,10 +252,10 @@ const l2Quiz: Question[] = [
   {
     kind: "choice",
     prompt: { en: "Choose the word for this picture.", am: "የዚህን ሥዕል ቃል ምረጡ።" },
-    pic: pic("sheep"),
-    options: [{ label: same("ቤት") }, { label: same("በግ") }, { label: same("ቡና") }],
+    pic: pic("shiro"),
+    options: [{ label: same("ሰላም") }, { label: same("ሽሮ") }, { label: same("ቆሎ") }],
     answer: 1,
-    explain: { en: "በ… ግ… በግ, sheep.", am: "በ… ግ… በግ።" },
+    explain: { en: "ሽ… ሮ… ሽሮ, our dinner from Shiro Night.", am: "ሽ… ሮ… ሽሮ።" },
   },
   {
     kind: "match",
@@ -276,15 +276,15 @@ const l2Quiz: Question[] = [
   {
     kind: "choice",
     prompt: { en: "Tsehay's sheep made a word at the gate. It means hello and peace. Which is it?", am: "የፀሐይ በጎች በበሩ ላይ አንድ ቃል ሠሩ። ትርጉሙ ሰላምታና ሰላም ነው። የትኛው ነው?" },
-    options: [{ label: same("ሰላም") }, { label: same("ሰባት") }, { label: same("ሽሮ") }],
+    options: [{ label: same("ሰላም") }, { label: same("ሽሮ") }, { label: same("ቅቤ") }],
     answer: 0,
     explain: { en: "ሰ… ላ… ም… ሰላም!", am: "ሰ… ላ… ም… ሰላም!" },
   },
   {
     kind: "order",
-    prompt: { en: "Put the cards in order to make ቡና, coffee.", am: "ቡና የሚለውን ቃል ለመሥራት ካርዶቹን በቅደም ተከተል አስቀምጡ።" },
-    items: [{ label: same("ቡ") }, { label: same("ና") }],
-    explain: { en: "ቡ… ና… ቡና!", am: "ቡ… ና… ቡና!" },
+    prompt: { en: "Put the cards in order to make ቀበሮ, fox.", am: "ቀበሮ የሚለውን ቃል ለመሥራት ካርዶቹን በቅደም ተከተል አስቀምጡ።" },
+    items: [{ label: same("ቀ") }, { label: same("በ") }, { label: same("ሮ") }],
+    explain: { en: "ቀ… በ… ሮ… ቀበሮ!", am: "ቀ… በ… ሮ… ቀበሮ!" },
   },
   {
     kind: "truefalse",
@@ -388,11 +388,11 @@ const l3Quiz: Question[] = [
     kind: "match",
     prompt: { en: "Match each word to its picture.", am: "እያንዳንዱን ቃል ከሥዕሉ ጋር አዛምዱ።" },
     pairs: [
-      { left: { label: same("ችግኝ") }, right: { pic: pic("seedling") } },
+      { left: { label: same("አበባ") }, right: { pic: pic("flower") } },
       { left: { label: same("ቲማቲም") }, right: { pic: pic("tomato") } },
       { left: { label: same("ንብ") }, right: { pic: pic("bee") } },
     ],
-    explain: { en: "ችግኝ is a seedling, ቲማቲም is a tomato, ንብ is a bee.", am: "ችግኝ፣ ቲማቲም፣ ንብ።" },
+    explain: { en: "አበባ is a flower, ቲማቲም is a tomato, ንብ is a bee.", am: "አበባ፣ ቲማቲም፣ ንብ።" },
   },
   {
     kind: "choice",
