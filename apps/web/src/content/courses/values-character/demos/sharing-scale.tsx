@@ -236,7 +236,7 @@ export default function SharingScale({ lang, onDone }: DemoProps) {
           {unfairDone && (
             <Feedback tone="gentle">
               {t(lang, {
-                en: `${FRIENDS[round.friends[highest]].name.en} has ${max} and ${FRIENDS[round.friends[lowest]].name.en} has ${min}. Does that feel fair? Move some so everyone has the same.`,
+                en: `${FRIENDS[round.friends[highest]].name.en}: ${max}. ${FRIENDS[round.friends[lowest]].name.en}: ${min}. Does that feel fair? Move some so everyone has the same.`,
                 am: `${FRIENDS[round.friends[highest]].name.am}፦ ${max}፤ ${FRIENDS[round.friends[lowest]].name.am}፦ ${min}። ይህ ፍትሐዊ ነው? ሁሉም እኩል እንዲኖረው አዛውር።`,
               })}
             </Feedback>
