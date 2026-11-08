@@ -1,0 +1,27 @@
+/* Gugu's Stepping Stones (stepping-stones.tsx): transforms and opacity only. */
+
+/* Grandma's paint brush dabs. */
+@keyframes stepping-stones-brush {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-18deg); }
+}
+.stepping-stones-brush {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: stepping-stones-brush 0.5s ease-in-out 0.6s 7;
+}
+
+/* A fish leaps out of the river and back in. */
+@keyframes stepping-stones-fish {
+  0% { transform: translate(-30px, 20px) rotate(-40deg); opacity: 0; }
+  20% { opacity: 1; }
+  50% { transform: translate(0, -40px) rotate(0); }
+  80% { opacity: 1; }
+  100% { transform: translate(30px, 20px) rotate(40deg); opacity: 0; }
+}
+.stepping-stones-fish {
+  animation: stepping-stones-fish 1.2s ease-in-out var(--delay, 0.6s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stepping-stones-fish { opacity: 0; }
+}

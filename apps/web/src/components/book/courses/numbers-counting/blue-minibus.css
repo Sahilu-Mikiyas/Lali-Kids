@@ -1,0 +1,22 @@
+/* The Busy Blue Minibus (blue-minibus.tsx): transforms and opacity only. */
+
+/* The conductor's call: sound lines pulse out from the door. */
+@keyframes blue-minibus-call {
+  0% { transform: scale(0.6); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+.blue-minibus-call {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: blue-minibus-call 1.2s ease-out 0.4s infinite;
+}
+
+/* The road markings slide by: the minibus is driving. */
+@keyframes blue-minibus-road {
+  from { transform: translateX(0); }
+  to { transform: translateX(-32px); }
+}
+.blue-minibus-road {
+  animation: blue-minibus-road 0.5s linear infinite;
+}

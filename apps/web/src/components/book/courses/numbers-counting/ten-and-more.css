@@ -1,0 +1,49 @@
+/* Ten and Some More (ten-and-more.tsx): transforms and opacity only. */
+
+/* Hens peck at the ground. */
+@keyframes ten-and-more-peck {
+  0%, 60%, 100% { transform: rotate(0); }
+  70% { transform: rotate(18deg); }
+  80% { transform: rotate(0); }
+  88% { transform: rotate(14deg); }
+}
+.ten-and-more-peck {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: ten-and-more-peck 2.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Tsehay pats the full box: a glow that pulses twice. */
+@keyframes ten-and-more-pat {
+  0% { transform: scale(0.6); opacity: 0; }
+  30% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.ten-and-more-pat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ten-and-more-pat 1s ease-out var(--delay, 0.8s) both;
+}
+
+/* Lali sings: notes float up. */
+@keyframes ten-and-more-note {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(12px, -40px); opacity: 0; }
+}
+.ten-and-more-note {
+  animation: ten-and-more-note 3.3s ease-out var(--delay, 0s) infinite;
+}
+
+/* Anbessa wiggles his fingers and toes. */
+@keyframes ten-and-more-wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.ten-and-more-wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ten-and-more-wiggle 0.5s ease-in-out 0.6s 8;
+}
