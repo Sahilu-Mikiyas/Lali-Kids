@@ -1,0 +1,45 @@
+/*
+  "Plant a Tree" (fidel-che-trees.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* Digging: the spade dips and lifts. */
+@keyframes fct-dig {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  40% { transform: rotate(-18deg) translateY(6px); }
+}
+.fct-dig {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fct-dig 0.9s ease-in-out infinite;
+}
+
+/* A sneeze: a little jolt. */
+@keyframes fct-sneeze {
+  0%, 70%, 100% { transform: translate(0, 0) scale(1); }
+  76% { transform: translate(-3px, 2px) scale(0.96, 1.04); }
+  82% { transform: translate(5px, -3px) scale(1.06, 0.94); }
+}
+.fct-sneeze {
+  animation: fct-sneeze 2.6s ease-out var(--delay, 0s) infinite;
+}
+
+/* A horse's gallop: a bouncing stride. */
+@keyframes fct-gallop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(-3deg); }
+}
+.fct-gallop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fct-gallop 0.4s ease-in-out infinite;
+}
+
+/* Carrying water up the hill and back down, again and again. */
+@keyframes fct-trek {
+  0%, 100% { transform: translate(40px, 16px); }
+  50% { transform: translate(-60px, -10px); }
+}
+.fct-trek {
+  animation: fct-trek 5s ease-in-out infinite;
+}
