@@ -1,0 +1,38 @@
+/* Three Cups of Coffee (three-cups-of-coffee.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* A bored slump, side to side. */
+@keyframes three-cups-of-coffee-slump {
+  0%, 100% { transform: rotate(-5deg) translateY(2px); }
+  50% { transform: rotate(5deg) translateY(2px); }
+}
+.three-cups-of-coffee-slump {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: three-cups-of-coffee-slump 3.4s ease-in-out infinite;
+}
+
+/* Blades of grass scattered from a paw. */
+@keyframes three-cups-of-coffee-scatter {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--sx, 20px), 30px) rotate(160deg); opacity: 0; }
+}
+.three-cups-of-coffee-scatter {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: three-cups-of-coffee-scatter 1.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* Hurrying past, from left to right. */
+@keyframes three-cups-of-coffee-hurry {
+  from { transform: translateX(-140px); }
+  to { transform: translateX(0); }
+}
+.three-cups-of-coffee-hurry { animation: three-cups-of-coffee-hurry 1.8s ease-out 0.4s both; }
+
+/* The smoking roasting pan carried round, so everyone can smell it. */
+@keyframes three-cups-of-coffee-waft {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-110px); }
+}
+.three-cups-of-coffee-waft { animation: three-cups-of-coffee-waft 6s ease-in-out infinite; }

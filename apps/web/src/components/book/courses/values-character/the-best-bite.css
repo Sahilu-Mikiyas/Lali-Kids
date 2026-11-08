@@ -1,0 +1,13 @@
+/* The Best Bite (the-best-bite.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Giggling: a quick little shake. */
+@keyframes the-best-bite-giggle {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+.the-best-bite-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: the-best-bite-giggle 0.45s ease-in-out infinite;
+}

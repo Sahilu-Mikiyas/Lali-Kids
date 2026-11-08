@@ -1,0 +1,52 @@
+/* Tsehay's Little Hands (tsehays-little-hands.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Busy Mama sways from job to job. */
+@keyframes tsehays-little-hands-busy {
+  0%, 100% { transform: translateX(-10px) rotate(-3deg); }
+  50% { transform: translateX(10px) rotate(3deg); }
+}
+.tsehays-little-hands-busy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tsehays-little-hands-busy 1.4s ease-in-out infinite;
+}
+
+/* Sweeping slowly across the floor and back. */
+@keyframes tsehays-little-hands-across {
+  0%, 100% { transform: translateX(-40px); }
+  50% { transform: translateX(30px); }
+}
+.tsehays-little-hands-across { animation: tsehays-little-hands-across 7s ease-in-out infinite; }
+
+/* Back and forth with the little jug, from the door to the pot. */
+@keyframes tsehays-little-hands-trips {
+  0%, 100% { transform: translateX(-110px); }
+  45%, 55% { transform: translateX(10px); }
+}
+.tsehays-little-hands-trips { animation: tsehays-little-hands-trips 4s ease-in-out infinite; }
+
+/* The crying face shows first, then the sleeping one, and stays. */
+@keyframes tsehays-little-hands-out {
+  0%, 99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes tsehays-little-hands-in {
+  0%, 99% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.tsehays-little-hands-cry { animation: tsehays-little-hands-out 3.4s linear both; }
+.tsehays-little-hands-hush { animation: tsehays-little-hands-in 3.4s linear both; }
+
+/* Mama hops on the squares too. */
+@keyframes tsehays-little-hands-hop {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-14px, -18px); }
+  50% { transform: translate(-28px, 0); }
+  75% { transform: translate(-14px, -18px); }
+}
+.tsehays-little-hands-hop { animation: tsehays-little-hands-hop 2.6s ease-in-out infinite; }
+
+/* With reduced motion the baby is asleep. */
+@media (prefers-reduced-motion: reduce) {
+  .tsehays-little-hands-cry { opacity: 0; }
+}

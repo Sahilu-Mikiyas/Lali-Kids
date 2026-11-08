@@ -1,0 +1,13 @@
+/* The Tallest Tower (tallest-tower.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Grandpa puffing after the long hill: little clouds of breath. */
+@keyframes tallest-tower-puff {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(18px, -8px) scale(1.3); opacity: 0; }
+}
+.tallest-tower-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tallest-tower-puff 1.5s ease-out var(--delay, 0s) infinite;
+}
