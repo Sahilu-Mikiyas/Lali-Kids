@@ -20,7 +20,6 @@ import "./fidel-te-che-shoe.css";
 const TE = fam("ጠ");
 const CHE = fam("ጨ");
 const MON = "#8A5A3A";
-const RED = "#E8413B";
 
 /** Gugu, optionally in his red shoes (both, one, or none). */
 function GuguShoes({ x, y, s = 0.4, shoes = 2, mood = "happy" as const, pose = "sit" as const }: { x: number; y: number; s?: number; shoes?: number; mood?: "happy" | "joy" | "sad" | "wow" | "worried"; pose?: "sit" | "wave" | "point" | "hop" | "no" }) {
