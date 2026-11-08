@@ -6,7 +6,7 @@ import { Grandma, TAP, Wolf } from "@/components/book/courses/values-character/k
 import { GrassBundle, WeaveBasket } from "@/components/book/courses/values-character/kit-more";
 import { Home } from "@/components/book/courses/values-character/kit-places";
 import { Hearts, Sparkles } from "@/components/book/courses/values-character/kit-props";
-import { Place } from "@/components/book/scenery";
+import { Place, vars } from "@/components/book/scenery";
 import type { DemoProps } from "../../types";
 import { Choice, DemoFrame, Feedback, Finale, Next, sound, Stage, t, type T } from "./demo-kit";
 
@@ -39,7 +39,7 @@ function Bead({ x, y, col, empty = false, wrong = false }: { x: number; y: numbe
   if (empty || !col) return <circle cx={x} cy={y} r={15} fill="#FFF6DC" stroke="#C9A06A" strokeWidth={2.4} strokeDasharray="5 4" />;
   return (
     <g transform={`translate(${x} ${y})`}>
-      <g className={wrong ? "lali-no" : "lali-pop-in"}>
+      <g className={wrong ? "lali-no" : "lali-pop-in"} style={vars({ "--delay": "0s" })}>
         <circle r={15} fill={COLS[col].fill} stroke={wrong ? "#7A1E18" : "#7A5236"} strokeWidth={2.4} />
         <path d="M-12 -4 Q0 -10 12 -4 M-12 4 Q0 -2 12 4" stroke="#000" strokeOpacity={0.15} strokeWidth={2} fill="none" />
         <path d={COLS[col].shape} fill="#FFFFFF" opacity={0.85} />
@@ -121,14 +121,14 @@ export default function TryAgain({ lang, onDone }: DemoProps) {
               <rect x={x0 - 30} y={112} width={(pat.length - 1) * gap + 60} height={48} rx={14} fill="#E9D3A8" />
               {pat.map((_, k) =>
                 k < row.length ? (
-                  <Bead key={`r${round}-${k}-${tries}`} x={x0 + k * gap} y={136} col={row[k]} />
+                  <Bead key={`r${round}-${k}`} x={x0 + k * gap} y={136} col={row[k]} />
                 ) : k === row.length && wrong ? (
                   <Bead key={`w${tries}`} x={x0 + k * gap} y={136} col={wrong} wrong />
                 ) : (
                   <Bead key={`e${k}`} x={x0 + k * gap} y={136} empty />
                 ),
               )}
-              <WeaveBasket x={200} y={276} s={1.1} rows={2 + round * 2 + (complete ? 1 : 0)} lopsided={round === 0} />
+              <WeaveBasket x={200} y={282} s={1.6} rows={2 + round * 2 + (complete ? 1 : 0)} lopsided={round === 0} />
               <GrassBundle x={140} y={284} s={0.7} loose />
               <Place x={70} y={292} s={0.44} tap={TAP.grandma}>
                 <Grandma mood={complete ? "joy" : "happy"} arm={complete ? "clap" : "down"} />
