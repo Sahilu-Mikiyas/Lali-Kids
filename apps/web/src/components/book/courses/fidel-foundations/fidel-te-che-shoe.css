@@ -1,0 +1,36 @@
+/*
+  "The Monkey Took My Shoe!" (fidel-te-che-shoe.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The monkey giggling and bouncing on his branch. */
+@keyframes ftc-giggle {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-3px) rotate(-4deg); }
+  75% { transform: translateY(-3px) rotate(4deg); }
+}
+.ftc-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ftc-giggle 0.7s ease-in-out infinite;
+}
+
+/* A twig snapping: the two halves jump apart. */
+@keyframes ftc-snap {
+  0%, 40% { transform: rotate(0); }
+  50%, 100% { transform: rotate(-20deg); }
+}
+.ftc-snap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ftc-snap 1.6s ease-out 0.6s infinite;
+}
+
+/* Tiptoeing up the tree. */
+@keyframes ftc-climb {
+  0% { transform: translate(-40px, 40px); }
+  100% { transform: translate(0, 0); }
+}
+.ftc-climb {
+  animation: ftc-climb 3s ease-in-out 0.3s both;
+}

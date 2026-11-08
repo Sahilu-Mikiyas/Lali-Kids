@@ -19,4 +19,9 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "fidel-ze-swing": dynamic(() => import("./fidel-ze-swing"), { ssr: false }),
   "fidel-ye-whose": dynamic(() => import("./fidel-ye-whose"), { ssr: false }),
   "fidel-ge-gugu": dynamic(() => import("./fidel-ge-gugu"), { ssr: false }),
+  "fidel-te-che-shoe": dynamic(() => import("./fidel-te-che-shoe"), { ssr: false }),
+  "fidel-tse-sun": dynamic(() => import("./fidel-tse-sun"), { ssr: false }),
+  "fidel-fe-post": dynamic(() => import("./fidel-fe-post"), { ssr: false }),
+  "fidel-kwa-ball": dynamic(() => import("./fidel-kwa-ball"), { ssr: false }),
+  "fidel-parade": dynamic(() => import("./fidel-parade"), { ssr: false }),
 };
