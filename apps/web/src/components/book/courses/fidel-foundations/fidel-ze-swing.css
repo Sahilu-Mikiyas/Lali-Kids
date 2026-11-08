@@ -1,0 +1,44 @@
+/*
+  "The Elephant's Swing" (fidel-ze-swing.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* Big ears flapping. */
+@keyframes fzs-ear {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.8); }
+}
+.fzs-ear {
+  transform-box: fill-box;
+  transform-origin: 100% 50%;
+  animation: fzs-ear 1.6s ease-in-out infinite;
+}
+
+/* The trunk swaying, or lifted to spray. */
+@keyframes fzs-trunk {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(12deg); }
+}
+.fzs-trunk {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: fzs-trunk 2.4s ease-in-out infinite;
+}
+@keyframes fzs-trunk-up {
+  0%, 100% { transform: rotate(-100deg); }
+  50% { transform: rotate(-110deg); }
+}
+.fzs-trunk-up {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: fzs-trunk-up 0.8s ease-in-out infinite;
+}
+
+/* The branch bending under the elephant's weight. */
+@keyframes fzs-bend {
+  0% { transform: translateY(0); }
+  60%, 100% { transform: translateY(26px); }
+}
+.fzs-bend {
+  animation: fzs-bend 2s ease-in 0.4s both;
+}

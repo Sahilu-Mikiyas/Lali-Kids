@@ -1,0 +1,13 @@
+/*
+  "The Great Fidel Parade" (fidel-parade.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* A football bouncing along. */
+@keyframes fpa-bounce {
+  0%, 100% { transform: translateY(0) scale(1.05, 0.95); }
+  50% { transform: translateY(-50px) scale(1); }
+}
+.fpa-bounce {
+  animation: fpa-bounce 0.9s ease-in-out var(--delay, 0s) infinite;
+}

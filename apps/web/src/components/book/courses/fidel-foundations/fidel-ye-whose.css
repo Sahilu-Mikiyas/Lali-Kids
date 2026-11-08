@@ -1,0 +1,28 @@
+/*
+  "Whose Is It?" (fidel-ye-whose.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The hen pecks at the ground now and then. */
+@keyframes fyw-peck {
+  0%, 60%, 100% { transform: rotate(0); }
+  70% { transform: rotate(-14deg); }
+  80% { transform: rotate(0); }
+  88% { transform: rotate(-12deg); }
+}
+.fyw-peck {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fyw-peck 2.6s ease-in-out infinite;
+}
+
+/* The cat purring: a slow breath. */
+@keyframes fyw-purr {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+.fyw-purr {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fyw-purr 1.4s ease-in-out infinite;
+}

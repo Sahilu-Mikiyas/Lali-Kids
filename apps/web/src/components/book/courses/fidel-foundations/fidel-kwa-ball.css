@@ -1,0 +1,58 @@
+/*
+  "Ball and Friends" (fidel-kwa-ball.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The ball spins as it rolls. */
+@keyframes fkb-spin {
+  to { transform: rotate(360deg); }
+}
+.fkb-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fkb-spin 1.6s linear infinite;
+}
+
+/* A high kick: up in an arc and down. */
+@keyframes fkb-arc {
+  0% { transform: translate(-140px, 0); }
+  50% { transform: translate(-70px, -110px); }
+  100% { transform: translate(0, 0); }
+}
+.fkb-arc {
+  animation: fkb-arc 1.6s ease-in-out 0.4s both;
+}
+
+/* A low pass along the ground. */
+@keyframes fkb-pass {
+  from { transform: translateX(-110px); }
+  to { transform: translateX(0); }
+}
+.fkb-pass {
+  animation: fkb-pass 1.2s ease-out 0.4s both;
+}
+
+/* Two cards sliding toward each other to join. */
+@keyframes fkb-join-l {
+  0%, 30% { transform: translateX(0); }
+  100% { transform: translateX(40px); }
+}
+.fkb-join-l {
+  animation: fkb-join-l 1.6s ease-in-out 0.6s both;
+}
+@keyframes fkb-join-r {
+  0%, 30% { transform: translateX(0); }
+  100% { transform: translateX(-40px); }
+}
+.fkb-join-r {
+  animation: fkb-join-r 1.6s ease-in-out 0.6s both;
+}
+
+/* Bouncing a ball while walking. */
+@keyframes fkb-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-34px); }
+}
+.fkb-bounce {
+  animation: fkb-bounce 0.8s ease-in-out infinite;
+}

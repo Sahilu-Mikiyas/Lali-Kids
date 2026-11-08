@@ -1,0 +1,15 @@
+/*
+  "Tsehay and the Thirteenth Month" (fidel-tse-sun.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* A polite bow. */
+@keyframes fts-bow {
+  0%, 60%, 100% { transform: rotate(0); }
+  75% { transform: rotate(14deg); }
+}
+.fts-bow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fts-bow 2.4s ease-in-out var(--delay, 0s) infinite;
+}

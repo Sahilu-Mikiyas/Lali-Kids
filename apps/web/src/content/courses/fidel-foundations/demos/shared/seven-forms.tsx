@@ -29,7 +29,7 @@ const COPY = {
 };
 
 /** The English sound of each family's first consonant, for the little sound label. */
-const SOUNDS: Record<string, string> = { ሀ: "h", ለ: "l", መ: "m", ረ: "r", ሰ: "s", ሸ: "sh", ቀ: "q", በ: "b", ተ: "t", ቸ: "ch", ነ: "n", አ: "" };
+const SOUNDS: Record<string, string> = { ሀ: "h", ለ: "l", መ: "m", ረ: "r", ሰ: "s", ሸ: "sh", ቀ: "q", በ: "b", ተ: "t", ቸ: "ch", ነ: "n", አ: "", ከ: "k", ወ: "w", ዘ: "z", ዠ: "zh", የ: "y", ደ: "d", ጀ: "j", ገ: "g", ጠ: "t", ጨ: "ch", ፈ: "f", ፐ: "p" };
 
 export function SevenForms({ lang, onDone, families }: DemoProps & { families: string[] }) {
   const [f, setF] = useState(0);
@@ -63,13 +63,13 @@ export function SevenForms({ lang, onDone, families }: DemoProps & { families: s
   return (
     <Frame lang={lang} title={COPY.title} howTo={COPY.howTo} total={families.length} got={got} done={allDone} onDone={onDone} ending={<p className="text-base">{COPY.ending[lang]}</p>}>
       {/* the families */}
-      <div className="mb-3 flex justify-center gap-2">
+      <div className="mb-3 flex flex-wrap justify-center gap-2">
         {families.map((first, i) => (
           <button
             key={first}
             type="button"
             onClick={() => pickFamily(i)}
-            className={`relative grid h-12 w-12 place-items-center rounded-2xl text-2xl font-bold shadow-[0_3px_0_#00000022] ${i === f ? "bg-[#2A1A10] text-white" : "bg-white"}`}
+            className={`relative grid h-11 w-11 place-items-center rounded-2xl text-2xl font-bold shadow-[0_3px_0_#00000022] ${i === f ? "bg-[#2A1A10] text-white" : "bg-white"}`}
             style={FIDEL}
             aria-pressed={i === f}
           >

@@ -1,0 +1,65 @@
+/*
+  "Gugu Writes His Name" (fidel-ge-gugu.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* The horse cart trotting along. */
+@keyframes fgg-trot {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -3px); }
+  50% { transform: translate(4px, 0); }
+  75% { transform: translate(2px, -3px); }
+}
+.fgg-trot {
+  animation: fgg-trot 0.6s linear infinite;
+}
+
+/* The camel chewing. */
+@keyframes fgg-chew {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-3deg); }
+}
+.fgg-chew {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: fgg-chew 1.2s ease-in-out infinite;
+}
+
+/* Carrying something very carefully: a slow, steady sway. */
+@keyframes fgg-careful {
+  0%, 100% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+}
+.fgg-careful {
+  animation: fgg-careful 2.4s ease-in-out infinite;
+}
+
+/* Eyes blinking in the bushes. */
+@keyframes fgg-blink {
+  0%, 85%, 100% { opacity: 1; }
+  90% { opacity: 0; }
+}
+.fgg-blink {
+  animation: fgg-blink 3s linear infinite;
+}
+
+/* The hyena shaking with laughter. */
+@keyframes fgg-laugh {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.fgg-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fgg-laugh 0.4s ease-in-out infinite;
+}
+
+/* Chalk scribbling on the door. */
+@keyframes fgg-chalk {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(5px, -3px); }
+}
+.fgg-chalk {
+  animation: fgg-chalk 0.4s ease-in-out infinite;
+}

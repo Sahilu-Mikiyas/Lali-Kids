@@ -1,0 +1,60 @@
+/*
+  "Say It Like You Mean It" (fidel-expression.tsx): transforms and opacity only.
+  With reduced motion every piece rests in its final pose.
+*/
+
+/* A voice line drawing itself from left to right (scaled in from its left edge). */
+@keyframes fex-draw {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.fex-draw {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: fex-draw 1.2s ease-out var(--delay, 1s) both;
+}
+
+/* Cups rattling at the shout. */
+@keyframes fex-rattle {
+  0%, 60%, 100% { transform: translate(0, 0) rotate(0); }
+  65% { transform: translate(-2px, -3px) rotate(-6deg); }
+  75% { transform: translate(2px, -2px) rotate(6deg); }
+  85% { transform: translate(-1px, -1px) rotate(-3deg); }
+}
+.fex-rattle {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: fex-rattle 1.4s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The door thumping. */
+@keyframes fex-thump {
+  0%, 50%, 100% { transform: translateX(0); }
+  55% { transform: translateX(-4px); }
+  60% { transform: translateX(0); }
+  70% { transform: translateX(-4px); }
+  75% { transform: translateX(0); }
+}
+.fex-thump {
+  animation: fex-thump 1.6s linear 0.8s infinite;
+}
+
+/* Peeking under the table: down and back up. */
+@keyframes fex-peek {
+  0%, 100% { transform: translateY(0); }
+  40%, 60% { transform: translateY(16px); }
+}
+.fex-peek {
+  animation: fex-peek 2.6s ease-in-out 0.6s infinite;
+}
+
+/* A trunk waving goodbye. */
+@keyframes fex-wave {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(10deg); }
+}
+.fex-wave {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: fex-wave 1.2s ease-in-out infinite;
+}
