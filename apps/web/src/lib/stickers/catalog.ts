@@ -38,7 +38,13 @@ export type StickerBasis = {
   positions: Record<string, StickerPosition>;
   /** Pages the child read aloud, by story (reader stars). Optional: older records lack it. */
   reads?: Record<string, number[]>;
+  /** Learning packages the child finished (final test passed). Optional. */
+  courses?: string[];
 };
+
+/** A learning package with a sticker: earned by passing its final test. */
+export type StickerCourse = { id: string; title: Record<Lang, string>; color: string };
+export const courseStickerId = (courseId: string) => `course:${courseId}`;
 
 export type StickerPosition = { page: number; x: number; y: number; r?: number };
 
@@ -72,7 +78,7 @@ export const storyStickerId = (storyId: string) => `story:${storyId}`;
 export const goldenStickerId = (storyId: string) => `gold:${storyId}`;
 
 /** Story stickers on album page 0, golden ones on page 1, milestones on page 2. */
-export function stickerCatalog(stories: StickerStory[]): StickerDef[] {
+export function stickerCatalog(stories: StickerStory[], courses: StickerCourse[] = []): StickerDef[] {
   return [
     ...stories.map((s) => ({ id: storyStickerId(s.id), kind: "story" as const, storyId: s.id, title: s.title, color: s.color, album: 0 })),
     ...stories.map((s) => ({
@@ -84,6 +90,8 @@ export function stickerCatalog(stories: StickerStory[]): StickerDef[] {
       album: 1,
     })),
     ...MILESTONES.map((m) => ({ id: m.id, kind: "milestone" as const, title: m.title, color: m.color, album: 2 })),
+    // Learning packages: a champion sticker for passing the final test, with the milestones.
+    ...courses.map((c) => ({ id: courseStickerId(c.id), kind: "milestone" as const, title: { en: `${c.title.en} champion`, am: `የ${c.title.am} ጀግና` }, color: c.color, album: 2 })),
   ];
 }
 
@@ -117,6 +125,7 @@ export function earnedStickers(basis: StickerBasis, pageCount: (storyId: string)
     const found = new Set(pages.filter((p) => p >= 0 && p < n));
     if (found.size >= n) earned.add(goldenStickerId(storyId));
   }
+  for (const c of basis.courses ?? []) earned.add(courseStickerId(c));
   const streak = longestStreak(basis.days);
   const readAll = readEveryPage(basis.reads, pageCount);
   for (const m of MILESTONES) {
@@ -134,7 +143,7 @@ export function stickerStory(id: string): string | null {
 }
 
 /** Ids we accept from browsers and the app. */
-export const isStickerId = (v: unknown): v is string => typeof v === "string" && /^(story:|gold:)[a-z0-9-]{1,100}$|^m:(3|5|10|streak7|readself)$/.test(v);
+export const isStickerId = (v: unknown): v is string => typeof v === "string" && /^(story:|gold:)[a-z0-9-]{1,100}$|^course:[a-z0-9-]{1,60}$|^m:(3|5|10|streak7|readself)$/.test(v);
 export const isStoryId = (v: unknown): v is string => typeof v === "string" && /^[a-z0-9-]{1,100}$/.test(v);
 
 /** A position from outside, made safe (0–1 across the album page). */

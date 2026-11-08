@@ -44,9 +44,9 @@ on every call (the shelf calls also work signed out). Optional headers:
 
 | Call | Body | Returns |
 |---|---|---|
-| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes, micListen}` (`micListen` is null until migration 0011), `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `packs[]` (the packs the family's plan opens: `story`, `fidel`, `numbers`, `english`; empty without a plan), `plans[]` (each with its `packs`) |
+| `GET me` | | `profile`, `children[]`, `currentChildId`, `settings {nightlyLimit, showAllAges, gamesMinutes, micListen}` (`micListen` is null until migration 0011), `tonight {read, limitReached}`, `games {secondsToday, secondsLeft}`, `plan` (or null), `packs[]` (the packs the family's plan opens: `story`, `fidel`, `numbers`, `english`; empty without a plan), `plans[]` (each with its `name`, `priceEtb`, `packs` and `entitlements`), and **`entitlements`**: what the family may use now (`planId`, `source`, `maxChildren`, `library`, `games`, `familyVoices`, `narration`, `progressMap`, `telegramWeekly`, `offline`, `allCourses`; see `docs/PACKAGES.md`). Each child has `readOnly` (beyond the plan's number of children: shown, but can't be chosen; `X-Lali-Child` for one is ignored) |
 | `PATCH me` | `{nightlyLimit?, showAllAges?, gamesMinutes?, uiLang?, name?, micListen?}` | same as `GET me`. `micListen` is the grown-up's "Listen to my child read" choice (see below) |
-| `POST children` | `{name, ageBand: "3-5"\|"6-7"\|"8-9", lang: "en"\|"am", avatar: "cub"\|"gugu"\|"bee"}` | `{child}` |
+| `POST children` | `{name, ageBand: "3-5"\|"6-7"\|"8-9", lang: "en"\|"am", avatar: "cub"\|"gugu"\|"bee"}` | `{child}`, or `402 {error, reason: "child-limit", maxChildren}` when the plan is full |
 | `DELETE children/:id` | | `{ok}` |
 | `POST children/:id/allow-more` | | `{ok}`, reopens tonight's shelf |
 | `GET stories` | | `{stories[]}`: launch stories with their text; studio stories with a cover link. Each has its `pack` and `locked` (true when the family's plan doesn't open its pack; free stories never are); locked stories carry no text and say which plan opens them (`opensWith`) |
@@ -57,12 +57,38 @@ on every call (the shelf calls also work signed out). Optional headers:
 | `GET games` | | `{games[]}` with full `url`s, `locked` if not on a plan |
 | `POST games/:slug/start` | | `{ok, sessionId, secondsLeft, url}` or `{ok:false, reason: "locked"\|"off"\|"time-up"}` |
 | `POST sessions/:id` | `{seconds?, score?}` | `{secondsLeft}`. Send `seconds` every ~15 s while the game is on screen |
-| `POST checkout` | `{plan: "reader"\|"learner"\|"vip"}` | `{url}` of Chapa's page. Open it with `expo-web-browser`; the thank-you page has a "Back to the Lali app" button (`lali://plan`). Refresh `GET me` when the browser closes |
+| `POST checkout` | `{plan: "reader"\|"learner"\|"vip"}` or `{course: "<package id>"}` (a learning package, bought once; returns to `/courses/done`, "Back to the Lali app" opens `lali://courses`) | `{url}` of Chapa's page. Open it with `expo-web-browser`; the thank-you page has a "Back to the Lali app" button (`lali://plan`). Refresh `GET me` when the browser closes |
 | `POST gifts/check` | `{code}` | `{gift: {code, planId, months, giverName, recipient, message, preview: {kind, startsAtMs, endsAtMs, convertedDays}, currentPlanId}}`: what a gift code would give, before adding it. Codes look like `LALI-XXXX-XXXX`; spaces, missing dashes and lower case are fine |
 | `POST gifts/redeem` | `{code}` | `{gift: {planId, months, giverName, kind, startsAt, endsAt}, plan}`: adds the gift (months × 30 days, same rules as a payment) to the family's plan, once. Errors come as `{error, reason}`: `400` not a code (`format`), `404` unknown or unpaid (`invalid`), `409` already used (`used`, or `usedMine` if this family added it), `429` too many wrong codes (`rate`, 10 an hour), `503` gifts not switched on (`off`) |
 | `GET stickers` | | The current child's sticker book: `{childId, earned[], available[], count, total, finds, positions}`. Each sticker is `{id, kind: "story"\|"golden"\|"milestone", storyId?, title {en, am}, color, album, earned}`. Ids: `story:<storyId>`, `gold:<storyId>`, `m:3`, `m:5`, `m:10`, `m:streak7`, `m:readself` ("I read it myself!": every page of a book read aloud). Also `reads {storyId: pages[]}`, the pages read aloud. Works signed out too (nothing earned) |
 | `POST stickers/finds` | `{storyId, page}` | `{ok, saved}`: the child found Lali on that page (send it when the reader posts `lali:found`). `saved: false` until migration 0009 is applied |
 | `PATCH stickers/:id` | `{page, x, y, r?}` | `{ok, saved}`: where the child stuck a sticker in the album (`x`, `y` from 0 to 1 across album page `page`; `r` tilt in degrees, -30 to 30). URL-encode the id |
+
+### Learning packages
+
+| Call | Body | Returns |
+|---|---|---|
+| `GET courses` | | `{childId, vip, courses[]}`: the ten packages (`id, title, tagline, outcome, ages, color, priceEtb, status, ready, levels`) with `access` (`owned`, `vip` or `none`), and for the reading child `started`, `completed`, `level` |
+| `GET courses/:id` | | The level map for the reading child: `{course, childId, access, paced, started, canStart, activeOther, completedAt, opensAt, levels[], final}`. Each level: `{id, title, goal, state: "passed"\|"open"\|"waiting"\|"locked", stars, best, lessons[], quiz}`; each lesson `{key, kind, title, storyId?, done, quiz?}`. Quizzes of open (or passed) levels come **without answers** (`{id, passMark, questions[]}`, see below); locked ones only as `{id, questions: <count>}` |
+| `POST courses/:id/start` | | VIP: starts the package for the reading child; `409 {reason: "oneAtATime", activeOther}` while another is in progress. Returns the map |
+| `POST courses/:id/lessons/:lessonId/done` | | `{ok, lessonsDone[]}`: a lesson finished (`story-<id>` at The End, `demo-<id>` on `onDone`, `practice-<quizId>` at the end of a practice round). Bought packages start by themselves |
+| `POST quizzes/:id/check` | `{index, answer}` | Practice only: `{result: {correct, right, explain?}}`, nothing recorded |
+| `POST quizzes/:id/attempt` | `{answers[]}` | A level quiz or the final test, scored on the server: `{attempt: {score, total, passed, results[{correct, right, explain?}], advanced, completed, stars, opensAt}}` |
+
+Answers are in the terms of what was shown: a choice's index (choices keep their order), a number
+(`count`), `true`/`false`, for `order` the shown indexes in the chosen order, for `match` for each
+left item the index of the shown right item. Errors: `{error, reason, opensAt?, activeOther?}` with
+`402` no access (buy it or VIP), `409` not ready / not started / one at a time, `423` level not
+open (with `opensAt` for VIP's pace), `503` packages not switched on yet (migration 0016).
+
+A package's teaching story can be read with `GET stories/:id` by a family that has the package
+(otherwise `402 {locked, course}`). Show it in the app's own reader, and send the lesson with
+`POST courses/:id/lessons/story-<id>/done` at The End. The website's lesson pages need the website
+session, so they are not for the web view yet; the website's reader posts `{type:
+"lali:lesson-done", courseId, lessonId}` when it runs inside the app.
+
+**Offline downloads** (`entitlements.offline`) come with Family and VIP: hide "Keep on this phone"
+on Starter (stories already downloaded stay readable while the plan is open).
 
 Errors come back as `{error}` with a matching status (401 sign in, 402 needs a plan, 404, 429
 too fast, 500). Two calls answer differently: a locked `GET stories/:id` is `402 {locked}` (title

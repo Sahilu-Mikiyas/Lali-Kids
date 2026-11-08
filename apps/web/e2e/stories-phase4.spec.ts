@@ -1,6 +1,6 @@
 import { getStory } from "../src/content/stories";
 import { allPaths, storyPath } from "../src/lib/story-path";
-import { expect, passMathsGate, ready, test } from "./support/fixtures";
+import { expect, givePlan, passMathsGate, ready, test } from "./support/fixtures";
 
 /*
   Phase 4 in the reader: the child's name in stories ({name} and the bookplate) and story
@@ -11,21 +11,21 @@ test.use({ reducedMotion: "reduce" });
 const next = (page: import("@playwright/test").Page) => page.getByRole("button", { name: "Next page", exact: true }).first();
 const art = (page: import("@playwright/test").Page, p: number | string) => page.locator(`[data-art-face="${p}"]:visible`).first();
 
-test("{name}: the bookplate and the page say the chosen child's name; signed out it's 'friend'", async ({ page, signIn, t, uiLang }) => {
-  // Signed out first: no bookplate, and {name} reads as the friendly default.
-  await page.goto("/stories/ten-tukuls");
+test("{name}: the bookplate and the page say the chosen child's name; without a child it's 'friend'", async ({ page, signIn, t, uiLang, request }) => {
+  // "Opposites" says {name} on its first page. It is a library story: open with any plan.
+  const id = "opposites";
+  const total = getStory(id)!.pages.length;
+  const family = await signIn();
+  await givePlan(request, family, "reader");
+  // No child yet: no bookplate, and {name} reads as the friendly default.
+  await page.goto(`/stories/${id}`);
   await ready(page);
   await expect(art(page, 0)).toBeVisible();
-  await next(page).click();
-  await next(page).click();
-  await expect(art(page, 2)).toBeVisible();
-  const comma = uiLang === "am" ? "፣" : ",";
   await expect(page.locator("[data-bookplate]")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: `${uiLang === "am" ? "ጓደኛ" : "friend"}${comma}`, exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: new RegExp(`^${uiLang === "am" ? "ጓደኛ" : "friend"}!`) }).first()).toBeVisible();
   await expect(page.getByText("{name}")).toHaveCount(0);
 
-  // A family with a child called Abeba.
-  await signIn();
+  // A child called Abeba.
   await page.goto("/account");
   await ready(page);
   await passMathsGate(page);
@@ -33,7 +33,7 @@ test("{name}: the bookplate and the page say the chosen child's name; signed out
   await page.getByRole("button", { name: t.account.addChildBtn }).click();
   await expect(page.getByText("Abeba").first()).toBeVisible();
 
-  await page.goto("/stories/ten-tukuls");
+  await page.goto(`/stories/${id}`);
   await ready(page);
   // The bookplate comes before page 1.
   await expect(page.locator('[data-bookplate="Abeba"]:visible')).toBeVisible();
@@ -41,19 +41,15 @@ test("{name}: the bookplate and the page say the chosen child's name; signed out
   await expect(art(page, "plate")).toBeVisible();
   await next(page).click();
   await expect(art(page, 0)).toBeVisible();
-  // Page 1 of 14 still says so: the bookplate isn't counted.
-  await expect(page.getByText(`1 / ${getStory("ten-tukuls")!.pages.length}`).first()).toBeVisible();
-  await next(page).click();
-  await next(page).click();
-  await expect(art(page, 2)).toBeVisible();
-  await expect(page.getByRole("button", { name: `Abeba${comma}`, exact: true }).first()).toBeVisible();
+  // Page 1 of 13 still says so: the bookplate isn't counted.
+  await expect(page.getByText(`1 / ${total}`).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /^Abeba!/ }).first()).toBeVisible();
   await expect(page.getByText("{name}")).toHaveCount(0);
   // The browser voice reads it (no recorded narration on a {name} page): "Read to me" is there.
   await expect(page.locator("[data-read-own]:visible").first()).toBeVisible();
 
   // On to the end: "Well done, Abeba!"
-  const total = getStory("ten-tukuls")!.pages.length;
-  for (let i = 3; i < total; i++) await next(page).click();
+  for (let i = 1; i < total; i++) await next(page).click();
   await page.getByRole("button", { name: "Finish the story", exact: true }).first().click();
   await expect(page.locator('[data-end-name="Abeba"]:visible')).toBeVisible();
 });

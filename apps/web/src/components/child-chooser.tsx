@@ -30,14 +30,17 @@ export function ChildChooser({ childList, currentId, stars }: { childList: Child
           key={c.id}
           type="button"
           aria-pressed={c.id === currentId}
-          disabled={pending}
+          disabled={pending || c.readOnly}
+          title={c.readOnly ? t.gates.readOnlyChild : undefined}
+          data-readonly={c.readOnly || undefined}
           onClick={() => start(() => chooseChild(c.id))}
           className={`flex items-center gap-2 rounded-full py-1 pl-1 pr-4 font-display text-lg font-extrabold transition ${
-            c.id === currentId ? "bg-gold/30 ring-2 ring-gold" : "hover:bg-bg"
+            c.id === currentId ? "bg-gold/30 ring-2 ring-gold" : c.readOnly ? "opacity-50" : "hover:bg-bg"
           }`}
         >
           <Avatar kind={c.avatar} size={36} />
           {c.name}
+          {c.readOnly && <span aria-hidden>🔒</span>}
         </button>
       ))}
       <span className="ml-auto pr-2 font-bold">

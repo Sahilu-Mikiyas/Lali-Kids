@@ -18,6 +18,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "fidel-te",
   pack: "fidel",
+  // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+  course: "fidel-foundations",
   title: { en: "Tiny Turtle's Trip ተ", am: "የትንሿ ኤሊ ጉዞ ተ" },
   category: "Fidel",
   ageBands: ["3-5", "6-7"],

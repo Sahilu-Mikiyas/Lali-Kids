@@ -17,6 +17,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "fidel-se",
   pack: "fidel",
+  // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+  course: "fidel-foundations",
   title: { en: "Seven Sheep for ሰ", am: "ሰባቱ የሰ በጎች" },
   category: "Fidel",
   ageBands: ["3-5"],

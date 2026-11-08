@@ -32,7 +32,12 @@ export function ChildCard({ child, thisWeek, current }: { child: Child; thisWeek
           <span className="text-gold">★</span> {t.account.starsWeek(child.stars, thisWeek)}
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
-          {!current && (
+          {child.readOnly && (
+            <span className="rounded-full bg-line px-3 py-1 text-sm font-bold text-muted" data-child-readonly={child.id}>
+              🔒 {t.gates.readOnlyChild}
+            </span>
+          )}
+          {!current && !child.readOnly && (
             <button type="button" className="btn btn-plain !px-3 !py-1.5 !text-sm" disabled={pending} onClick={() => start(() => chooseChild(child.id))}>
               {t.account.readingNow}
             </button>

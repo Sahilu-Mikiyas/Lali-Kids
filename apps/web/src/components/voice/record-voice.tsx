@@ -21,7 +21,7 @@ import { MicListenSetting } from "../mic-listen-setting";
 type Step = "gate" | "menu" | "name" | "record" | "done";
 type Phase = "idle" | "explain" | "recording" | "review" | "saving" | "saved";
 type Take = { blob: Blob; url: string; durationMs: number };
-type Problem = "blocked" | "unsupported" | "tooBig" | "failed" | "unavailable" | null;
+type Problem = "blocked" | "unsupported" | "tooBig" | "failed" | "unavailable" | "needsPlan" | null;
 
 const fmt = (ms: number) => {
   const s = Math.floor(ms / 1000);
@@ -228,7 +228,7 @@ export function RecordVoiceModal({
     const r = await uploadVoice(take, { storyId: story.id, lang: recLang, page, name });
     if (!r.ok) {
       setPhase("review");
-      setProblem(r.error === "too-big" ? "tooBig" : r.error === "unavailable" ? "unavailable" : "failed");
+      setProblem(r.error === "too-big" ? "tooBig" : r.error === "unavailable" ? "unavailable" : r.error === "needs-plan" ? "needsPlan" : "failed");
       return;
     }
     setSaved((s) => new Set(s).add(`${recLang}:${page}`));
@@ -254,7 +254,7 @@ export function RecordVoiceModal({
 
   const font = lang === "am" ? "font-ethiopic" : "";
   const display = lang === "am" ? "font-ethiopic" : "font-display";
-  const problemText = problem && { blocked: t.micBlocked, unsupported: t.noMic, tooBig: t.tooBig, failed: t.failed, unavailable: t.unavailable }[problem];
+  const problemText = problem && { blocked: t.micBlocked, unsupported: t.noMic, tooBig: t.tooBig, failed: t.failed, unavailable: t.unavailable, needsPlan: t.needsPlan }[problem];
 
   let content: React.ReactNode;
   if (step === "gate") {

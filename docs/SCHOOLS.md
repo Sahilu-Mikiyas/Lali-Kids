@@ -110,3 +110,9 @@ apply it to a Supabase branch first and run the checks at the end of the file.
 | Pictures (animals, avatars) | `apps/web/src/components/schools/pictures.tsx` |
 | Pilot numbers (school counts) | `apps/web/src/app/[lang]/admin/stats/page.tsx` |
 | Tests | `apps/web/e2e/schools.spec.ts` (fake Supabase in `e2e/support/stub-fetch.cjs`) |
+
+## Plans v2 (learning packages)
+
+A teacher with an open licence gets the Family plan's gates on their own account
+(`apps/web/src/lib/entitlements.ts`). Class shelves keep every launch story, including the Fidel and
+Numbers stories that families now find inside their learning packages (`docs/PACKAGES.md`).

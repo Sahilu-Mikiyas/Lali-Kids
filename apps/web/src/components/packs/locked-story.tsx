@@ -12,7 +12,24 @@ import { PackIcon } from "./pack-icon";
  * A story the family can't open yet: its cover, which pack it is in and which plan opens that
  * pack, with a button to start or upgrade (or sign in). /subscribe explains how upgrades work.
  */
-export function LockedStory({ story, planId, signedIn, next, t, lang, title }: { story: Story; planId: PlanId | null; signedIn: boolean; next: string; t: Dict; lang: UiLang; title?: string }) {
+export function LockedStory({ story, planId, signedIn, next, t, lang, title, course }: { story: Story; planId: PlanId | null; signedIn: boolean; next: string; t: Dict; lang: UiLang; title?: string; course?: { id: string; title: Record<"en" | "am", string> } }) {
+  // A learning package's story opens inside its package (docs/PACKAGES.md).
+  if (course) {
+    return (
+      <div className="mx-auto grid max-w-3xl items-center gap-8 md:grid-cols-2" data-locked-story="course" data-story-course={course.id}>
+        <BookCard story={story} href={`/courses/${course.id}`} menu={false} />
+        <div className="space-y-4">
+          <h1 className={`font-display text-4xl font-black ${lang === "am" ? "font-ethiopic" : ""}`}>{story.title[lang]}</h1>
+          <p className="rounded-2xl bg-white p-3 text-lg font-bold shadow-[0_4px_0_var(--color-line)]" data-pack-message="">
+            {t.packs.inCourse(course.title[lang])}
+          </p>
+          <Link href={`/courses/${course.id}`} className="btn btn-primary" data-open-course={course.id}>
+            {t.packs.openCourse}
+          </Link>
+        </div>
+      </div>
+    );
+  }
   const pack = packOf(story);
   const plan = planForPack(pack);
   const planName = t.plans.names[plan];

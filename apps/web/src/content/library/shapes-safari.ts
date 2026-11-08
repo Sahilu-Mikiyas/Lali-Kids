@@ -14,6 +14,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "shapes-safari",
   pack: "numbers",
+  // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+  course: "numbers-counting",
   title: { en: "Gugu's Shapes Safari", am: "የጉጉ የቅርጾች ጉዞ" },
   category: "Maths",
   ageBands: ["3-5"],

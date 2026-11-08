@@ -3,8 +3,9 @@ import { expect, ready, test } from "./support/fixtures";
 test("games: free games open in a sealed frame, paid ones are locked without their address", async ({ page, t }) => {
   await page.goto("/games");
   await expect(page.locator('a[href="/games/count-the-flowers"]')).toBeVisible();
-  const locked = page.locator('a[href="/subscribe?plan=reader"]', { hasText: "Paid Puzzle" });
-  await expect(locked).toContainText(t.games.withPlan);
+  // Paid games come with the Family plan (learner).
+  const locked = page.locator('a[href="/subscribe?plan=learner"]', { hasText: "Paid Puzzle" });
+  await expect(locked).toContainText(t.games.withFamily);
   expect(await page.content()).not.toContain("games.example.com");
 
   await page.locator('a[href="/games/count-the-flowers"]').click();

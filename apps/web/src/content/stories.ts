@@ -1,5 +1,6 @@
 import { COURSE_STORIES } from './courses/stories';
 import { LIBRARY } from './library';
+import { TEST_STORIES } from './test-fixtures';
 
 export type Lang = 'en' | 'am';
 
@@ -258,10 +259,12 @@ const LAUNCH: Story[] = [
     // ኩር-ኩር for the frog) and the ordinal forms (አሥረኛዋ).
     id: 'gugu-counts',
     pack: 'numbers',
+    // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+    course: 'numbers-counting',
     title: { en: 'Gugu Counts the Sheep', am: 'ጉጉ በጎቹን ይቆጥራል' },
     category: 'Maths',
     ageBands: ['3-5', '6-7'],
-    isFree: true,
+    isFree: false,
     color: '#0E7F74',
     scene: 'count',
     coverPage: 12,
@@ -345,7 +348,7 @@ const LAUNCH: Story[] = [
     title: { en: 'Lali Shares the Honey', am: 'ላሊ ማሩን አካፈለች' },
     category: 'Values',
     ageBands: ['3-5', '6-7'],
-    isFree: true,
+    isFree: false,
     color: '#C9860A',
     scene: 'share',
     coverPage: 10,
@@ -506,6 +509,8 @@ const LAUNCH: Story[] = [
     // especially the train sounds (ቱ ቱ, ቹ ቹ) and how the letter sounds are described.
     id: 'fidel-train',
     pack: 'fidel',
+    // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+    course: 'fidel-foundations',
     title: { en: 'The Fidel Train ሀ ሁ ሂ', am: 'የፊደል ባቡር ሀ ሁ ሂ' },
     category: 'Fidel',
     ageBands: ['3-5'],
@@ -847,7 +852,7 @@ const LAUNCH: Story[] = [
 ];
 
 /** Every story in the library: the launch stories, then one file per story in ./library. */
-export const STORIES: Story[] = [...LAUNCH, ...LIBRARY, ...COURSE_STORIES];
+export const STORIES: Story[] = [...LAUNCH, ...LIBRARY, ...COURSE_STORIES, ...TEST_STORIES];
 
 export function getStory(id: string): Story | undefined {
   return STORIES.find((s) => s.id === id);

@@ -5,8 +5,6 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { STORIES } from "@/content/stories";
-import { packCounts } from "@/lib/packs";
 import { planById } from "@/lib/payments/plans";
 import { asCurrentPlan, familyPlan } from "@/lib/payments/subscription";
 import { currentProfile } from "@/lib/supabase/server";
@@ -47,10 +45,15 @@ async function SubscribeContent({ searchParams }: PageProps<"/[lang]/subscribe">
             initialPlan={typeof plan === "string" ? wanted : current?.isOpen ? (planById(current.planId)?.id ?? wanted) : wanted}
             current={asCurrentPlan(current)}
             nowMs={nowMs()}
-            packCounts={packCounts(STORIES)}
           />
         </div>
-        <p className="mt-8 text-center text-lg">
+        <p className="mt-8 text-center text-lg" data-plans-packages="">
+          {t.plans.packagesNote}{" "}
+          <Link href="/courses" className="font-bold text-blue underline">
+            {t.plans.seePackages}
+          </Link>
+        </p>
+        <p className="mt-3 text-center text-lg">
           {t.gift.haveCode}{" "}
           <Link href="/gift/redeem" className="font-bold text-blue underline">
             {t.gift.addCode}

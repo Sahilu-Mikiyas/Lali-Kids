@@ -10,6 +10,8 @@ import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { Sticker } from "@/components/stickers/sticker";
 import { agesLabel, AGE_BANDS, type AgeBand } from "@/content/stories";
 import { FIDEL_CHART, fidelFamily, geez } from "@/lib/activities";
+import { familyCourses, type ChildCourse } from "@/lib/courses/server";
+import { fmtDate } from "@/i18n/format";
 import { loadFamily } from "@/lib/family";
 import { packOf } from "@/lib/packs";
 import { monthGrid, progressMap, suggestNext } from "@/lib/progress-map";
@@ -61,7 +63,29 @@ async function ProgressContent({ params }: PageProps<"/[lang]/account/progress/[
     );
   }
 
+  // The progress map comes with Family and VIP (src/lib/entitlements.ts).
+  if (!family.entitlements.progressMap) {
+    return (
+      <div className="mx-auto max-w-xl space-y-4 rounded-[28px] bg-white p-8 text-center shadow-[0_6px_0_var(--color-line)]" data-progress-locked="">
+        <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-sky-soft">
+          <Avatar kind={child.avatar} size={64} />
+        </div>
+        <h1 className="font-display text-3xl font-black">{t.progress.title(child.name)}</h1>
+        <p className="text-lg">{t.gates.progressMap(t.plans.names.learner)}</p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link href="/subscribe?plan=learner" className="btn btn-primary">
+            {t.gates.upgrade(t.plans.names.learner)}
+          </Link>
+          <Link href="/account" className="btn btn-plain">
+            {t.progress.back}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const supabase = await createSupabaseServer();
+  const courseList = (await familyCourses(family).catch(() => ({}) as Record<string, ChildCourse[]>))[child.id] ?? [];
   const [basis, stories, shelf] = await Promise.all([loadStickerBasis(supabase, child.id), stickerStories(family.profile.id), shelfStories(family.profile.id)]);
   const pages = new Map(stories.map((s) => [s.id, s.pageCount]));
   const map = progressMap(basis, (id) => pages.get(id));
@@ -99,6 +123,26 @@ async function ProgressContent({ params }: PageProps<"/[lang]/account/progress/[
         <Stat value={map.readAloudBooks} label={t.progress.readAloud} sub={t.progress.readAloudSub(map.readAloudPages)} colour="#1E9E5A" />
         <Stat value={t.progress.stickersOf(stickers.count, stickers.total)} label={t.progress.stickers} colour="#D63B72" />
       </div>
+
+      {courseList.length > 0 && (
+        <Card title={t.courses.progressTitle} sub={t.courses.progressSub} id="courses">
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {courseList.map((c) => (
+              <li key={c.courseId} className="rounded-2xl border-2 border-line p-4" data-progress-course={c.courseId}>
+                <p className="flex items-center gap-2 font-display text-xl font-black">
+                  <span className="h-4 w-4 shrink-0 rounded-full" style={{ background: c.color }} aria-hidden />
+                  {c.title[lang]}
+                </p>
+                <div className="mt-2 h-3 overflow-hidden rounded-full bg-line" aria-hidden>
+                  <div className="h-full rounded-full" style={{ width: `${c.completedAt ? 100 : c.levels ? Math.round((c.level / (c.levels + 1)) * 100) : 0}%`, background: c.color }} />
+                </div>
+                <p className="mt-2 text-sm text-muted">{c.completedAt ? t.courses.completedOn(fmtDate(lang, c.completedAt)) : t.courses.levelOf(Math.min(c.level + 1, c.levels), c.levels)}</p>
+                {c.scores.length > 0 && <p className="mt-1 text-sm">{c.scores.map((s) => t.courses.scoreLine(s.label === "final" ? t.courses.finalShort : t.courses.levelShort(Number(s.label)), s.score, s.total)).join(" · ")}</p>}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      )}
 
       {next ? (
         <section className="grid items-center gap-6 rounded-[28px] bg-ink p-5 text-white shadow-[0_6px_0_#0d1530] sm:grid-cols-[minmax(0,240px)_1fr] sm:p-6" data-progress-next={next.id}>

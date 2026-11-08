@@ -4,6 +4,7 @@ import { randomBytes } from "node:crypto";
 
 import { getStory, type Lang, type Story } from "@/content/stories";
 import { isStoryId } from "@/lib/stickers/catalog";
+import { familyEntitlements } from "@/lib/entitlements";
 import { storyOpenFor } from "@/lib/stories";
 import { hasSecretKey, isSupabaseConfigured } from "@/lib/supabase/env";
 import { requestUser, type RequestUser } from "@/lib/supabase/request-user";
@@ -65,6 +66,9 @@ export async function narrationForFamily(storyId: string, familyId: string | nul
   const access = await storyOpenFor(storyId, familyId, isAdmin).catch(() => null);
   if (!access) return answer(getStory(storyId) ? 200 : 404, getStory(storyId) ? { available: false, pages: {} } : { error: "No such story" });
   if (!access.open) return answer(402, { error: "This story needs a Lali plan", pages: {} });
+  // Voice-actor narration of paid stories comes with Family and VIP (src/lib/entitlements.ts);
+  // free stories and tasters are narrated for everyone. Without it the reader uses the browser's voice.
+  if (!access.free && !isAdmin && !(await familyEntitlements(familyId).catch(() => null))?.narration) return answer(200, { available: false, pages: {}, needs: "learner" });
   const pages = await signedNarration(storyId).catch(() => null);
   return answer(200, { available: pages !== null, pages: pages ?? {} });
 }

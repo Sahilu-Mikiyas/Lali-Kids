@@ -6,17 +6,19 @@ export const PACKS: Pack[] = ["story", "fidel", "numbers", "english"];
 import type { PlanId } from "@/lib/payments/plans";
 
 /*
-  Packages (docs/PACKAGES.md): which packs each plan opens, and whether a family may open a
-  story. Every place that decides access (the shelf, the reader, narration, printable
-  activities and the app's API) asks here. Plain TypeScript, safe in the browser too.
+  Packs (docs/PACKAGES.md, v2): which part of the library a story is in. Every place that decides
+  access (the shelf, the reader, narration, printable activities and the app's API) asks here or
+  in src/lib/stories.ts. Plain TypeScript, safe in the browser too.
 
-  - Reader opens the Story Garden (`story`).
-  - Learner and VIP open every pack.
-  - Free stories are open to everyone, whatever their pack.
+  - Any plan (Starter, Family, VIP) opens the whole Story Garden library: the `story` pack and,
+    until English First Words launches, the English stories (and studio stories in any pack).
+  - Stories that belong to a learning package (`course` set) open only through that package, or
+    as its free taster: src/lib/stories.ts and src/lib/courses decide those.
+  - Free stories are open to everyone.
 */
 
 const PLAN_PACKS: Record<PlanId, Pack[]> = {
-  reader: ["story"],
+  reader: [...PACKS],
   learner: [...PACKS],
   vip: [...PACKS],
 };
@@ -33,14 +35,19 @@ export function packOf(story: Pick<Story, "pack">): Pack {
   return isPack(story.pack) ? story.pack : "story";
 }
 
-/** Whether a family on `planId` (null: no open plan) may open the story. */
-export function canOpen(story: Pick<Story, "isFree" | "pack">, planId: string | null | undefined): boolean {
+/**
+ * Whether a family on `planId` (null: no open plan) may open the story from the library. A
+ * learning package's story never opens here (only through its package, or as its taster).
+ */
+export function canOpen(story: Pick<Story, "isFree" | "pack" | "course">, planId: string | null | undefined): boolean {
+  if (story.course) return false;
   return story.isFree || packsForPlan(planId).includes(packOf(story));
 }
 
-/** The cheapest plan that opens a pack, for "opens with …" and upgrade buttons. */
+/** The cheapest plan that opens a pack, for "opens with …" and upgrade buttons: Starter opens the library. */
 export function planForPack(pack: Pack): PlanId {
-  return pack === "story" ? "reader" : "learner";
+  void pack;
+  return "reader";
 }
 
 /** The pack a story studio story gets when the admin doesn't choose one: from its world. */

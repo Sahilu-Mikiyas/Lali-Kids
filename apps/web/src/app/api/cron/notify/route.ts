@@ -1,5 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 
+import { familyEntitlements } from "@/lib/entitlements";
 import { connection } from "next/server";
 
 import { sweepOrphanVoiceFolders } from "@/lib/account";
@@ -146,6 +147,8 @@ export async function GET(request: Request) {
     for (const f of linked) {
       const mine = (kids ?? []).filter((k) => k.family_id === f.id);
       if (!mine.length) continue;
+      // The weekly note comes with Family and VIP (src/lib/entitlements.ts); plan reminders go to everyone.
+      if (!(await familyEntitlements(f.id).catch(() => null))?.telegramWeekly) continue;
       const lines = mine.map((k) => {
         const stories = (done ?? []).filter((d) => d.child_id === k.id).length;
         const minutes = Math.round((play ?? []).filter((p) => p.child_id === k.id).reduce((a, p) => a + p.seconds, 0) / 60);

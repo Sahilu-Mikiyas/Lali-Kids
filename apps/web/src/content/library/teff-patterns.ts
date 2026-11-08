@@ -14,6 +14,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "teff-patterns",
   pack: "numbers",
+  // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+  course: "numbers-counting",
   title: { en: "The Teff Harvest Patterns", am: "የጤፍ አዝመራ ጥለቶች" },
   category: "Maths",
   ageBands: ["3-5", "6-7"],

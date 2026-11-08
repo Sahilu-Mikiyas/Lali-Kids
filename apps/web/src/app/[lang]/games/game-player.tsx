@@ -79,7 +79,7 @@ export function GamePlayer({ slug, url, title, color }: { slug: string; url: str
 
   if (!state.ok || timeUp) {
     const reason = state.ok ? "time-up" : state.reason;
-    const text: Record<string, string> = { "time-up": t.games.timeUp, off: t.games.turnedOff, locked: t.games.locked, missing: t.games.missing };
+    const text: Record<string, string> = { "time-up": t.games.timeUp, off: t.games.turnedOff, locked: t.games.lockedFamily, missing: t.games.missing };
     return (
       <div className="mx-auto max-w-xl space-y-5 rounded-[32px] bg-night p-10 text-center text-white">
         <div className="mx-auto w-fit animate-float">
@@ -91,7 +91,7 @@ export function GamePlayer({ slug, url, title, color }: { slug: string; url: str
             {t.games.readStory}
           </Link>
           {reason === "locked" && (
-            <Link href="/subscribe?plan=reader" className="btn btn-plain">
+            <Link href="/subscribe?plan=learner" className="btn btn-plain">
               {t.shelf.seePlans}
             </Link>
           )}

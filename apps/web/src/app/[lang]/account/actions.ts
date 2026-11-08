@@ -3,7 +3,7 @@
 import { revalidate } from "@/lib/revalidate";
 import { cookies } from "next/headers";
 
-import { CHILD_COOKIE } from "@/lib/family";
+import { CHILD_COOKIE, loadFamily, roomForChild } from "@/lib/family";
 import { addisMidnightIso } from "@/lib/games";
 import { isStoryId } from "@/lib/stickers/catalog";
 import { randomBytes } from "node:crypto";
@@ -17,8 +17,11 @@ const AGE_BANDS = ["3-5", "6-7", "8-9"];
 const AVATARS = ["cub", "gugu", "bee"];
 
 export async function addChild(form: FormData) {
-  const profile = await currentProfile();
-  if (!profile) return;
+  const family = await loadFamily();
+  if (!family) return;
+  const profile = family.profile;
+  // Each plan has room for so many children (src/lib/entitlements.ts); the form says so too.
+  if (!roomForChild(family)) return;
   const name = String(form.get("name") ?? "").trim().slice(0, 40);
   const age = String(form.get("age_band") ?? "3-5");
   const lang = form.get("preferred_lang") === "am" ? "am" : "en";
@@ -71,11 +74,9 @@ export async function allowMoreTonight() {
 }
 
 export async function chooseChild(childId: string) {
-  const profile = await currentProfile();
-  if (!profile) return;
-  const supabase = await createSupabaseServer();
-  const { data } = await supabase.from("children").select("id").eq("id", childId).eq("family_id", profile.id).single();
-  if (!data) return;
+  const family = await loadFamily();
+  // Only the family's own children who can read on its plan (read-only ones are kept, not chosen).
+  if (!family?.children.some((c) => c.id === childId && !c.readOnly)) return;
   (await cookies()).set(CHILD_COOKIE, childId, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
   revalidate("/stories");
 }
@@ -83,15 +84,11 @@ export async function chooseChild(childId: string) {
 /** Called by the storybook when a child reaches The End. Returns the child's new star count. */
 export async function recordStoryFinished(storyId: string): Promise<number | null> {
   if (!isStoryId(storyId)) return null;
-  const profile = await currentProfile();
-  if (!profile) return null;
-  const supabase = await createSupabaseServer();
-  const wanted = (await cookies()).get(CHILD_COOKIE)?.value;
-  let query = supabase.from("children").select("id").eq("family_id", profile.id).order("created_at").limit(1);
-  if (wanted) query = supabase.from("children").select("id").eq("family_id", profile.id).eq("id", wanted).limit(1);
-  const { data: kids } = await query;
-  const child = kids?.[0];
+  // The reading child: the family's own, chosen (or the first) among those who can read on its plan.
+  const family = await loadFamily();
+  const child = family?.current;
   if (!child) return null;
+  const supabase = await createSupabaseServer();
   await supabase.from("completions").insert({ child_id: child.id, item_type: "story", item_id: storyId });
   const { data } = await supabase.from("children").select("stars").eq("id", child.id).single();
   revalidate("/stories");

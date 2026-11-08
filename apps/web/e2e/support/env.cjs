@@ -21,6 +21,8 @@ const TEST_ENV = {
   CRON_SECRET,
   SITE_URL: "",
   NEXT_TELEMETRY_DISABLED: "1",
+  // Builds the test-only learning packages (e2e/fixtures) into the site; never set elsewhere.
+  NEXT_PUBLIC_LALI_E2E: "1",
   NEXT_DIST_DIR: DIST_DIR,
   NODE_OPTIONS: `--require ${STUB}`,
 };

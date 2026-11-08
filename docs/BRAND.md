@@ -33,8 +33,8 @@ and Telegram, TikTok, Instagram and YouTube handles.
 
 | Plan | Price | Includes |
 |---|---|---|
-| Reader | 400 | Full story library, read-to-me narration, offline downloads |
-| Learner | 1,200 | Reader plus two learning worlds, weekly progress note, 2 child profiles |
-| VIP | 5,000 | Everything, printed book each month, live reading circle, 4 profiles |
+| Starter | 400 | The Story Garden library, 1 child profile (see `docs/PACKAGES.md`) |
+| Family | 650 | Starter plus games, family voices, narration, progress map, weekly note, offline, 3 profiles |
+| VIP | 2,500 | Everything, every learning package, printed book each month, live reading circle, 4 profiles |
 
 Prices are a starting hypothesis to test with real parents, not a decision.

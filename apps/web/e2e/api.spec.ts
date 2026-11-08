@@ -33,7 +33,8 @@ test("Telegram webhook refuses calls without Telegram's secret", async ({ reques
 
 test("mobile API: the shelf has no words of paid stories, and private calls need a token", async ({ request }) => {
   const shelf = await (await request.get("/api/mobile/stories")).json();
-  for (const s of STORIES.filter((x) => !x.isFree)) {
+  // Library stories (a learning package's stories live in the package, not on the shelf).
+  for (const s of STORIES.filter((x) => !x.isFree && !x.course)) {
     const row = shelf.stories.find((x: { id: string }) => x.id === s.id);
     expect(row.locked).toBe(true);
     expect(row.pages.every((p: { en: string; am: string }) => !p.en && !p.am)).toBe(true);

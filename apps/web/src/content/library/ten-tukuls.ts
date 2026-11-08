@@ -12,10 +12,12 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "ten-tukuls",
   pack: "numbers",
+  // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+  course: "numbers-counting",
   title: { en: "Ten Tukuls", am: "አሥር ጎጆዎች" },
   category: "Maths",
   ageBands: ["3-5"],
-  isFree: true,
+  isFree: false,
   color: "#C7772A",
   scene: "lib-ten-tukuls",
   coverPage: 6,

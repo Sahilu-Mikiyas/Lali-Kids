@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "The Tortoise and the Lion's Race", am: "የኤሊና የአንበሳ እሽቅድምድም" },
   category: "Values",
   ageBands: ["3-5", "6-7"],
-  isFree: true,
+  isFree: false,
   color: "#5E9E4A",
   scene: "lib-tortoise-race",
   coverPage: 2,

@@ -16,10 +16,12 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "fidel-be",
   pack: "fidel",
+  // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+  course: "fidel-foundations",
   title: { en: "The Busy Bees of በ", am: "የበ ትጉ ንቦች" },
   category: "Fidel",
   ageBands: ["3-5"],
-  isFree: true,
+  isFree: false,
   color: "#E39A12",
   scene: "lib-fidel-be",
   coverPage: 10,

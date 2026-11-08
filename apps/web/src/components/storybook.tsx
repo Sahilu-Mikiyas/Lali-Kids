@@ -5,7 +5,9 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { animate, motion, useMotionValue, useTransform, type AnimationPlaybackControls, type MotionValue } from "motion/react";
 import {
+  createContext,
   useCallback,
+  useContext,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -166,14 +168,19 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
+/** Where "back" goes when the book was opened from somewhere else (a learning package's path). */
+const BackHref = createContext<string | null>(null);
+
 function MoreStoriesLink({ lang, href }: { lang: Lang; href?: string }) {
+  const fromContext = useContext(BackHref);
+  const back = href ?? fromContext ?? undefined;
   return (
     <Link
-      href={href ?? "/stories"}
+      href={back ?? "/stories"}
       className="btn btn-primary"
       onClick={(e) => {
         if (tellApp({ type: "lali:close" })) e.preventDefault();
-        else if (href) leaveClassroom(e, href);
+        else if (back) leaveClassroom(e, back);
       }}
     >
       <Swap lang={lang}>{(l) => READER[l].more}</Swap>
@@ -732,7 +739,17 @@ type Drag = {
  * phone's tilt, characters that react to taps, words that arrive and light up, and a
  * celebration at the end followed by a card for grown-ups.
  */
-export function StoryBook({
+/** The book. `backHref`: where closing it goes (a learning package's path) instead of the shelf. */
+export function StoryBook({ backHref, ...props }: Parameters<typeof Book>[0] & { backHref?: string }) {
+  if (!backHref) return <Book {...props} />;
+  return (
+    <BackHref.Provider value={backHref}>
+      <Book {...props} />
+    </BackHref.Provider>
+  );
+}
+
+function Book({
   story,
   compact = false,
   onFinish,
@@ -749,7 +766,8 @@ export function StoryBook({
   classroom?: { shelfHref: string } | null;
 }) {
   const pagesInBook = story.pages.length;
-  const shelfHref = classroom?.shelfHref ?? "/stories";
+  const backHref = useContext(BackHref);
+  const shelfHref = classroom?.shelfHref ?? backHref ?? "/stories";
   const immersive = !compact;
   const router = useRouter();
   const reduce = useMedia("(prefers-reduced-motion: reduce)");
@@ -1250,13 +1268,13 @@ export function StoryBook({
       }
       if (e.key === "ArrowLeft") go(page - 1);
       if (e.key === "Escape" && immersive && !document.fullscreenElement && !tellApp({ type: "lali:close" })) {
-        if (classroom) window.location.assign(shelfHref);
+        if (classroom || backHref) window.location.assign(shelfHref);
         else router.push(shelfHref);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen, shelfHref, classroom]);
+  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen, shelfHref, classroom, backHref]);
 
   // The full-screen book owns the page: no scrolling underneath.
   useEffect(() => {
@@ -1632,7 +1650,7 @@ export function StoryBook({
           href={shelfHref}
           onClick={(e) => {
             if (tellApp({ type: "lali:close" })) e.preventDefault();
-            else if (classroom) leaveClassroom(e, shelfHref);
+            else if (classroom || backHref) leaveClassroom(e, shelfHref);
           }}
           aria-label="Close the book and go back to the shelf"
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-ink shadow-[0_3px_0_rgba(27,42,78,.18)] transition hover:-translate-y-0.5"

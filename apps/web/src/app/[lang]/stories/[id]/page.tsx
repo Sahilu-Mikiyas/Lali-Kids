@@ -9,6 +9,7 @@ import { StoryBookWithProgress } from "@/components/storybook-with-progress";
 import { getStory, STORIES, type Story } from "@/content/stories";
 import { currentProfile } from "@/lib/supabase/server";
 import { verifyReadPass } from "@/lib/read-pass";
+import { courseById } from "@/lib/courses/catalog";
 import { storyForReading } from "@/lib/stories";
 import { getLang, getT } from "@/i18n/server";
 import { fillName } from "@/lib/story-path";
@@ -36,7 +37,8 @@ async function StudioStory({ id, pass }: { id: string; pass?: string }) {
   const [access, t, lang] = await Promise.all([storyForReading(id, familyId, profile?.role === "admin"), getT(), getLang()]);
   if (!access) notFound();
   if ("story" in access) return <Frame story={access.story} />;
-  return <LockedStory story={access.locked} planId={access.planId} signedIn={Boolean(profile)} next={`/stories/${id}`} t={t} lang={lang} />;
+  const course = access.course ? courseById(access.course) : null;
+  return <LockedStory story={access.locked} planId={access.planId} signedIn={Boolean(profile)} next={`/stories/${id}`} t={t} lang={lang} course={course ? { id: course.id, title: course.title } : undefined} />;
 }
 
 async function StoryContent({ params, searchParams }: PageProps<"/[lang]/stories/[id]">) {

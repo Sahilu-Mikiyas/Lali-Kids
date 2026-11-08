@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, 
 import type { Lang } from "@/content/stories";
 import { hash } from "@/lib/find-lali";
 import { playStick } from "@/lib/sticker-sound";
-import { earnedStickers, stickerCatalog, type StickerBasis, type StickerDef, type StickerPosition, type StickerStory } from "@/lib/stickers/catalog";
+import { earnedStickers, stickerCatalog, type StickerBasis, type StickerCourse, type StickerDef, type StickerPosition, type StickerStory } from "@/lib/stickers/catalog";
 import { adoptServerBasis, placeSticker, useStickerBasis } from "@/lib/stickers/store";
 import { playTapSound } from "@/lib/tap-sound";
 import { useMedia } from "@/lib/use-media";
@@ -186,7 +186,7 @@ function BackPage({ lang }: { lang: Lang }) {
   );
 }
 
-export function StickerAlbum({ stories, serverBasis, childName }: { stories: StickerStory[]; serverBasis: StickerBasis | null; childName: string | null }) {
+export function StickerAlbum({ stories, serverBasis, childName, courses = [] }: { stories: StickerStory[]; serverBasis: StickerBasis | null; childName: string | null; courses?: StickerCourse[] }) {
   const lang = useLang();
   const t = dict[lang].stickers;
   // A signed-in child's record came with the page.
@@ -198,7 +198,7 @@ export function StickerAlbum({ stories, serverBasis, childName }: { stories: Sti
   const basis = useStickerBasis();
   const wide = useMedia("(min-width: 768px)");
 
-  const catalog = useMemo(() => stickerCatalog(stories), [stories]);
+  const catalog = useMemo(() => stickerCatalog(stories, courses), [stories, courses]);
   const pagesOf = useMemo(() => new Map(stories.map((s) => [s.id, s.pageCount])), [stories]);
   const earned = useMemo(() => earnedStickers(basis, (id) => pagesOf.get(id)), [basis, pagesOf]);
 

@@ -2,7 +2,8 @@ import "server-only";
 
 import type { AgeBand } from "@/content/stories";
 import { hasSecretKey } from "@/lib/supabase/env";
-import { createSupabaseAdmin, hasActivePlan } from "@/lib/supabase/server";
+import { familyEntitlements } from "@/lib/entitlements";
+import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { MEDIA_BUCKET } from "@/lib/stories";
 
 export type Game = {
@@ -61,7 +62,8 @@ export async function shelfGames(familyId: string | null): Promise<Game[]> {
   if (!hasSecretKey()) return [];
   const [{ data }, open] = await Promise.all([
     createSupabaseAdmin().from("games").select(COLUMNS).eq("status", "published").order("sort").order("created_at"),
-    familyId ? hasActivePlan(familyId) : Promise.resolve(false),
+    // Paid games come with Family and VIP (src/lib/entitlements.ts); free games are for everyone.
+    familyId ? familyEntitlements(familyId).then((e) => e.games) : Promise.resolve(false),
   ]);
   return toGames((data ?? []) as Row[], open);
 }
@@ -72,7 +74,7 @@ export async function gameBySlug(slug: string, familyId: string | null, isAdmin 
   if (!isAdmin) query = query.eq("status", "published");
   const { data } = await query.maybeSingle();
   if (!data) return null;
-  const open = isAdmin || (familyId ? await hasActivePlan(familyId) : false);
+  const open = isAdmin || (familyId ? (await familyEntitlements(familyId)).games : false);
   return (await toGames([data as Row], open))[0];
 }
 

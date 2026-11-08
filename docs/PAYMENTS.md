@@ -3,7 +3,8 @@
 ## How it works for a family
 
 1. A signed-in parent opens **/subscribe** (from the plans on the home page, the library, or the Grown-ups' corner).
-2. They pick Reader (400 birr), Learner (1,200) or VIP (5,000).
+2. They pick Starter (400 birr), Family (650) or VIP (2,500) (`docs/PACKAGES.md`; the ids stay
+   `reader`, `learner` and `vip`).
 3. **Pay**: Lali creates a pending payment and sends them to Chapa's checkout, where they pay with
    Telebirr, CBE Birr, M-Pesa or a card. Lali never sees payment details.
 4. Chapa sends them back to **/subscribe/done**, which confirms the payment with Chapa before
@@ -18,8 +19,8 @@ The plans page shows exactly what a payment will do before the parent pays.
 | Situation | What happens |
 |---|---|
 | Same plan | 30 days are added on top of the days left. |
-| **Upgrade** (pricier plan) | Starts now. The days left on the old plan are turned into days on the new plan by their value, then 30 days are added. 20 Reader days (about 267 birr) become 6.7 Learner days, so the family gets 36.7 days of Learner. |
-| **Downgrade** (cheaper plan) | Waits until the current plan ends, then the new plan runs for 30 days. Nobody loses paid days. The Grown-ups' corner shows "Then Reader starts…". |
+| **Upgrade** (pricier plan) | Starts now. The days left on the old plan are turned into days on the new plan by their value, then 30 days are added. 20 Starter days (8,000/30 ≈ 267 birr) become 12.3 Family days, so the family gets 42.3 days of Family. |
+| **Downgrade** (cheaper plan) | Waits until the current plan ends, then the new plan runs for 30 days. Nobody loses paid days. The Grown-ups' corner shows "Then Starter starts…". |
 
 The database function `activate_payment` (`0006_plan_switching.sql`) applies these rules, and
 `previewSwitch` in `apps/web/src/lib/payments/plans.ts` mirrors them for the preview.
@@ -72,7 +73,7 @@ them into `apply_plan_days`, shared by payments and gifts.
 Relatives anywhere (the diaspora in the US, Europe and the Middle East, or next door) can pay for a
 family's plan as a gift, **without a Lali account**.
 
-1. **/gift** (public): the giver picks Reader, Learner or VIP and a length of 1, 3, 6 or 12 months
+1. **/gift** (public): the giver picks Starter, Family or VIP and a length of 1, 3, 6 or 12 months
    (6 months is 10% off, 12 months 15% off), writes their name and email, who it's for and an
    optional message (up to 300 characters). The page shows the price in birr and a rough US dollar
    amount from `USD_PER_ETB` in `apps/web/src/lib/payments/gift.ts`. **Update that number now and
@@ -129,3 +130,42 @@ transaction and rolls back): the `gifts` and `gift_attempts` tables, `apply_plan
 `activate_payment` rewritten to use it (same behaviour), `mark_gift_paid`, `peek_gift` and
 `redeem_gift`. Until it is applied, the gift page says "We couldn't start the payment" and the
 redeem page "Gifts aren't switched on yet".
+
+## Learning packages (bought once)
+
+A family can buy a learning package (`docs/PACKAGES.md`) once, for its price (`priceEtb` in the
+course, 1,500 birr at launch), and keep it for good: every child in the family can use it, each
+with their own progress, and bought packages have no pace limit. VIP families get every package
+without buying (one at a time per child).
+
+1. On **/courses/<id>** a signed-in parent presses **Buy for 1,500 birr** (the app sends
+   `POST /api/mobile/checkout {course}`). `beginCourseCheckout` (`apps/web/src/lib/courses/checkout.ts`)
+   checks the package is ready and not already the family's, writes a pending row in
+   `course_payments`, and sends the parent to Chapa's checkout with the reference
+   `lali-course-<short code>-<20 hex>` (`COURSE_CODES` in `apps/web/src/lib/payments/refs.ts`, e.g.
+   `lali-course-fidel-…`). The rate limit is shared with plan checkouts (10 per family per 10 minutes).
+2. Chapa returns the parent to **/courses/done?tx_ref=…** and calls **/api/payments/chapa**.
+   Either one asks Chapa's verify endpoint (success, ETB, the same reference), then calls the
+   database function `buy_course` (`0016_plans_courses.sql`), which marks the payment paid only if
+   the amount is at least the price, and adds the package to `family_courses`, once.
+3. The package then shows as "Yours for good" in the catalogue and on its page.
+
+**Three shapes of reference, kept apart.** Plans `lali-<reader|learner|vip>-<18 hex>`, gifts
+`lali-gift-<24 hex>`, packages `lali-course-<code>-<20 hex>`. The callback sends each shape only to
+its own table (`isPlanRef`, `isGiftRef`, `isCourseRef`); `/subscribe/done` accepts only plan
+references, `/gift/done` only gift references and `/courses/done` only package references; the
+database refuses a payment or a gift with a package reference and a package payment with any other.
+
+**Refunds**: like gifts, not automated. A package can be refunded on request within a few days if
+no child has passed its first level; remove the row from `family_courses` and refund in Chapa.
+
+**Gifting a package** is not built yet (gifts are plans only). It would need a `course_id` on
+`gifts` and a branch in `redeem_gift`; see `docs/PACKAGES.md`.
+
+### Database
+
+`supabase/migrations/0016_plans_courses.sql` (review before applying; a test block at the end runs
+inside a transaction and rolls back): new plan prices, `course_payments`, `family_courses`,
+`course_progress`, `quiz_attempts` and `buy_course`. Until it is applied, Buy answers "We couldn't
+start the payment" and the package pages say packages are being switched on.
+

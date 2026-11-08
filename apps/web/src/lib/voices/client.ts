@@ -38,7 +38,7 @@ export function useFamilyVoices(storyId: string): [VoicesState, () => void] {
   return [state, useCallback(() => setGen((g) => g + 1), [])];
 }
 
-export type Upload = { ok: true; recording: Recording } | { ok: false; error: "signed-out" | "too-big" | "unavailable" | "failed" };
+export type Upload = { ok: true; recording: Recording } | { ok: false; error: "signed-out" | "too-big" | "unavailable" | "failed" | "needs-plan" };
 
 export async function uploadVoice(clip: { blob: Blob; durationMs: number }, meta: { storyId: string; lang: "en" | "am"; page: number; name: string }): Promise<Upload> {
   const type = clip.blob.type.split(";")[0] || "audio/webm";
@@ -54,6 +54,7 @@ export async function uploadVoice(clip: { blob: Blob; durationMs: number }, meta
     const r = await fetch("/api/voices", { method: "POST", body: form, headers: appAuthHeaders() });
     if (r.status === 401) return { ok: false, error: "signed-out" };
     if (r.status === 413) return { ok: false, error: "too-big" };
+    if (r.status === 402) return { ok: false, error: "needs-plan" };
     if (r.status === 503) return { ok: false, error: "unavailable" };
     if (!r.ok) return { ok: false, error: "failed" };
     const body = (await r.json()) as { recording: Recording };

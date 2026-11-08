@@ -13,7 +13,7 @@ const crypto = require("node:crypto");
 const realFetch = globalThis.fetch;
 const SUPA = "https://stub.supabase.co";
 const CHAPA = "https://api.chapa.co/v1";
-const PRICES = { reader: 400, learner: 1200, vip: 5000 };
+const PRICES = { reader: 400, learner: 650, vip: 2500 };
 const DAY = 86400000;
 const log = (...a) => process.env.STUB_LOG && console.log("[stub]", ...a);
 
@@ -28,9 +28,9 @@ const db = {
   subscriptions: [],
   payments: [],
   plans: [
-    { id: "reader", name: "Reader", price_etb: 400 },
-    { id: "learner", name: "Learner", price_etb: 1200 },
-    { id: "vip", name: "VIP", price_etb: 5000 },
+    { id: "reader", name: "Starter", price_etb: 400 },
+    { id: "learner", name: "Family", price_etb: 650 },
+    { id: "vip", name: "VIP", price_etb: 2500 },
   ],
   stories: [],
   story_pages: [],
@@ -68,6 +68,10 @@ const DEFAULTS = {
   pupils: () => ({ id: uuid(), failed_tries: 0, locked_at: null, last_active_at: null, created_at: now() }),
   class_assignments: () => ({ assigned_at: now() }),
   pupil_completions: () => ({ id: Math.floor(Math.random() * 1e9), completed_at: now() }),
+  // Learning packages (migration 0016).
+  course_payments: () => ({ id: uuid(), status: "pending", created_at: now(), paid_at: null, provider_ref: null }),
+  course_progress: () => ({ current_level: 0, lessons_done: [], quiz_best: {}, started_at: now(), level_unlocked_at: now(), completed_at: null }),
+  quiz_attempts: () => ({ id: Math.floor(Math.random() * 1e9), at: now() }),
 };
 const KEYS = {
   notifications_sent: ["family_id", "kind", "key"],
@@ -77,6 +81,8 @@ const KEYS = {
   teachers: ["profile_id"],
   class_assignments: ["class_id", "story_id"],
   pupil_reader_stars: ["pupil_id", "story_id", "page"],
+  family_courses: ["family_id", "course_id"],
+  course_progress: ["child_id", "course_id"],
 };
 
 const json = (body, status = 200, headers = {}) =>
@@ -231,9 +237,9 @@ function insert(table, rows, params, prefer) {
 function visible(table, rows, user) {
   if (!user) return rows;
   const kids = new Set(db.children.filter((c) => c.family_id === user.id).map((c) => c.id));
-  if (["children", "payments", "subscriptions", "family_recordings", "game_sessions"].includes(table)) return rows.filter((r) => r.family_id === user.id);
+  if (["children", "payments", "subscriptions", "family_recordings", "game_sessions", "family_courses", "course_payments"].includes(table)) return rows.filter((r) => r.family_id === user.id);
   if (table === "profiles") return rows.filter((r) => r.id === user.id);
-  if (["completions", "lali_finds", "sticker_positions", "reader_stars"].includes(table)) return rows.filter((r) => kids.has(r.child_id));
+  if (["completions", "lali_finds", "sticker_positions", "reader_stars", "course_progress", "quiz_attempts"].includes(table)) return rows.filter((r) => kids.has(r.child_id));
   return rows;
 }
 
@@ -324,6 +330,17 @@ const RPC = {
     p.kind = applyPlanDays(p.family_id, p.plan_id, 30);
     return true;
   },
+  // The same as buy_course in 0016_plans_courses.sql.
+  buy_course: ({ p_tx_ref, p_provider_ref, p_amount }) => {
+    const p = (db.course_payments || []).find((x) => x.tx_ref === p_tx_ref && x.status === "pending" && x.amount_etb <= p_amount && x.family_id);
+    if (!p) return false;
+    Object.assign(p, { status: "paid", provider_ref: p_provider_ref, paid_at: now() });
+    db.family_courses ||= [];
+    if (!db.family_courses.some((f) => f.family_id === p.family_id && f.course_id === p.course_id)) {
+      db.family_courses.push({ family_id: p.family_id, course_id: p.course_id, purchased_at: now(), tx_ref: p.tx_ref, amount_etb: p.amount_etb });
+    }
+    return true;
+  },
   mark_gift_paid: ({ p_tx_ref, p_provider_ref, p_amount }) => {
     const g = db.gifts.find((x) => x.tx_ref === p_tx_ref && x.status === "pending" && x.amount_etb <= p_amount);
     if (!g) return false;
@@ -394,6 +411,74 @@ async function readBody(init) {
   if (typeof init.body.text === "function") return init.body.text();
   return null;
 }
+
+// ----------------------------------------------------------------------------- test-only hooks
+
+/*
+  The tests reach the fake through the running server at /__stub/… (answered here, before Next.js
+  sees the request; this exists only in the test preload, never in the app):
+    POST /__stub/plan    { family, plan, days? }   gives a family an open plan (plan null: none)
+    POST /__stub/travel  { family, days }          moves that family's package dates back by
+                                                   `days`, as if that much time had passed: the
+                                                   stubbed clock for VIP's pace
+    GET  /__stub/rows?table=…&family=…             that family's rows, to check what was written
+*/
+function familyChildren(fam) {
+  return new Set(db.children.filter((c) => c.family_id === fam).map((c) => c.id));
+}
+
+function stubHook(req, res) {
+  let raw = "";
+  req.on("data", (c) => (raw += c));
+  req.on("end", () => {
+    let b = {};
+    try {
+      b = raw ? JSON.parse(raw) : {};
+    } catch {}
+    const u = new URL(req.url, "http://stub");
+    const send = (body, status = 200) => {
+      res.writeHead(status, { "content-type": "application/json" });
+      res.end(JSON.stringify(body));
+    };
+    if (u.pathname === "/__stub/plan") {
+      userFromToken(`stub.${b.family}.parent`);
+      db.subscriptions = db.subscriptions.filter((x) => x.family_id !== b.family);
+      if (b.plan) {
+        db.subscriptions.push({ id: uuid(), family_id: b.family, plan_id: b.plan, status: "active", current_period_end: new Date(Date.now() + (b.days ?? 30) * DAY).toISOString(), next_plan_id: null, next_days: 0 });
+      }
+      return send({ ok: true });
+    }
+    if (u.pathname === "/__stub/travel") {
+      const kids = familyChildren(b.family);
+      const back = (iso) => (iso ? new Date(Date.parse(iso) - Number(b.days) * DAY).toISOString() : iso);
+      for (const r of db.course_progress || []) {
+        if (!kids.has(r.child_id)) continue;
+        r.started_at = back(r.started_at);
+        r.level_unlocked_at = back(r.level_unlocked_at);
+        r.completed_at = back(r.completed_at);
+      }
+      for (const r of db.quiz_attempts || []) if (kids.has(r.child_id)) r.at = back(r.at);
+      return send({ ok: true });
+    }
+    if (u.pathname === "/__stub/rows") {
+      const fam = u.searchParams.get("family");
+      const kids = familyChildren(fam);
+      const rows = (db[u.searchParams.get("table")] || []).filter((r) => r.family_id === fam || kids.has(r.child_id));
+      return send({ rows });
+    }
+    send({ error: "unknown hook" }, 404);
+  });
+}
+
+const http = require("node:http");
+const emit = http.Server.prototype.emit;
+http.Server.prototype.emit = function (event, req, res) {
+  if (event === "request" && req && typeof req.url === "string" && req.url.startsWith("/__stub/")) {
+    stubHook(req, res);
+    return true;
+  }
+  return emit.apply(this, arguments);
+};
 
 globalThis.fetch = async function stubbedFetch(input, init) {
   const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;

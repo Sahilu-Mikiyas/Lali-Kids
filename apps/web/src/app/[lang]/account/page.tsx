@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { SiteFooter, SiteNav } from "@/components/site-chrome";
-import { loadFamily } from "@/lib/family";
+import { ChooseNext } from "@/components/courses/course-actions";
+import { familyCourses } from "@/lib/courses/server";
+import { planForChildren } from "@/lib/entitlements";
+import { loadFamily, roomForChild } from "@/lib/family";
 import { fmtDate } from "@/i18n/format";
 import { LangSwitch } from "@/i18n/lang-switch";
 import { getLang, getT } from "@/i18n/server";
@@ -49,7 +52,11 @@ async function AccountContent() {
       .limit(12),
     supabase.from("profiles").select("telegram_chat_id").eq("id", family.profile.id).single(),
   ]);
-  const [stickerList, micListen] = await Promise.all([stickerStories(family.profile.id), micListenSetting(supabase, family.profile.id).catch(() => null)]);
+  const [stickerList, micListen, coursesByChild] = await Promise.all([
+    stickerStories(family.profile.id),
+    micListenSetting(supabase, family.profile.id).catch(() => null),
+    familyCourses(family).catch(() => ({}) as Awaited<ReturnType<typeof familyCourses>>),
+  ]);
   const storyTitles = Object.fromEntries(stickerList.map((s) => [s.id, s.title]));
   const weekByChild = new Map<string, number>();
   for (const r of recent ?? []) weekByChild.set(r.child_id, (weekByChild.get(r.child_id) ?? 0) + 1);
@@ -106,9 +113,77 @@ async function AccountContent() {
               {family.children.map((c) => (
                 <ChildCard key={c.id} child={c} thisWeek={weekByChild.get(c.id) ?? 0} current={family.current?.id === c.id} />
               ))}
-              <AddChildForm />
+              {roomForChild(family) ? (
+                <AddChildForm />
+              ) : (
+                <div className="space-y-3 rounded-[28px] border-2 border-dashed border-line p-5" data-child-limit={family.entitlements.maxChildren}>
+                  <p className="font-display text-xl font-black">{t.account.addChild}</p>
+                  <p className="text-muted">{t.gates.childLimit(family.entitlements.maxChildren)}</p>
+                  {family.entitlements.maxChildren < 4 && (
+                    <Link href={`/subscribe?plan=${planForChildren(family.children.length + 1)}`} className="btn btn-primary !text-base">
+                      {t.gates.upgrade(t.plans.names[planForChildren(family.children.length + 1)])}
+                    </Link>
+                  )}
+                </div>
+              )}
             </div>
           </section>
+
+          {family.children.length > 0 && (
+            <section className="mt-10 space-y-4" data-corner-courses="">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <h2 className="font-display text-2xl font-black">{t.courses.cornerTitle}</h2>
+                  <p className="text-muted">{family.entitlements.allCourses ? t.courses.cornerSubVip : t.courses.cornerSub}</p>
+                </div>
+                <Link href="/courses" className="btn btn-plain !text-base">
+                  {t.courses.browse}
+                </Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {family.children
+                  .filter((c) => !c.readOnly)
+                  .map((c) => {
+                    const list = coursesByChild[c.id] ?? [];
+                    const busy = list.some((x) => !x.completedAt && x.access === "vip");
+                    return (
+                      <div key={c.id} className="space-y-3 rounded-[28px] bg-white p-5 shadow-[0_6px_0_var(--color-line)]" data-child-courses={c.id}>
+                        <p className="font-display text-xl font-black">{c.name}</p>
+                        {list.length ? (
+                          <ul className="space-y-2.5">
+                            {list.map((x) => (
+                              <li key={x.courseId} className="rounded-2xl border-2 border-line p-3" data-child-course={x.courseId}>
+                                <Link href={`/courses/${x.courseId}`} className="flex items-center gap-2 font-bold hover:underline">
+                                  <span className="h-3.5 w-3.5 shrink-0 rounded-full" style={{ background: x.color }} aria-hidden />
+                                  {x.title[lang]}
+                                </Link>
+                                <p className="mt-1 text-sm text-muted">
+                                  {x.completedAt ? t.courses.completedOn(fmtDate(lang, x.completedAt)) : t.courses.levelOf(Math.min(x.level + 1, x.levels), x.levels)}
+                                  {x.opensAt && !x.completedAt && ` · ${t.courses.opensShort(fmtDate(lang, x.opensAt))}`}
+                                </p>
+                                {x.scores.length > 0 && (
+                                  <p className="mt-1 text-sm" data-quiz-scores="">
+                                    {x.scores.map((s) => t.courses.scoreLine(s.label === "final" ? t.courses.finalShort : t.courses.levelShort(Number(s.label)), s.score, s.total)).join(" · ")}
+                                  </p>
+                                )}
+                                {x.completedAt && (
+                                  <Link href={`/courses/${x.courseId}/certificate?child=${c.id}`} className="mt-1 inline-block text-sm font-bold text-blue hover:underline">
+                                    🏆 {t.courses.seeCertificate}
+                                  </Link>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-muted">{t.courses.noneYet(c.name)}</p>
+                        )}
+                        {family.entitlements.allCourses && !busy && <ChooseNext childId={c.id} label={t.courses.chooseNext} />}
+                      </div>
+                    );
+                  })}
+              </div>
+            </section>
+          )}
 
           <section className="mt-10 grid gap-6 md:grid-cols-2">
             <div className="space-y-3 rounded-[28px] bg-white p-6 shadow-[0_6px_0_var(--color-line)]">

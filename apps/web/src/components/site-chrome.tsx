@@ -15,6 +15,7 @@ export function SiteNav() {
   const links = [
     { href: "/stories", label: t.nav.stories },
     { href: "/games", label: t.nav.games },
+    { href: "/courses", label: t.nav.courses },
     { href: "/#worlds", label: t.nav.worlds },
     { href: "/account", label: t.nav.grownUps },
     { href: "/#plans", label: t.nav.plans },
@@ -73,6 +74,7 @@ export function SiteFooter() {
           <p className="font-display text-lg font-bold text-white">{t.footer.explore}</p>
           <Link href="/stories" className="block hover:text-white">{t.footer.library}</Link>
           <Link href="/games" className="block hover:text-white">{t.footer.games}</Link>
+          <Link href="/courses" className="block hover:text-white">{t.nav.courses}</Link>
           <Link href="/#worlds" className="block hover:text-white">{t.footer.worlds}</Link>
           <Link href="/#watch" className="block hover:text-white">{t.footer.videos}</Link>
         </div>

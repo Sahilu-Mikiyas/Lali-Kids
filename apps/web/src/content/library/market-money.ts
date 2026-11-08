@@ -15,6 +15,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "market-money",
   pack: "numbers",
+  // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+  course: "numbers-counting",
   title: { en: "Lali's Market Money", am: "የላሊ የገበያ ገንዘብ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],

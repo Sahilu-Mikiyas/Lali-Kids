@@ -16,7 +16,7 @@ const story: Story = {
   title: { en: "A is for Adey Abeba", am: "A ለአደይ አበባ" },
   category: "English",
   ageBands: ["3-5"],
-  isFree: true,
+  isFree: false,
   color: "#F2A81D",
   scene: "lib-a-is-for-adey",
   coverPage: 1,

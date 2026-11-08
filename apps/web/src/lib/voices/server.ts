@@ -1,5 +1,6 @@
 import "server-only";
 
+import { familyEntitlements } from "@/lib/entitlements";
 import { randomBytes } from "node:crypto";
 
 import { getStory } from "@/content/stories";
@@ -95,9 +96,11 @@ export async function saveVoice(me: RequestUser, form: FormData): Promise<VoiceR
   if (!Number.isFinite(durationMs) || durationMs <= 0 || durationMs > (MAX_SECONDS + 1) * 1000) return answer(400, { error: "too-long" });
 
   const admin = createSupabaseAdmin();
-  const { data: profile } = await me.supabase.from("profiles").select("id").eq("id", me.user.id).maybeSingle();
+  const { data: profile } = await me.supabase.from("profiles").select("id, role").eq("id", me.user.id).maybeSingle();
   if (!profile) return answer(403, { error: "No family" });
   if (!(await storyExists(storyId))) return answer(404, { error: "No such story" });
+  // Recording family voices comes with Family and VIP (src/lib/entitlements.ts); playing back is always allowed.
+  if (!(await familyEntitlements(me.user.id, profile.role)).familyVoices) return answer(402, { error: "needs-plan", needs: "learner" });
   // A cap on what one family can store (each clip is up to 4 MB): far above real use.
   const { count } = await admin.from("family_recordings").select("id", { count: "exact", head: true }).eq("family_id", me.user.id);
   if ((count ?? 0) >= MAX_RECORDINGS) return answer(429, { error: "too-many" });

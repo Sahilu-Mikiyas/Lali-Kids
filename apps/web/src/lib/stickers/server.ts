@@ -6,7 +6,8 @@ import { STORIES, type Story } from "@/content/stories";
 import { hasSecretKey } from "@/lib/supabase/env";
 import { createSupabaseAdmin } from "@/lib/supabase/server";
 import { shelfStories } from "@/lib/stories";
-import { addisDay, earnedStickers, EMPTY_BASIS, stickerCatalog, type StickerBasis, type StickerDef, type StickerPosition, type StickerStory } from "./catalog";
+import { ALL_COURSES, isReady } from "@/lib/courses/catalog";
+import { addisDay, earnedStickers, EMPTY_BASIS, stickerCatalog, type StickerBasis, type StickerCourse, type StickerDef, type StickerPosition, type StickerStory } from "./catalog";
 
 /*
   Stickers for a signed-in child. Earned stickers come from `completions` (no table of their
@@ -17,12 +18,14 @@ import { addisDay, earnedStickers, EMPTY_BASIS, stickerCatalog, type StickerBasi
 
 /** Reads the child's record with the reading parent's client (row-level security applies). */
 export async function loadStickerBasis(supabase: SupabaseClient, childId: string): Promise<StickerBasis> {
-  const [done, finds, places, reads] = await Promise.all([
+  const [done, finds, places, reads, courses] = await Promise.all([
     supabase.from("completions").select("item_id, completed_at").eq("child_id", childId).eq("item_type", "story").limit(5000),
     supabase.from("lali_finds").select("story_id, page").eq("child_id", childId).limit(5000),
     supabase.from("sticker_positions").select("sticker_id, album_page, x, y, rotation").eq("child_id", childId).limit(500),
     // Reader stars (migration 0011); empty until it is applied.
     supabase.from("reader_stars").select("story_id, page").eq("child_id", childId).limit(5000),
+    // Finished learning packages (migration 0016); empty until it is applied.
+    supabase.from("course_progress").select("course_id, completed_at").eq("child_id", childId).not("completed_at", "is", null).limit(50),
   ]);
   const basis: StickerBasis = { ...EMPTY_BASIS, finds: {}, positions: {}, reads: {} };
   const rows = (done.data ?? []) as { item_id: string; completed_at: string }[];
@@ -34,6 +37,7 @@ export async function loadStickerBasis(supabase: SupabaseClient, childId: string
   for (const r of (reads.error ? [] : (reads.data ?? [])) as { story_id: string; page: number }[]) {
     (basis.reads![r.story_id] ??= []).push(r.page);
   }
+  basis.courses = (courses.error ? [] : ((courses.data ?? []) as { course_id: string }[])).map((c) => c.course_id);
   for (const p of (places.error ? [] : (places.data ?? [])) as { sticker_id: string; album_page: number; x: number; y: number; rotation: number }[]) {
     basis.positions[p.sticker_id] = { page: p.album_page, x: p.x, y: p.y, r: p.rotation };
   }
@@ -91,8 +95,13 @@ export type StickerSummary = {
 };
 
 /** The album for the API: earned stickers, and every sticker with whether it's earned. */
-export function summarise(stories: StickerStory[], basis: StickerBasis): StickerSummary {
-  const catalog = stickerCatalog(stories);
+/** Packages with a champion sticker: the ready ones. */
+export function stickerCourses(): StickerCourse[] {
+  return ALL_COURSES.filter(isReady).map((c) => ({ id: c.id, title: c.title, color: c.color }));
+}
+
+export function summarise(stories: StickerStory[], basis: StickerBasis, courses: StickerCourse[] = stickerCourses()): StickerSummary {
+  const catalog = stickerCatalog(stories, courses);
   const pages = new Map(stories.map((s) => [s.id, s.pageCount]));
   const earned = earnedStickers(basis, (id) => pages.get(id));
   const available = catalog.map((d) => ({ ...d, earned: earned.has(d.id) }));

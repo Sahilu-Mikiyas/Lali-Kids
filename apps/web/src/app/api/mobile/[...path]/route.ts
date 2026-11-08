@@ -5,7 +5,7 @@ import { isLang, type UiLang } from "@/i18n/langs";
 import { signPage, TOKEN_SECONDS } from "@/lib/books/protect";
 import { deleteFamilyAccount } from "@/lib/account";
 import { reportServerError } from "@/lib/alerts";
-import { familyFor, limitReached, type Family } from "@/lib/family";
+import { familyFor, limitReached, roomForChild, type Family } from "@/lib/family";
 import { addisMidnightIso, gameBySlug, secondsPlayedToday, shelfGames } from "@/lib/games";
 import { originFrom } from "@/lib/origin";
 import { beginCheckout } from "@/lib/payments/checkout";
@@ -22,6 +22,13 @@ import { cleanPosition, EMPTY_BASIS, isStickerId, isStoryId } from "@/lib/sticke
 import { loadStickerBasis, saveFind, savePosition, stickerStories, summarise } from "@/lib/stickers/server";
 import { signedNarration, withNarration } from "@/lib/narration/server";
 import { micListenSetting, saveMicListen } from "@/lib/read-aloud/server";
+import type { Quiz } from "@/content/courses/types";
+import { CATALOGUE, courseById, courseCard, courseOfQuiz, isLessonKey, isQuizId, lessonKey, publicLesson, tasterIds } from "@/lib/courses/catalog";
+import { beginCourseCheckout } from "@/lib/courses/checkout";
+import { publicQuiz } from "@/lib/courses/engine";
+import { accessTo, courseView, familyHasCourse, lessonDone, ownedCourses, practiceCheck, progressRows, startCourse, submitQuiz, type CourseError } from "@/lib/courses/server";
+import { entitlementsFor, familyEntitlements } from "@/lib/entitlements";
+import { allow } from "@/lib/rate-limit";
 
 /**
  * The Lali app's API (apps/mobile, see docs/MOBILE.md). Every call carries the parent's
@@ -81,7 +88,9 @@ async function getMe(ctx: Ctx) {
     plan,
     // The packs the family's plan opens (docs/PACKAGES.md); free stories open whatever these are.
     packs: packsForPlan(openPlan),
-    plans: PLANS.map((p) => ({ id: p.id, priceEtb: p.priceEtb, packs: packsForPlan(p.id) })),
+    plans: PLANS.map((p) => ({ id: p.id, name: p.name, priceEtb: p.priceEtb, packs: packsForPlan(p.id), entitlements: entitlementsFor(p.id) })),
+    // What the family may use now (src/lib/entitlements.ts): the app shows only what the server allows.
+    entitlements: f.entitlements,
   });
 }
 
@@ -120,6 +129,9 @@ async function addChild(ctx: Ctx) {
   const b = await body<{ name: string; ageBand: string; lang: string; avatar: string }>(ctx.request);
   const name = String(b.name ?? "").trim().slice(0, 40);
   if (!name || !BANDS.includes(String(b.ageBand)) || !AVATARS.includes(String(b.avatar ?? "cub"))) return fail(400, "Check the name and age group");
+  const f = await family(ctx);
+  // Each plan has room for so many children (src/lib/entitlements.ts).
+  if (f && !roomForChild(f)) return json({ error: dict[ctx.lang].gates.childLimit(f.entitlements.maxChildren), reason: "child-limit", maxChildren: f.entitlements.maxChildren }, 402);
   const { data, error } = await ctx.me.supabase
     .from("children")
     .insert({ family_id: ctx.me.user.id, name, age_band: b.ageBand, preferred_lang: b.lang === "am" ? "am" : "en", avatar: b.avatar ?? "cub" })
@@ -163,15 +175,21 @@ async function getStories(ctx: Ctx) {
  */
 async function getStoryForReading(ctx: Ctx, id: string) {
   const builtIn = getStory(id);
-  const narrated = async (story: Story) => withNarration(story, await signedNarration(story.id).catch(() => null));
-  if (builtIn?.isFree) return json({ story: await narrated({ ...builtIn, pack: packOf(builtIn) }) });
   const profile = ctx.me ? await profileOf(ctx.me) : null;
+  // Voice-actor narration: free stories and tasters for everyone, paid ones with Family and VIP (src/lib/entitlements.ts).
+  const ent = await familyEntitlements(ctx.me?.user.id ?? null, profile?.role);
+  const narrated = async (story: Story, free: boolean) => (free || ent.narration ? withNarration(story, await signedNarration(story.id).catch(() => null)) : story);
+  if (builtIn?.isFree) return json({ story: await narrated({ ...builtIn, pack: packOf(builtIn) }, true) });
+  // A learning package's story, for a family that has the package (the app's lessons use this).
+  if (builtIn?.course && ctx.me && (await familyHasCourse(ctx.me.user.id, builtIn.course, profile?.role))) {
+    return json({ story: await narrated({ ...builtIn, pack: packOf(builtIn) }, false), course: builtIn.course });
+  }
   const access = await storyForReading(id, ctx.me?.user.id ?? null, profile?.role === "admin");
   if (!access) return fail(404, "No such story");
-  if (!("story" in access)) return json({ locked: access.locked, pack: packOf(access.locked), opensWith: planForPack(packOf(access.locked)) }, 402);
+  if (!("story" in access)) return json({ locked: access.locked, pack: packOf(access.locked), opensWith: planForPack(packOf(access.locked)), ...(access.course ? { course: access.course } : {}) }, 402);
   // Paid launch stories open in the website's animated book inside the app: add ?pass=… to its address.
   const readPass = builtIn && ctx.me ? signReadPass(ctx.me.user.id, id) : undefined;
-  return json({ story: await narrated(access.story), readPass });
+  return json({ story: await narrated(access.story, Boolean(access.story.isFree) || tasterIds().has(id)), readPass });
 }
 
 /** POST progress: { storyId, itemType? } for the current child. Earns a star. */
@@ -304,11 +322,115 @@ async function patchSticker(ctx: Ctx, id: string) {
 /** POST checkout: { plan } → { url } of Chapa's page. The app opens it in the browser. */
 async function checkout(ctx: Ctx) {
   if (!ctx.me) return fail(401, "Sign in");
-  const b = await body<{ plan: string }>(ctx.request);
+  const b = await body<{ plan: string; course: string }>(ctx.request);
   const profile = await profileOf(ctx.me);
   if (!profile) return fail(404, "No profile");
+  // A learning package, bought once: { course } instead of { plan }.
+  if (typeof b.course === "string") {
+    const r = await beginCourseCheckout(profile, b.course.slice(0, 60), originFrom(ctx.request.headers), ctx.lang, true);
+    return "url" in r ? json(r) : json(r, 400);
+  }
   const result = await beginCheckout(profile, String(b.plan), originFrom(ctx.request.headers), ctx.lang, true);
   return "url" in result ? json(result) : json(result, 400);
+}
+
+/* ---------------------------------------------------------------- learning packages */
+
+const COURSE_STATUS: Record<CourseError, number> = { signin: 401, child: 400, notReady: 409, noAccess: 402, notStarted: 409, oneAtATime: 409, locked: 423, notFound: 404, off: 503 };
+const courseFail = (ctx: Ctx, r: { error: CourseError; opensAt?: string | null; activeOther?: string | null }) =>
+  json({ error: dict[ctx.lang].courses.errors[r.error], reason: r.error, opensAt: r.opensAt ?? null, activeOther: r.activeOther ?? null }, COURSE_STATUS[r.error]);
+
+/** GET courses: the catalogue, with what this family and reading child have. */
+async function getCourses(ctx: Ctx) {
+  const f = await family(ctx);
+  const owned = f ? await ownedCourses(f.profile.id) : new Set<string>();
+  const rows = f?.current ? await progressRows([f.current.id]) : [];
+  const vip = Boolean(f?.entitlements.allCourses);
+  return json({
+    childId: f?.current?.id ?? null,
+    vip,
+    courses: CATALOGUE.map((c) => {
+      const row = rows.find((r) => r.course_id === c.id);
+      return { ...courseCard(c), access: accessTo(c.id, owned, vip), started: Boolean(row), completed: Boolean(row?.completed_at), level: row?.current_level ?? 0 };
+    }),
+  });
+}
+
+/** GET courses/:id: the level map and the reading child's progress; quizzes only for open levels, never with answers. */
+async function getCourseMap(ctx: Ctx, id: string) {
+  const course = courseById(id);
+  if (!course) return fail(404, "No such package");
+  const f = await family(ctx);
+  const view = f ? await courseView(f, course) : null;
+  const playing = Boolean(view?.child && view.ready && view.on && (view.row || view.access === "owned"));
+  const quizFor = (q: Quiz, state: string) => (playing && view?.child && (state === "open" || state === "passed") ? publicQuiz(q, view.child.id) : null);
+  const st = view?.state;
+  return json({
+    course: courseCard(course),
+    childId: view?.child?.id ?? null,
+    access: view?.access ?? "none",
+    paced: Boolean(view?.paced),
+    started: Boolean(view?.row),
+    canStart: Boolean(view?.canStart),
+    activeOther: view?.activeOther ?? null,
+    completedAt: st?.completedAt ?? null,
+    opensAt: st?.opensAt ?? null,
+    levels: course.levels.map((l, i) => {
+      const s = st?.levels[i];
+      const state = s?.state ?? "locked";
+      return {
+        id: l.id,
+        title: l.title,
+        goal: l.goal,
+        state,
+        stars: s?.stars ?? 0,
+        best: s?.best ?? null,
+        lessons: l.lessons.map((x) => ({ ...publicLesson(x), ...(x.kind === "story" ? { storyId: x.id } : {}), done: Boolean(s?.lessonsDone.includes(lessonKey(x))), quiz: x.kind === "practice" ? quizFor(x.quiz, state) : undefined })),
+        quiz: quizFor(l.quiz, state) ?? { id: l.quiz.id, questions: l.quiz.questions.length },
+      };
+    }),
+    final: { state: st?.final.state ?? "locked", stars: st?.final.stars ?? 0, best: st?.final.best ?? null, quiz: quizFor(course.finalTest, st?.final.state ?? "locked") ?? { id: course.finalTest.id, questions: course.finalTest.questions.length } },
+  });
+}
+
+async function courseCall(ctx: Ctx) {
+  if (!ctx.me) return fail(401, "Sign in");
+  const f = await family(ctx);
+  if (!f) return fail(404, "No profile");
+  const [, id, c, lessonId, d] = ctx.path;
+  if (!/^[a-z0-9-]{1,60}$/.test(id ?? "")) return fail(404, "No such package");
+  if (c === "start" && !lessonId) {
+    const r = await startCourse(f, id);
+    return r.ok ? getCourseMap(ctx, id) : courseFail(ctx, r);
+  }
+  if (c === "lessons" && d === "done" && isLessonKey(lessonId)) {
+    const r = await lessonDone(f, id, lessonId);
+    return r.ok ? json({ ok: true, lessonsDone: r.lessonsDone }) : courseFail(ctx, r);
+  }
+  return fail(404, "Unknown call");
+}
+
+/** POST quizzes/:id/attempt { answers }: scored on the server. POST quizzes/:id/check { index, answer }: one practice answer. */
+async function quizCall(ctx: Ctx, quizId: string, step: string) {
+  if (!ctx.me) return fail(401, "Sign in");
+  const f = await family(ctx);
+  if (!f) return fail(404, "No profile");
+  const found = isQuizId(quizId) ? courseOfQuiz(quizId) : null;
+  if (!found) return fail(404, "No such quiz");
+  if (step === "attempt") {
+    const b = await body<{ answers: unknown[] }>(ctx.request);
+    if (!Array.isArray(b.answers) || b.answers.length > 100) return fail(400, "Send { answers: [...] }");
+    if (!allow(`quiz:${f.profile.id}`, 30, 10 * 60_000)) return fail(429, dict[ctx.lang].ops.tooMany);
+    const r = await submitQuiz(f, found.course.id, quizId, b.answers);
+    return r.ok ? json({ attempt: r.attempt }) : courseFail(ctx, r);
+  }
+  if (step === "check") {
+    const b = await body<{ index: number; answer: unknown }>(ctx.request);
+    if (!allow(`practice:${f.profile.id}`, 240, 10 * 60_000)) return fail(429, dict[ctx.lang].ops.tooMany);
+    const r = await practiceCheck(f, found.course.id, quizId, Number(b.index), b.answer);
+    return r.ok ? json({ result: r.result }) : courseFail(ctx, r);
+  }
+  return fail(404, "Unknown call");
 }
 
 const GIFT_STATUS: Record<GiftErrorCode, number> = { format: 400, invalid: 404, used: 409, usedMine: 409, rate: 429, off: 503 };
@@ -343,6 +465,10 @@ async function route(request: Request, params: Promise<{ path: string[] }>, meth
   const [a, b, c] = path;
   const key = `${method} ${a}${b ? "/:x" : ""}${c ? `/${c}` : ""}`;
   try {
+    // Learning packages have longer paths: courses/:id/start, courses/:id/lessons/:lessonId/done.
+    if (method === "POST" && a === "courses" && b) return await courseCall(ctx);
+    if (method === "POST" && a === "quizzes" && b && c && path.length === 3) return await quizCall(ctx, b, c);
+    if (method === "GET" && a === "courses") return b ? await getCourseMap(ctx, b) : await getCourses(ctx);
     switch (key) {
       case "GET me":
         return await getMe(ctx);

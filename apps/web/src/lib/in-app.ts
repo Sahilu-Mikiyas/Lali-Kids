@@ -8,7 +8,9 @@ type AppMessage =
   /** Find Lali: the child found her on this page (the app saves it with POST stickers/finds). */
   | { type: "lali:found"; storyId: string; page: number }
   /** The sticker book was tapped in the reader: the app shows its own (GET stickers). */
-  | { type: "lali:stickers" };
+  | { type: "lali:stickers" }
+  /** A learning package's lesson was finished (the app saves it with POST courses/:id/lessons/:lessonId/done). */
+  | { type: "lali:lesson-done"; courseId: string; lessonId: string };
 
 type Bridge = { postMessage: (data: string) => void };
 

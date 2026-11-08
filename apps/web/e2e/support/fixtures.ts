@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { test as base, expect, type Page } from "@playwright/test";
+import { test as base, expect, type APIRequestContext, type Page } from "@playwright/test";
 
 import { READER } from "../../src/components/book/reader-words";
 import { dict, type Dict } from "../../src/i18n/dict";
@@ -86,6 +86,36 @@ export { expect };
 export async function ready(page: Page) {
   await page.waitForLoadState("load");
   await page.waitForFunction(() => document.readyState === "complete");
+}
+
+/** Gives a family an open plan in the fake (null: no plan). See the /__stub/ hooks in stub-fetch.cjs. */
+export async function givePlan(request: APIRequestContext, family: string, plan: "reader" | "learner" | "vip" | null, days = 30) {
+  const r = await request.post("/__stub/plan", { data: { family, plan, days } });
+  expect(r.ok()).toBe(true);
+}
+
+/** The stubbed clock: moves a family's learning-package dates back, as if `days` had passed. */
+export async function travel(request: APIRequestContext, family: string, days: number) {
+  const r = await request.post("/__stub/travel", { data: { family, days } });
+  expect(r.ok()).toBe(true);
+}
+
+/** A family's rows in one table of the fake (theirs, or their children's). */
+export async function stubRows<T = Record<string, unknown>>(request: APIRequestContext, table: string, family: string): Promise<T[]> {
+  const r = await request.get(`/__stub/rows?table=${table}&family=${family}`);
+  return ((await r.json()) as { rows: T[] }).rows;
+}
+
+/** Adds a child in the Grown-ups' corner (the maths gate first). */
+export async function addChild(page: Page, name: string, ageBand: "3-5" | "6-7" | "8-9" = "3-5") {
+  await page.goto("/account");
+  await ready(page);
+  await passMathsGate(page);
+  await page.locator("#child-name").fill(name);
+  await page.locator("#child-age").selectOption(ageBand);
+  await page.getByRole("button", { name: dict.en.account.addChildBtn }).or(page.getByRole("button", { name: dict.am.account.addChildBtn })).click();
+  await expect(page.locator("[data-child-courses], [data-see-progress]").first()).toBeAttached();
+  await expect(page.getByText(name).first()).toBeVisible();
 }
 
 /** Answers the grown-ups' maths question ("a + b = ?") on the page. */

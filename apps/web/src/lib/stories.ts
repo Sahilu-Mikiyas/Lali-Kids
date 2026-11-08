@@ -1,6 +1,9 @@
 import "server-only";
 
 import { getStory, STORIES, type AgeBand, type Category, type Pack, type Story } from "@/content/stories";
+import type { CourseId } from "@/content/courses/types";
+import { tasterIds } from "@/lib/courses/catalog";
+import { familyHasCourse } from "@/lib/courses/server";
 import { canOpen, isPack, packOf } from "@/lib/packs";
 import type { PlanId } from "@/lib/payments/plans";
 import { activePlanId } from "@/lib/payments/subscription";
@@ -66,9 +69,17 @@ function toStory(row: StoryRow, pages: PageRow[], pictures: (string | null)[], l
   };
 }
 
-/** A launch story as the shelf shows it to a family on `planId`: whole, or locked. */
-function launchFor(st: Story, planId: PlanId | null): Story {
-  return canOpen(st, planId) ? { ...st, pack: packOf(st), locked: false } : lockedLaunch(st);
+/** A launch story as the shelf shows it to a family on `planId`: whole, or locked. A package's taster is open to all. */
+function launchFor(st: Story, planId: PlanId | null, tasters: Set<string>): Story {
+  return canOpen(st, planId) || tasters.has(st.id) ? { ...st, pack: packOf(st), locked: false } : lockedLaunch(st);
+}
+
+/**
+ * Stories on the library shelf: everything except learning packages' stories, which live in
+ * their package (docs/PACKAGES.md); a live package's taster stays on the shelf.
+ */
+function onLibraryShelf(st: Story, tasters: Set<string>): boolean {
+  return !st.course || tasters.has(st.id);
 }
 
 /**
@@ -77,14 +88,16 @@ function launchFor(st: Story, planId: PlanId | null): Story {
  * open are marked locked (free stories never are).
  */
 export async function shelfStories(familyId: string | null): Promise<Story[]> {
-  if (!hasSecretKey()) return STORIES.map((st) => launchFor(st, null));
+  const tasters = tasterIds();
+  const listed = STORIES.filter((st) => onLibraryShelf(st, tasters));
+  if (!hasSecretKey()) return listed.map((st) => launchFor(st, null, tasters));
   const admin = createSupabaseAdmin();
   const [{ data: rows }, planId] = await Promise.all([
     admin.from("stories").select(STORY_COLUMNS).eq("status", "published").order("created_at", { ascending: false }),
     planOf(familyId),
   ]);
   // Locked launch stories show on the shelf with a lock, and without their text.
-  const launch = STORIES.map((st) => launchFor(st, planId));
+  const launch = listed.map((st) => launchFor(st, planId, tasters));
   const list = (rows ?? []) as StoryRow[];
   if (!list.length) return launch;
 
@@ -121,15 +134,17 @@ export async function shelfStories(familyId: string | null): Promise<Story[]> {
  * `locked` comes with the family's open plan (null without one), so the page can say which
  * plan opens the story's pack.
  */
-export type StoryAccess = { story: Story } | { locked: Story; planId: PlanId | null } | null;
+export type StoryAccess = { story: Story } | { locked: Story; planId: PlanId | null; course?: CourseId } | null;
 
 /** A whole story for reading, with picture and narration links, if the family may read it. */
 export async function storyForReading(slug: string, familyId: string | null, isAdmin = false): Promise<StoryAccess> {
   const builtIn = getStory(slug);
   if (builtIn) {
     const story = { ...builtIn, pack: packOf(builtIn) };
-    if (builtIn.isFree || isAdmin) return { story };
+    if (builtIn.isFree || isAdmin || tasterIds().has(slug)) return { story };
     const planId = await planOf(familyId);
+    // A learning package's story opens only inside its package (src/app/[lang]/courses).
+    if (builtIn.course) return { locked: lockedLaunch(builtIn), planId, course: builtIn.course };
     return canOpen(builtIn, planId) ? { story } : { locked: lockedLaunch(builtIn), planId };
   }
   if (!hasSecretKey()) return null;
@@ -166,7 +181,8 @@ export async function storyForReading(slug: string, familyId: string | null, isA
 }
 
 /**
- * Whether a family may open a story, by the same rules as storyForReading (free stories for
+ * Whether a family may open a story, by the same rules as storyForReading (a package's story when
+ * the family has the package) (free stories for
  * anyone, admins see everything including studio drafts, other stories when the family's plan
  * opens their pack), without signing any links. `free` says whether the story is free; null
  * when there's no such story.
@@ -174,7 +190,10 @@ export async function storyForReading(slug: string, familyId: string | null, isA
 export async function storyOpenFor(slug: string, familyId: string | null, isAdmin = false): Promise<{ open: boolean; free: boolean } | null> {
   const builtIn = getStory(slug);
   if (builtIn) {
-    if (builtIn.isFree || isAdmin) return { open: true, free: builtIn.isFree };
+    const taster = tasterIds().has(slug);
+    if (builtIn.isFree || isAdmin || taster) return { open: true, free: builtIn.isFree || taster };
+    // A package's story: for families who have the package (bought, or VIP).
+    if (builtIn.course) return { open: await familyHasCourse(familyId, builtIn.course), free: false };
     return { open: canOpen(builtIn, await planOf(familyId)), free: false };
   }
   if (!hasSecretKey()) return null;

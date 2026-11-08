@@ -7,7 +7,7 @@ import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { StickerAlbum } from "@/components/stickers/sticker-album";
 import { loadFamily } from "@/lib/family";
 import type { StickerBasis } from "@/lib/stickers/catalog";
-import { loadStickerBasis, stickerStories } from "@/lib/stickers/server";
+import { loadStickerBasis, stickerCourses, stickerStories } from "@/lib/stickers/server";
 import { createSupabaseServer } from "@/lib/supabase/server";
 import { getT } from "@/i18n/server";
 
@@ -23,7 +23,7 @@ async function Album() {
   const stories = await stickerStories(family?.profile.id ?? null);
   let basis: StickerBasis | null = null;
   if (family?.current) basis = await loadStickerBasis(await createSupabaseServer(), family.current.id).catch(() => null);
-  return <StickerAlbum stories={stories} serverBasis={basis} childName={basis ? (family?.current?.name ?? null) : null} />;
+  return <StickerAlbum stories={stories} serverBasis={basis} childName={basis ? (family?.current?.name ?? null) : null} courses={stickerCourses()} />;
 }
 
 export default async function StickersPage() {

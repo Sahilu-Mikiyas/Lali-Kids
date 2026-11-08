@@ -11,7 +11,7 @@ import { SiteFooter, SiteNav } from "@/components/site-chrome";
 import { PackIcon, PACK_COLOR } from "@/components/packs/pack-icon";
 import { AGE_BANDS, PACKS, type AgeBand, type Pack } from "@/content/stories";
 import { limitReached, loadFamily } from "@/lib/family";
-import { isPack, packsForPlan, planForPack } from "@/lib/packs";
+import { isPack, packOf, packsForPlan, planForPack } from "@/lib/packs";
 import { activePlanId } from "@/lib/payments/subscription";
 import { forAge, forPack, shelfStories } from "@/lib/stories";
 import { getT } from "@/i18n/server";
@@ -80,7 +80,8 @@ async function Shelf({ searchParams }: { searchParams: PageProps<"/[lang]/storie
         </Link>
       </div>
       <nav className="pack-tabs -mx-4 mt-8 flex gap-2.5 overflow-x-auto px-4 pb-2 pt-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" aria-label={t.packs.label} data-pack-tabs="">
-        {([null, ...PACKS] as (Pack | null)[]).map((p) => {
+        {/* Only packs with stories on this shelf (Fidel and Numbers stories now live in their learning packages). */}
+        {([null, ...PACKS.filter((p) => p === pack || shelf.some((s) => packOf(s) === p))] as (Pack | null)[]).map((p) => {
           const active = pack === p;
           const locked = p !== null && lockedPacks.has(p);
           return (
@@ -166,7 +167,7 @@ export default async function StoriesPage({ searchParams }: PageProps<"/[lang]/s
         <Suspense fallback={<div className="mt-12 h-64 animate-pulse rounded-[32px] bg-white" />}>
           <Shelf searchParams={searchParams} />
         </Suspense>
-        <p className="mt-10 text-center text-muted">{t.shelf.more}</p>
+        <p className="mt-10 text-center text-muted">{t.shelf.moreV2}</p>
       </main>
       <SiteFooter />
     </>

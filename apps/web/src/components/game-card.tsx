@@ -10,7 +10,7 @@ export async function GameCard({ game }: { game: Game }) {
   const t = await getT();
   return (
     <Link
-      href={game.locked ? "/subscribe?plan=reader" : `/games/${game.slug}`}
+      href={game.locked ? "/subscribe?plan=learner" : `/games/${game.slug}`}
       className="group block overflow-hidden rounded-[28px] bg-white shadow-[0_6px_0_var(--color-line)] transition hover:-translate-y-1"
     >
       <div className="relative grid aspect-[4/3] place-items-center" style={{ background: game.color }}>
@@ -22,7 +22,7 @@ export async function GameCard({ game }: { game: Game }) {
             <Bee size={84} />
           </div>
         )}
-        {game.locked && <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold shadow">{t.games.withPlan}</span>}
+        {game.locked && <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-bold shadow">{t.games.withFamily}</span>}
       </div>
       <div className="space-y-1 p-5">
         <h3 className="font-display text-xl font-extrabold">{game.title}</h3>

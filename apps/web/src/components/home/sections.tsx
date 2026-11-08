@@ -5,8 +5,8 @@ import { useT } from "@/i18n/provider";
 import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-import type { Pack } from "@/content/stories";
-import { PlanPacks } from "../packs/plan-packs";
+import { formatBirr, PLANS as PLAN_LIST } from "@/lib/payments/plans";
+import { PlanPackages } from "../packs/plan-packages";
 import { confetti } from "@/lib/confetti";
 import { ShootingStar } from "../book/scenery";
 import { BeeShape, CubShape, GuguShape, STAR_PATH } from "../characters";
@@ -578,13 +578,10 @@ export function ParentReport() {
 
 /* ---------- plans ---------- */
 
-const PLANS = [
-  { id: "reader", price: "400" },
-  { id: "learner", price: "1,200", featured: true },
-  { id: "vip", price: "5,000" },
-] as const;
+// Prices come from the plans themselves (src/lib/payments/plans.ts); Family is the one most families pick.
+const PLANS = PLAN_LIST.map((p) => ({ id: p.id, price: formatBirr(p.priceEtb), featured: p.id === "learner" }));
 
-export function Plans({ packCounts }: { packCounts: Record<Pack, number> }) {
+export function Plans() {
   const t = useT();
   const ref = useAwake<HTMLElement>();
   return (
@@ -593,7 +590,7 @@ export function Plans({ packCounts }: { packCounts: Record<Pack, number> }) {
       <Drift kind="petal" n={5} area={[0, 0, 100, 30]} />
       <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
       <div className="grid items-stretch gap-6 md:grid-cols-3">
-        {PLANS.map((p) => ({ ...p, featured: "featured" in p && p.featured, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
+        {PLANS.map((p) => ({ ...p, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
           <motion.div
             key={p.id}
             initial={{ opacity: 0, y: 60, rotate: (i - 1) * 4 }}
@@ -641,7 +638,7 @@ export function Plans({ packCounts }: { packCounts: Record<Pack, number> }) {
                 </li>
               ))}
             </ul>
-            <PlanPacks planId={p.id} counts={packCounts} dark={p.featured} />
+            <PlanPackages planId={p.id} dark={p.featured} />
             <Link href={`/subscribe?plan=${p.id}`} className={`btn ${p.featured ? "btn-primary" : "btn-plain"}`}>
               {t.plans.choose(p.name)}
             </Link>

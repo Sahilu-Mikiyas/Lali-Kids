@@ -4,24 +4,24 @@ export type PlanId = "reader" | "learner" | "vip";
 export const PLANS: { id: PlanId; name: string; priceEtb: number; for: string; items: string[] }[] = [
   {
     id: "reader",
-    name: "Reader",
+    name: "Starter",
     priceEtb: 400,
-    for: "For building a daily reading habit",
-    items: ["The Story Garden pack: every picture book", "Printable activities for its stories", "Read-to-me in English and Amharic", "Offline reading in the app"],
+    for: "For a daily reading habit",
+    items: ["The Story Garden library: every picture book, 4 new a month", "1 child profile", "Stickers, Find Lali and the read-aloud mic", "Printable activities for its stories"],
   },
   {
     id: "learner",
-    name: "Learner",
-    priceEtb: 1200,
-    for: "For reading plus real skills",
-    items: ["Every pack: Story Garden, Fidel, Numbers and English", "Printable activities for every story", "A progress map for each child", "Up to 2 child profiles"],
+    name: "Family",
+    priceEtb: 650,
+    for: "For the whole family",
+    items: ["Everything in Starter", "Up to 3 child profiles", "Games, family voices and narration", "A progress map and a weekly Telegram note", "Offline reading in the app"],
   },
   {
     id: "vip",
     name: "VIP",
-    priceEtb: 5000,
+    priceEtb: 2500,
     for: "For families who want everything",
-    items: ["Everything in Learner, every pack", "A printed storybook each month", "Monthly live reading circle", "Up to 4 child profiles"],
+    items: ["Everything in Family, up to 4 children", "Every learning package, one at a time per child", "A printed storybook each month", "Monthly live reading circle"],
   },
 ];
 

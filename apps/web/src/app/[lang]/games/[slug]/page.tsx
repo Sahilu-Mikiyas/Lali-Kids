@@ -22,8 +22,8 @@ async function GameContent({ params }: PageProps<"/[lang]/games/[slug]">) {
     return (
       <div className="mx-auto max-w-xl space-y-4 rounded-[32px] bg-white p-10 text-center shadow-[0_8px_0_var(--color-line)]">
         <h1 className="font-display text-4xl font-black">{game.title}</h1>
-        <p className="text-lg text-muted">{t.games.locked}</p>
-        <Link href={profile ? "/subscribe?plan=reader" : `/login?next=${encodeURIComponent(`/games/${slug}`)}`} className="btn btn-primary">
+        <p className="text-lg text-muted">{t.games.lockedFamily}</p>
+        <Link href={profile ? "/subscribe?plan=learner" : `/login?next=${encodeURIComponent(`/games/${slug}`)}`} className="btn btn-primary">
           {profile ? t.shelf.seePlans : t.shelf.signIn}
         </Link>
       </div>

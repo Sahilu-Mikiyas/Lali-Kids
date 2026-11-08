@@ -18,6 +18,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "fidel-ne",
   pack: "fidel",
+  // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+  course: "fidel-foundations",
   title: { en: "Nana's Night Market ነ", am: "የአያቴ የምሽት ገበያ ነ" },
   category: "Fidel",
   ageBands: ["6-7"],

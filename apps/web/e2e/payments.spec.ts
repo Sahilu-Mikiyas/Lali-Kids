@@ -1,3 +1,4 @@
+import { PLANS } from "../src/lib/payments/plans";
 import { expect, ready, test } from "./support/fixtures";
 
 test("plans: pay hands over to Chapa, and the return page confirms with Chapa first", async ({ page, signIn, t }) => {
@@ -32,7 +33,7 @@ test("a forged or unknown payment reference opens nothing", async ({ page, signI
 test("gift: pay without an account, get the code, a family redeems it once", async ({ page, signIn, t, uiLang }) => {
   await page.goto("/gift");
   await ready(page);
-  await page.locator("[role=radiogroup]").nth(0).locator("[role=radio]").nth(1).click(); // Learner
+  await page.locator("[role=radiogroup]").nth(0).locator("[role=radio]").nth(1).click(); // Family (learner)
   await page.locator("[role=radiogroup]").nth(1).locator("[role=radio]").nth(0).click(); // 1 month
   await page.fill("#giverName", uiLang === "am" ? "አክስት ሐና" : "Aunt Hana");
   await page.fill("#giverEmail", "hana@example.com");
@@ -40,7 +41,7 @@ test("gift: pay without an account, get the code, a family redeems it once", asy
   await page.fill("#message", "<b>Read every night!</b>");
   await Promise.all([page.waitForURL(/checkout\.chapa\.co/), page.locator("aside button[type=submit]").click()]);
   expect(page.url()).toMatch(/lali-gift-[0-9a-f]{24}/);
-  await expect(page.locator("#amount")).toHaveText("1200 ETB");
+  await expect(page.locator("#amount")).toHaveText(`${PLANS.find((p) => p.id === "learner")!.priceEtb} ETB`);
   await Promise.all([page.waitForURL(/\/gift\/done\?tx_ref=lali-gift-/), page.click("#pay")]);
   const codeEl = page.locator(".gift-code");
   await expect(codeEl).toBeVisible({ timeout: 20_000 });

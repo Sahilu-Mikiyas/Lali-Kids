@@ -15,6 +15,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "fidel-re",
   pack: "fidel",
+  // In the fidel-foundations learning package (docs/PACKAGES.md): opens only through the course.
+  course: "fidel-foundations",
   title: { en: "Race to the River ረ", am: "እስከ ወንዙ ሩጫ ረ" },
   category: "Fidel",
   ageBands: ["3-5", "6-7"],

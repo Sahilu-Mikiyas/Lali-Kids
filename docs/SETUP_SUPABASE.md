@@ -24,7 +24,7 @@ The rest of this guide explains each step, for setting up a new project from scr
 5. You should see "Success. No rows returned". If it says something already exists, the
    file was already run; that is fine.
 
-This creates: families, children, plans (Reader 400 / Learner 1,200 / VIP 5,000), subscriptions,
+This creates: families, children, plans (Reader 400 / Learner 1,200 / VIP 5,000; renamed and repriced by 0016 to Starter 400 / Family 650 / VIP 2,500), subscriptions,
 books, pages, page views (for rate limiting and leak tracing), devices and reading progress,
 plus privacy rules so each family only ever sees its own data. It also creates two private
 storage buckets, `book-sources` and `book-pages`, that no browser can reach directly.

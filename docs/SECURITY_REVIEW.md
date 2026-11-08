@@ -152,7 +152,7 @@ Grown-ups' gate drew its random sum on the server and again in the browser, a hy
 1. **Server actions accept 110 MB bodies** (`serverActions.bodySizeLimit`, for admins' PDF uploads),
    and that limit applies to public actions too, so large posts can use up memory on a small
    Render instance. Move book uploads to direct, signed uploads to Storage and lower the limit.
-2. **Child limits per plan** (Reader 1, Learner 2, VIP 4 children) are advertised but not enforced.
+2. ~~**Child limits per plan** are advertised but not enforced.~~ Enforced since plans v2 (Starter 1, Family 3, VIP 4; `apps/web/src/lib/entitlements.ts`).
 3. **Drawn scenes of paid launch stories** are ordinary scripts (now one per story); the pictures,
    not the words, can be fetched by someone who looks for them.
 4. **Read passes are bearer links for 6 hours**; anyone given one can read that story while the

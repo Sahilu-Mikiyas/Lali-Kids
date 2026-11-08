@@ -13,6 +13,8 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "bigger-smaller",
   pack: "numbers",
+  // In the numbers-counting learning package (docs/PACKAGES.md): opens only through the course.
+  course: "numbers-counting",
   title: { en: "Bigger, Smaller, Anbessa!", am: "ትልቅ፣ ትንሽ፣ አንበሳ!" },
   category: "Maths",
   ageBands: ["3-5"],
