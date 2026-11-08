@@ -36,6 +36,10 @@ const AbdiPlaysToo = dynamic(() => import("./abdi-plays-too"), { ssr: false });
 const LittlePeacemakers = dynamic(() => import("./little-peacemakers"), { ssr: false });
 const MissingAabo = dynamic(() => import("./missing-aabo"), { ssr: false });
 // Level 6: caring for others and our world
+const TheEdirBox = dynamic(() => import("./the-edir-box"), { ssr: false });
+const LittleWeaverBird = dynamic(() => import("./little-weaver-bird"), { ssr: false });
+const CleanSpring = dynamic(() => import("./clean-spring"), { ssr: false });
+const EverybodysHolidays = dynamic(() => import("./everybodys-holidays"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -60,4 +64,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "abdi-plays-too": AbdiPlaysToo,
   "little-peacemakers": LittlePeacemakers,
   "missing-aabo": MissingAabo,
+  "the-edir-box": TheEdirBox,
+  "little-weaver-bird": LittleWeaverBird,
+  "clean-spring": CleanSpring,
+  "everybodys-holidays": EverybodysHolidays,
 };

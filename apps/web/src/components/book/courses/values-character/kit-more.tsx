@@ -299,8 +299,8 @@ export function Sack({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="wiggle" sound="pop">
-        <path d="M-14 0 Q-18 -24 -8 -30 L8 -30 Q18 -24 14 0Z" fill="#D9C08A" />
-        <path d="M-8 -30 Q0 -26 8 -30 L6 -36 Q0 -33 -6 -36Z" fill="#C2A46A" />
+        <path d="M-14 0 Q-18 -24 -8 -30 L8 -30 Q18 -24 14 0Z" fill="#B08E58" stroke="#7A5A30" strokeWidth={1.2} />
+        <path d="M-8 -30 Q0 -26 8 -30 L6 -36 Q0 -33 -6 -36Z" fill="#94743E" />
         <path d="M-9 -30 H9" stroke="#7A4A20" strokeWidth={2} />
       </Tappable>
     </g>

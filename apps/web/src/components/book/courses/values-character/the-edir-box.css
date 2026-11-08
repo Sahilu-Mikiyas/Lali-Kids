@@ -1,0 +1,9 @@
+/* The Edir Box (the-edir-box.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* Carrying the warm injera along the path, very carefully. */
+@keyframes the-edir-box-carry {
+  0% { transform: translate(-80px, 0); }
+  50% { transform: translate(0, -3px); }
+  100% { transform: translate(80px, 0); }
+}
+.the-edir-box-carry { animation: the-edir-box-carry 6s ease-in-out infinite alternate; }

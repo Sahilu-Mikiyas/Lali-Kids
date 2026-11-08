@@ -1,0 +1,35 @@
+/* The Clean Spring (clean-spring.tsx): transforms and opacity only. Shared moves are in kit.css. */
+
+/* The bird wriggles in the bag, is freed, and flies off up the hill. */
+@keyframes clean-spring-free {
+  0%, 30% { transform: translate(0, 0) rotate(0); }
+  8%, 18% { transform: translate(-3px, 0) rotate(-8deg); }
+  13%, 23% { transform: translate(3px, 0) rotate(8deg); }
+  100% { transform: translate(120px, -170px); opacity: 0.9; }
+}
+.clean-spring-free { animation: clean-spring-free 4s ease-in 0.6s both; }
+
+/* Mud slipping down the bare hill. */
+@keyframes clean-spring-mud {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-10px, 90px); opacity: 0; }
+}
+.clean-spring-mud { animation: clean-spring-mud 3s ease-in var(--delay, 0s) infinite; }
+
+/* A bag lifted out of the pool and into the sack. */
+@keyframes clean-spring-pick {
+  0%, 20% { transform: translate(0, 0); opacity: 1; }
+  60% { transform: translate(30px, -30px); }
+  90% { transform: translate(64px, 10px); opacity: 1; }
+  100% { transform: translate(64px, 14px); opacity: 0; }
+}
+.clean-spring-pick { animation: clean-spring-pick 3s ease-in-out 0.6s infinite; }
+
+/* Water dripping from the jerrycan onto Little Lion. */
+@keyframes clean-spring-drip {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(0, 48px); opacity: 0; }
+}
+.clean-spring-drip { animation: clean-spring-drip 1.2s ease-in infinite; }
