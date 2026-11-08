@@ -412,6 +412,295 @@ export const THINGS: Record<string, () => ReactElement> = {
       <path d="M-30 -24 q-6 6 -4 14 M-36 -30 q-10 10 -6 24 M38 -34 q8 6 6 16" stroke="#F5B21E" strokeWidth={3} fill="none" strokeLinecap="round" />
     </g>
   ),
+  /* ---------- level 4 ---------- */
+  // ኬክ, a cake (ኬ, the ከ family)
+  cake: () => (
+    <g>
+      <rect x={-28} y={-4} width={56} height={30} rx={6} fill="#F7C9D9" {...S} />
+      <path d="M-28 6 Q-20 12 -12 6 Q-4 12 4 6 Q12 12 20 6 Q26 10 28 6" stroke="#fff" strokeWidth={4} fill="none" />
+      <rect x={-22} y={-20} width={44} height={18} rx={5} fill="#FFF3D6" {...S} />
+      <path d="M0 -20 V-34" {...S} strokeWidth={4} stroke="#2F6FD6" />
+      <path d="M0 -36 q-5 -6 0 -12 q5 6 0 12Z" fill="#FFB020" />
+    </g>
+  ),
+  // ካሮት, a carrot (ካ)
+  carrot: () => (
+    <g>
+      <path d="M-30 30 L18 -14 Q28 -20 26 -8 Z" fill="#F08A24" {...S} />
+      <path d="M-8 12 l-6 -4 M4 0 l-6 -4 M-20 22 l-5 -3" stroke="#B85E10" strokeWidth={2} />
+      <path d="M22 -12 Q20 -34 30 -36 M22 -12 Q34 -30 40 -24 M22 -12 Q38 -16 40 -8" stroke="#3FAA3A" strokeWidth={4} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  // ውሃ, water in a glass (ው, the ወ family)
+  water: () => (
+    <g>
+      <path d="M-20 -30 H20 L15 30 H-15Z" fill="#E8F6FF" {...S} />
+      <path d="M-18 -6 H18 L15 30 H-15Z" fill="#5BB8E8" />
+      <path d="M-18 -6 Q-9 -10 0 -6 Q9 -2 18 -6" stroke="#fff" strokeWidth={2.4} fill="none" />
+      <path d="M-20 -30 H20 L15 30 H-15Z" fill="none" {...S} />
+    </g>
+  ),
+  // ወተት, milk (ወ)
+  milk: () => (
+    <g>
+      <path d="M-18 -18 L-12 -30 H12 L18 -18 V30 H-18Z" fill="#fff" {...S} />
+      <rect x={-18} y={-4} width={36} height={18} fill="#7FC8F8" />
+      <circle cx={0} cy={5} r={6} fill="#fff" />
+      <rect x={-10} y={-38} width={20} height={8} rx={2} fill="#2F6FD6" {...S} />
+    </g>
+  ),
+  // ዓሣ, a fish (ዓ, the ዐ family)
+  fish: () => (
+    <g>
+      <path d="M-30 0 Q-6 -26 22 0 Q-6 26 -30 0Z" fill="#FF9A3C" {...S} />
+      <path d="M22 0 L38 -14 L36 14Z" fill="#FF9A3C" {...S} />
+      <circle cx={-16} cy={-4} r={3} fill={K} />
+      <path d="M-4 -12 Q2 0 -4 12 M6 -10 Q12 0 6 10" stroke="#D96A1A" strokeWidth={2} fill="none" />
+    </g>
+  ),
+  // ዝሆን, an elephant (ዝ, the ዘ family)
+  elephant: () => (
+    <g>
+      <ellipse cx={8} cy={4} rx={30} ry={22} fill="#A7AFC2" {...S} />
+      <path d="M-4 22 V32 M18 22 V32 M30 18 V30" {...S} strokeWidth={7} stroke="#8E97AD" />
+      <circle cx={-18} cy={-8} r={16} fill="#A7AFC2" {...S} />
+      <ellipse cx={-6} cy={-8} rx={10} ry={13} fill="#C5CBDA" {...S} />
+      <path d="M-30 -2 Q-40 14 -32 26" stroke="#A7AFC2" strokeWidth={8} fill="none" strokeLinecap="round" />
+      <circle cx={-22} cy={-12} r={2.4} fill={K} />
+    </g>
+  ),
+  // ዥዋዥዌ, a swing (ዥ, the ዠ family)
+  swing: () => (
+    <g>
+      <path d="M-34 -36 H34" {...S} strokeWidth={6} stroke="#7A5236" />
+      <path d="M-16 -36 L-10 18 M16 -36 L10 18" stroke="#8C6A3A" strokeWidth={2.4} />
+      <rect x={-18} y={16} width={36} height={8} rx={3} fill="#E3A511" {...S} />
+    </g>
+  ),
+  // ዶሮ, a hen (ዶ, the ደ family)
+  hen: () => (
+    <g>
+      <ellipse cx={4} cy={8} rx={26} ry={20} fill="#C8642E" {...S} />
+      <path d="M26 2 Q40 -10 36 12 Q32 20 24 16" fill="#3E2A1E" {...S} />
+      <circle cx={-18} cy={-14} r={12} fill="#C8642E" {...S} />
+      <path d="M-24 -26 q4 -8 8 0 q4 -8 8 0" fill="#E8413B" {...S} strokeWidth={1.6} />
+      <path d="M-30 -14 l-8 3 l8 3Z" fill="#F5B21E" {...S} strokeWidth={1.4} />
+      <circle cx={-20} cy={-16} r={2} fill={K} />
+      <path d="M-2 28 V36 M10 28 V36" {...S} stroke="#F5B21E" strokeWidth={3} />
+    </g>
+  ),
+  // ዳቦ, a loaf of bread (ዳ)
+  loaf: () => (
+    <g>
+      <path d="M-34 14 Q-36 -20 0 -20 Q36 -20 34 14 Z" fill="#D9963E" {...S} />
+      <path d="M-34 14 H34" {...S} />
+      <path d="M-16 -12 l-6 12 M0 -14 l-4 14 M16 -12 l-2 12" stroke="#A86A20" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  // ድመት, a cat (ድ)
+  cat: () => (
+    <g>
+      <path d="M14 18 Q34 16 30 -6" stroke="#9AA0A6" strokeWidth={6} fill="none" strokeLinecap="round" />
+      <ellipse cx={0} cy={14} rx={18} ry={16} fill="#9AA0A6" {...S} />
+      <path d="M-16 -22 L-14 -40 L-4 -28Z M16 -22 L14 -40 L4 -28Z" fill="#9AA0A6" {...S} />
+      <circle cx={0} cy={-16} r={16} fill="#9AA0A6" {...S} />
+      <circle cx={-6} cy={-18} r={2.4} fill={K} />
+      <circle cx={6} cy={-18} r={2.4} fill={K} />
+      <path d="M-3 -12 L0 -9 L3 -12" stroke={K} strokeWidth={1.6} fill="none" />
+    </g>
+  ),
+  // ደመና, a cloud (ደ)
+  cloud: () => (
+    <g>
+      <path d="M-30 14 Q-40 14 -38 2 Q-36 -10 -22 -8 Q-18 -26 0 -24 Q18 -26 22 -8 Q38 -10 38 4 Q38 14 28 14Z" fill="#fff" {...S} />
+      <path d="M-14 22 l-4 8 M0 22 l-4 8 M14 22 l-4 8" stroke="#5BB8E8" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  // ግመል, a camel (ግ, the ገ family)
+  camel: () => (
+    <g>
+      <path d="M-24 6 Q-24 -18 -10 -16 Q-4 -30 6 -16 Q14 -28 22 -14 Q30 -4 26 8Z" fill="#D9A35A" {...S} />
+      <path d="M-18 6 V30 M-6 6 V30 M12 6 V30 M22 6 V30" {...S} strokeWidth={5} stroke="#B8843C" />
+      <path d="M24 -6 Q36 -14 34 -30 Q40 -34 44 -28 L40 -24" stroke="#D9A35A" strokeWidth={8} fill="none" strokeLinecap="round" />
+      <circle cx={40} cy={-30} r={1.8} fill={K} />
+    </g>
+  ),
+  // ጋሪ, a horse cart (ጋ)
+  cart: () => (
+    <g>
+      <rect x={-30} y={-14} width={50} height={20} rx={3} fill="#C8642E" {...S} />
+      <path d="M20 -4 L40 -8" {...S} strokeWidth={3} />
+      <circle cx={-14} cy={12} r={12} fill="#fff" {...S} />
+      <path d="M-14 0 V24 M-26 12 H-2" stroke={K} strokeWidth={1.6} />
+      <path d="M-30 -14 Q-6 -34 20 -14" fill="#E3A511" {...S} />
+    </g>
+  ),
+  // ጅብ, a hyena (ጅ, the ጀ family)
+  hyena: () => (
+    <g>
+      <path d="M-28 6 Q-26 -14 4 -12 Q22 -12 26 0 L26 10 Q0 14 -28 10Z" fill="#C9A26A" {...S} />
+      <g fill="#6B4A2E">
+        <circle cx={-14} cy={-2} r={2.6} />
+        <circle cx={-2} cy={0} r={2.6} />
+        <circle cx={10} cy={-4} r={2.6} />
+      </g>
+      <path d="M-20 10 V30 M-8 10 V30 M12 10 V30 M22 10 V30" {...S} strokeWidth={5} stroke="#A8844E" />
+      <circle cx={30} cy={-8} r={11} fill="#C9A26A" {...S} />
+      <path d="M26 -18 l-2 -8 l8 4 M34 -18 l2 -8 l4 6" fill="#C9A26A" {...S} strokeWidth={1.6} />
+      <path d="M32 -2 Q38 4 42 -4" stroke={K} strokeWidth={1.8} fill="none" />
+      <circle cx={32} cy={-10} r={1.8} fill={K} />
+    </g>
+  ),
+  /* ---------- level 5 ---------- */
+  // ጦጣ, a monkey (ጦ, the ጠ family)
+  monkey: () => (
+    <g>
+      <path d="M14 20 Q38 18 34 -6" stroke="#8A5A3A" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <ellipse cx={0} cy={16} rx={16} ry={16} fill="#8A5A3A" {...S} />
+      <circle cx={-18} cy={-16} r={7} fill="#8A5A3A" {...S} />
+      <circle cx={18} cy={-16} r={7} fill="#8A5A3A" {...S} />
+      <circle cx={0} cy={-14} r={16} fill="#8A5A3A" {...S} />
+      <ellipse cx={0} cy={-10} rx={11} ry={10} fill="#F2C4A0" />
+      <circle cx={-5} cy={-14} r={2.2} fill={K} />
+      <circle cx={5} cy={-14} r={2.2} fill={K} />
+      <path d="M-4 -5 Q0 -2 4 -5" stroke={K} strokeWidth={1.6} fill="none" />
+    </g>
+  ),
+  // ጥርስ, a tooth (ጥ)
+  tooth: () => (
+    <g>
+      <path d="M-22 -24 Q-30 -6 -20 10 Q-16 30 -8 32 Q-2 20 0 8 Q2 20 8 32 Q16 30 20 10 Q30 -6 22 -24 Q12 -32 0 -24 Q-12 -32 -22 -24Z" fill="#fff" {...S} />
+      <ellipse cx={-10} cy={-16} rx={4} ry={6} fill="#E3F2FF" />
+    </g>
+  ),
+  // ጫማ, a shoe (ጫ, the ጨ family)
+  shoe: () => (
+    <g>
+      <path d="M-34 18 V-6 Q-32 -14 -20 -14 L-6 -14 Q4 0 26 4 Q38 6 38 18Z" fill="#E8413B" {...S} />
+      <path d="M-34 18 H38 V24 H-34Z" fill="#fff" {...S} />
+      <path d="M-10 -10 l8 6 M-4 -14 l8 6" stroke="#fff" strokeWidth={2.4} />
+    </g>
+  ),
+  // ጨረቃ, the moon (ጨ)
+  moon: () => (
+    <g>
+      <path d="M8 -30 A30 30 0 1 0 8 30 A24 24 0 1 1 8 -30Z" fill="#FFE27A" {...S} />
+      <circle cx={-14} cy={-4} r={3} fill="#F2C94C" />
+      <circle cx={-6} cy={12} r={2} fill="#F2C94C" />
+    </g>
+  ),
+  // ጫጩት, a chick (ጫ)
+  chick: () => (
+    <g>
+      <ellipse cx={0} cy={8} rx={22} ry={20} fill="#FFE04A" {...S} />
+      <circle cx={-4} cy={-14} r={14} fill="#FFE04A" {...S} />
+      <path d="M-18 -14 l-8 3 l8 3Z" fill="#F08A24" {...S} strokeWidth={1.4} />
+      <circle cx={-8} cy={-16} r={2} fill={K} />
+      <path d="M6 6 Q14 0 18 10" stroke="#E3B520" strokeWidth={3} fill="none" />
+      <path d="M-6 28 V34 M6 28 V34" stroke="#F08A24" strokeWidth={3} />
+    </g>
+  ),
+  // ፀሐይ, the sun (ፀ)
+  sun: () => (
+    <g>
+      <g stroke="#F5B21E" strokeWidth={4} strokeLinecap="round">
+        {Array.from({ length: 10 }, (_, i) => {
+          const a = (i / 10) * Math.PI * 2;
+          return <path key={i} d={`M${Math.round(Math.cos(a) * 26)} ${Math.round(Math.sin(a) * 26)} L${Math.round(Math.cos(a) * 38)} ${Math.round(Math.sin(a) * 38)}`} />;
+        })}
+      </g>
+      <circle r={20} fill="#FFD233" {...S} />
+      <circle cx={-6} cy={-4} r={2.2} fill={K} />
+      <circle cx={6} cy={-4} r={2.2} fill={K} />
+      <path d="M-6 6 Q0 11 6 6" stroke={K} strokeWidth={1.8} fill="none" />
+    </g>
+  ),
+  // ጽጌረዳ, a rose (ጽ, the ጸ family)
+  rose: () => (
+    <g>
+      <path d="M0 4 V38" stroke="#2E8A4E" strokeWidth={4} />
+      <path d="M0 22 Q-14 14 -18 24 Q-8 30 0 22Z" fill="#4DBA54" {...S} strokeWidth={1.6} />
+      <circle cx={0} cy={-10} r={18} fill="#E8414F" {...S} />
+      <path d="M-8 -12 Q0 -24 8 -12 Q4 -2 -4 -6 Q-8 -10 0 -14" stroke="#A8232A" strokeWidth={2} fill="none" />
+    </g>
+  ),
+  // ፈረስ, a horse (ፈ)
+  horse: () => (
+    <g>
+      <ellipse cx={-2} cy={4} rx={28} ry={14} fill="#9C5E2E" {...S} />
+      <path d="M-20 14 V32 M-10 14 V32 M10 14 V32 M20 14 V32" {...S} strokeWidth={5} stroke="#7A4A26" />
+      <path d="M20 -2 L32 -26 Q38 -32 44 -26 L38 -12Z" fill="#9C5E2E" {...S} />
+      <path d="M22 -6 L30 -28" stroke="#3B2416" strokeWidth={5} strokeLinecap="round" />
+      <path d="M-30 0 Q-42 6 -38 20" stroke="#3B2416" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <circle cx={38} cy={-24} r={1.8} fill={K} />
+    </g>
+  ),
+  // ፍየል, a goat (ፍ)
+  goat: () => (
+    <g>
+      <ellipse cx={4} cy={6} rx={26} ry={14} fill="#F3EDE2" {...S} />
+      <path d="M-12 16 V32 M0 16 V32 M14 16 V32 M24 16 V32" {...S} strokeWidth={4} />
+      <path d="M-20 -2 L-28 -22 Q-30 -30 -22 -30 L-14 -10Z" fill="#F3EDE2" {...S} />
+      <path d="M-24 -28 Q-30 -40 -20 -42 M-20 -28 Q-18 -40 -10 -38" stroke="#8C6A3A" strokeWidth={3} fill="none" strokeLinecap="round" />
+      <path d="M-26 -12 l-2 10" stroke="#C9C2B6" strokeWidth={3} strokeLinecap="round" />
+      <circle cx={-22} cy={-22} r={1.8} fill={K} />
+    </g>
+  ),
+  // ፓፓያ, a papaya (ፓ, the ፐ family)
+  papaya: () => (
+    <g>
+      <ellipse cx={0} cy={2} rx={22} ry={32} fill="#F5A623" {...S} />
+      <ellipse cx={0} cy={4} rx={13} ry={22} fill="#FF7A3C" />
+      <g fill="#2A1A10">
+        {[-8, 0, 8, -4, 4].map((y, i) => (
+          <circle key={i} cx={i > 2 ? (i === 3 ? -4 : 4) : 0} cy={y + (i > 2 ? 10 : 0)} r={2.4} />
+        ))}
+      </g>
+      <path d="M0 -30 V-38" stroke="#3FAA3A" strokeWidth={4} strokeLinecap="round" />
+    </g>
+  ),
+  // ፖስታ, a letter in its envelope (ፖ)
+  envelope: () => (
+    <g>
+      <rect x={-34} y={-22} width={68} height={44} rx={4} fill="#FFFDF6" {...S} />
+      <path d="M-34 -22 L0 6 L34 -22" fill="none" {...S} />
+      <rect x={16} y={-16} width={12} height={12} fill="#E8413B" />
+    </g>
+  ),
+  // ቫን, a van (ቫ, the ቨ family)
+  van: () => (
+    <g>
+      <path d="M-36 16 V-14 Q-36 -20 -30 -20 H18 L36 -2 V16Z" fill="#2F9E8F" {...S} />
+      <path d="M20 -16 L32 -2 H20Z" fill="#CFF0FF" {...S} strokeWidth={1.6} />
+      <rect x={-28} y={-14} width={18} height={12} rx={2} fill="#CFF0FF" />
+      <circle cx={-20} cy={18} r={8} fill="#333" {...S} />
+      <circle cx={20} cy={18} r={8} fill="#333" {...S} />
+    </g>
+  ),
+  // ኳስ, a ball (ኳ, the ከ family's "wa" form)
+  ball: () => (
+    <g>
+      <circle r={30} fill="#fff" {...S} />
+      <path d="M0 -12 L11 -4 L7 10 L-7 10 L-11 -4Z" fill={K} />
+      <path d="M0 -12 V-30 M11 -4 L28 -10 M7 10 L18 24 M-7 10 L-18 24 M-11 -4 L-28 -10" stroke={K} strokeWidth={2} />
+    </g>
+  ),
+  // ቧንቧ, a water tap (ቧ, the በ family's "wa" form)
+  tap: () => (
+    <g>
+      <path d="M-30 -20 H6 Q20 -20 20 -6 V4" stroke="#9AA0A6" strokeWidth={10} fill="none" strokeLinecap="round" />
+      <rect x={-12} y={-34} width={10} height={14} rx={2} fill="#E8413B" {...S} />
+      <path d="M20 12 q-3 6 0 8 q3 -2 0 -8Z M20 26 q-3 6 0 8 q3 -2 0 -8Z" fill="#5BB8E8" />
+    </g>
+  ),
+  // ደብተር, a notebook (for reading and writing in level 6)
+  book: () => (
+    <g>
+      <path d="M0 -24 Q-18 -32 -36 -24 V26 Q-18 18 0 26 Q18 18 36 26 V-24 Q18 -32 0 -24Z" fill="#fff" {...S} />
+      <path d="M0 -24 V26" {...S} />
+      <path d="M-28 -12 H-8 M-28 -2 H-8 M-28 8 H-12 M8 -12 H28 M8 -2 H28 M8 8 H22" stroke="#B9A58C" strokeWidth={2} />
+    </g>
+  ),
   // ቃጭል, the cow's bell
   bell: () => (
     <g>
