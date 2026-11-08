@@ -32,8 +32,8 @@ const story: Story = {
       am: "የዓመቱ የመጨረሻ ሳምንት ነው፤ ጭላዳዋ ፀሐይ ተደስታለች። «አያቴ፣ ይህ ወር ለምን አምስት ቀን ብቻ አለው?»",
     },
     {
-      en: `"Because it's ጳጉሜ, the little thirteenth month," says Grandma. "Twelve months have thirty days each. Then come five extra days before New Year, and once every four years, six." "ጳ… ጉ… ሜ… ጳጉሜ!"`,
-      am: "«ጳጉሜ ስለሆነ ነው፤ ትንሿ አሥራ ሦስተኛ ወር» አለች አያቴ። «አሥራ ሁለቱ ወሮች እያንዳንዳቸው ሠላሳ ቀን አላቸው። ከዚያ ከአዲስ ዓመት በፊት አምስት ተጨማሪ ቀኖች ይመጣሉ፤ በአራት ዓመት አንድ ጊዜ ደግሞ ስድስት።» «ጳ… ጉ… ሜ… ጳጉሜ!»",
+      en: `"Because it's ጳጉሜ, the little thirteenth month," says Grandma. "Twelve months have thirty days each. Then come five or six extra days before New Year." "ጳ… ጉ… ሜ… ጳጉሜ!"`,
+      am: "«ጳጉሜ ስለሆነ ነው፤ ትንሿ አሥራ ሦስተኛ ወር» አለች አያቴ። «አሥራ ሁለቱ ወሮች እያንዳንዳቸው ሠላሳ ቀን አላቸው። ከዚያ ከአዲስ ዓመት በፊት አምስት ወይም ስድስት ተጨማሪ ቀኖች ይመጣሉ።» «ጳ… ጉ… ሜ… ጳጉሜ!»",
     },
     {
       en: "ጳ is a rare letter with a pop on the lips, like ቀ and ጠ: ጰ ጱ ጲ ጳ ጴ ጵ ጶ. You'll meet it in ጳጉሜ, and in only a few other words.",
