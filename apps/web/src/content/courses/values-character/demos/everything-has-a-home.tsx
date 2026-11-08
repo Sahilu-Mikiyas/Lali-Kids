@@ -174,7 +174,7 @@ export default function EverythingHasAHome({ lang, onDone }: DemoProps) {
         tone: "gentle",
         text: t(lang, {
           en: `Abdi giggles: "Does that live in ${HOMES[home].name.en}?" ${it.name.en} lives somewhere else. Look for the glow!`,
-          am: `አብዲ ሳቀ፦ «እሱ የሚኖረው ${HOMES[home].name.am} ውስጥ ነው?» ${it.name.am} የሚኖሩበት ሌላ ቦታ ነው። የሚያበራውን ፈልግ!`,
+          am: `አብዲ ሳቀ፦ «እሱ የሚኖረው ${HOMES[home].name.am} ውስጥ ነው?» ${it.name.am} የሚኖሩበት ሌላ ቦታ ነው። የሚያበራውን ፈልጉ!`,
         }),
       });
     }
@@ -225,7 +225,7 @@ export default function EverythingHasAHome({ lang, onDone }: DemoProps) {
   };
 
   return (
-    <DemoFrame lang={lang} title={{ en: "Everything Has a Home", am: "ሁሉም ነገር ቤት አለው" }} goal={{ en: "Help Ayan tidy up: drag each thing to its home (or tap it, then tap its home).", am: "አያንን እንድታስተካክል እርዳት፦ እያንዳንዱን ነገር ወደ ቤቱ ጎትት (ወይም ንካውና ቤቱን ንካ)።" }} step={count} total={ORDER.length} color="#E86A2A">
+    <DemoFrame lang={lang} title={{ en: "Everything Has a Home", am: "ሁሉም ነገር ቤት አለው" }} goal={{ en: "Help Ayan tidy up: drag each thing to its home (or tap it, then tap its home).", am: "አያንን እንድታስተካክል እርዳት፦ እያንዳንዱን ነገር ወደ ቤቱ ጎትቱ (ወይም ንኩትና ቤቱን ንኩ)።" }} step={count} total={ORDER.length} color="#E86A2A">
       <div ref={svgBox}>
         <Stage label={t(lang, { en: "Ayan's room", am: "የአያን ክፍል" })}>
           <g onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={() => setDrag(null)}>
@@ -264,11 +264,11 @@ export default function EverythingHasAHome({ lang, onDone }: DemoProps) {
         </Stage>
       </div>
       {finished ? (
-        <Finale lang={lang} text={{ en: "Everything is home! Where does it live? Take it home!", am: "ሁሉም ቤቱ ገባ! ቤቱ የት ነው? ወደ ቤቱ መልሰው!" }} onDone={onDone} color="#E86A2A" />
+        <Finale lang={lang} text={{ en: "Everything is home! Where does it live? Take it home!", am: "ሁሉም ቤቱ ገባ! ቤቱ የት ነው? ወደ ቤቱ እንመልሰው!" }} onDone={onDone} color="#E86A2A" />
       ) : msg ? (
         <Feedback tone={msg.tone}>{msg.text}</Feedback>
       ) : (
-        <p className="mt-4 text-lg text-muted">{t(lang, { en: "Tip: Abdi tidied a sandal into the bread basket once. You can do better!", am: "ፍንጭ፦ አብዲ አንድ ጊዜ ጫማ በዳቦ ቅርጫት ውስጥ አስቀምጦ ነበር። አንተ ከዚያ የተሻለ ትችላለህ!" })}</p>
+        <p className="mt-4 text-lg text-muted">{t(lang, { en: "Tip: Abdi tidied a sandal into the bread basket once. You can do better!", am: "ፍንጭ፦ አብዲ አንድ ጊዜ ጫማ በዳቦ ቅርጫት ውስጥ አስቀምጦ ነበር። እናንተ ከዚያ የተሻለ ትችላላችሁ!" })}</p>
       )}
     </DemoFrame>
   );

@@ -21,7 +21,7 @@ import type { Course, Question } from "../types";
 const l1Practice: Question[] = [
   {
     kind: "choice",
-    prompt: { en: "Grandpa Tolosa comes in. What do you do?", am: "አባ ቶሎሳ ገቡ። ምን ታደርጋለህ/ታደርጊያለሽ?" },
+    prompt: { en: "Grandpa Tolosa comes in. What do you do?", am: "አባ ቶሎሳ ገቡ። ምን እናድርግ?" },
     pic: { art: "grandpa" },
     options: [
       { label: { en: "Stand up and greet him", am: "ተነሥቶ ሰላም ማለት" }, pic: { art: "bow" } },
@@ -33,7 +33,7 @@ const l1Practice: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "Grandma gives you warm bread. What do you say?", am: "አያቴ ትኩስ ዳቦ ሰጠችህ/ሽ። ምን ትላለህ/ትያለሽ?" },
+    prompt: { en: "Grandma gives you warm bread. What do you say?", am: "አያቴ ትኩስ ዳቦ ሰጠችን። ምን እንላለን?" },
     pic: { art: "bread" },
     options: [
       { label: { en: "Please", am: "እባክሽ" }, pic: { art: "please" } },
@@ -52,7 +52,7 @@ const l1Practice: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "You bumped into Gugu and his kolo spilled. What do you say?", am: "ጉጉን ገጨኸውና ቆሎው ተደፋ። ምን ትላለህ?" },
+    prompt: { en: "You bumped into Gugu and his kolo spilled. What do you say?", am: "ጉጉን ገጭተነው ቆሎው ተደፋ። ምን እንላለን?" },
     pic: { art: "kolo" },
     options: [
       { label: { en: "Thank you", am: "አመሰግናለሁ" }, pic: { art: "thanks" } },
@@ -74,7 +74,7 @@ const l1Practice: Question[] = [
   },
   {
     kind: "order",
-    prompt: { en: "Greet them one by one, starting with the eldest.", am: "ከታላቁ ጀምረህ አንድ በአንድ ሰላም በል።" },
+    prompt: { en: "Greet them one by one, starting with the eldest.", am: "ከታላቁ ጀምረን አንድ በአንድ ሰላም እንበል።" },
     items: [
       { label: { en: "Grandpa", am: "አያት" }, pic: { art: "grandpa" } },
       { label: { en: "Mama", am: "እማማ" }, pic: { art: "mama" } },
@@ -88,7 +88,7 @@ const l1Practice: Question[] = [
 const l1Quiz: Question[] = [
   {
     kind: "choice",
-    prompt: { en: "Grandma comes in. What do you do?", am: "አያቴ ገባች። ምን ታደርጋለህ?" },
+    prompt: { en: "Grandma comes in. What do you do?", am: "አያቴ ገባች። ምን እናድርግ?" },
     pic: { art: "grandma" },
     options: [
       { label: { en: "Keep watching", am: "ማየቴን መቀጠል" }, pic: { art: "stay-seated" } },
@@ -111,7 +111,7 @@ const l1Quiz: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "Hawi helped you carry the water. What do you say?", am: "ሀዊ ውሃውን እንድትሸከም አገዘችህ። ምን ትላለህ?" },
+    prompt: { en: "Hawi helped you carry the water. What do you say?", am: "ሀዊ ውሃውን እንድንሸከም አገዘችን። ምን እንላለን?" },
     pic: { art: "help-carry" },
     options: [
       { label: { en: "Sorry", am: "ይቅርታ" }, pic: { art: "sorry" } },
@@ -186,7 +186,7 @@ const l1Quiz: Question[] = [
 const l2Practice: Question[] = [
   {
     kind: "choice",
-    prompt: { en: "You broke a cup by accident. What is the honest thing to do?", am: "ሳታስበው ስኒ ሰበርክ። ታማኝነት ያለበት ተግባር የትኛው ነው?" },
+    prompt: { en: "You broke a cup by accident. What is the honest thing to do?", am: "ሳናስበው ስኒ ሰበርን። ታማኝነት ያለበት ተግባር የትኛው ነው?" },
     pic: { art: "broken-cup" },
     options: [
       { label: { en: "Hide the pieces", am: "ስብርባሪዎቹን መደበቅ" } },
@@ -205,7 +205,7 @@ const l2Practice: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "You promised to help a friend, but something fun starts. What do you do?", am: "ጓደኛህን ልታግዝ ቃል ገብተሃል፤ ግን አንድ የሚያስደስት ነገር ተጀመረ። ምን ታደርጋለህ?" },
+    prompt: { en: "You promised to help a friend, but something fun starts. What do you do?", am: "ጓደኛችንን ልናግዝ ቃል ገብተናል፤ ግን አንድ የሚያስደስት ነገር ተጀመረ። ምን እናድርግ?" },
     pic: { art: "jerrycan" },
     options: [
       { label: { en: "Keep my promise", am: "ቃሌን እጠብቃለሁ" }, pic: { art: "help-carry" } },
@@ -229,7 +229,7 @@ const l2Practice: Question[] = [
   },
   {
     kind: "truefalse",
-    prompt: { en: "When you make a mistake, you can say sorry and help fix it.", am: "ስትሳሳት ይቅርታ ጠይቀህ ለማስተካከል ማገዝ ትችላለህ።" },
+    prompt: { en: "When you make a mistake, you can say sorry and help fix it.", am: "ስንሳሳት ይቅርታ ጠይቀን ለማስተካከል ማገዝ እንችላለን።" },
     pic: { art: "tomato" },
     answer: true,
     explain: { en: "Let's say it, then let's fix it! Haben and Gugu tied up the broken tomato plants.", am: "እንናገር፣ ከዚያ እናስተካክል! ሐበንና ጉጉ የተሰበሩትን የቲማቲም ተክሎች አሰሩ።" },
@@ -267,7 +267,7 @@ const l2Quiz: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "You find 10 birr on the path. What do you do?", am: "በመንገድ ላይ አሥር ብር አገኘህ። ምን ታደርጋለህ?" },
+    prompt: { en: "You find 10 birr on the path. What do you do?", am: "በመንገድ ላይ አሥር ብር አገኘን። ምን እናድርግ?" },
     pic: { art: "money" },
     options: [
       { label: { en: "Buy sweets with it", am: "ከረሜላ መግዛት" }, pic: { art: "popcorn" } },
@@ -279,7 +279,7 @@ const l2Quiz: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "Your job is to water the tomatoes, and your friends are playing. What's the best plan?", am: "ሥራህ ቲማቲሞቹን ውሃ ማጠጣት ነው፤ ጓደኞችህ ደግሞ እየተጫወቱ ነው። ምርጡ ዕቅድ የትኛው ነው?" },
+    prompt: { en: "Your job is to water the tomatoes, and your friends are playing. What's the best plan?", am: "ሥራችን ቲማቲሞቹን ውሃ ማጠጣት ነው፤ ጓደኞቻችን ደግሞ እየተጫወቱ ነው። ምርጡ ዕቅድ የትኛው ነው?" },
     pic: { art: "tomato" },
     options: [
       { label: { en: "Water first, then play", am: "መጀመሪያ ውሃ ማጠጣት፣ ከዚያ መጫወት" } },
@@ -446,7 +446,7 @@ const l3Quiz: Question[] = [
   },
   {
     kind: "truefalse",
-    prompt: { en: "The best gursha is the one you keep for yourself.", am: "ምርጧ ጉርሻ ለራስህ የምታስቀራት ናት።" },
+    prompt: { en: "The best gursha is the one you keep for yourself.", am: "ምርጧ ጉርሻ ለራሳችን የምናስቀራት ናት።" },
     pic: { art: "keep-alone" },
     answer: false,
     explain: { en: "Tsehay found out: the sweetest gursha is the one you give.", am: "ፀሐይ እንዳወቀችው፦ ከሁሉ የሚጣፍጠው የምትሰጠው ጉርሻ ነው።" },
@@ -502,7 +502,7 @@ const l3Quiz: Question[] = [
       { left: { pic: { art: "stool" } }, right: { label: { en: "A seat", am: "መቀመጫ" } } },
       { left: { pic: { art: "jebena" } }, right: { label: { en: "Coffee together", am: "የአብሮነት ቡና" } } },
     ],
-    explain: { en: "A seat, clean hands, food and coffee: all ways of saying \"you are welcome here\".", am: "መቀመጫ፣ ንጹሕ እጅ፣ ምግብና ቡና፦ ሁሉም «እዚህ ተወዳጅ ነህ» የምንልባቸው መንገዶች ናቸው።" },
+    explain: { en: "A seat, clean hands, food and coffee: all ways of saying \"you are welcome here\".", am: "መቀመጫ፣ ንጹሕ እጅ፣ ምግብና ቡና፦ ሁሉም «እንኳን ደህና መጣችሁ» የምንልባቸው መንገዶች ናቸው።" },
   },
   {
     kind: "truefalse",
@@ -526,7 +526,7 @@ const finalTest: Question[] = [
   l2Practice[5],
   {
     kind: "choice",
-    prompt: { en: "Papa came home hungry, and only your best bite is left. What could you do?", am: "አባባ ርቦት ወደ ቤት መጣ፤ የቀረችው የአንተ ምርጧ ጉርሻ ብቻ ናት። ምን ማድረግ ትችላለህ?" },
+    prompt: { en: "Papa came home hungry, and only your best bite is left. What could you do?", am: "አባባ ርቦት ወደ ቤት መጣ፤ የቀረችው የእኛ ምርጧ ጉርሻ ብቻ ናት። ምን እናድርግ?" },
     pic: { art: "gursha" },
     options: [
       { label: { en: "Eat it quickly", am: "ቶሎ መብላት" }, pic: { art: "keep-alone" } },
@@ -580,7 +580,7 @@ const course: Course = {
       lessons: [
         { kind: "story", id: "who-ate-the-bread" },
         { kind: "story", id: "promise-is-a-promise" },
-        { kind: "demo", id: "what-would-you-do", title: { en: "What Would You Do?", am: "አንተ ምን ታደርጋለህ?" } },
+        { kind: "demo", id: "what-would-you-do", title: { en: "What Would You Do?", am: "እናንተ ምን ታደርጋላችሁ?" } },
         { kind: "story", id: "ayans-red-sandals" },
         { kind: "demo", id: "everything-has-a-home", title: { en: "Everything Has a Home", am: "ሁሉም ነገር ቤት አለው" } },
         { kind: "story", id: "ball-in-the-garden" },

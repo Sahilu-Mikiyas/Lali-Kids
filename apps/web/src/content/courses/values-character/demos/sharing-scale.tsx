@@ -21,7 +21,7 @@ import { Choice, DemoFrame, Feedback, Finale, Next, sound, Stage, t, type T } fr
 type Friend = { key: string; name: T; draw: (mood: Mood) => ReactNode };
 
 const FRIENDS: Record<string, Friend> = {
-  you: { key: "you", name: { en: "You", am: "አንተ" }, draw: (m) => <Cub mood={m} /> },
+  you: { key: "you", name: { en: "You", am: "እኔ" }, draw: (m) => <Cub mood={m} /> },
   gugu: { key: "gugu", name: { en: "Gugu", am: "ጉጉ" }, draw: (m) => <Gugu mood={m} /> },
   tsehay: { key: "tsehay", name: { en: "Tsehay", am: "ፀሐይ" }, draw: (m) => <Tsehay mood={m} /> },
   hawi: { key: "hawi", name: { en: "Hawi", am: "ሀዊ" }, draw: (m) => <Wolf mood={m} wag={m === "joy"} /> },
@@ -32,9 +32,9 @@ const FRIENDS: Record<string, Friend> = {
 type Round = { kolo: number; friends: string[]; say: T; scale?: boolean; extra?: boolean };
 
 const ROUNDS: Round[] = [
-  { kolo: 6, friends: ["you", "gugu"], scale: true, say: { en: "6 pieces of kolo for you and Gugu. Make the scale balance!", am: "6 ቆሎ ላንተና ለጉጉ። ሚዛኑን እኩል አድርገው!" } },
+  { kolo: 6, friends: ["you", "gugu"], scale: true, say: { en: "6 pieces of kolo for you and Gugu. Make the scale balance!", am: "6 ቆሎ ለእኔና ለጉጉ። ሚዛኑን እኩል እናድርገው!" } },
   { kolo: 8, friends: ["you", "gugu", "tsehay", "hawi"], say: { en: "8 pieces of kolo for four friends. Everyone gets the same!", am: "8 ቆሎ ለአራት ጓደኞች። ሁሉም እኩል ያገኛል!" } },
-  { kolo: 7, friends: ["you", "haben", "ayan"], extra: true, say: { en: "7 pieces for three friends. Share them out, and see what happens!", am: "7 ቆሎ ለሦስት ጓደኞች። አከፋፍለህ ምን እንደሚሆን ተመልከት!" } },
+  { kolo: 7, friends: ["you", "haben", "ayan"], extra: true, say: { en: "7 pieces for three friends. Share them out, and see what happens!", am: "7 ቆሎ ለሦስት ጓደኞች። አከፋፍለን ምን እንደሚሆን እንይ!" } },
 ];
 
 const KOLO = ["#B8742E", "#9A5A20", "#C98A3E"];
@@ -126,7 +126,7 @@ export default function SharingScale({ lang, onDone }: DemoProps) {
   const highest = plates.indexOf(max);
 
   return (
-    <DemoFrame lang={lang} title={{ en: "The Sharing Scale", am: "የማካፈል ሚዛን" }} goal={breadRound ? { en: "One round loaf for four friends: cut it into four equal pieces.", am: "አንድ ክብ ዳቦ ለአራት ጓደኞች፦ በአራት እኩል ቁራሽ ቁረጠው።" } : round.say} step={r} total={ROUNDS.length + 1} color="#C9A24A">
+    <DemoFrame lang={lang} title={{ en: "The Sharing Scale", am: "የማካፈል ሚዛን" }} goal={breadRound ? { en: "One round loaf for four friends: cut it into four equal pieces.", am: "አንድ ክብ ዳቦ ለአራት ጓደኞች፦ በአራት እኩል ቁራሽ እንቁረጠው።" } : round.say} step={r} total={ROUNDS.length + 1} color="#C9A24A">
       <Stage label={t(lang, { en: "Break time at school", am: "በትምህርት ቤት የዕረፍት ሰዓት" })}>
         <Yard id={id} time="day" house={false}>
           {breadRound ? (
@@ -192,20 +192,20 @@ export default function SharingScale({ lang, onDone }: DemoProps) {
           {!cuts.shared ? (
             <div className="grid gap-3 sm:grid-cols-2">
               <Choice tone={cuts.down ? "good" : "plain"} disabled={cuts.down} onClick={() => { sound.tap(); setCuts((c) => ({ ...c, down: true })); }}>
-                {t(lang, { en: "Cut down the middle", am: "በመሃል ወደ ታች ቁረጥ" })}
+                {t(lang, { en: "Cut down the middle", am: "በመሃል ወደ ታች ቁረጡ" })}
               </Choice>
               <Choice tone={cuts.across ? "good" : "plain"} disabled={cuts.across} onClick={() => { sound.tap(); setCuts((c) => ({ ...c, across: true })); }}>
-                {t(lang, { en: "Cut across the middle", am: "በመሃል በአግድም ቁረጥ" })}
+                {t(lang, { en: "Cut across the middle", am: "በመሃል በአግድም ቁረጡ" })}
               </Choice>
             </div>
           ) : null}
           {cuts.down && cuts.across && !cuts.shared && (
-            <Feedback tone="great" action={<Next color="#C9A24A" onClick={() => { sound.good(); setCuts((c) => ({ ...c, shared: true })); }}>{t(lang, { en: "Give one to each friend", am: "ለእያንዳንዱ ጓደኛ አንድ ስጥ" })}</Next>}>
+            <Feedback tone="great" action={<Next color="#C9A24A" onClick={() => { sound.good(); setCuts((c) => ({ ...c, shared: true })); }}>{t(lang, { en: "Give one to each friend", am: "ለእያንዳንዱ ጓደኛ አንድ ስጡ" })}</Next>}>
               {t(lang, { en: "Four pieces, all the same size: one for each friend!", am: "አራት ቁራሾች፣ ሁሉም እኩል፦ ለእያንዳንዱ ጓደኛ አንድ!" })}
             </Feedback>
           )}
           {cuts.shared && (
-            <Feedback tone="great" action={<Next color="#C9A24A" onClick={() => setFinished(true)}>{t(lang, { en: "Finish", am: "ጨርስ" })}</Next>}>
+            <Feedback tone="great" action={<Next color="#C9A24A" onClick={() => setFinished(true)}>{t(lang, { en: "Finish", am: "ጨርሱ" })}</Next>}>
               {t(lang, { en: "Everyone has a piece of dabo, and a gursha for a friend.", am: "ሁሉም ዳቦ ደረሰው፤ ለጓደኛም ጉርሻ።" })}
             </Feedback>
           )}
@@ -237,13 +237,13 @@ export default function SharingScale({ lang, onDone }: DemoProps) {
             <Feedback tone="gentle">
               {t(lang, {
                 en: `${FRIENDS[round.friends[highest]].name.en}: ${max}. ${FRIENDS[round.friends[lowest]].name.en}: ${min}. Does that feel fair? Move some so everyone has the same.`,
-                am: `${FRIENDS[round.friends[highest]].name.am}፦ ${max}፤ ${FRIENDS[round.friends[lowest]].name.am}፦ ${min}። ይህ ፍትሐዊ ነው? ሁሉም እኩል እንዲኖረው አዛውር።`,
+                am: `${FRIENDS[round.friends[highest]].name.am}፦ ${max}፤ ${FRIENDS[round.friends[lowest]].name.am}፦ ${min}። ይህ ፍትሐዊ ነው? ሁሉም እኩል እንዲኖረው እናዛውር።`,
               })}
             </Feedback>
           )}
           {round.extra && allShared && !extra && (
             <Feedback tone="great">
-              <p>{t(lang, { en: "Two each, and one piece left over! What will you do with it?", am: "ለእያንዳንዱ ሁለት፣ አንድ ደግሞ ተረፈ! ምን ታደርገዋለህ?" })}</p>
+              <p>{t(lang, { en: "Two each, and one piece left over! What will you do with it?", am: "ለእያንዳንዱ ሁለት፣ አንድ ደግሞ ተረፈ! ምን እናድርገው?" })}</p>
               <div className="mt-3 grid gap-2">
                 <Choice onClick={() => { sound.good(); setExtra("guest"); }}>{t(lang, { en: "Give it to Haben: she's new here, our guest.", am: "ለሐበን መስጠት፦ እዚህ አዲስ ናት፣ እንግዳችን ናት።" })}</Choice>
                 <Choice onClick={() => { sound.good(); setExtra("grandma"); }}>{t(lang, { en: "Take it to Grandma.", am: "ለአያቴ መውሰድ።" })}</Choice>
@@ -254,7 +254,7 @@ export default function SharingScale({ lang, onDone }: DemoProps) {
           {roundDone && (
             <Feedback tone="great" action={<Next color="#C9A24A" onClick={nextRound}>{t(lang, { en: "Next", am: "ቀጣይ" })}</Next>}>
               {round.extra
-                ? t(lang, extra === "guest" ? { en: "Haben smiles shyly. Giving the extra to a guest is a lovely Ethiopian way!", am: "ሐበን በዓይናፋርነት ፈገግ አለች። ትርፉን ለእንግዳ መስጠት ውብ የኢትዮጵያ ልማድ ነው!" } : extra === "grandma" ? { en: "Grandma laughs: \"For me? You remembered your elders!\"", am: "አያቴ ሳቀች፦ «ለእኔ? ታላላቆችህን አስታወስክ!»" } : { en: "Three tiny bits, three happy friends. Very fair!", am: "ሦስት ትንንሽ ቁራሾች፣ ሦስት ደስተኛ ጓደኞች። በጣም ፍትሐዊ!" })
+                ? t(lang, extra === "guest" ? { en: "Haben smiles shyly. Giving the extra to a guest is a lovely Ethiopian way!", am: "ሐበን በዓይናፋርነት ፈገግ አለች። ትርፉን ለእንግዳ መስጠት ውብ የኢትዮጵያ ልማድ ነው!" } : extra === "grandma" ? { en: "Grandma laughs: \"For me? You remembered your elders!\"", am: "አያቴ ሳቀች፦ «ለእኔ? ታላላቆቻችሁን አስታወሳችሁ!»" } : { en: "Three tiny bits, three happy friends. Very fair!", am: "ሦስት ትንንሽ ቁራሾች፣ ሦስት ደስተኛ ጓደኞች። በጣም ፍትሐዊ!" })
                 : t(lang, { en: `${per} each. Fair and square, and everyone is smiling!`, am: `ለእያንዳንዱ ${per}። እኩል ነው፤ ሁሉም ፈገግ ብሏል!` })}
             </Feedback>
           )}
