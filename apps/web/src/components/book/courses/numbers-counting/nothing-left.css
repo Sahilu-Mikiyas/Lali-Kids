@@ -1,0 +1,43 @@
+/* Nothing Left! (nothing-left.tsx): transforms and opacity only. */
+
+/* Chewing: a quick happy bob. */
+@keyframes nothing-left-munch {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-3px) scale(1.02, 0.98); }
+  50% { transform: translateY(0) scale(0.98, 1.02); }
+}
+.nothing-left-munch {
+  animation: nothing-left-munch 0.5s ease-in-out 1.6s 5;
+}
+
+/* The goat's head rises into the window. */
+@keyframes nothing-left-peek {
+  0% { transform: translateY(70px); }
+  100% { transform: translateY(0); }
+}
+.nothing-left-peek {
+  animation: nothing-left-peek 1s cubic-bezier(0.3, 1.3, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* A zero drawn in the flour. */
+@keyframes nothing-left-draw {
+  0% { transform: scale(0.3) rotate(-90deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.nothing-left-draw {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nothing-left-draw 1s ease-out var(--delay, 0.8s) both;
+}
+
+/* Gugu shakes his head: no Ge'ez zero. */
+@keyframes nothing-left-no {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.nothing-left-no {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: nothing-left-no 0.6s ease-in-out 3.2s 3;
+}

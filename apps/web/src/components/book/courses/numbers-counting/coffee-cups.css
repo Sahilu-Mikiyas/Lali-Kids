@@ -1,0 +1,60 @@
+/* Grandma's Coffee Cups (coffee-cups.tsx): transforms and opacity only. */
+
+/* Fresh grass drifting down onto the floor. */
+@keyframes coffee-cups-fall {
+  0% { transform: translate(var(--x, 0px), -70px) rotate(-30deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(0, 0) rotate(0); opacity: 1; }
+}
+.coffee-cups-fall {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coffee-cups-fall 1.2s ease-out var(--delay, 0.6s) both;
+}
+
+/* Anbessa bouncing with excitement. */
+@keyframes coffee-cups-clap {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(0); }
+}
+.coffee-cups-clap {
+  animation: coffee-cups-clap 0.9s ease-in-out 0.4s infinite;
+}
+
+/* A paw comes down to touch a thing, then lifts away. */
+@keyframes coffee-cups-point {
+  0% { transform: translateY(-14px); opacity: 0; }
+  30% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-10px); opacity: 0; }
+}
+.coffee-cups-point {
+  animation: coffee-cups-point 0.7s ease-out var(--delay, 1s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .coffee-cups-point { opacity: 0; }
+}
+
+/* Lali's question mark wobbles: a giggle. */
+@keyframes coffee-cups-giggle {
+  0% { transform: scale(0); opacity: 0; }
+  20% { transform: scale(1.2) rotate(-10deg); opacity: 1; }
+  40% { transform: scale(1) rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  80%, 100% { transform: rotate(0); opacity: 1; }
+}
+.coffee-cups-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: coffee-cups-giggle 1s ease-out var(--delay, 1s) both;
+}
+
+/* The jebena moves along the row of cups as Grandma pours. */
+@keyframes coffee-cups-pour {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(160px); }
+}
+.coffee-cups-pour {
+  animation: coffee-cups-pour 3.6s cubic-bezier(0.4, 0, 0.6, 1) 0.8s both;
+}

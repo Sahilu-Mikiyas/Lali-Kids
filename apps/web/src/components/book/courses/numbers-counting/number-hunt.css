@@ -1,0 +1,64 @@
+/* Lali's Number Hunt (number-hunt.tsx): transforms and opacity only. */
+
+/* A number written in the sand appears as if traced: it grows in from a dot. */
+@keyframes number-hunt-trace {
+  0% { transform: scale(0.4); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.number-hunt-trace {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: number-hunt-trace 0.9s ease-out var(--delay, 1s) both;
+}
+
+/* Bells on the church gate swing. */
+@keyframes number-hunt-swing {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.number-hunt-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: number-hunt-swing 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Passengers bob and wave from the bajaj. */
+@keyframes number-hunt-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.number-hunt-wave {
+  animation: number-hunt-wave 0.8s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A finger wiggles as it is counted. */
+@keyframes number-hunt-wiggle {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(-10deg); }
+  60% { transform: rotate(8deg); }
+}
+.number-hunt-wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: number-hunt-wiggle 0.5s ease-in-out var(--delay, 1s) both;
+}
+
+/* The writing stick moves from the 1 to the Ge'ez one. */
+@keyframes number-hunt-stick {
+  0%, 20% { transform: translate(0, 0); }
+  45%, 60% { transform: translate(140px, 0); }
+  100% { transform: translate(140px, 0); }
+}
+.number-hunt-stick {
+  animation: number-hunt-stick 3s ease-in-out 0.6s both;
+}
+
+/* The 1 and the 0 of ten step apart to show they are two digits. */
+@keyframes number-hunt-apart {
+  0%, 30% { transform: translateX(0); }
+  60%, 100% { transform: translateX(var(--x, 0px)); }
+}
+.number-hunt-apart {
+  animation: number-hunt-apart 2.6s ease-in-out 0.6s both;
+}

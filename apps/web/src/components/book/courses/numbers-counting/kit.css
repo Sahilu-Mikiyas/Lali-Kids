@@ -1,0 +1,122 @@
+/* Numbers & Counting scene kit (kit.tsx): transforms and opacity only. */
+
+/* A number in the counting bar sings in its turn. */
+@keyframes nc-sing {
+  0%, 12%, 100% { transform: scale(1); }
+  5% { transform: scale(1.35); }
+}
+.nc-sing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-sing var(--period, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Something leaves: a little swell, then gone. */
+@keyframes nc-unpop {
+  0% { transform: scale(1); opacity: 1; }
+  35% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+.nc-unpop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-unpop 0.6s ease-in var(--delay, 1s) both;
+}
+
+/* A hop along an arc, from (--fx, --fy) away to here. Nest them for a run of hops. */
+@keyframes nc-hop {
+  0% { transform: translate(var(--fx, 0px), var(--fy, 0px)); animation-timing-function: ease-out; }
+  50% { transform: translate(calc(var(--fx, 0px) / 2), calc(var(--fy, 0px) / 2 - var(--h, 34px))); animation-timing-function: ease-in; }
+  100% { transform: translate(0, 0); }
+}
+.nc-hop {
+  animation: nc-hop var(--dur, 0.6s) var(--delay, 0.8s) both;
+}
+
+/* Slide in from (--fx, --fy) with a little overshoot. */
+@keyframes nc-slide {
+  0% { transform: translate(var(--fx, 0px), var(--fy, 0px)); opacity: 0; }
+  20% { opacity: 1; }
+  80% { transform: translate(calc(var(--fx, 0px) * -0.06), calc(var(--fy, 0px) * -0.06)); }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+.nc-slide {
+  animation: nc-slide var(--dur, 0.9s) cubic-bezier(0.3, 0.8, 0.4, 1) var(--delay, 0.8s) both;
+}
+
+/* Away to (--tx, --ty), fading out (eaten, flown, gone). */
+@keyframes nc-away {
+  0% { transform: translate(0, 0); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(var(--tx, 0px), var(--ty, -40px)) scale(0.5); opacity: 0; }
+}
+.nc-away {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-away var(--dur, 1s) ease-in var(--delay, 1s) both;
+}
+
+/* A bump: a short jolt up and down (the minibus, a happy jump). */
+@keyframes nc-jolt {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(var(--rise, -18px)); }
+  45% { transform: translateY(0); }
+  60% { transform: translateY(calc(var(--rise, -18px) * 0.3)); }
+  75% { transform: translateY(0); }
+}
+.nc-jolt {
+  animation: nc-jolt var(--dur, 1.1s) ease-in-out var(--delay, 1s) both;
+}
+.nc-jolt-loop {
+  animation: nc-jolt var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A balance beam tilting to --tilt, and its pans staying upright. */
+@keyframes nc-tilt {
+  0% { transform: rotate(var(--from, 0deg)); }
+  60% { transform: rotate(calc(var(--tilt, 0deg) * 1.15)); }
+  80% { transform: rotate(calc(var(--tilt, 0deg) * 0.94)); }
+  100% { transform: rotate(var(--tilt, 0deg)); }
+}
+.nc-tilt {
+  transform-box: view-box;
+  animation: nc-tilt var(--dur, 1.2s) ease-in-out var(--delay, 1s) both;
+}
+
+/* Wheels and things that roll. */
+@keyframes nc-turn {
+  to { transform: rotate(360deg); }
+}
+.nc-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-turn var(--dur, 1s) linear var(--delay, 0s) infinite;
+}
+
+/* A soft nod to show "this one" (counting, touching). */
+@keyframes nc-tap {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+}
+.nc-tap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-tap 0.5s ease-in-out var(--delay, 1s) both;
+}
+
+/* Steam from a cup or a pot. */
+@keyframes nc-steam {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  30% { opacity: 0.7; }
+  100% { transform: translateY(-22px) scale(1.3); opacity: 0; }
+}
+.nc-steam {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nc-steam var(--dur, 2.6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Things that are gone stay gone with reduced motion too. */
+@media (prefers-reduced-motion: reduce) {
+  .nc-gone { opacity: 0; }
+}

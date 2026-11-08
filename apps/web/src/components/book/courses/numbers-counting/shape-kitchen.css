@@ -1,0 +1,81 @@
+/* Grandma's Shape Kitchen (shape-kitchen.tsx): transforms and opacity only. */
+
+/* Batter spreads round and round on the griddle. */
+@keyframes shape-kitchen-spread {
+  0% { transform: scale(0.1) rotate(-200deg); opacity: 0.6; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.shape-kitchen-spread {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shape-kitchen-spread 1.6s ease-out 0.4s both;
+}
+
+/* A finger runs once round the edge of the circle (the group's origin is the centre). */
+@keyframes shape-kitchen-orbit {
+  from { transform: rotate(0); opacity: 1; }
+  to { transform: rotate(360deg); opacity: 1; }
+}
+.shape-kitchen-orbit {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: shape-kitchen-orbit 3s linear var(--delay, 2s) both;
+}
+
+/* The sambusa folds up into its triangle. */
+@keyframes shape-kitchen-fold {
+  0% { transform: scaleY(0.1); }
+  60% { transform: scaleY(1.08); }
+  100% { transform: scaleY(1); }
+}
+.shape-kitchen-fold {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shape-kitchen-fold 1s ease-out var(--delay, 0.4s) both;
+}
+
+/* A straw measures each side of the square in turn. */
+@keyframes shape-kitchen-measure {
+  0%, 22% { transform: translate(0, 0) rotate(0); }
+  30%, 44% { transform: translate(110px, 10px) rotate(90deg); }
+  52%, 66% { transform: translate(100px, 120px) rotate(180deg); }
+  74%, 100% { transform: translate(-10px, 110px) rotate(270deg); }
+}
+.shape-kitchen-measure {
+  transform-box: view-box;
+  transform-origin: 150px 160px;
+  animation: shape-kitchen-measure 4.4s ease-in-out 0.6s both;
+}
+
+/* Half the square cloth folds over the diagonal and opens again. */
+@keyframes shape-kitchen-flap {
+  0%, 15% { transform: rotate(45deg) scaleY(1) rotate(-45deg); }
+  40%, 60% { transform: rotate(45deg) scaleY(-1) rotate(-45deg); }
+  85%, 100% { transform: rotate(45deg) scaleY(1) rotate(-45deg); }
+}
+.shape-kitchen-flap {
+  transform-box: view-box;
+  transform-origin: 200px 220px;
+  animation: shape-kitchen-flap 4s ease-in-out 0.8s both;
+}
+
+/* A plate rolls back and forth across the floor. */
+@keyframes shape-kitchen-roll {
+  from { transform: translateX(110px); }
+  to { transform: translateX(-120px); }
+}
+.shape-kitchen-roll {
+  animation: shape-kitchen-roll 3.2s ease-in-out 0.6s infinite alternate;
+}
+
+/* Giggling. */
+@keyframes shape-kitchen-laugh {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-4px) rotate(-3deg); }
+  75% { transform: translateY(-2px) rotate(3deg); }
+}
+.shape-kitchen-laugh {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shape-kitchen-laugh 0.6s ease-in-out 1s 6;
+}

@@ -1,0 +1,33 @@
+/* Who Has More? (who-has-more.tsx): transforms and opacity only. */
+
+/* Anbessa puffs up his chest, proud of his big pile. */
+@keyframes who-has-more-puff {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06, 1.1); }
+}
+.who-has-more-puff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: who-has-more-puff 1.4s ease-in-out 0.4s infinite;
+}
+
+/* Sleepy friends nod off. */
+@keyframes who-has-more-sleep {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(4deg); }
+}
+.who-has-more-sleep {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: who-has-more-sleep 3s ease-in-out infinite;
+}
+
+/* Z z z. */
+@keyframes who-has-more-zzz {
+  0% { transform: translate(0, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(10px, -24px); opacity: 0; }
+}
+.who-has-more-zzz {
+  animation: who-has-more-zzz 2.7s ease-out var(--delay, 0s) infinite;
+}
