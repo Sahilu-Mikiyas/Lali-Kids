@@ -1,0 +1,79 @@
+/* The Map from the Sky (map-from-the-sky.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Anbessa's blob, drawn round once. */
+@keyframes mfs-draw {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+.mfs-draw {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mfs-draw 1.2s ease-out 0.4s both;
+}
+
+/* Gugu's puzzled head tilt. */
+@keyframes mfs-tilt {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  75% { transform: rotate(-6deg); }
+}
+.mfs-tilt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mfs-tilt 3s ease-in-out 1s infinite;
+}
+
+/* Roofs glinting in the sun, a car on the road. */
+@keyframes mfs-twinkle {
+  0%, 80%, 100% { opacity: 1; }
+  90% { opacity: 0.4; }
+}
+.mfs-twinkle { animation: mfs-twinkle 3s ease-in-out var(--delay, 0s) infinite; }
+@keyframes mfs-car {
+  from { transform: translate(-20px, 4px); }
+  to { transform: translate(420px, -8px); }
+}
+.mfs-car { animation: mfs-car 9s linear infinite; }
+
+/* The river flowing out of the lake. */
+@keyframes mfs-flow {
+  to { stroke-dashoffset: -32; }
+}
+.mfs-flow { animation: mfs-flow 1.4s linear infinite; }
+
+/* Shivering in the Simien cold. */
+@keyframes mfs-shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.2px); }
+  75% { transform: translateX(1.2px); }
+}
+.mfs-shiver { animation: mfs-shiver 0.2s linear infinite; }
+
+/* A drop of sweat falling from Anbessa's mane. */
+@keyframes mfs-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.mfs-drip { animation: mfs-drip 1.4s ease-in infinite; }
+
+/* Flamingos rising like a pink cloud. */
+@keyframes mfs-flock {
+  0% { transform: translate(0, 30px); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-60px, -40px); opacity: 0; }
+}
+.mfs-flock { animation: mfs-flock 5s ease-out 0.8s infinite; }
+
+/* The wolf trotting across the plateau. */
+@keyframes mfs-trot {
+  from { transform: translateX(-90px); }
+  to { transform: translateX(90px); }
+}
+.mfs-trot { animation: mfs-trot 7s ease-in-out infinite alternate; }
+
+/* Camels walking slowly across the lowlands. */
+@keyframes mfs-camels {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(30px); }
+}
+.mfs-camels { animation: mfs-camels 8s ease-in-out var(--delay, 0s) infinite alternate; }

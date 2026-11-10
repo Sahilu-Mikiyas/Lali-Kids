@@ -1,0 +1,65 @@
+/* Many Hellos (many-hellos.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Anbessa practising as he walks home. */
+@keyframes mh-walk {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(14px, -4px); }
+}
+.mh-walk { animation: mh-walk 1.2s ease-in-out infinite; }
+
+/* Tripping over a hard word. */
+@keyframes mh-trip {
+  0%, 70%, 100% { transform: rotate(0deg); }
+  80% { transform: rotate(-8deg); }
+  90% { transform: rotate(5deg); }
+}
+.mh-trip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mh-trip 2.4s ease-in-out 1.8s infinite;
+}
+
+/* Five hellos circling round Anbessa's head. */
+@keyframes mh-orbit {
+  0% { transform: translate(-60px, 0); }
+  25% { transform: translate(0, -24px); }
+  50% { transform: translate(60px, 0); }
+  75% { transform: translate(0, 24px); }
+  100% { transform: translate(-60px, 0); }
+}
+.mh-orbit { animation: mh-orbit 6s linear var(--delay, 0s) infinite; }
+
+/* The mixed-up words wobbling. */
+@keyframes mh-jumble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.mh-jumble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mh-jumble 0.6s ease-in-out infinite;
+}
+
+/* Friends shaking with laughter. */
+@keyframes mh-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.mh-laugh { animation: mh-laugh 0.35s ease-in-out infinite; }
+
+/* The shy boy peeking, then waving back. */
+@keyframes mh-peek {
+  0%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
+.mh-peek { animation: mh-peek 6s ease-in-out 0.5s both; }
+@keyframes mh-wave-back {
+  0%, 45% { opacity: 0; }
+  55%, 100% { opacity: 1; }
+}
+.mh-wave-back { animation: mh-wave-back 6s ease-in-out 0.5s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-peek { opacity: 0; }
+  .mh-wave-back { opacity: 1; }
+}

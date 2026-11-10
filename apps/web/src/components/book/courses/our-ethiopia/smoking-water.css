@@ -1,0 +1,82 @@
+/* The Smoking Water (smoking-water.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The fisherman's paddle swishing. */
+@keyframes sw-paddle {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(14deg); }
+}
+.sw-paddle {
+  transform-box: fill-box;
+  transform-origin: 90% 0%;
+  animation: sw-paddle 1.6s ease-in-out infinite;
+}
+
+/* The river flowing. */
+@keyframes sw-flow {
+  to { stroke-dashoffset: -44; }
+}
+.sw-flow { animation: sw-flow 1.2s linear infinite; }
+
+/* Rings spreading from Gugu's paw in the water. */
+@keyframes sw-ring {
+  0% { transform: scale(0.3); opacity: 1; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.sw-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sw-ring 1.6s ease-out var(--delay, 0s) infinite;
+}
+
+/* A leaf carried out of the lake by the river. */
+@keyframes sw-leaf {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(90px, 110px); opacity: 0; }
+}
+.sw-leaf { animation: sw-leaf 5s linear infinite; }
+
+/* Gugu sniffing the air. */
+@keyframes sw-sniff {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+.sw-sniff { animation: sw-sniff 1.8s ease-out infinite; }
+
+/* The roar of the falls, far away. */
+@keyframes sw-roar {
+  0%, 100% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(6px); opacity: 1; }
+}
+.sw-roar { animation: sw-roar 0.9s ease-in-out var(--delay, 0s) infinite; }
+
+/* Gugu running forward. */
+@keyframes sw-run {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(10px); }
+}
+.sw-run { animation: sw-run 1.2s ease-out 0.3s both; }
+
+/* Mist drifting over the friends. */
+@keyframes sw-drift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.55; }
+  50% { transform: translate(14px, 6px); opacity: 0.85; }
+}
+.sw-drift { animation: sw-drift 4s ease-in-out var(--delay, 0s) infinite; }
+
+/* Tiny drops sprinkling down. */
+@keyframes sw-drop {
+  0% { transform: translateY(-20px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+.sw-drop { animation: sw-drop 1.6s linear var(--delay, 0s) infinite; }
+
+/* Water pouring from the bottle into the river. */
+@keyframes sw-pour {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(6px, 40px); opacity: 0; }
+}
+.sw-pour { animation: sw-pour 0.75s ease-in var(--delay, 0s) infinite; }

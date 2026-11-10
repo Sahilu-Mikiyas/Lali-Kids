@@ -1,0 +1,195 @@
+/* Our Ethiopia course: moves for the land kit (kit-land.tsx) and the culture kit (kit-culture.tsx).
+   Transforms and opacity only; the reduced-motion rule in globals.css stops all of it.
+   Keep this file ASCII. */
+
+/* A big bird's wings beating slowly. */
+@keyframes oe-flap {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(var(--flap, -16deg)); }
+}
+.oe-flap {
+  transform-box: fill-box;
+  transform-origin: var(--ox, 20%) var(--oy, 80%);
+  animation: oe-flap var(--dur, 1.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Soaring: a slow rise and fall with a little tilt. */
+@keyframes oe-soar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(var(--rise, -8px)) rotate(var(--tilt, -2deg)); }
+}
+.oe-soar { animation: oe-soar var(--dur, 3.4s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Falling water: streaks that slide down and repeat. */
+@keyframes oe-fall {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(0); }
+}
+.oe-fall { animation: oe-fall var(--dur, 0.5s) linear infinite; }
+
+/* Mist rising from the falls. */
+@keyframes oe-mist {
+  0% { transform: translate(0, 10px) scale(0.6); opacity: 0; }
+  30% { opacity: var(--op, 0.85); }
+  100% { transform: translate(var(--dx, 10px), var(--my, -60px)) scale(1.5); opacity: 0; }
+}
+.oe-mist {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: oe-mist var(--dur, 4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A bus or a boat bobbing as it goes. */
+@keyframes oe-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--bob, -2px)); }
+}
+.oe-bob { animation: oe-bob var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Driving across the picture and coming round again. */
+@keyframes oe-drive {
+  from { transform: translateX(var(--from, -160px)); }
+  to { transform: translateX(var(--to, 160px)); }
+}
+.oe-drive { animation: oe-drive var(--dur, 9s) linear var(--delay, 0s) infinite; }
+
+/* Driving in and stopping. */
+@keyframes oe-arrive {
+  from { transform: translateX(var(--from, -220px)); }
+  to { transform: translateX(0); }
+}
+.oe-arrive { animation: oe-arrive var(--dur, 2.4s) cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay, 0.3s) both; }
+
+/* The road or the land sliding past a window. */
+@keyframes oe-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--by, -200px)); }
+}
+.oe-scroll { animation: oe-scroll var(--dur, 6s) linear infinite; }
+
+/* A wheel turning. */
+@keyframes oe-turn {
+  to { transform: rotate(360deg); }
+}
+.oe-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: oe-turn var(--dur, 0.6s) linear infinite;
+}
+
+/* A rainbow or a glow coming and going. */
+@keyframes oe-glow {
+  0%, 100% { opacity: var(--lo, 0.35); }
+  50% { opacity: var(--hi, 0.9); }
+}
+.oe-glow { animation: oe-glow var(--dur, 3s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Bubbles in a hot pool, a hippo's nose, a pot. */
+@keyframes oe-bubble {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-14px) scale(1.1); opacity: 0; }
+}
+.oe-bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: oe-bubble var(--dur, 1.8s) ease-out var(--delay, 0s) infinite;
+}
+
+/* The weaver's shuttle flying across the threads and back. */
+@keyframes oe-shuttle {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(var(--span, 60px)); }
+}
+.oe-shuttle { animation: oe-shuttle var(--dur, 1.2s) ease-in-out infinite; }
+
+/* A cloth growing longer as it is woven. */
+@keyframes oe-weave {
+  from { transform: scaleY(0.2); }
+  to { transform: scaleY(1); }
+}
+.oe-weave {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: oe-weave var(--dur, 6s) ease-out var(--delay, 0.5s) both;
+}
+
+/* A letter flying in and landing. */
+@keyframes oe-fly-in {
+  0% { transform: translate(var(--fx, 160px), var(--fy, -90px)) rotate(-30deg) scale(0.5); opacity: 0; }
+  70% { transform: translate(0, 0) rotate(6deg) scale(1.05); opacity: 1; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+.oe-fly-in { animation: oe-fly-in var(--dur, 1.4s) ease-out var(--delay, 0.5s) both; }
+
+/* Swinging the head or a load from side to side, as camels walk. */
+@keyframes oe-sway-x {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+}
+.oe-sway-x { animation: oe-sway-x var(--dur, 1.2s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A heat shimmer over hot ground. */
+@keyframes oe-shimmer {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.35; }
+  50% { transform: scaleY(1.4) translateY(-2px); opacity: 0.6; }
+}
+.oe-shimmer {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: oe-shimmer var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Grass that droops, and grass that stands up again. */
+@keyframes oe-droop {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--droop, 40deg)); }
+}
+.oe-droop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: oe-droop 1.6s ease-in var(--delay, 0.8s) both;
+}
+@keyframes oe-perk {
+  from { transform: rotate(var(--droop, 40deg)); }
+  to { transform: rotate(0deg); }
+}
+.oe-perk {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: oe-perk 1.4s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 1s) both;
+}
+
+/* A map pin dropping onto the map. */
+@keyframes oe-pin {
+  0% { transform: translateY(-30px); opacity: 0; }
+  60% { transform: translateY(2px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.oe-pin { animation: oe-pin 0.7s ease-out var(--delay, 0.6s) both; }
+
+/* A gentle grow-in for things that appear. */
+@keyframes oe-grow-in {
+  from { transform: scale(0.2); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.oe-grow-in {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: oe-grow-in var(--dur, 0.8s) cubic-bezier(0.3, 1.5, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* A load tipping off a camel's back. */
+@keyframes oe-slip {
+  0%, 30% { transform: rotate(0deg) translate(0, 0); }
+  60%, 100% { transform: rotate(-24deg) translate(-6px, 6px); }
+}
+.oe-slip {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: oe-slip 2.4s ease-in-out 0.6s infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oe-weave, .oe-fly-in, .oe-pin, .oe-grow-in, .oe-arrive { transform: none; opacity: 1; }
+}

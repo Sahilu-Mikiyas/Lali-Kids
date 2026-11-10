@@ -1,0 +1,51 @@
+/* Desta's Fichee (destas-fichee.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The elder tracing the stars. */
+@keyframes df-trace {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.df-trace { animation: df-trace 2.6s ease-in-out infinite; }
+
+/* Two friends running into a hug. */
+@keyframes df-hug-l {
+  from { transform: translateX(-50px); }
+  to { transform: translateX(0); }
+}
+.df-hug-l { animation: df-hug-l 1.4s ease-out 0.3s both; }
+@keyframes df-hug-r {
+  from { transform: translateX(50px); }
+  to { transform: translateX(0); }
+}
+.df-hug-r { animation: df-hug-r 1.4s ease-out 0.3s both; }
+
+/* Carrying the roasting pan round so everyone can smell the smoke. */
+@keyframes df-carry {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(60px); }
+}
+.df-carry { animation: df-carry 5s ease-in-out infinite; }
+
+/* The dance going round. */
+@keyframes df-spin {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+}
+.df-spin { animation: df-spin 1.2s ease-in-out infinite; }
+
+/* Clap, clap, stamp! */
+@keyframes df-stamp {
+  0%, 60%, 100% { transform: translateY(0); }
+  75% { transform: translateY(-8px); }
+  85% { transform: translateY(2px); }
+}
+.df-stamp { animation: df-stamp 1.2s ease-in-out var(--delay, 0s) infinite; }
+@keyframes df-clap {
+  0%, 20%, 50%, 70%, 100% { opacity: 0; transform: scale(0.6); }
+  10%, 60% { opacity: 1; transform: scale(1.2); }
+}
+.df-clap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: df-clap 1.2s ease-out infinite;
+}

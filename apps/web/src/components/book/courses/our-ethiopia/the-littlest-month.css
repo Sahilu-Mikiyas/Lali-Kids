@@ -1,0 +1,30 @@
+/* The Littlest Month (the-littlest-month.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The earth going round the sun (an ellipse drawn with two half-turns). */
+@keyframes tlm-orbit {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-140px, 80px); }
+  50% { transform: translate(-280px, 0); }
+  75% { transform: translate(-140px, -80px); }
+  100% { transform: translate(0, 0); }
+}
+.tlm-orbit { animation: tlm-orbit 8s linear infinite; }
+
+/* Shaking the empty money tin. */
+@keyframes tlm-shake {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.tlm-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tlm-shake 0.3s ease-in-out infinite;
+}
+
+/* Rain splashing onto the painting. */
+@keyframes tlm-splash {
+  0% { transform: translate(0, -20px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(-10px, 30px); opacity: 0; }
+}
+.tlm-splash { animation: tlm-splash 0.9s ease-in var(--delay, 0s) infinite; }

@@ -1,0 +1,41 @@
+/* Lake After Lake (lake-after-lake.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* A sleepy yawn rising from the window. */
+@keyframes laf-yawn {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-24px); opacity: 0; }
+}
+.laf-yawn { animation: laf-yawn 2.4s ease-out infinite; }
+
+/* The bus going down the road into the valley. */
+@keyframes laf-down {
+  from { transform: translate(-80px, 40px) scale(1.2); }
+  to { transform: translate(160px, -40px) scale(0.7); }
+}
+.laf-down {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: laf-down 6s ease-in-out infinite;
+}
+
+/* Children splashing in Lake Langano. */
+@keyframes laf-splash {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.laf-splash { animation: laf-splash 0.7s ease-in-out var(--delay, 0s) infinite; }
+
+/* A marabou being shooed, hopping back. */
+@keyframes laf-shoo {
+  0%, 60%, 100% { transform: translateX(0); }
+  75% { transform: translateX(-14px) translateY(-6px); }
+}
+.laf-shoo { animation: laf-shoo 3s ease-in-out 1s infinite; }
+
+/* The Bridge of God glowing a little. */
+@keyframes laf-bridge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+.laf-bridge { animation: laf-bridge 2.4s ease-in-out infinite; }

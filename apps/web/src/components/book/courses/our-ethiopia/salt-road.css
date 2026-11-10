@@ -1,0 +1,67 @@
+/* Haben and the Salt Road (salt-road.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Gulping the bottle empty. */
+@keyframes sr-gulp {
+  0%, 100% { transform: rotate(0deg); }
+  30%, 70% { transform: rotate(-120deg) translate(4px, -6px); }
+}
+.sr-gulp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sr-gulp 2.4s ease-in-out infinite;
+}
+
+/* A little sip, then rest. */
+@keyframes sr-sip {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  75%, 85% { transform: rotate(-50deg); }
+}
+.sr-sip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sr-sip 3.4s ease-in-out infinite;
+}
+
+/* The caravan walking slowly across the salt. */
+@keyframes sr-walk {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(30px); }
+}
+.sr-walk { animation: sr-walk 6.4s linear var(--delay, 0s) infinite alternate; }
+
+/* Chopping with an axe. */
+@keyframes sr-chop {
+  0%, 100% { transform: rotate(-40deg); }
+  40% { transform: rotate(20deg); }
+}
+.sr-chop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sr-chop 0.8s ease-in var(--delay, 0s) infinite;
+}
+
+/* Prying up a slab with a pole. */
+@keyframes sr-lever {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-6deg); }
+}
+.sr-lever {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: sr-lever 1.6s ease-in-out infinite;
+}
+
+/* Chips of salt flying. */
+@keyframes sr-chip {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(12px, -16px); opacity: 0; }
+}
+.sr-chip { animation: sr-chip 0.8s ease-out var(--delay, 0s) infinite; }
+
+/* A pinch of salt falling onto the food. */
+@keyframes sr-pinch {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+.sr-pinch { animation: sr-pinch 1.2s ease-in var(--delay, 0s) infinite; }

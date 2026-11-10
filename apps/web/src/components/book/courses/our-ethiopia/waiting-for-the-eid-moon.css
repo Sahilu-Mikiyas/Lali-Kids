@@ -1,0 +1,15 @@
+/* Waiting for the Eid Moon (waiting-for-the-eid-moon.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Clouds drifting across the evening sky. */
+@keyframes eid-cloud {
+  0%, 100% { transform: translateX(-10px); }
+  50% { transform: translateX(14px); }
+}
+.eid-cloud { animation: eid-cloud 7s ease-in-out var(--delay, 0s) infinite; }
+
+/* The moon peeping out from behind a cloud, now and then. */
+@keyframes eid-peek {
+  0%, 60%, 100% { opacity: 0.08; }
+  75%, 85% { opacity: 0.9; }
+}
+.eid-peek { animation: eid-peek 5s ease-in-out infinite; }
