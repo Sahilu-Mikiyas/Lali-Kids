@@ -93,11 +93,11 @@ export default function TwoScripts({ lang, onDone }: DemoProps) {
         <rect width={400} height={300} fill="#FFFBEE" />
         {!done && (
           <motion.g key={i} initial={{ y: -30, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-            <rect x={110} y={20} width={180} height={130} rx={16} fill="#FFFFFF" stroke="#1B2A4E" strokeWidth={3} />
-            <g transform="translate(160 84)">
+            <rect x={80} y={20} width={240} height={130} rx={16} fill="#FFFFFF" stroke="#1B2A4E" strokeWidth={3} />
+            <g transform="translate(130 84)">
               <Pic k={w.pic} />
             </g>
-            <text x={240} y={96} textAnchor="middle" fontSize={w.script === "fidel" ? 34 : 26} fontWeight={900} fontFamily={w.script === "fidel" ? "var(--font-noto-ethiopic), sans-serif" : "var(--font-grandstander), sans-serif"} fill="#1B2A4E">
+            <text x={232} y={96} textAnchor="middle" fontSize={w.script === "fidel" ? 36 : 28} fontWeight={900} fontFamily={w.script === "fidel" ? "var(--font-noto-ethiopic), sans-serif" : "var(--font-grandstander), sans-serif"} fill="#1B2A4E">
               {w.text}
             </text>
           </motion.g>

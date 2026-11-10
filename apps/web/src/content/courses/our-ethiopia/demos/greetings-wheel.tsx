@@ -70,7 +70,7 @@ export default function GreetingsWheel({ lang, onDone }: DemoProps) {
         <circle cx={200} cy={190} r={130} fill="#FFE9B0" />
         <circle cx={200} cy={190} r={130} fill="none" stroke="#F5B21E" strokeWidth={4} strokeDasharray="10 8" className="lali-spin" style={{ animationDuration: "60s" }} />
         {FRIENDS.map((f) => {
-          const right = phase === "quiz" && answer !== null && f.key === ask.key;
+          const right = phase === "quiz" && answer === ask.key && f.key === ask.key;
           return (
             <g key={f.key} onClick={() => tapFriend(f)} data-friend={f.key} style={{ cursor: "pointer" }}>
               <circle cx={f.x} cy={f.y - 40} r={44} fill={right ? "#C8F0D4" : heard.includes(f.key) && phase === "listen" ? "#FFFFFF" : "#FFFFFF00"} />

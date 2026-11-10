@@ -9,7 +9,7 @@ import { CoffeeBush, Enset, TeffClump } from "@/components/book/courses/our-ethi
 import { Home } from "@/components/book/courses/our-ethiopia/kit-places";
 import { Cup, Mesob, SnackBowl } from "@/components/book/courses/our-ethiopia/kit-props";
 import type { DemoProps } from "../../types";
-import { DemoFrame, Feedback, Finale, sound, Stage, t, type T } from "./demo-kit";
+import { DemoFrame, Feedback, Finale, Next, sound, Stage, t, type T } from "./demo-kit";
 
 /*
   From Plant to Plate (level 1). Four plants and four foods: tap a plant, then the food made from
@@ -91,6 +91,7 @@ export default function PlantToPlate({ lang, onDone }: DemoProps) {
   const [matched, setMatched] = useState<Key[]>([]);
   const [last, setLast] = useState<Key | null>(null);
   const [oops, setOops] = useState(false);
+  const [finished, setFinished] = useState(false);
   const done = matched.length === KEYS.length;
 
   const pickFood = (k: Key) => {
@@ -154,8 +155,12 @@ export default function PlantToPlate({ lang, onDone }: DemoProps) {
           </Place>
         </Home>
       </Stage>
-      {done ? (
+      {finished ? (
         <Finale lang={lang} text={{ en: "From the fields to the table: well done!", am: "ከማሳ እስከ ማዕድ፦ ጎበዝ!" }} onDone={onDone} color="#15803D" />
+      ) : done ? (
+        <Feedback tone="great" action={<Next color="#15803D" onClick={() => setFinished(true)}>{t(lang, { en: "Finish", am: "ጨርሱ" })}</Next>}>
+          {t(lang, FACT[last ?? "barley"])}
+        </Feedback>
       ) : (
         <>
           {last && <Feedback tone="great">{t(lang, FACT[last])}</Feedback>}

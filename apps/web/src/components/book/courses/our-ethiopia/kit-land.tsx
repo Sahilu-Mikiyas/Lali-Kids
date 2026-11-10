@@ -24,7 +24,7 @@ const r1 = (n: number) => Math.round(n * 10) / 10;
 
 /** Map position of a latitude and longitude (degrees north and east) in the 400 x 300 picture. */
 export function geo(lat: number, lon: number): [number, number] {
-  return [r1(30 + (lon - 33) * 22.5), r1(16 + (15 - lat) * 22.5)];
+  return [r1(24 + (lon - 33) * 23.5), r1(14 + (15 - lat) * 23.5)];
 }
 
 const pathOf = (pts: [number, number][], close = true) => {
@@ -53,15 +53,17 @@ const OUTLINE: [number, number][] = [
 
 /** The highlands, either side of the Rift Valley. */
 const HIGH_NW: [number, number][] = [
-  [14.2, 37.6], [14.3, 39.4], [13.0, 39.7], [11.6, 39.8], [10.3, 39.7], [9.3, 39.4], [8.3, 38.4], [7.0, 37.7], [6.0, 37.2], [6.4, 36.0],
-  [7.4, 35.5], [8.8, 35.5], [10.2, 36.0], [11.6, 36.3], [13.0, 37.0],
+  [14.4, 37.4], [14.5, 38.6], [14.3, 39.5], [13.2, 39.8], [12.0, 39.8], [10.8, 39.8], [9.8, 39.7], [9.2, 39.3], [8.6, 38.6], [7.8, 38.2],
+  [6.8, 37.9], [6.0, 37.6], [5.9, 36.9], [6.6, 36.0], [7.4, 35.3], [8.6, 35.1], [9.6, 35.4], [10.6, 35.8], [11.6, 36.3], [12.8, 36.8], [13.8, 37.0],
 ];
 const HIGH_SE: [number, number][] = [
-  [9.5, 42.6], [9.2, 40.7], [8.4, 39.5], [7.2, 38.9], [6.2, 38.6], [5.8, 39.6], [6.4, 40.7], [7.4, 40.6], [8.3, 41.6], [9.0, 42.7],
+  [9.6, 42.4], [9.6, 41.0], [9.1, 40.2], [8.4, 39.5], [7.6, 39.0], [6.8, 38.7], [6.0, 38.6], [5.6, 39.2], [5.8, 40.0], [6.4, 40.6], [7.2, 40.9],
+  [8.0, 41.4], [8.8, 42.2], [9.2, 42.8],
 ];
 /** The Rift Valley floor, from the Afar down to the southern lakes. */
 const RIFT: [number, number][] = [
-  [12.6, 40.6], [11.6, 41.0], [9.8, 40.6], [8.6, 39.6], [7.6, 38.9], [6.6, 38.2], [5.6, 37.8], [5.7, 37.3], [6.8, 37.8], [7.9, 38.4], [9.0, 39.3], [10.6, 40.0], [12.2, 40.0],
+  [12.6, 40.6], [11.6, 40.9], [10.4, 40.4], [9.6, 40.0], [9.0, 39.6], [8.4, 39.1], [7.6, 38.65], [6.8, 38.25], [6.0, 37.95], [5.6, 37.6],
+  [5.9, 37.35], [6.8, 37.85], [7.8, 38.3], [8.7, 38.85], [9.4, 39.45], [10.4, 39.95], [11.6, 40.25], [12.4, 40.1],
 ];
 /** The Danakil lowland in the far north-east. */
 const DANAKIL: [number, number][] = [
@@ -112,13 +114,13 @@ export const PLACES: Record<MapPlace, [number, number]> = {
 
 /** The seven Rift Valley lakes, north to south: [place, rx, ry, colour]. */
 export const RIFT_LAKES: [MapPlace, number, number, string][] = [
-  ["ziway", 3.4, 4.6, "#58B4E6"],
-  ["langano", 3, 2.6, "#B98A5A"],
-  ["abijata", 2.6, 2.6, "#7FC4D8"],
-  ["shala", 3, 2.8, "#3E8FCC"],
-  ["lakehawassa", 2.6, 3.6, "#58B4E6"],
-  ["abaya", 3.8, 9, "#B8744A"],
-  ["chamo", 3, 4, "#3E9FD8"],
+  ["ziway", 4.4, 6, "#58B4E6"],
+  ["langano", 4, 3.4, "#B98A5A"],
+  ["abijata", 3.4, 3.4, "#7FC4D8"],
+  ["shala", 4, 3.6, "#3E8FCC"],
+  ["lakehawassa", 3.4, 4.6, "#58B4E6"],
+  ["abaya", 4.6, 11, "#B8744A"],
+  ["chamo", 3.8, 5, "#3E9FD8"],
 ];
 
 /** A little mountain symbol for the map. */

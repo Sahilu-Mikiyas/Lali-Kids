@@ -73,6 +73,17 @@ const PIECES: Piece[] = [
 
 const NEAR = 30;
 
+/** Where each place's name sits, next to it on the map: [dx, dy, anchor]. */
+const LABEL: Record<Piece["key"], [number, number, "start" | "end"]> = {
+  tana: [-12, -6, "end"],
+  falls: [10, 14, "start"],
+  simien: [-14, -12, "end"],
+  danakil: [16, 4, "start"],
+  rift: [-22, 26, "end"],
+  bale: [14, 14, "start"],
+  addis: [10, -6, "start"],
+};
+
 /** How a piece looks on the map once it is in place (and, small, on its button). */
 function PieceArt({ k }: { k: Piece["key"] }): ReactNode {
   switch (k) {
@@ -195,7 +206,7 @@ export default function MapPuzzle({ lang, onDone }: DemoProps) {
                 <motion.g initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 300, damping: 14 }}>
                   <PieceArt k={k} />
                 </motion.g>
-                <text x={k === "rift" ? 22 : 12} y={k === "addis" ? 4 : -10} fontSize={9.5} fontWeight={800} fill="#1B2A4E" stroke="#FFFFFF" strokeWidth={3} paintOrder="stroke" fontFamily={lang === "am" ? "var(--font-noto-ethiopic), sans-serif" : "var(--font-grandstander), sans-serif"}>
+                <text x={LABEL[k][0]} y={LABEL[k][1]} textAnchor={LABEL[k][2]} fontSize={12} fontWeight={800} fill="#1B2A4E" stroke="#FFFFFF" strokeWidth={3} paintOrder="stroke" fontFamily={lang === "am" ? "var(--font-noto-ethiopic), sans-serif" : "var(--font-grandstander), sans-serif"}>
                   {t(lang, p.name)}
                 </text>
               </g>
