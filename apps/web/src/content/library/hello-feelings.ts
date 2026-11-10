@@ -83,7 +83,7 @@ const story: Story = {
       ],
     },
     activity: {
-      en: 'Make feeling faces in a mirror together: happy, sad, angry, scared, surprised, calm. Say "Hello, …! I see you." Then practise flower-and-candle breathing: smell the flower, blow out the candle, three times.',
+      en: 'Make feeling faces in a mirror together: happy, sad, angry, scared, surprised, calm. Say "Hello, …! I see you." Then practice flower-and-candle breathing: smell the flower, blow out the candle, three times.',
       am: "በመስታወት ፊት አብራችሁ የስሜት ፊቶችን አሳዩ፦ ደስታ (happy)፣ ሐዘን (sad)፣ ንዴት (angry)፣ ፍርሃት (scared)፣ መደነቅ (surprised)፣ መረጋጋት (calm)። «ሰላም፣ …! አይሃለሁ» በሉ። ከዚያ የአበባና የሻማ አተነፋፈስ ተለማመዱ፦ አበባውን አሽቱ፣ ሻማውን አጥፉ፣ ሦስት ጊዜ።",
     },
   },
