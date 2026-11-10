@@ -20,6 +20,8 @@ const HabensRainbowDress = dynamic(() => import("./habens-rainbow-dress"), { ssr
 const CountThemHome = dynamic(() => import("./count-them-home"), { ssr: false });
 const NameSounds = dynamic(() => import("./name-sounds"), { ssr: false });
 const ISpyWithLali = dynamic(() => import("./i-spy-with-lali"), { ssr: false });
+const SoundHunt = dynamic(() => import("./sound-hunt"), { ssr: false });
+const LetterKite = dynamic(() => import("./letter-kite"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "my-name-is": MyNameIs,
@@ -30,4 +32,6 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "count-them-home": CountThemHome,
   "name-sounds": NameSounds,
   "i-spy-with-lali": ISpyWithLali,
+  "sound-hunt": SoundHunt,
+  "letter-kite": LetterKite,
 };

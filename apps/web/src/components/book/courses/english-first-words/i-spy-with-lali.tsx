@@ -252,7 +252,7 @@ export default function ISpyWithLali({ page }: { page: number }) {
               <Cub mood="happy" look={0} />
             </Place>
             <path d="M200 200 Q206 160 212 124" stroke="#F5B21E" strokeWidth={3} strokeDasharray="2 7" fill="none" strokeLinecap="round" className="isl-look" />
-            <SayBubble x={320} y={180} lines={["“e”… “e”… “e”…"]} size={14} tail="left" delay={0.8} color="#3D8FD9" />
+            <SayBubble x={320} y={180} lines={["‘e’… ‘e’… ‘e’…"]} size={14} tail="left" delay={0.8} color="#3D8FD9" />
           </Home>
         </g>
       );

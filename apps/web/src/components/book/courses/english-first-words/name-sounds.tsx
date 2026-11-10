@@ -58,14 +58,14 @@ function NameAndSound({ x, y, letter, name, sound, delay = 0.8 }: { x: number; y
           name
         </text>
         <text x={14} y={14} fontSize={17} fontFamily={FONT} fontWeight={900} fill="#2A1A10" textAnchor="middle">
-          “{name}”
+          ‘{name}’
         </text>
         <text x={62} y={-10} fontSize={11} fontFamily={FONT} fontWeight={800} fill="#7A6A5A" textAnchor="middle">
           sound
         </text>
         <g className="lali-pop-in" style={vars({ "--delay": `${delay + 1}s` })}>
           <text x={62} y={14} fontSize={17} fontFamily={FONT} fontWeight={900} fill={c} textAnchor="middle">
-            “{sound}”
+            ‘{sound}’
           </text>
         </g>
         <path d="M-30 -24 V26 M38 -24 V26" stroke="#EADFCF" strokeWidth={1.4} />
