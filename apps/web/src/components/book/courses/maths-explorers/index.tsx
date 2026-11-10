@@ -27,6 +27,10 @@ const ClothMetres = dynamic(() => import("./cloth-metres"), { ssr: false });
 const MarketScale = dynamic(() => import("./market-scale"), { ssr: false });
 const MilkLitres = dynamic(() => import("./milk-litres"), { ssr: false });
 const WhichUnit = dynamic(() => import("./which-unit"), { ssr: false });
+const ChangeFrom100 = dynamic(() => import("./change-from-100"), { ssr: false });
+const TwoClocks = dynamic(() => import("./two-clocks"), { ssr: false });
+const DaysToMeskel = dynamic(() => import("./days-to-meskel"), { ssr: false });
+const HowLong = dynamic(() => import("./how-long"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -47,4 +51,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "market-scale": MarketScale,
   "milk-litres": MilkLitres,
   "which-unit": WhichUnit,
+  "change-from-100": ChangeFrom100,
+  "two-clocks": TwoClocks,
+  "days-to-meskel": DaysToMeskel,
+  "how-long": HowLong,
 };

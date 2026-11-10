@@ -83,11 +83,13 @@ export function Ribbon({ x, y, len, color }: { x: number; y: number; len: number
 
 /** A label for a measure: a number and its unit ("3 m", "2 kg"). */
 export function Measure({ x, y, n, unit, delay = 1, color = "#2F5BD3", size = 22 }: { x: number; y: number; n: string | number; unit: string; delay?: number | null; color?: string; size?: number }) {
+  const label = `${n} ${unit}`.trim();
+  const w = Math.max(size * 3.2, label.length * size * 0.62 + size);
   const body = (
     <g transform={`translate(${x} ${y})`}>
-      <rect x={-size * 1.6} y={-size * 0.85} width={size * 3.2} height={size * 1.4} rx={size * 0.5} fill="#FFFDF4" stroke={color} strokeWidth={2} />
+      <rect x={r1(-w / 2)} y={-size * 0.85} width={r1(w)} height={size * 1.4} rx={size * 0.5} fill="#FFFDF4" stroke={color} strokeWidth={2} />
       <text y={size * 0.33} fontSize={size} fontFamily={LATIN} fontWeight={900} fill={color} textAnchor="middle">
-        {n} {unit}
+        {label}
       </text>
     </g>
   );
