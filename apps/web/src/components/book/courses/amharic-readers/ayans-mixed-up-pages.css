@@ -1,0 +1,12 @@
+/* "Ayan's Mixed-Up Pages" (ayans-mixed-up-pages.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* Gusts of wind sweeping across. */
+@keyframes amp-gust {
+  0% { transform: translateX(-40px); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateX(120px); opacity: 0; }
+}
+.amp-gust {
+  animation: amp-gust 1.8s linear var(--delay, 0s) infinite;
+}

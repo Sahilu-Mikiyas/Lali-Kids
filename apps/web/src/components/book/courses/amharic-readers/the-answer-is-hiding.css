@@ -1,0 +1,12 @@
+/* "The Answer Is Hiding" (the-answer-is-hiding.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* Each sentence lit for a moment in turn as the children search it. */
+@keyframes aih-scan {
+  0% { opacity: 0; }
+  10%, 25% { opacity: 1; }
+  35%, 100% { opacity: 0; }
+}
+.aih-scan {
+  animation: aih-scan 2.8s ease-in-out var(--delay, 0.6s) infinite both;
+}
