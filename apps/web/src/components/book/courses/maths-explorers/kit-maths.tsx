@@ -37,14 +37,14 @@ export function SumCard({ x, y, tokens, start = 1, step = 0.45, size = 30, hl = 
   const ws = tokens.map((t) => tokenW(t, size));
   const total = ws.reduce((a, b) => a + b, 0);
   const extra = geezOf ? size * 1.9 : 0;
-  let at = -(total + extra) / 2;
+  const left = -(total + extra) / 2;
+  const centres = ws.map((w, i) => left + ws.slice(0, i).reduce((a, b) => a + b, 0) + w / 2);
   const end = start + (tokens.length - 1) * step;
   return (
     <g transform={`translate(${x} ${y})`}>
       {card && <rect x={r1(-(total + extra) / 2 - 14)} y={-size * 0.95} width={r1(total + extra + 28)} height={size * 1.6} rx={size * 0.5} fill="#FFFDF4" stroke="#1B2A4E" strokeOpacity={0.18} strokeWidth={2} />}
       {tokens.map((t, i) => {
-        const cx = at + ws[i] / 2;
-        at += ws[i];
+        const cx = centres[i];
         return (
           <g key={i} className="lali-pop-in" style={d(start + i * step)}>
             <text x={r1(cx)} y={size * 0.35} fontSize={size} fontFamily={LATIN} fontWeight={900} fill={hl[i] ?? "#1B2A4E"} textAnchor="middle">

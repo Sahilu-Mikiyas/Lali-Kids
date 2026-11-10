@@ -7,7 +7,7 @@ import { useId, type ReactNode } from "react";
 import { Acacia, Air, BeeHover, Place, vars } from "../../scenery";
 import { Camel, TAP } from "./kit-cast";
 import { d, GoatShape, Land, r1 } from "./kit";
-import { Fraction, Label, Mark, SharePlate, SmallCamel, Trough } from "./kit-maths";
+import { Fraction, Label, Mark, SharePlate, SmallCamel } from "./kit-maths";
 import { Cup, Zzz } from "./kit-props";
 
 /*
