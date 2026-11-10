@@ -14,9 +14,13 @@ import type { ComponentType } from "react";
 const AyansShopLabels = dynamic(() => import("./ayans-shop-labels"), { ssr: false });
 const GugusTongueTrick = dynamic(() => import("./gugus-tongue-trick"), { ssr: false });
 const HawisClueHunt = dynamic(() => import("./hawis-clue-hunt"), { ssr: false });
+const StopTruckStop = dynamic(() => import("./stop-truck-stop"), { ssr: false });
+const TsehaysTrickyNotes = dynamic(() => import("./tsehays-tricky-notes"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-shop-labels": AyansShopLabels,
   "gugus-tongue-trick": GugusTongueTrick,
   "hawis-clue-hunt": HawisClueHunt,
+  "stop-truck-stop": StopTruckStop,
+  "tsehays-tricky-notes": TsehaysTrickyNotes,
 };
