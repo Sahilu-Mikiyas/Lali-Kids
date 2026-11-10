@@ -1,6 +1,6 @@
 import { getStory } from "../src/content/stories";
 import { allPaths, storyPath } from "../src/lib/story-path";
-import { expect, givePlan, passMathsGate, ready, test } from "./support/fixtures";
+import { expect, passMathsGate, ready, test } from "./support/fixtures";
 
 /*
   Phase 4 in the reader: the child's name in stories ({name} and the bookplate) and story
@@ -11,12 +11,12 @@ test.use({ reducedMotion: "reduce" });
 const next = (page: import("@playwright/test").Page) => page.getByRole("button", { name: "Next page", exact: true }).first();
 const art = (page: import("@playwright/test").Page, p: number | string) => page.locator(`[data-art-face="${p}"]:visible`).first();
 
-test("{name}: the bookplate and the page say the chosen child's name; without a child it's 'friend'", async ({ page, signIn, t, uiLang, request }) => {
-  // "Opposites" says {name} on its first page. It is a library story: open with any plan.
+test("{name}: the bookplate and the page say the chosen child's name; without a child it's 'friend'", async ({ page, signIn, t, uiLang }) => {
+  // "Opposites" says {name} on its first page. It is a lesson in English First Words: an admin
+  // opens every package.
   const id = "opposites";
   const total = getStory(id)!.pages.length;
-  const family = await signIn();
-  await givePlan(request, family, "reader");
+  await signIn("admin");
   // No child yet: no bookplate, and {name} reads as the friendly default.
   await page.goto(`/stories/${id}`);
   await ready(page);
