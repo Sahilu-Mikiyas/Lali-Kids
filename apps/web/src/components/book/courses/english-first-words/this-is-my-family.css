@@ -1,0 +1,19 @@
+/* "This Is My Family" (this-is-my-family.tsx): transforms and opacity only. */
+
+/* The cousins squeezed off the edge of the paper, jostling for room. */
+@keyframes fam-squeeze {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.fam-squeeze { animation: fam-squeeze 0.5s ease-in-out 2s infinite; }
+
+/* A golden line of an idea, from Hawi's eyes up to the branches. */
+@keyframes fam-branch {
+  0%, 100% { opacity: 0; }
+  40%, 80% { opacity: 1; }
+}
+.fam-branch { animation: fam-branch 3s ease-in-out 1s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fam-branch { opacity: 1; }
+}

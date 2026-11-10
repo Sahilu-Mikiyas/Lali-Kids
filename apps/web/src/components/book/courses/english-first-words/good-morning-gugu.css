@@ -1,0 +1,49 @@
+/* "Good Morning, Gugu!" (good-morning-gugu.tsx): transforms and opacity only. */
+
+/* A wrong greeting wobbles. */
+@keyframes gmg-wrong {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  66% { transform: rotate(-4deg); }
+  74% { transform: rotate(4deg); }
+  82% { transform: rotate(-2deg); }
+}
+.gmg-wrong {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gmg-wrong 2.4s ease-in-out 1.2s infinite;
+}
+
+/* A wrong greeting fades away, so the right one can take its place. */
+@keyframes gmg-cross {
+  0%, 55% { opacity: 1; transform: scale(1); }
+  70%, 100% { opacity: 0.25; transform: scale(0.85); }
+}
+.gmg-cross {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gmg-cross 2.6s ease-in both;
+}
+
+/* The mixed-up greetings bob round and round Gugu's head. */
+@keyframes gmg-swirl {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(6px, -6px); }
+  50% { transform: translate(0, -10px); }
+  75% { transform: translate(-6px, -4px); }
+}
+.gmg-swirl { animation: gmg-swirl 3s ease-in-out infinite; }
+
+/* Gugu, dizzy with words, sways side to side. */
+@keyframes gmg-dizzy {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.gmg-dizzy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gmg-dizzy 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gmg-cross { opacity: 0.25; }
+}

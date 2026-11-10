@@ -13,7 +13,13 @@ import type { ComponentType } from "react";
 */
 // Level 1: hello, me and my family
 const MyNameIs = dynamic(() => import("./my-name-is"), { ssr: false });
+const GoodMorningGugu = dynamic(() => import("./good-morning-gugu"), { ssr: false });
+const ThisIsMyFamily = dynamic(() => import("./this-is-my-family"), { ssr: false });
+const LaliSays = dynamic(() => import("./lali-says"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "my-name-is": MyNameIs,
+  "good-morning-gugu": GoodMorningGugu,
+  "this-is-my-family": ThisIsMyFamily,
+  "lali-says": LaliSays,
 };
