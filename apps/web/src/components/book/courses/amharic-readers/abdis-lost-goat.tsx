@@ -29,7 +29,7 @@ function Chapter({ n }: { n: string }) {
 }
 
 /** Nechu, a little white kid goat, feet at (x, y). */
-function Nechu({ x, y, s = 1, flip = false, hop = false, bell = false }: { x: number; y: number; s?: number; flip?: boolean; hop?: boolean; bell?: boolean }) {
+export function Nechu({ x, y, s = 1, flip = false, hop = false, bell = false }: { x: number; y: number; s?: number; flip?: boolean; hop?: boolean; bell?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
       <g className={hop ? "lali-hop" : undefined}>
@@ -90,7 +90,7 @@ function Plain({ id, night = false, children }: { id: string; night?: boolean; c
 }
 
 /** The family's home: a domed aqal hut of woven mats, a cart and a water barrel. */
-function Home({ x, y }: { x: number; y: number }) {
+export function Aqal({ x, y }: { x: number; y: number }) {
   return (
     <g transform={`translate(${x} ${y})`}>
       <path d="M-70 0 Q-70 -90 0 -92 Q70 -90 70 0Z" fill="#C9A06A" stroke="#8A6A44" strokeWidth={2} />
@@ -112,7 +112,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
       return (
         <Plain id={id}>
           <Chapter n="አንድ" />
-          <Home x={290} y={240} />
+          <Aqal x={290} y={240} />
           <g transform="translate(150 258)">
             <path d="M-36 0 V-30 M-18 0 V-30 M0 0 V-30 M18 0 V-30 M36 0 V-30 M-40 -22 H40 M-40 -8 H40" stroke="#8A6A44" strokeWidth={3} />
           </g>
@@ -127,7 +127,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
     case 1:
       return (
         <Plain id={id}>
-          <Home x={300} y={240} />
+          <Aqal x={300} y={240} />
           <g transform="translate(150 250)">
             <rect x={-36} y={-26} width={72} height={18} fill="#9A6236" />
             <circle cx={-24} cy={-4} r={11} fill="#5A3A26" />
@@ -148,7 +148,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
     case 2:
       return (
         <Plain id={id}>
-          <Home x={330} y={240} />
+          <Aqal x={330} y={240} />
           <Prints x0={180} y0={270} x1={40} y1={236} n={7} />
           <Place x={230} y={294} s={0.44} tap={TAP.ayan}>
             {AYAN("wow")}
@@ -163,7 +163,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
     case 3:
       return (
         <Plain id={id}>
-          <Home x={300} y={240} />
+          <Aqal x={300} y={240} />
           <Place x={220} y={294} s={0.52} flip tap={TAP.ayan}>
             <Camel who="hooyo" mood="happy" />
           </Place>
@@ -266,7 +266,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
       return (
         <Plain id={id}>
           <Chapter n="ሦስት" />
-          <Home x={320} y={240} />
+          <Aqal x={320} y={240} />
           <Place x={240} y={294} s={0.52} flip tap={TAP.ayan}>
             <Camel who="hooyo" mood="joy" />
           </Place>
@@ -284,7 +284,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
     case 9:
       return (
         <Plain id={id}>
-          <Home x={320} y={240} />
+          <Aqal x={320} y={240} />
           <Nechu x={190} y={276} s={1.8} bell hop />
           <SayBubble x={250} y={160} text="ቅጭል፣ ቅጭል!" size={16} tail="left" delay={0.8} />
           <Place x={90} y={294} s={0.36} className="lali-hop" tap={TAP.ayan}>
@@ -320,7 +320,7 @@ export default function AbdisLostGoat({ page }: { page: number }) {
     default:
       return (
         <Plain id={id} night>
-          <Home x={160} y={240} />
+          <Aqal x={160} y={240} />
           <Nechu x={290} y={268} s={1.2} bell />
           <SayBubble x={300} y={200} text="ቅጭል…" size={14} tail="down" delay={1} />
           <g transform="translate(200 60)">
