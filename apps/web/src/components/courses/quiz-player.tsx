@@ -27,14 +27,33 @@ type Attempt = { score: number; total: number; passed: boolean; results: Questio
 
 const PAIR_COLORS = ["#2F5BD3", "#E8513B", "#0E8C80", "#D63B72", "#F5B21E", "#7A4FD3"];
 
+/**
+ * Reads a prompt aloud. Ethiopic and Latin text are spoken separately, each with a voice of its own
+ * language: English words inside an Amharic prompt get the English voice, and Amharic is spoken only
+ * when the device has an Amharic voice (never by an English one).
+ */
 function speak(text: string, lang: "en" | "am") {
   try {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang === "am" ? "am-ET" : "en-US";
-    u.rate = 0.9;
-    window.speechSynthesis.speak(u);
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    const voices = synth.getVoices();
+    const voiceFor = (l: string) => voices.find((v) => v.lang.toLowerCase().startsWith(l));
+    const am = voiceFor("am");
+    const en = voiceFor("en");
+    const runs = lang === "en" ? [text] : (text.match(/[ሀ-᎟ⶀ-⷟꬀-꬯][^A-Za-z]*|[A-Za-z][^ሀ-᎟ⶀ-⷟꬀-꬯]*/g) ?? []);
+    for (const run of runs) {
+      const latin = lang === "en" || /^[A-Za-z]/.test(run);
+      const words = run.replace(/[«»"“”()]/g, " ").trim();
+      if (!words || !/[A-Za-zሀ-᎟]/.test(words)) continue;
+      if (!latin && !am && voices.length > 0) continue;
+      const u = new SpeechSynthesisUtterance(words);
+      u.lang = latin ? "en-US" : "am-ET";
+      const v = latin ? en : am;
+      if (v) u.voice = v;
+      u.rate = 0.9;
+      synth.speak(u);
+    }
   } catch {
     /* no voice: the words are on the screen */
   }
