@@ -1,0 +1,40 @@
+/* Fresh Grass for Irreecha (fresh-grass-for-irreecha.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Heat in the crowded bus. */
+@keyframes fg-heat {
+  0%, 100% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(-6px); opacity: 0.9; }
+}
+.fg-heat { animation: fg-heat 1.4s ease-in-out infinite; }
+
+/* Water poured from the bottle onto the stems. */
+@keyframes fg-pour {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(14px, 40px); opacity: 0; }
+}
+.fg-pour { animation: fg-pour 0.8s ease-in var(--delay, 0s) infinite; }
+
+/* Kneeling to dip the grass in the lake. */
+@keyframes fg-dip {
+  0%, 100% { transform: rotate(0deg); }
+  40%, 60% { transform: rotate(10deg) translateY(4px); }
+}
+.fg-dip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: fg-dip 3s ease-in-out infinite;
+}
+
+/* Drops sprinkled from the wet grass. */
+@keyframes fg-sprinkle {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(-24px, 20px); opacity: 0; }
+}
+.fg-sprinkle { animation: fg-sprinkle 1.2s ease-out var(--delay, 0s) infinite; }
+
+/* The crowd dancing. */
+@keyframes fg-dance {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.fg-dance { animation: fg-dance 0.6s ease-in-out infinite; }

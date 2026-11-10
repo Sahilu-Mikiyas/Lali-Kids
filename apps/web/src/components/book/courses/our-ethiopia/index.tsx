@@ -21,6 +21,11 @@ const ManyHellos = dynamic(() => import("./many-hellos"), { ssr: false });
 const AHomeForEveryPlace = dynamic(() => import("./a-home-for-every-place"), { ssr: false });
 const GrandmasNewNetela = dynamic(() => import("./grandmas-new-netela"), { ssr: false });
 const HawisLetter = dynamic(() => import("./hawis-letter"), { ssr: false });
+// Level 3: our celebrations
+const TheLittlestMonth = dynamic(() => import("./the-littlest-month"), { ssr: false });
+const FreshGrassForIrreecha = dynamic(() => import("./fresh-grass-for-irreecha"), { ssr: false });
+const WaitingForTheEidMoon = dynamic(() => import("./waiting-for-the-eid-moon"), { ssr: false });
+const DestasFichee = dynamic(() => import("./destas-fichee"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -33,4 +38,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "a-home-for-every-place": AHomeForEveryPlace,
   "grandmas-new-netela": GrandmasNewNetela,
   "hawis-letter": HawisLetter,
+  "the-littlest-month": TheLittlestMonth,
+  "fresh-grass-for-irreecha": FreshGrassForIrreecha,
+  "waiting-for-the-eid-moon": WaitingForTheEidMoon,
+  "destas-fichee": DestasFichee,
 };

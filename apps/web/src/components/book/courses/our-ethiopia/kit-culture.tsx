@@ -624,6 +624,35 @@ export function HelloCard({ x, y, text, face, color = "#2B3A8C", s = 1, script =
   return delay === undefined ? card : <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>{card}</g>;
 }
 
+/**
+ * Irreecha's bundle of fresh green grass and yellow Meskel daisies, about 50 tall, its base at
+ * (x, y). `state`: fresh, "wilt" (droops when the page opens) or "perk" (stands up again).
+ */
+export function ThanksBundle({ x, y, s = 1, state = "fresh", delay }: { x: number; y: number; s?: number; state?: "fresh" | "wilt" | "perk"; delay?: number }) {
+  const cls = state === "wilt" ? "oe-droop" : state === "perk" ? "oe-perk" : undefined;
+  const sad = state === "wilt";
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <Tappable reaction="wiggle" sound="pop">
+        <g className={cls} style={vars({ "--droop": "50deg", ...(delay !== undefined ? { "--delay": `${delay}s` } : {}) })}>
+          {Array.from({ length: 9 }, (_, i) => (
+            <path key={i} d={`M${-4 + i} 0 Q${-6 + i * 1.6} -24 ${-16 + i * 4} -${44 + (i % 3) * 6}`} stroke={sad ? "#9AB06A" : i % 2 ? "#3E9A3E" : "#5CB84E"} strokeWidth={2.4} fill="none" strokeLinecap="round" />
+          ))}
+          {[-12, 2, 14].map((dx, i) => (
+            <g key={dx} transform={`translate(${dx} ${-46 - (i % 2) * 6})`}>
+              {[0, 60, 120, 180, 240, 300].map((a) => (
+                <ellipse key={a} cx={0} cy={-4} rx={2.4} ry={4.4} fill={sad ? "#E8D27A" : "#FFD233"} transform={`rotate(${a})`} />
+              ))}
+              <circle r={2.6} fill="#E88A1A" />
+            </g>
+          ))}
+          <path d="M-6 -10 H6" stroke="#E2463F" strokeWidth={3} />
+        </g>
+      </Tappable>
+    </g>
+  );
+}
+
 /** A small salt block (amole), the kind carried by caravans. */
 export function SaltBlock({ x, y, s = 1, rot = 0 }: { x: number; y: number; s?: number; rot?: number }) {
   return (
