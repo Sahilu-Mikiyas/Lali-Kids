@@ -29,16 +29,16 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 | 2 | Amharic Readers (`amharic-readers`) | 6–9 | Being written |
 | 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Live** (6 levels) |
 | 4 | Maths Explorers (`maths-explorers`) | 6–9 | Being written |
-| 5 | English First Words (`english-first-words`) | 3–6 | Being written |
-| 6 | English Readers (`english-readers`) | 6–9 | Coming soon |
+| 5 | English First Words (`english-first-words`) | 3–6 | **Live** (6 levels) |
+| 6 | English Readers (`english-readers`) | 6–9 | Being written |
 | 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
 | 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | Being written |
 | 9 | Science & Nature (`science-nature`) | 5–9 | Coming soon |
 | 10 | Healthy & Safe (`healthy-safe`) | 3–7 | Coming soon |
 
 The six Fidel stories become the first levels of Fidel Foundations and the six Numbers stories the
-first levels of Numbers & Counting. The six English stories stay in the Story Garden library until
-English First Words launches.
+first levels of Numbers & Counting. The five English library stories (`a-is-for-adey`, `grandmas-kitchen`,
+`hello-feelings`, `opposites`, `weather-words`) are now lessons in English First Words.
 
 ## VIP: one package at a time, by mastery
 
@@ -62,7 +62,7 @@ app's API (`GET me` returns the same `entitlements` object) all ask it.
 | What | No plan | Starter (`reader`) | Family (`learner`) | VIP (`vip`) |
 |---|---|---|---|---|
 | Children who can read | 1 | 1 | 3 | 4 |
-| Story Garden library (`story` and, for now, `english` stories) | free stories and tasters | yes | yes | yes |
+| Story Garden library (`story` stories) | free stories and tasters | yes | yes | yes |
 | Paid games | | | yes | yes |
 | Recording family voices | | | yes | yes |
 | Narration of paid stories | | | yes | yes |
@@ -88,7 +88,7 @@ app's API (`GET me` returns the same `entitlements` object) all ask it.
   (`isFree`), plus the `tasterStoryId` of each live package (`tasterIds()` in
   `src/lib/courses/catalog.ts`); course writers set it in their `index.ts`.
 - **Course stories** (`course` set: the five Fidel library stories and `fidel-train` →
-  `fidel-foundations`; the five Numbers stories and `gugu-counts` → `numbers-counting`) are not on
+  `fidel-foundations`; the five Numbers stories and `gugu-counts` → `numbers-counting`; the five English library stories → `english-first-words`) are not on
   the library shelf; `/stories/<id>` shows "This story is part of …" with a link to the package.
   They open in the package's lessons, and their narration and the app's `GET stories/:id` work for
   families who have the package.

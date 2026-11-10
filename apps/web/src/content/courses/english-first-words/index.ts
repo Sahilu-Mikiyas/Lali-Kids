@@ -1050,7 +1050,7 @@ const course: Course = {
   ages: ["3-5", "6-7"],
   color: "#0E8C80",
   priceEtb: 1500,
-  status: "soon",
+  status: "live",
   tasterStoryId: "my-name-is",
   levels: [
     {

@@ -14,6 +14,7 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "hello-feelings",
   pack: "english",
+  course: "english-first-words",
   title: { en: "Hello, Feelings!", am: "ሰላም፣ ስሜቶች!" },
   category: "English",
   ageBands: ["3-5", "6-7"],

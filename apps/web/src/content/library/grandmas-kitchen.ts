@@ -12,6 +12,7 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "grandmas-kitchen",
   pack: "english",
+  course: "english-first-words",
   title: { en: "What's in Grandma's Kitchen?", am: "በአያቴ ማዕድ ቤት ምን አለ?" },
   category: "English",
   ageBands: ["3-5", "6-7"],

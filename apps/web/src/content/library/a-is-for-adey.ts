@@ -13,6 +13,7 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "a-is-for-adey",
   pack: "english",
+  course: "english-first-words",
   title: { en: "A is for Adey Abeba", am: "A ለአደይ አበባ" },
   category: "English",
   ageBands: ["3-5"],

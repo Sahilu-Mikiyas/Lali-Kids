@@ -51,7 +51,7 @@ export function TrainGame({ lang, onDone, letters, items }: DemoProps & { letter
   const cars = useMemo(() => {
     const others = shuffled(LETTERS.filter((l) => l !== it.letter), (i + 3) / 17).slice(0, 3);
     return shuffled([it.letter, ...others], (i + 7) / 19);
-  }, [it, i]);
+  }, [it, i, LETTERS]);
 
   useEffect(() => {
     if (!done) say(it.word, 0.7);
