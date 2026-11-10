@@ -52,8 +52,8 @@ const story: Story = {
       am: "«GREEN! A green scarf, in the basket.» (አረንጓዴ ሻርፕ፣ ቅርጫቱ ውስጥ።) ሽው! «Green የምወደው ቀለም ነው! ወይስ…?»",
     },
     {
-      en: '"ORANGE! Orange socks, under the table. PURPLE! A purple bag, by the window." Orange is my favorite! Or is it purple? Or is it…?',
-      am: "«ORANGE! Orange socks, under the table.» (ብርቱካናማ ካልሲዎች፣ ጠረጴዛው ሥር።) «PURPLE! A purple bag, by the window.» (ወይን ጠጅ ቦርሳ፣ መስኮቱ አጠገብ።) Orange የምወደው ነው! ወይስ purple? ወይስ…?",
+      en: '"ORANGE! Orange socks, under the table. PURPLE! A purple bag, by the window. Purple is my favorite! Or is it…?"',
+      am: "«ORANGE! Orange socks, under the table.» (ብርቱካናማ ካልሲዎች፣ ጠረጴዛው ሥር።) «PURPLE! A purple bag, by the window.» (ወይን ጠጅ ቦርሳ፣ መስኮቱ አጠገብ።) «Purple የምወደው ነው! ወይስ…?»",
     },
     {
       en: 'Haben looked in the mirror. Red dress, yellow hat, blue shoes, green scarf, orange socks, purple bag… "Too much!" laughed her mother. "You look like a whole market!"',

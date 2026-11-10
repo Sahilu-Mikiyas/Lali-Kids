@@ -15,7 +15,7 @@ import { ANDIKA, DISPLAY, Frame, Hear, Note, Pic, say, sfx, shuffled, t } from "
 */
 
 const LETTERS = "abcdefghijklm".split("");
-type Item = { id: string; word: string; letter: string; am: string };
+export type Item = { id: string; word: string; letter: string; am: string };
 const ITEMS: Item[] = [
   { id: "apple", word: "apple", letter: "a", am: "ፖም" },
   { id: "ball", word: "ball", letter: "b", am: "ኳስ" },
@@ -35,7 +35,14 @@ const CAR_COLORS = ["#E8513B", "#2F6FD0", "#2E9A5B", "#8E5BE0"];
  */
 const rightLine = (it: Item) => `${it.word}. ${it.word[0].toUpperCase()}${it.word.slice(1)} starts with ${it.letter.toUpperCase()}.`;
 
-export default function LetterTrain({ lang, onDone }: DemoProps) {
+export default function LetterTrain(p: DemoProps) {
+  return <TrainGame {...p} letters={LETTERS} items={ITEMS} />;
+}
+
+/** The train game for any set of letters and pictures (a to m here, n to z in ./letter-train-n-z.tsx). */
+export function TrainGame({ lang, onDone, letters, items }: DemoProps & { letters: string[]; items: Item[] }) {
+  const ITEMS = items;
+  const LETTERS = letters;
   const [i, setI] = useState(0);
   const [hit, setHit] = useState(false);
   const [wrong, setWrong] = useState<string | null>(null);

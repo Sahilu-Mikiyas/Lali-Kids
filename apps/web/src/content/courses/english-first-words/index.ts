@@ -8,19 +8,24 @@ import type { Course, Question } from "../types";
   mode everything is simple English. American spelling throughout (color, favorite, practice), as
   in the English stories already in the library.
 
-  Six levels are planned; levels 1 to 3 are written:
+  Six levels:
     1  Hello, me and my family    greetings and polite words, "My name is…", family, body, feelings
     2  Things around me           colors and clothes, animals and numbers 1 to 10, food, weather,
                                   opposites
     3  Letters and sounds a to m  letter names and sounds, first sounds, big and little letters,
                                   tracing
-    4  Letters and sounds n to z  (to come)
-    5  Blending and sight words   (to come)
-    6  First sentences            (to come)
-  Each level has 5 stories (4 new, plus the library's English stories where they fit:
-  hello-feelings in level 1; grandmas-kitchen, weather-words and opposites in level 2;
-  a-is-for-adey in level 3), 2 or 3 demos, a practice round of 7 questions and a 10-question quiz.
-  The final test (12 questions) covers levels 1 to 3 for now.
+    4  Letters and sounds n to z  letter names and sounds, first sounds (x at the end: box, fox),
+                                  q with u, big and little letters, tracing
+    5  Blending and sight words   sounding out short words (c-a-t, s-u-n, p-i-g, b-e-d, h-o-t),
+                                  word families (-at, -an, -ig, -op), the first sight ("snap")
+                                  words I, a, the, is, my, see, go, like
+    6  First sentences            I can…, I like…, This is…, I see a…; reading a little book alone;
+                                  What is this? It is a…; Is it…? Yes, it is. / No, it isn't.
+  Levels 1 to 3 have 3 or 4 new stories each, plus the library's English stories where they fit
+  (hello-feelings in level 1; grandmas-kitchen, weather-words and opposites in level 2;
+  a-is-for-adey in level 3); levels 4 to 6 have 4 new stories each. Every level has 2 or 3 demos,
+  a practice round of 7 questions and a 10-question quiz. The final test has 20 questions, three
+  or four from each level.
 
   Sounds are written in single quotes (‘a’, ‘b’): the letter's short sound, not its name. Speech
   in the stories is in double quotes. Pictures for the questions are in ./art.tsx; stories in
@@ -460,9 +465,420 @@ const l3Quiz: Question[] = [
   },
 ];
 
-/* ---------- final test: levels 1 to 3 ---------- */
+/* ---------- level 4: letters and sounds n to z ---------- */
+
+const l4Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which letter does NEST start with?", am: "«nest» በየትኛው ፊደል ይጀምራል?" },
+    pic: { art: "nest" },
+    options: [{ label: { en: "m", am: "m" } }, { label: { en: "n", am: "n" } }, { label: { en: "h", am: "h" } }],
+    answer: 1,
+    explain: { en: "‘n’, ‘n’, nest! The little nest under the ox's nose.", am: "‘n’፣ ‘n’፣ nest (የወፍ ጎጆ)! ከበሬው አፍንጫ ሥር የነበረችው ትንሽ ጎጆ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which picture starts with ‘p’?", am: "በ‘p’ የሚጀምረው የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "ox" } }, { pic: { art: "rock" } }, { pic: { art: "pot" } }],
+    answer: 2,
+    explain: { en: "‘p’, ‘p’, pot! Tsehay and Anbessa carried a pot of milk on the path.", am: "‘p’፣ ‘p’፣ pot (ድስት)! ፀሐይና አንበሳ በመንገዱ (path) ላይ የወተት ድስት ተሸከሙ።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each big letter to its little letter.", am: "እያንዳንዱን ትልቅ ፊደል ከትንሹ ፊደል ጋር አዛምዱ።" },
+    pairs: [
+      { left: { pic: { art: "upper-r" } }, right: { pic: { art: "lower-r" } } },
+      { left: { pic: { art: "upper-s" } }, right: { pic: { art: "lower-s" } } },
+      { left: { pic: { art: "upper-t" } }, right: { pic: { art: "lower-t" } } },
+    ],
+    explain: { en: "R and r, S and s, T and t. Big S and little s look almost the same!", am: "R እና r፣ S እና s፣ T እና t። ትልቁ S እና ትንሹ s ይመሳሰላሉ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Find the little letter q.", am: "ትንሹን ፊደል q ፈልጉ።" },
+    options: [{ pic: { art: "lower-p" } }, { pic: { art: "lower-q" } }, { pic: { art: "lower-b" } }],
+    answer: 1,
+    explain: { en: "That's little q: a round ball, then its tail goes down on the right. Little p has its tail on the left.", am: "ያ ትንሹ q ነው፦ ክብ፣ ከዚያ ጭራው በቀኝ በኩል ወደ ታች ይወርዳል። የትንሹ p ጭራ ደግሞ በግራ በኩል ነው።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "\"Box\" ends with the letter X.", am: "«box» (ሣጥን) በX ፊደል ያልቃል።" },
+    pic: { art: "box" },
+    answer: true,
+    explain: { en: "Yes! X likes the END of words: box, fox, six. It says ‘ks’.", am: "አዎ! X የቃላትን መጨረሻ ይወዳል፦ box፣ fox፣ six። ‘ks’ (እንደ ክስ) ይላል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why wouldn't Haben's goat go up into the van?", am: "የሐበን ፍየል ወደ ቫኑ ለምን አልወጣችም?" },
+    options: [{ label: { en: "She was scared of the rain.", am: "ዝናቡን ፈርታ ነበር።" } }, { label: { en: "She was hungry.", am: "ርቧት ነበር።" } }, { label: { en: "She was asleep.", am: "ተኝታ ነበር።" } }],
+    answer: 0,
+    explain: { en: "The rain drumming on the van scared her. Under Haben's umbrella, she went up, up, into the van!", am: "በቫኑ ላይ የሚንጠባጠበው ዝናብ አስፈራት። በሐበን ጃንጥላ (umbrella) ሥር ሆና up, up, into the van!" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the letters in ABC order.", am: "ፊደሎቹን በABC ቅደም ተከተል አስቀምጡ።" },
+    items: [{ pic: { art: "letter-w" } }, { pic: { art: "letter-x" } }, { pic: { art: "letter-y" } }, { pic: { art: "letter-z" } }],
+    explain: { en: "W, X, Y, Z: the very end of the alphabet!", am: "W, X, Y, Z፦ የፊደሉ (alphabet) መጨረሻ!" },
+  },
+];
+
+const l4Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which letter does ZEBRA start with?", am: "«zebra» በየትኛው ፊደል ይጀምራል?" },
+    pic: { art: "zebra" },
+    options: [{ label: { en: "s", am: "s" } }, { label: { en: "x", am: "x" } }, { label: { en: "z", am: "z" } }],
+    answer: 2,
+    explain: { en: "‘z’, ‘z’, zebra! Z buzzes like a bee: zzz.", am: "‘z’፣ ‘z’፣ zebra (የሜዳ አህያ)! Z እንደ ንብ ይጮኻል፦ zzz (እንደ ዝ)።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which picture starts with ‘v’?", am: "በ‘v’ የሚጀምረው የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "window" } }, { pic: { art: "van" } }, { pic: { art: "umbrella" } }],
+    answer: 1,
+    explain: { en: "‘v’, ‘v’, van! Top teeth on your lip, and hum: ‘v’.", am: "‘v’፣ ‘v’፣ van (ቫን)! የላይኛው ጥርስ ከንፈርን ነክቶ ‘v’ (እንደ ቭ)።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What sound does UMBRELLA start with?", am: "«umbrella» በየትኛው ድምፅ ይጀምራል?" },
+    pic: { art: "umbrella" },
+    options: [{ label: { en: "‘a’", am: "‘a’" } }, { label: { en: "‘u’", am: "‘u’" } }, { label: { en: "‘o’", am: "‘o’" } }],
+    answer: 1,
+    explain: { en: "‘u’, ‘u’, umbrella! The same sound as in up and under.", am: "‘u’፣ ‘u’፣ umbrella (ጃንጥላ)! ልክ እንደ up እና under ያለ ድምፅ (እንደ አ)።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Find the big letter Q.", am: "ትልቁን ፊደል Q ፈልጉ።" },
+    options: [{ pic: { art: "upper-o" } }, { pic: { art: "upper-g" } }, { pic: { art: "upper-q" } }],
+    answer: 2,
+    explain: { en: "That's big Q: a round O with a little tail. Q for queen!", am: "ያ ትልቁ Q ነው፦ ክብ O ትንሽ ጭራ ያለው። Q ለ queen (ንግሥት)!" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each big letter to its little letter.", am: "እያንዳንዱን ትልቅ ፊደል ከትንሹ ፊደል ጋር አዛምዱ።" },
+    pairs: [
+      { left: { pic: { art: "upper-n" } }, right: { pic: { art: "lower-n" } } },
+      { left: { pic: { art: "upper-w" } }, right: { pic: { art: "lower-w" } } },
+      { left: { pic: { art: "upper-y" } }, right: { pic: { art: "lower-y" } } },
+    ],
+    explain: { en: "N and n, W and w, Y and y. Little y has a tail that hangs down.", am: "N እና n፣ W እና w፣ Y እና y። የትንሹ y ጭራ ወደ ታች ይንጠለጠላል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why wouldn't the big ox move off the path?", am: "ትልቁ በሬ ከመንገዱ ለምን አልተነሣም?" },
+    pic: { art: "ox" },
+    options: [{ label: { en: "He was keeping a nest safe.", am: "ጎጆን ይጠብቅ ነበር።" } }, { label: { en: "He wanted the milk.", am: "ወተቱን ፈልጎ ነበር።" } }, { label: { en: "He was cross.", am: "ተቆጥቶ ነበር።" } }],
+    answer: 0,
+    explain: { en: "Under his nose was a nest with three blue eggs. So they made a new path around!", am: "ከአፍንጫው ሥር ሦስት ሰማያዊ እንቁላሎች ያሉባት ጎጆ ነበረች። ስለዚህ በዙሪያው አዲስ መንገድ ሠሩ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which picture starts with ‘t’?", am: "በ‘t’ የሚጀምረው የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "pot" } }, { pic: { art: "tomato" } }, { pic: { art: "sun" } }],
+    answer: 1,
+    explain: { en: "‘t’, ‘t’, tomato! Pot has a ‘t’ too, but at the end.", am: "‘t’፣ ‘t’፣ tomato (ቲማቲም)! pot ውስጥም ‘t’ አለ፣ ግን መጨረሻ ላይ ነው።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Q almost always walks with its friend U, as in \"queen\".", am: "Q ሁልጊዜ ማለት ይቻላል ከጓደኛው U ጋር ይሄዳል፤ ልክ እንደ «queen»።" },
+    pic: { art: "queen" },
+    answer: true,
+    explain: { en: "Yes! Q and U together say ‘kw’: queen.", am: "አዎ! Q እና U አብረው ‘kw’ (እንደ ኵ) ይላሉ፦ queen።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the letters in ABC order.", am: "ፊደሎቹን በABC ቅደም ተከተል አስቀምጡ።" },
+    items: [{ pic: { art: "letter-n" } }, { pic: { art: "letter-o" } }, { pic: { art: "letter-p" } }, { pic: { art: "letter-q" } }],
+    explain: { en: "N, O, P, Q: after M comes N!", am: "N, O, P, Q፦ ከM ቀጥሎ N ይመጣል!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Tsehay's wobbly tooth came out. What did she see in the water bowl?", am: "የፀሐይ የሚነቃነቅ ጥርስ ወጣ። በውኃው ሳህን ውስጥ ምን አየች?" },
+    pic: { art: "tooth" },
+    options: [{ label: { en: "Her new tooth, peeking through", am: "አዲሱ ጥርሷ ብቅ ሲል" } }, { label: { en: "A fish", am: "ዓሣ" } }, { label: { en: "A red tomato", am: "ቀይ ቲማቲም" } }],
+    answer: 0,
+    explain: { en: "A tiny white tip! The gap is a door for her big new tooth, so she smiled the biggest smile.", am: "ትንሽ ነጭ ጫፍ! ክፍተቱ ለአዲሱ ትልቅ ጥርሷ በር ነው፤ ስለዚህ ትልቁን ፈገግታ (smile) ፈገገች።" },
+  },
+];
+
+/* ---------- level 5: blending and sight words ---------- */
+
+const l5Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Say the sounds slowly, then fast: c-a-t. Which picture is it?", am: "ድምፆቹን ቀስ ብላችሁ፣ ከዚያ ፈጠን ብላችሁ በሉ፦ c-a-t። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "hat" } }, { pic: { art: "cat" } }, { pic: { art: "cup" } }],
+    answer: 1,
+    explain: { en: "c… a… t, c-a-t, CAT! Slow, slow, slow… fast!", am: "c… a… t፣ c-a-t፣ CAT (ድመት)! ቀስ፣ ቀስ፣ ቀስ… ፈጠን!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Blend the sounds: s-u-n. Which picture is it?", am: "ድምፆቹን አጣምሩ፦ s-u-n። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "bus" } }, { pic: { art: "sock" } }, { pic: { art: "sun" } }],
+    answer: 2,
+    explain: { en: "s… u… n, SUN! \"Let's sit in the s-u-n,\" said Grandma.", am: "s… u… n፣ SUN (ፀሐይ)! «Let's sit in the s-u-n» አለች አያቴ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one rhymes with HAT?", am: "ከ«hat» ጋር ቤት የሚመታው የቱ ነው?" },
+    pic: { art: "hat" },
+    options: [{ pic: { art: "pig" } }, { pic: { art: "cup" } }, { pic: { art: "cat" } }],
+    answer: 2,
+    explain: { en: "h-at, c-at! Keep the end, change the start: the cat in a hat!", am: "h-at፣ c-at! መጨረሻውን አቆዩ፣ መጀመሪያውን ቀይሩ፦ the cat in a hat!" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Read each word. Match it to its picture.", am: "እያንዳንዱን ቃል አንብቡ። ከሥዕሉ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "bed", am: "bed" } }, right: { pic: { art: "bed" } } },
+      { left: { label: { en: "pot", am: "pot" } }, right: { pic: { art: "pot" } } },
+      { left: { label: { en: "mug", am: "mug" } }, right: { pic: { art: "mug" } } },
+    ],
+    explain: { en: "b-e-d, bed. p-o-t, pot. m-u-g, mug. You read them all!", am: "b-e-d፣ bed (አልጋ)። p-o-t፣ pot (ድስት)። m-u-g፣ mug (ኩባያ)። ሁሉንም አነበባችሁ!" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "\"The\" is a snap word: we know it by looking, because sounding it out doesn't work.", am: "«the» የቅጭ ቃል ነው፦ ድምፁን ማጣመር ስለማይሠራ በማየት እናውቀዋለን።" },
+    answer: true,
+    explain: { en: "Yes! t-h-e doesn't sound like \"the\". Look, snap, I know it!", am: "አዎ! t-h-e እንደ «the» አይሰማም። ተመልከት፣ ቅጭ፣ አውቀዋለሁ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word is in the -an family?", am: "በ-an ቤተሰብ ውስጥ ያለው የቱ ቃል ነው?" },
+    options: [{ label: { en: "fig", am: "fig" }, pic: { art: "fig" } }, { label: { en: "fan", am: "fan" }, pic: { art: "fan" } }, { label: { en: "mop", am: "mop" }, pic: { art: "mop" } }],
+    answer: 1,
+    explain: { en: "f-an! Van, pan, fan, can: they all end in -an.", am: "f-an! van፣ pan፣ fan፣ can፦ ሁሉም በ-an ያልቃሉ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Find the snap word \"go\".", am: "«go» የሚለውን የቅጭ ቃል ፈልጉ።" },
+    options: [{ label: { en: "to", am: "to" } }, { label: { en: "go", am: "go" } }, { label: { en: "on", am: "on" } }],
+    answer: 1,
+    explain: { en: "g-o, go! Off we go!", am: "g-o፣ go (ሂድ፣ እንሂድ)! Off we go!" },
+  },
+];
+
+const l5Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Blend the sounds: h-e-n. Which picture is it?", am: "ድምፆቹን አጣምሩ፦ h-e-n። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "bed" } }, { pic: { art: "hen" } }, { pic: { art: "egg" } }],
+    answer: 1,
+    explain: { en: "h… e… n, HEN! A hen lays eggs.", am: "h… e… n፣ HEN (ዶሮ)! ዶሮ እንቁላል ትጥላለች።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Blend the sounds: p-i-g. Which picture is it?", am: "ድምፆቹን አጣምሩ፦ p-i-g። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "fig" } }, { pic: { art: "wig" } }, { pic: { art: "pig" } }],
+    answer: 2,
+    explain: { en: "p… i… g, PIG! Fig, wig and pig all end in -ig, so listen to the first sound.", am: "p… i… g፣ PIG (አሳማ)! fig፣ wig እና pig ሁሉም በ-ig ያልቃሉ፤ ስለዚህ የመጀመሪያውን ድምፅ አዳምጡ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Blend the sounds: b-e-d. Which picture is it?", am: "ድምፆቹን አጣምሩ፦ b-e-d። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "bed" } }, { pic: { art: "bat" } }, { pic: { art: "box" } }],
+    answer: 0,
+    explain: { en: "b… e… d, BED! Bat and box start with ‘b’ too, but the middle sound is different.", am: "b… e… d፣ BED (አልጋ)! bat እና box ደግሞ በ‘b’ ይጀምራሉ፤ ግን የመካከለኛው ድምፅ ይለያል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one does NOT rhyme with FIG?", am: "ከ«fig» ጋር ቤት የማይመታው የቱ ነው?" },
+    pic: { art: "fig" },
+    options: [{ pic: { art: "wig" } }, { pic: { art: "cup" } }, { pic: { art: "pig" } }],
+    answer: 1,
+    explain: { en: "f-ig, w-ig, p-ig rhyme. Cup ends in -up, so it doesn't!", am: "f-ig፣ w-ig፣ p-ig ቤት ይመታሉ። cup በ-up ያልቃል፤ ስለዚህ አይመታም!" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each picture to its word family.", am: "እያንዳንዱን ሥዕል ከቃል ቤተሰቡ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { pic: { art: "mop" } }, right: { label: { en: "-op", am: "-op" } } },
+      { left: { pic: { art: "fan" } }, right: { label: { en: "-an", am: "-an" } } },
+      { left: { pic: { art: "bat" } }, right: { label: { en: "-at", am: "-at" } } },
+    ],
+    explain: { en: "m-op, f-an, b-at. Keep the end, change the start!", am: "m-op፣ f-an፣ b-at። መጨረሻውን አቆዩ፣ መጀመሪያውን ቀይሩ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Grandma said, \"Bring me the p-o-t.\" What did she want?", am: "አያቴ «Bring me the p-o-t» አለች። ምን ፈለገች?" },
+    options: [{ pic: { art: "pan" } }, { pic: { art: "pot" } }, { pic: { art: "cup" } }],
+    answer: 1,
+    explain: { en: "p… o… t, POT! Anbessa learned to say the sounds slowly, then fast.", am: "p… o… t፣ POT (ድስት)! አንበሳ ድምፆቹን ቀስ ብሎ፣ ከዚያ ፈጠን ብሎ ማለትን ተማረ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why did things keep falling off Uncle's van?", am: "ዕቃዎቹ ከአጎቴ ቫን ላይ ለምን ይወድቁ ነበር?" },
+    pic: { art: "van" },
+    options: [{ label: { en: "They were ON TOP, not IN the van.", am: "በቫኑ ውስጥ (in) ሳይሆን ላዩ ላይ (on top) ነበሩ።" } }, { label: { en: "Abdi pushed them.", am: "አብዲ ገፋቸው።" } }, { label: { en: "The van was too small.", am: "ቫኑ በጣም ትንሽ ነበር።" } }],
+    answer: 0,
+    explain: { en: "Hop! Things on top can hop off. Ayan put them IN the van, and the ride was smooth.", am: "Hop! ላይ ያሉ ነገሮች ሊዘሉ ይችላሉ። አያን በቫኑ ውስጥ (in) አስቀመጠቻቸው፤ ጉዞውም ሰላማዊ ሆነ።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "m-u-g makes the word \"mug\".", am: "m-u-g ሲጣመር «mug» የሚለውን ቃል ይሠራል።" },
+    pic: { art: "mug" },
+    answer: true,
+    explain: { en: "Yes! m… u… g, MUG.", am: "አዎ! m… u… g፣ MUG (ኩባያ)።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the letters in order to spell SUN.", am: "«sun» የሚለውን ቃል ለመጻፍ ፊደሎቹን በቅደም ተከተል አስቀምጡ።" },
+    items: [{ pic: { art: "lower-s" } }, { pic: { art: "lower-u" } }, { pic: { art: "lower-n" } }],
+    explain: { en: "s, u, n: sun! We read from left to right.", am: "s, u, n፦ sun! ከግራ ወደ ቀኝ እናነባለን።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word is a snap word, one we just know by looking?", am: "በማየት ብቻ የምናውቀው የቅጭ ቃል የቱ ነው?" },
+    options: [{ label: { en: "the", am: "the" } }, { label: { en: "cat", am: "cat" } }, { label: { en: "pig", am: "pig" } }],
+    answer: 0,
+    explain: { en: "\"The\"! We can sound out cat and pig, but \"the\" is a snap word.", am: "«the»! cat እና pigን ድምፅ በማጣመር ማንበብ እንችላለን፤ «the» ግን የቅጭ ቃል ነው።" },
+  },
+];
+
+/* ---------- level 6: first sentences ---------- */
+
+const l6Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which sentence goes with the picture?", am: "ከሥዕሉ ጋር የሚሄደው የቱ ዓረፍተ ነገር ነው?" },
+    pic: { art: "mango" },
+    options: [{ label: { en: "I like mango.", am: "I like mango." } }, { label: { en: "I see a bus.", am: "I see a bus." } }, { label: { en: "This is a key.", am: "This is a key." } }],
+    answer: 0,
+    explain: { en: "I like mango! Hawi and Haben both did, so they shared it.", am: "I like mango (ማንጎ እወዳለሁ)! ሀዊና ሐበን ሁለቱም ይወዱ ነበር፤ ስለዚህ ተካፈሉ።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the words in order to make a sentence.", am: "ዓረፍተ ነገር ለመሥራት ቃላቱን በቅደም ተከተል አስቀምጡ።" },
+    items: [{ label: { en: "I", am: "I" } }, { label: { en: "can", am: "can" } }, { label: { en: "jump.", am: "jump." } }],
+    explain: { en: "I can jump. Like Abdi: I can, I can, I CAN!", am: "I can jump (መዝለል እችላለሁ)። ልክ እንደ አብዲ፦ I can, I can, I CAN!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What is this?", am: "What is this? (ይህ ምንድን ነው?)" },
+    pic: { art: "key" },
+    options: [{ label: { en: "It is a cup.", am: "It is a cup." } }, { label: { en: "It is a key.", am: "It is a key." } }, { label: { en: "It is a ball.", am: "It is a ball." } }],
+    answer: 1,
+    explain: { en: "It is a key! The key in Gugu's mystery bag.", am: "It is a key (ቁልፍ ነው)! በጉጉ ምስጢራዊ ከረጢት ውስጥ የነበረው ቁልፍ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Is it a dog?", am: "Is it a dog? (ውሻ ነው?)" },
+    pic: { art: "cat" },
+    options: [{ label: { en: "Yes, it is.", am: "Yes, it is." } }, { label: { en: "No, it isn't.", am: "No, it isn't." } }],
+    answer: 1,
+    explain: { en: "No, it isn't. It is a cat!", am: "No, it isn't (አይደለም)። It is a cat (ድመት ነው)!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Haben asked, \"Do you like avocado?\" Hawi did NOT. What did Hawi say?", am: "ሐበን «Do you like avocado?» ብላ ጠየቀች። ሀዊ አቮካዶ አትወድም ነበር። ሀዊ ምን አለች?" },
+    pic: { art: "avocado" },
+    options: [{ label: { en: "Yes, I do.", am: "Yes, I do." } }, { label: { en: "No, I don't.", am: "No, I don't." } }, { label: { en: "It is a cat.", am: "It is a cat." } }],
+    answer: 1,
+    explain: { en: "\"No, I don't.\" And that's fine: friends can like different things.", am: "«No, I don't» (አልወድም)። ችግር የለውም፦ ጓደኛሞች የተለያዩ ነገሮችን ሊወዱ ይችላሉ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Anbessa got stuck on the word \"cake\". What helped him read it?", am: "አንበሳ «cake» የሚለው ቃል ላይ ቆመ። እንዲያነበው የረዳው ምንድን ነው?" },
+    options: [{ label: { en: "The picture", am: "ሥዕሉ" } }, { label: { en: "The cat", am: "ድመቷ" } }, { label: { en: "The window", am: "መስኮቱ" } }],
+    answer: 0,
+    explain: { en: "He looked at his own drawing: a round thing with a candle. It's a cake! When a word is tricky, the picture can help.", am: "የራሱን ሥዕል ተመለከተ፦ ሻማ ያለበት ክብ ነገር። ኬክ ነው! ቃል ሲያስቸግር ሥዕሉ ሊረዳ ይችላል።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Read each sentence. Match it to its picture.", am: "እያንዳንዱን ዓረፍተ ነገር አንብቡ። ከሥዕሉ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "I see a bus.", am: "I see a bus." } }, right: { pic: { art: "bus" } } },
+      { left: { label: { en: "This is my cat.", am: "This is my cat." } }, right: { pic: { art: "cat" } } },
+      { left: { label: { en: "I like bread.", am: "I like bread." } }, right: { pic: { art: "bread" } } },
+    ],
+    explain: { en: "Bus, cat, bread: the last word tells you which picture.", am: "bus (አውቶቡስ)፣ cat (ድመት)፣ bread (ዳቦ)፦ የመጨረሻው ቃል የትኛው ሥዕል እንደሆነ ይነግራችኋል።" },
+  },
+];
+
+const l6Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which sentence goes with the picture?", am: "ከሥዕሉ ጋር የሚሄደው የቱ ዓረፍተ ነገር ነው?" },
+    pic: { art: "book" },
+    options: [{ label: { en: "I can run.", am: "I can run." } }, { label: { en: "I like mango.", am: "I like mango." } }, { label: { en: "I can read.", am: "I can read." } }],
+    answer: 2,
+    explain: { en: "I can read! That's what you are doing right now.", am: "I can read (ማንበብ እችላለሁ)! አሁን እያደረጋችሁ ያላችሁት ይህንኑ ነው።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the words in order to make a sentence.", am: "ዓረፍተ ነገር ለመሥራት ቃላቱን በቅደም ተከተል አስቀምጡ።" },
+    items: [{ label: { en: "This", am: "This" } }, { label: { en: "is", am: "is" } }, { label: { en: "my", am: "my" } }, { label: { en: "home.", am: "home." } }],
+    explain: { en: "This is my home. The first page of Anbessa's little book!", am: "This is my home (ይህ ቤቴ ነው)። የአንበሳ ትንሽ መጽሐፍ የመጀመሪያ ገጽ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What is this?", am: "What is this? (ይህ ምንድን ነው?)" },
+    pic: { art: "ball" },
+    options: [{ label: { en: "It is a key.", am: "It is a key." } }, { label: { en: "It is a ball.", am: "It is a ball." } }, { label: { en: "It is an egg.", am: "It is an egg." } }],
+    answer: 1,
+    explain: { en: "It is a ball: round and soft, like the one Hawi felt in the bag.", am: "It is a ball (ኳስ ነው)፦ ሀዊ በከረጢቱ ውስጥ እንደዳሰሰችው ክብና ለስላሳ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Is it a hat?", am: "Is it a hat? (ኮፍያ ነው?)" },
+    pic: { art: "hat" },
+    options: [{ label: { en: "Yes, it is.", am: "Yes, it is." } }, { label: { en: "No, it isn't.", am: "No, it isn't." } }],
+    answer: 0,
+    explain: { en: "Yes, it is! It is a hat.", am: "Yes, it is (አዎ፣ ነው)! It is a hat።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word goes in the gap? \"I ___ a bus.\"", am: "በክፍት ቦታው የሚገባው የቱ ቃል ነው? «I ___ a bus.»" },
+    pic: { art: "bus" },
+    options: [{ label: { en: "see", am: "see" } }, { label: { en: "is", am: "is" } }, { label: { en: "my", am: "my" } }],
+    answer: 0,
+    explain: { en: "I see a bus. \"See\" is a snap word!", am: "I see a bus (አውቶቡስ አያለሁ)። «see» የቅጭ ቃል ነው!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word goes in the gap? \"This ___ a cake.\"", am: "በክፍት ቦታው የሚገባው የቱ ቃል ነው? «This ___ a cake.»" },
+    pic: { art: "cake" },
+    options: [{ label: { en: "go", am: "go" } }, { label: { en: "is", am: "is" } }, { label: { en: "see", am: "see" } }],
+    answer: 1,
+    explain: { en: "This is a cake. Grandma's birthday cake!", am: "This is a cake (ይህ ኬክ ነው)። የአያቴ የልደት ኬክ!" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "A sentence starts with a big (capital) letter.", am: "ዓረፍተ ነገር በትልቅ ፊደል ይጀምራል።" },
+    answer: true,
+    explain: { en: "Yes! \"I like mango.\" starts with a big I and ends with a dot.", am: "አዎ! «I like mango.» በትልቅ I ይጀምራል፣ በነጥብም ያልቃል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Hawi and Haben both wanted the last mango. What did they do?", am: "ሀዊና ሐበን ሁለቱም የመጨረሻውን ማንጎ ፈለጉ። ምን አደረጉ?" },
+    pic: { art: "mango" },
+    options: [{ label: { en: "They cut it in half and shared it.", am: "ለሁለት ቆርጠው ተካፈሉት።" } }, { label: { en: "Hawi ate it all.", am: "ሀዊ ሁሉንም በላችው።" } }, { label: { en: "They gave it to the goat.", am: "ለፍየሏ ሰጧት።" } }],
+    answer: 0,
+    explain: { en: "They shared it! \"I like sharing!\" said Haben.", am: "ተካፈሉት! «I like sharing!» (መካፈል እወዳለሁ!) አለች ሐበን።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Anbessa asked questions to find out what was in Gugu's bag. What was it?", am: "አንበሳ በጉጉ ከረጢት ውስጥ ያለውን ለማወቅ ጥያቄዎችን ጠየቀ። ምን ነበር?" },
+    options: [{ pic: { art: "ball" } }, { pic: { art: "key" } }, { pic: { art: "cup" } }],
+    answer: 1,
+    explain: { en: "\"Is it big?\" \"No, it isn't.\" \"Does it open something?\" \"YES!\" It is a key!", am: "«Is it big?» «No, it isn't.» «Does it open something?» «YES!» It is a key (ቁልፍ ነው)!" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each question to its answer.", am: "እያንዳንዱን ጥያቄ ከመልሱ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "What is this?", am: "What is this?" } }, right: { label: { en: "It is a cup.", am: "It is a cup." } } },
+      { left: { label: { en: "Is it big?", am: "Is it big?" } }, right: { label: { en: "No, it isn't.", am: "No, it isn't." } } },
+      { left: { label: { en: "Do you like mango?", am: "Do you like mango?" } }, right: { label: { en: "Yes, I do.", am: "Yes, I do." } } },
+    ],
+    explain: { en: "\"Is it…?\" gets \"it is\" or \"it isn't\". \"Do you…?\" gets \"I do\" or \"I don't\".", am: "«Is it…?» ለሚል ጥያቄ «it is» ወይም «it isn't» እንመልሳለን። «Do you…?» ለሚል ደግሞ «I do» ወይም «I don't»።" },
+  },
+];
+
+/* ---------- final test: all six levels ---------- */
 
 const finalTest: Question[] = [
+  // levels 1 to 3
   {
     kind: "choice",
     prompt: { en: "Your friend is going home. What do we say?", am: "ጓደኛችን ወደ ቤቱ እየሄደ ነው። በእንግሊዝኛ ምን እንላለን?" },
@@ -477,13 +893,6 @@ const finalTest: Question[] = [
     options: [{ label: { en: "My name is …", am: "My name is …" } }, { label: { en: "Thank you is …", am: "Thank you is …" } }, { label: { en: "Good night is …", am: "Good night is …" } }],
     answer: 0,
     explain: { en: "\"Hello! My name is …\" and then your name!", am: "«Hello! My name is …» ከዚያ ስማችሁን!" },
-  },
-  {
-    kind: "choice",
-    prompt: { en: "Which one is the MOUTH?", am: "«mouth» የቱ ነው?" },
-    options: [{ pic: { art: "nose" } }, { pic: { art: "mouth" } }, { pic: { art: "ear" } }],
-    answer: 1,
-    explain: { en: "That's the mouth. We talk, sing and eat with our mouth!", am: "ያ «mouth» (አፍ) ነው። በአፋችን እንናገራለን፣ እንዘፍናለን፣ እንበላለንም!" },
   },
   {
     kind: "choice",
@@ -523,13 +932,6 @@ const finalTest: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "Which picture shows WINDY weather?", am: "«windy» (ነፋሻማ) አየርን የሚያሳየው የቱ ሥዕል ነው?" },
-    options: [{ pic: { art: "wind" } }, { pic: { art: "sun" } }, { pic: { art: "rain" } }],
-    answer: 0,
-    explain: { en: "Whoosh! It's windy. The wind took Anbessa's hat!", am: "ሹው! It's windy. ነፋሱ የአንበሳን ኮፍያ ወሰደው!" },
-  },
-  {
-    kind: "choice",
     prompt: { en: "Which letter does KITE start with?", am: "«kite» በየትኛው ፊደል ይጀምራል?" },
     pic: { art: "kite" },
     options: [{ label: { en: "k", am: "k" } }, { label: { en: "l", am: "l" } }, { label: { en: "m", am: "m" } }],
@@ -553,6 +955,85 @@ const finalTest: Question[] = [
     answer: 2,
     explain: { en: "‘d’, ‘d’, dog! Ball starts with ‘b’ and kite with ‘k’.", am: "‘d’፣ ‘d’፣ dog (ውሻ)! Ball በ‘b’፣ kite በ‘k’ ይጀምራሉ።" },
   },
+  // level 4
+  {
+    kind: "choice",
+    prompt: { en: "Which letter does WINDOW start with?", am: "«window» በየትኛው ፊደል ይጀምራል?" },
+    pic: { art: "window" },
+    options: [{ label: { en: "v", am: "v" } }, { label: { en: "w", am: "w" } }, { label: { en: "u", am: "u" } }],
+    answer: 1,
+    explain: { en: "‘w’, ‘w’, window! Make your lips round, like a little ‘o’: ‘w’.", am: "‘w’፣ ‘w’፣ window (መስኮት)! ከንፈራችሁን እንደ ትንሽ ‘o’ አክብቡ፦ ‘w’ (እንደ ው)።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Find the little letter p.", am: "ትንሹን ፊደል p ፈልጉ።" },
+    options: [{ pic: { art: "lower-q" } }, { pic: { art: "lower-b" } }, { pic: { art: "lower-p" } }],
+    answer: 2,
+    explain: { en: "That's little p: its tail goes down on the left, then a round ball. P for pot!", am: "ያ ትንሹ p ነው፦ ጭራው በግራ በኩል ወደ ታች ይወርዳል፣ ከዚያ ክብ። P ለ pot (ድስት)!" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "In \"fox\", the letter X is at the end.", am: "በ«fox» (ቀበሮ) ውስጥ X የሚለው ፊደል መጨረሻ ላይ ነው።" },
+    pic: { art: "fox" },
+    answer: true,
+    explain: { en: "Yes! f-o-x. X likes the end of words: box, fox, six.", am: "አዎ! f-o-x። X የቃላትን መጨረሻ ይወዳል፦ box፣ fox፣ six።" },
+  },
+  // level 5
+  {
+    kind: "choice",
+    prompt: { en: "Blend the sounds: m-a-p. Which picture is it?", am: "ድምፆቹን አጣምሩ፦ m-a-p። የቱ ሥዕል ነው?" },
+    options: [{ pic: { art: "mop" } }, { pic: { art: "map" } }, { pic: { art: "mat" } }],
+    answer: 1,
+    explain: { en: "m… a… p, MAP! Mop and mat start the same, so listen all the way to the end.", am: "m… a… p፣ MAP (ካርታ)! mop እና mat በአንድ ዓይነት ድምፅ ይጀምራሉ፤ ስለዚህ እስከ መጨረሻው አዳምጡ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one rhymes with TOP?", am: "ከ«top» ጋር ቤት የሚመታው የቱ ነው?" },
+    pic: { art: "top" },
+    options: [{ pic: { art: "pot" } }, { pic: { art: "mop" } }, { pic: { art: "pan" } }],
+    answer: 1,
+    explain: { en: "t-op, m-op! Pot has the same letters, but its end is -ot, so it doesn't rhyme.", am: "t-op፣ m-op! pot ተመሳሳይ ፊደሎች አሉት፤ ግን መጨረሻው -ot ስለሆነ ቤት አይመታም።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each picture to its word family.", am: "እያንዳንዱን ሥዕል ከቃል ቤተሰቡ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { pic: { art: "wig" } }, right: { label: { en: "-ig", am: "-ig" } } },
+      { left: { pic: { art: "can" } }, right: { label: { en: "-an", am: "-an" } } },
+      { left: { pic: { art: "hat" } }, right: { label: { en: "-at", am: "-at" } } },
+    ],
+    explain: { en: "w-ig, c-an, h-at. Keep the end, change the start!", am: "w-ig፣ c-an፣ h-at። መጨረሻውን አቆዩ፣ መጀመሪያውን ቀይሩ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one is a snap word?", am: "የቅጭ ቃል የቱ ነው?" },
+    options: [{ label: { en: "hen", am: "hen" } }, { label: { en: "my", am: "my" } }, { label: { en: "bed", am: "bed" } }],
+    answer: 1,
+    explain: { en: "\"My\" is a snap word: m-y doesn't sound like \"my\", so we learn it by sight. Hen and bed we can sound out.", am: "«my» የቅጭ ቃል ነው፦ m-y እንደ «my» ስለማይሰማ በማየት እንማረዋለን። hen እና bedን ግን ድምፅ በማጣመር እናነባለን።" },
+  },
+  // level 6
+  {
+    kind: "order",
+    prompt: { en: "Put the words in order to make a sentence.", am: "ዓረፍተ ነገር ለመሥራት ቃላቱን በቅደም ተከተል አስቀምጡ።" },
+    items: [{ label: { en: "I", am: "I" } }, { label: { en: "like", am: "like" } }, { label: { en: "bread.", am: "bread." } }],
+    explain: { en: "I like bread. A sentence starts with a big letter and ends with a dot.", am: "I like bread (ዳቦ እወዳለሁ)። ዓረፍተ ነገር በትልቅ ፊደል ይጀምራል፣ በነጥብ ያልቃል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What is this?", am: "What is this? (ይህ ምንድን ነው?)" },
+    pic: { art: "cup" },
+    options: [{ label: { en: "It is a hat.", am: "It is a hat." } }, { label: { en: "It is a bus.", am: "It is a bus." } }, { label: { en: "It is a cup.", am: "It is a cup." } }],
+    answer: 2,
+    explain: { en: "It is a cup: hard, with a handle, like the one Haben felt in Gugu's bag.", am: "It is a cup (ስኒ ነው)፦ ሐበን በጉጉ ከረጢት ውስጥ እንደዳሰሰችው ጠንካራና እጀታ ያለው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Is it a ball?", am: "Is it a ball? (ኳስ ነው?)" },
+    pic: { art: "egg" },
+    options: [{ label: { en: "Yes, it is.", am: "Yes, it is." } }, { label: { en: "No, it isn't.", am: "No, it isn't." } }],
+    answer: 1,
+    explain: { en: "No, it isn't. It is an egg!", am: "No, it isn't (አይደለም)። It is an egg (እንቁላል ነው)!" },
+  },
 ];
 
 const course: Course = {
@@ -563,8 +1044,8 @@ const course: Course = {
     am: "Hello፣ ቀለሞች፣ እንስሳትና ABC፦ የልጅዎ የመጀመሪያ እንግሊዝኛ፣ በኢትዮጵያ ውስጥ በተቀረጹ ታሪኮች።",
   },
   outcome: {
-    en: "Your child will greet people in English (hello, goodbye, good morning, good night), use please and thank you, say \"My name is…\", name family members, body parts and feelings, then colors, clothes, farm animals and their sounds, food, the weather and opposites, and count to ten in English. Next come the letters: each letter's name and its sound, the first sound of a word, big and little letters, and writing them with a finger; later levels go on to n to z, blending short words like c-a-t, the first sight words, and reading simple sentences. Everything is explained in Amharic for Amharic-speaking families, with every English word shown and spoken, and every story ends with questions and an activity to do together.",
-    am: "ልጅዎ በእንግሊዝኛ ሰላምታ ይሰጣል (hello፣ goodbye፣ good morning፣ good night)፣ please እና thank you ይላል፣ «My name is…» ይላል፣ የቤተሰብ አባላትን፣ የሰውነት ክፍሎችንና ስሜቶችን ይሰይማል፤ ከዚያም ቀለሞችን፣ ልብሶችን፣ የእርሻ እንስሳትንና ድምፃቸውን፣ ምግብን፣ የአየር ሁኔታንና ተቃራኒዎችን ይናገራል፤ በእንግሊዝኛ እስከ አሥር ይቆጥራል። ቀጥሎ ፊደሎች ይመጣሉ፦ የእያንዳንዱ ፊደል ስምና ድምፅ፣ የቃል የመጀመሪያ ድምፅ፣ ትልልቅና ትንንሽ ፊደሎች፣ በጣት መጻፍ፤ የሚቀጥሉት ደረጃዎች ደግሞ ከn እስከ z፣ እንደ c-a-t ያሉ አጫጭር ቃላትን ማጣመር፣ የመጀመሪያ የዕይታ ቃላትንና ቀላል ዓረፍተ ነገሮችን ማንበብ ያስተምራሉ። ሁሉም ነገር ለአማርኛ ተናጋሪ ቤተሰቦች በአማርኛ ይብራራል፤ እያንዳንዱ የእንግሊዝኛ ቃል ይታያል፣ ይነገራልም፤ እያንዳንዱ ታሪክ አብሮ የሚደረግ ጥያቄና ተግባር አለው።",
+    en: "Your child will greet people in English (hello, goodbye, good morning, good night), use please and thank you, say \"My name is…\", name family members, body parts and feelings, then colors, clothes, farm animals and their sounds, food, the weather and opposites, and count to ten in English. Next come the letters: each letter's name and its sound, the first sound of a word, big and little letters, and writing them with a finger; then the letters n to z, blending short words (c-a-t, cat), word families (cat, hat, mat), the first sight words (I, a, the, is, my, see, go, like), and reading and saying simple sentences (I can…, I like…, This is…, I see a…, What is this? It is a…), all the way to reading a little book alone. Everything is explained in Amharic for Amharic-speaking families, with every English word shown and spoken, and every story ends with questions and an activity to do together.",
+    am: "ልጅዎ በእንግሊዝኛ ሰላምታ ይሰጣል (hello፣ goodbye፣ good morning፣ good night)፣ please እና thank you ይላል፣ «My name is…» ይላል፣ የቤተሰብ አባላትን፣ የሰውነት ክፍሎችንና ስሜቶችን ይሰይማል፤ ከዚያም ቀለሞችን፣ ልብሶችን፣ የእርሻ እንስሳትንና ድምፃቸውን፣ ምግብን፣ የአየር ሁኔታንና ተቃራኒዎችን ይናገራል፤ በእንግሊዝኛ እስከ አሥር ይቆጥራል። ቀጥሎ ፊደሎች ይመጣሉ፦ የእያንዳንዱ ፊደል ስምና ድምፅ፣ የቃል የመጀመሪያ ድምፅ፣ ትልልቅና ትንንሽ ፊደሎች፣ በጣት መጻፍ፤ ከዚያም ከn እስከ z ያሉ ፊደሎች፣ አጫጭር ቃላትን ድምፅ በማጣመር ማንበብ (c-a-t፣ cat)፣ የቃል ቤተሰቦች (cat፣ hat፣ mat)፣ የመጀመሪያ የዕይታ ቃላት (I፣ a፣ the፣ is፣ my፣ see፣ go፣ like)፣ እና ቀላል ዓረፍተ ነገሮችን ማንበብና መናገር ይመጣሉ፦ «I can…»፣ «I like…»፣ «This is…»፣ «I see a…»፣ «What is this? It is a…»፤ በመጨረሻም ትንሽ መጽሐፍ ብቻውን ማንበብ። ሁሉም ነገር ለአማርኛ ተናጋሪ ቤተሰቦች በአማርኛ ይብራራል፤ እያንዳንዱ የእንግሊዝኛ ቃል ይታያል፣ ይነገራልም፤ እያንዳንዱ ታሪክ አብሮ የሚደረግ ጥያቄና ተግባር አለው።",
   },
   ages: ["3-5", "6-7"],
   color: "#0E8C80",
@@ -629,6 +1110,61 @@ const course: Course = {
         { kind: "practice", quiz: { id: "english-first-words-l3-practice", title: { en: "Practice: letters and sounds", am: "ልምምድ፦ ፊደሎችና ድምፆች" }, questions: l3Practice } },
       ],
       quiz: { id: "english-first-words-l3-quiz", title: { en: "Level 3 quiz", am: "የደረጃ 3 ፈተና" }, questions: l3Quiz },
+    },
+    {
+      id: "english-first-words-4",
+      title: { en: "Letters and sounds: n to z", am: "ፊደሎችና ድምፆች፦ ከn እስከ z" },
+      goal: {
+        en: "Knows the names and sounds of the letters n to z (with x at the end of words and q with u), hears the first sound of a word, matches big and little letters, and traces them.",
+        am: "ከn እስከ z ያሉትን ፊደሎች ስምና ድምፅ ያውቃል (x በቃላት መጨረሻ፣ q ከu ጋር)፤ የቃልን የመጀመሪያ ድምፅ ይለያል፤ ትልልቅና ትንንሽ ፊደሎችን ያዛምዳል፤ በጣቱ ይጽፋቸዋል።",
+      },
+      lessons: [
+        { kind: "story", id: "move-ox-move" },
+        { kind: "story", id: "wobbly-tooth" },
+        { kind: "demo", id: "letter-train-n-z", title: { en: "The Letter-Sound Train: n to z", am: "የፊደል-ድምፅ ባቡር፦ ከn እስከ z" } },
+        { kind: "story", id: "van-to-the-vet" },
+        { kind: "story", id: "x-marks-the-spot" },
+        { kind: "demo", id: "trace-letters-n-z", title: { en: "Trace the Letters: n to z", am: "ፊደሎቹን በጣታችሁ ጻፉ፦ ከn እስከ z" } },
+        { kind: "practice", quiz: { id: "english-first-words-l4-practice", title: { en: "Practice: letters n to z", am: "ልምምድ፦ ከn እስከ z" }, questions: l4Practice } },
+      ],
+      quiz: { id: "english-first-words-l4-quiz", title: { en: "Level 4 quiz", am: "የደረጃ 4 ፈተና" }, questions: l4Quiz },
+    },
+    {
+      id: "english-first-words-5",
+      title: { en: "Blending and snap words", am: "ድምፆችን ማጣመርና የቅጭ ቃላት" },
+      goal: {
+        en: "Sounds out short words (c-a-t, cat), reads and makes words in a family (-at, -an, -ig, -op), hears rhymes, and knows the snap words I, a, the, is, my, see, go, like by sight.",
+        am: "አጫጭር ቃላትን ድምፅ በማጣመር ያነባል (c-a-t፣ cat)፤ የቃል ቤተሰቦችን (-at፣ -an፣ -ig፣ -op) ያነባል፣ ይሠራል፤ ቤት የሚመቱ ቃላትን ይለያል፤ I፣ a፣ the፣ is፣ my፣ see፣ go፣ like የሚሉትን የቅጭ ቃላት በማየት ያውቃል።",
+      },
+      lessons: [
+        { kind: "story", id: "say-it-slowly" },
+        { kind: "demo", id: "blend-slider", title: { en: "Slow, Slow… Fast!", am: "ቀስ፣ ቀስ… ፈጠን!" } },
+        { kind: "story", id: "rhyme-show" },
+        { kind: "story", id: "stop-the-van" },
+        { kind: "demo", id: "word-family-wheel", title: { en: "The Word-Family Wheel", am: "የቃል ቤተሰብ መንኮራኩር" } },
+        { kind: "story", id: "snap-words" },
+        { kind: "demo", id: "snap-cards", title: { en: "Snap!", am: "ቅጭ!" } },
+        { kind: "practice", quiz: { id: "english-first-words-l5-practice", title: { en: "Practice: blending and snap words", am: "ልምምድ፦ ድምፆችን ማጣመርና የቅጭ ቃላት" }, questions: l5Practice } },
+      ],
+      quiz: { id: "english-first-words-l5-quiz", title: { en: "Level 5 quiz", am: "የደረጃ 5 ፈተና" }, questions: l5Quiz },
+    },
+    {
+      id: "english-first-words-6",
+      title: { en: "First sentences", am: "የመጀመሪያ ዓረፍተ ነገሮች" },
+      goal: {
+        en: "Reads and says short sentences (I can…, I like…, This is…, I see a…), reads a little book alone using the pictures as clues, and asks and answers simple questions (What is this? It is a…; Is it…? Yes, it is. / No, it isn't.).",
+        am: "አጫጭር ዓረፍተ ነገሮችን ያነባል፣ ይናገራል (I can…፣ I like…፣ This is…፣ I see a…)፤ ሥዕሎቹን እንደ ፍንጭ እየተጠቀመ ትንሽ መጽሐፍ ብቻውን ያነባል፤ ቀላል ጥያቄዎችን ይጠይቃል፣ ይመልሳል (What is this? It is a…፤ Is it…? Yes, it is. / No, it isn't.)።",
+      },
+      lessons: [
+        { kind: "story", id: "abdi-can" },
+        { kind: "story", id: "i-like-mango" },
+        { kind: "demo", id: "sentence-builder", title: { en: "Build a Sentence", am: "ዓረፍተ ነገር ሥሩ" } },
+        { kind: "story", id: "what-is-this" },
+        { kind: "demo", id: "what-is-it", title: { en: "Gugu's Mystery Bag", am: "የጉጉ ምስጢራዊ ከረጢት" } },
+        { kind: "story", id: "my-little-book" },
+        { kind: "practice", quiz: { id: "english-first-words-l6-practice", title: { en: "Practice: first sentences", am: "ልምምድ፦ የመጀመሪያ ዓረፍተ ነገሮች" }, questions: l6Practice } },
+      ],
+      quiz: { id: "english-first-words-l6-quiz", title: { en: "Level 6 quiz", am: "የደረጃ 6 ፈተና" }, questions: l6Quiz },
     },
   ],
   finalTest: { id: "english-first-words-final", title: { en: "English First Words: final test", am: "የመጀመሪያ የእንግሊዝኛ ቃላት፦ የመጨረሻ ፈተና" }, questions: finalTest },

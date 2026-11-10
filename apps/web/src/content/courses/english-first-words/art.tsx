@@ -14,7 +14,7 @@ import type { ArtProps } from "../types";
     - little moments for greetings: arrive, leave, give, sunrise, bedtime
     - feeling faces (face-happy, face-sad, face-angry, face-scared, face-surprised, face-calm)
     - paint splats for the colors (color-red, color-blue…) and fog for the weather
-    - letter tiles: "letter-a" (Aa, both shapes), "upper-a" (A) and "lower-a" (a), a to m
+    - letter tiles: "letter-a" (Aa, both shapes), "upper-a" (A) and "lower-a" (a), a to z
   The letter tiles are the only pictures with writing in them: the letters ARE the question.
 */
 
@@ -146,7 +146,7 @@ const LETTER_COLORS = ["#E8513B", "#2F6FD0", "#2E9A5B", "#8E5BE0", "#E58A00", "#
 
 const fromThings: Record<string, ComponentType<ArtProps>> = Object.fromEntries(Object.keys(THINGS).map((k) => [k, thing(k)]));
 const letters: Record<string, ComponentType<ArtProps>> = Object.fromEntries(
-  "abcdefghijklm".split("").flatMap((l, i) => {
+  "abcdefghijklmnopqrstuvwxyz".split("").flatMap((l, i) => {
     const c = LETTER_COLORS[i % LETTER_COLORS.length];
     return [
       [`letter-${l}`, tile(l, "both", c)],

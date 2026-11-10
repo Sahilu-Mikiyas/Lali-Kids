@@ -287,7 +287,7 @@ export default function CountThemHome({ page }: { page: number }) {
             <Animal kind="donkey" x={220} y={262} s={1.05} className="cth-munch" />
             <SayBubble x={240} y={150} lines={["HEE-HAW!"]} size={20} tail="down" delay={0.6} color="#7A3E1D" />
             <WordCard x={316} y={84} word="donkey" pic="donkey" color="#2E9A5B" size={15} delay={1.8} />
-            <Place x={60} y={298} s={0.36} from={[-40, 298]} delay={1} tap={TAP.cub}>
+            <Place x={78} y={298} s={0.36} from={[-40, 298]} delay={1} tap={TAP.cub}>
               <Cub mood="joy" />
             </Place>
             <g opacity={0.6}>
