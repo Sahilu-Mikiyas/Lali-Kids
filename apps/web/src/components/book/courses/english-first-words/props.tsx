@@ -26,9 +26,9 @@ export const textWidth = (text: string, size: number) => r1(text.length * size *
 
 /**
  * Keeps a card of width w inside the part of the picture a phone always shows: the reader crops
- * the 400-wide scene to about x 26 to 374 on a narrow screen.
+ * the 400-wide scene to about x 34 to 366 on a narrow screen.
  */
-export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 28 + w / 2), 372 - w / 2);
+export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 38 + w / 2), 362 - w / 2);
 
 /* ---------- English on the page ---------- */
 
@@ -295,6 +295,44 @@ export function HandBell({ x, y, ring = true }: { x: number; y: number; ring?: b
           <path d="M-20 -14 l-6 -4 M20 -14 l6 -4 M-22 -2 h-7 M22 -2 h7" className="lali-twinkle" style={vars({ "--dur": "0.6s" })} />
         </g>
       )}
+    </g>
+  );
+}
+
+/**
+ * Sounding out a word: its letters as separate tiles that slide together ("slow, slow… fast!"),
+ * then the whole word (and its picture) pops up under them. Centred on (x, y).
+ */
+export function BlendCard({ x, y, word, pic, color = "#D9662B", delay = 0.6, s = 1 }: { x: number; y: number; word: string; pic?: string; color?: string; delay?: number; s?: number }) {
+  const letters = word.split("");
+  const gap = 34;
+  return (
+    <g transform={`translate(${inSafe(x, (letters.length * gap + 40) * s)} ${y}) scale(${s})`}>
+      {letters.map((l, i) => {
+        const off = (i - (letters.length - 1) / 2) * gap;
+        return (
+          <g key={`${i}-${l}`} transform={`translate(${off} 0)`}>
+            <g className="efw-blend" style={vars({ "--delay": `${delay}s`, "--bx": `${r1(-off * 0.17)}px` })}>
+              <rect x={-14} y={-18} width={28} height={34} rx={7} fill="#FFFDF6" stroke={color} strokeWidth={2.4} />
+              <text x={0} y={9} fontSize={24} fontFamily="var(--font-andika), sans-serif" fontWeight={700} fill={color} textAnchor="middle">
+                {l}
+              </text>
+            </g>
+          </g>
+        );
+      })}
+      <g className="efw-blend-word" style={vars({ "--delay": `${delay + 1.8}s` })}>
+        <rect x={-(word.length * 9 + 34)} y={22} width={word.length * 18 + 68} height={34} rx={10} fill={color} />
+        {pic && (
+          <g transform={`translate(${-(word.length * 9 + 14)} 39) scale(0.24)`}>
+            <circle r={40} fill="#FFFDF6" />
+            <Thing id={pic} />
+          </g>
+        )}
+        <text x={pic ? 12 : 0} y={46} fontSize={20} fontFamily={FONT} fontWeight={900} fill="#FFFFFF" textAnchor="middle">
+          {word}
+        </text>
+      </g>
     </g>
   );
 }

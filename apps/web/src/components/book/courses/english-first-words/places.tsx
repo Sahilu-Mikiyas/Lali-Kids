@@ -420,3 +420,35 @@ export function Farm({ id, time = "day", storm = false, gate, open = false, rain
     </>
   );
 }
+
+/** A town street: painted flat-roofed houses and shops, and the road across the front. `rain` grays the sky. */
+export function TownStreet({ id, rain = false, children }: { id: string; rain?: boolean; children?: ReactNode }) {
+  const houses: [number, string, string][] = [
+    [40, "#7FC8C0", "#F5B21E"],
+    [130, "#F2C27E", "#2E9A8A"],
+    [230, "#E8A0B0", "#2F6FD0"],
+    [330, "#B8D88A", "#E2463F"],
+  ];
+  return (
+    <>
+      {rain ? <Sky id={id} from="#6E7A96" mid="#9AA6BE" to="#C9D2E0" /> : <SkyFor id={id} time="day" />}
+      <Depth z={-0.2}>
+        {houses.map(([x, wall, trim]) => (
+          <g key={x} transform={`translate(${x} 214)`}>
+            <rect x={-44} y={-90} width={88} height={90} fill={wall} />
+            <rect x={-48} y={-96} width={96} height={8} fill="#F4EEDC" />
+            <path d="M-44 -24 H44" stroke={trim} strokeWidth={5} />
+            <path d="M-10 0 V-36 Q0 -48 10 -36 V0Z" fill="#3A6A8A" />
+            <rect x={-34} y={-74} width={18} height={16} fill="#DDF2FF" stroke="#F4EEDC" strokeWidth={3} />
+            <rect x={16} y={-74} width={18} height={16} fill="#DDF2FF" stroke="#F4EEDC" strokeWidth={3} />
+          </g>
+        ))}
+      </Depth>
+      <rect x={-10} y={214} width={420} height={100} fill="#7A7A86" />
+      <path d="M-10 262 H410" stroke="#F4EEDC" strokeWidth={4} strokeDasharray="20 16" />
+      <rect x={-10} y={210} width={420} height={8} fill="#B8B4AA" />
+      {children}
+      {rain && <Rain />}
+    </>
+  );
+}

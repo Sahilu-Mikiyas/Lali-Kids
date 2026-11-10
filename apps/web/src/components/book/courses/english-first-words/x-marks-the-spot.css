@@ -1,0 +1,50 @@
+/* "X Marks the Spot" (x-marks-the-spot.tsx): transforms and opacity only. */
+
+/* The map turning the right way round. */
+@keyframes xm-turn {
+  0%, 30% { transform: rotate(0deg); }
+  70%, 100% { transform: rotate(180deg); }
+}
+.xm-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: xm-turn 2s ease-in-out 0.6s both;
+}
+
+/* The stone rolling away. */
+@keyframes xm-roll {
+  from { transform: translateX(0) rotate(0deg); }
+  to { transform: translateX(70px) rotate(120deg); }
+}
+.xm-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: xm-roll 1.2s ease-out 0.4s both;
+}
+
+/* Dirt flying from the digging. */
+@keyframes xm-dirt {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  60% { transform: translateY(-14px); }
+}
+.xm-dirt { animation: xm-dirt 0.8s ease-out infinite; }
+
+/* Marching home like a king and a queen. */
+@keyframes xm-march {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.xm-march { animation: xm-march 0.5s ease-in-out infinite; }
+
+/* The path glowing. */
+@keyframes xm-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.xm-glow { animation: xm-glow 2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .xm-roll { transform: translateX(70px); }
+  .xm-turn { transform: rotate(180deg); }
+}

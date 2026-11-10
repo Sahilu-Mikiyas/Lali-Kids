@@ -22,6 +22,12 @@ const NameSounds = dynamic(() => import("./name-sounds"), { ssr: false });
 const ISpyWithLali = dynamic(() => import("./i-spy-with-lali"), { ssr: false });
 const SoundHunt = dynamic(() => import("./sound-hunt"), { ssr: false });
 const LetterKite = dynamic(() => import("./letter-kite"), { ssr: false });
+const MoveOxMove = dynamic(() => import("./move-ox-move"), { ssr: false });
+const WobblyTooth = dynamic(() => import("./wobbly-tooth"), { ssr: false });
+const VanToTheVet = dynamic(() => import("./van-to-the-vet"), { ssr: false });
+const XMarksTheSpot = dynamic(() => import("./x-marks-the-spot"), { ssr: false });
+const SayItSlowly = dynamic(() => import("./say-it-slowly"), { ssr: false });
+const RhymeShow = dynamic(() => import("./rhyme-show"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "my-name-is": MyNameIs,
@@ -34,4 +40,10 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "i-spy-with-lali": ISpyWithLali,
   "sound-hunt": SoundHunt,
   "letter-kite": LetterKite,
+  "move-ox-move": MoveOxMove,
+  "wobbly-tooth": WobblyTooth,
+  "van-to-the-vet": VanToTheVet,
+  "x-marks-the-spot": XMarksTheSpot,
+  "say-it-slowly": SayItSlowly,
+  "rhyme-show": RhymeShow,
 };

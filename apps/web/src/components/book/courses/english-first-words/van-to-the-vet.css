@@ -1,0 +1,63 @@
+/* "The Van to the Vet" (van-to-the-vet.tsx): transforms and opacity only. */
+
+/* A limp: a little dip on one side. */
+@keyframes vv-limp {
+  0%, 100% { transform: rotate(0deg) translateY(0); }
+  30% { transform: rotate(-4deg) translateY(2px); }
+}
+.vv-limp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vv-limp 1s ease-in-out infinite;
+}
+
+/* Shaking all over. */
+@keyframes vv-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.6px); }
+  75% { transform: translateX(1.6px); }
+}
+.vv-shake { animation: vv-shake 0.2s linear infinite; }
+
+/* The rain drumming on the roof makes the van tremble. */
+@keyframes vv-drum {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1px); }
+}
+.vv-drum { animation: vv-drum 0.15s linear infinite; }
+
+/* The umbrella swaying in the wind. */
+@keyframes vv-sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.vv-sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: vv-sway 2.4s ease-in-out infinite;
+}
+
+/* Walking up the ramp together. */
+@keyframes vv-up {
+  from { transform: translate(0, 0); }
+  to { transform: translate(60px, -14px); }
+}
+.vv-up { animation: vv-up 3s ease-in-out 0.6s both; }
+
+/* The wipers going swish, swish. */
+@keyframes vv-wiper {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(60deg); }
+}
+.vv-wiper {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: vv-wiper 1.2s ease-in-out infinite;
+}
+
+/* Driving along: a gentle bounce. */
+@keyframes vv-drive {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.vv-drive { animation: vv-drive 0.4s ease-in-out infinite; }
