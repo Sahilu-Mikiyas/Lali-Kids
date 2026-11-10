@@ -1,4 +1,18 @@
 import type { Story } from "../../../stories";
+import aksumTallStones from "./aksum-tall-stones";
+import theKindKingOfAksum from "./the-kind-king-of-aksum";
+import castlesOfGondar from "./castles-of-gondar";
+import gatesOfHarar from "./gates-of-harar";
+import everyonesVictory from "./everyones-victory";
+import waliaOnTheLedge from "./walia-on-the-ledge";
+import theWolfAndTheDog from "./the-wolf-and-the-dog";
+import theChurchForest from "./the-church-forest";
+import wildCoffeeForest from "./wild-coffee-forest";
+import eyesOfTheInjera from "./eyes-of-the-injera";
+import coffeeGoesAroundTheWorld from "./coffee-goes-around-the-world";
+import clayAndGrass from "./clay-and-grass";
+import theFriendshipBand from "./the-friendship-band";
+import whatTimeIsIt from "./what-time-is-it";
 import aHomeForEveryPlace from "./a-home-for-every-place";
 import destasFichee from "./destas-fichee";
 import freshGrassForIrreecha from "./fresh-grass-for-irreecha";
@@ -31,4 +45,21 @@ export const STORIES: Story[] = [
   freshGrassForIrreecha,
   waitingForTheEidMoon,
   destasFichee,
+  // Level 4: stories from our history
+  aksumTallStones,
+  theKindKingOfAksum,
+  castlesOfGondar,
+  gatesOfHarar,
+  everyonesVictory,
+  // Level 5: our wildlife and nature
+  waliaOnTheLedge,
+  theWolfAndTheDog,
+  theChurchForest,
+  wildCoffeeForest,
+  // Level 6: our food, crafts, music and inventions
+  eyesOfTheInjera,
+  coffeeGoesAroundTheWorld,
+  clayAndGrass,
+  theFriendshipBand,
+  whatTimeIsIt,
 ];
