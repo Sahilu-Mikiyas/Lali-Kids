@@ -1,0 +1,41 @@
+/* Metres of Cloth (cloth-metres.tsx): transforms and opacity only. */
+
+/* The metre stick is laid down on the cloth. */
+@keyframes cm-lay {
+  0% { transform: translateY(-30px); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.cm-lay {
+  animation: cm-lay 0.7s ease-out var(--delay, 1s) both;
+}
+
+/* A thing slides into place from (--fx, --fy). */
+@keyframes cm-in {
+  0% { transform: translate(var(--fx, 0px), var(--fy, 0px)); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+.cm-in {
+  animation: cm-in 1s ease-out var(--delay, 0.6s) both;
+}
+
+/* The scarf piece is cut and slides a little away. */
+@keyframes cm-slide {
+  0% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+.cm-slide {
+  animation: cm-slide 0.8s ease-out 1s both;
+}
+
+/* Tsehay twirls in her new dress. */
+@keyframes cm-twirl {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.cm-twirl {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cm-twirl 1.4s ease-in-out infinite;
+}

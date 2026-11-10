@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Chairs for the Wedding", am: "ለሠርጉ ወንበሮች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2E9A5A",
   scene: "lib-wedding-chairs",
   coverPage: 2,

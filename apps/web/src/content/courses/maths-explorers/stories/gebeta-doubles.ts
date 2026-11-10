@@ -17,7 +17,7 @@ const story: Story = {
   title: { en: "Haben's Gebeta Doubles", am: "የሐበን የገበጣ እጥፎች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#9A6236",
   scene: "lib-gebeta-doubles",
   coverPage: 5,

@@ -1,0 +1,31 @@
+/* Gugu Measures Everything (which-unit.tsx): transforms and opacity only. */
+
+@keyframes wu-giggle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.wu-giggle {
+  animation: wu-giggle 0.4s ease-in-out 1s 6;
+}
+
+/* The jug tips to pour into the drum, again and again. */
+@keyframes wu-pour {
+  0%, 30%, 100% { transform: rotate(0deg); }
+  50%, 80% { transform: rotate(40deg); }
+}
+.wu-pour {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wu-pour 1.6s ease-in-out 0.6s infinite;
+}
+
+@keyframes wu-dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-4deg); }
+  75% { transform: translateY(-8px) rotate(4deg); }
+}
+.wu-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wu-dance 0.8s ease-in-out infinite;
+}

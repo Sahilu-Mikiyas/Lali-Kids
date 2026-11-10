@@ -22,7 +22,7 @@ const story: Story = {
   title: { en: "The Bus to Hawassa", am: "ወደ ሀዋሳ የሚሄደው አውቶቡስ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#F5B21E",
   scene: "lib-hawassa-bus",
   coverPage: 0,

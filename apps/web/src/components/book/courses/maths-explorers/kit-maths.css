@@ -39,3 +39,36 @@
   transform-origin: center;
   animation: mq-ring 1.6s ease-in-out var(--delay, 0s) infinite;
 }
+
+/* Liquid fills a jug from the bottom. */
+@keyframes mq-fillup {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.mq-fillup {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mq-fillup 1.6s ease-out var(--delay, 0.8s) both;
+}
+
+/* A bar of a bar chart grows up from the axis. */
+@keyframes mq-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.mq-grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: mq-grow 0.8s ease-out var(--delay, 0.8s) both;
+}
+
+/* A butterfly wing flaps (folds toward the body and back). */
+@keyframes mq-flapl {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.55); }
+}
+.mq-flapl {
+  transform-box: view-box;
+  transform-origin: 0px 0px;
+  animation: mq-flapl 0.9s ease-in-out infinite;
+}

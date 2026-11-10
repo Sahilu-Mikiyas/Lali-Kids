@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "How Many Bajajs?", am: "ስንት ባጃጅ?" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2F6FD0",
   scene: "lib-bajaj-trip",
   coverPage: 2,
