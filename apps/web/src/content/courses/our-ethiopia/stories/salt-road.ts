@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "Haben and the Salt Road", am: "ሐበንና የጨው መንገድ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#C9862E",
   scene: "lib-salt-road",
   coverPage: 4,

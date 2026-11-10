@@ -398,6 +398,106 @@ export function Lobelia({ x, y, s = 1, delay = 0 }: { x: number; y: number; s?: 
   );
 }
 
+/**
+ * A pack camel of a salt caravan (an animal, not one of the friends), side-on facing right,
+ * about 90 long with feet on (0, 0). `load` shows salt blocks tied on; `slip` tips the load.
+ */
+export function PackCamel({ x, y, s = 1, flip = false, load = true, slip = false, walk = true, delay = 0 }: { x: number; y: number; s?: number; flip?: boolean; load?: boolean; slip?: boolean; walk?: boolean; delay?: number }) {
+  const leg = (lx: number, ph: number) => (
+    <g key={lx} className={walk ? "lali-leg" : undefined} style={walk ? vars({ "--leg": `${ph + delay}s` }) : undefined}>
+      <rect x={lx} y={-34} width={6} height={34} rx={3} fill="#B07A44" />
+    </g>
+  );
+  return (
+    <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <Tappable reaction="bounce" sound="boing">
+        {leg(-26, -0.42)}
+        {leg(14, 0)}
+        <g className={walk ? "oe-sway-x" : undefined} style={vars({ "--dur": "0.84s", "--delay": `${delay}s` })}>
+          <ellipse cx={-4} cy={-42} rx={32} ry={14} fill="#C98A4E" />
+          <path d="M-20 -50 Q-6 -78 10 -52Z" fill="#C98A4E" />
+          <path d="M24 -46 Q36 -60 34 -76 L44 -80 Q46 -60 34 -40Z" fill="#C98A4E" />
+          <ellipse cx={46} cy={-78} rx={10} ry={6} fill="#C98A4E" />
+          <circle cx={46} cy={-81} r={1.4} fill="#1B1B2A" />
+          <path d="M40 -84 l-2 -4" stroke="#A86E38" strokeWidth={2} />
+          <path d="M-36 -44 q-6 6 -4 14" stroke="#A86E38" strokeWidth={2} fill="none" />
+          {load && (
+            <g className={slip ? "oe-slip" : undefined}>
+              <path d="M-26 -58 L18 -58" stroke="#7A5236" strokeWidth={3} />
+              {[-22, -8, 6].map((bx, i) => (
+                <g key={bx}>
+                  <rect x={bx} y={-70} width={13} height={10} rx={1} fill="#F4F0E2" stroke="#CFC7B0" />
+                  {i < 2 && <rect x={bx + 6} y={-80} width={13} height={10} rx={1} fill="#FFFFFF" stroke="#CFC7B0" />}
+                </g>
+              ))}
+              <path d="M-26 -60 L-20 -40 M16 -60 L10 -40" stroke="#7A5236" strokeWidth={2} />
+            </g>
+          )}
+        </g>
+        {leg(-18, 0)}
+        {leg(22, -0.42)}
+      </Tappable>
+    </g>
+  );
+}
+
+/** A grey donkey, side-on facing right, about 50 long, feet on (0, 0). */
+export function Donkey({ x, y, s = 1, flip = false, walk = true, load = false }: { x: number; y: number; s?: number; flip?: boolean; walk?: boolean; load?: boolean }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <Tappable reaction="wiggle" sound="boing">
+        {[-14, 10].map((lx, i) => (
+          <g key={lx} className={walk ? "lali-leg" : undefined} style={walk ? vars({ "--leg": `${-i * 0.42}s` }) : undefined}>
+            <rect x={lx} y={-18} width={4} height={18} fill="#7A7A86" />
+          </g>
+        ))}
+        <ellipse cx={0} cy={-22} rx={18} ry={9} fill="#9A9AA6" />
+        <path d="M14 -24 L22 -36 L30 -32 L22 -20Z" fill="#9A9AA6" />
+        <ellipse cx={29} cy={-32} rx={5} ry={4} fill="#B8B8C2" />
+        <path d="M20 -36 l-2 -12 l4 2Z M24 -36 l1 -12 l3 3Z" fill="#8A8A96" />
+        <circle cx={25} cy={-34} r={1.2} fill="#1B1B2A" />
+        <path d="M-18 -22 q-6 4 -4 10" stroke="#7A7A86" strokeWidth={2} fill="none" className="lali-tail" />
+        {load && <rect x={-12} y={-38} width={20} height={10} rx={2} fill="#F4F0E2" stroke="#CFC7B0" />}
+      </Tappable>
+    </g>
+  );
+}
+
+/** A highland ox (zebu, with a hump and long horns), side-on facing right, about 70 long, feet on (0, 0). */
+export function Ox({ x, y, s = 1, flip = false, walk = true, color = "#8A5A3A", delay = 0 }: { x: number; y: number; s?: number; flip?: boolean; walk?: boolean; color?: string; delay?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
+      <Tappable reaction="bounce" sound="boing">
+        {[-24, -14, 14, 24].map((lx, i) => (
+          <g key={lx} className={walk ? "lali-leg" : undefined} style={walk ? vars({ "--leg": `${(i % 2 ? -0.42 : 0) + delay}s` }) : undefined}>
+            <rect x={lx} y={-24} width={6} height={24} rx={2} fill={color} />
+          </g>
+        ))}
+        <ellipse cx={0} cy={-30} rx={32} ry={14} fill={color} />
+        <path d="M12 -42 Q20 -54 28 -42Z" fill={color} />
+        <path d="M28 -36 L44 -40 L48 -26 L34 -22Z" fill={color} />
+        <ellipse cx={48} cy={-28} rx={6} ry={5} fill="#C9A07A" />
+        <path d="M38 -40 Q36 -54 44 -60 M42 -40 Q48 -52 56 -54" stroke="#E8DCC0" strokeWidth={3} fill="none" strokeLinecap="round" />
+        <circle cx={42} cy={-34} r={1.4} fill="#1B1B2A" />
+        <path d="M-32 -30 q-6 10 -2 20" stroke={color} strokeWidth={2.4} fill="none" className="lali-tail" />
+        <path d="M24 -18 Q30 -10 34 -18" stroke="#6A4A2A" strokeWidth={4} fill="none" />
+      </Tappable>
+    </g>
+  );
+}
+
+/** The maresha, the wooden ox-plough, with its yoke-pole; tip at (0, 0) pointing left. */
+export function Plough({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M0 0 L20 -6 L60 -40" stroke="#8A5A30" strokeWidth={4} strokeLinecap="round" fill="none" />
+      <path d="M20 -6 L28 -30" stroke="#8A5A30" strokeWidth={3} strokeLinecap="round" />
+      <path d="M-2 0 L10 -4 L8 2Z" fill="#7A7A86" />
+      <path d="M60 -40 L120 -40" stroke="#7A5236" strokeWidth={3} />
+    </g>
+  );
+}
+
 /* ---------- plants: teff, coffee, enset, eucalyptus ---------- */
 
 /** A coffee bush with glossy leaves and red cherries, about 60 tall, base at (x, y). */
@@ -488,6 +588,92 @@ export function Papyrus({ x, y, s = 1, delay = 0 }: { x: number; y: number; s?: 
           </g>
         </g>
       ))}
+    </g>
+  );
+}
+
+/** A palm tree, as along the lake shore at Bahir Dar. About 120 tall. */
+export function Palm({ x, y, s = 1, delay = 0 }: { x: number; y: number; s?: number; delay?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M-4 0 Q-8 -60 4 -112 L10 -110 Q2 -60 6 0Z" fill="#9A7A52" />
+      {[-90, -70, -50, -30, -10, 10].map((yy) => (
+        <path key={yy} d={`M${-5 + (yy + 110) * 0.04} ${yy} h9`} stroke="#7A5A3A" strokeWidth={1.4} />
+      ))}
+      <g className="lali-sway" style={vars({ "--dur": "4.4s", "--delay": `${delay}s` })}>
+        {[-160, -120, -70, -30, 10, 50].map((a, i) => (
+          <path key={a} d="M0 0 Q30 -14 62 6 Q30 -4 0 0Z" fill={i % 2 ? "#3E9A4E" : "#4EAA5A"} transform={`translate(7 -112) rotate(${a + 90})`} />
+        ))}
+      </g>
+    </g>
+  );
+}
+
+/** A little round church among trees on a lake island. */
+export function IslandChurch({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M-70 4 Q0 -24 70 4Z" fill="#3E8A4E" />
+      <circle cx={-40} cy={-14} r={16} fill="#2E7A3E" />
+      <circle cx={38} cy={-16} r={18} fill="#2E7A3E" />
+      <rect x={-14} y={-24} width={28} height={20} fill="#F2E6CC" />
+      <path d="M-20 -24 Q0 -46 20 -24Z" fill="#B8A07A" />
+      <path d="M0 -40 V-52 M-4 -48 H4" stroke="#F5B21E" strokeWidth={2} />
+      <rect x={-4} y={-14} width={8} height={10} fill="#7A5236" />
+    </g>
+  );
+}
+
+/** A river falling over a cliff, with spray rising like smoke and (optionally) a rainbow. About `w` wide; the lip is at (x, y), falling `h`. */
+export function Waterfall({ x, y, w = 200, h = 90, mist = true, rainbow = false }: { x: number; y: number; w?: number; h?: number; mist?: boolean; rainbow?: boolean }) {
+  const n = Math.round(w / 12);
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={-w / 2 - 30} y={0} width={w + 60} height={h + 10} fill="#5A4A3A" />
+      <rect x={-w / 2} y={-2} width={w} height={h} fill="#E8F4FA" />
+      <g stroke="#9FD0EE" strokeWidth={4} strokeLinecap="round">
+        {Array.from({ length: n }, (_, i) => (
+          <g key={i} className="oe-fall" style={vars({ "--dur": `${r1(0.4 + (i % 3) * 0.12)}s`, "--delay": `${r1(-i * 0.13)}s` })}>
+            <path d={`M${r1(-w / 2 + 6 + i * (w - 12) / (n - 1))} 0 v${r1(h + 20)}`} strokeDasharray="10 14" />
+          </g>
+        ))}
+      </g>
+      <path d={`M${-w / 2} -2 Q0 -8 ${w / 2} -2`} stroke="#FFFFFF" strokeWidth={4} fill="none" />
+      <rect x={-w / 2 - 40} y={h - 4} width={w + 80} height={24} fill="#7FC4EE" />
+      <path d={`M${-w / 2 - 40} ${h + 4} ${Array(10).fill("q12 -4 24 0 q12 4 24 0").join(" ")}`} stroke="#FFFFFF" strokeWidth={2} fill="none" className="lali-ripple" />
+      {mist && (
+        <g fill="#FFFFFF">
+          {Array.from({ length: 12 }, (_, i) => (
+            <circle key={i} cx={r1(-w / 2 + 10 + ((i % 9) * w) / 9)} cy={h - 6} r={20 + (i % 3) * 7} className="oe-mist" style={vars({ "--delay": `${r1(-i * 0.45)}s`, "--dx": `${(i % 2 ? 1 : -1) * 14}px`, "--my": `${-(h + 50)}px`, "--dur": `${4 + (i % 3) * 0.7}s`, "--op": "0.9" })} />
+          ))}
+          <g className="oe-glow" style={vars({ "--lo": "0.55", "--hi": "0.85", "--dur": "3.4s" })}>
+            <ellipse cx={-w / 4} cy={-14} rx={w * 0.3} ry={20} />
+            <ellipse cx={w / 5} cy={-22} rx={w * 0.34} ry={24} />
+            <ellipse cx={0} cy={-40} rx={w * 0.22} ry={18} />
+          </g>
+        </g>
+      )}
+      {rainbow && (
+        <g className="oe-glow" style={vars({ "--lo": "0.45", "--hi": "0.85", "--dur": "4s" })} fill="none" strokeWidth={5}>
+          {["#E2463F", "#F5B21E", "#FFE27A", "#4EAA5A", "#3E8FD8", "#7A3FA0"].map((c, i) => (
+            <path key={c} d={`M${-w / 2 + 10 + i * 5} ${h - 4} A${w / 2 - 10 - i * 5} ${r1((w / 2 - 10 - i * 5) * 0.8)} 0 0 1 ${w / 2 - 10 - i * 5} ${h - 4}`} stroke={c} />
+          ))}
+        </g>
+      )}
+    </g>
+  );
+}
+
+/** An old arched stone bridge over a river, about 160 wide, the road on top at (x, y). */
+export function StoneBridge({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M-80 0 H80 V40 H50 Q50 4 0 4 Q-50 4 -50 40 H-80Z" fill="#9A8A74" />
+      <path d="M-80 0 H80" stroke="#7A6A54" strokeWidth={4} />
+      {[-64, -40, -16, 8, 32, 56].map((bx) => (
+        <path key={bx} d={`M${bx} 8 h14`} stroke="#8A7A64" strokeWidth={2} />
+      ))}
+      <path d="M-80 -4 H80" stroke="#B8A890" strokeWidth={3} />
     </g>
   );
 }

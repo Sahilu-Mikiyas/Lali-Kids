@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "Grandma's New Netela", am: "የአያቴ አዲስ ነጠላ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2E9A8A",
   scene: "lib-grandmas-new-netela",
   coverPage: 2,

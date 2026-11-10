@@ -1,0 +1,68 @@
+/* Hawi's Teff Seeds (hawis-teff-seeds.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Seeds flying from a paw onto the soil. */
+@keyframes hts-seed {
+  0% { transform: translate(0, 0); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(var(--sx, 30px), var(--sy, 40px)); opacity: 0; }
+}
+.hts-seed { animation: hts-seed 1.4s ease-in var(--delay, 0s) infinite; }
+
+/* Sprouts drooping in the dry heat. */
+@keyframes hts-wilt {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(18deg) scaleY(0.7); }
+}
+.hts-wilt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hts-wilt 2s ease-in 0.6s both;
+}
+
+/* Heat wobbling over the dry ground. */
+@keyframes hts-heat {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-4px); opacity: 0.9; }
+}
+.hts-heat { animation: hts-heat 1.6s ease-in-out infinite; }
+
+/* Bending to plant the maize. */
+@keyframes hts-plant {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(8deg); }
+}
+.hts-plant {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hts-plant 2s ease-in-out infinite;
+}
+
+/* The oxen pulling the plough slowly forward and back. */
+@keyframes hts-plough {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(60px); }
+}
+.hts-plough { animation: hts-plough 6s ease-in-out infinite alternate; }
+
+/* Hawi running along the edge of the field. */
+@keyframes hts-run {
+  from { transform: translateX(0); }
+  to { transform: translateX(280px); }
+}
+.hts-run { animation: hts-run 5s ease-in-out infinite alternate; }
+
+/* The oxen walking round the threshing floor (seen from the side: across and back). */
+@keyframes hts-round {
+  0% { transform: translateX(-30px); }
+  50% { transform: translateX(30px); }
+  100% { transform: translateX(-30px); }
+}
+.hts-round { animation: hts-round 5s ease-in-out infinite; }
+
+/* Straw blowing away in the wind. */
+@keyframes hts-chaff {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(-120px, -30px) rotate(200deg); opacity: 0; }
+}
+.hts-chaff { animation: hts-chaff 2.4s ease-out var(--delay, 0s) infinite; }

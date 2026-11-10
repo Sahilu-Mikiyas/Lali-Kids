@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "The Littlest Month", am: "ትንሹ ወር" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E0A21E",
   scene: "lib-the-littlest-month",
   coverPage: 10,

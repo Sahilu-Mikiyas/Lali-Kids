@@ -34,7 +34,7 @@ const story: Story = {
   title: { en: "Desta's Fichee", am: "የደስታ ፊቼ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E07A1E",
   scene: "lib-destas-fichee",
   coverPage: 5,

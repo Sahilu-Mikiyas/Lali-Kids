@@ -28,7 +28,7 @@ const story: Story = {
   title: { en: "Lake After Lake", am: "ሐይቅ በሐይቅ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#1F8FA8",
   scene: "lib-lake-after-lake",
   coverPage: 3,
