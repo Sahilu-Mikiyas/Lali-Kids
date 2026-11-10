@@ -1,0 +1,43 @@
+/* Grandma's New Netela (grandmas-new-netela.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The old netela held up, swaying. */
+@keyframes gnn-hold {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.gnn-hold {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: gnn-hold 2.6s ease-in-out infinite;
+}
+
+/* Click-clack lines by the loom. */
+@keyframes gnn-click {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.gnn-click {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gnn-click 0.55s ease-in-out infinite;
+}
+
+/* Anbessa running down the lane and back. */
+@keyframes gnn-run {
+  0% { transform: translateX(160px); }
+  45% { transform: translateX(160px); }
+  100% { transform: translateX(-60px); }
+}
+.gnn-run { animation: gnn-run 3s ease-in-out 0.4s both; }
+
+/* The camera flash for the photo. */
+@keyframes gnn-flash {
+  0%, 70% { opacity: 0; }
+  75% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+.gnn-flash { animation: gnn-flash 4s ease-out 0.8s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gnn-flash { opacity: 0; }
+}

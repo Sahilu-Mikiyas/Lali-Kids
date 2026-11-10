@@ -615,7 +615,7 @@ export function HelloCard({ x, y, text, face, color = "#2B3A8C", s = 1, script =
       <Tappable reaction="bounce" sound="pop">
         <rect x={-34} y={-26} width={68} height={52} rx={8} fill="#FFFFFF" stroke={color} strokeWidth={2.4} />
         {face && <g transform="translate(0 -6)">{face}</g>}
-        <text x={0} y={20} textAnchor="middle" fontSize={11} fontWeight={900} fontFamily={script === "fidel" ? ETH : FONT} fill={color}>
+        <text x={0} y={20} textAnchor="middle" fontSize={text.length > 9 ? 9 : 11} fontWeight={900} fontFamily={script === "fidel" ? ETH : FONT} fill={color}>
           {text}
         </text>
       </Tappable>

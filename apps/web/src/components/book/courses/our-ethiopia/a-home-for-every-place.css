@@ -1,0 +1,86 @@
+/* A Home for Every Place (a-home-for-every-place.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Rain dripping from the little cloud. */
+@keyframes ah-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.ah-drip { animation: ah-drip 1s linear var(--delay, 0s) infinite; }
+
+/* The watering can tipping. */
+@keyframes ah-tip {
+  0%, 100% { transform: rotate(0deg); }
+  30%, 80% { transform: rotate(-16deg); }
+}
+.ah-tip {
+  transform-box: fill-box;
+  transform-origin: 80% 80%;
+  animation: ah-tip 3s ease-in-out infinite;
+}
+
+/* Rain running down the pointed roof and off the edge. */
+@keyframes ah-runoff {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--rx, 20px), 70px); opacity: 0; }
+}
+.ah-runoff { animation: ah-runoff 1.2s ease-in var(--delay, 0s) infinite; }
+
+/* A grass roof blown away by the wind. */
+@keyframes ah-blow {
+  0%, 30% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(-120px, -60px) rotate(-60deg); opacity: 0; }
+}
+.ah-blow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ah-blow 2.4s ease-in 0.8s both;
+}
+
+/* Wind lines. */
+@keyframes ah-wind {
+  from { transform: translateX(20px); opacity: 0; }
+  50% { opacity: 1; }
+  to { transform: translateX(-80px); opacity: 0; }
+}
+.ah-wind { animation: ah-wind 1.2s linear infinite; }
+
+/* The Dorze house carried by many people. */
+@keyframes ah-carry {
+  from { transform: translateX(60px); }
+  to { transform: translateX(-30px); }
+}
+.ah-carry { animation: ah-carry 6s ease-in-out infinite alternate; }
+
+/* Camels and goats moving across the plain. */
+@keyframes ah-herd {
+  from { transform: translateX(30px); }
+  to { transform: translateX(-30px); }
+}
+.ah-herd { animation: ah-herd 5s ease-in-out var(--delay, 0s) infinite alternate; }
+
+/* Building the aqal: first the frame, then the mats. */
+@keyframes ah-frame {
+  0%, 40% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.ah-frame { animation: ah-frame 4s ease 0.4s both; }
+@keyframes ah-mats {
+  0%, 40% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+.ah-mats { animation: ah-mats 4s ease 0.4s both; }
+
+/* The toy camel trotting off. */
+@keyframes ah-trot {
+  from { transform: translateX(0); }
+  to { transform: translateX(90px); }
+}
+.ah-trot { animation: ah-trot 3s ease-in 0.6s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-frame { opacity: 0; }
+  .ah-mats { opacity: 1; }
+  .ah-blow { opacity: 0; }
+}

@@ -16,6 +16,11 @@ const SmokingWater = dynamic(() => import("./smoking-water"), { ssr: false });
 const LakeAfterLake = dynamic(() => import("./lake-after-lake"), { ssr: false });
 const SaltRoad = dynamic(() => import("./salt-road"), { ssr: false });
 const HawisTeffSeeds = dynamic(() => import("./hawis-teff-seeds"), { ssr: false });
+// Level 2: our peoples and languages
+const ManyHellos = dynamic(() => import("./many-hellos"), { ssr: false });
+const AHomeForEveryPlace = dynamic(() => import("./a-home-for-every-place"), { ssr: false });
+const GrandmasNewNetela = dynamic(() => import("./grandmas-new-netela"), { ssr: false });
+const HawisLetter = dynamic(() => import("./hawis-letter"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -24,4 +29,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "lake-after-lake": LakeAfterLake,
   "salt-road": SaltRoad,
   "hawis-teff-seeds": HawisTeffSeeds,
+  "many-hellos": ManyHellos,
+  "a-home-for-every-place": AHomeForEveryPlace,
+  "grandmas-new-netela": GrandmasNewNetela,
+  "hawis-letter": HawisLetter,
 };

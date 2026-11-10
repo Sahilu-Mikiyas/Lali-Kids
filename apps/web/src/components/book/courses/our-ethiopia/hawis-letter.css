@@ -1,0 +1,20 @@
+/* Hawi's Letter (hawis-letter.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* A long word jiggling, too hard to read. */
+@keyframes hl-jiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.hl-jiggle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hl-jiggle 0.5s ease-in-out infinite;
+}
+
+/* The letter flying off over the mountains. */
+@keyframes hl-send {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(200px, -110px) rotate(20deg) scale(0.4); opacity: 0; }
+}
+.hl-send { animation: hl-send 3.4s ease-in-out 0.6s infinite; }
