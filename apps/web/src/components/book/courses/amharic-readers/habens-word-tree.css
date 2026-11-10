@@ -1,0 +1,58 @@
+/* "The Word Tree" (habens-word-tree.tsx): transforms and opacity only (and the stick drawing
+   its lines with ar-read-draw). With reduced motion every piece rests in its final pose. */
+
+/* The fig tree's leaves rustling in the breeze. */
+@keyframes hwt-rustle {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(3px) rotate(0.6deg); }
+}
+.hwt-rustle {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hwt-rustle 4s ease-in-out infinite;
+}
+
+/* Grandma's stick scratching in the dust. */
+@keyframes hwt-stick {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  50% { transform: rotate(-10deg) translateX(-14px); }
+}
+.hwt-stick {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hwt-stick 1.2s ease-in-out infinite;
+}
+
+/* Gugu swinging down from a branch. */
+@keyframes hwt-swing {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.hwt-swing {
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: hwt-swing 1.8s ease-in-out infinite;
+}
+
+/* Haben laughing. */
+@keyframes hwt-laugh {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.hwt-laugh {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hwt-laugh 0.5s ease-in-out infinite;
+}
+
+/* A line of writing appearing, left to right. */
+@keyframes hwt-write {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.hwt-write {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: hwt-write 1s ease-out var(--delay, 0.8s) both;
+}
