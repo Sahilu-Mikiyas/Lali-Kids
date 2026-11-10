@@ -19,6 +19,8 @@ const TsehaysTrickyNotes = dynamic(() => import("./tsehays-tricky-notes"), { ssr
 // Level 2: long vowels
 const AnbessasMagicE = dynamic(() => import("./anbessas-magic-e"), { ssr: false });
 const GugusSweetBeets = dynamic(() => import("./gugus-sweet-beets"), { ssr: false });
+const WaitForTheTrain = dynamic(() => import("./wait-for-the-train"), { ssr: false });
+const FloatBoatFloat = dynamic(() => import("./float-boat-float"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-shop-labels": AyansShopLabels,
@@ -28,4 +30,6 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "tsehays-tricky-notes": TsehaysTrickyNotes,
   "anbessas-magic-e": AnbessasMagicE,
   "gugus-sweet-beets": GugusSweetBeets,
+  "wait-for-the-train": WaitForTheTrain,
+  "float-boat-float": FloatBoatFloat,
 };

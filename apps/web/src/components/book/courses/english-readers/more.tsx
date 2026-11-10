@@ -326,8 +326,8 @@ export function Station({ id, rain = false, board, children }: { id: string; rai
       {/* the roof, on its posts */}
       <path d="M-10 30 H410 L392 56 H8Z" fill="#2E9A5B" />
       <path d="M-10 30 H410" stroke="#1F7A48" strokeWidth={4} />
-      {[40, 360].map((x) => (
-        <rect key={x} x={x - 4} y={56} width={8} height={170} fill="#5A6A7A" />
+      {[60, 330].map((x) => (
+        <rect key={x} x={x - 5} y={56} width={10} height={170} fill="#5A6A7A" />
       ))}
       {board && (
         <g transform="translate(200 84)">

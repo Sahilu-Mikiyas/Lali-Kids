@@ -500,11 +500,14 @@ const SAND_L = "#E8C08A";
 
 /**
  * A camel, standing side-on and facing right. `who` sets the clothes: Ayan's orange garbasaar,
- * Hooyo's long green shawl (and she is drawn taller), Abdi's white koofiyad cap.
+ * Hooyo's long green shawl (and she is drawn taller), Abdi's white koofiyad cap; Grandma Halima
+ * (new in English Readers) wears a long purple shawl.
  * `henna` paints flowers on the front feet; `kneel` folds the legs to sit.
  */
-export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = false, henna = false, item }: { who?: "ayan" | "hooyo" | "abdi" | "aabo"; mood?: Mood; walk?: boolean; kneel?: boolean; henna?: boolean; item?: ReactNode }) {
-  const tall = who === "hooyo" || who === "aabo";
+export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = false, henna = false, item }: { who?: "ayan" | "hooyo" | "abdi" | "aabo" | "halima"; mood?: Mood; walk?: boolean; kneel?: boolean; henna?: boolean; item?: ReactNode }) {
+  const tall = who === "hooyo" || who === "aabo" || who === "halima";
+  const shawl = who === "halima" ? "#7A3FA0" : "#2E8A5A";
+  const wrapped = who === "hooyo" || who === "halima";
   const legH = kneel ? 22 : tall ? 74 : 62;
   const legY = 228 - legH;
   const bodyY = legY - 8;
@@ -527,8 +530,8 @@ export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = fals
         <ellipse cx={92} cy={bodyY} rx={52} ry={28} fill={SAND} />
         <path d={`M60 ${bodyY - 18} Q88 ${bodyY - 64} 120 ${bodyY - 20}Z`} fill={SAND} />
         <path d={`M72 ${bodyY - 30} Q88 ${bodyY - 52} 104 ${bodyY - 34}`} stroke="#fff" strokeOpacity={0.25} strokeWidth={5} fill="none" strokeLinecap="round" />
-        {who === "hooyo" && <path d={`M40 ${bodyY - 10} Q92 ${bodyY - 40} 144 ${bodyY - 10} L140 ${bodyY + 26} Q92 ${bodyY + 36} 44 ${bodyY + 26}Z`} fill="#2E8A5A" opacity={0.95} />}
-        {who === "hooyo" && <path d={`M44 ${bodyY + 20} Q92 ${bodyY + 30} 140 ${bodyY + 20}`} stroke="#F5B21E" strokeWidth={3} strokeDasharray="5 4" fill="none" />}
+        {wrapped && <path d={`M40 ${bodyY - 10} Q92 ${bodyY - 40} 144 ${bodyY - 10} L140 ${bodyY + 26} Q92 ${bodyY + 36} 44 ${bodyY + 26}Z`} fill={shawl} opacity={0.95} />}
+        {wrapped && <path d={`M44 ${bodyY + 20} Q92 ${bodyY + 30} 140 ${bodyY + 20}`} stroke="#F5B21E" strokeWidth={3} strokeDasharray="5 4" fill="none" />}
         <path d={`M128 ${bodyY - 6} Q146 ${bodyY - 30} 144 ${neckTop + 8} L164 ${neckTop} Q170 ${bodyY - 30} 150 ${bodyY + 14}Z`} fill={SAND} />
         <g className="lali-tilt" style={vars({ "--tilt": "-6deg", "--dur": "6s" })}>
           <g transform={`translate(0 ${neckTop - 72})`}>
@@ -552,9 +555,9 @@ export function Camel({ who = "ayan", mood = "happy", walk = false, kneel = fals
                 <path d="M178 62 L174 70" stroke="#C9601A" strokeWidth={2} />
               </g>
             )}
-            {who === "hooyo" && (
+            {wrapped && (
               <g>
-                <path d="M134 74 Q150 40 184 56 L180 66 Q158 56 150 76 L150 130 Q132 126 128 100Z" fill="#2E8A5A" />
+                <path d="M134 74 Q150 40 184 56 L180 66 Q158 56 150 76 L150 130 Q132 126 128 100Z" fill={shawl} />
                 <path d="M136 80 Q150 50 182 60" stroke="#F5B21E" strokeWidth={2.4} strokeDasharray="4 3" fill="none" />
               </g>
             )}
