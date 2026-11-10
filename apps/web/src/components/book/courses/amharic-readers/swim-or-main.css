@@ -1,0 +1,45 @@
+/* "Swimming or Main?" (swim-or-main.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* The soft sign's feather floating. */
+@keyframes som-float {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-4px) rotate(6deg); }
+}
+.som-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: som-float 2.4s ease-in-out infinite;
+}
+
+/* The strong sign's two arrows pressing in. */
+@keyframes som-press-l {
+  0%, 100% { transform: translateX(-3px); }
+  50% { transform: translateX(2px); }
+}
+@keyframes som-press-r {
+  0%, 100% { transform: translateX(3px); }
+  50% { transform: translateX(-2px); }
+}
+.som-press-l { animation: som-press-l 0.9s ease-in-out infinite; }
+.som-press-r { animation: som-press-r 0.9s ease-in-out infinite; }
+
+/* A swimmer's arm going round. */
+@keyframes som-stroke {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-40deg); }
+}
+.som-stroke {
+  transform-box: fill-box;
+  transform-origin: left bottom;
+  animation: som-stroke 1.2s ease-in-out infinite;
+}
+
+/* The arrow on the swimming sign nudging the way. */
+@keyframes som-arrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+.som-arrow {
+  animation: som-arrow 1.2s ease-in-out infinite;
+}

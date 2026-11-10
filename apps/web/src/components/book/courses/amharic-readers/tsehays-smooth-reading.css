@@ -1,0 +1,33 @@
+/* "Smooth as a River" (tsehays-smooth-reading.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* Words riding the water together, drifting gently. */
+@keyframes tsr-flow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(6px, 3px); }
+}
+.tsr-flow {
+  animation: tsr-flow 3.2s ease-in-out infinite;
+}
+
+/* The little ones leaning in to listen. */
+@keyframes tsr-lean {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(6deg); }
+}
+.tsr-lean {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: tsr-lean 2.4s ease-in-out infinite;
+}
+
+/* Tsehay's nervous wobble before she begins. */
+@keyframes tsr-wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.tsr-wobble {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: tsr-wobble 0.7s ease-in-out infinite;
+}

@@ -17,8 +17,8 @@ import type { Time } from "./kit-places";
 
 const r1 = (n: number) => Math.round(n * 10) / 10;
 
-/** A classroom: blue-washed walls, a blackboard with fidel on it, a window and a bench row. */
-export function Classroom({ id, children }: { id: string; children?: ReactNode }) {
+/** A classroom: blue-washed walls, a blackboard (fidel on it, or your own `board` drawing inside x 110–290, y 40–140), a window and a bench row. */
+export function Classroom({ id, board, children }: { id: string; board?: ReactNode; children?: ReactNode }) {
   return (
     <>
       <defs>
@@ -31,12 +31,16 @@ export function Classroom({ id, children }: { id: string; children?: ReactNode }
       <rect x={-10} y={170} width={420} height={14} fill="#7FA8C0" />
       <g data-depth={-0.3}>
         <rect x={110} y={40} width={180} height={100} rx={4} fill="#2E4A3A" stroke="#8A5A3A" strokeWidth={6} />
-        <text x={200} y={84} fontSize={22} fill="#F4F0E0" textAnchor="middle" fontFamily="var(--font-noto-ethiopic), sans-serif" opacity={0.9}>
-          ሀ ለ ሐ መ ሠ
-        </text>
-        <text x={200} y={116} fontSize={18} fill="#F4F0E0" textAnchor="middle" fontFamily={FONT} opacity={0.8}>
-          1 2 3
-        </text>
+        {board ?? (
+          <>
+            <text x={200} y={84} fontSize={22} fill="#F4F0E0" textAnchor="middle" fontFamily="var(--font-noto-ethiopic), sans-serif" opacity={0.9}>
+              ሀ ለ ሐ መ ሠ
+            </text>
+            <text x={200} y={116} fontSize={18} fill="#F4F0E0" textAnchor="middle" fontFamily={FONT} opacity={0.8}>
+              1 2 3
+            </text>
+          </>
+        )}
         <rect x={130} y={140} width={140} height={5} fill="#8A5A3A" />
         <rect x={150} y={136} width={16} height={4} fill="#FFFFFF" />
         <rect x={20} y={50} width={60} height={60} fill="#DDF2FF" stroke="#8A5A3A" strokeWidth={5} />
