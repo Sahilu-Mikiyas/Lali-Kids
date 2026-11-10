@@ -13,10 +13,14 @@ import type { ComponentType } from "react";
 const FillTenFirst = dynamic(() => import("./fill-ten-first"), { ssr: false });
 const GebetaDoubles = dynamic(() => import("./gebeta-doubles"), { ssr: false });
 const NumberFamily = dynamic(() => import("./number-family"), { ssr: false });
+const HawassaBus = dynamic(() => import("./hawassa-bus"), { ssr: false });
+const TolosasRiddles = dynamic(() => import("./tolosas-riddles"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "fill-ten-first": FillTenFirst,
   "gebeta-doubles": GebetaDoubles,
   "number-family": NumberFamily,
+  "hawassa-bus": HawassaBus,
+  "tolosas-riddles": TolosasRiddles,
 };
