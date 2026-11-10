@@ -18,7 +18,7 @@ import type { Time } from "./kit-places";
 const r1 = (n: number) => Math.round(n * 10) / 10;
 
 /** A classroom: blue-washed walls, a blackboard with fidel on it, a window and a bench row. */
-export function Classroom({ id, children }: { id: string; children?: ReactNode }) {
+export function Classroom({ id, board = true, children }: { id: string; board?: boolean; children?: ReactNode }) {
   return (
     <>
       <defs>
@@ -30,15 +30,19 @@ export function Classroom({ id, children }: { id: string; children?: ReactNode }
       <rect width={400} height={300} fill={`url(#${id}-cw)`} />
       <rect x={-10} y={170} width={420} height={14} fill="#7FA8C0" />
       <g data-depth={-0.3}>
-        <rect x={110} y={40} width={180} height={100} rx={4} fill="#2E4A3A" stroke="#8A5A3A" strokeWidth={6} />
-        <text x={200} y={84} fontSize={22} fill="#F4F0E0" textAnchor="middle" fontFamily="var(--font-noto-ethiopic), sans-serif" opacity={0.9}>
-          ሀ ለ ሐ መ ሠ
-        </text>
-        <text x={200} y={116} fontSize={18} fill="#F4F0E0" textAnchor="middle" fontFamily={FONT} opacity={0.8}>
-          1 2 3
-        </text>
-        <rect x={130} y={140} width={140} height={5} fill="#8A5A3A" />
-        <rect x={150} y={136} width={16} height={4} fill="#FFFFFF" />
+        {board && (
+          <>
+            <rect x={110} y={40} width={180} height={100} rx={4} fill="#2E4A3A" stroke="#8A5A3A" strokeWidth={6} />
+            <text x={200} y={84} fontSize={22} fill="#F4F0E0" textAnchor="middle" fontFamily="var(--font-noto-ethiopic), sans-serif" opacity={0.9}>
+              ሀ ለ ሐ መ ሠ
+            </text>
+            <text x={200} y={116} fontSize={18} fill="#F4F0E0" textAnchor="middle" fontFamily={FONT} opacity={0.8}>
+              1 2 3
+            </text>
+            <rect x={130} y={140} width={140} height={5} fill="#8A5A3A" />
+            <rect x={150} y={136} width={16} height={4} fill="#FFFFFF" />
+          </>
+        )}
         <rect x={20} y={50} width={60} height={60} fill="#DDF2FF" stroke="#8A5A3A" strokeWidth={5} />
         <path d="M50 50 V110 M20 80 H80" stroke="#8A5A3A" strokeWidth={4} />
         <path d="M20 96 Q40 86 80 92 V110 H20Z" fill="#8FCB80" />

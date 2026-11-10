@@ -31,6 +31,11 @@ const ChangeFrom100 = dynamic(() => import("./change-from-100"), { ssr: false })
 const TwoClocks = dynamic(() => import("./two-clocks"), { ssr: false });
 const DaysToMeskel = dynamic(() => import("./days-to-meskel"), { ssr: false });
 const HowLong = dynamic(() => import("./how-long"), { ssr: false });
+const ShapesOfHome = dynamic(() => import("./shapes-of-home"), { ssr: false });
+const MirrorWings = dynamic(() => import("./mirror-wings"), { ssr: false });
+const BeadRules = dynamic(() => import("./bead-rules"), { ssr: false });
+const FruitVote = dynamic(() => import("./fruit-vote"), { ssr: false });
+const BigMarketDay = dynamic(() => import("./big-market-day"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -55,4 +60,9 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "two-clocks": TwoClocks,
   "days-to-meskel": DaysToMeskel,
   "how-long": HowLong,
+  "shapes-of-home": ShapesOfHome,
+  "mirror-wings": MirrorWings,
+  "bead-rules": BeadRules,
+  "fruit-vote": FruitVote,
+  "big-market-day": BigMarketDay,
 };

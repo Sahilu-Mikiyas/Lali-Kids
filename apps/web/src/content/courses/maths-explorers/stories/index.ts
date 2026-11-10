@@ -1,11 +1,14 @@
 import type { Story } from "../../../stories";
 
 import bajajTrip from "./bajaj-trip";
+import beadRules from "./bead-rules";
+import bigMarketDay from "./big-market-day";
 import changeFrom100 from "./change-from-100";
 import clothMetres from "./cloth-metres";
 import daysToMeskel from "./days-to-meskel";
 import equalPieces from "./equal-pieces";
 import fillTenFirst from "./fill-ten-first";
+import fruitVote from "./fruit-vote";
 import gebetaDoubles from "./gebeta-doubles";
 import halfTheHerd from "./half-the-herd";
 import hawassaBus from "./hawassa-bus";
@@ -13,9 +16,11 @@ import howLong from "./how-long";
 import marketPiles from "./market-piles";
 import marketScale from "./market-scale";
 import milkLitres from "./milk-litres";
+import mirrorWings from "./mirror-wings";
 import numberFamily from "./number-family";
 import oneLeftOver from "./one-left-over";
 import oxenPairs from "./oxen-pairs";
+import shapesOfHome from "./shapes-of-home";
 import threeRounds from "./three-rounds";
 import tolosasRiddles from "./tolosas-riddles";
 import twoClocks from "./two-clocks";
@@ -50,4 +55,10 @@ export const STORIES: Story[] = [
   twoClocks,
   daysToMeskel,
   howLong,
+  // level 6
+  shapesOfHome,
+  mirrorWings,
+  beadRules,
+  fruitVote,
+  bigMarketDay,
 ];

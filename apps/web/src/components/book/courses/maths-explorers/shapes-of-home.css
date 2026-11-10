@@ -1,0 +1,39 @@
+/* Shapes in the Village (shapes-of-home.tsx): transforms and opacity only. */
+
+/* The cone roof lifts off the cylinder wall to show the two shapes, then settles back. */
+@keyframes soh-lift {
+  0%, 100% { transform: translateY(0); }
+  30%, 70% { transform: translateY(-26px); }
+}
+.soh-lift {
+  animation: soh-lift 3s ease-in-out 1s both;
+}
+
+/* The ball rolls away down the slope. */
+@keyframes soh-roll {
+  from { transform: translate(0, 0); }
+  to { transform: translate(140px, 60px); }
+}
+.soh-roll {
+  animation: soh-roll 2.4s ease-in 0.8s both;
+}
+
+/* A flat face slides along without turning. */
+@keyframes soh-slide {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(50px); }
+}
+.soh-slide {
+  animation: soh-slide 2s ease-out 0.8s both;
+}
+
+/* A tin on its side rolls along. */
+@keyframes soh-roll2 {
+  from { transform: translateX(-40px) rotate(0deg); }
+  to { transform: translateX(60px) rotate(360deg); }
+}
+.soh-roll2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: soh-roll2 2.4s linear 0.8s both;
+}

@@ -1,0 +1,11 @@
+/* Hawi's Bead Rule (bead-rules.tsx): transforms and opacity only. */
+
+/* The right bead drops in over the wrong one. */
+@keyframes br-swap {
+  0% { transform: translateY(-50px); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.br-swap {
+  animation: br-swap 0.8s ease-out 2s both;
+}

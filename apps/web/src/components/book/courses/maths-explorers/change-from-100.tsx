@@ -16,7 +16,7 @@ import { Dabo } from "./kit-props";
   found on a number line by counting up from the total to the money paid.
 */
 
-function Shop({ id, children }: { id: string; children: ReactNode }) {
+function Shop({ children }: { id?: string; children: ReactNode }) {
   return (
     <g>
       <rect width={400} height={300} fill="#7FC8C0" />
