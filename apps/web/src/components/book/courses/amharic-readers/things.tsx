@@ -822,18 +822,6 @@ export const THINGS: Record<string, () => ReactElement> = {
       <circle cx={-10} cy={-18} r={8} fill="#5BB86A" />
     </g>
   ),
-  // ፀሐይ, the sun (just one!)
-  sun: () => (
-    <g>
-      <g stroke="#F5B21E" strokeWidth={4} strokeLinecap="round">
-        {Array.from({ length: 8 }, (_, i) => {
-          const a = (i / 8) * Math.PI * 2;
-          return <path key={i} d={`M${Math.round(Math.cos(a) * 26)} ${Math.round(Math.sin(a) * 26)} L${Math.round(Math.cos(a) * 36)} ${Math.round(Math.sin(a) * 36)}`} />;
-        })}
-      </g>
-      <circle r={20} fill="#FFD233" {...S} />
-    </g>
-  ),
   // ኮፍያ, a little hat
   hat: () => (
     <g>
@@ -868,6 +856,21 @@ export const THINGS: Record<string, () => ReactElement> = {
       <rect x={-28} y={2} width={14} height={12} fill="#BDE6FF" {...S} strokeWidth={1.6} />
       <rect x={14} y={2} width={14} height={12} fill="#BDE6FF" {...S} strokeWidth={1.6} />
       <path d="M0 -30 V-42 L12 -38 L0 -34" fill="#2E9A5B" stroke={K} strokeWidth={1.4} />
+    </g>
+  ),
+  // እንቁራሪት, a frog
+  frog: () => (
+    <g>
+      <path d="M-26 22 Q-34 6 -16 8 M26 22 Q34 6 16 8" stroke="#3E8A3E" strokeWidth={7} fill="none" strokeLinecap="round" />
+      <ellipse cx={0} cy={8} rx={26} ry={17} fill="#5BB34E" {...S} />
+      <ellipse cx={0} cy={14} rx={13} ry={8} fill="#D6F0A8" />
+      <circle cx={-12} cy={-10} r={9} fill="#5BB34E" {...S} />
+      <circle cx={12} cy={-10} r={9} fill="#5BB34E" {...S} />
+      <circle cx={-12} cy={-11} r={5} fill="#fff" />
+      <circle cx={12} cy={-11} r={5} fill="#fff" />
+      <circle cx={-11} cy={-11} r={2.6} fill={K} />
+      <circle cx={13} cy={-11} r={2.6} fill={K} />
+      <path d="M-10 2 Q0 8 10 2" stroke="#2E6A2E" strokeWidth={2} fill="none" strokeLinecap="round" />
     </g>
   ),
   // ማሰሮ, a clay water pot
