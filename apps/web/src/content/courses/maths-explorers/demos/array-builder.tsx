@@ -43,7 +43,7 @@ function ChairIcon({ color }: { color: string }) {
   );
 }
 
-const COLORS = ["#E8E4DA", "#FFD233", "#7FC8F0"];
+const COLORS = ["#E2463F", "#FFD233", "#7FC8F0"];
 
 function Stepper({ label, value, set, max }: { label: string; value: number; set: (n: number) => void; max: number }) {
   return (

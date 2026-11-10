@@ -234,7 +234,7 @@ export default function OneLeftOver({ page }: { page: number }) {
           <Plates labels={[4, 4, 4]} t={6} />
           <Deal n={12} dealt={12} start={0.8} step={0.4} item={(x, y) => <Roll x={x} y={y} s={0.9} />} />
           <SumCard x={200} y={64} tokens={["12", "÷", "3", "=", "4"]} start={6.4} hl={{ 1: "#E8513B", 4: "#2F5BD3" }} size={24} />
-          <Mark x={330} y={64} ok delay={7.4} />
+          <Mark x={300} y={64} ok delay={7.4} />
           <Friends mood="happy" />
         </School>
       );

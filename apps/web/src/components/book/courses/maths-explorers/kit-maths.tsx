@@ -42,7 +42,11 @@ export function SumCard({ x, y, tokens, start = 1, step = 0.45, size = 30, hl = 
   const end = start + (tokens.length - 1) * step;
   return (
     <g transform={`translate(${x} ${y})`}>
-      {card && <rect x={r1(-(total + extra) / 2 - 14)} y={-size * 0.95} width={r1(total + extra + 28)} height={size * 1.6} rx={size * 0.5} fill="#FFFDF4" stroke="#1B2A4E" strokeOpacity={0.18} strokeWidth={2} />}
+      {card && (
+        <g className="lali-pop-in" style={d(Math.max(0, start - 0.15))}>
+          <rect x={r1(-(total + extra) / 2 - 14)} y={-size * 0.95} width={r1(total + extra + 28)} height={size * 1.6} rx={size * 0.5} fill="#FFFDF4" stroke="#1B2A4E" strokeOpacity={0.18} strokeWidth={2} />
+        </g>
+      )}
       {tokens.map((t, i) => {
         const cx = centres[i];
         return (

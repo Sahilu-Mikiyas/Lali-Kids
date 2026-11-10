@@ -165,7 +165,7 @@ export default function NumberFamily({ page }: { page: number }) {
       return (
         <Plain id={id}>
           <NumberHouse x={130} y={180} whole={15} a={7} b={8} delay={0.8} />
-          <Sums x={300} y={96} lines={[["7", "+", "8", "=", "15"], ["8", "+", "7", "=", "15"], ["15", "−", "8", "=", "7"], ["15", "−", "7", "=", "8"]]} start={2.4} />
+          <Sums x={278} y={96} lines={[["7", "+", "8", "=", "15"], ["8", "+", "7", "=", "15"], ["15", "−", "8", "=", "7"], ["15", "−", "7", "=", "8"]]} start={2.4} />
           <Place x={56} y={296} s={0.36} tap={TAP.ayan}>
             <Camel who="hooyo" mood="joy" />
           </Place>
@@ -201,7 +201,7 @@ export default function NumberFamily({ page }: { page: number }) {
             </g>
           ))}
           <NumberHouse x={110} y={120} whole={13} a={4} b={9} delay={3} s={0.7} />
-          <Sums x={290} y={74} lines={[["4", "+", "9", "=", "13"], ["9", "+", "4", "=", "13"]]} start={3.6} />
+          <Sums x={278} y={74} lines={[["4", "+", "9", "=", "13"], ["9", "+", "4", "=", "13"]]} start={3.6} />
         </Plain>
       );
     // Abdi's take-away mix-up: 13 − 9 is 4, because 9 + 4 = 13.
@@ -215,7 +215,7 @@ export default function NumberFamily({ page }: { page: number }) {
             </text>
             <path d="M232 98 L348 72" stroke="#E2463F" strokeWidth={4} className="lali-fade-in" style={vars({ "--delay": "2s" })} />
           </g>
-          <Sums x={290} y={140} lines={[["9", "+", "4", "=", "13"], ["13", "−", "9", "=", "4"]]} start={2.6} />
+          <Sums x={278} y={140} lines={[["9", "+", "4", "=", "13"], ["13", "−", "9", "=", "4"]]} start={2.6} />
           <Place x={340} y={298} s={0.24} flip tap={TAP.ayan}>
             <Camel who="abdi" mood="wow" />
           </Place>
@@ -229,7 +229,7 @@ export default function NumberFamily({ page }: { page: number }) {
       return (
         <Plain id={id}>
           <NumberHouse x={110} y={160} whole={11} a={6} b={5} delay={0.6} s={0.9} />
-          <Sums x={290} y={80} lines={[["6", "+", "5", "=", "11"], ["5", "+", "6", "=", "11"], ["11", "−", "5", "=", "6"], ["11", "−", "6", "=", "5"]]} start={2} />
+          <Sums x={278} y={80} lines={[["6", "+", "5", "=", "11"], ["5", "+", "6", "=", "11"], ["11", "−", "5", "=", "6"], ["11", "−", "6", "=", "5"]]} start={2} />
           <BeeHover x={200} y={60} s={1.1} />
         </Plain>
       );
@@ -238,7 +238,7 @@ export default function NumberFamily({ page }: { page: number }) {
       return (
         <Plain id={id}>
           <NumberHouse x={120} y={160} whole={20} a={10} b={10} delay={0.6} s={0.9} color="#2E9A8A" />
-          <Sums x={290} y={110} lines={[["10", "+", "10", "=", "20"], ["20", "−", "10", "=", "10"]]} start={2} />
+          <Sums x={278} y={110} lines={[["10", "+", "10", "=", "20"], ["20", "−", "10", "=", "10"]]} start={2} />
           <Place x={330} y={298} s={0.26} flip tap={TAP.ayan}>
             <Camel who="abdi" mood="wow" />
           </Place>

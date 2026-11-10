@@ -90,22 +90,23 @@ function ChairShape({ x, y, s, color }: { x: number; y: number; s: number; color
   );
 }
 const ArrayArt = ({ r, c, ...p }: ArtProps & { r: number; c: number }) => {
-  const g = Math.min(60 / c, 60 / r);
-  const s = Math.min(0.5, g / 20);
-  const x0 = 32 - ((c - 1) * g) / 2;
-  const y0 = 32 - ((r - 1) * g) / 2 + 12 * s;
+  const gx = 60 / c;
+  const gy = 60 / r;
+  const s = Math.min(0.5, gx / 20, gy / 28);
+  const x0 = 32 - ((c - 1) * gx) / 2;
+  const y0 = 32 - ((r - 1) * gy) / 2 + 12 * s;
   return (
     <Box {...p}>
       {Array.from({ length: r * c }, (_, i) => (
-        <ChairShape key={i} x={x0 + (i % c) * g} y={y0 + Math.floor(i / c) * g} s={s} color={["#E8E4DA", "#FFD233", "#7FC8F0"][(i + Math.floor(i / c)) % 3]} />
+        <ChairShape key={i} x={x0 + (i % c) * gx} y={y0 + Math.floor(i / c) * gy} s={s} color={["#E8E4DA", "#FFD233", "#7FC8F0"][(i + Math.floor(i / c)) % 3]} />
       ))}
     </Box>
   );
 };
 
-function Plate({ x, y, n }: { x: number; y: number; n: number }) {
+function Plate({ x, y, n, s = 1 }: { x: number; y: number; n: number; s?: number }) {
   return (
-    <g transform={`translate(${r1(x)} ${r1(y)})`}>
+    <g transform={`translate(${r1(x)} ${r1(y)}) scale(${s})`}>
       <ellipse cx={0} cy={2} rx={13} ry={5} fill="#E8B64A" />
       {Array.from({ length: n }, (_, i) => (
         <ellipse key={i} cx={r1(-7 + (i % 3) * 7)} cy={r1(-1 - Math.floor(i / 3) * 5)} rx={3.6} ry={2.8} fill="#D9964A" stroke="#B8742E" strokeWidth={0.6} />
@@ -118,7 +119,7 @@ const Groups = ({ counts, ...p }: ArtProps & { counts: number[] }) => (
     {counts.map((n, i) => {
       const per = counts.length > 4 ? 3 : 2;
       const rows = Math.ceil(counts.length / per);
-      return <Plate key={i} x={per === 3 ? 12 + (i % 3) * 20 : 16 + (i % 2) * 32} y={rows === 1 ? 34 : 20 + Math.floor(i / per) * 26} n={n} />;
+      return <Plate key={i} x={per === 3 ? 12 + (i % 3) * 20 : 16 + (i % 2) * 32} y={rows === 1 ? 34 : 20 + Math.floor(i / per) * 26} n={n} s={per === 3 ? 0.72 : 1} />;
     })}
   </Box>
 );

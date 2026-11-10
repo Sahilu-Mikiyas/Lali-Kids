@@ -161,7 +161,7 @@ export default function ThreeRounds({ page }: { page: number }) {
           <Label x={110} y={150} text="1" size={22} delay={0.8} />
           <Label x={200} y={140} text="4" size={22} delay={1.1} />
           <Label x={290} y={136} text="5" size={22} delay={1.4} />
-          <Mark x={350} y={130} ok={false} delay={2} />
+          <Mark x={316} y={110} ok={false} delay={2} />
           <Place x={70} y={300} s={0.32} tap={TAP.tsehay}>
             <Tsehay mood="sad" />
           </Place>
@@ -180,7 +180,7 @@ export default function ThreeRounds({ page }: { page: number }) {
           {[0, 1, 2, 3].map((b) => (
             <Bowl key={b} x={80 + b * 80} y={176} n={3} at={[0.8 + b * 0.25, 2 + b * 0.25, 3.2 + b * 0.25]} />
           ))}
-          <Mark x={360} y={110} ok delay={4.6} />
+          <Mark x={316} y={110} ok delay={4.6} />
           <Place x={200} y={300} s={0.4} tap={TAP.grandma}>
             <Grandma arm="pour" />
           </Place>

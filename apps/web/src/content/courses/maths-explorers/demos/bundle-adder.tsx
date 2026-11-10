@@ -42,7 +42,7 @@ const T = {
 
 function BundleIcon() {
   return (
-    <svg width={26} height={36} viewBox="-13 -18 26 36" aria-hidden>
+    <svg width={32} height={44} viewBox="-13 -18 26 36" aria-hidden>
       {[4, 3, 2, 1, 0].map((k) => (
         <rect key={k} x={-9 + k * 0.6} y={-14 - k * 1.2 + 4} width={18} height={26} rx={2} fill={k ? "#F5E39A" : "#FFF3B8"} stroke="#C9A040" strokeWidth={0.8} />
       ))}
@@ -52,7 +52,7 @@ function BundleIcon() {
 }
 function TicketIcon() {
   return (
-    <svg width={16} height={26} viewBox="-8 -13 16 26" aria-hidden>
+    <svg width={20} height={32} viewBox="-8 -13 16 26" aria-hidden>
       <rect x={-7} y={-12} width={14} height={24} rx={2} fill="#FFF3B8" stroke="#C9A040" strokeWidth={1} />
       <path d="M-4 -6 h8 M-4 -2 h8 M-4 2 h5" stroke="#C97A2A" strokeWidth={1.2} />
     </svg>

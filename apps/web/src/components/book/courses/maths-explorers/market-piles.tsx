@@ -33,7 +33,7 @@ function Stall({ id, children, time = "day" }: { id: string; children: ReactNode
 }
 
 /** `n` piles of five in rows (up to `per` a row), each with its running count; the last ones pop in from `from`. */
-function Piles({ n, x0 = 60, y0 = 214, gx = 58, gy = 40, per = 6, from = 0, pop = 0.8, step = 0.5, labels = true, s = 1 }: { n: number; x0?: number; y0?: number; gx?: number; gy?: number; per?: number; from?: number; pop?: number; step?: number; labels?: boolean; s?: number }) {
+function Piles({ n, x0 = 66, y0 = 214, gx = 54, gy = 40, per = 6, from = 0, pop = 0.8, step = 0.5, labels = true, s = 1 }: { n: number; x0?: number; y0?: number; gx?: number; gy?: number; per?: number; from?: number; pop?: number; step?: number; labels?: boolean; s?: number }) {
   return (
     <g>
       {Array.from({ length: n }, (_, i) => {
@@ -160,7 +160,7 @@ export default function MarketPiles({ page }: { page: number }) {
     case 5:
       return (
         <Stall id={id}>
-          <Piles n={7} pop={0.6} step={0.45} per={7} x0={50} gx={50} s={0.9} />
+          <Piles n={7} pop={0.6} step={0.45} per={7} x0={62} gx={46} s={0.85} />
           <SumCard x={200} y={110} tokens={["7", "×", "5", "=", "35"]} start={4} hl={{ 1: "#E8513B", 4: "#E8513B" }} geezOf={35} />
           <Place x={360} y={300} s={0.3} flip tap={TAP.sheep}>
             <AuntieSheep mood="joy" />

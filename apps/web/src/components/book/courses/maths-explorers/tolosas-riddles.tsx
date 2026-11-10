@@ -102,7 +102,7 @@ export default function TolosasRiddles({ page }: { page: number }) {
         <Plateau id={id}>
           <Flock spots={nine} />
           <Rock x={330} y={250} s={1.1} />
-          <Sign x={330} y={180} kind="?" delay={1} color="#C9622B" />
+          <Sign x={312} y={180} kind="?" delay={1} color="#C9622B" />
           <NumberLine x0={60} x1={340} y={70} from={0} to={12} hi={[9, 12]} />
           <Jumps x0={60} x1={340} y={70} from={0} to={12} stops={[9, 10, 11, 12]} start={1.6} step={0.6} labels={["1", "2", "3"]} />
           <SumCard x={200} y={140} tokens={["9", "+", "?", "=", "12"]} start={0.6} step={0.2} size={22} hl={{ 2: "#E8513B" }} />
@@ -134,8 +134,8 @@ export default function TolosasRiddles({ page }: { page: number }) {
         <Plateau id={id}>
           <path d="M-10 236 Q100 226 200 240 T410 232 L410 250 Q200 258 -10 252Z" fill="#7FC8F0" />
           <Flock spots={[[60, 232], [100, 240], [140, 232], [180, 240], [220, 232], [260, 240], [300, 232], [340, 240]]} s={0.36} />
-          <NumberLine x0={40} x1={360} y={70} from={0} to={14} hi={[6, 10, 14]} />
-          <Jumps x0={40} x1={360} y={70} from={0} to={14} stops={[6, 10, 14]} start={1.4} step={1} labels={["4", "4"]} />
+          <NumberLine x0={64} x1={336} y={70} from={0} to={14} hi={[6, 10, 14]} />
+          <Jumps x0={64} x1={336} y={70} from={0} to={14} stops={[6, 10, 14]} start={1.4} step={1} labels={["4", "4"]} />
           <SumCard x={200} y={146} tokens={["?", "+", "6", "=", "14"]} start={0.6} step={0.2} size={22} hl={{ 0: "#E8513B" }} />
           <Label x={200} y={194} text="4 + 4 = 8" size={24} color="#E8513B" delay={3.6} />
           <Place x={362} y={298} s={0.26} flip tap={TAP.hawi}>
@@ -149,8 +149,8 @@ export default function TolosasRiddles({ page }: { page: number }) {
         <Plateau id={id}>
           <path d="M60 300 Q140 250 200 230 T340 160" stroke="#C9A06A" strokeWidth={14} fill="none" strokeLinecap="round" />
           <path d="M60 300 Q140 250 200 230 T340 160" stroke="#E8C890" strokeWidth={4} strokeDasharray="2 10" fill="none" strokeLinecap="round" />
-          <NumberLine x0={40} x1={360} y={66} from={0} to={100} tick={10} label={10} hi={[60, 100]} />
-          <Jumps x0={40} x1={360} y={66} from={0} to={100} stops={[60, 70, 80, 90, 100]} start={1.2} step={0.6} labels={["10", "10", "10", "10"]} />
+          <NumberLine x0={64} x1={336} y={66} from={0} to={100} tick={10} label={10} hi={[60, 100]} />
+          <Jumps x0={64} x1={336} y={66} from={0} to={100} stops={[60, 70, 80, 90, 100]} start={1.2} step={0.6} labels={["10", "10", "10", "10"]} />
           <SumCard x={200} y={130} tokens={["60", "+", "40", "=", "100"]} start={3.8} hl={{ 2: "#E8513B" }} size={24} />
           <Place x={200} y={256} s={0.26} tap={TAP.hawi}>
             <Wolf mood="happy" />
@@ -182,8 +182,8 @@ export default function TolosasRiddles({ page }: { page: number }) {
     case 6:
       return (
         <Plateau id={id}>
-          <NumberLine x0={40} x1={360} y={70} from={0} to={15} hi={[10, 15]} />
-          <Jumps x0={40} x1={360} y={70} from={0} to={15} stops={[10, 15]} start={2} step={1} labels={["+5"]} color="#2E9A5A" />
+          <NumberLine x0={64} x1={336} y={70} from={0} to={15} hi={[10, 15]} />
+          <Jumps x0={64} x1={336} y={70} from={0} to={15} stops={[10, 15]} start={2} step={1} labels={["+5"]} color="#2E9A5A" />
           <SumCard x={200} y={142} tokens={["?", "−", "5", "=", "10"]} start={0.6} step={0.2} size={24} hl={{ 0: "#E8513B" }} />
           <Label x={200} y={196} text="10 + 5 = 15" size={26} color="#2E9A5A" delay={3} />
           <Place x={80} y={296} s={0.34} tap={TAP.hawi}>
@@ -206,8 +206,8 @@ export default function TolosasRiddles({ page }: { page: number }) {
               <GoatShape color={i % 3 ? "#A8744A" : "#5A4034"} />
             </g>
           ))}
-          <NumberLine x0={40} x1={360} y={66} from={10} to={20} hi={[13, 20]} />
-          <Jumps x0={40} x1={360} y={66} from={10} to={20} stops={[13, 14, 15, 16, 17, 18, 19, 20]} start={1.2} step={0.4} labels={["1", "2", "3", "4", "5", "6", "7"]} />
+          <NumberLine x0={64} x1={336} y={66} from={10} to={20} hi={[13, 20]} />
+          <Jumps x0={64} x1={336} y={66} from={10} to={20} stops={[13, 14, 15, 16, 17, 18, 19, 20]} start={1.2} step={0.4} labels={["1", "2", "3", "4", "5", "6", "7"]} />
           <SumCard x={200} y={140} tokens={["20", "−", "13", "=", "7"]} start={4.6} hl={{ 4: "#E8513B" }} size={24} />
           <Place x={360} y={298} s={0.26} flip tap={TAP.hawi}>
             <Wolf mood="happy" />
@@ -218,8 +218,8 @@ export default function TolosasRiddles({ page }: { page: number }) {
     case 8:
       return (
         <Plateau id={id}>
-          <NumberLine x0={40} x1={360} y={70} from={5} to={15} hi={[8, 15]} />
-          <Jumps x0={40} x1={360} y={70} from={5} to={15} stops={[8, 9, 10, 11, 12, 13, 14, 15]} start={1.2} step={0.45} labels={["1", "2", "3", "4", "5", "6", "7"]} />
+          <NumberLine x0={64} x1={336} y={70} from={5} to={15} hi={[8, 15]} />
+          <Jumps x0={64} x1={336} y={70} from={5} to={15} stops={[8, 9, 10, 11, 12, 13, 14, 15]} start={1.2} step={0.45} labels={["1", "2", "3", "4", "5", "6", "7"]} />
           <SumCard x={200} y={146} tokens={["8", "+", "7", "=", "15"]} start={4.6} hl={{ 2: "#E8513B" }} geezOf={15} />
           <BeeHover x={330} y={220} s={1.2} flip />
           <Place x={80} y={296} s={0.34} tap={TAP.hawi}>

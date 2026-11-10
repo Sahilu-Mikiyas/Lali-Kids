@@ -172,7 +172,7 @@ export default function HawassaBus({ page }: { page: number }) {
           <Place x={318} y={296} s={0.36} flip tap={TAP.gugu}>
             <Conductor mood="happy" pose="wave" />
           </Place>
-          <Sign x={60} y={150} kind="?" delay={2.8} />
+          <Sign x={84} y={150} kind="?" delay={2.8} />
         </Road>
       );
     // Two bundles and four loose: twenty-four.
@@ -180,7 +180,7 @@ export default function HawassaBus({ page }: { page: number }) {
       return (
         <Road id={id}>
           <Board x={200} y={110} tens={add(2, 0.8, 0.5)} ones={add(4, 2, 0.4)} digits={[2, 4, 3.8]} />
-          <NumBubble x={340} y={60} n={24} delay={4.4} />
+          <NumBubble x={200} y={200} n={24} delay={4.4} />
           <Place x={70} y={292} s={0.34} tap={TAP.tsehay}>
             <Tsehay mood="happy" pose="point" />
           </Place>
@@ -197,7 +197,7 @@ export default function HawassaBus({ page }: { page: number }) {
           <Place x={330} y={296} s={0.34} flip className="hb-scratch" tap={TAP.gugu}>
             <Conductor mood="worried" />
           </Place>
-          <Sign x={330} y={180} kind="?" delay={1} />
+          <Sign x={306} y={186} kind="?" delay={1} />
           <Place x={70} y={292} s={0.34} tap={TAP.tsehay}>
             <Tsehay mood="joy" pose="point" />
           </Place>

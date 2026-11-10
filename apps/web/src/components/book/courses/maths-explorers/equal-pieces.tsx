@@ -120,12 +120,12 @@ export default function EqualPieces({ page }: { page: number }) {
     case 4:
       return (
         <Kitchen id={id}>
-          <Round x={120} y={140} r={60} cuts={[0, 90, 180, 270]} shade={[0, 1]} at={0.6} color={INJERA} />
-          <Fraction x={230} y={140} top={1} bottom={4} delay={1.6} size={22} />
-          <Op x={262} y={140} t="+" delay={1.8} />
-          <Fraction x={294} y={140} top={1} bottom={4} delay={2} size={22} />
-          <Op x={326} y={140} t="=" delay={2.4} />
-          <Fraction x={360} y={140} top={1} bottom={2} delay={2.8} size={22} color="#E8513B" />
+          <Round x={100} y={140} r={52} cuts={[0, 90, 180, 270]} shade={[0, 1]} at={0.6} color={INJERA} />
+          <Fraction x={186} y={140} top={1} bottom={4} delay={1.6} size={22} />
+          <Op x={216} y={140} t="+" delay={1.8} />
+          <Fraction x={246} y={140} top={1} bottom={4} delay={2} size={22} />
+          <Op x={276} y={140} t="=" delay={2.4} />
+          <Fraction x={308} y={140} top={1} bottom={2} delay={2.8} size={22} color="#E8513B" />
           <Place x={200} y={300} s={0.32} tap={TAP.gugu}>
             <Gugu mood="joy" pose="point" />
           </Place>
@@ -154,8 +154,8 @@ export default function EqualPieces({ page }: { page: number }) {
       return (
         <Kitchen id={id}>
           <Loaf x={190} y={190} w={210} parts={3} gap={14} shade={[0]} at={0.8} />
-          <Fraction x={330} y={130} top={1} bottom={3} delay={2.2} />
-          <Mark x={330} y={210} ok delay={2.6} s={0.8} />
+          <Fraction x={200} y={92} top={1} bottom={3} delay={2.2} />
+          <Mark x={270} y={92} ok delay={2.6} s={0.8} />
           <Place x={60} y={300} s={0.32} tap={TAP.tsehay}>
             <Tsehay mood="joy" pose="point" />
           </Place>
@@ -180,16 +180,16 @@ export default function EqualPieces({ page }: { page: number }) {
       return (
         <Yard id={id} house={false}>
           <g stroke="#7A4A26" strokeWidth={3} fill="none" strokeLinecap="round">
-            <rect x={50} y={200} width={60} height={60} className="lali-fade-in" style={d(0.4)} />
-            <path d="M50 200 L110 260" className="lali-fade-in" style={d(1)} />
+            <rect x={64} y={200} width={60} height={60} className="lali-fade-in" style={d(0.4)} />
+            <path d="M64 200 L124 260" className="lali-fade-in" style={d(1)} />
             <circle cx={200} cy={230} r={32} className="lali-fade-in" style={d(1.8)} />
             <path d="M218 202 V258" className="lali-fade-in" style={d(2.4)} />
-            <rect x={270} y={206} width={90} height={48} className="lali-fade-in" style={d(3.2)} />
-            <path d="M315 206 V254" className="lali-fade-in" style={d(3.8)} />
+            <rect x={260} y={206} width={76} height={48} className="lali-fade-in" style={d(3.2)} />
+            <path d="M298 206 V254" className="lali-fade-in" style={d(3.8)} />
           </g>
-          <Mark x={80} y={180} ok delay={1.4} s={0.8} />
+          <Mark x={94} y={180} ok delay={1.4} s={0.8} />
           <Mark x={200} y={180} ok={false} delay={2.8} s={0.8} />
-          <Mark x={315} y={180} ok delay={4.2} s={0.8} />
+          <Mark x={298} y={180} ok delay={4.2} s={0.8} />
           <Place x={360} y={300} s={0.34} flip tap={TAP.grandma}>
             <Grandma arm="raise" mood="joy" />
           </Place>

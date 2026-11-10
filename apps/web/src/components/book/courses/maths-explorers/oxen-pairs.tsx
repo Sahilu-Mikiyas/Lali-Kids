@@ -35,7 +35,7 @@ function Field({ id, time = "day", children }: { id: string; time?: "dawn" | "da
 }
 
 /** `n` pairs of oxen, five to a row, each with its running count (2, 4, 6 …) popping in turn. */
-function Pairs({ n, x0 = 70, y0 = 196, gx = 66, gy = 56, s = 0.62, pop = 0.8, step = 0.55, from = 0, labels = true, walk = false }: { n: number; x0?: number; y0?: number; gx?: number; gy?: number; s?: number; pop?: number; step?: number; from?: number; labels?: boolean; walk?: boolean }) {
+function Pairs({ n, x0 = 70, y0 = 196, gx = 60, gy = 56, s = 0.62, pop = 0.8, step = 0.55, from = 0, labels = true, walk = false }: { n: number; x0?: number; y0?: number; gx?: number; gy?: number; s?: number; pop?: number; step?: number; from?: number; labels?: boolean; walk?: boolean }) {
   return (
     <g>
       {Array.from({ length: n }, (_, i) => {
@@ -147,7 +147,7 @@ export default function OxenPairs({ page }: { page: number }) {
     case 6:
       return (
         <Field id={id}>
-          <Pairs n={7} x0={56} y0={196} s={0.58} from={5} pop={0.8} step={0.8} gy={64} />
+          <Pairs n={7} x0={64} y0={196} s={0.58} from={5} pop={0.8} step={0.8} gy={64} />
           <SumCard x={290} y={270} tokens={["7", "×", "2", "=", "14"]} start={2.6} hl={{ 1: "#E8513B", 4: "#E8513B" }} size={22} />
         </Field>
       );
@@ -155,7 +155,7 @@ export default function OxenPairs({ page }: { page: number }) {
     case 7:
       return (
         <Field id={id}>
-          <Pairs n={8} x0={56} y0={196} s={0.58} pop={0} from={8} gy={64} />
+          <Pairs n={8} x0={64} y0={196} s={0.58} pop={0} from={8} gy={64} />
           <SumCard x={200} y={64} tokens={["8", "×", "2", "=", "16"]} start={1.6} hl={{ 1: "#E8513B", 4: "#E8513B" }} />
           <Label x={200} y={120} text="8 + 8 = 16" size={22} color="#C98A0A" delay={2.8} />
           <Place x={360} y={298} s={0.3} flip tap={TAP.gugu}>
@@ -167,7 +167,7 @@ export default function OxenPairs({ page }: { page: number }) {
     case 8:
       return (
         <Field id={id}>
-          <Pairs n={10} x0={56} y0={196} s={0.58} pop={0} from={8} step={0.7} gy={64} />
+          <Pairs n={10} x0={64} y0={196} s={0.58} pop={0} from={8} step={0.7} gy={64} />
           <SumCard x={200} y={96} tokens={["10", "×", "2", "=", "20"]} start={2.4} hl={{ 1: "#E8513B", 4: "#E8513B" }} geezOf={20} />
         </Field>
       );

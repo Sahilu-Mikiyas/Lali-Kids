@@ -169,10 +169,10 @@ export default function BajajTrip({ page }: { page: number }) {
       return (
         <Street id={id}>
           {[0, 1, 2, 3].map((i) => (
-            <Ride key={i} x={40 + i * 80} y={276} k={i * 3} s={0.7} />
+            <Ride key={i} x={54 + i * 70} y={276} k={i * 3} s={0.62} />
           ))}
           <g className="mq-drive" style={vars({ "--fx": "300px", "--delay": "1.6s", "--dur": "1.6s" })}>
-            <Bajaj x={360} y={278} s={0.7} />
+            <Bajaj x={334} y={278} s={0.62} />
           </g>
           <Place x={70} y={210} s={0.3} tap={TAP.cub}>
             <Cub mood="joy" arm="up" />
@@ -192,8 +192,8 @@ export default function BajajTrip({ page }: { page: number }) {
         <Street id={id}>
           {[0, 1, 2, 3, 4].map((i) => (
             <g key={i}>
-              <Ride x={44 + i * 78} y={276} k={i * 3} s={0.66} />
-              <Label x={44 + i * 78} y={218} text={String((i + 1) * 3)} size={16} color="#E8513B" delay={0.6 + i * 0.4} />
+              <Ride x={62 + i * 69} y={276} k={i * 3} s={0.6} />
+              <Label x={62 + i * 69} y={218} text={String((i + 1) * 3)} size={16} color="#E8513B" delay={0.6 + i * 0.4} />
             </g>
           ))}
           <SumCard x={200} y={96} tokens={["15", "÷", "3", "=", "5"]} start={2.8} hl={{ 1: "#E8513B", 4: "#E8513B" }} geezOf={5} />
@@ -272,7 +272,7 @@ export default function BajajTrip({ page }: { page: number }) {
         <Street id={id} time="evening">
           {[0, 1, 2, 3, 4].map((i) => (
             <g key={i} className="mq-leave" style={vars({ "--tx": "-460px", "--delay": `${r1(2.4 + i * 0.3)}s`, "--dur": "2.2s" })}>
-              <Ride x={44 + i * 78} y={276} k={i * 3} s={0.66} />
+              <Ride x={62 + i * 69} y={276} k={i * 3} s={0.6} />
             </g>
           ))}
           <SumCard x={200} y={100} tokens={["15", "÷", "3", "=", "5"]} start={0.6} hl={{ 1: "#E8513B", 4: "#E8513B" }} />

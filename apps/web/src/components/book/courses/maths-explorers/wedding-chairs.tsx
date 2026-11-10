@@ -139,8 +139,8 @@ export default function WeddingChairs({ page }: { page: number }) {
         <Wedding id={id}>
           {[0, 1, 2, 3].map((i) => (
             <g key={i}>
-              <Table x={70 + i * 86} y={200} delay={0.6 + i * 0.6} />
-              <Label x={70 + i * 86} y={160} text={String((i + 1) * 10)} size={18} color="#2F5BD3" delay={1 + i * 0.6} />
+              <Table x={80 + i * 80} y={200} delay={0.6 + i * 0.6} />
+              <Label x={80 + i * 80} y={160} text={String((i + 1) * 10)} size={18} color="#2F5BD3" delay={1 + i * 0.6} />
             </g>
           ))}
           <SumCard x={200} y={262} tokens={["4", "×", "10", "=", "40"]} start={3.4} hl={{ 1: "#E8513B", 4: "#E8513B" }} size={24} geezOf={40} />
