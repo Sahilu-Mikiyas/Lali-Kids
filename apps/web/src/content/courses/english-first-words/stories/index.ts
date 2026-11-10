@@ -3,6 +3,8 @@ import goodMorningGugu from "./good-morning-gugu";
 import myNameIs from "./my-name-is";
 import thisIsMyFamily from "./this-is-my-family";
 import laliSays from "./lali-says";
+import habensRainbowDress from "./habens-rainbow-dress";
+import countThemHome from "./count-them-home";
 
 /*
   This course's own teaching stories, in any order (the course decides the order in ../index.ts).
@@ -10,4 +12,4 @@ import laliSays from "./lali-says";
   hello-feelings, opposites, weather-words) are lessons too; they stay in src/content/library
   until the package goes live.
 */
-export const STORIES: Story[] = [myNameIs, goodMorningGugu, thisIsMyFamily, laliSays];
+export const STORIES: Story[] = [myNameIs, goodMorningGugu, thisIsMyFamily, laliSays, habensRainbowDress, countThemHome];
