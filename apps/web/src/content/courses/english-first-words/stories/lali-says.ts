@@ -31,7 +31,7 @@ const story: Story = {
   pages: [
     {
       en: 'It was too hot to run, so the friends sat in the shade of the fig tree. "Let\'s play Lali Says!" buzzed Lali. "When I say LALI SAYS, do it, quick as a bee!"',
-      am: "ለመሮጥ በጣም ይሞቅ ስለነበር ጓደኞቹ በሾላው ዛፍ ጥላ ሥር ተቀመጡ። «Lali Says እንጫወት!» አለች ላሊ። «"Lali says" ስል ብቻ ያልኩትን አድርጉ፤ እንደ ንብ ፍጠኑ!»",
+      am: 'ለመሮጥ በጣም ይሞቅ ስለነበር ጓደኞቹ በሾላው ዛፍ ጥላ ሥር ተቀመጡ። «Lali Says እንጫወት!» አለች ላሊ። «"Lali says" ስል ብቻ ያልኩትን አድርጉ፤ እንደ ንብ ፍጠኑ!»',
     },
     {
       en: '"Lali says, touch your HEAD!" Pat, pat, pat! Paws and hooves went up onto every head. Quick as a bee!',
@@ -71,7 +71,7 @@ const story: Story = {
     },
     {
       en: 'Then Lali buzzed very fast, "Stamp your FEET!" Everyone stamped… except Gugu. "Lali didn\'t say LALI SAYS!" he shouted. Gugu was the winner!',
-      am: "ከዚያ ላሊ በጣም በፍጥነት «Stamp your FEET!» (በእግራችሁ መሬቱን ምቱ!) አለች። ሁሉም በእግራቸው መሬቱን መቱ… ከጉጉ በቀር። «ላሊ "Lali says" አላለችም!» ብሎ ጮኸ። ጉጉ አሸነፈ!",
+      am: 'ከዚያ ላሊ በጣም በፍጥነት «Stamp your FEET!» (በእግራችሁ መሬቱን ምቱ!) አለች። ሁሉም በእግራቸው መሬቱን መቱ… ከጉጉ በቀር። «ላሊ "Lali says" አላለችም!» ብሎ ጮኸ። ጉጉ አሸነፈ!',
     },
     {
       en: '"Now I\'m Lali!" said Gugu, and he clapped his hands. "Gugu says, touch your NOSE!" Can you touch your nose, {name}? Quick as a bee!',

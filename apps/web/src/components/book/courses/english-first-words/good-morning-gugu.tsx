@@ -161,8 +161,10 @@ export default function GoodMorningGugu({ page }: { page: number }) {
               <SayBubble x={170} y={110} lines={["Good night,", "Anbessa!"]} tail="left" size={14} delay={0.8} color="#2B3A8C" />
             </g>
             <Sign x={300} y={150} kind="?" delay={2} />
-            <g transform="translate(312 92)" className="lali-pop-in" style={vars({ "--delay": "2.4s" })}>
+            <g transform="translate(312 92)">
+              <g className="lali-pop-in" style={vars({ "--delay": "2.4s" })}>
               <circle r={12} fill="#FFD54A" />
+              </g>
             </g>
           </Home>
           <Air kind="day" seed={3} grass={false} />

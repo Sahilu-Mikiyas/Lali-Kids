@@ -1,0 +1,50 @@
+/* "I Spy with Lali" (i-spy-with-lali.tsx): transforms and opacity only. */
+
+/* The magnifying glass swoops in and then gently hovers. */
+@keyframes isl-spy {
+  0% { transform: translate(-40px, 30px) scale(0.4); opacity: 0; }
+  50% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  70% { transform: scale(0.96); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.isl-spy {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: isl-spy 1s ease-out var(--delay, 1.2s) both;
+}
+
+/* Searching everywhere: the glass roams around the room. */
+@keyframes isl-search {
+  0%, 100% { transform: translate(-90px, 20px); }
+  25% { transform: translate(60px, -90px); }
+  50% { transform: translate(120px, 10px); }
+  75% { transform: translate(-40px, -60px); }
+}
+.isl-search { animation: isl-search 5s ease-in-out infinite; }
+
+/* Gugu shaking off the rain. */
+@keyframes isl-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+.isl-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: isl-shake 0.3s linear 0.4s 6;
+}
+
+/* Drops flying off. */
+@keyframes isl-drop {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(0, 30px); opacity: 0; }
+}
+.isl-drop { animation: isl-drop 1.2s ease-in var(--delay, 0s) infinite; }
+
+/* Looking slowly up: the line of sight grows upward. */
+@keyframes isl-look {
+  0%, 20% { opacity: 0; }
+  60%, 100% { opacity: 1; }
+}
+.isl-look { animation: isl-look 3s ease-in-out 1s infinite; }

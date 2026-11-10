@@ -351,11 +351,13 @@ export default function ThisIsMyFamily({ page }: { page: number }) {
         <g>
           <Club id={id} time="day">
             <FriendPaper x={250} y={118} rot={-3} people={[{ color: "#2E8A5A", label: "mother" }, { color: "#FFFFFF", label: "brother", size: "small" }, { color: "#E2463F", label: "father" }]} />
-            <g transform="translate(316 154)" className="lali-pop-in" style={vars({ "--delay": "2.6s" })}>
+            <g transform="translate(316 154)">
+              <g className="lali-pop-in" style={vars({ "--delay": "2.6s" })}>
               <rect x={-14} y={-10} width={20} height={12} rx={2} fill="#2E6AD0" />
               <rect x={6} y={-6} width={10} height={8} rx={2} fill="#F5B21E" />
               <circle cx={-8} cy={3} r={3} fill="#2A1A10" />
               <circle cx={10} cy={3} r={3} fill="#2A1A10" />
+              </g>
             </g>
             <Place x={250} y={294} s={0.5} tap={TAP.ayan}>
               <Camel who="ayan" mood="joy" />
