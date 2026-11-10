@@ -1,0 +1,11 @@
+/* Maths Explorers scene kit (kit-more.tsx, copied from Numbers and Counting): transforms and opacity only. */
+
+/* A clock hand turning from one hour to another. */
+@keyframes me-turn-to {
+  from { transform: rotate(var(--from, 0deg)); }
+  to { transform: rotate(var(--tilt, 0deg)); }
+}
+.me-turn-to {
+  transform-box: view-box;
+  animation: me-turn-to var(--dur, 1.6s) ease-in-out var(--delay, 0.8s) both;
+}
