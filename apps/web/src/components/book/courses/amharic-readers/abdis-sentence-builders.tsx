@@ -191,7 +191,7 @@ export default function AbdisSentenceBuilders({ page }: { page: number }) {
       return (
         <g>
           <Home id={id} time="evening" shelf={false} wall={["#F0D2A0", "#E0B47E"]} />
-          <g transform="translate(160 -40) scale(0.7)">
+          <g transform="translate(20 -40) scale(0.7)">
             <Paper dots />
           </g>
           <g transform="translate(280 70)">
