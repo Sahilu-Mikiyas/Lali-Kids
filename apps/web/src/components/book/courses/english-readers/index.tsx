@@ -21,6 +21,11 @@ const AnbessasMagicE = dynamic(() => import("./anbessas-magic-e"), { ssr: false 
 const GugusSweetBeets = dynamic(() => import("./gugus-sweet-beets"), { ssr: false });
 const WaitForTheTrain = dynamic(() => import("./wait-for-the-train"), { ssr: false });
 const FloatBoatFloat = dynamic(() => import("./float-boat-float"), { ssr: false });
+// Level 3: reading little stories
+const WhereIsMyHat = dynamic(() => import("./where-is-my-hat"), { ssr: false });
+const HawisSportsDay = dynamic(() => import("./hawis-sports-day"), { ssr: false });
+const WhereIsDimmet = dynamic(() => import("./where-is-dimmet"), { ssr: false });
+const KiteInTheTree = dynamic(() => import("./kite-in-the-tree"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-shop-labels": AyansShopLabels,
@@ -32,4 +37,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "gugus-sweet-beets": GugusSweetBeets,
   "wait-for-the-train": WaitForTheTrain,
   "float-boat-float": FloatBoatFloat,
+  "where-is-my-hat": WhereIsMyHat,
+  "hawis-sports-day": HawisSportsDay,
+  "where-is-dimmet": WhereIsDimmet,
+  "kite-in-the-tree": KiteInTheTree,
 };

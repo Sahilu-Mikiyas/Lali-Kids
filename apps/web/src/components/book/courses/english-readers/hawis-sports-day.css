@@ -1,0 +1,52 @@
+/* "Hawi's Sports Day" (hawis-sports-day.tsx): transforms and opacity only. */
+
+/* Jumping up and down. */
+@keyframes hsd-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-22px); }
+}
+.hsd-jump { animation: hsd-jump 0.8s ease-in-out infinite; }
+
+/* The ball kicked high and back. */
+@keyframes hsd-kick {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, -90px) rotate(360deg); }
+}
+.hsd-kick {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hsd-kick 1.6s ease-in-out infinite;
+}
+
+/* Pulling the rope: heave, heave. */
+@keyframes hsd-tug {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-8px); }
+}
+.hsd-tug { animation: hsd-tug 0.8s ease-in-out infinite; }
+
+/* Gugu rolling on the grass. */
+@keyframes hsd-roll {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+}
+.hsd-roll {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: hsd-roll 0.9s ease-in-out infinite;
+}
+
+/* Racing along the track. */
+@keyframes hsd-race {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(40px); }
+}
+.hsd-race { animation: hsd-race 3s linear var(--delay, 0s) infinite alternate; }
+
+/* Wind lines behind a fast runner. */
+@keyframes hsd-wind {
+  0% { transform: translateX(10px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateX(-30px); opacity: 0; }
+}
+.hsd-wind { animation: hsd-wind 0.8s ease-out var(--delay, 0s) infinite; }
