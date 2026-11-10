@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Smooth as a River", am: "እንደ ወንዝ ለስላሳ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#3E8E5A",
   scene: "lib-tsehays-smooth-reading",
   coverPage: 11,

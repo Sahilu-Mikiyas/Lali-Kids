@@ -24,7 +24,7 @@ const story: Story = {
   title: { en: "Swimming or Main?", am: "ዋና ወይስ ዋና?" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#1F8A8A",
   scene: "lib-swim-or-main",
   coverPage: 8,
