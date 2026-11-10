@@ -1,0 +1,37 @@
+/* Clay and Grass (clay-and-grass.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Rolling a clay snake back and forth. */
+@keyframes cg2-roll {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.cg2-roll { animation: cg2-roll 0.9s ease-in-out infinite; }
+
+/* The crack appearing. */
+@keyframes cg2-crack {
+  0%, 40% { opacity: 0; transform: scaleY(0.2); }
+  100% { opacity: 1; transform: scaleY(1); }
+}
+.cg2-crack {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: cg2-crack 1.4s ease-out 0.6s both;
+}
+
+/* The grey pot turning warm red in the fire. */
+@keyframes cg2-fire {
+  0%, 30% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.cg2-fire { animation: cg2-fire 3s ease-in 0.6s both; }
+
+/* A new ring added to the basket. */
+@keyframes cg2-ring {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+.cg2-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cg2-ring 1s ease-out var(--delay, 0.6s) both;
+}

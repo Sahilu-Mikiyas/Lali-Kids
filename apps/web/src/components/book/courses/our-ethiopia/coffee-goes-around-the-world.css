@@ -1,0 +1,35 @@
+/* The Long Journey of a Coffee Bean (coffee-goes-around-the-world.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The goats dancing round the coffee bush. */
+@keyframes cj-dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-12px) rotate(-8deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-8px) rotate(8deg); }
+}
+.cj-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cj-dance 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A ship sailing across. */
+@keyframes cj-sail {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(60px); }
+}
+.cj-sail { animation: cj-sail 6s ease-in-out infinite alternate; }
+
+/* The bean going round the globe. */
+@keyframes cj-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.cj-orbit { animation: cj-orbit 5s linear infinite; }
+
+/* Gugu dashing to the end of the map. */
+@keyframes cj-dash {
+  from { transform: translateX(-200px); }
+  to { transform: translateX(0); }
+}
+.cj-dash { animation: cj-dash 1.2s ease-out 0.3s both; }

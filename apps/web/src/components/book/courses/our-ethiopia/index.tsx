@@ -40,6 +40,13 @@ const TheWolfAndTheDog = dynamic(() => import("./the-wolf-and-the-dog"), { ssr: 
 const TheChurchForest = dynamic(() => import("./the-church-forest"), { ssr: false });
 const WildCoffeeForest = dynamic(() => import("./wild-coffee-forest"), { ssr: false });
 
+// Level 6: our food, crafts, music and inventions
+const EyesOfTheInjera = dynamic(() => import("./eyes-of-the-injera"), { ssr: false });
+const CoffeeGoesAroundTheWorld = dynamic(() => import("./coffee-goes-around-the-world"), { ssr: false });
+const ClayAndGrass = dynamic(() => import("./clay-and-grass"), { ssr: false });
+const TheFriendshipBand = dynamic(() => import("./the-friendship-band"), { ssr: false });
+const WhatTimeIsIt = dynamic(() => import("./what-time-is-it"), { ssr: false });
+
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "map-from-the-sky": MapFromTheSky,
@@ -64,4 +71,9 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "the-wolf-and-the-dog": TheWolfAndTheDog,
   "the-church-forest": TheChurchForest,
   "wild-coffee-forest": WildCoffeeForest,
+  "eyes-of-the-injera": EyesOfTheInjera,
+  "coffee-goes-around-the-world": CoffeeGoesAroundTheWorld,
+  "clay-and-grass": ClayAndGrass,
+  "the-friendship-band": TheFriendshipBand,
+  "what-time-is-it": WhatTimeIsIt,
 };
