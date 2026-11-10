@@ -1,0 +1,57 @@
+/* "Anbessa and the Magic E" (anbessas-magic-e.tsx): transforms and opacity only. */
+
+/* The cape flapping behind the hero. */
+@keyframes ame-cape {
+  0%, 100% { transform: skewX(0deg); }
+  50% { transform: skewX(-6deg); }
+}
+.ame-cape {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: ame-cape 1.4s ease-in-out infinite;
+}
+
+/* Twirling in the new cape. */
+@keyframes ame-twirl {
+  0%, 100% { transform: scaleX(1); }
+  25% { transform: scaleX(-1); }
+  50% { transform: scaleX(1); }
+}
+.ame-twirl {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ame-twirl 2.4s ease-in-out 0.6s infinite;
+}
+
+/* The e appearing at the end of a word. */
+@keyframes ame-e-in {
+  0%, 40% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.ame-e-in { animation: ame-e-in 1.6s ease-out 0.6s both; }
+
+/* Laughing. */
+@keyframes ame-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.ame-laugh { animation: ame-laugh 0.35s ease-in-out infinite; }
+
+/* A heart going thump, thump. */
+@keyframes ame-thump {
+  0%, 30%, 100% { transform: scale(1); }
+  10% { transform: scale(1.12); }
+  20% { transform: scale(0.98); }
+}
+.ame-thump {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ame-thump 1s ease-in-out infinite;
+}
+
+/* The audience clapping and bobbing. */
+@keyframes ame-clap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.ame-clap { animation: ame-clap 0.5s ease-in-out var(--delay, 0s) infinite; }

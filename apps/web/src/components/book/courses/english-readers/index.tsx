@@ -16,6 +16,9 @@ const GugusTongueTrick = dynamic(() => import("./gugus-tongue-trick"), { ssr: fa
 const HawisClueHunt = dynamic(() => import("./hawis-clue-hunt"), { ssr: false });
 const StopTruckStop = dynamic(() => import("./stop-truck-stop"), { ssr: false });
 const TsehaysTrickyNotes = dynamic(() => import("./tsehays-tricky-notes"), { ssr: false });
+// Level 2: long vowels
+const AnbessasMagicE = dynamic(() => import("./anbessas-magic-e"), { ssr: false });
+const GugusSweetBeets = dynamic(() => import("./gugus-sweet-beets"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-shop-labels": AyansShopLabels,
@@ -23,4 +26,6 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "hawis-clue-hunt": HawisClueHunt,
   "stop-truck-stop": StopTruckStop,
   "tsehays-tricky-notes": TsehaysTrickyNotes,
+  "anbessas-magic-e": AnbessasMagicE,
+  "gugus-sweet-beets": GugusSweetBeets,
 };
