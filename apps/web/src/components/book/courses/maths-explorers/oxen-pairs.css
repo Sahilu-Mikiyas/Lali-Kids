@@ -1,0 +1,32 @@
+/* Two by Two to the Field (oxen-pairs.tsx): transforms and opacity only. */
+
+/* A pair of oxen walks in from the left and stops. */
+@keyframes op-arrive {
+  0% { transform: translateX(-120px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.op-arrive {
+  animation: op-arrive 1s ease-out var(--delay, 1s) both;
+}
+
+/* Lali zigzags along the row, one ox at a time. */
+@keyframes op-zig {
+  0% { transform: translate(-140px, 40px); }
+  25% { transform: translate(-60px, 20px); }
+  50% { transform: translate(0, 40px); }
+  75% { transform: translate(70px, 20px); }
+  100% { transform: translate(140px, 40px); }
+}
+.op-zig {
+  animation: op-zig 4s ease-in-out 0.6s both;
+}
+
+/* Uncle Abebe laughs. */
+@keyframes op-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.op-laugh {
+  animation: op-laugh 0.35s ease-in-out 1s 6;
+}

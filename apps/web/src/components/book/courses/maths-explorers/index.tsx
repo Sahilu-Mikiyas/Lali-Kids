@@ -15,6 +15,9 @@ const GebetaDoubles = dynamic(() => import("./gebeta-doubles"), { ssr: false });
 const NumberFamily = dynamic(() => import("./number-family"), { ssr: false });
 const HawassaBus = dynamic(() => import("./hawassa-bus"), { ssr: false });
 const TolosasRiddles = dynamic(() => import("./tolosas-riddles"), { ssr: false });
+const ThreeRounds = dynamic(() => import("./three-rounds"), { ssr: false });
+const OxenPairs = dynamic(() => import("./oxen-pairs"), { ssr: false });
+const MarketPiles = dynamic(() => import("./market-piles"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -23,4 +26,7 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "number-family": NumberFamily,
   "hawassa-bus": HawassaBus,
   "tolosas-riddles": TolosasRiddles,
+  "three-rounds": ThreeRounds,
+  "oxen-pairs": OxenPairs,
+  "market-piles": MarketPiles,
 };

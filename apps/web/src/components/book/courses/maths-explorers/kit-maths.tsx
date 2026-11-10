@@ -598,10 +598,10 @@ export function OxPair({ x, y, s = 1, walk = false, colors = ["#8A5A3A", "#4A3A3
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="bounce" sound="boing">
-        <Ox x={8} y={-8} s={0.92} color={colors[1]} walk={walk} />
+        <Ox x={12} y={-16} s={0.88} color={colors[1]} walk={walk} />
+        <path d="M30 -62 L26 -36" stroke="#7A4A26" strokeWidth={5} strokeLinecap="round" />
         <Ox x={0} y={0} color={colors[0]} walk={walk} />
-        <path d="M18 -50 L30 -40" stroke="#7A4A26" strokeWidth={5} strokeLinecap="round" />
-        <path d="M22 -46 l-30 -8" stroke="#7A4A26" strokeWidth={2} />
+        <path d="M26 -44 L32 -58" stroke="#7A4A26" strokeWidth={5} strokeLinecap="round" />
       </Tappable>
     </g>
   );
@@ -761,10 +761,10 @@ export function Roll({ x = 0, y = 0, s = 1 }: { x?: number; y?: number; s?: numb
 }
 
 /** A tray of popcorn (fendisha) with a little heap. */
-export function PopcornHeap({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
+export function PopcornHeap({ x, y, s = 1, tray = true }: { x: number; y: number; s?: number; tray?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <ellipse cx={0} cy={0} rx={24} ry={7} fill="#B8742E" />
+      {tray && <ellipse cx={0} cy={0} rx={24} ry={7} fill="#B8742E" />}
       {Array.from({ length: 14 }, (_, i) => (
         <circle key={i} cx={r1(((i * 37) % 36) - 18)} cy={r1(-3 - ((i * 13) % 10))} r={3.6} fill={i % 3 ? "#FFF8E0" : "#FFE9A8"} />
       ))}
