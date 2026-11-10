@@ -653,6 +653,22 @@ export function ThanksBundle({ x, y, s = 1, state = "fresh", delay }: { x: numbe
   );
 }
 
+/** A Timket procession umbrella: a velvet dome with a gold fringe, on a tall pole; top at (x, y). */
+export function FestUmbrella({ x, y, s = 1, color = "#B0283A" }: { x: number; y: number; s?: number; color?: string }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <path d="M0 0 V70" stroke="#7A5236" strokeWidth={3} />
+      <path d="M-30 18 Q-28 -6 0 -8 Q28 -6 30 18Z" fill={color} />
+      <path d="M-30 18 Q0 10 30 18" stroke="#F5B21E" strokeWidth={3} fill="none" />
+      {[-26, -18, -10, -2, 6, 14, 22].map((fx) => (
+        <path key={fx} d={`M${fx} 17 v6`} stroke="#F5B21E" strokeWidth={2} />
+      ))}
+      <path d="M-14 6 Q0 -4 14 6" stroke="#F5B21E" strokeWidth={1.6} fill="none" strokeDasharray="3 3" />
+      <circle cx={0} cy={-10} r={3} fill="#F5B21E" />
+    </g>
+  );
+}
+
 /** A small salt block (amole), the kind carried by caravans. */
 export function SaltBlock({ x, y, s = 1, rot = 0 }: { x: number; y: number; s?: number; rot?: number }) {
   return (

@@ -1,0 +1,9 @@
+/* The Festival Wheel demo (festival-calendar.tsx): the Eid moon travelling round the year. Keep this file ASCII. */
+@keyframes fc-spin {
+  to { transform: rotate(360deg); }
+}
+.fc-moon {
+  transform-box: view-box;
+  transform-origin: 200px 150px;
+  animation: fc-spin 8s linear infinite;
+}
