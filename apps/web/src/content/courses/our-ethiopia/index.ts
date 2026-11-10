@@ -1112,7 +1112,7 @@ const course: Course = {
   ages: ["6-7", "8-9"],
   color: "#15803D",
   priceEtb: 1500,
-  status: "soon",
+  status: "live",
   tasterStoryId: "map-from-the-sky",
   levels: [
     {

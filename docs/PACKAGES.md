@@ -32,7 +32,7 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 | 5 | English First Words (`english-first-words`) | 3–6 | **Live** (6 levels) |
 | 6 | English Readers (`english-readers`) | 6–9 | Being written |
 | 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
-| 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | Being written |
+| 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | **Live** (6 levels) |
 | 9 | Science & Nature (`science-nature`) | 5–9 | Coming soon |
 | 10 | Healthy & Safe (`healthy-safe`) | 3–7 | Coming soon |
 
