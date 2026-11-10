@@ -1,0 +1,21 @@
+/* Three Rounds of Coffee (three-rounds.tsx): transforms and opacity only. */
+
+/* Beans jump in the hot pan. */
+@keyframes tr3-crackle {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(0); }
+  75% { transform: translateY(-3px); }
+}
+.tr3-crackle {
+  animation: tr3-crackle 0.7s ease-in-out 1s infinite;
+}
+
+/* Anbessa, proud of his fifteen cups. */
+@keyframes tr3-proud {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+}
+.tr3-proud {
+  animation: tr3-proud 0.9s ease-in-out 3.8s 3;
+}

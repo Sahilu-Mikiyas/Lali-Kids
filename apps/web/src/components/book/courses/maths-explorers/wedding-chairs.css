@@ -1,0 +1,26 @@
+/* Chairs for the Wedding (wedding-chairs.tsx): transforms and opacity only. */
+
+/* Gugu wobbles, dizzy from losing count. */
+@keyframes wc-dizzy {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.wc-dizzy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wc-dizzy 0.8s ease-in-out 1s 4;
+}
+
+/* Eskista: shoulders bounce to the music. */
+@keyframes wc-dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-3deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-6px) rotate(3deg); }
+}
+.wc-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wc-dance 0.7s ease-in-out var(--delay, 0s) infinite;
+}

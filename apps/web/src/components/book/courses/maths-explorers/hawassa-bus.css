@@ -1,0 +1,51 @@
+/* The Bus to Hawassa (hawassa-bus.tsx): transforms and opacity only. */
+
+/* A ticket leaves the board: up and away, fading. */
+@keyframes hb-fly {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(30px, -60px) scale(0.6); opacity: 0; }
+}
+.hb-fly {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hb-fly 0.7s ease-in var(--delay, 1s) both;
+}
+
+/* Ten loose tickets become one bundle, which slides over to the tens side and settles. */
+@keyframes hb-tie {
+  0% { transform: translate(0, 0) scale(0); opacity: 0; }
+  20% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  45% { transform: translate(0, 0) scale(1); opacity: 1; }
+  90% { transform: translate(-90px, 2px) scale(0.8); opacity: 1; }
+  100% { transform: translate(-90px, 2px) scale(0.8); opacity: 0; }
+}
+.hb-tie {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hb-tie 1.4s ease-in-out var(--delay, 2s) both;
+}
+
+/* Kebede scratches his head (a puzzled wobble). */
+@keyframes hb-scratch {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.hb-scratch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hb-scratch 0.9s ease-in-out 0.8s 4;
+}
+
+/* Kebede laughs (little bounces). */
+@keyframes hb-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.hb-laugh {
+  animation: hb-laugh 0.35s ease-in-out 3.6s 6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-tie { opacity: 0; }
+}

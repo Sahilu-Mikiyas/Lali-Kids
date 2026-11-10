@@ -1,0 +1,41 @@
+/* Equal Pieces, Please! (equal-pieces.tsx): transforms and opacity only. */
+
+/* The uneven cut: the whole bread gives a little shake. */
+@keyframes ep-apart {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+}
+.ep-apart {
+  animation: ep-apart 0.6s ease-in-out 1.2s 2;
+}
+
+/* The injera is folded in half and opened again (squash across, then back). */
+@keyframes ep-fold {
+  0%, 100% { transform: scaleX(1); }
+  40%, 55% { transform: scaleX(0.5); }
+}
+.ep-fold {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: ep-fold 1.2s ease-in-out 0.3s both;
+}
+
+/* Grandma's quarter slides over to Gugu. */
+@keyframes ep-pass {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120px); }
+}
+.ep-pass {
+  animation: ep-pass 1.4s ease-in-out 1s both;
+}
+
+/* Everyone laughs. */
+@keyframes ep-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.ep-laugh {
+  animation: ep-laugh 0.4s ease-in-out 0.6s 8;
+}

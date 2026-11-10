@@ -1,0 +1,11 @@
+/* One Left Over (one-left-over.tsx): transforms and opacity only. */
+
+/* The last mandarin flies from the bench to Abdi. */
+@keyframes olo-give {
+  0% { transform: translate(0, 0); }
+  60% { transform: translate(80px, 0px); }
+  100% { transform: translate(126px, 70px); }
+}
+.olo-give {
+  animation: olo-give 1.2s ease-in-out 0.8s both;
+}

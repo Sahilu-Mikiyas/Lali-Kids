@@ -1,0 +1,28 @@
+/* Ayan's Number Family (number-family.tsx): transforms and opacity only. */
+
+/* A goat wanders off to (--tx, --ty) and stays there, a little smaller (further away). */
+@keyframes nf-wander {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(var(--tx, 100px), var(--ty, -30px)); }
+}
+.nf-wander {
+  animation: nf-wander 2.2s ease-in-out var(--delay, 1s) both;
+}
+
+/* Abdi's arrow points the other way along the row. */
+@keyframes nf-point {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+}
+.nf-point {
+  animation: nf-point 1s ease-in-out infinite;
+}
+
+/* Abdi jumps for joy. */
+@keyframes nf-jump {
+  0%, 50%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-12px); }
+}
+.nf-jump {
+  animation: nf-jump 1.2s ease-in-out 1s infinite;
+}
