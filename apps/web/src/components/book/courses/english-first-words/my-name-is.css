@@ -1,0 +1,39 @@
+/* "Hello! My Name Is Anbessa" (my-name-is.tsx): transforms and opacity only. */
+
+/* Gugu's somersault: a hop and a whole turn, then a rest. */
+@keyframes mni-flip {
+  0%, 20% { transform: translateY(0) rotate(0deg); }
+  35% { transform: translateY(-46px) rotate(180deg); }
+  50% { transform: translateY(0) rotate(360deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+.mni-flip {
+  transform-box: fill-box;
+  transform-origin: 50% 60%;
+  animation: mni-flip 2.6s ease-in-out 0.8s infinite;
+}
+
+/* Paws pressed over the eyes, with a little peek now and then. */
+@keyframes mni-paws {
+  0%, 70%, 100% { transform: translateY(0); }
+  80%, 88% { transform: translateY(10px); }
+}
+.mni-paws { animation: mni-paws 3.4s ease-in-out infinite; }
+
+/* The big English words in the thought bubble feel too big: they swell and wobble. */
+@keyframes mni-big {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.12) rotate(-3deg); }
+}
+.mni-big-words {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mni-big 1.6s ease-in-out 1.2s infinite;
+}
+
+/* Ayan peeking out from behind the trunk, and back again. */
+@keyframes mni-peek {
+  0%, 100% { transform: translateX(-30px); }
+  30%, 70% { transform: translateX(0); }
+}
+.mni-peek { animation: mni-peek 4s ease-in-out 0.6s infinite; }
