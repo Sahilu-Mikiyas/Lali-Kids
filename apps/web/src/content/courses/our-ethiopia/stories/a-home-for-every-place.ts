@@ -29,7 +29,7 @@ const story: Story = {
   title: { en: "A Home for Every Place", am: "ለየቦታው የሚስማማ ቤት" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#9A6A3A",
   scene: "lib-a-home-for-every-place",
   coverPage: 10,

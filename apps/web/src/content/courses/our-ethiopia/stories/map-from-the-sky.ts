@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "The Map from the Sky", am: "ከሰማይ የታየው ካርታ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2F8A5A",
   scene: "lib-map-from-the-sky",
   coverPage: 2,

@@ -27,7 +27,7 @@ const story: Story = {
   title: { en: "Many Hellos", am: "ብዙ ሰላምታዎች" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#D9573A",
   scene: "lib-many-hellos",
   coverPage: 9,

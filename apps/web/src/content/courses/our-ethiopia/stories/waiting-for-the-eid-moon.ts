@@ -32,7 +32,7 @@ const story: Story = {
   title: { en: "Waiting for the Eid Moon", am: "የዒድ ጨረቃን ስንጠብቅ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#3A4FB0",
   scene: "lib-waiting-for-the-eid-moon",
   coverPage: 11,

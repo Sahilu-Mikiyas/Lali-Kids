@@ -27,7 +27,7 @@ const story: Story = {
   title: { en: "The Smoking Water", am: "የሚጤሰው ውሃ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2F7FC0",
   scene: "lib-smoking-water",
   coverPage: 9,

@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "Hawi's Teff Seeds", am: "የሀዊ የጤፍ ዘሮች" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#B8892E",
   scene: "lib-hawis-teff-seeds",
   coverPage: 6,

@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "Hawi's Letter", am: "የሀዊ ደብዳቤ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#5A5AC8",
   scene: "lib-hawis-letter",
   coverPage: 9,

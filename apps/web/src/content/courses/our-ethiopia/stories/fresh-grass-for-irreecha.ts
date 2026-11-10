@@ -30,7 +30,7 @@ const story: Story = {
   title: { en: "Fresh Grass for Irreecha", am: "ትኩስ ሣር ለኢሬቻ" },
   category: "Values",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#3E9A4E",
   scene: "lib-fresh-grass-for-irreecha",
   coverPage: 7,
