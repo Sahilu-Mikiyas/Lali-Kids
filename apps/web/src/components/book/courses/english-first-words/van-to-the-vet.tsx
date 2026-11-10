@@ -2,12 +2,12 @@
 
 import "./van-to-the-vet.css";
 
-import { useId, type ReactNode } from "react";
+import { useId } from "react";
 
 import { Air, Place, Rain } from "../../scenery";
 import { Tappable } from "../../tappable";
 import { Ibex, Mama, OnHead, TAP } from "./cast";
-import { Farm, Home, TownStreet, Yard } from "./places";
+import { Farm, Home, TownStreet, Van, Yard } from "./places";
 import { Hearts, LetterCard, SayBubble, Sign, Sparkles, WordCard } from "./props";
 import { Thing } from "./things";
 
@@ -20,40 +20,6 @@ import { Thing } from "./things";
 */
 
 const BLUE = "#2F6FD0";
-
-/** Uncle's big blue van, side-on, facing right, wheels at y; `ramp` puts the ramp down at the back. */
-function Van({ x, y, s = 1, ramp = false, wipers = false, drive = false, children }: { x: number; y: number; s?: number; ramp?: boolean; wipers?: boolean; drive?: boolean; children?: ReactNode }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <g className={drive ? "vv-drive" : undefined}>
-        <ellipse cx={0} cy={4} rx={110} ry={8} fill="#000" opacity={0.14} />
-        {ramp && <path d="M-96 -6 L-150 4 L-150 8 L-96 0Z" fill="#9AA0A6" stroke="#6A707A" strokeWidth={2} />}
-        <Tappable reaction="wiggle" sound="pop">
-          <path d="M-100 -10 V-96 Q-100 -104 -92 -104 H50 L92 -60 Q100 -54 100 -44 V-10Z" fill={BLUE} />
-          <path d="M54 -96 L88 -60 H54Z" fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
-          {wipers && (
-            <g className="vv-wiper">
-              <path d="M56 -62 L78 -84" stroke="#2A1A10" strokeWidth={2.4} strokeLinecap="round" />
-            </g>
-          )}
-          <rect x={-86} y={-92} width={56} height={34} rx={4} fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
-          <rect x={-22} y={-92} width={66} height={34} rx={4} fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
-          <path d="M-100 -40 H100" stroke="#FFD233" strokeWidth={6} />
-          <rect x={90} y={-30} width={10} height={8} rx={2} fill="#FFE27A" />
-          {children && <g transform="translate(-58 -78)">{children}</g>}
-        </Tappable>
-        <g className={drive ? "vv-wheel" : undefined}>
-          <circle cx={-60} cy={-6} r={16} fill="#2A2A32" />
-          <circle cx={-60} cy={-6} r={6} fill="#9AA0A6" />
-        </g>
-        <g className={drive ? "vv-wheel" : undefined}>
-          <circle cx={60} cy={-6} r={16} fill="#2A2A32" />
-          <circle cx={60} cy={-6} r={6} fill="#9AA0A6" />
-        </g>
-      </g>
-    </g>
-  );
-}
 
 /** Tsigereda, the little white goat; `limp` holds one leg up, `bandage` after the vet. */
 function Goat({ x, y, s = 0.9, limp = false, bandage = false, shake = false, flip = false }: { x: number; y: number; s?: number; limp?: boolean; bandage?: boolean; shake?: boolean; flip?: boolean }) {

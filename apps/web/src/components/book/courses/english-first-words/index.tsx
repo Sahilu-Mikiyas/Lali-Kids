@@ -28,6 +28,8 @@ const VanToTheVet = dynamic(() => import("./van-to-the-vet"), { ssr: false });
 const XMarksTheSpot = dynamic(() => import("./x-marks-the-spot"), { ssr: false });
 const SayItSlowly = dynamic(() => import("./say-it-slowly"), { ssr: false });
 const RhymeShow = dynamic(() => import("./rhyme-show"), { ssr: false });
+const StopTheVan = dynamic(() => import("./stop-the-van"), { ssr: false });
+const SnapWords = dynamic(() => import("./snap-words"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "my-name-is": MyNameIs,
@@ -46,4 +48,6 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "x-marks-the-spot": XMarksTheSpot,
   "say-it-slowly": SayItSlowly,
   "rhyme-show": RhymeShow,
+  "stop-the-van": StopTheVan,
+  "snap-words": SnapWords,
 };

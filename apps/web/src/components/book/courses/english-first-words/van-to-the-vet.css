@@ -43,21 +43,3 @@
   to { transform: translate(60px, -14px); }
 }
 .vv-up { animation: vv-up 3s ease-in-out 0.6s both; }
-
-/* The wipers going swish, swish. */
-@keyframes vv-wiper {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(60deg); }
-}
-.vv-wiper {
-  transform-box: fill-box;
-  transform-origin: 0% 100%;
-  animation: vv-wiper 1.2s ease-in-out infinite;
-}
-
-/* Driving along: a gentle bounce. */
-@keyframes vv-drive {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
-}
-.vv-drive { animation: vv-drive 0.4s ease-in-out infinite; }

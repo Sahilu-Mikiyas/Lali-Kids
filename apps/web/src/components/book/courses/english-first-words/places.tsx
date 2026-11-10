@@ -452,3 +452,44 @@ export function TownStreet({ id, rain = false, children }: { id: string; rain?: 
     </>
   );
 }
+
+/** Uncle's van, side-on, facing right, wheels at y: `ramp` puts a ramp down at the back, `top` sits on its roof, children ride in its windows. */
+export function Van({ x, y, s = 1, ramp = false, wipers = false, drive = false, color = "#2F6FD0", top, label, children }: { x: number; y: number; s?: number; ramp?: boolean; wipers?: boolean; drive?: boolean; color?: string; top?: ReactNode; label?: string; children?: ReactNode }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <g className={drive ? "efw-drive" : undefined}>
+        <ellipse cx={0} cy={4} rx={110} ry={8} fill="#000" opacity={0.14} />
+        {ramp && <path d="M-96 -6 L-150 4 L-150 8 L-96 0Z" fill="#9AA0A6" stroke="#6A707A" strokeWidth={2} />}
+        <Tappable reaction="wiggle" sound="pop">
+          <path d="M-100 -10 V-96 Q-100 -104 -92 -104 H50 L92 -60 Q100 -54 100 -44 V-10Z" fill={color} />
+          <path d="M54 -96 L88 -60 H54Z" fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
+          {wipers && (
+            <g className="efw-wiper">
+              <path d="M56 -62 L78 -84" stroke="#2A1A10" strokeWidth={2.4} strokeLinecap="round" />
+            </g>
+          )}
+          <rect x={-86} y={-92} width={56} height={34} rx={4} fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
+          <rect x={-22} y={-92} width={66} height={34} rx={4} fill="#CFF0FF" stroke="#1F4FA0" strokeWidth={2} />
+          <path d="M-100 -40 H100" stroke="#FFD233" strokeWidth={6} />
+          <rect x={90} y={-30} width={10} height={8} rx={2} fill="#FFE27A" />
+          {label && (
+            <text x={-20} y={-18} fontSize={13} fontFamily={FONT} fontWeight={900} fill="#FFFDF6" textAnchor="middle">
+              {label}
+            </text>
+          )}
+          {children && <g transform="translate(-58 -78)">{children}</g>}
+        </Tappable>
+        {top && <g transform="translate(-10 -104)">{top}</g>}
+        <g>
+          <circle cx={-60} cy={-6} r={16} fill="#2A2A32" />
+          <circle cx={-60} cy={-6} r={6} fill="#9AA0A6" />
+        </g>
+        <g>
+          <circle cx={60} cy={-6} r={16} fill="#2A2A32" />
+          <circle cx={60} cy={-6} r={6} fill="#9AA0A6" />
+        </g>
+      </g>
+    </g>
+  );
+}
+

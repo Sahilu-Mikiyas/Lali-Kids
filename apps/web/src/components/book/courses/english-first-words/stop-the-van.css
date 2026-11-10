@@ -1,0 +1,60 @@
+/* "Stop, Van, Stop!" (stop-the-van.tsx): transforms and opacity only. */
+
+/* BUMP: the van hops on the road. */
+@keyframes stv-hop {
+  0%, 30%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-16px) rotate(-2deg); }
+  55% { transform: translateY(0) rotate(1deg); }
+}
+.stv-hop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: stv-hop 2.2s ease-in-out 0.4s infinite;
+}
+
+/* Something flying off the roof, tumbling over the road. */
+@keyframes stv-fly {
+  0% { transform: translate(0, 40px) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translate(-40px, -30px) rotate(-160deg); }
+  100% { transform: translate(-90px, 80px) rotate(-320deg); opacity: 1; }
+}
+.stv-fly {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: stv-fly 1.6s ease-in var(--delay, 0.6s) both;
+}
+
+/* The fan rolling away down the road. */
+@keyframes stv-roll {
+  from { transform: translateX(120px) rotate(0deg); }
+  to { transform: translateX(-30px) rotate(-360deg); }
+}
+.stv-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: stv-roll 2s ease-out 0.3s both;
+}
+
+/* Things going IN the van. */
+@keyframes stv-in {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.stv-in { animation: stv-in 1s ease-out 0.5s both; }
+
+/* Grandma's fan waving to and fro. */
+@keyframes stv-fan {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(20deg); }
+}
+.stv-fan {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: stv-fan 0.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stv-fly { transform: translate(-90px, 80px); }
+  .stv-roll { transform: translateX(-30px); }
+}

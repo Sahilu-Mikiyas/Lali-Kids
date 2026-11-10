@@ -388,6 +388,24 @@
   animation: efw-blend-word 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--delay, 2.4s) both;
 }
 
+/* A van's wipers going swish, swish. */
+@keyframes efw-wiper {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(60deg); }
+}
+.efw-wiper {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: efw-wiper 1.2s ease-in-out infinite;
+}
+
+/* Driving along: a gentle bounce. */
+@keyframes efw-drive {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.efw-drive { animation: efw-drive 0.4s ease-in-out infinite; }
+
 /* With reduced motion, things that would have left the picture are simply gone. */
 /* And things that move to where the page leaves them rest there. */
 @media (prefers-reduced-motion: reduce) {
