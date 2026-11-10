@@ -1,0 +1,22 @@
+/* Haben Counts the Walia (walia-on-the-ledge.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Haben running towards the geladas with her bread. */
+@keyframes wl-run {
+  from { transform: translateX(-70px); }
+  to { transform: translateX(0); }
+}
+.wl-run { animation: wl-run 1.6s ease-out 0.2s both; }
+
+/* The big bird gliding across the sky. */
+@keyframes wl-glide {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(520px); }
+}
+.wl-glide { animation: wl-glide 14s linear infinite; }
+
+/* The mother and the kid stepping out of the shadow. */
+@keyframes wl-step {
+  0%, 30% { opacity: 0; transform: translateX(-20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+.wl-step { animation: wl-step 2.4s ease-out var(--delay, 0.8s) both; }

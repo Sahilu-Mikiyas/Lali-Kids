@@ -1,0 +1,8 @@
+/* The Tall Stones of Aksum (aksum-tall-stones.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Anbessa walking the whole length of the fallen stela. */
+@keyframes aks-walk {
+  from { transform: translateX(0); }
+  to { transform: translateX(250px); }
+}
+.aks-walk { animation: aks-walk 6s ease-in-out infinite alternate; }

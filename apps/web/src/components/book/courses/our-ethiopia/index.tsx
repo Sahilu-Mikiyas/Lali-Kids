@@ -27,6 +27,19 @@ const FreshGrassForIrreecha = dynamic(() => import("./fresh-grass-for-irreecha")
 const WaitingForTheEidMoon = dynamic(() => import("./waiting-for-the-eid-moon"), { ssr: false });
 const DestasFichee = dynamic(() => import("./destas-fichee"), { ssr: false });
 
+// Level 4: stories from our history
+const AksumTallStones = dynamic(() => import("./aksum-tall-stones"), { ssr: false });
+const TheKindKingOfAksum = dynamic(() => import("./the-kind-king-of-aksum"), { ssr: false });
+const CastlesOfGondar = dynamic(() => import("./castles-of-gondar"), { ssr: false });
+const GatesOfHarar = dynamic(() => import("./gates-of-harar"), { ssr: false });
+const EveryonesVictory = dynamic(() => import("./everyones-victory"), { ssr: false });
+
+// Level 5: our wildlife and nature
+const WaliaOnTheLedge = dynamic(() => import("./walia-on-the-ledge"), { ssr: false });
+const TheWolfAndTheDog = dynamic(() => import("./the-wolf-and-the-dog"), { ssr: false });
+const TheChurchForest = dynamic(() => import("./the-church-forest"), { ssr: false });
+const WildCoffeeForest = dynamic(() => import("./wild-coffee-forest"), { ssr: false });
+
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "map-from-the-sky": MapFromTheSky,
@@ -42,4 +55,13 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "fresh-grass-for-irreecha": FreshGrassForIrreecha,
   "waiting-for-the-eid-moon": WaitingForTheEidMoon,
   "destas-fichee": DestasFichee,
+  "aksum-tall-stones": AksumTallStones,
+  "the-kind-king-of-aksum": TheKindKingOfAksum,
+  "castles-of-gondar": CastlesOfGondar,
+  "gates-of-harar": GatesOfHarar,
+  "everyones-victory": EveryonesVictory,
+  "walia-on-the-ledge": WaliaOnTheLedge,
+  "the-wolf-and-the-dog": TheWolfAndTheDog,
+  "the-church-forest": TheChurchForest,
+  "wild-coffee-forest": WildCoffeeForest,
 };
