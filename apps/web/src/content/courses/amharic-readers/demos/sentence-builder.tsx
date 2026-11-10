@@ -43,7 +43,7 @@ export default function SentenceBuilder({ lang, onDone }: DemoProps) {
   const [got, setGot] = useState(0);
   const later = useLater();
   const rd = ROUNDS[r];
-  const tiles = useMemo(() => shuffled(rd.words.map((w, i) => ({ w, i })), r * 0.21 + 0.37), [rd, r]);
+  const tiles = useMemo(() => shuffled(rd.words.map((w, i) => ({ w, i })), r * 0.19 + 0.37), [rd, r]);
   const built = n === rd.words.length;
   const done = got === ROUNDS.length;
 

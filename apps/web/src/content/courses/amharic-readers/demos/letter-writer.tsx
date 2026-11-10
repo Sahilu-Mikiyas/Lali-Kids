@@ -66,12 +66,16 @@ export default function LetterWriter({ lang, onDone }: DemoProps) {
       sfx.good();
       say(letter.parts[i].am);
       setN(n + 1);
-      setGot((g) => g + 1);
-      if (n + 1 === 4 && t + 1 < LETTERS.length) {
+      if (n + 1 < 4) setGot((g) => g + 1);
+      else {
+        // the last part: let the finished letter be read before moving on
         setBusy(true);
         later(() => {
-          setT(t + 1);
-          setN(0);
+          setGot((g) => g + 1);
+          if (t + 1 < LETTERS.length) {
+            setT(t + 1);
+            setN(0);
+          }
           setBusy(false);
         }, 2200);
       }
