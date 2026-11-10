@@ -8,7 +8,7 @@ import { Air, BeeFlight, BeeHover, Place, vars } from "../../scenery";
 import { Tappable } from "../../tappable";
 import { Camel, Cub, FONT, Gugu, Ibex, TAP, Teacher, Wolf } from "./cast";
 import { Board, Club } from "./places";
-import { LetterCard, SayBubble, Sign, SoundWaves, Sparkles, Speech } from "./props";
+import { inSafe, LetterCard, SayBubble, Sign, SoundWaves, Sparkles, Speech } from "./props";
 import { Thing } from "./things";
 
 /*
@@ -27,7 +27,7 @@ function NameCard({ x, y, name, delay = 0.8, rot = 0 }: { x: number; y: number; 
   const first = name[0];
   const w = name.length * 10 + 24;
   return (
-    <g transform={`translate(${x} ${y}) rotate(${rot})`}>
+    <g transform={`translate(${inSafe(x, w + 6)} ${y}) rotate(${rot})`}>
       <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
         <Tappable reaction="wiggle" sound="chime">
           <rect x={-w / 2} y={-14} width={w} height={28} rx={6} fill="#FFFDF6" stroke={LETTER[first] ?? "#2A1A10"} strokeWidth={2.4} />
@@ -331,7 +331,7 @@ export default function NameSounds({ page }: { page: number }) {
             <BeeHover x={300} y={200} s={0.9} />
             {(["A", "G", "H", "L", "M"] as const).map((l, i) => (
               <g key={l} className="ns-bob" style={vars({ "--delay": `${-i * 0.4}s` })}>
-                <LetterCard x={90 + i * 56} y={90} letter={l} color={LETTER[l]} s={0.8} delay={1 + i * 0.4} />
+                <LetterCard x={84 + i * 52} y={90} letter={l} color={LETTER[l]} s={0.72} delay={1 + i * 0.4} />
               </g>
             ))}
           </Club>

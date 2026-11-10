@@ -38,7 +38,7 @@ const PEN: [number, number, number][] = [
 ];
 
 /** A big number card: the digit and the English word under it. */
-function NumCard({ n, x = 336, y = 70, delay = 0.9 }: { n: number; x?: number; y?: number; delay?: number }) {
+function NumCard({ n, x = 326, y = 70, delay = 0.9 }: { n: number; x?: number; y?: number; delay?: number }) {
   return (
     <g transform={`translate(${x} ${y})`}>
       <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
@@ -141,7 +141,7 @@ export default function CountThemHome({ page }: { page: number }) {
               <Cub mood="happy" />
             </Place>
             <SayBubble x={272} y={140} lines={["I have TEN!", "Count them in English!"]} size={12} tail="down" delay={0.8} />
-            <WordCard x={350} y={80} word="ten" color="#2E9A5B" size={20} delay={1.8} />
+            <WordCard x={330} y={80} word="ten" color="#2E9A5B" size={20} delay={1.8} />
             <g transform="translate(60 214)">
               <Animal kind="cow" x={0} y={0} s={0.4} />
               <Animal kind="goat" x={40} y={4} s={0.34} />
@@ -183,8 +183,8 @@ export default function CountThemHome({ page }: { page: number }) {
             <Pen upto={2} />
             <Arrival from={2} count={2} />
             <Gatekeepers />
-            <NumCard n={3} x={284} delay={0.8} />
-            <NumCard n={4} x={364} delay={1.6} />
+            <NumCard n={3} x={262} delay={0.8} />
+            <NumCard n={4} x={338} delay={1.6} />
           </Farm>
           <Air kind="day" seed={5} />
         </g>
@@ -197,8 +197,8 @@ export default function CountThemHome({ page }: { page: number }) {
             <Pen upto={4} />
             <Arrival from={4} count={2} />
             <Gatekeepers />
-            <NumCard n={5} x={284} delay={0.8} />
-            <NumCard n={6} x={364} delay={1.6} />
+            <NumCard n={5} x={262} delay={0.8} />
+            <NumCard n={6} x={338} delay={1.6} />
           </Farm>
           <Air kind="day" seed={6} />
         </g>
@@ -211,8 +211,8 @@ export default function CountThemHome({ page }: { page: number }) {
             <Pen upto={6} />
             <Arrival from={6} count={2} />
             <Gatekeepers />
-            <NumCard n={7} x={284} delay={0.8} />
-            <NumCard n={8} x={364} delay={1.6} />
+            <NumCard n={7} x={262} delay={0.8} />
+            <NumCard n={8} x={338} delay={1.6} />
           </Farm>
           <Air kind="day" seed={7} />
         </g>
@@ -263,7 +263,7 @@ export default function CountThemHome({ page }: { page: number }) {
             </Place>
             <SoundWaves x={240} y={210} color="#2F6FD0" />
             {["cow", "horse", "goats", "sheep", "hens", "dog"].map((w, i) => (
-              <WordCard key={w} x={50 + i * 60} y={70} word={w} size={12} color="#7A5236" delay={0.4 + i * 0.3} />
+              <WordCard key={w} x={60 + i * 56} y={70} word={w} size={12} color="#7A5236" delay={0.4 + i * 0.3} />
             ))}
             <WordCard x={200} y={130} word="?" size={22} color="#E8513B" delay={2.4} />
             <g opacity={0.6}>
@@ -286,7 +286,7 @@ export default function CountThemHome({ page }: { page: number }) {
             ))}
             <Animal kind="donkey" x={220} y={262} s={1.05} className="cth-munch" />
             <SayBubble x={240} y={150} lines={["HEE-HAW!"]} size={20} tail="down" delay={0.6} color="#7A3E1D" />
-            <WordCard x={330} y={80} word="donkey" pic="donkey" color="#2E9A5B" size={15} delay={1.8} />
+            <WordCard x={316} y={84} word="donkey" pic="donkey" color="#2E9A5B" size={15} delay={1.8} />
             <Place x={60} y={298} s={0.36} from={[-40, 298]} delay={1} tap={TAP.cub}>
               <Cub mood="joy" />
             </Place>

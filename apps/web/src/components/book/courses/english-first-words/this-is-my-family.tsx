@@ -173,7 +173,7 @@ export default function ThisIsMyFamily({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="day">
-            <Board x={318} y={92} lines={["This is", "my family."]} size={14} />
+            <Board x={300} y={92} lines={["This is", "my family."]} size={14} />
             <Place x={248} y={292} s={0.46} flip tap={TAP.mama}>
               <Teacher mood="joy" pose="wave" />
             </Place>

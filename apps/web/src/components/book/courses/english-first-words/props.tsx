@@ -24,13 +24,19 @@ const r1 = (n: number) => Math.round(n * 10) / 10;
 /** Roughly how wide a line of Grandstander text is, for sizing cards and bubbles. */
 export const textWidth = (text: string, size: number) => r1(text.length * size * 0.56);
 
+/**
+ * Keeps a card of width w inside the part of the picture a phone always shows: the reader crops
+ * the 400-wide scene to about x 26 to 374 on a narrow screen.
+ */
+export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 28 + w / 2), 372 - w / 2);
+
 /* ---------- English on the page ---------- */
 
 /** A card with an English word, and a picture above it when `pic` names one of the THINGS. */
 export function WordCard({ x, y, word, pic, color = "#2F6FD0", size = 18, delay = 0.8, swing = false, w }: { x: number; y: number; word: string; pic?: string; color?: string; size?: number; delay?: number; swing?: boolean; w?: number }) {
   const width = w ?? Math.max(pic ? 64 : 50, textWidth(word, size) + 24);
   const h = pic ? 74 : size + 20;
-  const top = pic ? -h / 2 : -h / 2;
+  const top = -h / 2;
   const card = (
     <Tappable reaction="wiggle" sound="chime">
       <rect x={-width / 2} y={top + 2} width={width} height={h} rx={10} fill="#000" opacity={0.12} />
@@ -46,7 +52,7 @@ export function WordCard({ x, y, word, pic, color = "#2F6FD0", size = 18, delay 
     </Tappable>
   );
   return (
-    <g transform={`translate(${x} ${y})`}>
+    <g transform={`translate(${inSafe(x, width)} ${y})`}>
       <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
         {swing ? (
           <g className="efw-card" style={vars({ "--delay": `${-delay}s` })}>
@@ -66,7 +72,7 @@ export function SayBubble({ x, y, lines, tail = "left", size = 14, delay = 1, co
   const width = w ?? Math.max(56, ...lines.map((t) => textWidth(t, size))) + 22;
   const h = lines.length * (size + 4) + 14;
   return (
-    <g transform={`translate(${x} ${y})`}>
+    <g transform={`translate(${inSafe(x, width)} ${y})`}>
       <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
         <Tappable reaction="grow" sound="chime" sparkle={false}>
           <path

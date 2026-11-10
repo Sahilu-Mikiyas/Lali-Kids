@@ -161,7 +161,7 @@ export default function HabensRainbowDress({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="day">
-            <Board x={318} y={96} lines={["Color Day!", "Wear your", "favorite color."]} size={12} h={80} />
+            <Board x={300} y={96} lines={["Color Day!", "Wear your", "favorite color."]} size={12} h={80} />
             <Place x={352} y={292} s={0.42} flip tap={TAP.mama}>
               <Teacher mood="joy" pose="wave" />
             </Place>

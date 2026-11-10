@@ -5,7 +5,7 @@ import type { Story } from "../../../stories";
   Gugu mixes up his English greetings ("Good night!" in the morning, "Goodbye!" when he arrives).
   Anbessa works out clues to help him: look at the sky for morning and night; coming is hello and
   going is goodbye; asking is please, getting is thank you. At the market with Ayan, Gugu tries
-  each one; all afternoon he practises on goats, birds and trees; at night he works out
+  each one; all afternoon he practices on goats, birds and trees; at night he works out
   "Good night" by himself, and next morning he is the first to say "Good morning!"
   Join-in line (Anbessa's question, the child answers): "What do we say?"
 

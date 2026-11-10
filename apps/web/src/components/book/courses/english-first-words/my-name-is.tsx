@@ -78,7 +78,7 @@ export default function MyNameIs({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="morning">
-            <Board x={318} y={120} lines={["English", "Club"]} size={17} />
+            <Board x={300} y={120} lines={["English", "Club"]} size={17} />
             <Place x={150} y={286} s={0.34} from={[-30, 286]} dur={2.6} delay={0.3} tap={TAP.hawi}>
               <Wolf mood="joy" wag />
             </Place>
@@ -99,7 +99,7 @@ export default function MyNameIs({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="morning">
-            <Board x={318} y={110} lines={["Hello!", "My name is …"]} size={14} w={128} />
+            <Board x={300} y={110} lines={["Hello!", "My name is …"]} size={14} w={128} />
             <Class anbessa={false} />
             <Meron x={334} y={292} s={0.46} />
             <SayBubble x={270} y={174} lines={["Hello!", "My name is Meron."]} tail="right" size={12} delay={0.8} />
@@ -112,7 +112,7 @@ export default function MyNameIs({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="morning">
-            <Board x={318} y={110} lines={["Hello, hello!", "What is your name?"]} size={12} w={140} />
+            <Board x={300} y={110} lines={["Hello, hello!", "What is your name?"]} size={12} w={140} />
             <Class hawi={false} mood="joy" />
             <Place x={150} y={290} s={0.44} className="lali-hop" tap={TAP.hawi}>
               <Wolf mood="joy" wag arm="wave" />
@@ -240,7 +240,7 @@ export default function MyNameIs({ page }: { page: number }) {
             <Place x={330} y={292} s={0.34} flip className="lali-hop" tap={TAP.gugu}>
               <Gugu mood="joy" pose="wave" />
             </Place>
-            <Place x={372} y={290} s={0.32} flip tap={TAP.haben}>
+            <Place x={364} y={290} s={0.3} flip tap={TAP.haben}>
               <Ibex mood="joy" pose="wave" />
             </Place>
             <Place x={226} y={298} s={0.58} tap={TAP.cub}>
@@ -304,7 +304,7 @@ export default function MyNameIs({ page }: { page: number }) {
       return (
         <g>
           <Club id={id} time="evening">
-            <Board x={318} y={104} lines={["Goodbye!"]} size={20} />
+            <Board x={300} y={104} lines={["Goodbye!"]} size={20} />
             <Place x={130} y={290} s={0.34} tap={TAP.ayan}>
               <Camel who="ayan" mood="joy" />
             </Place>
@@ -320,7 +320,7 @@ export default function MyNameIs({ page }: { page: number }) {
             <Place x={322} y={294} s={0.36} flip tap={TAP.cub}>
               <Cub mood="joy" arm="up" />
             </Place>
-            <Meron x={364} y={292} s={0.38} mood="joy" />
+            <Meron x={350} y={292} s={0.36} mood="joy" />
             <SayBubble x={240} y={176} lines={["Goodbye!"]} tail="down" size={15} delay={1} />
             <BeeHover x={60} y={150} s={0.9} />
           </Club>
