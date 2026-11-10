@@ -1,0 +1,52 @@
+/* "Count Them Home!" (count-them-home.tsx): transforms and opacity only. */
+
+/* Trotting in through the gate from the field behind. */
+@keyframes cth-trot {
+  from { transform: translate(-150px, -24px) scale(0.7); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+.cth-trot {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cth-trot 1.4s ease-out var(--delay, 0.2s) both;
+}
+
+/* A little bob as the animals walk and wait. */
+@keyframes cth-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.cth-bob { animation: cth-bob 0.5s ease-in-out var(--delay, 0s) infinite; }
+
+/* The donkey munching grass, head going down and up. */
+@keyframes cth-munch {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+}
+.cth-munch {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: cth-munch 1.2s ease-in-out infinite;
+}
+
+/* Pushing the donkey through the gate, a shove at a time. */
+@keyframes cth-push {
+  0% { transform: translateX(-60px); }
+  30% { transform: translateX(-40px); }
+  50% { transform: translateX(-36px); }
+  80%, 100% { transform: translateX(0); }
+}
+.cth-push { animation: cth-push 2.4s ease-in-out 0.4s both; }
+
+/* Grandpa's count: the animals in the pen bounce one after another. */
+.cth-count > g > g:nth-child(1) { animation: cth-bob 0.5s ease-in-out 0.6s 2; }
+.cth-count > g > g:nth-child(2) { animation: cth-bob 0.5s ease-in-out 0.9s 2; }
+.cth-count > g > g:nth-child(3) { animation: cth-bob 0.5s ease-in-out 1.2s 2; }
+.cth-count > g > g:nth-child(4) { animation: cth-bob 0.5s ease-in-out 1.5s 2; }
+.cth-count > g > g:nth-child(5) { animation: cth-bob 0.5s ease-in-out 1.8s 2; }
+.cth-count > g > g:nth-child(6) { animation: cth-bob 0.5s ease-in-out 2.1s 2; }
+.cth-count > g > g:nth-child(7) { animation: cth-bob 0.5s ease-in-out 2.4s 2; }
+.cth-count > g > g:nth-child(8) { animation: cth-bob 0.5s ease-in-out 2.7s 2; }
+.cth-count > g > g:nth-child(9) { animation: cth-bob 0.5s ease-in-out 3s 2; }
+.cth-count > g > g:nth-child(10) { animation: cth-bob 0.5s ease-in-out 3.3s 2; }

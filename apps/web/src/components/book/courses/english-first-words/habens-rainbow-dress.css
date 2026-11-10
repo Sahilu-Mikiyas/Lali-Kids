@@ -1,0 +1,48 @@
+/* "Haben's Rainbow Dress" (habens-rainbow-dress.tsx): transforms and opacity only. */
+
+/* A found thing jumps up out of its hiding place and settles. */
+@keyframes hrd-found {
+  0% { transform: translateY(16px) scale(0.3); opacity: 0; }
+  40% { transform: translateY(-14px) scale(1.15); opacity: 1; }
+  70% { transform: translateY(2px) scale(0.97); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.hrd-found {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hrd-found 0.9s ease-out var(--delay, 0.6s) both;
+}
+
+/* Stomp, stomp in the new blue shoes. */
+@keyframes hrd-stomp {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-6px); }
+  50% { transform: translateY(0); }
+}
+.hrd-stomp { animation: hrd-stomp 0.6s ease-in-out 1s infinite; }
+
+/* The colors circling in a happy loop. */
+@keyframes hrd-swirl {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hrd-swirl { animation: hrd-swirl 1.8s ease-in-out infinite; }
+
+/* Colors bobbing round Haben's head on Color Day news. */
+@keyframes hrd-orbit {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+}
+.hrd-orbit { animation: hrd-orbit 2.4s ease-in-out infinite; }
+
+/* Which one? The colors in her thought blink one after another. */
+@keyframes hrd-choose {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hrd-choose circle { animation: hrd-choose 1.2s ease-in-out infinite; }
+.hrd-choose circle:nth-child(2) { animation-delay: 0.2s; }
+.hrd-choose circle:nth-child(3) { animation-delay: 0.4s; }
+.hrd-choose circle:nth-child(4) { animation-delay: 0.6s; }
+.hrd-choose circle:nth-child(5) { animation-delay: 0.8s; }
+.hrd-choose circle:nth-child(6) { animation-delay: 1s; }

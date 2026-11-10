@@ -1,0 +1,65 @@
+/* "The K-L-M Kite" (letter-kite.tsx): transforms and opacity only. */
+
+/* Wind lines streaming past. */
+@keyframes lk-wind {
+  0% { transform: translateX(-40px); opacity: 0; }
+  30%, 70% { opacity: 0.9; }
+  100% { transform: translateX(120px); opacity: 0; }
+}
+.lk-wind { animation: lk-wind 2.4s linear var(--delay, 0s) infinite; }
+
+/* A gust: the kite tumbles down toward the trees. */
+@keyframes lk-fall {
+  0%, 20% { transform: translate(0, 0) rotate(0deg); }
+  60% { transform: translate(-40px, 80px) rotate(-60deg); }
+  100% { transform: translate(-60px, 130px) rotate(-30deg); }
+}
+.lk-fall {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lk-fall 2.6s ease-in 0.8s both;
+}
+
+/* Stuck: a tug, and a tug, but it won't come free. */
+@keyframes lk-stuck {
+  0%, 60%, 100% { transform: rotate(-20deg); }
+  70% { transform: rotate(-12deg); }
+  80% { transform: rotate(-24deg); }
+}
+.lk-stuck {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: lk-stuck 2.4s ease-in-out infinite;
+}
+
+/* Gugu wobbling on a thin branch. */
+@keyframes lk-wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.lk-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lk-wobble 0.8s ease-in-out infinite;
+}
+
+/* Anbessa's jump, not quite high enough. */
+@keyframes lk-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-36px); }
+  60% { transform: translateY(-36px); }
+}
+.lk-jump {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lk-jump 1.4s ease-in-out 0.6s infinite;
+}
+
+/* Plop! A lemon falls. */
+@keyframes lk-plop {
+  0%, 30% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(150px); opacity: 1; }
+  80% { transform: translateY(140px); }
+  100% { transform: translateY(150px); opacity: 1; }
+}
+.lk-plop { animation: lk-plop 2s ease-in 1.4s both; }

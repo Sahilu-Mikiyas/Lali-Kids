@@ -1,0 +1,68 @@
+/* "Lali Says, Touch Your Nose!" (lali-says.tsx): transforms and opacity only. */
+
+/* Paws reach up quickly when the page opens ("quick as a bee!"), then pat, pat. */
+@keyframes ls-touch {
+  0% { transform: translateY(40px); opacity: 0; }
+  30% { transform: translateY(0); opacity: 1; }
+  45% { transform: translateY(-3px); }
+  60% { transform: translateY(0); }
+  75% { transform: translateY(-3px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.ls-touch { animation: ls-touch 1.6s ease-out 0.8s both; }
+
+/* Hands clapping in front. */
+@keyframes ls-clap {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.25); }
+}
+.ls-clap {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: ls-clap 0.5s ease-in-out infinite;
+}
+
+/* Two poses taking turns: eyes (a), then ears (b). */
+@keyframes ls-a {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes ls-b {
+  0%, 45% { opacity: 0; }
+  50%, 95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.ls-switch-a { animation: ls-a 4s steps(1, end) 0.6s infinite both; }
+.ls-switch-b { animation: ls-b 4s steps(1, end) 0.6s infinite both; }
+
+/* The question mark wobbling between eyes and ears. */
+@keyframes ls-mix {
+  0%, 100% { transform: translateX(-30px); }
+  50% { transform: translateX(30px); }
+}
+.ls-mix { animation: ls-mix 2.4s ease-in-out infinite; }
+
+/* Gugu bends for his toes and rolls right over. */
+@keyframes ls-roll {
+  0%, 30% { transform: rotate(0deg); }
+  50% { transform: rotate(-80deg); }
+  70% { transform: rotate(-80deg); }
+  90%, 100% { transform: rotate(0deg); }
+}
+.ls-roll {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: ls-roll 3.2s ease-in-out 1.2s infinite;
+}
+
+/* Everyone stamping their feet. */
+@keyframes ls-stamp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.ls-stamp { animation: ls-stamp 0.35s ease-in-out 0.4s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-switch-b { opacity: 0; }
+}
