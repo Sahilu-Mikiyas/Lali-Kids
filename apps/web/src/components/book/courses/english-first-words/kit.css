@@ -406,6 +406,13 @@
 }
 .efw-drive { animation: efw-drive 0.4s ease-in-out infinite; }
 
+/* A word of a sentence appearing (being written or read). */
+@keyframes efw-word-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.efw-word-in { animation: efw-word-in 0.3s ease-out var(--delay, 0.6s) both; }
+
 /* With reduced motion, things that would have left the picture are simply gone. */
 /* And things that move to where the page leaves them rest there. */
 @media (prefers-reduced-motion: reduce) {

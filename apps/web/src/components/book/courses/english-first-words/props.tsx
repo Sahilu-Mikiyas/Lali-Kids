@@ -336,3 +336,36 @@ export function BlendCard({ x, y, word, pic, color = "#D9662B", delay = 0.6, s =
     </g>
   );
 }
+
+/**
+ * An English sentence on a strip of paper, its words appearing one by one (as if being written or
+ * read), with an optional picture at the end. Centred on (x, y).
+ */
+export function SentenceCard({ x, y, text, pic, color = "#2A1A10", size = 18, delay = 0.6, step = 0.35 }: { x: number; y: number; text: string; pic?: string; color?: string; size?: number; delay?: number; step?: number }) {
+  const words = text.split(" ");
+  const tw = r1(text.length * size * 0.5);
+  const w = tw + (pic ? 56 : 30);
+  const tx = pic ? -22 : 0;
+  return (
+    <g transform={`translate(${inSafe(x, w)} ${y})`}>
+      <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
+        <rect x={-w / 2} y={-size} width={w} height={size * 2} rx={10} fill="#FFFDF6" stroke="#E3D5C3" strokeWidth={2} />
+        <path d={`M${r1(-w / 2 + 10)} ${r1(size * 0.62)} H${r1(w / 2 - (pic ? 44 : 10))}`} stroke="#D3E4F4" strokeWidth={1.4} />
+      </g>
+      <text x={tx} y={r1(size * 0.36)} fontSize={size} fontFamily="var(--font-andika), sans-serif" fontWeight={700} fill={color} textAnchor="middle">
+        {words.map((word, i) => (
+          <tspan key={`${i}-${word}`} className="efw-word-in" style={vars({ "--delay": `${r1(delay + 0.3 + i * step)}s` })}>
+            {i ? ` ${word}` : word}
+          </tspan>
+        ))}
+      </text>
+      {pic && (
+        <g transform={`translate(${r1(w / 2 - 24)} 0) scale(${r1(size / 64)})`}>
+          <g className="lali-pop-in" style={vars({ "--delay": `${r1(delay + 0.4 + words.length * step)}s` })}>
+            <Thing id={pic} />
+          </g>
+        </g>
+      )}
+    </g>
+  );
+}

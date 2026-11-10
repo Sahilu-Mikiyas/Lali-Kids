@@ -30,6 +30,10 @@ const SayItSlowly = dynamic(() => import("./say-it-slowly"), { ssr: false });
 const RhymeShow = dynamic(() => import("./rhyme-show"), { ssr: false });
 const StopTheVan = dynamic(() => import("./stop-the-van"), { ssr: false });
 const SnapWords = dynamic(() => import("./snap-words"), { ssr: false });
+const AbdiCan = dynamic(() => import("./abdi-can"), { ssr: false });
+const ILikeMango = dynamic(() => import("./i-like-mango"), { ssr: false });
+const WhatIsThis = dynamic(() => import("./what-is-this"), { ssr: false });
+const MyLittleBook = dynamic(() => import("./my-little-book"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "my-name-is": MyNameIs,
@@ -50,4 +54,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "rhyme-show": RhymeShow,
   "stop-the-van": StopTheVan,
   "snap-words": SnapWords,
+  "abdi-can": AbdiCan,
+  "i-like-mango": ILikeMango,
+  "what-is-this": WhatIsThis,
+  "my-little-book": MyLittleBook,
 };
