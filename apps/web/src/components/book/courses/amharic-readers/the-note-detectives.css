@@ -1,0 +1,29 @@
+/* "The Note Detectives" (the-note-detectives.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* The hen settling on her nest. */
+@keyframes tnd-sit {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+.tnd-sit {
+  animation: tnd-sit 2.4s ease-in-out infinite;
+}
+
+/* Soft clucking marks from behind the woodpile. */
+@keyframes tnd-cluck {
+  0%, 100% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-4px); }
+}
+.tnd-cluck {
+  animation: tnd-cluck 1.6s ease-in-out infinite;
+}
+
+/* Tiptoeing: a slow, careful bob. */
+@keyframes tnd-tiptoe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.tnd-tiptoe {
+  animation: tnd-tiptoe 1.4s ease-in-out infinite;
+}

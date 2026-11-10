@@ -1,0 +1,45 @@
+/* "One Goat, Many Goats" (gugus-market-list.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* Three pumpkins wobbling dangerously in Gugu's arms. */
+@keyframes gml-wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.gml-wobble {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: gml-wobble 0.9s ease-in-out infinite;
+}
+
+/* Carrying the eggs very, very carefully. */
+@keyframes gml-careful {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.gml-careful {
+  animation: gml-careful 2.6s ease-in-out infinite;
+}
+
+/* The one and only sun, beaming. */
+@keyframes gml-shine {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.08) rotate(8deg); }
+}
+.gml-shine {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gml-shine 2.4s ease-in-out infinite;
+}
+
+/* Tsehay shaking with laughter. */
+@keyframes gml-laugh {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+.gml-laugh {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: gml-laugh 0.5s ease-in-out infinite;
+}

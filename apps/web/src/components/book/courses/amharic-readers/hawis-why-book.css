@@ -1,0 +1,42 @@
+/* "Hawi's Why Book" (hawis-why-book.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* A mole-rat popping up from its hole and ducking back down. */
+@keyframes hwb-peek {
+  0%, 100% { transform: translateY(4px); }
+  40%, 70% { transform: translateY(-2px); }
+}
+.hwb-peek {
+  animation: hwb-peek 2.2s ease-in-out infinite;
+}
+
+/* The wolf's long nose sniffing at the hole. */
+@keyframes hwb-sniff {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(8deg); }
+}
+.hwb-sniff {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hwb-sniff 1.2s ease-in-out infinite;
+}
+
+/* The gelada's red chest patch glowing. */
+@keyframes hwb-glow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.hwb-glow {
+  animation: hwb-glow 1.4s ease-in-out infinite;
+}
+
+/* Gugu puffing out his chest. */
+@keyframes hwb-puff {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.hwb-puff {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: hwb-puff 1.6s ease-in-out infinite;
+}

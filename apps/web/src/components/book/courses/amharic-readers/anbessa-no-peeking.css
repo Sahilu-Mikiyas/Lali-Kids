@@ -1,0 +1,33 @@
+/* "What Happens Next?" (anbessa-no-peeking.tsx): transforms and opacity only.
+   With reduced motion every piece rests in its final pose. */
+
+/* The little bee in the book flying along. */
+@keyframes anp-fly {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -6px); }
+}
+.anp-fly {
+  animation: anp-fly 2s ease-in-out infinite;
+}
+
+/* Anbessa's peek: the book tipping open, then gently shut again. */
+@keyframes anp-flip {
+  0%, 100% { transform: rotate(0deg) scaleX(1); }
+  30%, 50% { transform: rotate(-8deg) scaleX(-0.6); }
+}
+.anp-flip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: anp-flip 2.4s ease-in-out 0.4s infinite;
+}
+
+/* Lali tapping at the window. */
+@keyframes anp-tap {
+  0%, 60%, 100% { transform: translateX(0); }
+  70% { transform: translateX(-6px); }
+  80% { transform: translateX(0); }
+  90% { transform: translateX(-6px); }
+}
+.anp-tap {
+  animation: anp-tap 1.4s ease-in-out infinite;
+}

@@ -1,0 +1,110 @@
+/* Amharic Readers: moves for the reading pieces (kit-read.tsx). Transforms and opacity only;
+   the reduced-motion rule in globals.css stops all of it (everything rests in its final pose). */
+
+/* A soft yellow halo pulsing behind a word, a card or a sign. */
+@keyframes ar-read-glow {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.95; }
+}
+.ar-read-glow {
+  animation: ar-read-glow 1.4s ease-in-out infinite;
+}
+
+/* The reading mark sliding in under a word as it is read, then staying. */
+@keyframes ar-read-under {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.ar-read-under {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: ar-read-under 0.4s ease-out var(--delay, 0.8s) both;
+}
+
+/* The little dots between the parts of a word go away when the parts join. */
+@keyframes ar-read-dot {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.ar-read-dot {
+  animation: ar-read-dot 0.4s ease var(--delay, 1s) both;
+}
+
+/* A green line under the joined word: read all together! */
+@keyframes ar-read-flash {
+  0% { transform: scaleX(0); opacity: 0; }
+  60% { transform: scaleX(1.06); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+.ar-read-flash {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ar-read-flash 0.6s ease-out var(--delay, 1.4s) both;
+}
+
+/* Something blown by the wind: up, round and away, then back (pages in "Ayan's Mixed-Up Pages"). */
+@keyframes ar-read-blow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(var(--bx, 60px), var(--by, -60px)) rotate(var(--br, 140deg)); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.ar-read-blow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ar-read-blow var(--dur, 3.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A gentle shake (a knock, a rattle, a jiggle). */
+@keyframes ar-read-shake {
+  0%, 70%, 100% { transform: rotate(0deg); }
+  76% { transform: rotate(-5deg); }
+  84% { transform: rotate(5deg); }
+  92% { transform: rotate(-3deg); }
+}
+.ar-read-shake {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: ar-read-shake 1.8s ease-in-out var(--delay, 0.4s) infinite;
+}
+
+/* Falling water: streaks sliding down and fading. */
+@keyframes ar-read-fall {
+  from { transform: translateY(-14px); opacity: 0; }
+  30% { opacity: 0.9; }
+  to { transform: translateY(26px); opacity: 0; }
+}
+.ar-read-fall {
+  animation: ar-read-fall var(--dur, 1.1s) linear var(--delay, 0s) infinite;
+}
+
+/* A bob on the water, or a slow float. */
+@keyframes ar-read-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(4px) rotate(2deg); }
+}
+.ar-read-bob {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ar-read-bob var(--dur, 2.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Growing up from the ground (a seedling, a branch, a word on the word tree). */
+@keyframes ar-read-grow {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.ar-read-grow {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: ar-read-grow 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* Drawing a line from its start (a stick drawing in the dust, a voice line). */
+@keyframes ar-read-draw {
+  from { stroke-dashoffset: var(--len, 300); }
+  to { stroke-dashoffset: 0; }
+}
+.ar-read-draw {
+  stroke-dasharray: var(--len, 300);
+  animation: ar-read-draw var(--dur, 1.6s) ease-out var(--delay, 0.4s) both;
+}
