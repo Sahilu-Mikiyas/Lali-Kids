@@ -82,7 +82,7 @@ function Wig() {
   );
 }
 
-const Haben = ({ x, y = 294, s = 0.44, mood = "happy" as "happy" | "joy" | "wow", pose = "sit" as "sit" | "wave" | "point", flip = false }) => (
+const Haben = ({ x = 140, y = 294, s = 0.44, mood = "happy" as "happy" | "joy" | "wow", pose = "sit" as "sit" | "wave" | "point", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.haben}>
     <Ibex mood={mood} pose={pose} />
   </Place>

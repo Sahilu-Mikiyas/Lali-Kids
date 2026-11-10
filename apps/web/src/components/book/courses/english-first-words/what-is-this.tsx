@@ -106,7 +106,7 @@ export default function WhatIsThis({ page }: { page: number }) {
             <Reveal>
               <Thing id="ball" s={0.6} />
             </Reveal>
-            <SentenceCard x={200} y={70} text="It is a ball." color={TEAL} delay={2.2} />
+            <SentenceCard x={200} y={70} text="It is a ball." color={TEAL} delay={1.4} />
           </Club>
           <Air kind="day" seed={3} />
         </g>
@@ -124,7 +124,7 @@ export default function WhatIsThis({ page }: { page: number }) {
             <Reveal>
               <Thing id="cup" s={0.6} />
             </Reveal>
-            <SentenceCard x={200} y={70} text="It is a cup." color={TEAL} delay={2.2} />
+            <SentenceCard x={200} y={70} text="It is a cup." color={TEAL} delay={1.4} />
             <SayBubble x={330} y={170} lines={["Yes, it is!"]} size={12} tail="down" delay={3.2} color="#2E9A5B" />
           </Club>
           <Air kind="day" seed={4} />
@@ -143,7 +143,7 @@ export default function WhatIsThis({ page }: { page: number }) {
             <Reveal>
               <Thing id="banana" s={0.6} />
             </Reveal>
-            <SentenceCard x={200} y={70} text="It is a banana." color={TEAL} delay={2.2} />
+            <SentenceCard x={200} y={70} text="It is a banana." color={TEAL} delay={1.4} />
           </Club>
           <Air kind="day" seed={5} />
         </g>
@@ -161,7 +161,7 @@ export default function WhatIsThis({ page }: { page: number }) {
             <Reveal>
               <Spoon />
             </Reveal>
-            <SentenceCard x={200} y={70} text="It is a spoon." color={TEAL} delay={2.2} />
+            <SentenceCard x={200} y={70} text="It is a spoon." color={TEAL} delay={1.4} />
           </Club>
           <Air kind="day" seed={6} />
         </g>
