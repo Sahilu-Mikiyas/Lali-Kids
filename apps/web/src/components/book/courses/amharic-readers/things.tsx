@@ -710,6 +710,174 @@ export const THINGS: Record<string, () => ReactElement> = {
       <ellipse cx={-8} cy={-6} rx={4} ry={10} fill="#fff" opacity={0.35} />
     </g>
   ),
+
+  /* ---------- added for Amharic Readers ---------- */
+
+  // ዱባ, a pumpkin
+  pumpkin: () => (
+    <g>
+      <ellipse cx={0} cy={4} rx={34} ry={24} fill="#F08A2A" {...S} />
+      <path d="M-12 -18 Q-20 4 -12 26 M12 -18 Q20 4 12 26 M0 -20 V28" stroke="#C9661A" strokeWidth={2.4} fill="none" />
+      <path d="M0 -20 Q2 -30 8 -32" stroke="#4D7A2E" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <path d="M6 -26 Q18 -34 22 -24 Q12 -22 6 -26Z" fill="#4DAA4E" {...S} strokeWidth={1.6} />
+    </g>
+  ),
+  // ደብተር, a school exercise book
+  notebook: () => (
+    <g>
+      <rect x={-24} y={-32} width={48} height={64} rx={4} fill="#2F7FB8" {...S} />
+      <rect x={-24} y={-32} width={9} height={64} rx={3} fill="#1E5A8A" />
+      <rect x={-8} y={-18} width={26} height={16} rx={2} fill="#FFFDF6" {...S} strokeWidth={1.6} />
+      <path d="M-4 -12 H14 M-4 -7 H10" stroke="#B9A58C" strokeWidth={1.6} />
+    </g>
+  ),
+  // እርሳስ, a pencil
+  pencil: () => (
+    <g transform="rotate(-35)">
+      <rect x={-34} y={-7} width={52} height={14} fill="#F5B21E" {...S} />
+      <path d="M18 -7 L36 0 L18 7Z" fill="#F1D3A8" {...S} />
+      <path d="M30 -2.4 L36 0 L30 2.4Z" fill={K} />
+      <rect x={-40} y={-7} width={8} height={14} rx={2} fill="#E88A9A" {...S} />
+      <path d="M-34 -2 H18" stroke="#D89A10" strokeWidth={1.6} />
+    </g>
+  ),
+  // ቦርሳ, a school bag
+  bag: () => (
+    <g>
+      <path d="M-14 -28 Q-14 -40 0 -40 Q14 -40 14 -28" stroke={K} strokeWidth={4} fill="none" />
+      <rect x={-28} y={-30} width={56} height={62} rx={12} fill="#2E9A8A" {...S} />
+      <rect x={-20} y={4} width={40} height={20} rx={5} fill="#3FB8A4" {...S} strokeWidth={1.8} />
+      <path d="M-28 -10 H28" stroke={K} strokeWidth={2} />
+      <circle cx={0} cy={-10} r={3} fill="#F5B21E" />
+    </g>
+  ),
+  // ማስመሪያ, a ruler
+  ruler: () => (
+    <g transform="rotate(-20)">
+      <rect x={-38} y={-9} width={76} height={18} rx={2} fill="#FFD233" {...S} />
+      <path d="M-30 -9 v8 M-22 -9 v5 M-14 -9 v8 M-6 -9 v5 M2 -9 v8 M10 -9 v5 M18 -9 v8 M26 -9 v5" stroke={K} strokeWidth={1.4} />
+    </g>
+  ),
+  // ዋና, someone swimming
+  swimmer: () => (
+    <g>
+      <path d="M-40 10 Q-30 4 -20 10 T0 10 T20 10 T40 10 V30 H-40Z" fill="#5BB8E8" />
+      <path d="M2 2 Q14 -22 30 -8" stroke="#8A5634" strokeWidth={7} fill="none" strokeLinecap="round" />
+      <circle cx={-6} cy={0} r={12} fill="#8A5634" {...S} />
+      <path d="M-18 -3 Q-6 -16 6 -3" fill={K} />
+      <circle cx={-10} cy={1} r={1.6} fill={K} />
+      <path d="M-40 10 Q-30 4 -20 10 T0 10 T20 10 T40 10" stroke="#fff" strokeWidth={2.4} fill="none" />
+    </g>
+  ),
+  // ዋና በር, the main gate (a big gate with a star)
+  gate: () => (
+    <g>
+      <rect x={-30} y={-22} width={8} height={50} fill="#7A5236" {...S} />
+      <rect x={22} y={-22} width={8} height={50} fill="#7A5236" {...S} />
+      <rect x={-36} y={-30} width={72} height={12} rx={3} fill="#C2410C" {...S} />
+      <path d="M-22 28 V-18 H22 V28" fill="#F5D27A" opacity={0.6} />
+      <path d="M0 -44 l3.6 7.2 8 1.2 -5.8 5.6 1.4 8 -7.2 -3.8 -7.2 3.8 1.4 -8 -5.8 -5.6 8 -1.2z" fill="#F5B21E" {...S} strokeWidth={1.6} />
+    </g>
+  ),
+  // ገና, Genna (Christmas): the genna stick and ball
+  genna: () => (
+    <g>
+      <path d="M-26 30 L14 -26 Q18 -32 26 -30" stroke="#8A5A30" strokeWidth={6} fill="none" strokeLinecap="round" />
+      <circle cx={18} cy={20} r={10} fill="#C98A4E" {...S} />
+      <path d="M12 14 Q18 22 24 14" stroke="#8A5A30" strokeWidth={1.6} fill="none" />
+    </g>
+  ),
+  // ፏፏቴ, a waterfall
+  waterfall: () => (
+    <g>
+      <path d="M-40 -30 H-12 V30 H-40Z M12 -30 H40 V30 H12Z" fill="#8A7A6A" {...S} />
+      <rect x={-12} y={-30} width={24} height={52} fill="#BFE7FF" />
+      <path d="M-6 -26 V16 M0 -22 V20 M6 -26 V14" stroke="#fff" strokeWidth={3} strokeLinecap="round" />
+      <ellipse cx={0} cy={26} rx={26} ry={7} fill="#5BB8E8" {...S} />
+    </g>
+  ),
+  // ሯጭ, a runner
+  runner: () => (
+    <g>
+      <circle cx={6} cy={-28} r={8} fill="#8A5634" {...S} />
+      <path d="M2 -18 L-4 6" stroke="#2E9A5B" strokeWidth={12} strokeLinecap="round" />
+      <path d="M-2 -10 L14 -2 M-2 -10 L-16 -16" stroke="#8A5634" strokeWidth={5} strokeLinecap="round" />
+      <path d="M-4 6 L10 20 L6 32 M-4 6 L-18 18 L-28 14" stroke="#8A5634" strokeWidth={5} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M-30 -6 H-40 M-32 4 H-42" stroke="#9AA0A6" strokeWidth={2.4} strokeLinecap="round" />
+    </g>
+  ),
+  // ቅርጫት, a market basket
+  basket: () => (
+    <g>
+      <path d="M-26 -10 Q0 -46 26 -10" stroke="#8A5A2E" strokeWidth={4} fill="none" />
+      <path d="M-34 -10 H34 L26 24 H-26Z" fill="#D9A04A" {...S} />
+      <path d="M-31 2 H31 M-28 13 H28" stroke="#B07A2E" strokeWidth={2} />
+    </g>
+  ),
+  // ዛፍ, a tree
+  tree: () => (
+    <g>
+      <rect x={-5} y={0} width={10} height={32} fill="#7A5236" {...S} />
+      <circle cx={0} cy={-12} r={24} fill="#3E9B5A" {...S} />
+      <circle cx={-10} cy={-18} r={8} fill="#5BB86A" />
+    </g>
+  ),
+  // ፀሐይ, the sun (just one!)
+  sun: () => (
+    <g>
+      <g stroke="#F5B21E" strokeWidth={4} strokeLinecap="round">
+        {Array.from({ length: 8 }, (_, i) => {
+          const a = (i / 8) * Math.PI * 2;
+          return <path key={i} d={`M${Math.round(Math.cos(a) * 26)} ${Math.round(Math.sin(a) * 26)} L${Math.round(Math.cos(a) * 36)} ${Math.round(Math.sin(a) * 36)}`} />;
+        })}
+      </g>
+      <circle r={20} fill="#FFD233" {...S} />
+    </g>
+  ),
+  // ኮፍያ, a little hat
+  hat: () => (
+    <g>
+      <ellipse cx={0} cy={12} rx={34} ry={9} fill="#F5B21E" {...S} />
+      <path d="M-20 12 Q-20 -24 0 -24 Q20 -24 20 12Z" fill="#F5B21E" {...S} />
+      <path d="M-20 0 Q0 6 20 0" stroke={K} strokeWidth={6} fill="none" />
+    </g>
+  ),
+  // ዋርካ, the big fig tree
+  figtree: () => (
+    <g>
+      <path d="M-8 34 Q-6 6 -2 -4 M8 34 Q6 6 2 -4" stroke="#7A5236" strokeWidth={8} fill="none" />
+      <ellipse cx={0} cy={-14} rx={40} ry={20} fill="#2D7D47" {...S} />
+      <ellipse cx={-14} cy={-20} rx={16} ry={10} fill="#3E9B5A" />
+      <ellipse cx={16} cy={-18} rx={14} ry={9} fill="#3E9B5A" />
+    </g>
+  ),
+  // መስኮት, a window
+  window: () => (
+    <g>
+      <rect x={-30} y={-30} width={60} height={60} rx={3} fill="#BDE6FF" {...S} />
+      <path d="M0 -30 V30 M-30 0 H30" {...S} />
+      <path d="M-30 14 Q-10 4 10 12 T30 8 V30 H-30Z" fill="#8FCB80" />
+    </g>
+  ),
+  // ትምህርት ቤት, a school
+  school: () => (
+    <g>
+      <path d="M-38 -6 L0 -30 L38 -6Z" fill="#C2410C" {...S} />
+      <rect x={-34} y={-6} width={68} height={38} fill="#F0D7A8" {...S} />
+      <rect x={-8} y={8} width={16} height={24} fill="#2F6FD0" {...S} strokeWidth={1.8} />
+      <rect x={-28} y={2} width={14} height={12} fill="#BDE6FF" {...S} strokeWidth={1.6} />
+      <rect x={14} y={2} width={14} height={12} fill="#BDE6FF" {...S} strokeWidth={1.6} />
+      <path d="M0 -30 V-42 L12 -38 L0 -34" fill="#2E9A5B" stroke={K} strokeWidth={1.4} />
+    </g>
+  ),
+  // ማሰሮ, a clay water pot
+  pot: () => (
+    <g>
+      <path d="M-10 -30 L10 -30 L9 -22 Q30 -10 28 8 Q26 26 0 28 Q-26 26 -28 8 Q-30 -10 -9 -22Z" fill="#B8683E" {...S} />
+      <ellipse cx={0} cy={-30} rx={11} ry={4} fill="#8A4A2A" {...S} strokeWidth={1.6} />
+      <path d="M-24 4 Q0 12 24 4" stroke="#8A4A2A" strokeWidth={2} fill="none" />
+    </g>
+  ),
 };
 
 /** One of the THINGS, at (x, y), scaled. */

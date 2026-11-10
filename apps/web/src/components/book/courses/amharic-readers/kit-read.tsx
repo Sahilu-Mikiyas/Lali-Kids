@@ -39,6 +39,37 @@ export function Txt({ text, x, y, size = 20, fill = INK, weight = 700, anchor = 
   );
 }
 
+/** Text in the fidel font made of coloured pieces (a word with its ending in another colour), centred on x. */
+export function Tone({ parts, x, y, size = 20, weight = 700 }: { parts: [string, string][]; x: number; y: number; size?: number; weight?: number }) {
+  return (
+    <text x={r1(x)} y={r1(y)} fontSize={size} fontWeight={weight} textAnchor="middle" style={FIDEL}>
+      {parts.map(([t, c], i) => (
+        <tspan key={i} fill={c}>
+          {t}
+        </tspan>
+      ))}
+    </text>
+  );
+}
+
+/** A card holding a word whose ending is coloured: `stem` in ink, `end` in the ending colour. */
+export function EndCard({ stem, end, x, y, size = 22, endColor = "#C2410C", delay = null, glow = false, tilt = 0 }: { stem: string; end: string; x: number; y: number; size?: number; endColor?: string; delay?: number | null; glow?: boolean; tilt?: number }) {
+  const width = textW(stem + end, size) + 24;
+  const h = size * 1.5;
+  return (
+    <g transform={`translate(${r1(x)} ${r1(y)})${tilt ? ` rotate(${tilt})` : ""}`}>
+      <Pop delay={delay}>
+        <Tappable reaction="grow" sound="chime">
+          {glow && <rect x={r1(-width / 2 - 6)} y={r1(-h / 2 - 6)} width={r1(width + 12)} height={r1(h + 12)} rx={12} fill={HILITE} className="ar-read-glow" />}
+          <rect x={r1(-width / 2)} y={r1(-h / 2 + 3)} width={r1(width)} height={r1(h)} rx={8} fill="#000" opacity={0.14} />
+          <rect x={r1(-width / 2)} y={r1(-h / 2)} width={r1(width)} height={r1(h)} rx={8} fill="#FFFDF6" stroke={INK} strokeWidth={2.2} />
+          <Tone parts={[[stem, INK], [end, endColor]]} x={0} y={r1(size * 0.36)} size={size} />
+        </Tappable>
+      </Pop>
+    </g>
+  );
+}
+
 /** Pops in after `delay` seconds (or shows at once with delay null). */
 export function Pop({ delay = 0.8, children }: { delay?: number | null; children: ReactNode }) {
   if (delay === null) return <>{children}</>;
@@ -372,7 +403,7 @@ export function Library({ id, children }: { id: string; children?: ReactNode }) 
 }
 
 /** A market square: sky, hills, a row of stalls under striped awnings, and the dusty ground. */
-export function Market({ id, children }: { id: string; children?: ReactNode }) {
+export function Market({ id, sun = true, children }: { id: string; sun?: boolean; children?: ReactNode }) {
   const stall = (x: number, color: string, k: number, goods: string[]) => (
     <g key={k} transform={`translate(${x} 150)`}>
       <rect x={-50} y={0} width={100} height={58} fill="#C99A64" />
@@ -388,7 +419,7 @@ export function Market({ id, children }: { id: string; children?: ReactNode }) {
   return (
     <>
       <Sky id={id} from="#7FCFFF" mid="#BFE7FF" to="#FFF1D0" />
-      <Sun x={350} y={46} r={18} />
+      {sun && <Sun x={350} y={46} r={18} />}
       <DriftCloud y={44} s={0.6} dur={70} phase={0.3} />
       <Mountains far="#B7C6E6" mid="#8EA8D4" />
       <Depth z={-0.25}>
