@@ -7,7 +7,8 @@ import { Acacia, Birds, Depth, DriftCloud, LightRays, Moon, Mountains, rand, Sho
 import { Tappable } from "../../tappable";
 
 /*
-  Places for the Values & Character stories: inside a round house, the yard, the village path,
+  Copied from Values & Character (kit-places.tsx there) for the Amharic Readers scenes.
+  Places: inside a round house, the yard, the village path,
   a teff field and a town house with a flat roof. Every place takes a time of day.
 */
 

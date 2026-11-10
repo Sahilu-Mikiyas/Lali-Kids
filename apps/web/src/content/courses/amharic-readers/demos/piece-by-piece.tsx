@@ -102,7 +102,7 @@ export default function PieceByPiece({ lang, onDone }: DemoProps) {
                 initial={{ scale: 0 }}
                 animate={{ scale: i === tapped && !joined ? [1, 1.1, 1] : 1, backgroundColor: joined ? "#E9F7E4" : i < tapped ? "#FFE9A8" : "#FFF8EC" }}
                 transition={i === tapped && !joined ? { repeat: Infinity, duration: 1.1 } : { type: "spring" }}
-                className={`grid h-[72px] place-items-center px-2 font-bold ${joined ? "rounded-none first:rounded-l-2xl last:rounded-r-2xl" : "rounded-2xl border-[3px] border-[#D9822B]"}`}
+                className={`grid h-[72px] place-items-center font-bold ${joined ? "px-0" : "px-2"} ${joined ? "rounded-none first:rounded-l-2xl last:rounded-r-2xl" : "rounded-2xl border-[3px] border-[#D9822B]"}`}
                 style={{ ...FIDEL, fontSize: size, minWidth: joined ? 0 : 56, whiteSpace: "pre" }}
                 aria-label={p.trim()}
               >

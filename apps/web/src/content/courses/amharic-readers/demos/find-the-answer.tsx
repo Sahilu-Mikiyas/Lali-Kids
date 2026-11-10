@@ -61,7 +61,7 @@ function Question({ text }: { text: string }) {
   return (
     <>
       {text.slice(0, found.i)}
-      <span style={{ color: found.c }}>{found.w}</span>
+      <span className="rounded-md px-1" style={{ background: "#FFFFFF", color: found.c }}>{found.w}</span>
       {text.slice(found.i + found.w.length)}
     </>
   );

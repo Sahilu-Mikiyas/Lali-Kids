@@ -355,7 +355,7 @@ export default function SwimOrMain({ page }: { page: number }) {
               { x: 270, el: <Tsehay mood="joy" />, tap: TAP.tsehay },
             ].map((k, i) => (
               <g key={k.x} className="ar-read-bob" style={vars({ "--delay": `${-i * 0.7}s` })}>
-                <Place x={k.x} y={232} s={0.34} tap={k.tap}>
+                <Place x={k.x} y={232} s={0.3} tap={k.tap}>
                   {k.el}
                 </Place>
               </g>
@@ -368,8 +368,8 @@ export default function SwimOrMain({ page }: { page: number }) {
               </g>
             </g>
           </g>
-          <path d="M60 196 Q200 186 380 196 L380 236 Q200 228 60 236Z" fill="#A98A64" opacity={0.9} />
-          <path d="M60 196 Q200 186 380 196" stroke="#fff" strokeWidth={2} fill="none" opacity={0.6} />
+          <path d="M60 208 Q200 200 380 208 L380 240 Q200 234 60 240Z" fill="#8FA8A8" opacity={0.85} />
+          <path d="M60 208 Q200 200 380 208" stroke="#fff" strokeWidth={2.4} fill="none" opacity={0.8} />
           <path d="M60 236 V182 M380 236 V182" stroke="#7A5236" strokeWidth={4} fill="none" />
           <path d="M60 186 Q210 176 380 186" stroke="#F5B21E" strokeWidth={2.4} strokeDasharray="6 5" fill="none" />
           <Place x={40} y={294} s={0.48} tap={TAP.elder}>
@@ -377,7 +377,7 @@ export default function SwimOrMain({ page }: { page: number }) {
           </Place>
           <g fill="#FFFFFF">
             {[150, 230, 300].map((x, i) => (
-              <circle key={x} cx={x} cy={198} r={3} className="lali-pulse" style={vars({ "--delay": `${-i * 0.4}s` })} />
+              <circle key={x} cx={x} cy={210} r={3} className="lali-pulse" style={vars({ "--delay": `${-i * 0.4}s` })} />
             ))}
           </g>
         </Langano>

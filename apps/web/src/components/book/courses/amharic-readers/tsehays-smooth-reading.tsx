@@ -204,10 +204,10 @@ export default function TsehaysSmoothReading({ page }: { page: number }) {
       return (
         <g>
           <Home id={id} time="evening" />
-          <Strip words={["ድመቷ", "የት", "ሄደች?"]} x={170} y={50} size={22} delay={0.4} step={0.3} />
-          <Voice x={110} y={84} kind="ask" delay={1.6} />
-          <Strip words={["ድመቷ", "ዛፍ", "ላይ", "ወጣች!"]} x={170} y={130} size={22} delay={2.4} step={0.3} />
-          <Voice x={110} y={164} kind="wow" delay={3.6} />
+          <Strip words={["ድመቷ", "የት", "ሄደች?"]} x={190} y={50} size={22} delay={0.4} step={0.3} />
+          <Voice x={130} y={84} kind="ask" delay={1.6} />
+          <Strip words={["ድመቷ", "ዛፍ", "ላይ", "ወጣች!"]} x={190} y={130} size={22} delay={2.4} step={0.3} />
+          <Voice x={130} y={164} kind="wow" delay={3.6} />
           <Place x={330} y={292} s={0.5} flip tap={TAP.grandma}>
             <Grandma mood="joy" arm="raise" />
           </Place>

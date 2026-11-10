@@ -8,7 +8,8 @@ import { FONT } from "./kit-cast";
 import type { Time } from "./kit-places";
 
 /*
-  More places and things for levels 4–6 of Values & Character: the classroom, a woven basket in
+  Copied from Values & Character (kit-more.tsx there) for the Amharic Readers scenes; the classroom
+  here takes a `board` of its own. More places and things: the classroom, a woven basket in
   the making, a growing lemon tree, weaver birds and their hanging nests, the village spring with
   litter and reeds, seedlings, a truck, the edir box, a storm cloud of feelings, the Meskel
   bonfire, the Genna game, Ashenda grass skirts. Same rules as the other kit files: centred on

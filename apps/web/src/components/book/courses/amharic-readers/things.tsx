@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
 
 /*
-  Small pictures of familiar Ethiopian things, for Fidel Foundations: drawn around (0, 0), about
+  Copied from Fidel Foundations (things.tsx there), with more added at the end for Amharic
+  Readers (school things, market things, the swimmer and the main gate, the waterfall…).
+  Small pictures of familiar Ethiopian things: drawn around (0, 0), about
   80 units across (x and y within ±40), with no letters in them. The story scenes place them
   with a transform; the quiz pictures (src/content/courses/fidel-foundations/art.tsx) wrap each in
   its own little <svg>. Each is named by its English word; the comment gives the Amharic word

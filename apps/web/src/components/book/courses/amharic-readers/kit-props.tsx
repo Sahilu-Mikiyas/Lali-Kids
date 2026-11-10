@@ -8,7 +8,8 @@ import { Tappable } from "../../tappable";
 import { FONT, INK, NETELA } from "./kit-cast";
 
 /*
-  Things in the Values & Character pictures: the stool, river stones, the coffee set, bread,
+  Copied from Values & Character (kit-props.tsx there) for the Amharic Readers scenes.
+  Things in the pictures: the stool, river stones, the coffee set, bread,
   injera, the hand-washing jug, a broom, a yellow jerrycan, sandals, a ball, a kite, tomato
   plants, a sickle and teff sheaves, and little signs (hearts, stars, a question, a heavy
   stone, speech and thought bubbles holding pictures, never words, so they suit both languages).

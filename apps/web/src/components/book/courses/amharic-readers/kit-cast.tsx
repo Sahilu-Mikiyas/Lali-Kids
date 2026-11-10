@@ -9,7 +9,8 @@ import { vars } from "../../scenery";
 import { Tappable } from "../../tappable";
 
 /*
-  The cast of the Values & Character course, shared by every story's scenes.
+  The cast, copied from the Values & Character course (kit-cast.tsx there) for the Amharic Readers
+  scenes; keyframes renamed ar-* (./kit.css). Shared by every story's scenes.
   Every character is drawn in the 200 × 240 box of the main cast (feet near y = 228), so it can
   be placed with <Place> from the scenery kit. The familiar friends come from the library
   (Anbessa, Gugu, Tsehay and her family, Grandma, Auntie Sheep); the new friends come from
