@@ -5,7 +5,7 @@ import "./i-spy-with-lali.css";
 import { useId } from "react";
 
 import { Glow } from "../../glow";
-import { Air, BeeHover, Place, vars } from "../../scenery";
+import { BeeHover, Place, vars } from "../../scenery";
 import { Tappable } from "../../tappable";
 import { Cat, Cub, Grandma, Gugu, TAP, Tsehay } from "./cast";
 import { Home } from "./places";
