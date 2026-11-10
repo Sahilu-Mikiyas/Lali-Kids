@@ -25,10 +25,10 @@ const r1 = (n: number) => Math.round(n * 10) / 10;
 export const textWidth = (text: string, size: number) => r1(text.length * size * 0.56);
 
 /**
- * Keeps a card of width w inside the part of the picture a phone always shows: the reader crops
- * the 400-wide scene to about x 34 to 366 on a narrow screen.
+ * Keeps a card of width w inside the part of the picture every screen shows: the reader crops the
+ * 400-wide scene to about x 50 to 350 on a wide screen (and the sides on a phone).
  */
-export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 38 + w / 2), 362 - w / 2);
+export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 50 + w / 2), 350 - w / 2);
 
 /* ---------- English on the page ---------- */
 

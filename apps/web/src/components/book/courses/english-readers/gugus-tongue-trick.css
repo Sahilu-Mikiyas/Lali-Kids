@@ -1,0 +1,56 @@
+/* "Peek Out, Little Tongue" (gugus-tongue-trick.tsx): transforms and opacity only. */
+
+/* The tongue tip peeking out between the teeth, and back. */
+@keyframes gtt-tongue {
+  0%, 15%, 100% { transform: translateY(-3px) scaleX(0.6); }
+  35%, 80% { transform: translateY(0) scaleX(1); }
+}
+.gtt-tongue {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gtt-tongue 2.4s ease-in-out infinite;
+}
+
+/* Air blowing out (or buzzing) and fading away. */
+@keyframes gtt-blow {
+  0% { transform: translateX(-6px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(16px); opacity: 0; }
+}
+.gtt-blow { animation: gtt-blow 1.2s ease-out var(--delay, 0s) infinite; }
+
+/* The lizard peeking out of its rock and hiding again. */
+@keyframes gtt-peek {
+  0%, 100% { transform: translateX(-26px); }
+  30%, 70% { transform: translateX(0); }
+}
+.gtt-peek { animation: gtt-peek 3.4s ease-in-out infinite; }
+
+/* Everybody giggling. */
+@keyframes gtt-giggle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.gtt-giggle { animation: gtt-giggle 0.4s ease-in-out infinite; }
+
+/* Hot cheeks glowing. */
+@keyframes gtt-blush {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.7; }
+}
+.gtt-blush { animation: gtt-blush 1.4s ease-in-out infinite; }
+
+/* Practising everywhere: a happy hop. */
+@keyframes gtt-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+.gtt-hop { animation: gtt-hop 1s ease-in-out infinite; }
+
+/* Nervous before the show: a tiny shiver. */
+@keyframes gtt-shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.5px); }
+  75% { transform: translateX(1.5px); }
+}
+.gtt-shiver { animation: gtt-shiver 0.2s linear infinite; }

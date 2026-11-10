@@ -1,0 +1,35 @@
+/* "Read the Clue!" (hawis-clue-hunt.tsx): transforms and opacity only. */
+
+/* A bell swinging: ding-dong. */
+@keyframes hch-bell {
+  0%, 100% { transform: rotate(-18deg); }
+  50% { transform: rotate(18deg); }
+}
+.hch-bell {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: hch-bell 0.9s ease-in-out infinite;
+}
+
+/* Letters that won't sit still. */
+@keyframes hch-wobble {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg) translateY(-4px); }
+}
+.hch-wobble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hch-wobble 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The red sock wiggling: something is inside! */
+@keyframes hch-wiggle {
+  0%, 70%, 100% { transform: rotate(0deg); }
+  80% { transform: rotate(-12deg); }
+  90% { transform: rotate(10deg); }
+}
+.hch-wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hch-wiggle 2s ease-in-out 1s infinite;
+}
