@@ -8,6 +8,7 @@ import numberFamily from "./number-family";
 import oxenPairs from "./oxen-pairs";
 import threeRounds from "./three-rounds";
 import tolosasRiddles from "./tolosas-riddles";
+import weddingChairs from "./wedding-chairs";
 
 /** This course's teaching stories, in any order (the course decides the order). */
 export const STORIES: Story[] = [
@@ -21,4 +22,5 @@ export const STORIES: Story[] = [
   threeRounds,
   oxenPairs,
   marketPiles,
+  weddingChairs,
 ];

@@ -18,6 +18,7 @@ const TolosasRiddles = dynamic(() => import("./tolosas-riddles"), { ssr: false }
 const ThreeRounds = dynamic(() => import("./three-rounds"), { ssr: false });
 const OxenPairs = dynamic(() => import("./oxen-pairs"), { ssr: false });
 const MarketPiles = dynamic(() => import("./market-piles"), { ssr: false });
+const WeddingChairs = dynamic(() => import("./wedding-chairs"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -29,4 +30,5 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "three-rounds": ThreeRounds,
   "oxen-pairs": OxenPairs,
   "market-piles": MarketPiles,
+  "wedding-chairs": WeddingChairs,
 };
