@@ -19,6 +19,10 @@ const ThreeRounds = dynamic(() => import("./three-rounds"), { ssr: false });
 const OxenPairs = dynamic(() => import("./oxen-pairs"), { ssr: false });
 const MarketPiles = dynamic(() => import("./market-piles"), { ssr: false });
 const WeddingChairs = dynamic(() => import("./wedding-chairs"), { ssr: false });
+const OneLeftOver = dynamic(() => import("./one-left-over"), { ssr: false });
+const BajajTrip = dynamic(() => import("./bajaj-trip"), { ssr: false });
+const EqualPieces = dynamic(() => import("./equal-pieces"), { ssr: false });
+const HalfTheHerd = dynamic(() => import("./half-the-herd"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -31,4 +35,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "oxen-pairs": OxenPairs,
   "market-piles": MarketPiles,
   "wedding-chairs": WeddingChairs,
+  "one-left-over": OneLeftOver,
+  "bajaj-trip": BajajTrip,
+  "equal-pieces": EqualPieces,
+  "half-the-herd": HalfTheHerd,
 };

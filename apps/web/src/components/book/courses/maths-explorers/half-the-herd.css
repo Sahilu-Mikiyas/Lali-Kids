@@ -1,0 +1,37 @@
+/* Half the Herd (half-the-herd.tsx): transforms and opacity only. */
+
+/* Half the herd walks off toward the well. */
+@keyframes hth-walk {
+  0% { transform: translate(-120px, 0); }
+  100% { transform: translate(0, 0); }
+}
+.hth-walk {
+  animation: hth-walk 2.4s ease-in-out 0.3s both;
+}
+
+/* Abdi's three goats trot off to the thorn bushes. */
+@keyframes hth-off {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, -30px); }
+}
+.hth-off {
+  animation: hth-off 2s ease-in-out 2.6s both;
+}
+
+/* Abdi walks tall. */
+@keyframes hth-proud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.hth-proud {
+  animation: hth-proud 0.8s ease-in-out infinite;
+}
+
+/* The goats in Abdi's dream float gently. */
+@keyframes hth-dream {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.hth-dream {
+  animation: hth-dream 3s ease-in-out infinite;
+}

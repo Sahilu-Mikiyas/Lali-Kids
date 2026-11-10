@@ -1,0 +1,19 @@
+/* How Many Bajajs? (bajaj-trip.tsx): transforms and opacity only. */
+
+/* The class bounces with excitement. */
+@keyframes bt-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.bt-bounce {
+  animation: bt-bounce 0.5s ease-in-out infinite;
+}
+
+/* The line of bajajs zooms along the street, from the left, then on its way. */
+@keyframes bt-zoom {
+  0% { transform: translateX(-300px); }
+  100% { transform: translateX(60px); }
+}
+.bt-zoom {
+  animation: bt-zoom 5s linear 0.3s both;
+}

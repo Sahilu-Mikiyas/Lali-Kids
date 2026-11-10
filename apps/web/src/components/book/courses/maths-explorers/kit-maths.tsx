@@ -687,23 +687,33 @@ export function Bajaj({ x, y, s = 1, riders = 0, colors = ["#C9622B", "#9C7552",
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="bounce" sound="boing">
         <g className={drive ? "me-jolt-loop" : undefined} style={drive ? vars({ "--rise": "-2px", "--dur": "0.5s" }) : undefined}>
-          <ellipse cx={0} cy={1} rx={46} ry={4} fill="#000" opacity={0.12} />
-          <path d="M-42 -14 L-42 -56 Q-40 -70 -20 -70 L22 -70 Q38 -68 44 -46 L48 -14Z" fill="#2F6FD0" />
-          <path d="M-36 -60 L-6 -60 L-6 -32 L-36 -32Z" fill="#DDF2FF" opacity={0.5} />
+          <ellipse cx={4} cy={1} rx={46} ry={4} fill="#000" opacity={0.12} />
+          <path d="M-40 -14 L-40 -40 L30 -40 L44 -24 L46 -14Z" fill="#2F6FD0" />
+          <path d="M-46 -42 Q-44 -74 -6 -76 Q24 -76 34 -60 L40 -40 L-42 -40Z" fill="#1B3F8A" />
+          <path d="M-40 -66 Q-36 -46 -40 -40 M-8 -72 V-40" stroke="#0F2A60" strokeWidth={2.4} fill="none" />
+          <path d="M12 -68 Q26 -66 32 -56 L36 -42 L12 -42Z" fill="#DDF2FF" opacity={0.85} />
+          <circle cx={22} cy={-48} r={5.6} fill="#4A3430" />
+          <path d="M28 -40 L40 -30" stroke="#0F2A60" strokeWidth={2} />
           {Array.from({ length: Math.min(3, riders) }, (_, i) => (
-            <circle key={i} cx={-30 + i * 11} cy={-42} r={6.5} fill={colors[i % colors.length]} />
+            <g key={i}>
+              <path d={`M${-36 + i * 13} -26 Q${-36 + i * 13} -38 ${-30 + i * 13} -38 Q${-24 + i * 13} -38 ${-24 + i * 13} -26Z`} fill="#4A7FD0" />
+              <circle cx={-30 + i * 13} cy={-46} r={6.6} fill={colors[i % colors.length]} />
+              <circle cx={-28 + i * 13} cy={-47} r={1.1} fill="#1A0F0A" />
+            </g>
           ))}
-          <path d="M8 -62 L36 -62 Q42 -50 44 -36 L8 -36Z" fill="#DDF2FF" />
-          <circle cx={30} cy={-46} r={6} fill="#4A3430" />
-          <rect x={-44} y={-20} width={94} height={8} rx={3} fill="#1B3F8A" />
-          <circle cx={48} cy={-24} r={3.4} fill="#FFF3B8" />
+          <rect x={-42} y={-22} width={70} height={6} rx={2} fill="#1B3F8A" />
+          <circle cx={45} cy={-22} r={3} fill="#FFF3B8" />
+          <path d="M-42 -30 H-30" stroke="#F5B21E" strokeWidth={3} />
         </g>
-        {[-28, 38].map((wx) => (
-          <g key={wx} transform={`translate(${wx} -8)`}>
-            <circle r={9} fill="#2A2420" />
+        {[
+          [-28, 9],
+          [36, 7],
+        ].map(([wx, wr]) => (
+          <g key={wx} transform={`translate(${wx} ${-wr + 1})`}>
+            <circle r={wr} fill="#2A2420" />
             <g className={drive ? "me-turn" : undefined} style={drive ? vars({ "--dur": "0.4s" }) : undefined}>
-              <circle r={3.6} fill="#B8B0A0" />
-              <path d="M-3.6 0 H3.6" stroke="#2A2420" strokeWidth={1.4} />
+              <circle r={wr * 0.4} fill="#B8B0A0" />
+              <path d={`M${-wr * 0.4} 0 H${wr * 0.4}`} stroke="#2A2420" strokeWidth={1.4} />
             </g>
           </g>
         ))}
