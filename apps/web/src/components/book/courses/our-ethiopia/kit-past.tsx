@@ -56,7 +56,7 @@ export function Stela({ x, y, h = 160, w, fallen = false, color = "#9A8E86" }: {
       <Tappable reaction="wiggle" sound="pop">
         {fallen ? (
           <g>
-            <g transform="rotate(-90)">{body}</g>
+            <g transform="rotate(90)">{body}</g>
             <path d={`M${r1(h * 0.4)} ${-ww / 2 - 2} l6 ${ww + 4}`} stroke="#E8DCC0" strokeWidth={4} />
             <path d={`M${r1(h * 0.7)} ${-ww / 2 - 2} l-5 ${ww + 4}`} stroke="#E8DCC0" strokeWidth={4} />
           </g>

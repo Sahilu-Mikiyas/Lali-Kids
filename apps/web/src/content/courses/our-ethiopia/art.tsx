@@ -8,6 +8,9 @@ import { Aqal, Cloth, Colobus, DorzeHouse, FestUmbrella, Gabi, Hidmo, NewMoon, P
 import { CoffeeBush, Croc, DallolPools, Enset, EthiopiaMap, Flamingo, Lobelia, PackCamel, PLACES, Papyrus, Pin, TeffClump, Waterfall, WildIbex, type MapPlace } from "@/components/book/courses/our-ethiopia/kit-land";
 import { AshendaSkirt, Demera, GennaStick } from "@/components/book/courses/our-ethiopia/kit-more";
 import { Cup, Jebena, Mesob, SnackBowl } from "@/components/book/courses/our-ethiopia/kit-props";
+import { BatterJar, Bean, CherryBranch, ClayPot, ClockFace, CoilBasket, Globe, Kebero, Krar, Masinqo, Mitad, SunArc, Washint } from "@/components/book/courses/our-ethiopia/kit-crafts";
+import { BasketPlate, Bath, Castle, ChurchForest, CityGate, Coin, Dhow, Dog, Flag, HararHouse, Ibis, MoleRat, Mosque, Nyala, ParkSign, Raven, Sapling, Sea, Stela } from "@/components/book/courses/our-ethiopia/kit-past";
+import { WildGelada } from "@/components/book/courses/our-ethiopia/kit-land";
 import type { ArtProps } from "../types";
 
 /*
@@ -205,4 +208,114 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   torch: thing(<Torch x={50} y={92} s={1.1} />, "#26307A"),
   "colobus-family": who(<Colobus who="grandpa" mood="joy" />),
   tibeb: thing(<Cloth x={14} y={30} w={72} h={40} tibeb={["#F5B21E", "#3E8FD8"]} />),
+  // history (level 4)
+  "map-aksum": mapAt("aksum"),
+  "map-lalibela": mapAt("lalibela"),
+  "map-gondar": mapAt("gondar"),
+  "map-harar": mapAt("harar"),
+  stela: thing(<Stela x={50} y={94} h={84} w={26} />, "#E4F1FB"),
+  "stela-fallen": thing(<Stela x={12} y={60} h={78} w={22} fallen />, "#E4F1FB"),
+  coin: thing(<Coin x={50} y={50} s={2.4} cross />, "#FFF6DD"),
+  dhow: scene(() => (
+    <g>
+      <rect width={400} height={300} fill="#BFE4FA" />
+      <Sea y={190} />
+      <Dhow x={200} y={226} s={1.4} />
+    </g>
+  )),
+  "rock-church": thing(
+    <g>
+      <rect x={14} y={14} width={72} height={72} rx={6} fill="#7A4A30" />
+      <path d="M40 20 H60 V40 H80 V60 H60 V80 H40 V60 H20 V40 H40Z" fill="#C9805A" />
+      <path d="M44 26 H56 V44 H74 V56 H56 V74 H44 V56 H26 V44 H44Z" fill="none" stroke="#E0A07A" strokeWidth={2} />
+    </g>,
+    "#D89A70",
+  ),
+  castle: thing(<Castle x={50} y={86} s={0.5} />, "#E4F1FB"),
+  bath: thing(<Bath x={50} y={70} s={0.42} />, "#E4F7EA"),
+  "harar-gate": thing(<CityGate x={50} y={86} s={0.55} w={160} />, "#FFF0D8"),
+  "harar-house": thing(<HararHouse x={50} y={86} s={0.8} />, "#FFF0D8"),
+  "basket-plate": thing(<BasketPlate x={50} y={50} r={36} />, "#FFE8EE"),
+  mosque: thing(<Mosque x={50} y={86} s={0.62} />, "#E4F1FB"),
+  flag: thing(<Flag x={36} y={92} s={0.8} />, "#E4F1FB"),
+  // wildlife and nature (level 5)
+  walia: thing(<WildIbex x={46} y={80} s={1.25} />, "#CFE6F7"),
+  gelada: thing(<WildGelada x={50} y={80} s={2} />, "#E4F7EA"),
+  "ethiopian-wolf": thing(
+    <g transform="translate(40 80) scale(0.85)">
+      <path d="M-16 0 L-15 -22 M-9 0 L-10 -22 M12 0 L11 -22 M18 0 L17 -22" stroke="#B85A2A" strokeWidth={4} strokeLinecap="round" />
+      <ellipse cx={0} cy={-28} rx={24} ry={10} fill="#C8642E" />
+      <ellipse cx={2} cy={-22} rx={16} ry={4} fill="#F2E6D2" />
+      <path d="M-22 -30 Q-38 -30 -42 -14 Q-34 -22 -22 -24Z" fill="#C8642E" />
+      <path d="M-40 -18 Q-42 -12 -40 -10 Q-36 -14 -36 -18Z" fill="#2A1E18" />
+      <path d="M16 -32 L24 -46 L32 -36Z" fill="#F2EEE2" />
+      <path d="M18 -34 Q22 -48 34 -48 Q44 -46 50 -42 Q44 -38 34 -36 Q26 -30 18 -34Z" fill="#C8642E" />
+      <path d="M24 -46 L22 -62 L30 -50Z M30 -48 L32 -63 L36 -48Z" fill="#B85A2A" />
+      <circle cx={50} cy={-42} r={2} fill="#2A1E18" />
+      <circle cx={33} cy={-44} r={1.6} fill="#2A1E18" />
+    </g>,
+    "#EDEBD0",
+  ),
+  "mole-rat": thing(<MoleRat x={50} y={70} s={3} />, "#EDEBD0"),
+  nyala: thing(<Nyala x={40} y={88} s={0.9} />, "#DCEBD6"),
+  raven: thing(<Raven x={46} y={80} s={1.6} />, "#E4F1FB"),
+  ibis: thing(<Ibis x={44} y={84} s={1.8} />, "#E4F7EA"),
+  "church-forest": scene(() => (
+    <g>
+      <rect width={400} height={300} fill="#BFE2F6" />
+      <path d="M-10 170 Q200 150 410 172 L410 310 L-10 310Z" fill="#C8A06A" />
+      <ChurchForest x={200} y={200} s={1.2} wall />
+    </g>
+  )),
+  sapling: thing(<Sapling x={50} y={86} s={2} />, "#E4F7EA"),
+  "park-sign": thing(
+    <ParkSign x={50} y={96} s={1}>
+      <WildIbex x={-6} y={8} s={0.8} />
+    </ParkSign>,
+    "#CFE6F7",
+  ),
+  "dog-tag": thing(<Dog x={44} y={80} s={1.8} collar />, "#FFF6DD"),
+  "coffee-forest": scene(() => (
+    <g>
+      <rect width={400} height={300} fill="#2E5A3A" />
+      {[80, 200, 320].map((x) => (
+        <g key={x}>
+          <rect x={x - 12} y={30} width={24} height={230} fill="#5A3E28" />
+          <ellipse cx={x} cy={40} rx={80} ry={44} fill="#3E8A4A" />
+        </g>
+      ))}
+      <rect y={250} width={400} height={60} fill="#3E6A32" />
+      <CoffeeBush x={140} y={268} s={1.6} />
+      <CoffeeBush x={260} y={268} s={1.6} />
+    </g>
+  )),
+  // food, crafts, music and inventions (level 6)
+  mitad: thing(<Mitad x={50} y={56} s={0.5} />, "#FFF0D8"),
+  "injera-eyes": thing(<Mitad x={50} y={56} s={0.55} injera="eyes" fire={false} />, "#FFF0D8"),
+  "batter-jar": thing(<BatterJar x={50} y={90} s={1.7} />, "#FFF0D8"),
+  "coffee-cherries": thing(<CherryBranch x={50} y={64} s={1.3} />, "#E4F7EA"),
+  bean: thing(<Bean x={50} y={50} s={4} />, "#FFF0D8"),
+  globe: thing(<Globe x={50} y={50} r={36} />, "#E4F1FB"),
+  "clay-pot": thing(<ClayPot x={50} y={88} s={1.4} />, "#FFF0D8"),
+  "coil-basket": thing(
+    <g>
+      <CoilBasket x={50} y={70} s={1} />
+      <path d="M14 64 Q50 2 86 64Z" fill="#E2463F" />
+      <path d="M24 56 Q50 14 76 56" stroke="#2E9A5A" strokeWidth={5} fill="none" />
+    </g>,
+    "#FFF0D8",
+  ),
+  krar: thing(<Krar x={50} y={94} s={1} />, "#FFF0D8"),
+  masinqo: thing(<Masinqo x={50} y={96} s={0.9} />, "#FFF0D8"),
+  washint: thing(<Washint x={28} y={90} s={1} rot={40} />, "#FFF0D8"),
+  kebero: thing(<Kebero x={50} y={86} s={1.4} />, "#FFF0D8"),
+  "clock-2": thing(<ClockFace x={50} y={50} r={40} hour={2} />, "#E4F1FB"),
+  "clock-geez": thing(<ClockFace x={50} y={50} r={40} hour={1} geez />, "#E4F1FB"),
+  sunrise: scene(() => (
+    <g>
+      <rect width={400} height={300} fill="#FFE2B8" />
+      <rect y={214} width={400} height={100} fill="#6CC07C" />
+      <SunArc hour={1.6} y={214} />
+    </g>
+  )),
 };

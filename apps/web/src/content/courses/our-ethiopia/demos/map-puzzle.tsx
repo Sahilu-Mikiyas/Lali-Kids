@@ -60,7 +60,7 @@ const PIECES: Piece[] = [
     at: "bale",
     name: { en: "Bale Mountains", am: "የባሌ ተራሮች" },
     hint: { en: "The Bale Mountains are in the south-east highlands, east of the lakes.", am: "የባሌ ተራሮች በደቡብ ምሥራቅ ደጋ፣ ከሐይቆቹ በምሥራቅ ናቸው።" },
-    fact: { en: "The Bale Mountains have a high, flat top where the red Ethiopian wolf lives.", am: "የባሌ ተራሮች ቀዩ የኢትዮጵያ ተኩላ የሚኖርበት ከፍ ያለ ጠፍጣፋ አናት አላቸው።" },
+    fact: { en: "The Bale Mountains have a high, flat top where the red Ethiopian wolf lives.", am: "የባሌ ተራሮች ቀዩ የኢትዮጵያ ቀበሮ የሚኖርበት ከፍ ያለ ጠፍጣፋ አናት አላቸው።" },
   },
   {
     key: "addis",

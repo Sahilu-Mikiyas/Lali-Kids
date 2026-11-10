@@ -4,7 +4,7 @@ import "./walia-on-the-ledge.css";
 
 import { useId, type ReactNode } from "react";
 
-import { Air, Depth, Mountains, NumberBadge, Place, Rock, Stars, vars } from "../../scenery";
+import { Air, Depth, Mountains, NumberBadge, Place, Stars, vars } from "../../scenery";
 import { Ibex, TAP } from "./kit-cast";
 import { SimienEdge, WildGelada, WildIbex } from "./kit-land";
 import { ParkSign } from "./kit-past";
