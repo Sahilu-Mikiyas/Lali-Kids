@@ -25,14 +25,14 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 
 | # | Package (id) | Ages | Status |
 |---|---|---|---|
-| 1 | Fidel Foundations (`fidel-foundations`) | 3–6 | **Launch** |
-| 2 | Amharic Readers (`amharic-readers`) | 6–9 | Coming soon |
-| 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Launch** |
-| 4 | Maths Explorers (`maths-explorers`) | 6–9 | Coming soon |
-| 5 | English First Words (`english-first-words`) | 3–6 | Coming soon |
+| 1 | Fidel Foundations (`fidel-foundations`) | 3–6 | **Live** (6 levels) |
+| 2 | Amharic Readers (`amharic-readers`) | 6–9 | Being written |
+| 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Live** (6 levels) |
+| 4 | Maths Explorers (`maths-explorers`) | 6–9 | Being written |
+| 5 | English First Words (`english-first-words`) | 3–6 | Being written |
 | 6 | English Readers (`english-readers`) | 6–9 | Coming soon |
-| 7 | Values & Character (`values-character`) | 3–9 | **Launch** |
-| 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | Coming soon |
+| 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
+| 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | Being written |
 | 9 | Science & Nature (`science-nature`) | 5–9 | Coming soon |
 | 10 | Healthy & Safe (`healthy-safe`) | 3–7 | Coming soon |
 
@@ -71,6 +71,9 @@ app's API (`GET me` returns the same `entitlements` object) all ask it.
 | Offline reading in the app (`entitlements.offline`, enforced by the app) | | | yes | yes |
 | Learning packages | buy | buy | buy | all, one at a time per child |
 
+- **Confirmed by the founder (10 November 2026):** no plan means 1 child; a teacher with an open
+  school licence gets Family's gates; narration of free stories is open to everyone; offline reading
+  (Family and VIP) is enforced by the app.
 - **Children beyond the limit** are kept with all their stars, stickers and progress, but are
   read-only: they can't be chosen to read (`familyFor` only picks among the first N by age of the
   profile; `chooseChild` refuses them; the shelf's chooser shows them greyed with a lock), and
