@@ -1,6 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
+/*
+  Animated scenes for this course's stories, by story id. Each loads in the browser only
+  (next/dynamic with ssr: false; the options must be an inline object literal). The shared
+  drawing kits: ./kit.tsx and ./kit-more.tsx (from Numbers & Counting), ./kit-cast.tsx,
+  ./kit-places.tsx, ./kit-props.tsx and ./kit-things.tsx (from Values & Character), and this
+  course's maths pictures in ./kit-maths.tsx.
+*/
+const FillTenFirst = dynamic(() => import("./fill-ten-first"), { ssr: false });
+const GebetaDoubles = dynamic(() => import("./gebeta-doubles"), { ssr: false });
+const NumberFamily = dynamic(() => import("./number-family"), { ssr: false });
+
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
-export const SCENES: Record<string, ComponentType<{ page: number }>> = {};
+export const SCENES: Record<string, ComponentType<{ page: number }>> = {
+  "fill-ten-first": FillTenFirst,
+  "gebeta-doubles": GebetaDoubles,
+  "number-family": NumberFamily,
+};

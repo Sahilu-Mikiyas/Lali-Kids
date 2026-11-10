@@ -36,11 +36,12 @@ const tokenW = (s: string, size: number) => s.length * size * 0.62 + size * 0.28
 export function SumCard({ x, y, tokens, start = 1, step = 0.45, size = 30, hl = {}, geezOf, card = true }: { x: number; y: number; tokens: string[]; start?: number; step?: number; size?: number; hl?: Record<number, string>; geezOf?: number; card?: boolean }) {
   const ws = tokens.map((t) => tokenW(t, size));
   const total = ws.reduce((a, b) => a + b, 0);
-  let at = -total / 2;
+  const extra = geezOf ? size * 1.9 : 0;
+  let at = -(total + extra) / 2;
   const end = start + (tokens.length - 1) * step;
   return (
     <g transform={`translate(${x} ${y})`}>
-      {card && <rect x={-total / 2 - 14} y={-size * 0.95} width={total + 28 + (geezOf ? size * 1.9 : 0)} height={size * 1.6} rx={size * 0.5} fill="#FFFDF4" stroke="#1B2A4E" strokeOpacity={0.18} strokeWidth={2} />}
+      {card && <rect x={r1(-(total + extra) / 2 - 14)} y={-size * 0.95} width={r1(total + extra + 28)} height={size * 1.6} rx={size * 0.5} fill="#FFFDF4" stroke="#1B2A4E" strokeOpacity={0.18} strokeWidth={2} />}
       {tokens.map((t, i) => {
         const cx = at + ws[i] / 2;
         at += ws[i];
@@ -54,7 +55,7 @@ export function SumCard({ x, y, tokens, start = 1, step = 0.45, size = 30, hl = 
       })}
       {geezOf ? (
         <g className="lali-pop-in" style={d(end + 0.5)}>
-          <text x={r1(total / 2 + size * 0.95)} y={size * 0.33} fontSize={size * 0.8} fontFamily={ETHIOPIC} fontWeight={800} fill={NUM} textAnchor="middle">
+          <text x={r1((total + extra) / 2 - size * 0.85)} y={size * 0.33} fontSize={size * 0.8} fontFamily={ETHIOPIC} fontWeight={800} fill={NUM} textAnchor="middle">
             {geez(geezOf)}
           </text>
         </g>
@@ -80,7 +81,7 @@ export function Label({ x, y, text, size = 18, color = "#1B2A4E", delay = 1, eth
  * filled hole in order (null leaves it empty). `drops` makes a hole's counter slide in from
  * (fx, fy) at time t: { index: [t, fx, fy] }. `gone` makes counters leave at a time.
  */
-export function Frame({ x, y, cells, drops = {}, gone = {}, s = 1, label }: { x: number; y: number; cells: (string | null)[]; drops?: Record<number, [number, number, number]>; gone?: Record<number, number>; s?: number; label?: { n: number; t: number } }) {
+export function Frame({ x, y, cells, drops = {}, gone = {}, s = 1, label, egg = false }: { x: number; y: number; cells: (string | null)[]; drops?: Record<number, [number, number, number]>; gone?: Record<number, number>; s?: number; label?: { n: number; t: number }; egg?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="wiggle" sound="pop">
@@ -91,10 +92,17 @@ export function Frame({ x, y, cells, drops = {}, gone = {}, s = 1, label }: { x:
           const cy = i < 5 ? -16 : 16;
           const c = cells[i];
           let counter: ReactNode = c ? (
-            <g>
-              <circle r={10} fill={c} />
-              <circle cx={-3} cy={-3.4} r={3} fill="#fff" opacity={0.35} />
-            </g>
+            egg ? (
+              <g>
+                <ellipse cx={0} cy={-2} rx={8} ry={10} fill={c} stroke="#00000022" strokeWidth={1} />
+                <ellipse cx={-2.6} cy={-5.4} rx={2} ry={3.2} fill="#fff" opacity={0.5} />
+              </g>
+            ) : (
+              <g>
+                <circle r={10} fill={c} />
+                <circle cx={-3} cy={-3.4} r={3} fill="#fff" opacity={0.35} />
+              </g>
+            )
           ) : null;
           const dr = drops[i];
           if (counter && dr) counter = <g className="me-slide" style={vars({ "--fx": `${dr[1]}px`, "--fy": `${dr[2]}px`, "--delay": `${r1(dr[0])}s`, "--dur": "0.7s" })}>{counter}</g>;
@@ -191,7 +199,7 @@ export function Tickets({ x, y, tens, ones, s = 1, pop = 0, step = 0.25 }: { x: 
   return (
     <g>
       {Array.from({ length: tens }, (_, i) => wrap(`t${i}`, pop + i * step, <TicketBundle x={r1(x + i * 22 * s)} y={y} s={s} />))}
-      {Array.from({ length: ones }, (_, i) => wrap(`o${i}`, pop + (tens + i) * step, <Ticket x={r1(x + tens * 22 * s + 6 + i * 11 * s)} y={y + 2} s={s * 0.8} a={((i * 37) % 14) - 7} />))}
+      {Array.from({ length: ones }, (_, i) => wrap(`o${i}`, pop + (tens + i) * step, <Ticket x={r1(x + tens * 22 * s + 6 + (i % 6) * 13 * s)} y={r1(y + 2 + Math.floor(i / 6) * 22 * s)} s={s * 0.8} a={((i * 37) % 14) - 7} />))}
     </g>
   );
 }
@@ -467,7 +475,8 @@ export function Loaf({ x, y, w = 140, parts = 1, sizes, shade = [], at = 1, gap 
 /** A fraction written the school way (top over bottom), popping in. */
 export function Fraction({ x, y, top, bottom, delay = 1, color = BLUE, size = 26 }: { x: number; y: number; top: number; bottom: number; delay?: number; color?: string; size?: number }) {
   return (
-    <g transform={`translate(${x} ${y})`} className="lali-pop-in" style={d(delay)}>
+    <g transform={`translate(${x} ${y})`}>
+      <g className="lali-pop-in" style={d(delay)}>
       <rect x={-size * 0.8} y={-size * 1.25} width={size * 1.6} height={size * 2.5} rx={size * 0.4} fill="#FFFDF4" opacity={0.92} />
       <text y={-size * 0.2} fontSize={size} fontFamily={LATIN} fontWeight={900} fill={color} textAnchor="middle">
         {top}
@@ -476,6 +485,7 @@ export function Fraction({ x, y, top, bottom, delay = 1, color = BLUE, size = 26
       <text y={size * 0.95} fontSize={size} fontFamily={LATIN} fontWeight={900} fill={color} textAnchor="middle">
         {bottom}
       </text>
+      </g>
     </g>
   );
 }

@@ -1,0 +1,35 @@
+/* Fill the Ten First (fill-ten-first.tsx): transforms and opacity only. */
+
+/* Question marks bob up from Tsehay's fingers. */
+@keyframes ftf-fingers {
+  0% { transform: translateY(8px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-6px); opacity: 1; }
+}
+.ftf-fingers {
+  animation: ftf-fingers 1.2s ease-out var(--delay, 1.6s) both;
+}
+
+/* The money tin jingles. */
+@keyframes ftf-jingle {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-8deg); }
+  40% { transform: rotate(7deg); }
+  60% { transform: rotate(-4deg); }
+}
+.ftf-jingle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ftf-jingle 0.9s ease-in-out 1s 3;
+}
+
+/* The empty egg box swings in Tsehay's hand. */
+@keyframes ftf-swing {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+.ftf-swing {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: ftf-swing 1.4s ease-in-out infinite;
+}

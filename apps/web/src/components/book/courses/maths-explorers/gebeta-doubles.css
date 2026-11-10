@@ -1,0 +1,21 @@
+/* Haben's Gebeta Doubles (gebeta-doubles.tsx): transforms and opacity only. */
+
+/* Haben sways as she sings the doubles. */
+@keyframes gd-sing {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.gd-sing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gd-sing 1.2s ease-in-out infinite;
+}
+
+/* Gugu jumps for joy after a win. */
+@keyframes gd-hop {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-14px); }
+}
+.gd-hop {
+  animation: gd-hop 1s ease-in-out 1s infinite;
+}

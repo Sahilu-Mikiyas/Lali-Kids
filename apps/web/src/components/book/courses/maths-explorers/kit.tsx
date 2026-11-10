@@ -351,7 +351,7 @@ export function HareShape() {
 }
 
 /** A brown goat with little horns and a beard. Feet at (0, 0), facing right. */
-export function GoatShape({ kid = false, bag = false }: { kid?: boolean; bag?: boolean }) {
+export function GoatShape({ kid = false, bag = false, color = "#A8744A" }: { kid?: boolean; bag?: boolean; color?: string }) {
   const s = kid ? 0.7 : 1;
   return (
     <g transform={`scale(${s})`}>
@@ -359,13 +359,13 @@ export function GoatShape({ kid = false, bag = false }: { kid?: boolean; bag?: b
       <g className="lali-breathe">
         <rect x={-16} y={-18} width={5} height={18} rx={2.5} fill="#5A3A26" />
         <rect x={10} y={-18} width={5} height={18} rx={2.5} fill="#5A3A26" />
-        <ellipse cx={0} cy={-26} rx={24} ry={14} fill="#A8744A" />
+        <ellipse cx={0} cy={-26} rx={24} ry={14} fill={color} />
         <ellipse cx={-2} cy={-22} rx={14} ry={6} fill="#C8946A" />
-        <path d="M-22 -30 q-8 -6 -4 -14" stroke="#A8744A" strokeWidth={4} fill="none" strokeLinecap="round" />
+        <path d="M-22 -30 q-8 -6 -4 -14" stroke={color} strokeWidth={4} fill="none" strokeLinecap="round" />
         {bag && <rect x={-12} y={-44} width={18} height={14} rx={3} fill="#E8513B" />}
         <g className="lali-tilt" style={vars({ "--tilt": "8deg", "--dur": "3.6s" })}>
           <path d="M22 -46 q-2 -12 -10 -16 M28 -46 q2 -12 -4 -18" stroke="#E8DCC8" strokeWidth={3} fill="none" strokeLinecap="round" />
-          <ellipse cx={28} cy={-36} rx={10} ry={12} fill="#A8744A" />
+          <ellipse cx={28} cy={-36} rx={10} ry={12} fill={color} />
           <ellipse cx={17} cy={-42} rx={7} ry={3} fill="#8A5A36" transform="rotate(-20 17 -42)" />
           <circle cx={31} cy={-39} r={2.2} fill={INK} className="lali-blink" />
           <ellipse cx={34} cy={-28} rx={5} ry={4} fill="#C8946A" />
