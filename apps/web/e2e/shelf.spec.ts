@@ -1,8 +1,11 @@
+import { COURSES } from "../src/content/courses";
 import { STORIES } from "../src/content/stories";
 import { expect, ready, test } from "./support/fixtures";
 
 // The library shelf: a learning package's stories live in their package instead (docs/PACKAGES.md).
 const library = STORIES.filter((s) => !s.course);
+// Each live package's taster story is on the shelf too, as a free story.
+const tasters = new Set(COURSES.filter((c) => c.status === "live" && c.tasterStoryId).map((c) => c.tasterStoryId!));
 const free = library.filter((s) => s.isFree);
 const paid = library.filter((s) => !s.isFree);
 const readLink = (title: string) => `a[aria-label="Read ${title}"]`;
@@ -26,7 +29,7 @@ test("shelf: the age filter shows each age group's stories", async ({ page, t })
   await expect(page).toHaveURL(/age=8-9/);
   const older = library.filter((s) => s.ageBands.includes("8-9"));
   for (const s of older) await expect(page.locator(anyCard(s)).first()).toBeVisible();
-  for (const s of STORIES.filter((s) => !s.ageBands.includes("8-9") || s.course)) await expect(page.locator(anyCard(s))).toHaveCount(0);
+  for (const s of STORIES.filter((s) => !s.ageBands.includes("8-9") || (s.course && !tasters.has(s.id)))) await expect(page.locator(anyCard(s))).toHaveCount(0);
   await page.getByRole("link", { name: t.shelf.allAges, exact: true }).click();
   await expect(page).toHaveURL(/age=all/);
   for (const s of library) await expect(page.locator(anyCard(s)).first()).toBeAttached();
