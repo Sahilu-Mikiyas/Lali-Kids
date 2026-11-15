@@ -1,0 +1,27 @@
+/* Will It Float? (will-it-float.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The clay ball squashing flat into a boat shape (once), then fading as the boat floats below. */
+@keyframes swf-shape {
+  0% { transform: scale(1, 1); opacity: 1; }
+  50% { transform: scale(1.8, 0.4); opacity: 1; }
+  100% { transform: scale(1.8, 0.4); opacity: 0; }
+}
+.swf-shape {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: swf-shape 1.6s ease-in-out 0.4s both;
+}
+
+/* The clay boat sailing across the tub and back. */
+@keyframes swf-sail {
+  0% { transform: translateX(-50px); }
+  100% { transform: translateX(50px); }
+}
+.swf-sail { animation: swf-sail 5s ease-in-out infinite alternate; }
+
+/* The big ship sailing slowly. */
+@keyframes swf-ship {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, 1px); }
+}
+.swf-ship { animation: swf-ship 10s ease-in-out infinite; }
