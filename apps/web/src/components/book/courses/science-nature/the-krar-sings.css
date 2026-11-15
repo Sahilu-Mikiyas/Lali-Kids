@@ -1,0 +1,38 @@
+/* The Krar Sings (the-krar-sings.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* A ring of sound growing outward from its centre and fading. */
+@keyframes sks-ring {
+  0% { transform: scale(0.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0; }
+}
+.sks-ring { animation: sks-ring 2.4s ease-out var(--delay, 0s) infinite; }
+
+/* Little lines flicking beside a shaking thing. */
+@keyframes sks-flick {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.sks-flick { animation: sks-flick 0.3s linear infinite; }
+
+/* A stick tapping. */
+@keyframes sks-tap {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-4px, 5px); }
+}
+.sks-tap { animation: sks-tap 0.6s ease-out infinite; }
+
+/* A wave travelling along the desk. */
+@keyframes sks-ripple-line {
+  0% { transform: translateX(20px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(-20px); opacity: 0; }
+}
+.sks-ripple-line { animation: sks-ripple-line 0.9s linear infinite; }
+
+/* A music note floating up and fading. */
+@keyframes sks-note {
+  0% { transform: translateY(10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+.sks-note { animation: sks-note 2s ease-out var(--delay, 0s) infinite; }

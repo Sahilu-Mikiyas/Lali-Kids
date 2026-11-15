@@ -3,8 +3,7 @@ import type { Course, Question } from "../types";
 /*
   Science & Nature (ሳይንስና ተፈጥሮ): children find out how the world works by noticing, asking,
   guessing and trying, with real science told simply and correctly, in Ethiopian homes, farms and
-  schools. Every story models the habit: wonder → guess → try or look closely → find out. Six levels
-  are planned; this round writes levels 1–3:
+  schools. Every story models the habit: wonder → guess → try or look closely → find out. Six levels:
     1  Living things              what living things do and need (food, water, air, a home); seeds,
                                   roots, shoots, leaves and light (beans in jars, a fair test); the
                                   frog, the butterfly (the citrus swallowtail) and the chicken life
@@ -19,10 +18,19 @@ import type { Course, Question } from "../types";
                                   dissolving (sugar, salt) and not (sand), filtering and evaporating;
                                   changes that can be undone (melting butter) and that can't (cooking
                                   injera, an egg)
-  Later rounds: 4 weather, water and seasons; 5 Earth and sky; 6 forces, light and sound and caring
-  for our planet.
-  Each level has a practice round (7 questions) and a quiz (10); this round's final test has 12
-  questions (4 per level), each with an explanation. Health habits (washing, brushing) belong to the
+    4  Weather, water, seasons    the water cycle (evaporation, clouds, rain, rivers); kiremt and bega;
+                                  clouds, storms and rainbows (Sun behind you, rain in front); wind as
+                                  moving air; clean water (clear is not always safe) and saving it
+    5  Earth and sky              day and night from the turning Earth; the Sun as our star; the Moon's
+                                  phases and Moon calendars; stars and Orion's belt; rocks, soil and
+                                  how slowly soil forms; volcanoes and the Rift Valley (Erta Ale)
+    6  Forces, light, sound and   pushes, pulls and friction (brakes); magnets (iron and steel, not
+       our planet                 aluminium; push and pull; the compass); simple machines (a pulley
+                                  at the well, a lever, a ramp, wheels and axles); light and shadows;
+                                  sound as vibration (krar, kebero; high and low notes); caring for
+                                  the planet (plastic, trees planted in kiremt, saving electricity)
+  Each level has a practice round (7 questions) and a quiz (10); the final test has 20 questions
+  across all six levels (3, 3, 3, 4, 4, 3), each with an explanation. Health habits (washing, brushing) belong to the
   Healthy & Safe package and are left out here. Experiments are safe at home with a grown-up: nothing
   with fire, sharp tools or chemicals; hot pots are always a grown-up's job.
 
@@ -464,9 +472,428 @@ const l3Quiz: Question[] = [
   },
 ];
 
-/* ---------- final test (levels 1–3) ---------- */
+/* ---------- level 4: weather, water and seasons ---------- */
+
+const CYCLE_ITEMS = [
+  { label: { en: "Water rises as vapour", am: "ውሃ እንፋሎት ሆኖ ይወጣል" }, pic: { art: "vapour" } },
+  { label: { en: "Clouds form", am: "ደመና ይፈጠራል" }, pic: { art: "cloud-white" } },
+  { label: { en: "Rain falls", am: "ዝናብ ይዘንባል" }, pic: { art: "rain" } },
+  { label: { en: "Rivers carry it back", am: "ወንዞች መልሰው ይወስዱታል" }, pic: { art: "water" } },
+];
+
+const l4Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "On a sunny day, where does a puddle go?", am: "ፀሐያማ ቀን ላይ ኩሬው ወዴት ይሄዳል?" },
+    options: [{ label: { en: "Deep down under the ground", am: "ከመሬት ሥር ወደ ጥልቅ" } }, { label: { en: "Up into the air, as vapour", am: "እንፋሎት ሆኖ ወደ አየር" }, pic: { art: "vapour" } }, { label: { en: "Nowhere: it stays", am: "የትም፦ እዚያው ይቆያል" } }],
+    answer: 1,
+    explain: { en: "The Sun warms the water and it turns into vapour, a gas we can't see, that rises into the air. Some also soaks into the ground.", am: "ፀሐይ ውሃውን ታሞቀዋለች፤ ውሃውም ልናየው የማንችል ጋዝ፣ እንፋሎት ሆኖ ወደ አየር ይወጣል። ጥቂቱም ወደ መሬት ይሰርጋል።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the water cycle in order.", am: "የውሃ ዑደትን በቅደም ተከተል አስቀምጡ።" },
+    items: CYCLE_ITEMS,
+    explain: { en: "Water rises as vapour, cools into clouds, falls as rain, and rivers carry it back to lakes and seas. Then round again!", am: "ውሃ እንፋሎት ሆኖ ይወጣል፣ ቀዝቅዞ ደመና ይሆናል፣ ዝናብ ሆኖ ይዘንባል፣ ወንዞችም ወደ ሐይቆችና ባሕሮች መልሰው ይወስዱታል። ከዚያ እንደገና ይዞራል!" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Kiremt is the big rainy season in the Ethiopian highlands.", am: "ክረምት በኢትዮጵያ ደጋማ አካባቢዎች ትልቁ የዝናብ ወቅት ነው።" },
+    pic: { art: "rain" },
+    answer: true,
+    explain: { en: "Yes. Kiremt brings heavy rain from about June to September. Bega is the dry, sunny season.", am: "አዎ። ክረምት ከሰኔ እስከ መስከረም ገደማ ብዙ ዝናብ ያመጣል። በጋ ደረቅና ፀሐያማ ወቅት ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "To see a rainbow, where should the Sun be?", am: "ቀስተ ደመና ለማየት ፀሐይ የት መሆን አለባት?" },
+    pic: { art: "rainbow" },
+    options: [{ label: { en: "In front of you", am: "ከፊታችሁ" } }, { label: { en: "Hidden behind thick clouds", am: "ከወፍራም ደመና ጀርባ ተደብቃ" } }, { label: { en: "Behind you, with rain in front", am: "ከኋላችሁ፣ ዝናቡ ከፊታችሁ" } }],
+    answer: 2,
+    explain: { en: "Sunlight shines into the raindrops and bounces back out as colours. So stand with the Sun behind you and the rain in front.", am: "የፀሐይ ብርሃን ወደ ዝናብ ጠብታዎቹ ገብቶ በቀለማት ተመልሶ ይወጣል። ስለዚህ ፀሐይ ከኋላችሁ፣ ዝናቡ ከፊታችሁ ሆኖ ቁሙ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What is wind?", am: "ነፋስ ምንድን ነው?" },
+    pic: { art: "wind" },
+    options: [{ label: { en: "Air on the move", am: "የሚንቀሳቀስ አየር" } }, { label: { en: "Clouds breathing out", am: "ደመናዎች የሚያወጡት ትንፋሽ" } }, { label: { en: "Trees waving their branches", am: "ዛፎች ቅርንጫፎቻቸውን ሲያወዛውዙ" } }],
+    answer: 0,
+    explain: { en: "Wind is moving air. We can't see it, but we see what it pushes: kites, leaves, pinwheels and clouds.", am: "ነፋስ የሚንቀሳቀስ አየር ነው። ልናየው አንችልም፤ የሚገፋውን ግን እናያለን፦ ካይት፣ ቅጠሎች፣ ተሽከርካሪ ወረቀትና ደመና።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "If water looks clear, it is always safe to drink.", am: "ውሃ ጥርት ብሎ ከታየ ሁልጊዜ ለመጠጣት ደህና ነው።" },
+    pic: { art: "filter" },
+    answer: false,
+    explain: { en: "No. Clear water can still carry germs too small to see. Boil it or treat it first.", am: "አይደለም። ጥርት ያለ ውሃ እንኳ ለዓይን የማይታዩ ጀርሞች ሊኖሩበት ይችላሉ። መጀመሪያ አፍሉት ወይም አክሙት።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each season to its weather.", am: "እያንዳንዱን ወቅት ከአየሩ ጠባይ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "Kiremt", am: "ክረምት" } }, right: { label: { en: "Heavy rain", am: "ብዙ ዝናብ" }, pic: { art: "rain" } } },
+      { left: { label: { en: "Bega", am: "በጋ" } }, right: { label: { en: "Sunny and dry", am: "ፀሐያማና ደረቅ" }, pic: { art: "sun" } } },
+      { left: { label: { en: "A thunderstorm", am: "ነጎድጓዳማ ዝናብ" } }, right: { label: { en: "Lightning and thunder", am: "መብረቅና ነጎድጓድ" }, pic: { art: "storm" } } },
+    ],
+    explain: { en: "Kiremt is the big rainy season, bega the dry season, and a thunderstorm brings lightning, thunder and heavy rain.", am: "ክረምት ትልቁ የዝናብ ወቅት፣ በጋ ደረቁ ወቅት ነው፤ ነጎድጓዳማ ዝናብ ደግሞ መብረቅ፣ ነጎድጓድና ብዙ ዝናብ ያመጣል።" },
+  },
+];
+
+const l4Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "What turns the water in a puddle into vapour?", am: "በኩሬ ያለውን ውሃ እንፋሎት የሚያደርገው ምንድን ነው?" },
+    options: [{ label: { en: "The cold night", am: "ቀዝቃዛው ሌሊት" } }, { label: { en: "The Sun's warmth", am: "የፀሐይ ሙቀት" }, pic: { art: "sun" } }, { label: { en: "The wind's colour", am: "የነፋሱ ቀለም" } }],
+    answer: 1,
+    explain: { en: "Warmth makes water evaporate: it turns into vapour and rises. Wind helps it go faster too.", am: "ሙቀት ውሃን ያተናል፦ እንፋሎት ሆኖ ወደ ላይ ይወጣል። ነፋስም ፈጥኖ እንዲሄድ ይረዳል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What are clouds made of?", am: "ደመና ከምን የተሠራ ነው?" },
+    pic: { art: "cloud-white" },
+    options: [{ label: { en: "Smoke", am: "ጭስ" } }, { label: { en: "Tiny drops of water", am: "ጥቃቅን የውሃ ጠብታዎች" } }, { label: { en: "Cotton", am: "ጥጥ" } }],
+    answer: 1,
+    explain: { en: "High up it is cold, and vapour turns into tiny drops of water (or bits of ice). Billions of them make a cloud.", am: "ከፍ ብሎ ቀዝቃዛ ነው፤ እንፋሎትም ጥቃቅን የውሃ ጠብታዎች (ወይም የበረዶ ቅንጣቶች) ይሆናል። እጅግ ብዙ ሆነው ደመና ይሠራሉ።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Rain falls when tiny cloud drops join into bigger, heavier drops.", am: "ዝናብ የሚዘንበው ጥቃቅን የደመና ጠብታዎች ተቀላቅለው ትልቅና ከባድ ጠብታ ሲሆኑ ነው።" },
+    pic: { art: "rain" },
+    answer: true,
+    explain: { en: "Yes. When the drops get too heavy to float in the air, they fall as rain.", am: "አዎ። ጠብታዎቹ በአየር ላይ ለመንሳፈፍ በጣም ሲከብዱ ዝናብ ሆነው ይወርዳሉ።" },
+  },
+  {
+    kind: "count",
+    prompt: { en: "Ayan's family catches kiremt rain. How many barrels?", am: "የአያን ቤተሰብ የክረምትን ዝናብ ይይዛል። ስንት በርሜሎች አሉ?" },
+    pic: { art: "rain-barrel", count: 4 },
+    answer: 4,
+    explain: { en: "Four barrels! Rain caught in kiremt can water the garden in the dry bega months.", am: "አራት በርሜሎች! በክረምት የተያዘ ዝናብ በደረቁ የበጋ ወራት የአትክልት ቦታውን ሊያጠጣ ይችላል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Most of the water on Earth is…", am: "በምድር ላይ ያለው አብዛኛው ውሃ…" },
+    options: [{ label: { en: "Fresh water in rivers", am: "በወንዞች ያለ ጣፋጭ ውሃ" } }, { label: { en: "Rain in the clouds", am: "በደመና ያለ ዝናብ" } }, { label: { en: "Salty sea water", am: "ጨዋማ የባሕር ውሃ" } }],
+    answer: 2,
+    explain: { en: "Almost all of it (about 97 parts in 100) is salty sea water. Fresh water we can drink is precious: every drop counts!", am: "ከሞላ ጎደል ሁሉም (ከ100 ወደ 97 የሚሆነው) ጨዋማ የባሕር ውሃ ነው። የምንጠጣው ጣፋጭ ውሃ ውድ ነው፦ እያንዳንዷ ጠብታ ትቆጠራለች!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How can we save water while brushing our teeth?", am: "ጥርሳችንን ስንቦርሽ ውሃ እንዴት እንቆጥባለን?" },
+    options: [{ label: { en: "Turn the tap off while we brush", am: "ስንቦርሽ ቧንቧውን እንዘጋለን" } }, { label: { en: "Leave the tap running", am: "ቧንቧው እየፈሰሰ ይቆያል" } }, { label: { en: "Use a bigger cup each time", am: "በየጊዜው ትልቅ ኩባያ እንጠቀማለን" } }],
+    answer: 0,
+    explain: { en: "A running tap pours clean water away. Turn it on only to wet the brush and rinse.", am: "የሚፈስ ቧንቧ ንጹሕ ውሃ ያባክናል። ብሩሹን ለማርጠብና ለመጉመጥመጥ ብቻ ክፈቱት።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "A rainbow appears when sunlight shines through raindrops.", am: "ቀስተ ደመና የሚታየው የፀሐይ ብርሃን በዝናብ ጠብታዎች ውስጥ ሲያልፍ ነው።" },
+    pic: { art: "rainbow" },
+    answer: true,
+    explain: { en: "Yes. Each raindrop splits the white sunlight into colours: red, orange, yellow, green, blue and violet.", am: "አዎ። እያንዳንዷ የዝናብ ጠብታ ነጩን የፀሐይ ብርሃን ወደ ቀለማት ትከፍላለች፦ ቀይ፣ ብርቱካናማ፣ ቢጫ፣ አረንጓዴ፣ ሰማያዊና ወይን ጠጅ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which month is in kiremt, the rainy season?", am: "ከእነዚህ በክረምት፣ በዝናቡ ወቅት ያለው የትኛው ወር ነው?" },
+    options: [{ label: { en: "Tir (January)", am: "ጥር" } }, { label: { en: "Hamle (July)", am: "ሐምሌ" } }],
+    answer: 1,
+    explain: { en: "Hamle is right in the middle of kiremt. Tir is in bega, the dry season.", am: "ሐምሌ በክረምት መካከል ነው። ጥር ደግሞ በበጋ፣ በደረቁ ወቅት ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why does the pinwheel spin?", am: "ተሽከርካሪ ወረቀቱ ለምን ይሽከረከራል?" },
+    pic: { art: "wind" },
+    options: [{ label: { en: "It is alive", am: "ሕያው ስለሆነ" } }, { label: { en: "The Sun pulls it", am: "ፀሐይ ስለምትስበው" } }, { label: { en: "Moving air pushes it", am: "የሚንቀሳቀስ አየር ይገፋዋል" } }],
+    answer: 2,
+    explain: { en: "Wind is air on the go, and it pushes the blades round. The stronger the wind, the faster it spins.", am: "ነፋስ የሚንቀሳቀስ አየር ነው፤ ቅጠሎቹንም ገፍቶ ያሽከረክራቸዋል። ነፋሱ በበረታ ቁጥር ይበልጥ ይፈጥናል።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each word to its picture.", am: "እያንዳንዱን ቃል ከሥዕሉ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "Rainbow", am: "ቀስተ ደመና" } }, right: { pic: { art: "rainbow" } } },
+      { left: { label: { en: "Thunderstorm", am: "ነጎድጓዳማ ዝናብ" } }, right: { pic: { art: "storm" } } },
+      { left: { label: { en: "Water vapour rising", am: "የሚወጣ እንፋሎት" } }, right: { pic: { art: "vapour" } } },
+    ],
+    explain: { en: "A rainbow is sunlight in raindrops; a storm has lightning and heavy rain; vapour rises from warm water.", am: "ቀስተ ደመና በዝናብ ጠብታ ውስጥ ያለ የፀሐይ ብርሃን ነው፤ ነጎድጓዳማ ዝናብ መብረቅና ብዙ ዝናብ አለው፤ እንፋሎት ከሞቀ ውሃ ይወጣል።" },
+  },
+];
+
+/* ---------- level 5: Earth and sky ---------- */
+
+const MOON_ITEMS = [
+  { label: { en: "New moon", am: "አዲስ ጨረቃ" }, pic: { art: "moon-new" } },
+  { label: { en: "Thin crescent", am: "ቀጭን ጨረቃ" }, pic: { art: "moon-crescent" } },
+  { label: { en: "Half moon", am: "ግማሽ ጨረቃ" }, pic: { art: "moon-half" } },
+  { label: { en: "Full moon", am: "ሙሉ ጨረቃ" }, pic: { art: "moon-full" } },
+];
+
+const l5Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "What makes day and night?", am: "ቀንና ሌሊትን የሚያመጣው ምንድን ነው?" },
+    pic: { art: "earth" },
+    options: [{ label: { en: "The Earth turning round", am: "የምድር መሽከርከር" } }, { label: { en: "The Sun going round the Earth", am: "ፀሐይ በምድር ዙሪያ መዞሯ" } }, { label: { en: "The Moon covering the Sun", am: "ጨረቃ ፀሐይን መሸፈኗ" } }],
+    answer: 0,
+    explain: { en: "The Earth spins. The side facing the Sun has day; the side turned away has night.", am: "ምድር ትሽከረከራለች። ፀሐይን የሚመለከተው ጎን ቀን፣ የዞረው ጎን ደግሞ ሌሊት ይሆናል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "The Sun is a star.", am: "ፀሐይ ኮከብ ናት።" },
+    pic: { art: "sun" },
+    answer: true,
+    explain: { en: "Yes! The Sun is our own star. Every star in the night sky is a sun, far, far away.", am: "አዎ! ፀሐይ የራሳችን ኮከብ ናት። በሌሊት ሰማይ ያለ እያንዳንዱ ኮከብ በጣም በጣም ሩቅ ያለ ፀሐይ ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why does the Sun look so much bigger and brighter than other stars?", am: "ፀሐይ ከሌሎች ኮከቦች በጣም ትልቅና ብሩህ የምትመስለው ለምንድን ነው?" },
+    options: [{ label: { en: "Other stars are tiny dots", am: "ሌሎቹ ኮከቦች ጥቃቅን ነጥቦች ስለሆኑ" } }, { label: { en: "It is much closer to us", am: "ወደ እኛ በጣም ቅርብ ስለሆነች" } }, { label: { en: "It only shines in the day", am: "በቀን ብቻ ስለምታበራ" } }],
+    answer: 1,
+    explain: { en: "The Sun is near; the other stars are very, very far away, so they look like tiny dots. Many are even bigger than the Sun!", am: "ፀሐይ ቅርብ ናት፤ ሌሎቹ ኮከቦች ግን በጣም በጣም ሩቅ ስለሆኑ ጥቃቅን ነጥቦች ይመስላሉ። ብዙዎቹ ከፀሐይም ይበልጣሉ!" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put the Moon's shapes in order, from the new moon.", am: "የጨረቃን ቅርጾች ከአዲሷ ጨረቃ ጀምሮ በቅደም ተከተል አስቀምጡ።" },
+    items: MOON_ITEMS,
+    explain: { en: "After the new moon, the Moon grows: a thin crescent, then a half, then full. Then it shrinks again.", am: "ከአዲሷ ጨረቃ በኋላ ጨረቃ ታድጋለች፦ ቀጭን፣ ከዚያ ግማሽ፣ ከዚያ ሙሉ። ከዚያ እንደገና ታንሳለች።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Where does the Sun seem to rise in the morning?", am: "ጠዋት ፀሐይ ከየት የምትወጣ ትመስላለች?" },
+    options: [{ label: { en: "In the west", am: "ከምዕራብ" } }, { label: { en: "In the east", am: "ከምሥራቅ" } }],
+    answer: 1,
+    explain: { en: "As the Earth turns, the Sun seems to rise in the east and set in the west.", am: "ምድር ስትሽከረከር ፀሐይ ከምሥራቅ የምትወጣ፣ በምዕራብ የምትጠልቅ ትመስላለች።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "New soil forms in just a few days.", am: "አዲስ አፈር በጥቂት ቀናት ውስጥ ይፈጠራል።" },
+    pic: { art: "soil-jar" },
+    answer: false,
+    explain: { en: "No. Rock breaks into tiny bits and mixes with rotted plants very slowly: it takes hundreds of years. So we must protect our soil.", am: "አይደለም። ድንጋይ ወደ ጥቃቅን ቁርጥራጮች ተሰብሮ ከበሰበሱ ተክሎች ጋር በጣም በዝግታ ይቀላቀላል፦ መቶዎች ዓመታት ይፈጃል። ስለዚህ አፈራችንን መጠበቅ አለብን።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each name to its picture.", am: "እያንዳንዱን ስም ከሥዕሉ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: { en: "Erta Ale's lava lake", am: "የኤርታ አሌ የእሳተ ገሞራ ሐይቅ" } }, right: { pic: { art: "lava-lake" } } },
+      { left: { label: { en: "Orion's belt", am: "የኦሪዮን ቀበቶ" } }, right: { pic: { art: "orion" } } },
+      { left: { label: { en: "Full moon", am: "ሙሉ ጨረቃ" } }, right: { pic: { art: "moon-full" } } },
+    ],
+    explain: { en: "Erta Ale in the Afar has a lake of hot, melted rock; Orion's belt is three bright stars in a row; the full moon is round and bright.", am: "በአፋር ያለው ኤርታ አሌ የቀለጠ ትኩስ ድንጋይ ሐይቅ አለው፤ የኦሪዮን ቀበቶ በአንድ መስመር ያሉ ሦስት ብሩህ ኮከቦች ናቸው፤ ሙሉ ጨረቃ ክብና ብሩህ ናት።" },
+  },
+];
+
+const l5Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "It is daytime in Ethiopia. Ethiopia's side of the Earth is…", am: "በኢትዮጵያ ቀን ነው። የምድር የኢትዮጵያ ጎን…" },
+    pic: { art: "earth" },
+    options: [{ label: { en: "Facing the Sun", am: "ፀሐይን ይመለከታል" } }, { label: { en: "Facing away from the Sun", am: "ከፀሐይ ዞሯል" } }],
+    answer: 0,
+    explain: { en: "Day is when our side of the Earth faces the Sun. Night is when it has turned away.", am: "ቀን የሚሆነው የእኛ የምድር ጎን ፀሐይን ሲመለከት ነው። ሌሊት የሚሆነው ሲዞር ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How long does the Earth take to turn round once?", am: "ምድር አንድ ጊዜ ለመሽከርከር ምን ያህል ጊዜ ይፈጅባታል?" },
+    options: [{ label: { en: "A week", am: "አንድ ሳምንት" } }, { label: { en: "One day: about 24 hours", am: "አንድ ቀን፦ 24 ሰዓት ገደማ" } }, { label: { en: "A year", am: "አንድ ዓመት" } }],
+    answer: 1,
+    explain: { en: "One turn takes a day and a night: about 24 hours. (Going all the way round the Sun takes a year.)", am: "አንድ ዙር አንድ ቀንና ሌሊት ይፈጃል፦ 24 ሰዓት ገደማ። (ፀሐይን ሙሉ በሙሉ መዞር ደግሞ አንድ ዓመት ይፈጃል።)" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "The Moon makes its own light, like the Sun.", am: "ጨረቃ እንደ ፀሐይ የራሷን ብርሃን ትሠራለች።" },
+    pic: { art: "moon-full" },
+    answer: false,
+    explain: { en: "No. The Moon shines because sunlight lights it up. We see different amounts of its sunlit half.", am: "አይደለም። ጨረቃ የምታበራው የፀሐይ ብርሃን ስለሚያበራት ነው። በፀሐይ ከበራው ግማሽ ጎኗ የተለያየ መጠን እናያለን።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "About how long is it from one full moon to the next?", am: "ከአንድ ሙሉ ጨረቃ እስከ ቀጣዩ ምን ያህል ጊዜ ገደማ ነው?" },
+    options: [{ label: { en: "About a week", am: "አንድ ሳምንት ገደማ" } }, { label: { en: "About a month", am: "አንድ ወር ገደማ" } }, { label: { en: "About a year", am: "አንድ ዓመት ገደማ" } }],
+    answer: 1,
+    explain: { en: "About 29 and a half days: a month. Some calendars, like the one that tells Muslims when Eid comes, follow the Moon.", am: "ወደ 29 ቀን ተኩል ገደማ፦ አንድ ወር። እንደ ሙስሊሞች የዒድ በዓል መቼ እንደሚመጣ የሚነግራቸው ያሉ አንዳንድ የቀን መቁጠሪያዎች ጨረቃን ይከተላሉ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which of these is a star?", am: "ከእነዚህ ኮከብ የሆነው የትኛው ነው?" },
+    options: [{ label: { en: "The Moon", am: "ጨረቃ" }, pic: { art: "moon-full" } }, { label: { en: "The Earth", am: "ምድር" }, pic: { art: "earth" } }, { label: { en: "The Sun", am: "ፀሐይ" }, pic: { art: "sun" } }],
+    answer: 2,
+    explain: { en: "The Sun is a star: a huge ball of hot, glowing gas. The Earth is a planet and the Moon goes round the Earth.", am: "ፀሐይ ኮከብ ናት፦ ግዙፍ የሚያበራ ትኩስ ጋዝ ኳስ። ምድር ፕላኔት ናት፤ ጨረቃ ደግሞ በምድር ዙሪያ ትዞራለች።" },
+  },
+  {
+    kind: "count",
+    prompt: { en: "Ayan drew a full moon each month. How many full moons?", am: "አያን በየወሩ ሙሉ ጨረቃ ሣለች። ስንት ሙሉ ጨረቃዎች አሉ?" },
+    pic: { art: "moon-full", count: 3 },
+    answer: 3,
+    explain: { en: "Three full moons: that's about three months of watching the sky.", am: "ሦስት ሙሉ ጨረቃዎች፦ ሰማይን ለሦስት ወር ገደማ መመልከት ማለት ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What comes out of a volcano like Erta Ale?", am: "እንደ ኤርታ አሌ ካለ እሳተ ገሞራ ምን ይወጣል?" },
+    pic: { art: "volcano" },
+    options: [{ label: { en: "Ice", am: "በረዶ" } }, { label: { en: "Hot, melted rock called lava", am: "ቀልጦ የሚፈስ ትኩስ ድንጋይ" } }, { label: { en: "Clean drinking water", am: "ንጹሕ የመጠጥ ውሃ" } }],
+    answer: 1,
+    explain: { en: "Deep under the ground it is so hot that rock melts. At a volcano it comes up as glowing lava.", am: "ከመሬት በታች በጥልቀት ድንጋይ እስኪቀልጥ ድረስ በጣም ይሞቃል። በእሳተ ገሞራ በኩል የሚያበራ ቀልጦ የሚፈስ ዐለት ሆኖ ይወጣል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "When lava cools down, it turns into hard rock.", am: "የቀለጠው ድንጋይ ሲቀዘቅዝ ጠንካራ ድንጋይ ይሆናል።" },
+    pic: { art: "basalt" },
+    answer: true,
+    explain: { en: "Yes. Cooled lava becomes dark rock, like basalt. Over hundreds of years, rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ዐለት እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል። በመቶዎች ዓመታት ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What is soil made of?", am: "አፈር ከምን የተሠራ ነው?" },
+    pic: { art: "soil-jar" },
+    options: [{ label: { en: "Only sand", am: "አሸዋ ብቻ" } }, { label: { en: "Tiny bits of rock and rotted plants", am: "ጥቃቅን የድንጋይ ቁርጥራጮችና የበሰበሱ ተክሎች" } }, { label: { en: "Melted ice", am: "የቀለጠ በረዶ" } }],
+    answer: 1,
+    explain: { en: "Soil is tiny bits of rock mixed with rotted plants and animals, water and air. Shake it in a jar of water and watch the layers settle.", am: "አፈር ከበሰበሱ ተክሎችና እንስሳት፣ ከውሃና ከአየር ጋር የተቀላቀሉ ጥቃቅን የድንጋይ ቁርጥራጮች ነው። በውሃ ብልቃጥ ውስጥ አናውጡትና ንብርብሮቹ ሲረጉ ተመልከቱ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "In the Great Rift Valley, the ground is…", am: "በታላቁ ስምጥ ሸለቆ መሬቱ…" },
+    options: [{ label: { en: "Made of ice", am: "ከበረዶ የተሠራ ነው" } }, { label: { en: "Standing perfectly still", am: "ፍጹም ጸጥ ብሎ ቆሟል" } }, { label: { en: "Slowly pulling apart", am: "በዝግታ እየተለያየ ነው" } }],
+    answer: 2,
+    explain: { en: "The Rift Valley is slowly pulling apart, about as fast as your fingernails grow. That's why it has volcanoes and hot springs.", am: "ስምጥ ሸለቆ በዝግታ እየተለያየ ነው፤ ጥፍራችሁ በሚያድግበት ፍጥነት ገደማ። ለዚህ ነው እሳተ ገሞራዎችና ፍል ውሃዎች ያሉት።" },
+  },
+];
+
+/* ---------- level 6: forces, light, sound and our planet ---------- */
+
+const l6Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Anbessa pushes the cart. Which way does it roll?", am: "አንበሳ ጋሪውን ገፋው። ወዴት ይንከባለላል?" },
+    pic: { art: "cart" },
+    options: [{ label: { en: "Away from him", am: "ከእሱ ይርቃል" } }, { label: { en: "Towards him", am: "ወደ እሱ ይቀርባል" } }],
+    answer: 0,
+    explain: { en: "A push moves things away from you; a pull brings them towards you.", am: "መግፋት ነገሮችን ከእናንተ ያርቃል፤ መሳብ ደግሞ ወደ እናንተ ያቀርባቸዋል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "A magnet pulls a steel nail.", am: "ማግኔት የአረብ ብረት ሚስማርን ይስባል።" },
+    pic: { art: "nail" },
+    answer: true,
+    explain: { en: "Yes. Magnets pull things made of iron or steel. Click!", am: "አዎ። ማግኔት ከብረት ወይም ከአረብ ብረት የተሠሩ ነገሮችን ይስባል። ቅጭ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one will a magnet NOT pull?", am: "ማግኔት የማይስበው የትኛውን ነው?" },
+    options: [{ label: { en: "A nail", am: "ሚስማር" }, pic: { art: "nail" } }, { label: { en: "A paper clip", am: "የወረቀት ማያያዣ" }, pic: { art: "clip" } }, { label: { en: "A wooden spoon", am: "የእንጨት ማንኪያ" }, pic: { art: "spoon-wood" } }],
+    answer: 2,
+    explain: { en: "Wood isn't iron or steel, so the magnet can't pull it. The nail and the clip are steel.", am: "እንጨት ብረት ወይም አረብ ብረት አይደለም፤ ስለዚህ ማግኔቱ ሊስበው አይችልም። ሚስማሩና ማያያዣው አረብ ብረት ናቸው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which simple machine helps lift water from a deep well?", am: "ከጥልቅ ጉድጓድ ውሃ ለማውጣት የሚረዳው የትኛው ቀላል ማሽን ነው?" },
+    options: [{ label: { en: "A ramp", am: "ተዳፋት" }, pic: { art: "ramp" } }, { label: { en: "A pulley", am: "መዘውር" }, pic: { art: "pulley" } }, { label: { en: "A lever", am: "መፈንቀያ" }, pic: { art: "lever" } }],
+    answer: 1,
+    explain: { en: "With a pulley you pull down to bring the bucket up, and you can use your own weight.", am: "በመዘውር ባልዲውን ለማውጣት ወደ ታች ትጎትታላችሁ፤ የራሳችሁን ክብደትም መጠቀም ትችላላችሁ።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "At midday, when the Sun is high, your shadow is very long.", am: "እኩለ ቀን ላይ ፀሐይ ከፍ ስትል ጥላችሁ በጣም ረጅም ነው።" },
+    answer: false,
+    explain: { en: "No: at midday the shadow is short, almost under your feet. Shadows are long in the morning and evening, when the Sun is low.", am: "አይደለም፦ እኩለ ቀን ላይ ጥላው አጭር ነው፤ ከእግራችሁ ሥር ማለት ይቻላል። ጥላ ረጅም የሚሆነው ፀሐይ ዝቅ ስትል፣ ጠዋትና ምሽት ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How is a sound made?", am: "ድምፅ እንዴት ይፈጠራል?" },
+    pic: { art: "krar" },
+    options: [{ label: { en: "Something stays very still", am: "አንድ ነገር ፍጹም ጸጥ ይላል" } }, { label: { en: "Light shines on it", am: "ብርሃን ያበራበታል" } }, { label: { en: "Something shakes very fast", am: "አንድ ነገር በጣም በፍጥነት ይንቀጠቀጣል" } }],
+    answer: 2,
+    explain: { en: "Sounds are made when something vibrates: a krar string, a drum skin, or your throat when you hum.", am: "ድምፅ የሚፈጠረው አንድ ነገር ሲንቀጠቀጥ ነው፦ የክራር ክር፣ የከበሮ ቆዳ፣ ወይም ስታንጎራጉሩ ጉሮሯችሁ።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each thing to what happens to it.", am: "እያንዳንዱን ነገር ከሚደርስበት ጋር አዛምዱ።" },
+    pairs: [
+      { left: { pic: { art: "banana-peel" } }, right: { label: { en: "Rots into soil", am: "በስብሶ አፈር ይሆናል" } } },
+      { left: { pic: { art: "plastic-bag" } }, right: { label: { en: "Lasts hundreds of years", am: "ለመቶዎች ዓመታት ይቆያል" } } },
+      { left: { pic: { art: "seedling-ring" } }, right: { label: { en: "Grows into a tree", am: "አድጎ ዛፍ ይሆናል" } } },
+    ],
+    explain: { en: "Peels rot and feed the soil; plastic doesn't rot, so we must not throw it away; seedlings grow into trees that help our planet.", am: "ልጣጭ በስብሶ አፈርን ይመግባል፤ ፕላስቲክ አይበሰብስም፤ ስለዚህ መጣል የለብንም፤ ችግኞች አድገው ፕላኔታችንን የሚረዱ ዛፎች ይሆናሉ።" },
+  },
+];
+
+const l6Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Why does the go-cart stop quickly on grass?", am: "የእንጨት ጋሪው በሣር ላይ ቶሎ የሚቆመው ለምንድን ነው?" },
+    pic: { art: "cart" },
+    options: [{ label: { en: "Rough grass rubs more: friction", am: "ሸካራው ሣር የበለጠ ይሰብቃል፦ ሰበቃ" } }, { label: { en: "The wheels get tired", am: "መንኮራኩሮቹ ይደክማሉ" } }, { label: { en: "Grass pulls like a magnet", am: "ሣር እንደ ማግኔት ይስባል" } }],
+    answer: 0,
+    explain: { en: "Rubbing slows things down. It's called friction, and rough grass rubs more than a smooth road.", am: "መሰባበቅ ነገሮችን ያዘገያል። ሰበቃ ይባላል፤ ሸካራ ሣር ከለስላሳ መንገድ የበለጠ ይሰብቃል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What does a brake use to stop a wheel?", am: "ፍሬን መንኮራኩርን ለማቆም ምን ይጠቀማል?" },
+    options: [{ label: { en: "Light", am: "ብርሃን" } }, { label: { en: "Friction", am: "ሰበቃ" } }, { label: { en: "Sound", am: "ድምፅ" } }],
+    answer: 1,
+    explain: { en: "A brake rubs against the wheel, and the friction slows it down.", am: "ፍሬን መንኮራኩሩን ይሰብቃል፤ ሰበቃውም ያዘገየዋል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one is metal, but NOT pulled by a magnet?", am: "ብረት ሆኖ ግን ማግኔት የማይስበው የትኛው ነው?" },
+    options: [{ label: { en: "A paper clip", am: "የወረቀት ማያያዣ" }, pic: { art: "clip" } }, { label: { en: "An aluminium pot", am: "የአሉሚኒየም ድስት" }, pic: { art: "pot-alu" } }, { label: { en: "A needle", am: "መርፌ" }, pic: { art: "needle" } }],
+    answer: 1,
+    explain: { en: "Not every metal sticks! Magnets pull iron and steel, but not aluminium.", am: "ሁሉም ብረት አይጣበቅም! ማግኔት ብረትንና አረብ ብረትን ይስባል፤ አሉሚኒየምን ግን አይስብም።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Two magnets can push each other apart.", am: "ሁለት ማግኔቶች እርስ በርሳቸው ሊገፋፉ ይችላሉ።" },
+    pic: { art: "magnet" },
+    answer: true,
+    explain: { en: "Yes. One way round they snap together; turn one round and they push apart.", am: "አዎ። በአንድ በኩል ተሳስበው ይጣበቃሉ፤ አንዱን ስታዞሩት ይገፋፋሉ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "A long stick over a small rock, to lift a heavy stone, is…", am: "ከባድ ድንጋይ ለማንሣት በትንሽ ድንጋይ ላይ የሚቀመጥ ረጅም እንጨት…" },
+    options: [{ label: { en: "A ramp", am: "ተዳፋት" }, pic: { art: "ramp" } }, { label: { en: "A pulley", am: "መዘውር" }, pic: { art: "pulley" } }, { label: { en: "A lever", am: "መፈንቀያ" }, pic: { art: "lever" } }],
+    answer: 2,
+    explain: { en: "That's a lever: press the long end down and the heavy stone tips up.", am: "ያ መፈንቀያ ነው፦ ረጅሙን ጫፍ ወደ ታች ስትጫኑ ከባዱ ድንጋይ ወደ ላይ ይነሣል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "In torchlight, which makes the darkest shadow?", am: "በባትሪ ብርሃን በጣም ጨለማ ጥላ የሚሰጠው የትኛው ነው?" },
+    pic: { art: "torch" },
+    options: [{ label: { en: "A clear glass", am: "ጥርት ያለ ብርጭቆ" } }, { label: { en: "A wooden board", am: "የእንጨት ሳንቃ" } }, { label: { en: "A thin cloth", am: "ስስ ጨርቅ" } }],
+    answer: 1,
+    explain: { en: "Light can't pass through wood, so its shadow is dark. Glass lets light through, and thin cloth lets some through.", am: "ብርሃን በእንጨት ውስጥ ማለፍ አይችልም፤ ስለዚህ ጥላው ጨለማ ነው። ብርጭቆ ብርሃን ያሳልፋል፤ ስስ ጨርቅም ጥቂት ያሳልፋል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Gugu stretches a rubber band tighter. Its note goes…", am: "ጉጉ የላስቲክ ማሰሪያውን አጠበቀው። ድምፁ…" },
+    pic: { art: "box-krar" },
+    options: [{ label: { en: "Lower", am: "ይወፍራል" } }, { label: { en: "Higher", am: "ይቀጥናል" } }],
+    answer: 1,
+    explain: { en: "Tight strings sing high; loose strings sing low. Short strings sing higher than long ones.", am: "የጠበቀ ክር ቀጭን ድምፅ ያሰማል፤ የላላ ክር ወፍራም ድምፅ ያሰማል። አጭር ክርም ከረጅም ይበልጥ ቀጭን ድምፅ ያሰማል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Sound can travel through wood, as well as through air.", am: "ድምፅ በአየር ብቻ ሳይሆን በእንጨትም ውስጥ ሊጓዝ ይችላል።" },
+    answer: true,
+    explain: { en: "Yes. Put your ear on a desk while a friend taps the other end: it sounds loud!", am: "አዎ። ጓደኛችሁ ሌላኛውን ጫፍ ሲመታ ጆሯችሁን በጠረጴዛው ላይ አድርጉ፦ ድምፁ ጮክ ብሎ ይሰማል!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "When is the best time to plant a young tree in the highlands?", am: "በደጋማ አካባቢ ችግኝ ለመትከል ምርጡ ጊዜ መቼ ነው?" },
+    pic: { art: "seedling-ring" },
+    options: [{ label: { en: "In the middle of bega", am: "በበጋ መካከል" } }, { label: { en: "At the start of kiremt", am: "በክረምት መጀመሪያ" } }],
+    answer: 1,
+    explain: { en: "Seedlings need water to grow roots. Plant them as the rains begin, with a ring of stones to hold the water.", am: "ችግኞች ሥር ለማውጣት ውሃ ያስፈልጋቸዋል። ዝናቡ ሲጀምር፣ ውሃውን የሚይዝ የድንጋይ ክብ አድርጋችሁ ትከሏቸው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Most of Ethiopia's electricity is made by…", am: "አብዛኛው የኢትዮጵያ ኤሌክትሪክ የሚመረተው…" },
+    pic: { art: "dam" },
+    options: [{ label: { en: "Rivers turning big machines at dams", am: "በግድቦች ትላልቅ ማሽኖችን በሚያዞሩ ወንዞች" } }, { label: { en: "The Moon", am: "በጨረቃ" } }, { label: { en: "Burning plastic bags", am: "ፌስታል በማቃጠል" } }],
+    answer: 0,
+    explain: { en: "Water flowing through dams turns machines that make electricity. Sunlight and wind can make it too. Switch off lights you aren't using!", am: "በግድቦች ውስጥ የሚፈስ ውሃ ኤሌክትሪክ የሚሠሩ ማሽኖችን ያዞራል። የፀሐይ ብርሃንና ነፋስም ሊሠሩት ይችላሉ። የማትጠቀሙበትን መብራት አጥፉ!" },
+  },
+];
+
+/* ---------- final test (all six levels) ---------- */
 
 const finalTest: Question[] = [
+  // level 1
   {
     kind: "choice",
     prompt: { en: "Which of these is NOT alive?", am: "ከእነዚህ ሕያው ያልሆነው የትኛው ነው?" },
@@ -493,13 +920,7 @@ const finalTest: Question[] = [
     ],
     explain: { en: "The egg is kept warm for about 21 days, the chick pecks its way out, grows up into a hen, and lays eggs of her own.", am: "እንቁላሉ ለ21 ቀን ያህል ይሞቃል፤ ጫጩቱ ቀዳድ ብሎ ይወጣል፤ አድጎ ዶሮ ይሆናል፤ የራሷንም እንቁላሎች ትጥላለች።" },
   },
-  {
-    kind: "truefalse",
-    prompt: { en: "A tadpole grows its back legs first.", am: "ኩርንችት መጀመሪያ የኋላ እግሮቹን ያበቅላል።" },
-    pic: { art: "tadpole-legs" },
-    answer: true,
-    explain: { en: "Yes: first the back legs, then the front legs, while the tail gets shorter. Then it's a froglet.", am: "አዎ፦ መጀመሪያ የኋላ እግሮች፣ ከዚያ የፊት እግሮች፤ ጅራቱም እያጠረ ይሄዳል። ከዚያ ትንሽ እንቁራሪት ይሆናል።" },
-  },
+  // level 2
   {
     kind: "choice",
     prompt: { en: "Which sense do you use to hear the cow say moo?", am: "ላሚቱ «ሙ» ስትል ለመስማት የትኛውን ስሜት ትጠቀማላችሁ?" },
@@ -516,19 +937,13 @@ const finalTest: Question[] = [
     explain: { en: "The skull is a hard helmet of bone that keeps the brain safe.", am: "የራስ ቅል አንጎልን በደህና የሚጠብቅ ጠንካራ የአጥንት ቆብ ነው።" },
   },
   {
-    kind: "truefalse",
-    prompt: { en: "When you breathe in, your chest gets bigger.", am: "ትንፋሽ ስታስገቡ ደረታችሁ ይተልቃል።" },
-    pic: { art: "lungs" },
-    answer: true,
-    explain: { en: "Yes. Your two lungs fill with air like bags, so your chest grows; when you breathe out, it gets smaller.", am: "አዎ። ሁለቱ ሳምባዎቻችሁ እንደ ከረጢት በአየር ይሞላሉ፤ ስለዚህ ደረታችሁ ይተልቃል፤ ትንፋሽ ስታወጡ ያንሳል።" },
-  },
-  {
     kind: "choice",
     prompt: { en: "Which food helps build strong muscles, bones and teeth?", am: "ጠንካራ ጡንቻ፣ አጥንትና ጥርስ እንዲገነባ የሚረዳው የትኛው ምግብ ነው?" },
     options: [{ label: { en: "Lentils", am: "ምስር" }, pic: { art: "lentils" } }, { label: { en: "Bread", am: "ዳቦ" }, pic: { art: "bread" } }, { label: { en: "Tomato", am: "ቲማቲም" }, pic: { art: "tomato" } }],
     answer: 0,
     explain: { en: "Lentils (and beans, eggs, milk and fish) are body-building foods. Bread gives energy; tomatoes are protective.", am: "ምስር (ባቄላ፣ እንቁላል፣ ወተትና ዓሣም) ሰውነት ገንቢ ምግቦች ናቸው። ዳቦ ኃይል ይሰጣል፤ ቲማቲም በሽታ ተከላካይ ነው።" },
   },
+  // level 3
   {
     kind: "choice",
     prompt: { en: "Which is made of metal?", am: "ከብረት የተሠራው የትኛው ነው?" },
@@ -544,18 +959,95 @@ const finalTest: Question[] = [
     explain: { en: "A big log floats and a tiny coin sinks, and a clay boat floats where a clay ball sinks. It's how heavy for its size, and shape.", am: "ትልቅ ግንድ ይንሳፈፋል፣ ትንሽ ሳንቲም ይሰምጣል፤ የሸክላ ኳስ ሲሰምጥ የሸክላ ጀልባ ይንሳፈፋል። ለመጠኑ ምን ያህል ከባድ መሆኑና ቅርጹ ነው።" },
   },
   {
-    kind: "choice",
-    prompt: { en: "On a cold, clear night high in the mountains, what can cover the grass?", am: "በተራሮች ላይ ከፍ ብሎ በቀዝቃዛና ጥርት ያለ ሌሊት ሣሩን ምን ሊሸፍነው ይችላል?" },
-    options: [{ label: { en: "White frost", am: "ነጭ አመዳይ" }, pic: { art: "frost" } }, { label: { en: "Melted butter", am: "የቀለጠ ቅቤ" }, pic: { art: "butter-melted" } }, { label: { en: "Sugar", am: "ስኳር" } }],
-    answer: 0,
-    explain: { en: "Frost: water from the air freezes onto the cold grass. When the sun warms it, it melts into drops.", am: "አመዳይ፦ ከአየሩ የሚመጣ ውሃ በቀዝቃዛው ሣር ላይ ይቀዘቅዛል። ፀሐይ ስታሞቀው ቀልጦ ጠብታ ይሆናል።" },
-  },
-  {
     kind: "truefalse",
     prompt: { en: "Cooked injera can be turned back into batter.", am: "የተጋገረ እንጀራ ተመልሶ ሊጥ ሊሆን ይችላል።" },
     pic: { art: "injera-cooked" },
     answer: false,
     explain: { en: "No. Cooking changes things for good. Soaked injera only gets soggy; it never becomes batter again.", am: "አይችልም። ማብሰል ነገሮችን ለዘለቄታው ይቀይራል። የራሰ እንጀራ ይረጥባል እንጂ ፈጽሞ ተመልሶ ሊጥ አይሆንም።" },
+  },
+  // level 4
+  {
+    kind: "order",
+    prompt: { en: "Put the water cycle in order.", am: "የውሃ ዑደትን በቅደም ተከተል አስቀምጡ።" },
+    items: CYCLE_ITEMS,
+    explain: { en: "Water rises as vapour, cools into clouds, falls as rain, and rivers carry it back. Up as vapour, down as rain, round and round again!", am: "ውሃ እንፋሎት ሆኖ ይወጣል፣ ቀዝቅዞ ደመና ይሆናል፣ ዝናብ ሆኖ ይዘንባል፣ ወንዞችም መልሰው ይወስዱታል። እንፋሎት ሆኖ ወደ ላይ፣ ዝናብ ሆኖ ወደ ታች፣ እየዞረ ይመለሳል!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "To see a rainbow, where should the Sun be?", am: "ቀስተ ደመና ለማየት ፀሐይ የት መሆን አለባት?" },
+    pic: { art: "rainbow" },
+    options: [{ label: { en: "In front of you", am: "ከፊታችሁ" } }, { label: { en: "Behind you, with rain in front", am: "ከኋላችሁ፣ ዝናቡ ከፊታችሁ" } }],
+    answer: 1,
+    explain: { en: "Sunlight goes into the raindrops and comes back out as colours, so the Sun must be behind you.", am: "የፀሐይ ብርሃን ወደ ዝናብ ጠብታዎቹ ገብቶ በቀለማት ተመልሶ ይወጣል፤ ስለዚህ ፀሐይ ከኋላችሁ መሆን አለባት።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Kiremt, from about June to September, is the dry season.", am: "ከሰኔ እስከ መስከረም ገደማ ያለው ክረምት ደረቁ ወቅት ነው።" },
+    pic: { art: "rain" },
+    answer: false,
+    explain: { en: "No: kiremt is the big rainy season. Bega is the dry season.", am: "አይደለም፦ ክረምት ትልቁ የዝናብ ወቅት ነው። ደረቁ ወቅት በጋ ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "The river water looks clear. What should we do before drinking it?", am: "የወንዙ ውሃ ጥርት ብሎ ይታያል። ከመጠጣታችን በፊት ምን ማድረግ አለብን?" },
+    pic: { art: "filter" },
+    options: [{ label: { en: "Nothing: clear water is safe", am: "ምንም፦ ጥርት ያለ ውሃ ደህና ነው" } }, { label: { en: "Boil it or treat it", am: "ማፍላት ወይም ማከም" } }],
+    answer: 1,
+    explain: { en: "Clear water can still carry germs too small to see. Boil it or treat it first.", am: "ጥርት ያለ ውሃ እንኳ ለዓይን የማይታዩ ጀርሞች ሊኖሩበት ይችላሉ። መጀመሪያ አፍሉት ወይም አክሙት።" },
+  },
+  // level 5
+  {
+    kind: "choice",
+    prompt: { en: "What makes day and night?", am: "ቀንና ሌሊትን የሚያመጣው ምንድን ነው?" },
+    pic: { art: "earth" },
+    options: [{ label: { en: "The Sun going round the Earth", am: "ፀሐይ በምድር ዙሪያ መዞሯ" } }, { label: { en: "The Earth turning round", am: "የምድር መሽከርከር" } }],
+    answer: 1,
+    explain: { en: "The Earth spins once a day. The side facing the Sun has day; the side turned away has night.", am: "ምድር በቀን አንድ ጊዜ ትሽከረከራለች። ፀሐይን የሚመለከተው ጎን ቀን፣ የዞረው ጎን ደግሞ ሌሊት ይሆናል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "The Sun is a star.", am: "ፀሐይ ኮከብ ናት።" },
+    pic: { art: "sun" },
+    answer: true,
+    explain: { en: "Yes. It is our own star, and every star in the night sky is a sun, far, far away.", am: "አዎ። የራሳችን ኮከብ ናት፤ በሌሊት ሰማይ ያለ እያንዳንዱ ኮከብም በጣም በጣም ሩቅ ያለ ፀሐይ ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "About how long does the Moon take to go from full to full again?", am: "ጨረቃ ከሙሉ ወደ ሙሉ ለመመለስ ምን ያህል ጊዜ ገደማ ይፈጅባታል?" },
+    pic: { art: "moon-full" },
+    options: [{ label: { en: "A day", am: "አንድ ቀን" } }, { label: { en: "About a month", am: "አንድ ወር ገደማ" } }, { label: { en: "A year", am: "አንድ ዓመት" } }],
+    answer: 1,
+    explain: { en: "About 29 and a half days: that's where the idea of a month comes from.", am: "ወደ 29 ቀን ተኩል ገደማ፦ የወር ሐሳብ የመጣው ከዚህ ነው።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "When lava from a volcano cools, it becomes hard rock.", am: "ከእሳተ ገሞራ የሚወጣ ቀልጦ የሚፈስ ዐለት ሲቀዘቅዝ ጠንካራ ድንጋይ ይሆናል።" },
+    pic: { art: "volcano" },
+    answer: true,
+    explain: { en: "Yes. Cooled lava becomes dark rock like basalt, and over hundreds of years rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ዐለት እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል፤ በመቶዎች ዓመታትም ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
+  },
+  // level 6
+  {
+    kind: "choice",
+    prompt: { en: "Which one will a magnet pull?", am: "ማግኔት የትኛውን ይስባል?" },
+    options: [{ label: { en: "An aluminium pot", am: "የአሉሚኒየም ድስት" }, pic: { art: "pot-alu" } }, { label: { en: "A plastic cup", am: "የፕላስቲክ ኩባያ" }, pic: { art: "cup-plastic" } }, { label: { en: "A steel needle", am: "የአረብ ብረት መርፌ" }, pic: { art: "needle" } }],
+    answer: 2,
+    explain: { en: "Magnets pull iron and steel. Aluminium and plastic don't stick.", am: "ማግኔት ብረትንና አረብ ብረትን ይስባል። አሉሚኒየምና ፕላስቲክ አይጣበቁም።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which simple machine helps lift water from a deep well?", am: "ከጥልቅ ጉድጓድ ውሃ ለማውጣት የሚረዳው የትኛው ቀላል ማሽን ነው?" },
+    options: [{ label: { en: "A ramp", am: "ተዳፋት" }, pic: { art: "ramp" } }, { label: { en: "A pulley", am: "መዘውር" }, pic: { art: "pulley" } }, { label: { en: "A lever", am: "መፈንቀያ" }, pic: { art: "lever" } }],
+    answer: 1,
+    explain: { en: "With a pulley you pull down to lift the bucket up. Machines don't do the work for us: they make it easier.", am: "በመዘውር ባልዲውን ለማውጣት ወደ ታች ትጎትታላችሁ። ማሽኖች ሥራውን አይሠሩልንም፤ ያቀልሉልናል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why does a kebero make a sound when you hit it?", am: "ከበሮ ሲመታ ለምን ድምፅ ያሰማል?" },
+    pic: { art: "kebero" },
+    options: [{ label: { en: "It is hollow and empty", am: "ውስጡ ባዶ ስለሆነ ብቻ" } }, { label: { en: "Its skin shakes very fast", am: "ቆዳው በጣም በፍጥነት ይንቀጠቀጣል" } }, { label: { en: "It is painted", am: "ቀለም ስለተቀባ" } }],
+    answer: 1,
+    explain: { en: "The drum skin vibrates, and the shaking spreads through the air to our ears. Teff grains on the skin jump and dance!", am: "የከበሮው ቆዳ ይንቀጠቀጣል፤ መንቀጥቀጡም በአየር ውስጥ ተሰራጭቶ ጆሯችን ይደርሳል። በቆዳው ላይ ያሉ የጤፍ ቅንጣቶች ይዘላሉ፣ ይጨፍራሉም!" },
   },
 ];
 
@@ -563,12 +1055,12 @@ const course: Course = {
   id: "science-nature",
   title: { en: "Science & Nature", am: "ሳይንስና ተፈጥሮ" },
   tagline: {
-    en: "Wonder, guess, try and find out: living things, our bodies, and the stuff our world is made of.",
-    am: "ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት፦ ሕያዋን ነገሮች፣ ሰውነታችን፣ ዓለማችን የተሠራችባቸው ነገሮች።",
+    en: "Wonder, guess, try and find out: living things, our bodies, materials, weather, the sky, and the forces that move our world.",
+    am: "ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት፦ ሕያዋን ነገሮች፣ ሰውነታችን፣ ቁሶች፣ የአየር ጠባይ፣ ሰማይና ዓለማችንን የሚያንቀሳቅሱ ኃይሎች።",
   },
   outcome: {
-    en: "Your child will learn to think like a scientist: to wonder, make a guess, try it or look closely, and find out. They will know what living things do and need; how a seed grows into a plant with roots, a shoot and leaves, and why it needs water and light (and how to run a fair test with beans in jars); the life cycles of the frog, the butterfly and the chicken; which animals are born and which hatch; and why each animal lives where it does. They will name the five senses and the brain that understands them; know what bones, joints and muscles do; feel their heart and breathing speed up and slow down; know their teeth and what each kind is for; and sort Ethiopian foods into energy-giving, body-building and protective. They will sort things by material and choose the right one for a job; predict and test what floats and sinks; follow water from hail and frost to steam and back; and know which changes can be undone (melting, dissolving) and which can't (cooking injera). Every lesson is a story from Ethiopian homes, farms and schools, with simple, safe experiments to try together.",
-    am: "ልጅዎ እንደ ሳይንቲስት ማሰብን ይማራል፦ መገረምን፣ መገመትን፣ መሞከርን ወይም በጥንቃቄ መመልከትን፣ መድረስንም። ሕያዋን ነገሮች ምን እንደሚያደርጉና ምን እንደሚያስፈልጋቸው፤ ዘር እንዴት ሥር፣ ቡቃያና ቅጠል ያለው ተክል እንደሚሆን፣ ለምንስ ውሃና ብርሃን እንደሚያስፈልገው (በብልቃጥ ውስጥ ባሉ ባቄላዎችም ትክክለኛ ሙከራ እንዴት እንደሚደረግ)፤ የእንቁራሪትን፣ የቢራቢሮንና የዶሮን የሕይወት ዑደት፤ የትኞቹ እንስሳት እንደሚወለዱና የትኞቹ እንደሚፈለፈሉ፤ እያንዳንዱ እንስሳ ለምን በሚኖርበት እንደሚኖርም ያውቃል። አምስቱን ስሜቶችና የሚረዳቸውን አንጎል ይጠራል፤ አጥንቶች፣ መገጣጠሚያዎችና ጡንቻዎች ምን እንደሚሠሩ ያውቃል፤ የልቡና የአተነፋፈሱ መፍጠንና መረጋጋት ይሰማዋል፤ ጥርሶቹንና እያንዳንዱ ዓይነት ለምን እንደሆነ ያውቃል፤ የኢትዮጵያ ምግቦችንም ኃይል ሰጪ፣ ሰውነት ገንቢና በሽታ ተከላካይ ብሎ ይመድባል። ነገሮችን በቁሳቸው ይለያል፤ ለሥራው የሚስማማውን ይመርጣል፤ የሚንሳፈፈውንና የሚሰምጠውን ገምቶ ይሞክራል፤ ውሃን ከበረዶና ከአመዳይ እስከ እንፋሎትና መልሶ ይከተላል፤ የትኞቹ ለውጦች እንደሚመለሱ (መቅለጥ፣ መሟሟት)፣ የትኞቹ እንደማይመለሱ (እንጀራ መጋገር) ያውቃል። እያንዳንዱ ትምህርት ከኢትዮጵያ ቤቶች፣ እርሻዎችና ትምህርት ቤቶች የተወሰደ ታሪክ ነው፤ አብራችሁ የምትሞክሯቸው ቀላልና ደህና ሙከራዎችም አሉት።",
+    en: "Your child will learn to think like a scientist: to wonder, make a guess, try it or look closely, and find out. They will know what living things do and need; how a seed grows into a plant with roots, a shoot and leaves, and why it needs water and light (and how to run a fair test with beans in jars); the life cycles of the frog, the butterfly and the chicken; which animals are born and which hatch; and why each animal lives where it does. They will name the five senses and the brain that understands them; know what bones, joints and muscles do; feel their heart and breathing speed up and slow down; know their teeth and what each kind is for; and sort Ethiopian foods into energy-giving, body-building and protective. They will sort things by material and choose the right one for a job; predict and test what floats and sinks; follow water from hail and frost to steam and back; and know which changes can be undone (melting, dissolving) and which can't (cooking injera). They will follow the water cycle, know kiremt from bega, find a rainbow and save water; explain day and night with the turning Earth, know the Sun is a star, follow the Moon's phases and read the rocks of the Rift Valley; and they will push, pull and feel friction, test magnets, use simple machines, play with shadows, make sounds high and low, and care for our planet. Every lesson is a story from Ethiopian homes, farms and schools, with simple, safe experiments to try together.",
+    am: "ልጅዎ እንደ ሳይንቲስት ማሰብን ይማራል፦ መገረምን፣ መገመትን፣ መሞከርን ወይም በጥንቃቄ መመልከትን፣ መድረስንም። ሕያዋን ነገሮች ምን እንደሚያደርጉና ምን እንደሚያስፈልጋቸው፤ ዘር እንዴት ሥር፣ ቡቃያና ቅጠል ያለው ተክል እንደሚሆን፣ ለምንስ ውሃና ብርሃን እንደሚያስፈልገው (በብልቃጥ ውስጥ ባሉ ባቄላዎችም ትክክለኛ ሙከራ እንዴት እንደሚደረግ)፤ የእንቁራሪትን፣ የቢራቢሮንና የዶሮን የሕይወት ዑደት፤ የትኞቹ እንስሳት እንደሚወለዱና የትኞቹ እንደሚፈለፈሉ፤ እያንዳንዱ እንስሳ ለምን በሚኖርበት እንደሚኖርም ያውቃል። አምስቱን ስሜቶችና የሚረዳቸውን አንጎል ይጠራል፤ አጥንቶች፣ መገጣጠሚያዎችና ጡንቻዎች ምን እንደሚሠሩ ያውቃል፤ የልቡና የአተነፋፈሱ መፍጠንና መረጋጋት ይሰማዋል፤ ጥርሶቹንና እያንዳንዱ ዓይነት ለምን እንደሆነ ያውቃል፤ የኢትዮጵያ ምግቦችንም ኃይል ሰጪ፣ ሰውነት ገንቢና በሽታ ተከላካይ ብሎ ይመድባል። ነገሮችን በቁሳቸው ይለያል፤ ለሥራው የሚስማማውን ይመርጣል፤ የሚንሳፈፈውንና የሚሰምጠውን ገምቶ ይሞክራል፤ ውሃን ከበረዶና ከአመዳይ እስከ እንፋሎትና መልሶ ይከተላል፤ የትኞቹ ለውጦች እንደሚመለሱ (መቅለጥ፣ መሟሟት)፣ የትኞቹ እንደማይመለሱ (እንጀራ መጋገር) ያውቃል። የውሃን ዑደት ይከተላል፤ ክረምትን ከበጋ ይለያል፤ ቀስተ ደመና ያገኛል፤ ውሃ ይቆጥባል፤ ቀንና ሌሊትን በምድር መሽከርከር ያብራራል፤ ፀሐይ ኮከብ መሆኗን ያውቃል፤ የጨረቃን ገጽታዎች ይከተላል፤ የስምጥ ሸለቆን ድንጋዮች ያነባል፤ ይገፋል፣ ይስባል፣ ሰበቃን ይሰማዋል፤ ማግኔቶችን ይፈትናል፤ ቀላል ማሽኖችን ይጠቀማል፤ በጥላ ይጫወታል፤ ከፍና ዝቅ ያሉ ድምፆችን ያሰማል፤ ፕላኔታችንንም ይንከባከባል። እያንዳንዱ ትምህርት ከኢትዮጵያ ቤቶች፣ እርሻዎችና ትምህርት ቤቶች የተወሰደ ታሪክ ነው፤ አብራችሁ የምትሞክሯቸው ቀላልና ደህና ሙከራዎችም አሉት።",
   },
   ages: ["6-7", "8-9"],
   color: "#7C3AED",
@@ -624,6 +1116,54 @@ const course: Course = {
         { kind: "practice", quiz: { id: "science-nature-l3-practice", title: { en: "Practice: materials and changes", am: "ልምምድ፦ ቁሶችና ለውጦች" }, questions: l3Practice } },
       ],
       quiz: { id: "science-nature-l3-quiz", title: { en: "Level 3 quiz", am: "የደረጃ 3 ፈተና" }, questions: l3Quiz },
+    },
+    {
+      id: "science-nature-4",
+      title: { en: "Weather, water and seasons", am: "የአየር ጠባይ፣ ውሃና ወቅቶች" },
+      goal: { en: "Follows the water cycle, knows kiremt from bega, explains clouds, rain, rainbows and wind, and knows how to keep water clean and save it.", am: "የውሃን ዑደት ይከተላል፤ ክረምትን ከበጋ ይለያል፤ ደመናን፣ ዝናብን፣ ቀስተ ደመናንና ነፋስን ያብራራል፤ ውሃን እንዴት ንጹሕ አድርጎ እንደሚጠብቅና እንደሚቆጥብ ያውቃል።" },
+      lessons: [
+        { kind: "story", id: "where-did-the-puddle-go" },
+        { kind: "demo", id: "water-cycle", title: { en: "Round and Round", am: "እየዞረ ይመለሳል" } },
+        { kind: "story", id: "hawis-rainbow" },
+        { kind: "story", id: "kites-and-clouds" },
+        { kind: "story", id: "every-drop-counts" },
+        { kind: "demo", id: "save-water", title: { en: "Every Drop Counts", am: "እያንዳንዷ ጠብታ ትቆጠራለች" } },
+        { kind: "practice", quiz: { id: "science-nature-l4-practice", title: { en: "Practice: weather, water and seasons", am: "ልምምድ፦ የአየር ጠባይ፣ ውሃና ወቅቶች" }, questions: l4Practice } },
+      ],
+      quiz: { id: "science-nature-l4-quiz", title: { en: "Level 4 quiz", am: "የደረጃ 4 ፈተና" }, questions: l4Quiz },
+    },
+    {
+      id: "science-nature-5",
+      title: { en: "Earth and sky", am: "ምድርና ሰማይ" },
+      goal: { en: "Explains day and night with the turning Earth, knows the Sun is a star, orders the Moon's phases, spots Orion's belt, and knows how volcanoes, rocks and soil are made.", am: "ቀንና ሌሊትን በምድር መሽከርከር ያብራራል፤ ፀሐይ ኮከብ መሆኗን ያውቃል፤ የጨረቃን ገጽታዎች በቅደም ተከተል ያስቀምጣል፤ የኦሪዮንን ቀበቶ ያገኛል፤ እሳተ ገሞራ፣ ድንጋይና አፈር እንዴት እንደሚፈጠሩ ያውቃል።" },
+      lessons: [
+        { kind: "story", id: "where-does-the-sun-go" },
+        { kind: "demo", id: "day-and-night", title: { en: "Day or Night?", am: "ቀን ወይስ ሌሊት?" } },
+        { kind: "story", id: "our-star-the-sun" },
+        { kind: "story", id: "ayans-moon-diary" },
+        { kind: "demo", id: "moon-phases", title: { en: "The Moon Diary", am: "የጨረቃ ማስታወሻ" } },
+        { kind: "story", id: "fire-mountain" },
+        { kind: "practice", quiz: { id: "science-nature-l5-practice", title: { en: "Practice: Earth and sky", am: "ልምምድ፦ ምድርና ሰማይ" }, questions: l5Practice } },
+      ],
+      quiz: { id: "science-nature-l5-quiz", title: { en: "Level 5 quiz", am: "የደረጃ 5 ፈተና" }, questions: l5Quiz },
+    },
+    {
+      id: "science-nature-6",
+      title: { en: "Forces, light, sound and our planet", am: "ኃይሎች፣ ብርሃን፣ ድምፅና ፕላኔታችን" },
+      goal: { en: "Uses pushes, pulls and friction, tests what magnets pull, picks the simple machine for a job, explains shadows and sounds, and knows ways to care for our planet.", am: "መግፋትን፣ መሳብንና ሰበቃን ይጠቀማል፤ ማግኔት የሚስበውን ይፈትናል፤ ለሥራው የሚስማማውን ቀላል ማሽን ይመርጣል፤ ጥላንና ድምፅን ያብራራል፤ ፕላኔታችንን የምንንከባከብባቸውን መንገዶች ያውቃል።" },
+      lessons: [
+        { kind: "story", id: "the-go-cart" },
+        { kind: "story", id: "grandmas-lost-needle" },
+        { kind: "demo", id: "magnet-test", title: { en: "Click! Will It Stick?", am: "ቅጭ! ይጣበቃል?" } },
+        { kind: "story", id: "the-village-well" },
+        { kind: "demo", id: "simple-machines", title: { en: "A Little Help", am: "ትንሽ እገዛ" } },
+        { kind: "story", id: "tsehays-shadow" },
+        { kind: "demo", id: "shadow-play", title: { en: "Shadow Play", am: "የጥላ ጨዋታ" } },
+        { kind: "story", id: "the-krar-sings" },
+        { kind: "story", id: "the-bag-in-the-tree" },
+        { kind: "practice", quiz: { id: "science-nature-l6-practice", title: { en: "Practice: forces, light, sound and our planet", am: "ልምምድ፦ ኃይሎች፣ ብርሃን፣ ድምፅና ፕላኔታችን" }, questions: l6Practice } },
+      ],
+      quiz: { id: "science-nature-l6-quiz", title: { en: "Level 6 quiz", am: "የደረጃ 6 ፈተና" }, questions: l6Quiz },
     },
   ],
   finalTest: { id: "science-nature-final", title: { en: "Final test", am: "የመጨረሻ ፈተና" }, questions: finalTest },

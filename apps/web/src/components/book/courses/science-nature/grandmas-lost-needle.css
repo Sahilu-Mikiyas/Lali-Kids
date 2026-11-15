@@ -1,0 +1,47 @@
+/* Grandma's Lost Needle (grandmas-lost-needle.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The needle falling into the long grass (once). */
+@keyframes sln-fall {
+  from { transform: translate(180px, 200px) rotate(0deg); opacity: 1; }
+  80% { opacity: 1; }
+  to { transform: translate(230px, 286px) rotate(120deg); opacity: 0.4; }
+}
+.sln-fall { animation: sln-fall 1.6s ease-in 0.6s both; }
+
+/* Something snapping up onto the magnet (once). */
+@keyframes sln-snap {
+  from { transform: translateY(90px); opacity: 0; }
+  30% { opacity: 1; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.sln-snap { animation: sln-snap 0.5s cubic-bezier(0.5, 0, 0.6, 1.4) var(--delay, 0.4s) both; }
+
+/* The paper clip gliding over the paper, the magnet hidden below. */
+@keyframes sln-glide {
+  0%, 100% { transform: translate(110px, 150px); }
+  50% { transform: translate(290px, 170px); }
+}
+.sln-glide { animation: sln-glide 5s ease-in-out infinite; }
+
+/* Two magnets pulling together, and pushing apart. */
+@keyframes sln-meet { 0%, 20% { transform: translateX(0); } 60%, 100% { transform: translateX(var(--mx, 30px)); } }
+@keyframes sln-part { 0%, 20% { transform: translateX(0); } 60%, 100% { transform: translateX(var(--mx, -30px)); } }
+.sln-pull { animation: sln-meet 3s ease-in infinite; --mx: 30px; }
+.sln-pullR { animation: sln-meet 3s ease-in infinite; --mx: -30px; }
+.sln-push { animation: sln-part 3s ease-out infinite; --mx: -30px; }
+.sln-pushR { animation: sln-part 3s ease-out infinite; --mx: 30px; }
+
+/* Sweeping the magnet over the grass. */
+@keyframes sln-sweep {
+  0% { transform: translate(80px, 230px); }
+  50% { transform: translate(260px, 236px); }
+  100% { transform: translate(200px, 160px); }
+}
+.sln-sweep { animation: sln-sweep 3s ease-in-out 0.2s both; }
+
+/* The needle appearing on the magnet when it is found (once). */
+@keyframes sln-catch {
+  0%, 80% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.sln-catch { animation: sln-catch 3s linear 0.2s both; }

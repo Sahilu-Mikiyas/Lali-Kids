@@ -1,0 +1,17 @@
+/* Ayan's Moon Diary (ayans-moon-diary.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The ball (the Moon) going round Ayan's head, its lit side always facing the lamp. */
+@keyframes smd-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.smd-orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: smd-orbit 10s linear infinite;
+}
+.smd-counter {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: smd-orbit 10s linear infinite reverse;
+}

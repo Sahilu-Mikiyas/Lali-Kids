@@ -30,6 +30,7 @@ function Clock({ x, y, s = 1 }: { x: number; y: number; s?: number }) {
         <path key={a} d="M0 -14 V-11" stroke="#1B2A4E" strokeWidth={2} transform={`rotate(${a})`} />
       ))}
       <g className="sgh-tick">
+        <circle r={13} fill="none" />
         <path d="M0 0 V-13" stroke="#E2463F" strokeWidth={2} strokeLinecap="round" />
       </g>
       <circle r={2} fill="#1B2A4E" />

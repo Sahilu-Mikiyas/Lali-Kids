@@ -1,0 +1,49 @@
+/* Kites and Clouds (kites-and-clouds.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Washing or a ribbon flapping in the wind. */
+@keyframes skc-flap {
+  0%, 100% { transform: skewX(0deg) scaleX(1); }
+  50% { transform: skewX(-14deg) scaleX(1.08); }
+}
+.skc-flap {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+  animation: skc-flap 0.7s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The kite rising and dancing. */
+@keyframes skc-fly {
+  0% { transform: translate(-80px, 140px); }
+  60% { transform: translate(0, 0); }
+  80% { transform: translate(10px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+.skc-fly { animation: skc-fly 4s ease-out 0.2s both; }
+
+/* Clouds drifting with the wind. */
+@keyframes skc-drift {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(30px); }
+}
+.skc-drift { animation: skc-drift 8s ease-in-out infinite alternate; }
+
+/* The storm cloud coming nearer. */
+@keyframes skc-come {
+  from { transform: translateX(80px) scale(0.8); }
+  to { transform: translateX(-20px) scale(1); }
+}
+.skc-come { animation: skc-come 5s ease-in-out 0.2s both; }
+
+/* Running for the door. */
+@keyframes skc-dash {
+  from { transform: translateX(-120px); }
+  to { transform: translateX(0); }
+}
+.skc-dash { animation: skc-dash 1.6s ease-out 0.2s both; }
+
+/* The dry half of the picture sliding in (once). */
+@keyframes skc-split {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.skc-split { animation: skc-split 1.4s ease-out 1s both; }

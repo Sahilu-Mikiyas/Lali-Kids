@@ -41,48 +41,48 @@ const story: Story = {
       am: "ፀሐይ የፊት ጥርሷን በምላሷ ገፋችው። ነቅነቅ፣ ነቅነቅ! «እማዬ! ጥርሴ ይነቃነቃል! ተሰብሯል እንዴ?»",
     },
     {
-      en: '"It\'s not broken," smiled Mama. "That\'s one of your twenty baby teeth. A bigger grown-up tooth is growing underneath and pushing it out. One day you\'ll have thirty-two grown-up teeth!"',
-      am: "«አልተሰበረም» አለች እማማ ፈገግ ብላ። «ያ ከሃያዎቹ የሕፃንነት ጥርሶችሽ አንዱ ነው። ከሥሩ ትልቅ የአዋቂ ጥርስ እያደገ እየገፋው ነው። አንድ ቀን ሠላሳ ሁለት የአዋቂ ጥርሶች ይኖሩሻል!»",
+      en: "\"It's not broken,\" smiled Mama. \"That's one of your twenty baby teeth. A grown-up tooth is growing underneath. One day you'll have thirty-two!\"",
+      am: "«አልተሰበረም» አለች እማማ። «ያ ከሃያዎቹ የሕፃንነት ጥርሶችሽ አንዱ ነው። ከሥሩ የአዋቂ ጥርስ እያደገ ነው። አንድ ቀን ሠላሳ ሁለት ይኖሩሻል!»",
     },
     {
-      en: "Tsehay looked in the mirror and opened wide. Flat teeth at the front. Pointy teeth at the corners. Wide, bumpy teeth at the back. \"Why are they all different?\" she wondered. \"Let's try them and find out.\"",
-      am: "ፀሐይ መስታወት ውስጥ ተመልክታ አፏን በሰፊው ከፈተች። ከፊት ጠፍጣፋ ጥርሶች። በማዕዘኖቹ ሾጣጣ ጥርሶች። ከኋላ ሰፋፊና ጎርባጣ ጥርሶች። «ለምንድን ነው ሁሉም የተለያዩት?» ብላ አሰበች። «እስቲ ሞክሬ ልወቅ።»",
+      en: "In the mirror, Tsehay saw flat teeth at the front, pointy teeth at the corners and wide, bumpy teeth at the back. \"Why are they different? Let's try them!\"",
+      am: "ፀሐይ በመስታወት አየች፦ ከፊት ጠፍጣፋ፣ በማዕዘን ሾጣጣ፣ ከኋላ ሰፋፊና ጎርባጣ ጥርሶች። «ለምን ተለያዩ? ልሞክራቸው!»",
     },
     {
-      en: "She bit into a carrot with her front teeth. Crunch! A neat piece came off. \"Front teeth are for biting, like little knives.\" (She was careful with her wobbly one.) Bite, tear, grind and chew!",
-      am: "ካሮትን በፊት ጥርሶቿ ነከሰች። ቋርጥ! ጥሩ ቁራጭ ተቆረጠ። «የፊት ጥርሶች ለመንከስ ናቸው፤ እንደ ትንንሽ ቢላዎች።» (በሚነቃነቀው ጥርሷ ተጠነቀቀች።) ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
+      en: "She bit a carrot with her front teeth. Crunch! A neat piece came off. \"Front teeth are for biting, like little knives.\" Bite, tear, grind and chew!",
+      am: "ካሮትን በፊት ጥርሶቿ ነከሰች። ቋርጥ! ቁራጭ ተቆረጠ። «የፊት ጥርሶች እንደ ቢላ ለመንከስ ናቸው።» ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
     },
     {
-      en: 'Next she pulled at the tough crust of Grandma\'s dabo with her pointy corner teeth. Tug! "Pointy teeth are for gripping and tearing." Then she chewed a mouthful of crunchy kolo with her back teeth until it was soft and mushy. "Back teeth grind, like a grinding stone!"',
-      am: "ቀጥሎ የአያቴን የዳቦ ጠንካራ ቅርፊት በማዕዘን ሾጣጣ ጥርሶቿ ጎተተች። ጉትት! «ሾጣጣ ጥርሶች ለመያዝና ለመቦጨቅ ናቸው።» ከዚያ ቆርጣሚውን ቆሎ በኋለኛ ጥርሶቿ ለስላሳ እስኪሆን ድረስ አኘከች። «የኋላ ጥርሶች እንደ ወፍጮ ድንጋይ ይፈጫሉ!»",
+      en: "Her pointy teeth gripped and tore the tough dabo crust. Her back teeth ground crunchy kolo into mush. \"Back teeth grind, like a grinding stone!\"",
+      am: "ሾጣጣ ጥርሶቿ የዳቦውን ቅርፊት ያዙ፣ ቦጨቁም። የኋላ ጥርሶቿ ቆሎውን ፈጩ። «የኋላ ጥርሶች እንደ ወፍጮ ይፈጫሉ!»",
     },
     {
-      en: 'Hawi came to play, and Tsehay peeked at her teeth. Long, sharp, pointed ones! "Wolves eat meat," said Hawi, "so we need teeth for gripping and tearing." The cow in the field had wide, flat back teeth for grinding grass all day. Bite, tear, grind and chew!',
-      am: "ሀዊ ልትጫወት መጣች፤ ፀሐይም ጥርሶቿን አጮልቃ አየች። ረጃጅም፣ ስለታምና ሾጣጣ! «ቀበሮዎች ሥጋ ይበላሉ» አለች ሀዊ፤ «ስለዚህ ለመያዝና ለመቦጨቅ ጥርሶች ያስፈልጉናል።» በሜዳው ያለችው ላም ቀኑን ሙሉ ሣር የምትፈጭበት ሰፋፊና ጠፍጣፋ የኋላ ጥርሶች ነበሯት። ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
+      en: "Hawi showed her long, pointed teeth. \"Wolves eat meat, so we need teeth for tearing.\" The cow had wide, flat teeth for grinding grass. Bite, tear, grind and chew!",
+      am: "ሀዊ ረጃጅም ሾጣጣ ጥርሶቿን አሳየች። «ቀበሮዎች ሥጋ ይበላሉ፤ ለመቦጨቅ ጥርስ ያስፈልገናል።» ላሚቱ ሣር የምትፈጭበት ጠፍጣፋ ጥርስ ነበራት። ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
     },
     {
       en: "At dinner, Tsehay bit into her injera, and… plink! Her wobbly tooth fell right out into her hand! She grinned a big gappy grin at everyone.",
       am: "በእራት ጊዜ ፀሐይ እንጀራዋን ነከሰች፤ እና… ቅጭል! የሚነቃነቀው ጥርሷ ልክ እጇ ላይ ወደቀ! ለሁሉም ክፍተት ያለው ትልቅ ፈገግታ አሳየች።",
     },
     {
-      en: '"What will build my new tooth?" she asked. Grandma pointed at the mesob. "Your food! Your body uses what you eat to grow. There are three kinds of food here, and each has a different job."',
-      am: "«አዲሱን ጥርሴን የሚሠራው ምንድን ነው?» ብላ ጠየቀች። አያቴ መሶቡን አመለከቱ። «ምግብሽ! ሰውነትሽ ለማደግ የምትበዪውን ይጠቀማል። እዚህ ሦስት ዓይነት ምግቦች አሉ፤ እያንዳንዳቸውም የተለየ ሥራ አላቸው።»",
+      en: "\"What will build my new tooth?\" Grandma pointed at the mesob. \"Your food! There are three kinds of food here, and each has a different job.\"",
+      am: "«አዲሱን ጥርሴን የሚሠራው ምንድን ነው?» አያቴ መሶቡን አመለከቱ። «ምግብሽ! እዚህ ሦስት ዓይነት ምግቦች አሉ፤ እያንዳንዳቸው የተለየ ሥራ አላቸው።»",
     },
     {
-      en: '"Injera, bread, potatoes and maize are energy foods. They give you the power to run, play and think, like wood for a fire." Tsehay took a big bite of injera. Bite, tear, grind and chew!',
-      am: "«እንጀራ፣ ዳቦ፣ ድንችና በቆሎ ኃይል ሰጪ ምግቦች ናቸው። እንደ እሳት እንጨት ለመሮጥ፣ ለመጫወትና ለማሰብ ጉልበት ይሰጡሻል።» ፀሐይ ትልቅ የእንጀራ ጉርሻ ጎረሰች። ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
+      en: "\"Injera, bread, potatoes and maize are energy foods. They give you power to run, play and think.\" Tsehay took a big bite. Bite, tear, grind and chew!",
+      am: "«እንጀራ፣ ዳቦ፣ ድንችና በቆሎ ኃይል ሰጪ ምግቦች ናቸው። ለመሮጥ፣ ለመጫወትና ለማሰብ ጉልበት ይሰጣሉ።» ፀሐይ ትልቅ ጉርሻ ጎረሰች። ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!",
     },
     {
-      en: '"Beans, shiro and misir, chickpeas, eggs, milk, fish and meat are body-building foods. They help you grow strong muscles, bones and teeth." "My new tooth!" said Tsehay, and scooped up some shiro.',
-      am: "«ባቄላ፣ ሽሮና ምስር፣ ሽምብራ፣ እንቁላል፣ ወተት፣ ዓሣና ሥጋ ሰውነት ገንቢ ምግቦች ናቸው። ጠንካራ ጡንቻ፣ አጥንትና ጥርስ እንድታበቅዪ ይረዱሻል።» «አዲሱ ጥርሴ!» አለች ፀሐይ፤ ሽሮም ጠቀሰች።",
+      en: "\"Beans, shiro, misir, eggs, milk, fish and meat are body-building foods. They help you grow strong muscles, bones and teeth.\" \"My new tooth!\"",
+      am: "«ባቄላ፣ ሽሮ፣ ምስር፣ እንቁላል፣ ወተት፣ ዓሣና ሥጋ ሰውነት ገንቢ ምግቦች ናቸው። ጡንቻ፣ አጥንትና ጥርስ ያጠነክራሉ።» «አዲሱ ጥርሴ!»",
     },
     {
-      en: '"And vegetables and fruit, like gomen, carrots, tomatoes, mangoes and bananas, are protective foods. They help your body work well and fight off sickness." Tsehay looked at her plate and worked it out. "Then I need some of each kind, every day!"',
-      am: "«አትክልትና ፍራፍሬ ደግሞ፣ እንደ ጎመን፣ ካሮት፣ ቲማቲም፣ ማንጎና ሙዝ፣ በሽታ ተከላካይ ምግቦች ናቸው። ሰውነትሽ በደንብ እንዲሠራና በሽታን እንዲከላከል ይረዱታል።» ፀሐይ ሳህኗን ተመልክታ አሰበችበት። «እንግዲያው ከእያንዳንዱ ዓይነት ትንሽ በየቀኑ ያስፈልገኛል!»",
+      en: "\"Vegetables and fruit are protective foods. They help your body work well and fight sickness.\" Tsehay worked it out: \"I need some of each kind, every day!\"",
+      am: "«አትክልትና ፍራፍሬ በሽታ ተከላካይ ምግቦች ናቸው። ሰውነት በደንብ እንዲሠራ ይረዳሉ።» ፀሐይ አሰበች፦ «ከእያንዳንዱ ዓይነት በየቀኑ ያስፈልገኛል!»",
     },
     {
-      en: "Weeks later, Tsehay looked in the mirror and squealed. A little white edge was peeking through the gap: her new grown-up tooth! She grinned and crunched a carrot with her other teeth. \"Bite, tear, grind and chew!\"",
-      am: "ከሳምንታት በኋላ ፀሐይ መስታወት ውስጥ ተመልክታ ጮኸች። ትንሽ ነጭ ጫፍ በክፍተቱ ውስጥ ብቅ ብሎ ነበር፦ አዲሱ የአዋቂ ጥርሷ! ፈገግ ብላ በሌሎቹ ጥርሶቿ ካሮት ቆረጠመች። «ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!»",
+      en: "Weeks later, Tsehay looked in the mirror. A white edge was peeking through the gap: her new grown-up tooth! She crunched a carrot. \"Bite, tear, grind and chew!\"",
+      am: "ከሳምንታት በኋላ ፀሐይ በመስታወት ተመለከተች። በክፍተቱ ውስጥ ነጭ ጫፍ ብቅ ብሏል፦ አዲሱ ጥርሷ! ካሮት ቆረጠመች። «ቁረጥ፣ ቦጭቅ፣ ፍጭ፣ አኝክ!»",
     },
   ],
   grownUps: {

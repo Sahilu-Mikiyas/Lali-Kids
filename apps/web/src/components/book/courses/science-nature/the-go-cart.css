@@ -1,0 +1,53 @@
+/* The Go-Cart (the-go-cart.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Rubbing hands fast. */
+@keyframes sgc-rub {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+}
+.sgc-rub { animation: sgc-rub 0.15s linear infinite; }
+
+/* The cart rolling down the slope, faster and faster. */
+@keyframes sgc-down {
+  from { transform: translate(30px, 110px); }
+  to { transform: translate(280px, 205px); }
+}
+.sgc-down { animation: sgc-down 2.6s cubic-bezier(0.5, 0, 0.9, 0.6) 0.2s infinite; }
+
+/* Dust puffing up from dragging feet. */
+@keyframes sgc-dust {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translate(-20px, -14px) scale(1.4); opacity: 0; }
+}
+.sgc-dust {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sgc-dust 1.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* The brake stick pressing on the wheel. */
+@keyframes sgc-brake {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-6px, 6px); }
+}
+.sgc-brake { animation: sgc-brake 1s ease-in-out infinite; }
+
+/* Slipping on the wet mud. */
+@keyframes sgc-slip {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  30% { transform: rotate(-12deg) translateX(10px); }
+  60% { transform: rotate(10deg) translateX(-6px); }
+}
+.sgc-slip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sgc-slip 1.6s ease-in-out infinite;
+}
+
+/* Giving rides back and forth. */
+@keyframes sgc-ride {
+  0%, 100% { transform: translateX(-30px); }
+  50% { transform: translateX(30px); }
+}
+.sgc-ride { animation: sgc-ride 4s ease-in-out infinite; }

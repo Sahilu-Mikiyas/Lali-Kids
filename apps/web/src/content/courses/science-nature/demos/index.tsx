@@ -21,6 +21,16 @@ const FoodPlate = dynamic(() => import("./food-plate"), { ssr: false });
 const MaterialMatch = dynamic(() => import("./material-match"), { ssr: false });
 const FloatOrSink = dynamic(() => import("./float-or-sink"), { ssr: false });
 const MeltOrFreeze = dynamic(() => import("./melt-or-freeze"), { ssr: false });
+// Level 4: weather, water and seasons
+const WaterCycle = dynamic(() => import("./water-cycle"), { ssr: false });
+const SaveWater = dynamic(() => import("./save-water"), { ssr: false });
+// Level 5: Earth and sky
+const DayAndNight = dynamic(() => import("./day-and-night"), { ssr: false });
+const MoonPhases = dynamic(() => import("./moon-phases"), { ssr: false });
+// Level 6: forces, light, sound and our planet
+const MagnetTest = dynamic(() => import("./magnet-test"), { ssr: false });
+const SimpleMachines = dynamic(() => import("./simple-machines"), { ssr: false });
+const ShadowPlay = dynamic(() => import("./shadow-play"), { ssr: false });
 
 /** This course's interactive demonstrations, by id. Use next/dynamic with { ssr: false } for each. */
 export const DEMOS: Record<string, Demo> = {
@@ -33,4 +43,11 @@ export const DEMOS: Record<string, Demo> = {
   "material-match": MaterialMatch,
   "float-or-sink": FloatOrSink,
   "melt-or-freeze": MeltOrFreeze,
+  "water-cycle": WaterCycle,
+  "save-water": SaveWater,
+  "day-and-night": DayAndNight,
+  "moon-phases": MoonPhases,
+  "magnet-test": MagnetTest,
+  "simple-machines": SimpleMachines,
+  "shadow-play": ShadowPlay,
 };

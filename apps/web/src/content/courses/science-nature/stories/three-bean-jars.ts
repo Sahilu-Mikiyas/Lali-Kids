@@ -38,32 +38,32 @@ const story: Story = {
       am: "መምህርት መሮን ለሁሉም ጠንካራ ቡናማ ባቄላ ሰጡ። «ውስጡ ምን ያለ ይመስላችኋል?» ጉጉ ባቄላውን በጆሮው አጠገብ ነቀነቀው። ምንም አልተንኳኳም። «ተጨማሪ ባቄላ ብቻ?»",
     },
     {
-      en: "She had soaked one bean in water overnight. She opened it gently, and everyone looked through the magnifying glass. Inside was a tiny plant, with two baby leaves, and food packed all around it!",
-      am: "አንዱን ባቄላ ሌሊቱን ሙሉ በውሃ ዘፍዝፈውት ነበር። ቀስ ብለው ከፈቱት፤ ሁሉም በማጉያ መነጽሩ ተመለከቱ። ውስጡ ሁለት ትንንሽ ቅጠሎች ያሉት ጥቃቅን ተክልና በዙሪያው የታሸገ ምግብ ነበረ!",
+      en: "She had soaked one bean overnight. She opened it, and everyone looked through the magnifying glass. Inside was a tiny plant with two baby leaves, and its food!",
+      am: "አንዱን ባቄላ ሌሊቱን በውሃ ዘፍዝፈውት ነበር። ከፈቱት፤ ሁሉም በማጉያ ተመለከቱ። ውስጡ ሁለት ትንንሽ ቅጠሎች ያሉት ጥቃቅን ተክልና ምግቡ ነበሩ!",
     },
     {
-      en: '"So what does a bean need to grow?" asked Teacher Meron. "Water!" said Gugu. "Light!" said Tsehay. "Let\'s not just guess," she smiled. "Let\'s try, and find out." Wonder, guess, try, and find out!',
-      am: "«እንግዲህ ባቄላ ለማደግ ምን ያስፈልገዋል?» ብለው ጠየቁ መምህርት መሮን። «ውሃ!» አለ ጉጉ። «ብርሃን!» አለች ፀሐይ። «መገመት ብቻ አይበቃም» አሉ ፈገግ ብለው። «እንሞክርና እንደርስበት።» ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት!",
+      en: "\"What does a bean need to grow?\" \"Water!\" said Gugu. \"Light!\" said Tsehay. \"Let's not just guess. Let's try.\" Wonder, guess, try, and find out!",
+      am: "«ባቄላ ለማደግ ምን ያስፈልገዋል?» «ውሃ!» አለ ጉጉ። «ብርሃን!» አለች ፀሐይ። «መገመት ብቻ አይበቃም፤ እንሞክር።» ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት!",
     },
     {
-      en: "They made three jars, each with a bean pressed against the glass by wet paper, so they could see everything. Jar one: water and the sunny windowsill. Jar two: water, but the dark cupboard. Jar three: the windowsill, but no water.",
-      am: "ሦስት ብልቃጦች አዘጋጁ፤ በእያንዳንዳቸው ውስጥ ሁሉን ነገር ማየት እንዲችሉ ባቄላ በእርጥብ ወረቀት ከመስታወቱ ጋር ተጣብቋል። አንደኛው ብልቃጥ፦ ውሃ ያለውና ፀሐያማው መስኮት ላይ። ሁለተኛው፦ ውሃ ያለው ግን ጨለማው ቁም ሣጥን ውስጥ። ሦስተኛው፦ መስኮቱ ላይ ግን ውሃ የሌለው።",
+      en: "They made three glass jars. One: water, on the sunny windowsill. Two: water, in the dark cupboard. Three: on the windowsill, but no water.",
+      am: "ሦስት ብልቃጦች አዘጋጁ። አንደኛው፦ ውሃ ያለው፣ ፀሐያማው መስኮት ላይ። ሁለተኛው፦ ውሃ ያለው፣ ጨለማው ቁም ሣጥን ውስጥ። ሦስተኛው፦ መስኮት ላይ፣ ውሃ የሌለው።",
     },
     {
-      en: 'On day three, the beans with water split their coats, and a little white root poked out and grew down, down, down. The dry bean did nothing at all. "Water wakes up the seed!" said Gugu.',
-      am: "በሦስተኛው ቀን ውሃ ያላቸው ባቄላዎች ልጣጫቸውን ሰነጠቁ፤ ትንሽ ነጭ ሥር ብቅ ብሎ ወደ ታች፣ ወደ ታች፣ ወደ ታች አደገ። ደረቁ ባቄላ ግን ምንም አላደረገም። «ውሃ ዘሩን ይቀሰቅሰዋል!» አለ ጉጉ።",
+      en: "On day three, the wet beans split their coats, and a white root grew down, down, down. The dry bean did nothing. \"Water wakes up the seed!\"",
+      am: "በሦስተኛው ቀን እርጥቦቹ ባቄላዎች ልጣጫቸውን ሰነጠቁ፤ ነጭ ሥርም ወደ ታች አደገ። ደረቁ ባቄላ ምንም አላደረገም። «ውሃ ዘሩን ይቀሰቅሰዋል!»",
     },
     {
-      en: "On day five, the roots had grown little side roots, and a hooked green shoot pushed UP. Even the bean in the dark cupboard was growing! \"Maybe it doesn't need light at all,\" wondered Gugu. Wonder, guess, try, and find out!",
-      am: "በአምስተኛው ቀን ሥሮቹ ትንንሽ የጎን ሥሮች አበቀሉ፤ የተጣመመ አረንጓዴ ቡቃያም ወደ ላይ ገፋ። በጨለማው ቁም ሣጥን ውስጥ ያለውም ባቄላ እያደገ ነበር! «ምናልባት ብርሃን ፈጽሞ አያስፈልገውም» ብሎ አሰበ ጉጉ። ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት!",
+      en: "On day five, a green shoot pushed UP. Even the bean in the dark was growing! \"Maybe it doesn't need light,\" wondered Gugu. Wonder, guess, try, and find out!",
+      am: "በአምስተኛው ቀን አረንጓዴ ቡቃያ ወደ ላይ ወጣ። በጨለማ ያለውም እያደገ ነበር! «ምናልባት ብርሃን አያስፈልገውም» አለ ጉጉ። ተገረሙ፣ ገምቱ፣ ሞክሩ፣ ደርሱበት!",
     },
     {
-      en: 'On day eight, they opened the cupboard. The dark bean was the TALLEST! "Darkness wins!" cheered Gugu. Then he looked closely. It was pale yellow, thin as a thread and floppy, with tiny leaves.',
-      am: "በስምንተኛው ቀን ቁም ሣጥኑን ከፈቱ። የጨለማው ባቄላ ከሁሉም ረጅም ነበር! «ጨለማው አሸነፈ!» ብሎ ጮኸ ጉጉ። ከዚያ በጥንቃቄ ተመለከተ። ገርጣ ቢጫ፣ እንደ ክር ቀጭንና ልፍስፍስ ነበር፤ ቅጠሎቹም ጥቃቅን ነበሩ።",
+      en: "On day eight, the dark bean was the TALLEST! \"Darkness wins!\" cheered Gugu. Then he looked closely. It was pale, thin as a thread and floppy.",
+      am: "በስምንተኛው ቀን የጨለማው ባቄላ ከሁሉም ረዘመ! «ጨለማው አሸነፈ!» አለ ጉጉ። ከዚያ በጥንቃቄ ተመለከተ። ገርጣ፣ እንደ ክር ቀጭንና ልፍስፍስ ነበር።",
     },
     {
-      en: "The windowsill bean was shorter, but strong, with big green leaves, and it was leaning toward the window. \"Green leaves use sunlight to make food for the plant,\" said Teacher Meron. \"In the dark, the bean used up its packed food, stretching to look for light.\"",
-      am: "የመስኮቱ ባቄላ አጠር ያለ ግን ጠንካራ ነበር፤ ትልልቅ አረንጓዴ ቅጠሎች ነበሩት፤ ወደ መስኮቱም ዘምብሎ ነበር። «አረንጓዴ ቅጠሎች በፀሐይ ብርሃን ለተክሉ ምግብ ይሠራሉ» አሉ መምህርት መሮን። «በጨለማ ውስጥ ባቄላው ብርሃን ፍለጋ እየተዘረጋ የታሸገ ምግቡን ጨረሰ።»",
+      en: "The windowsill bean was shorter but strong and green, leaning to the light. \"Leaves use sunlight to make food,\" said Teacher Meron. \"In the dark, it used up its food.\"",
+      am: "የመስኮቱ ባቄላ አጭር ግን ጠንካራና አረንጓዴ ነበር፤ ወደ ብርሃኑ ዘምብሏል። «ቅጠሎች በፀሐይ ብርሃን ምግብ ይሠራሉ» አሉ መምህርቷ። «በጨለማ ምግቡን ጨረሰ።»",
     },
     {
       en: 'And jar three? The dry bean was still just a hard bean. "No water, no growing," wrote Tsehay. Gugu gave it a drink, and two days later, its little root poked out at last.',
@@ -74,8 +74,8 @@ const story: Story = {
       am: "ጉጉ ገርጣውን ባቄላ ወደ ፀሐያማው መስኮት ወሰደው። ቀን በቀን ቅጠሎቹ ቀስ እያሉ አረንጓዴ ሆኑ። «አሸናፊው አልነበረም» አለ። «እርዳታ የሚያስፈልገው ባቄላ ነበር።»",
     },
     {
-      en: "Then they planted all three beans in the school garden, in good soil. Roots down for water, shoots up to the light. The beans grew tall and had white flowers, and the flowers turned into pods full of new beans.",
-      am: "ከዚያ ሦስቱንም ባቄላዎች በትምህርት ቤቱ አትክልት ቦታ በጥሩ አፈር ውስጥ ተከሏቸው። ሥሮች ወደ ታች ለውሃ፣ ቡቃያዎች ወደ ላይ ለብርሃን። ባቄላዎቹ ረዝመው ነጫጭ አበቦች አወጡ፤ አበቦቹም በአዳዲስ ባቄላዎች የተሞሉ ሽፋኖች ሆኑ።",
+      en: "They planted the beans in the school garden. Roots down, shoots up! The beans grew tall, with white flowers, and the flowers became pods full of beans.",
+      am: "ባቄላዎቹን በትምህርት ቤቱ አትክልት ተከሏቸው። ሥሮች ወደ ታች፣ ቡቃያዎች ወደ ላይ! ረዝመው ነጫጭ አበቦች አወጡ፤ አበቦቹም ባቄላ የሞላባቸው ሽፋኖች ሆኑ።",
     },
     {
       en: 'Gugu opened a pod and held up a hard brown bean. "Look! A tiny plant is waiting inside, with its food packed around it." Everyone shouted, "Wonder, guess, try, and find out!"',

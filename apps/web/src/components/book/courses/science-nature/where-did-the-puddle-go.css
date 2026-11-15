@@ -1,0 +1,30 @@
+/* Where Did the Puddle Go? (where-did-the-puddle-go.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The puddle shrinking as the hours pass (once). */
+@keyframes swp-shrink {
+  from { transform: scale(1.2); }
+  to { transform: scale(0.6); }
+}
+.swp-shrink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swp-shrink 5s ease-in-out 0.4s both;
+}
+
+/* A cloud forming out of nothing (once). */
+@keyframes swp-form {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+.swp-form {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: swp-form 3s ease-out 0.8s both;
+}
+
+/* Water flowing down the river. */
+@keyframes swp-flow {
+  from { stroke-dashoffset: 48; }
+  to { stroke-dashoffset: 0; }
+}
+.swp-flow { animation: swp-flow 1.2s linear infinite; }
