@@ -1,0 +1,37 @@
+/* Tsehay's Shadow (tsehays-shadow.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Running across the yard, the shadow coming too. */
+@keyframes stsh-run {
+  0%, 100% { transform: translateX(60px); }
+  50% { transform: translateX(220px); }
+}
+.stsh-run { animation: stsh-run 4s ease-in-out infinite; }
+
+/* Sunbeams travelling in straight lines. */
+@keyframes stsh-ray {
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
+}
+.stsh-ray { animation: stsh-ray 0.9s linear var(--delay, 0s) infinite; }
+
+/* The bunny shadow hopping. */
+@keyframes stsh-bunny {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-16px); }
+}
+.stsh-bunny { animation: stsh-bunny 1s ease-in-out infinite; }
+
+/* The paper lion moved from near the torch to near the sheet (once). */
+@keyframes stsh-move {
+  from { transform: translate(100px, 130px); }
+  to { transform: translate(235px, 130px); }
+}
+.stsh-move { animation: stsh-move 3s ease-in-out 0.4s both; }
+
+/* Dancing with her shadow. */
+@keyframes stsh-dance {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+}
+.stsh-dance { animation: stsh-dance 1.4s ease-in-out infinite; }

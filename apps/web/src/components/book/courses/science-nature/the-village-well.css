@@ -1,0 +1,36 @@
+/* The Village Well (the-village-well.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The well and bucket appearing as Hawi pulls (a small bounce). */
+@keyframes svw-bucket {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.svw-bucket { animation: svw-bucket 1s ease-in-out infinite; }
+
+/* The lever rocking as Hawi presses and lets go. */
+@keyframes svw-lever {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.svw-lever { animation: svw-lever 1.6s ease-in-out infinite; }
+
+/* Pushing the barrel up the ramp, a little at a time. */
+@keyframes svw-ramp {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-4px, 2px); }
+}
+.svw-ramp { animation: svw-ramp 1.2s ease-in-out infinite; }
+
+/* The donkey cart rolling along the road. */
+@keyframes svw-cart {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(60px); }
+}
+.svw-cart { animation: svw-cart 6s ease-in-out infinite alternate; }
+
+/* Hawi pulled along the ground by the heavy bucket. */
+@keyframes svw-slide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-30px); }
+}
+.svw-slide { animation: svw-slide 2s ease-in-out infinite; }

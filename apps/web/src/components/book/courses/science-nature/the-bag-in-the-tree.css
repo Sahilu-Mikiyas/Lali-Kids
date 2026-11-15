@@ -1,0 +1,40 @@
+/* The Bag in the Tree (the-bag-in-the-tree.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The goat chewing (a little nod). */
+@keyframes sbt-chew {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+.sbt-chew { animation: sbt-chew 0.6s ease-in-out infinite; }
+
+/* The banana peel fading into the soil (once). */
+@keyframes sbt-fade {
+  from { opacity: 1; }
+  to { opacity: 0.15; }
+}
+.sbt-fade { animation: sbt-fade 2.4s ease-in 0.6s both; }
+
+/* Bags drifting down the river. */
+@keyframes sbt-drift {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(40px); }
+}
+.sbt-drift { animation: sbt-drift 5s ease-in-out infinite alternate; }
+
+/* A bird swooping back and forth over the tree. */
+@keyframes sbt-bird {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(90px, -14px); }
+}
+.sbt-bird { animation: sbt-bird 6s ease-in-out infinite; }
+
+/* A seedling growing up from the ground (once). */
+@keyframes sbt-grow {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
+.sbt-grow {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sbt-grow 2s ease-out var(--delay, 0s) both;
+}
