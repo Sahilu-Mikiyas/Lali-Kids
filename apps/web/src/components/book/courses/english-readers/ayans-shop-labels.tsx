@@ -23,7 +23,7 @@ const SH = "#D9662B";
 const CH = "#8E5BE0";
 const GOODS = ["dish", "fish", "brush", "chips", "box"];
 
-const Ayan = ({ x, y = 294, s = 0.46, mood = "happy" as "happy" | "joy" | "wow" | "worried", flip = false, walk = false }) => (
+const Ayan = ({ x = 200, y = 294, s = 0.46, mood = "happy" as "happy" | "joy" | "wow" | "worried", flip = false, walk = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.ayan}>
     <Camel who="ayan" mood={mood} walk={walk} />
   </Place>
@@ -33,7 +33,7 @@ const Abdi = ({ x, y = 296, s = 0.4, mood = "happy" as "happy" | "joy" | "wow" |
     <Camel who="abdi" mood={mood} />
   </Place>
 );
-const Hooyo = ({ x, y = 294, s = 0.5, mood = "happy" as "happy" | "joy" | "wow", flip = false }) => (
+const Hooyo = ({ x = 200, y = 294, s = 0.5, mood = "happy" as "happy" | "joy" | "wow", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.mama}>
     <Camel who="hooyo" mood={mood} />
   </Place>

@@ -22,7 +22,7 @@ import { Thing } from "./things";
 const RED = "#E8413B";
 
 type M = "happy" | "joy" | "wow" | "worried";
-const Ayan = ({ x, y = 294, s = 0.44, mood = "happy" as M, flip = false }) => (
+const Ayan = ({ x = 200, y = 294, s = 0.44, mood = "happy" as M, flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.ayan}>
     <Camel who="ayan" mood={mood} />
   </Place>
@@ -32,7 +32,7 @@ const Abdi = ({ x, y = 296, s = 0.38, mood = "happy" as M, flip = false, item }:
     <Camel who="abdi" mood={mood} item={item} />
   </Place>
 );
-const Aabo = ({ x, y = 292, s = 0.48, mood = "happy" as "happy" | "joy", flip = false }) => (
+const Aabo = ({ x = 200, y = 292, s = 0.48, mood = "happy" as "happy" | "joy", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.papa}>
     <Camel who="aabo" mood={mood} />
   </Place>

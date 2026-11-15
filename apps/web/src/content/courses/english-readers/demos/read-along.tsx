@@ -59,26 +59,21 @@ const BEAT = 520;
 export default function ReadAlong({ lang, onDone }: DemoProps) {
   const [i, setI] = useState(0);
   const [lit, setLit] = useState(-1);
-  const [read, setRead] = useState(false);
   const [hit, setHit] = useState(false);
   const [wrong, setWrong] = useState<number | null>(null);
   const done = i >= PAGES.length;
   const p = PAGES[Math.min(i, PAGES.length - 1)];
   const words = p.text.split(" ");
+  const read = lit >= words.length;
 
   const readPage = useCallback(() => {
     say(p.text, 0.8);
-    setRead(false);
     setLit(0);
   }, [p.text]);
 
   // light the words one by one
   useEffect(() => {
-    if (lit < 0) return;
-    if (lit >= words.length) {
-      setRead(true);
-      return;
-    }
+    if (lit < 0 || lit >= words.length) return;
     const id = setTimeout(() => setLit((n) => n + 1), BEAT);
     return () => clearTimeout(id);
   }, [lit, words.length]);
@@ -99,7 +94,6 @@ export default function ReadAlong({ lang, onDone }: DemoProps) {
       setWrong(null);
       setTimeout(() => {
         setHit(false);
-        setRead(false);
         setLit(-1);
         setI((n) => n + 1);
       }, 1600);
@@ -122,7 +116,6 @@ export default function ReadAlong({ lang, onDone }: DemoProps) {
       onAgain={() => {
         setI(0);
         setLit(-1);
-        setRead(false);
       }}
       ending={
         <div className="text-left text-lg font-bold leading-relaxed" style={ANDIKA} lang="en">

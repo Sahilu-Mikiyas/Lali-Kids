@@ -23,17 +23,17 @@ import { Thing } from "./things";
 const OA = "#2F6FD0";
 type M = "happy" | "joy" | "wow" | "worried" | "sad";
 
-const TsehayAt = ({ x, y = 294, s = 0.42, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
+const TsehayAt = ({ x = 200, y = 294, s = 0.42, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.tsehay}>
     <Tsehay mood={mood} pose={pose} />
   </Place>
 );
-const GuguAt = ({ x, y = 294, s = 0.42, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
+const GuguAt = ({ x = 200, y = 294, s = 0.42, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.gugu}>
     <Gugu mood={mood} pose={pose} />
   </Place>
 );
-const Anbessa = ({ x, y = 296, s = 0.4, mood = "happy" as M, flip = false }) => (
+const Anbessa = ({ x = 200, y = 296, s = 0.4, mood = "happy" as M, flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.cub}>
     <Cub mood={mood} />
   </Place>

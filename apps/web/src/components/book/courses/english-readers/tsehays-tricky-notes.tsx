@@ -8,7 +8,7 @@ import { Air, Place, Tukul, vars } from "../../scenery";
 import { Tappable } from "../../tappable";
 import { Cub, FONT, Grandma, Gugu, Mama, Papa, TAP, Teacher, Tsehay } from "./cast";
 import { Paper } from "./more";
-import { Fence, FigTree, Yard } from "./places";
+import { Fence, Yard } from "./places";
 import { Hearts, SayBubble, Sign, Sparkles, Speech, Tick } from "./props";
 
 /*
@@ -23,7 +23,7 @@ const PURPLE = "#8E5BE0";
 const DUST = "#8A5A2E";
 
 type M = "happy" | "joy" | "wow" | "worried" | "sad";
-const TsehayAt = ({ x, y = 294, s = 0.44, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
+const TsehayAt = ({ x = 200, y = 294, s = 0.44, mood = "happy" as M, pose = "sit" as "sit" | "wave" | "point" | "hop" | "no", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.tsehay}>
     <Tsehay mood={mood} pose={pose} />
   </Place>

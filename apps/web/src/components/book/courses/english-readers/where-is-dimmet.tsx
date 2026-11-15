@@ -27,7 +27,7 @@ const Anbessa = ({ x, y = 294, s = 0.44, mood = "happy" as M, flip = false, clas
 );
 
 /** Dimmet, the gray cat, at (x, y) (her feet), scaled. */
-const Dimmet = ({ x, y, s = 1, sleep = false, mood = "happy" as "happy" | "wow" | "hunt" }) => (
+const Dimmet = ({ x = 0, y = 0, s = 1, sleep = false, mood = "happy" as "happy" | "wow" | "hunt" }) => (
   <g transform={`translate(${x} ${y}) scale(${s})`}>
     <Tappable reaction="spin" sound="pop">
       <Cat mood={mood} sleep={sleep} />

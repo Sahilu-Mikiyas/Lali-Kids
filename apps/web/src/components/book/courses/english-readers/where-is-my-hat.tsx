@@ -59,7 +59,7 @@ function Haben({ x, y = 294, s = 0.44, mood = "happy" as "happy" | "joy" | "wow"
 }
 
 /** Haben's mom: a grown walia ibex in a white shawl. */
-const Mom = ({ x, y = 292, s = 0.5, mood = "happy" as "happy" | "joy" | "wow", flip = false }) => (
+const Mom = ({ x = 200, y = 292, s = 0.5, mood = "happy" as "happy" | "joy" | "wow", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.mama}>
     <Ibex grown mood={mood} />
   </Place>

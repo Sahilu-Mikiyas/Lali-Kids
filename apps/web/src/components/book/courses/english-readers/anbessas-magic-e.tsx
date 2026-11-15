@@ -5,7 +5,6 @@ import "./anbessas-magic-e.css";
 import { useId, type ReactNode } from "react";
 
 import { Air, BeeHover, Place, vars } from "../../scenery";
-import { Tappable } from "../../tappable";
 import { Cub, FONT, Grandma, Gugu, Ibex, TAP, Teacher, Wolf } from "./cast";
 import { HiWord, Kite, MagicE, Paper, Stage } from "./more";
 import { Board, Club, Home } from "./places";

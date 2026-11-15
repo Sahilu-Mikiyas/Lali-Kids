@@ -22,7 +22,7 @@ import { Thing } from "./things";
 
 const BLUE = "#2F6FD0";
 
-const Haben = ({ x, y = 294, s = 0.44, mood = "happy" as "happy" | "joy" | "wow" | "worried", pose = "sit" as "sit" | "wave" | "point", flip = false }) => (
+const Haben = ({ x = 200, y = 294, s = 0.44, mood = "happy" as "happy" | "joy" | "wow" | "worried", pose = "sit" as "sit" | "wave" | "point", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.haben}>
     <Ibex mood={mood} pose={pose} />
   </Place>
@@ -34,7 +34,7 @@ const GuguAt = ({ x, y = 294, s = 0.46, mood = "happy" as "happy" | "joy" | "wow
 );
 
 /** A big close-up of a mouth saying th: the tongue tip peeking out between the teeth. */
-function Mouth({ x, y, s = 1, fur = "#9C7552", air = "windy" as "windy" | "buzzy" | "none" }) {
+function Mouth({ x = 0, y = 0, s = 1, fur = "#9C7552", air = "windy" as "windy" | "buzzy" | "none" }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="grow" sound="chime">

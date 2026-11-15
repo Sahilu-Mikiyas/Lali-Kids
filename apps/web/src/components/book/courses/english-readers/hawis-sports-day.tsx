@@ -29,7 +29,7 @@ const Hawi = ({ x, y = 294, s = 0.42, mood = "happy" as M, arm, flip = false, cl
     <Wolf mood={mood} arm={arm} wag={mood === "joy"} />
   </Place>
 );
-const Grandpa = ({ x, y = 292, s = 0.48, mood = "happy" as "happy" | "joy", flip = false }) => (
+const Grandpa = ({ x = 200, y = 292, s = 0.48, mood = "happy" as "happy" | "joy", flip = false }) => (
   <Place x={x} y={y} s={s} flip={flip} tap={TAP.elder}>
     <Wolf elder mood={mood} />
   </Place>

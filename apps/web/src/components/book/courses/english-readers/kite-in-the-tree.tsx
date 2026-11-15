@@ -8,7 +8,7 @@ import { Air, Place, Rock, vars } from "../../scenery";
 import { Camel, Cub, FONT, Gugu, Ibex, TAP, Tsehay, Wolf } from "./cast";
 import { Kite, Label } from "./more";
 import { FigTree, Yard } from "./places";
-import { Hearts, SayBubble, Sign, Sparkles, Speech } from "./props";
+import { Hearts, SayBubble, Sparkles, Speech } from "./props";
 
 /*
   "The Kite in the Tree": one living picture per page (12 pages). Gugu's red and yellow kite with

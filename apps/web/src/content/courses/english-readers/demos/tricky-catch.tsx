@@ -32,7 +32,6 @@ export default function TrickyCatch({ lang, onDone }: DemoProps) {
   // Look and say, then cover, then check.
   useEffect(() => {
     if (done) return;
-    setStep("look");
     const a = setTimeout(() => say(word, 0.75), 400);
     const b = setTimeout(() => setStep("cover"), 2200);
     const c = setTimeout(() => setStep("check"), 3200);
@@ -48,6 +47,7 @@ export default function TrickyCatch({ lang, onDone }: DemoProps) {
       setWrong(null);
       setTimeout(() => {
         setHit(false);
+        setStep("look");
         setI((n) => n + 1);
       }, 1500);
     } else {
@@ -76,6 +76,7 @@ export default function TrickyCatch({ lang, onDone }: DemoProps) {
       color={PURPLE}
       onAgain={() => {
         setI(0);
+        setStep("look");
         setWrong(null);
       }}
       ending={
