@@ -1069,7 +1069,7 @@ const course: Course = {
   ages: ["6-7", "8-9"],
   color: "#C2410C",
   priceEtb: 1500,
-  status: "soon",
+  status: "live",
   tasterStoryId: "anbessas-longest-word",
   levels: [
     {
