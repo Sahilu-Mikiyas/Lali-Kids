@@ -42,8 +42,8 @@ const story: Story = {
       am: "«ቆይ» አሉ አባ ቶሎሳ፤ ወደ ጅረቱ ላይኛው ክፍል አመለከቱ። ላሞች እየጠጡና እየተራጩ ነበር። «ውሃ ንጹሕ መስሎ ጥቃቅን ጀርሞችን ሊይዝ ይችላል። የቤታችንን እንጠጣ።»",
     },
     {
-      en: "Mama had boiled that water, let it cool, and kept it in a covered pot. Hawi drank and drank. Then she spread out the bread. Bzzzz! A fly landed on it. \"Shoo, fly, shoo! This food's not for you!\"",
-      am: "እማማ ያንን ውሃ አፍልታ፣ አቀዝቅዛ፣ በተከደነ እንስራ አስቀምጣው ነበር። ሀዊ ጠጣች፣ ጠጣች። ከዚያ ዳቦውን ዘረጋች። ዝዝዝ! ዝንብ አረፈበት። «ሂድ ዝንብ ሂድ! ይህ ምግብ ያንተ አይደለም!»",
+      en: "Mama had boiled that water and kept it covered. Hawi drank and drank. Then she spread out the bread. Bzzzz! A fly landed on it. \"Shoo, fly, shoo! This food's not for you!\"",
+      am: "እማማ ያንን ውሃ አፍልታ ከድናው ነበር። ሀዊ ጠጣች፣ ጠጣች። ከዚያ ዳቦውን ዘረጋች። ዝዝዝ! ዝንብ አረፈበት። «ሂድ ዝንብ ሂድ! ይህ ምግብ ያንተ አይደለም!»",
     },
     {
       en: "The fly came back. And it brought its friends. Bzzz, bzzz, bzzz! \"Shoo, fly, shoo! This food's not for you!\"",

@@ -41,8 +41,8 @@ const story: Story = {
       am: "አያቴ እጆቹን አንሥታ አየች። በጣቶቹ መካከል፣ በአውራ ጣቶቹ ዙሪያና በእያንዳንዱ ጥፍሩ ሥር ቀይ ጭቃ ነበር። «ኧረ!» አለ ጉጉ።",
     },
     {
-      en: '"Germs are like that clay," said Grandma, "only too tiny to see. They hide in the very same places. Water alone can\'t chase them out." Gugu thought hard. "Then I need soap. And every hiding place!"',
-      am: "«ጀርሞች እንደዚህ ጭቃ ናቸው» አለች አያቴ፣ «ግን ለዓይን አይታዩም። የሚደበቁትም እዚያው ቦታ ነው። ውሃ ብቻውን አያስወጣቸውም።» ጉጉ አሰበ። «እንግዲያው ሳሙና ያስፈልገኛል። ሁሉንም መደበቂያ ቦታ ደግሞ!»",
+      en: "\"Germs hide just like that clay,\" said Grandma, \"but they're too tiny to see. Water alone can't chase them out.\" \"Then I need soap,\" said Gugu, \"and every hiding place!\"",
+      am: "«ጀርሞችም እንደዚህ ጭቃ ይደበቃሉ» አለች አያቴ፣ «ግን ለዓይን አይታዩም። ውሃ ብቻውን አያስወጣቸውም።» «እንግዲያው ሳሙና ያስፈልገኛል» አለ ጉጉ፣ «ሁሉንም መደበቂያ ደግሞ!»",
     },
     {
       en: "Wet hands, then soap. Palm to palm, round and round. Then the backs of the hands. Scrub, scrub, bubbles up!",

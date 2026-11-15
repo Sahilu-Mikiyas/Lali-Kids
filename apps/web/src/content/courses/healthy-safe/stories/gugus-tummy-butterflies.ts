@@ -49,8 +49,8 @@ const story: Story = {
       am: "«ስንደሰት ቀለል ይለናል፤ መዝለል ያምረናል። ስንጨነቅ ደግሞ ሆዳችን እንደ ቢራቢሮ ሊርገበገብ ይችላል።» የጉጉ ዓይኖች ፈጠጡ። «ስለ ዝግጅቱ እያሰብክ ነው?» ብላ ጠየቀች አያቴ።",
     },
     {
-      en: 'Gugu nodded. "What if I forget the words?" "That feeling is called worried," said Grandma. "Every feeling is allowed. Can you say its name?" "I\'m… worried," said Gugu. The butterflies got a tiny bit smaller.',
-      am: "ጉጉ ራሱን ነቀነቀ። «ቃላቱን ብረሳስ?» «ያ ስሜት ጭንቀት ይባላል» አለች አያቴ። «ሁሉም ስሜት ይፈቀዳል። ስሙን መጥራት ትችላለህ?» «ተጨንቄያለሁ…» አለ ጉጉ። ቢራቢሮዎቹ ትንሽ አነሱ።",
+      en: "Gugu nodded. \"What if I forget the words?\" \"That feeling is called worried,\" said Grandma. \"Every feeling is allowed.\" \"I'm… worried,\" said Gugu. The butterflies got a little smaller.",
+      am: "ጉጉ ራሱን ነቀነቀ። «ቃላቱን ብረሳስ?» «ያ ስሜት ጭንቀት ይባላል» አለች አያቴ። «ሁሉም ስሜት ይፈቀዳል።» «ተጨንቄያለሁ…» አለ ጉጉ። ቢራቢሮዎቹ ትንሽ አነሱ።",
     },
     {
       en: '"Now let\'s calm them down," said Grandma. "Breathe in slowly through your nose, all the way to your tummy: smell the flower… Now breathe out slowly: blow out the candle."',

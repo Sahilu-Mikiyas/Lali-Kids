@@ -55,11 +55,16 @@ export default function HandwashSteps({ lang, onDone }: DemoProps) {
     setI((n) => n + 1);
     setRub(0);
   };
-  const addRub = (n: number) => {
-    if (s.kind !== "scrub" || done || rubRef.current >= NEED) return;
+  // After a step is scrubbed clean, rubbing waits for a new touch, so each step is seen.
+  const lock = useRef(false);
+  const addRub = (n: number, fromRub = false) => {
+    if (s.kind !== "scrub" || done || rubRef.current >= NEED || (fromRub && lock.current)) return;
     rubRef.current = Math.min(NEED, rubRef.current + n);
     setRub(rubRef.current);
-    if (rubRef.current >= NEED) window.setTimeout(advance, 450);
+    if (rubRef.current >= NEED) {
+      lock.current = true;
+      window.setTimeout(advance, 450);
+    }
   };
   const press = () => {
     if (s.kind === "scrub") {
@@ -73,13 +78,14 @@ export default function HandwashSteps({ lang, onDone }: DemoProps) {
       <div
         onPointerDown={(e) => {
           last.current = { x: e.clientX, y: e.clientY };
+          lock.current = false;
         }}
         onPointerMove={(e) => {
           if (!last.current || s.kind !== "scrub") return;
           const d = Math.hypot(e.clientX - last.current.x, e.clientY - last.current.y);
           if (d > 12) {
             last.current = { x: e.clientX, y: e.clientY };
-            addRub(4);
+            addRub(4, true);
           }
         }}
         onPointerUp={() => {

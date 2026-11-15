@@ -54,8 +54,8 @@ const story: Story = {
       am: "«ሌሊቱን ሙሉ ጥርስ ላይ የሚቀር ምግብ ለጥርስ ጥሩ አይደለም» ትላለች አያቴ። «ቀስ በቀስ የሚያምም ትንሽ ቀዳዳ ሊያወጣ ይችላል።» አንበሳ ተነፈሰ። «ግን ማታ ሁልጊዜ እንቅልፍ ያሸንፈኛል!»",
     },
     {
-      en: "Anbessa thinks and thinks. Then his ears pop up. \"I'll brush BEFORE I get sleepy! Right after dinner, before the story.\" He puts his toothbrush on Grandma's story stool, so he can't forget.",
-      am: "አንበሳ አሰበ፣ አሰበ። ከዚያ ጆሮዎቹ ቀጥ አሉ። «እንቅልፍ ሳይወስደኝ እቦርሻለሁ! ልክ ከእራት በኋላ፣ ከተረቱ በፊት።» እንዳይረሳ የጥርስ ብሩሹን በአያቴ የተረት በርጩማ ላይ አስቀመጠው።",
+      en: "Anbessa thinks hard. Then his ears pop up. \"I'll brush BEFORE I get sleepy, right after dinner!\" He puts his toothbrush on Grandma's story stool, so he can't forget.",
+      am: "አንበሳ አሰበ፣ አሰበ። ከዚያ ጆሮዎቹ ቀጥ አሉ። «እንቅልፍ ሳይመጣ፣ ልክ ከእራት በኋላ እቦርሻለሁ!» እንዳይረሳ ብሩሹን በአያቴ የተረት በርጩማ ላይ አስቀመጠው።",
     },
     {
       en: "That night, after dinner, there it is! A pea of toothpaste, small circles. Top teeth, bottom teeth, front and back, round and round!",

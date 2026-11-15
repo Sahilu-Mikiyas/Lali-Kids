@@ -46,12 +46,12 @@ const story: Story = {
       am: "በዚያ ምሽት ሐበን እራት ላይ፣ ልክ በምስር ሳሕኗ ላይ እንቅልፍ ወሰዳት። እናቷ በቀስታ አነሣቻት። «ወይ እንቅልፋሟ ልጄ።»",
     },
     {
-      en: '"Sleep is when your body rests and grows," said her mother, "and your mind tidies up the day. Growing children need lots of it, much more than grown-ups." "But I don\'t want to miss the moon!" said Haben.',
-      am: "«ሰውነትሽ የሚያርፈውና የሚያድገው በእንቅልፍ ነው» አለች እናቷ፣ «አእምሮሽም የቀኑን ነገር የሚያስተካክለው። የሚያድጉ ልጆች ብዙ እንቅልፍ ያስፈልጋቸዋል፤ ከትልልቆች በጣም የበለጠ።» «ግን ጨረቃዋ እንዲያመልጠኝ አልፈልግም!» አለች ሐበን።",
+      en: "\"Sleep is when your body rests and grows,\" said her mother. \"Growing children need lots of it.\" \"But I don't want to miss the moon!\" said Haben.",
+      am: "«ሰውነትሽ የሚያርፈውና የሚያድገው በእንቅልፍ ነው» አለች እናቷ። «የሚያድጉ ልጆች ብዙ እንቅልፍ ያስፈልጋቸዋል።» «ግን ጨረቃዋ እንዲያመልጠኝ አልፈልግም!» አለች ሐበን።",
     },
     {
-      en: "Next evening, Haben watched the hens. When the sun went down, they climbed onto their perch, all at the same time, and tucked in their heads. \"They go to bed at the same time every night,\" Haben said. \"Maybe I can too!\"",
-      am: "በሚቀጥለው ምሽት ሐበን ዶሮዎቹን ተመለከተች። ፀሐይ ስትጠልቅ ሁሉም በአንድ ጊዜ ማደሪያቸው ላይ ወጡ፤ ራሳቸውንም ደበቁ። «በየሌሊቱ በአንድ ሰዓት ይተኛሉ» አለች ሐበን። «እኔም እችል ይሆናል!»",
+      en: "Next evening, Haben watched the hens. At sunset they all climbed onto their perch at the same time. \"Same time every night,\" said Haben. \"Maybe I can too!\"",
+      am: "በሚቀጥለው ምሽት ሐበን ዶሮዎቹን ተመለከተች። ፀሐይ ስትጠልቅ ሁሉም በአንድ ጊዜ ማደሪያቸው ላይ ወጡ። «በየሌሊቱ በአንድ ሰዓት» አለች ሐበን። «እኔም እችል ይሆናል!»",
     },
     {
       en: "So Haben made a plan. After dinner: wash face and feet. Brush teeth. A trip to the toilet. Wash, brush, story, hush.",

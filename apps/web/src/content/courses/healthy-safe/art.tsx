@@ -113,7 +113,7 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   ),
   "hands-wet": thing(
     <g>
-      <WashSet x={74} y={40} s={0.9} pour />
+      <WashSet x={72} y={64} s={0.75} pour />
       <BigHand x={40} y={98} s={0.55} view="back" />
     </g>,
     "#E4F6FF",
@@ -143,8 +143,8 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   "elbow-sneeze": who(
     <g>
       <Ibex mood="wow" />
-      <path d="M138 168 Q138 132 116 124 Q96 118 72 122" stroke="#9C7552" strokeWidth={16} fill="none" strokeLinecap="round" />
-      <path d="M136 150 Q132 130 116 126" stroke="#FFFDF4" strokeWidth={6} fill="none" strokeLinecap="round" />
+      <path d="M150 180 Q146 132 118 124 Q96 118 66 120" stroke="#7E5A3C" strokeWidth={22} fill="none" strokeLinecap="round" />
+      <path d="M146 160 Q140 132 118 126" stroke="#FFFDF4" strokeWidth={9} fill="none" strokeLinecap="round" />
       <SneezeSpray x={86} y={120} s={1.6} caught />
     </g>,
   ),
@@ -160,8 +160,7 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   "sun-only": thing(<Sun x={50} y={50} r={22} />, "#E4F6FF"),
   "sun-moon": thing(
     <g>
-      <rect x={50} y={0} width={50} height={100} rx={0} fill="#26307A" />
-      <rect width={100} height={100} rx={22} fill="none" />
+      <path d="M50 0 H78 Q100 0 100 22 V78 Q100 100 78 100 H50Z" fill="#26307A" />
       <Sun x={27} y={50} r={15} face={false} />
       <Moon x={74} y={50} r={14} glow={false} />
     </g>,

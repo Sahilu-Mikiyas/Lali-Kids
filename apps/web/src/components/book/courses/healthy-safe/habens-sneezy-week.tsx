@@ -18,14 +18,12 @@ import { Cup, Hearts, Sign, Sparkles, Speech, Steam } from "./kit-props";
   ./habens-sneezy-week.css.
 */
 
-const IBEX = "#9C7552";
-
 /** Haben's arm crossing her face: a sneeze into the elbow (in her 200 x 240 box). */
 function ElbowArm() {
   return (
     <g>
-      <path d="M138 168 Q138 132 116 124 Q96 118 72 122" stroke={IBEX} strokeWidth={16} fill="none" strokeLinecap="round" />
-      <path d="M136 150 Q132 130 116 126" stroke="#FFFDF4" strokeWidth={6} fill="none" strokeLinecap="round" opacity={0.85} />
+      <path d="M150 180 Q146 132 118 124 Q96 118 66 120" stroke="#7E5A3C" strokeWidth={22} fill="none" strokeLinecap="round" />
+      <path d="M146 160 Q140 132 118 126" stroke="#FFFDF4" strokeWidth={9} fill="none" strokeLinecap="round" />
     </g>
   );
 }

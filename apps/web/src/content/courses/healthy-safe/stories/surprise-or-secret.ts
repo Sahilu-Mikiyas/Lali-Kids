@@ -51,8 +51,8 @@ const story: Story = {
       am: "«ድንገቴ ነው ወይስ ሚስጥር?» ብሎ ጠየቀ አንበሳ። ጠንክረው አሰቡ። ድንገቴ ደስ ያሰኛል፤ ሁሉም ቶሎ ያውቀዋል። «ይሄኛው ይከብዳል» አለ ጉጉ። «ዮናስ ደግሞ ሊጎዳ ይችላል።»",
     },
     {
-      en: '"But I promised," said Gugu. Anbessa remembered what Grandma always said. "A secret that makes you feel bad is a secret to tell, even if you promised." Surprises make us smile. Bad secrets, we tell!',
-      am: "«ግን ቃል ገብቻለሁ» አለ ጉጉ። አንበሳ አያቴ ሁልጊዜ የምትለውን አስታወሰ። «መጥፎ ስሜት የሚሰጥ ሚስጥር ቃል ብትገባም ይነገራል።» ድንገቴ ያስፈግጋል፤ መጥፎ ሚስጥር ይነገራል!",
+      en: "\"But I promised,\" said Gugu. Anbessa remembered Grandma's words: \"A secret that feels bad is a secret to tell.\" Surprises make us smile. Bad secrets, we tell!",
+      am: "«ግን ቃል ገብቻለሁ» አለ ጉጉ። አንበሳ የአያቴን ቃል አስታወሰ፦ «መጥፎ ስሜት የሚሰጥ ሚስጥር ይነገራል።» ድንገቴ ያስፈግጋል፤ መጥፎ ሚስጥር ይነገራል!",
     },
     {
       en: 'Just then, Grandma came home with her basket. Gugu ran to her. "Grandma, Yonas went to swim in the river on his own. He said it was a secret."',
