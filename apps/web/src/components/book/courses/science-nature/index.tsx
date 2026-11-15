@@ -28,6 +28,23 @@ const TheLeakyBasket = dynamic(() => import("./the-leaky-basket"), { ssr: false 
 const WillItFloat = dynamic(() => import("./will-it-float"), { ssr: false });
 const IceFromTheSky = dynamic(() => import("./ice-from-the-sky"), { ssr: false });
 const CanItChangeBack = dynamic(() => import("./can-it-change-back"), { ssr: false });
+// Level 4: weather, water and seasons
+const WhereDidThePuddleGo = dynamic(() => import("./where-did-the-puddle-go"), { ssr: false });
+const HawisRainbow = dynamic(() => import("./hawis-rainbow"), { ssr: false });
+const KitesAndClouds = dynamic(() => import("./kites-and-clouds"), { ssr: false });
+const EveryDropCounts = dynamic(() => import("./every-drop-counts"), { ssr: false });
+// Level 5: Earth and sky
+const WhereDoesTheSunGo = dynamic(() => import("./where-does-the-sun-go"), { ssr: false });
+const OurStarTheSun = dynamic(() => import("./our-star-the-sun"), { ssr: false });
+const AyansMoonDiary = dynamic(() => import("./ayans-moon-diary"), { ssr: false });
+const FireMountain = dynamic(() => import("./fire-mountain"), { ssr: false });
+// Level 6: forces, light, sound and our planet
+const TheGoCart = dynamic(() => import("./the-go-cart"), { ssr: false });
+const GrandmasLostNeedle = dynamic(() => import("./grandmas-lost-needle"), { ssr: false });
+const TheVillageWell = dynamic(() => import("./the-village-well"), { ssr: false });
+const TsehaysShadow = dynamic(() => import("./tsehays-shadow"), { ssr: false });
+const TheKrarSings = dynamic(() => import("./the-krar-sings"), { ssr: false });
+const TheBagInTheTree = dynamic(() => import("./the-bag-in-the-tree"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -44,4 +61,18 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "will-it-float": WillItFloat,
   "ice-from-the-sky": IceFromTheSky,
   "can-it-change-back": CanItChangeBack,
+  "where-did-the-puddle-go": WhereDidThePuddleGo,
+  "hawis-rainbow": HawisRainbow,
+  "kites-and-clouds": KitesAndClouds,
+  "every-drop-counts": EveryDropCounts,
+  "where-does-the-sun-go": WhereDoesTheSunGo,
+  "our-star-the-sun": OurStarTheSun,
+  "ayans-moon-diary": AyansMoonDiary,
+  "fire-mountain": FireMountain,
+  "the-go-cart": TheGoCart,
+  "grandmas-lost-needle": GrandmasLostNeedle,
+  "the-village-well": TheVillageWell,
+  "tsehays-shadow": TsehaysShadow,
+  "the-krar-sings": TheKrarSings,
+  "the-bag-in-the-tree": TheBagInTheTree,
 };

@@ -280,6 +280,46 @@
   animation: snk-peek var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
 }
 
+/* The Earth's land sliding round as the ball turns (seen from the side). */
+@keyframes snk-earthspin {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(60px); }
+}
+.snk-earthspin { animation: snk-earthspin var(--dur, 6s) linear var(--delay, 0s) infinite; }
+
+/* A teff grain jumping on a drum skin. */
+@keyframes snk-jump {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(var(--jy, -14px)); }
+  60% { transform: translateY(0); }
+}
+.snk-jump { animation: snk-jump var(--dur, 0.5s) ease-out var(--delay, 0s) infinite; }
+
+/* A string blurring as it vibrates. */
+@keyframes snk-buzz {
+  0%, 100% { transform: translateX(-1.5px); }
+  50% { transform: translateX(1.5px); }
+}
+.snk-buzz { animation: snk-buzz 0.08s linear infinite; }
+
+/* Rolling along: a wheel spinning. */
+@keyframes snk-roll {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.snk-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-roll var(--dur, 1s) linear infinite;
+}
+
+/* Something sliding in from the side and stopping (once). */
+@keyframes snk-slide {
+  from { transform: translateX(var(--from, -120px)); }
+  to { transform: translateX(0); }
+}
+.snk-slide { animation: snk-slide var(--dur, 2s) cubic-bezier(0.2, 0.8, 0.4, 1) var(--delay, 0.4s) both; }
+
 /* A plant leaning toward the light (once). */
 @keyframes snk-lean {
   from { transform: rotate(0deg); }

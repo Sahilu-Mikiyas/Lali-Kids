@@ -1,0 +1,23 @@
+/* Every Drop Counts (every-drop-counts.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Water running from a tap or a bowl. */
+@keyframes sed-stream {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -20; }
+}
+.sed-stream { animation: sed-stream 0.4s linear infinite; }
+
+/* Water rising up the pipe from deep underground. */
+@keyframes sed-up {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 24; }
+}
+.sed-up { animation: sed-up 0.8s linear infinite; }
+
+/* Dancing in the rain. */
+@keyframes sed-dance {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(8px, -8px); }
+  75% { transform: translate(-8px, -8px); }
+}
+.sed-dance { animation: sed-dance 1.4s ease-in-out infinite; }
