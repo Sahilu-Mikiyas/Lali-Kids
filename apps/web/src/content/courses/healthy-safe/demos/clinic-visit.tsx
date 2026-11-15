@@ -42,11 +42,13 @@ export default function ClinicVisit({ lang, onDone }: DemoProps) {
       finale={{ en: "Brave and well looked after!", am: "ጎበዝና በደንብ የተንከባከቡት!" }}
       color={COLOR}
       onDone={onDone}
-      stage={(placed) =>
-        placed >= 7 ? (
+      stage={(placed) => {
+        /* the step just done: -1 before any (waiting on the bench), 6 = home again */
+        const last = placed - 1;
+        return placed >= 7 ? (
           <Home id="cv" time="day">
             <Bed x={170} y={286} s={1.3} color="#2E8A5A">
-              <Place x={-30} y={-6} s={0.3} tap={TAP.abdi}>
+              <Place x={-30} y={-6} s={0.42} tap={TAP.abdi}>
                 <Camel who="abdi" mood="joy" kneel />
               </Place>
             </Bed>
@@ -55,24 +57,28 @@ export default function ClinicVisit({ lang, onDone }: DemoProps) {
           </Home>
         ) : (
           <HealthPost id="cv">
-            {placed === 0 && (
+            {last <= 0 && (
               <g transform="translate(160 262)">
                 <rect x={-70} y={0} width={140} height={8} rx={2} fill="#9A6A3E" />
                 <path d="M-60 8 V30 M60 8 V30" stroke="#7A4A2E" strokeWidth={5} />
               </g>
             )}
-            {placed === 1 && <Scale x={150} y={296} s={1.2} />}
-            <Place x={150} y={placed === 1 ? 286 : 294} s={0.44} tap={TAP.abdi}>
-              <Camel who="abdi" mood={placed >= 4 ? "joy" : placed === 3 ? "wow" : "happy"} kneel={placed === 0} />
-              {placed === 2 && <Thermometer x={110} y={150} s={1.4} rot={40} />}
-              {placed >= 6 && <Sticker x={164} y={58} s={1.6} />}
+            {last === 1 && <Scale x={150} y={296} s={1.2} />}
+            <Place x={150} y={last === 1 ? 286 : 294} s={0.44} tap={TAP.abdi}>
+              <Camel who="abdi" mood={last === 4 ? "wow" : last >= 5 ? "joy" : "happy"} kneel={last <= 0} />
+              {last === 2 && <Thermometer x={120} y={150} s={2.4} rot={40} />}
+              {last >= 5 && <Sticker x={164} y={58} s={1.6} />}
             </Place>
             <Place x={300} y={292} s={0.52} flip tap={TAP.teacher}>
-              <HealthWorker mood="joy" pose={placed === 3 ? "point" : placed === 5 ? "wave" : "sit"} item={placed === 3 ? <Stethoscope x={0} y={0} s={1.2} /> : placed === 5 ? <MedicineBottle x={0} y={10} s={1} spoon={false} /> : undefined} />
+              <HealthWorker
+                mood="joy"
+                pose={last === 3 ? "point" : last === 5 ? "wave" : "sit"}
+                item={last === 3 ? <Stethoscope x={0} y={0} s={1.2} /> : last === 5 ? <MedicineBottle x={0} y={10} s={1} spoon={false} /> : undefined}
+              />
             </Place>
           </HealthPost>
-        )
-      }
+        );
+      }}
     />
   );
 }

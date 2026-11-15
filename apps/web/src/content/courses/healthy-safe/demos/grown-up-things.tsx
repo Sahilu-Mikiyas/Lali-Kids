@@ -1,6 +1,6 @@
 "use client";
 
-import { Camel, Cub, Gugu, Ibex, TAP, Tsehay, Wolf } from "@/components/book/courses/healthy-safe/kit-cast";
+import { Baby, Camel, Cub, Gugu, Ibex, TAP, Tsehay, Wolf } from "@/components/book/courses/healthy-safe/kit-cast";
 import { Home, Yard } from "@/components/book/courses/healthy-safe/kit-places";
 import { Cup, Hearts, Sparkles, Steam } from "@/components/book/courses/healthy-safe/kit-props";
 import { CleaningBottle, Knife, MedicineBottle, PowerPole, Socket, Wire } from "@/components/book/courses/healthy-safe/kit-safety";
@@ -37,6 +37,9 @@ const ROUNDS: Round[] = [
         <Place x={100} y={294} s={0.44} tap={TAP.tsehay}>
           <Tsehay mood={s === "good" ? "joy" : "worried"} />
         </Place>
+        <g transform={s === "good" ? "translate(150 284)" : "translate(300 284)"}>
+          <Baby face="awake" s={1.1} />
+        </g>
       </Home>
     ),
   },
