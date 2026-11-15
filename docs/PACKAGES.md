@@ -28,7 +28,7 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 | 1 | Fidel Foundations (`fidel-foundations`) | 3–6 | **Live** (6 levels) |
 | 2 | Amharic Readers (`amharic-readers`) | 6–9 | Being written |
 | 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Live** (6 levels) |
-| 4 | Maths Explorers (`maths-explorers`) | 6–9 | Being written |
+| 4 | Maths Explorers (`maths-explorers`) | 6–9 | **Live** (6 levels) |
 | 5 | English First Words (`english-first-words`) | 3–6 | **Live** (6 levels) |
 | 6 | English Readers (`english-readers`) | 6–9 | Being written |
 | 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
