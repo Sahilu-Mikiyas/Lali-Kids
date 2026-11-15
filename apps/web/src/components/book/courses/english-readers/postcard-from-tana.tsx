@@ -20,7 +20,6 @@ import { Thing } from "./things";
   Keyframes: ./kit.css, ./more.css and ./postcard-from-tana.css (pft-*).
 */
 
-const BLUE = "#2F6FD0";
 const ANDIKA = "var(--font-andika), sans-serif";
 type M = "happy" | "joy" | "wow" | "worried" | "sad";
 

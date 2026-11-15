@@ -10,7 +10,7 @@ import type { Course, Pic, Question, T } from "../types";
   the English sentences stay as they are, with a translation after them. In English mode
   everything is simple English. American spelling throughout (color, gray, practice).
 
-  Six levels; this round writes levels 1 to 3:
+  Six levels:
     1  Longer words and digraphs   sh, ch, th (both sounds), ck, ng; the blends tr, fr, gr, st, sp,
                                    bl; four- and five-letter words; the tricky words he, she, we,
                                    you, they, was, said, have, do, to, come, here
@@ -19,11 +19,18 @@ import type { Course, Pic, Question, T } from "../types";
     3  Reading little stories      short stories of 3 to 6 sentences a page read with help; who,
                                    what and where questions; describing words (big, little, tall,
                                    colors, happy, sad); action words with -ing and -ed
-  Still to write: 4 reading for meaning (sequencing, predicting, retelling), 5 talking and asking
-  (questions and everyday conversations; please, may I…), 6 writing simple sentences, a short
-  letter or diary, capital letters and full stops.
-  Each level has 4 or 5 new stories, 2 or 3 demos, a practice round of 6 or 7 questions and a
-  10-question quiz. The final test (12 questions for now, 4 from each level) grows with the levels.
+    4  Reading for meaning         sequencing (first, next, then, last), predicting from clues,
+                                   retelling on the Story Hand, the main idea and details, cause and
+                                   effect with because
+    5  Talking and asking          a new friend at school, the shop, the clinic, the bus; who, what,
+                                   where, when, why, how; please, may I, excuse me, sorry, thank you,
+                                   you're welcome; short dialogues to act out
+    6  Writing                     capital letters and full stops, joining with and / but, a
+                                   postcard, a diary entry, and a little story from a frame
+  Levels 1, 5 and 6 have 4 or 5 new stories, levels 2 to 4 have 4; every level has 2 or 3 demos,
+  a practice round of 6 or 7 questions and a 10-question quiz. The final test has 20 questions,
+  three or four from each level.
+  Pages are kept short enough to fit a phone without scrolling (checked in the reader at 390 x 844).
 
   Sounds are written plainly (sh, th, ee). Pictures for the questions are in ./art.tsx; stories in
   ./stories; demos in ./demos.
@@ -477,9 +484,426 @@ const l3Quiz: Question[] = [
   },
 ];
 
-/* ---------- final test (levels 1 to 3 so far) ---------- */
+/* ---------- level 4: reading for meaning ---------- */
+
+const l4Practice: Question[] = [
+  {
+    kind: "order",
+    prompt: { en: "Put Grandma's coffee steps in order.", am: "የአያቴን የቡና ደረጃዎች በቅደም ተከተል አስቀምጡ።" },
+    items: [
+      { label: { en: "Wash the beans.", am: "Wash the beans. (እጠቡ)" }, pic: pic("beans-green") },
+      { label: { en: "Roast the beans.", am: "Roast the beans. (ቁሉ)" }, pic: pic("pan") },
+      { label: { en: "Grind the beans.", am: "Grind the beans. (ውቀጡ)" }, pic: pic("mortar") },
+      { label: { en: "Boil the coffee.", am: "Boil the coffee. (አፍሉ)" }, pic: pic("jebena") },
+    ],
+    explain: { en: "First, wash. Next, roast. Then, grind. Last, boil. Wet green beans can't be ground!", am: "First፦ እጠቡ። Next፦ ቁሉ። Then፦ ውቀጡ። Last፦ አፍሉ። እርጥብ አረንጓዴ ፍሬ አይወቀጥም!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Ayan saw dark clouds and a strong wind. What will happen next?", am: "አያን ጥቁር ደመናና ኃይለኛ ነፋስ አየች። ቀጥሎ ምን ይሆናል?" },
+    pic: pic("rain"),
+    options: words("It will rain.", "It will be sunny all day.", "The moon will come out."),
+    answer: 0,
+    explain: { en: "The clues say rain! Dark clouds and a strong wind often come before rain.", am: "ፍንጮቹ ዝናብ ይላሉ! ጥቁር ደመናና ኃይለኛ ነፋስ ብዙ ጊዜ ከዝናብ በፊት ይመጣሉ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "On the Story Hand, what does the thumb stand for?", am: "በታሪክ እጅ ላይ አውራ ጣት የሚወክለው ምንን ነው?" },
+    options: words("who", "the end", "where"),
+    answer: 0,
+    explain: { en: "Thumb: who. Then where, the problem, what happened, and the little finger: the end.", am: "አውራ ጣት፦ who (ማን)። ከዚያ where፣ the problem፣ what happened፣ ትንሿ ጣት ደግሞ the end።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each cause to what happened.", am: "እያንዳንዱን ምክንያት ከሆነው ነገር ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: same("It rained, so…") }, right: { label: same("the ground was wet.") } },
+      { left: { label: same("Gugu kicked a rock, so…") }, right: { label: same("his toe hurt.") } },
+      { left: { label: same("The crow dropped in stones, so…") }, right: { label: same("the water came up.") } },
+    ],
+    explain: { en: "One thing makes the next thing happen: that's cause and effect.", am: "አንድ ነገር ቀጣዩን ያስከትላል፦ ይህ ምክንያትና ውጤት ነው።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "In \"Why? Because!\", the main idea was \"honey is yummy\".", am: "በ«Why? Because!» ውስጥ ዋናው ሐሳብ «ማር ይጣፍጣል» ነበር።" },
+    pic: pic("honey"),
+    answer: false,
+    explain: { en: "No: that was a detail. The main idea was: the rain helps everything grow.", am: "አይደለም፦ ያ ዝርዝር ነው። ዋናው ሐሳብ፦ ዝናቡ ሁሉን ያሳድጋል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Fill the gap: \"The flowers grew ___ it rained.\"", am: "ክፍተቱን ሙሉ፦ «The flowers grew ___ it rained.» (አበቦቹ ያደጉት ስለዘነበ ነው።)" },
+    options: words("because", "but", "and"),
+    answer: 0,
+    explain: { en: "Because tells us why: the flowers grew because it rained.", am: "Because ለምን እንደሆነ ይነግረናል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "In the crow story, what was the problem?", am: "በቁራው ታሪክ ውስጥ ችግሩ ምን ነበር?" },
+    pic: pic("crow"),
+    options: words("The water was too low.", "The pot was too big.", "It was night."),
+    answer: 0,
+    explain: { en: "The water was at the bottom of the pot, and the crow's beak couldn't reach it.", am: "ውሃው ከማሰሮው ታች ነበር፤ የቁራው መንቁር ሊደርስበት አልቻለም።" },
+  },
+];
+
+const l4Quiz: Question[] = [
+  {
+    kind: "order",
+    prompt: { en: "Put Ayan's rainy day in order.", am: "የአያንን ዝናባማ ቀን በቅደም ተከተል አስቀምጡ።" },
+    items: [
+      { label: { en: "Dark clouds came.", am: "Dark clouds came. (ጥቁር ደመና መጣ።)" } },
+      { label: { en: "Ayan took the washing in.", am: "Ayan took the washing in. (ልብሱን አስገባች።)" } },
+      { label: { en: "It rained.", am: "It rained. (ዘነበ።)" } },
+      { label: { en: "A rainbow came out.", am: "A rainbow came out. (ቀስተ ደመና ወጣ።)" } },
+    ],
+    explain: { en: "First the clouds, next the washing, then the rain, last the rainbow.", am: "መጀመሪያ ደመናው፣ ቀጥሎ ልብሱ፣ ከዚያ ዝናቡ፣ በመጨረሻ ቀስተ ደመናው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"First, wash the beans. Next, ___ them.\"", am: "«First, wash the beans. Next, ___ them.»" },
+    pic: pic("pan"),
+    options: words("roast", "drink", "boil"),
+    answer: 0,
+    explain: { en: "Next comes roasting, in the pan. Boiling comes last.", am: "ቀጥሎ በምጣድ መቁላት ነው። ማፍላት በመጨረሻ ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which clue tells you it might rain soon?", am: "በቅርቡ ሊዘንብ እንደሚችል የሚነግራችሁ የትኛው ፍንጭ ነው?" },
+    options: words("big dark clouds", "a hot, clear sky", "a full moon"),
+    answer: 0,
+    explain: { en: "Big dark clouds are a clue that rain is coming.", am: "ትልልቅ ጥቁር ደመናዎች ዝናብ እንደሚመጣ ፍንጭ ናቸው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What does \"predict\" mean?", am: "«Predict» ምን ማለት ነው?" },
+    options: [
+      { label: { en: "to think what will happen next, from the clues", am: "ከፍንጮቹ ተነሥቶ ቀጥሎ የሚሆነውን ማሰብ" } },
+      { label: { en: "to say sorry", am: "ይቅርታ መጠየቅ" } },
+      { label: { en: "to read very fast", am: "በጣም በፍጥነት ማንበብ" } },
+    ],
+    answer: 0,
+    explain: { en: "To predict is to use clues to guess what will happen next, like Ayan did.", am: "መገመት ፍንጮችን ተጠቅሞ ቀጥሎ የሚሆነውን ማሰብ ነው፤ ልክ እንደ አያን።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match the Story Hand to the crow story.", am: "የታሪክ እጅን ከቁራው ታሪክ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: same("Who?") }, right: { label: same("a thirsty crow") } },
+      { left: { label: same("Where?") }, right: { label: same("next to a pot of water") } },
+      { left: { label: same("The end?") }, right: { label: same("the crow had a long drink") } },
+    ],
+    explain: { en: "Who, where, the problem, what happened, the end: the five parts of a story.", am: "ማን፣ የት፣ ችግሩ፣ ምን ሆነ፣ መጨረሻው፦ የታሪክ አምስቱ ክፍሎች።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "What was the main idea of \"Why? Because!\"?", am: "የ«Why? Because!» ዋና ሐሳብ ምን ነበር?" },
+    options: words("The rain helps everything grow.", "Gugu likes honey.", "The cows are fat."),
+    answer: 0,
+    explain: { en: "Everything came back to the rain: that's the main idea. The rest are details.", am: "ሁሉም ወደ ዝናቡ ይመለሱ ነበር፦ ይህ ዋናው ሐሳብ ነው። ሌሎቹ ዝርዝሮች ናቸው።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "\"Because\" tells us why something happened.", am: "«Because» አንድ ነገር ለምን እንደሆነ ይነግረናል።" },
+    answer: true,
+    explain: { en: "Yes! \"Why are the bees busy?\" \"Because there are lots of flowers.\"", am: "አዎ! «Why are the bees busy?» «Because there are lots of flowers.»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Why did Hooyo's washing stay dry?", am: "የሁዮ ልብስ ለምን ደረቅ ሆኖ ቀረ?" },
+    pic: pic("washing"),
+    options: words("Because Ayan took it in.", "Because it didn't rain.", "Because Abdi ate it."),
+    answer: 0,
+    explain: { en: "Ayan read the clues, predicted the rain and took the washing in.", am: "አያን ፍንጮቹን አንብባ ዝናቡን ገመተችና ልብሱን አስገባች።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which is the best retelling: short, in your own words, and in order?", am: "ከሁሉ የተሻለው መልሶ መናገር የትኛው ነው፦ አጭር፣ በራስ ቃላት፣ በቅደም ተከተል?" },
+    options: words("A crow was thirsty. The water was low. She dropped in stones and drank.", "Stones, crow, no wait, water, hot…", "The end."),
+    answer: 0,
+    explain: { en: "Who, the problem, what happened, the end: all in order, in a few words.", am: "ማን፣ ችግሩ፣ ምን ሆነ፣ መጨረሻው፦ በቅደም ተከተል፣ በጥቂት ቃላት።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which order word goes on the last card?", am: "በመጨረሻው ካርድ ላይ የሚገባው የትኛው የቅደም ተከተል ቃል ነው?" },
+    options: words("Last", "First", "Next"),
+    answer: 0,
+    explain: { en: "First, next, then, last!", am: "First, next, then, last! (መጀመሪያ፣ ቀጥሎ፣ ከዚያ፣ በመጨረሻ!)" },
+  },
+];
+
+/* ---------- level 5: talking and asking ---------- */
+
+const l5Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "You want some bread at the shop. What do you say?", am: "ሱቅ ውስጥ ዳቦ ትፈልጋላችሁ። ምን ትላላችሁ?" },
+    pic: pic("bread"),
+    options: words("May I have some bread, please?", "BREAD!", "Sorry!"),
+    answer: 0,
+    explain: { en: "Excuse me, may I have…, please? That's how Gugu got his bread.", am: "Excuse me, may I have…, please? ጉጉ ዳቦውን ያገኘው እንዲህ ብሎ ነው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "You stood on someone's foot. What do you say?", am: "የአንድን ሰው እግር ረገጣችሁ። ምን ትላላችሁ?" },
+    pic: pic("foot"),
+    options: words("I'm sorry!", "Excuse me!", "You're welcome!"),
+    answer: 0,
+    explain: { en: "Sorry comes after a mistake. Excuse me before, sorry after!", am: "Sorry ከስህተት በኋላ ይመጣል። Excuse me before, sorry after!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "You need to get past someone on the bus. What do you say?", am: "አውቶቡስ ውስጥ አንድን ሰው አልፋችሁ መሄድ አለባችሁ። ምን ትላላችሁ?" },
+    pic: pic("bus"),
+    options: words("Excuse me, please.", "Sorry!", "Thank you!"),
+    answer: 0,
+    explain: { en: "Excuse me comes before: to get past, or to ask something.", am: "Excuse me በፊት ይመጣል፦ ለማለፍ ወይም ለመጠየቅ።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each question word to Grandpa's answer.", am: "እያንዳንዱን የጥያቄ ቃል ከአያት መልስ ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: same("Where?") }, right: { label: same("In the Bale Mountains.") } },
+      { left: { label: same("When?") }, right: { label: same("When I was seven.") } },
+      { left: { label: same("Who?") }, right: { label: same("My friend Chala.") } },
+    ],
+    explain: { en: "Where asks for a place, when for a time, who for a person.", am: "Where ቦታ፣ when ጊዜ፣ who ሰው ይጠይቃል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "When someone says \"Thank you\", you can say \"You're welcome.\"", am: "አንድ ሰው «Thank you» ሲላችሁ «You're welcome» ማለት ትችላላችሁ።" },
+    answer: true,
+    explain: { en: "Yes! \"Thank you!\" \"You're welcome!\" said Hooyo.", am: "አዎ! «Thank you!» «You're welcome!» አለች ሁዮ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which question word asks about a place?", am: "ስለ ቦታ የሚጠይቀው የትኛው የጥያቄ ቃል ነው?" },
+    options: words("Where?", "When?", "Who?"),
+    answer: 0,
+    explain: { en: "Where? asks about a place: \"Where do you live?\"", am: "Where? ስለ ቦታ ይጠይቃል፦ «Where do you live?»" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put Abdi's talk with Lensa in order.", am: "የአብዲንና የለንሳን ንግግር በቅደም ተከተል አስቀምጡ።" },
+    items: words("Hello! What's your name?", "My name is Lensa.", "Do you want to play?", "Yes, please!"),
+    explain: { en: "Ask, listen, smile! A question, an answer, a question, an answer.", am: "Ask, listen, smile! ጥያቄ፣ መልስ፣ ጥያቄ፣ መልስ።" },
+  },
+];
+
+const l5Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "The nurse asks, \"What's wrong?\" What can you say?", am: "ነርሷ «What's wrong?» ብላ ጠየቀች። ምን ማለት ትችላላችሁ?" },
+    pic: pic("stethoscope"),
+    options: words("My foot hurts.", "It's ten birr.", "I'm six."),
+    answer: 0,
+    explain: { en: "\"What's wrong?\" \"My foot hurts.\" Say what hurts.", am: "«What's wrong?» «My foot hurts.» የሚያማችሁን ተናገሩ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"Where does it hurt?\"", am: "«Where does it hurt?» (የት ያምሃል?)" },
+    options: words("Here, on my toe.", "Yesterday.", "Green!"),
+    answer: 0,
+    explain: { en: "Where asks for a place: here, on my toe.", am: "Where ቦታ ይጠይቃል፦ here, on my toe።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"When did it start?\"", am: "«When did it start?» (መቼ ጀመረ?)" },
+    options: words("This morning.", "On my toe.", "Chala."),
+    answer: 0,
+    explain: { en: "When asks for a time: this morning, yesterday.", am: "When ጊዜ ይጠይቃል፦ this morning፣ yesterday።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Hooyo gives you the soap and says, \"Here you are.\" What do you say?", am: "ሁዮ ሳሙናውን ሰጥታችሁ «Here you are» አለች። ምን ትላላችሁ?" },
+    pic: pic("soap"),
+    options: words("Thank you!", "Excuse me!", "Where?"),
+    answer: 0,
+    explain: { en: "Please and thank you, every time!", am: "Please and thank you, every time!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How do you ask the price of something?", am: "የአንድን ነገር ዋጋ እንዴት ትጠይቃላችሁ?" },
+    pic: pic("coin"),
+    options: words("How much is it?", "How old are you?", "Where do you live?"),
+    answer: 0,
+    explain: { en: "\"How much is it?\" \"It's five birr.\"", am: "«How much is it?» (ስንት ነው?) «It's five birr.»" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "When do we say it? Match.", am: "መቼ ነው የምንለው? አዛምዱ።" },
+    pairs: [
+      { left: { label: same("Excuse me") }, right: { label: { en: "before you get past someone", am: "አንድን ሰው ከማለፋችሁ በፊት" } } },
+      { left: { label: same("Sorry") }, right: { label: { en: "after you make a mistake", am: "ከተሳሳታችሁ በኋላ" } } },
+      { left: { label: same("Thank you") }, right: { label: { en: "when someone helps you", am: "አንድ ሰው ሲረዳችሁ" } } },
+    ],
+    explain: { en: "Excuse me before, sorry after, and thank you when someone is kind.", am: "Excuse me በፊት፣ sorry በኋላ፣ thank you ደግሞ አንድ ሰው ሲያደርግላችሁ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which question word asks for a reason?", am: "ምክንያት የሚጠይቀው የትኛው የጥያቄ ቃል ነው?" },
+    options: words("Why?", "How?", "Who?"),
+    answer: 0,
+    explain: { en: "\"Why did you walk so far?\" \"Because I wanted to read.\"", am: "«Why did you walk so far?» «Because I wanted to read.»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"___ did you get there?\" \"I walked.\"", am: "«___ did you get there?» «I walked.» (በእግሬ ሄድኩ።)" },
+    options: words("How", "When", "What"),
+    answer: 0,
+    explain: { en: "How asks about the way: \"How did you get there?\"", am: "How መንገዱን ይጠይቃል፦ «How did you get there?»" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "Abdi's first question was \"What's your name?\"", am: "የአብዲ የመጀመሪያ ጥያቄ «What's your name?» ነበር።" },
+    pic: pic("abdi"),
+    answer: true,
+    explain: { en: "Yes! Then \"How old are you?\", \"Where do you live?\" and \"Do you want to play?\"", am: "አዎ! ከዚያ «How old are you?»፣ «Where do you live?» እና «Do you want to play?»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "An old woman on the bus has no seat. What can you say?", am: "አውቶቡስ ውስጥ አንዲት አሮጊት ወንበር የላቸውም። ምን ማለት ትችላላችሁ?" },
+    options: words("Would you like to sit down?", "Sorry for what?", "BREAD!"),
+    answer: 0,
+    explain: { en: "Gugu stood up and asked, \"Would you like to sit down?\"", am: "ጉጉ ተነሥቶ «Would you like to sit down?» ብሎ ጠየቀ።" },
+  },
+];
+
+/* ---------- level 6: writing ---------- */
+
+const l6Practice: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which sentence is written correctly?", am: "በትክክል የተጻፈው የትኛው ዓረፍተ ነገር ነው?" },
+    options: words("My cat is gray.", "my cat is gray", "My cat is gray"),
+    answer: 0,
+    explain: { en: "Big letter at the start, little dot at the end!", am: "Big letter at the start, little dot at the end! (መጀመሪያ ትልቅ ፊደል፣ መጨረሻ ነጥብ!)" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word always has a capital letter?", am: "ሁልጊዜ በትልቅ ፊደል የሚጻፈው የትኛው ቃል ነው?" },
+    options: words("I", "cat", "and"),
+    answer: 0,
+    explain: { en: "I (meaning me) is always a capital. Names too: Gugu, Hawi.", am: "I («እኔ») ሁልጊዜ ትልቅ ነው። ስሞችም፦ Gugu፣ Hawi።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Join them: \"I like rain. I don't like mud.\"", am: "አገናኟቸው፦ «I like rain. I don't like mud.»" },
+    options: words("I like rain, but I don't like mud.", "I like rain and I don't like mud.", "I like rain mud."),
+    answer: 0,
+    explain: { en: "They are different, so it's a job for but!", am: "የተለያዩ ናቸው፤ ስለዚህ የbut ሥራ ነው!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Join them: \"I have a cat. I have a dog.\"", am: "አገናኟቸው፦ «I have a cat. I have a dog.»" },
+    options: words("I have a cat and a dog.", "I have a cat but a dog.", "I have and a cat dog."),
+    answer: 0,
+    explain: { en: "And adds more: a cat and a dog.", am: "And ይጨምራል፦ a cat and a dog።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put Tsehay's postcard in order.", am: "የፀሐይን ፖስት ካርድ በቅደም ተከተል አስቀምጡ።" },
+    items: words("Dear Gugu,", "I am at Lake Tana.", "See you soon!", "Love, Tsehay"),
+    explain: { en: "Dear…, the message, a goodbye, and Love… at the end.", am: "Dear…፣ መልእክቱ፣ ስንብት፣ በመጨረሻም Love…።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "A diary entry can start with \"Today I…\".", am: "የማስታወሻ ደብተር ጽሑፍ በ«Today I…» ሊጀምር ይችላል።" },
+    pic: pic("book"),
+    answer: true,
+    explain: { en: "Yes! \"Today I played football with Hawi.\"", am: "አዎ! «Today I played football with Hawi.»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How does Grandma's story frame begin?", am: "የአያቴ የታሪክ ማዕቀፍ እንዴት ይጀምራል?" },
+    options: words("Once upon a time there was…", "Love, Gugu", "The end."),
+    answer: 0,
+    explain: { en: "Once upon a time there was… One day… Then… In the end…", am: "Once upon a time there was… One day… Then… In the end…" },
+  },
+];
+
+const l6Quiz: Question[] = [
+  {
+    kind: "choice",
+    prompt: { en: "Which sentence is written correctly?", am: "በትክክል የተጻፈው የትኛው ዓረፍተ ነገር ነው?" },
+    options: words("Come to the river at three.", "come to the river at three", "Come to the river at three"),
+    answer: 0,
+    explain: { en: "A capital at the start and a full stop at the end, like Anbessa's mended note.", am: "መጀመሪያ ትልቅ ፊደል፣ መጨረሻ ነጥብ፤ ልክ እንደ አንበሳ የተስተካከለ ማስታወሻ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"this is hawi.\" Which words need a capital letter?", am: "«this is hawi.» ትልቅ ፊደል የሚያስፈልጋቸው የትኞቹ ቃላት ናቸው?" },
+    options: words("this and hawi", "only is", "none of them"),
+    answer: 0,
+    explain: { en: "\"This\" starts the sentence, and \"Hawi\" is a name: This is Hawi.", am: "«This» ዓረፍተ ነገሩን ይጀምራል፤ «Hawi» ስም ነው፦ This is Hawi." },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which word joins two different ideas?", am: "ሁለት የተለያዩ ሐሳቦችን የሚያገናኘው የትኛው ቃል ነው?" },
+    options: words("but", "and", "the"),
+    answer: 0,
+    explain: { en: "But changes the story: \"I like rain, but I don't like mud.\"", am: "But ታሪኩን ይቀይራል፦ «I like rain, but I don't like mud.»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"Gugu is small, ___ he is fast.\"", am: "«Gugu is small, ___ he is fast.»" },
+    options: words("but", "and", "because"),
+    answer: 0,
+    explain: { en: "Small and fast don't usually go together, so: but.", am: "ትንሽና ፈጣን አብዛኛውን ጊዜ አብረው አይሄዱም፤ ስለዚህ but።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"We sang ___ we danced.\"", am: "«We sang ___ we danced.»" },
+    options: words("and", "but", "because"),
+    answer: 0,
+    explain: { en: "And adds more: we sang and we danced.", am: "And ይጨምራል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How does a postcard usually start?", am: "ፖስት ካርድ አብዛኛውን ጊዜ እንዴት ይጀምራል?" },
+    pic: pic("postcard"),
+    options: words("Dear Grandma,", "Love, Ayan", "The end."),
+    answer: 0,
+    explain: { en: "Dear, the name, and a comma. Love, … goes at the end.", am: "Dear፣ ስሙ፣ እና ኮማ። Love, … በመጨረሻ ይገባል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Where does the address go on a postcard?", am: "በፖስት ካርድ ላይ አድራሻው የት ይገባል?" },
+    pic: pic("postcard"),
+    options: [
+      { label: { en: "on the right side, with the stamp", am: "በቀኝ በኩል፣ ከቴምብሩ ጋር" } },
+      { label: { en: "on the picture", am: "በሥዕሉ ላይ" } },
+      { label: { en: "before Dear…", am: "ከDear… በፊት" } },
+    ],
+    answer: 0,
+    explain: { en: "Message on the left; address and stamp on the right.", am: "መልእክቱ በግራ፤ አድራሻውና ቴምብሩ በቀኝ።" },
+  },
+  {
+    kind: "order",
+    prompt: { en: "Put Grandma's story frame in order.", am: "የአያቴን የታሪክ ማዕቀፍ በቅደም ተከተል አስቀምጡ።" },
+    items: words("Once upon a time there was…", "One day…", "Then…", "In the end…"),
+    explain: { en: "Gugu filled it in and wrote his very first story.", am: "ጉጉ ሞልቶ የመጀመሪያ ታሪኩን ጻፈ።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "A full stop goes at the start of a sentence.", am: "ነጥብ (full stop) በዓረፍተ ነገር መጀመሪያ ይገባል።" },
+    answer: false,
+    explain: { en: "No: big letter at the start, little dot at the end!", am: "አይደለም፦ መጀመሪያ ትልቅ ፊደል፣ መጨረሻ ትንሽ ነጥብ!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which one is a diary entry?", am: "የማስታወሻ ደብተር ጽሑፍ የትኛው ነው?" },
+    pic: pic("book"),
+    options: words("Today I played football with Hawi.", "Dear Gugu,", "How much is it?"),
+    answer: 0,
+    explain: { en: "A diary tells about your day: \"Today I…\"", am: "ማስታወሻ ደብተር ስለ ቀናችሁ ይናገራል፦ «Today I…»" },
+  },
+];
+
+/* ---------- final test: 20 questions across all six levels ---------- */
 
 const finalTest: Question[] = [
+  // level 1
   {
     kind: "choice",
     prompt: { en: "Which two letters finish the word? ba _ _", am: "ቃሉን የሚጨርሱት የትኞቹ ሁለት ፊደሎች ናቸው? ba _ _" },
@@ -502,27 +926,38 @@ const finalTest: Question[] = [
     kind: "choice",
     prompt: { en: "Which word starts with a blend (two sounds, said fast)?", am: "በጥምር ድምፅ (በፍጥነት የሚባሉ ሁለት ድምፆች) የሚጀምረው የትኛው ቃል ነው?" },
     options: [
-      { label: same("grapes"), pic: pic("grapes") },
+      { label: same("frog"), pic: pic("frog") },
       { label: same("ship"), pic: pic("ship") },
       { label: same("chair"), pic: pic("chair") },
     ],
     answer: 0,
-    explain: { en: "g… r… gr… grapes! Ship and chair start with sh and ch: one new sound each.", am: "g… r… gr… grapes (ወይን)! Ship እና chair በsh እና ch ይጀምራሉ፤ እያንዳንዳቸው አንድ አዲስ ድምፅ ናቸው።" },
+    explain: { en: "f… r… fr… frog! Ship and chair start with sh and ch: one new sound each.", am: "f… r… fr… frog! Ship እና chair በsh እና ch ይጀምራሉ፤ እያንዳንዳቸው አንድ አዲስ ድምፅ ናቸው።" },
   },
   {
     kind: "choice",
     prompt: { en: "Which one is a tricky word?", am: "አታላይ ቃሉ የቱ ነው?" },
-    options: words("come", "cot", "chop"),
+    options: words("said", "sit", "stop"),
     answer: 0,
-    explain: { en: "\"Come\" says \"cum\", not \"comb\". Tsehay learned it with look, say, cover, write, check.", am: "«Come» «ካም» ይላል እንጂ «ኮምብ» አይልም። ፀሐይ በlook, say, cover, write, check ተማረችው።" },
+    explain: { en: "\"Said\" says \"sed\". Look, say, cover, write, check!", am: "«Said» «ሰድ» ይላል። Look, say, cover, write, check!" },
   },
+  // level 2
   {
     kind: "choice",
     prompt: { en: "Which word is this?", am: "ይህ የትኛው ቃል ነው?" },
     pic: pic("cape"),
     options: words("cap", "cape", "cup"),
     answer: 1,
-    explain: { en: "c-a-pe, cape: Anbessa's hero cape. Zap! Magic e! Say your name!", am: "c-a-pe፣ cape፦ የአንበሳ የጀግና ካባ። Zap! Magic e! Say your name!" },
+    explain: { en: "c-a-pe, cape: the magic e makes the a say its name.", am: "c-a-pe፣ cape፦ አስማቷ e aን ስሟን እንድትል ታደርጋታለች።" },
+  },
+  {
+    kind: "match",
+    prompt: { en: "Match each vowel team to a picture that has it.", am: "እያንዳንዱን የአናባቢ ቡድን ያለበት ሥዕል ጋር አዛምዱ።" },
+    pairs: [
+      { left: { label: same("ee") }, right: { pic: pic("bee") } },
+      { left: { label: same("oa") }, right: { pic: pic("soap") } },
+      { left: { label: same("ai") }, right: { pic: pic("snail") } },
+    ],
+    explain: { en: "b-ee, s-oa-p, sn-ai-l.", am: "b-ee (ንብ)፣ s-oa-p (ሳሙና)፣ sn-ai-l (ቀንድ አውጣ)።" },
   },
   {
     kind: "choice",
@@ -533,32 +968,16 @@ const finalTest: Question[] = [
       { label: same("run"), pic: pic("running") },
     ],
     answer: 0,
-    explain: { en: "r-ai-n, rain: a and i together say ay.", am: "r-ai-n፣ rain (ዝናብ)፦ a እና i አብረው «ኤይ» ይላሉ።" },
+    explain: { en: "r-ai-n, rain: a and i together say ay.", am: "r-ai-n፣ rain፦ a እና i አብረው «ኤይ» ይላሉ።" },
   },
-  {
-    kind: "match",
-    prompt: { en: "Match each vowel team to a picture that has it.", am: "እያንዳንዱን የአናባቢ ቡድን ያለበት ሥዕል ጋር አዛምዱ።" },
-    pairs: [
-      { left: { label: same("ee") }, right: { pic: pic("bee") } },
-      { left: { label: same("oa") }, right: { pic: pic("soap") } },
-      { left: { label: same("ai") }, right: { pic: pic("snail") } },
-    ],
-    explain: { en: "b-ee, s-oa-p, sn-ai-l: ee, oa, ai.", am: "b-ee (ንብ)፣ s-oa-p (ሳሙና)፣ sn-ai-l (ቀንድ አውጣ)፦ ee፣ oa፣ ai።" },
-  },
-  {
-    kind: "truefalse",
-    prompt: { en: "Add a magic e to \"pin\" and you get \"pine\", like a pine tree.", am: "በ«pin» ላይ አስማተኛዋን e ብትጨምሩ «pine» ታገኛላችሁ፤ እንደ ጥድ ዛፍ።" },
-    pic: pic("pine"),
-    answer: true,
-    explain: { en: "Yes! p-i-ne: the i says its name. Hawi's pin became a pine tree for the play.", am: "አዎ! p-i-ne፦ i ስሟን ትላለች። የሀዊ መርፌ ለቲያትሩ ጥድ ዛፍ ሆነ።" },
-  },
+  // level 3
   {
     kind: "choice",
     prompt: { en: "Read: \"Gugu has a red and yellow kite.\" What color is the kite?", am: "አንብቡ፦ «Gugu has a red and yellow kite.» ካይቱ ምን ዓይነት ቀለም ነው?" },
     pic: pic("kite"),
     options: words("red and yellow", "blue and green", "black and white"),
     answer: 0,
-    explain: { en: "The words tell us: red and yellow, with a long tail.", am: "ቃላቱ ይነግሩናል፦ ቀይና ቢጫ፣ ረጅም ጭራ ያለው።" },
+    explain: { en: "The words tell us: red and yellow.", am: "ቃላቱ ይነግሩናል፦ ቀይና ቢጫ።" },
   },
   {
     kind: "choice",
@@ -573,17 +992,84 @@ const finalTest: Question[] = [
   },
   {
     kind: "choice",
-    prompt: { en: "Fill the gap: \"Look! Anbessa ___ .\"", am: "ክፍተቱን ሙሉ፦ «Look! Anbessa ___ .» (ተመልከቱ! አንበሳ እየዘለለ ነው።)" },
-    pic: pic("jumping"),
-    options: words("is jumping", "jumped"),
+    prompt: { en: "Fill the gap: \"Yesterday Haben ___ the ball.\"", am: "ክፍተቱን ሙሉ፦ «Yesterday Haben ___ the ball.»" },
+    pic: pic("kicking"),
+    options: words("kicked", "is kicking", "kicking"),
     answer: 0,
-    explain: { en: "\"Look!\" means it's happening now: is jumping.", am: "«Look!» አሁን እየሆነ ነው ማለት ነው፦ is jumping።" },
+    explain: { en: "Yesterday is all done: kicked, with -ed.", am: "ትናንት ተፈጽሟል፦ kicked፣ በ-ed።" },
   },
+  // level 4
   {
     kind: "order",
-    prompt: { en: "Put the words in order to make a sentence.", am: "ዓረፍተ ነገር ለመሥራት ቃላቱን በቅደም ተከተል አስቀምጡ።" },
-    items: words("Haben", "has", "a", "little", "yellow", "hat."),
-    explain: { en: "\"Haben has a little yellow hat.\" The describing words come before \"hat\".", am: "«Haben has a little yellow hat.» (ሐበን ትንሽ ቢጫ ኮፍያ አላት።) ገላጭ ቃላቱ ከ«hat» በፊት ይመጣሉ።" },
+    prompt: { en: "Put the coffee steps in order.", am: "የቡናውን ደረጃዎች በቅደም ተከተል አስቀምጡ።" },
+    items: words("Wash the beans.", "Roast the beans.", "Grind the beans.", "Boil the coffee."),
+    explain: { en: "First, next, then, last!", am: "First, next, then, last! (መጀመሪያ፣ ቀጥሎ፣ ከዚያ፣ በመጨረሻ!)" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "The sun is out, but it is still raining a little. What do you predict?", am: "ፀሐይ ወጥታለች፤ ግን አሁንም ትንሽ እየዘነበ ነው። ምን ትገምታላችሁ?" },
+    options: words("a rainbow", "snow", "night"),
+    answer: 0,
+    explain: { en: "Sun shining on rain makes a rainbow, just as Abdi predicted.", am: "ፀሐይ በዝናብ ላይ ስታበራ ቀስተ ደመና ይሠራል፤ ልክ አብዲ እንደገመተው።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"The ground is wet ___ it rained.\"", am: "«The ground is wet ___ it rained.»" },
+    options: words("because", "but", "and"),
+    answer: 0,
+    explain: { en: "Because tells us why.", am: "Because ለምን እንደሆነ ይነግረናል።" },
+  },
+  {
+    kind: "truefalse",
+    prompt: { en: "The main idea is what a story is mostly about.", am: "ዋናው ሐሳብ ታሪኩ ባብዛኛው ስለ ምን እንደሆነ ነው።" },
+    answer: true,
+    explain: { en: "Yes! The details tell us more about it.", am: "አዎ! ዝርዝሮቹ ስለ እሱ ተጨማሪ ይነግሩናል።" },
+  },
+  // level 5
+  {
+    kind: "choice",
+    prompt: { en: "You bumped into someone. What do you say?", am: "አንድን ሰው ገጫችሁ። ምን ትላላችሁ?" },
+    options: words("I'm sorry!", "Excuse me!", "How much is it?"),
+    answer: 0,
+    explain: { en: "Excuse me before, sorry after!", am: "Excuse me before, sorry after!" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "Which question word asks about a time?", am: "ስለ ጊዜ የሚጠይቀው የትኛው የጥያቄ ቃል ነው?" },
+    options: words("When?", "Where?", "Who?"),
+    answer: 0,
+    explain: { en: "\"When did you start school?\" \"When I was seven.\"", am: "«When did you start school?» «When I was seven.»" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How do you ask for a pencil politely?", am: "እርሳስ በጨዋነት እንዴት ትጠይቃላችሁ?" },
+    pic: pic("pencil"),
+    options: words("May I have a pencil, please?", "Pencil!", "Sorry, pencil."),
+    answer: 0,
+    explain: { en: "May I have…, please? Please and thank you, every time!", am: "May I have…, please? Please and thank you, every time!" },
+  },
+  // level 6
+  {
+    kind: "choice",
+    prompt: { en: "Which sentence is written correctly?", am: "በትክክል የተጻፈው የትኛው ዓረፍተ ነገር ነው?" },
+    options: words("Gugu and I can run.", "gugu and i can run", "Gugu and i can run"),
+    answer: 0,
+    explain: { en: "Capitals for the start, for names and for I, and a full stop at the end.", am: "ለመጀመሪያው፣ ለስሞችና ለI ትልቅ ፊደል፤ በመጨረሻ ነጥብ።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "\"It is sunny, ___ it is cold.\"", am: "«It is sunny, ___ it is cold.»" },
+    options: words("but", "and", "because"),
+    answer: 0,
+    explain: { en: "Sunny and cold are different: but changes the story.", am: "ፀሐያማና ቀዝቃዛ የተለያዩ ናቸው፦ but ታሪኩን ይቀይራል።" },
+  },
+  {
+    kind: "choice",
+    prompt: { en: "How does Tsehay end her postcard?", am: "ፀሐይ ፖስት ካርዷን እንዴት ትጨርሳለች?" },
+    pic: pic("postcard"),
+    options: words("Love, Tsehay", "Dear Tsehay,", "Once upon a time"),
+    answer: 0,
+    explain: { en: "Dear… at the start, Love… at the end.", am: "መጀመሪያ Dear…፣ መጨረሻ Love…።" },
   },
 ];
 
@@ -591,12 +1077,12 @@ const course: Course = {
   id: "english-readers",
   title: { en: "English Readers", am: "የእንግሊዝኛ አንባቢዎች" },
   tagline: {
-    en: "From sh and ch to little stories: reading English with Ethiopian friends, word by word.",
-    am: "ከsh እና ch እስከ ትንንሽ ታሪኮች፦ ከኢትዮጵያውያን ጓደኞች ጋር እንግሊዝኛን ቃል በቃል ማንበብ።",
+    en: "From sh and ch to stories, conversations and postcards: reading, talking and writing English with Ethiopian friends.",
+    am: "ከsh እና ch እስከ ታሪኮች፣ ንግግሮችና ፖስት ካርዶች፦ ከኢትዮጵያውያን ጓደኞች ጋር እንግሊዝኛ ማንበብ፣ መናገርና መጻፍ።",
   },
   outcome: {
-    en: "Your child will read longer English words: the sounds sh, ch, th, ck and ng, blends like st, fr and gr, and the tricky words that can't be sounded out (said, was, come, have…). Next come the long vowels: the \"magic e\" (cap, cape; kit, kite) and the vowel teams ee, ai and oa (tree, rain, boat). Then your child reads little stories with help, answers who, what and where questions, and uses describing words (big, little, tall, colors) and action words with -ing and -ed. Later levels add reading for meaning, everyday conversations and writing. Everything is explained in Amharic for Amharic-speaking families, with every English word shown and spoken, and every story ends with questions and an activity to do together.",
-    am: "ልጅዎ ረዘም ያሉ የእንግሊዝኛ ቃላትን ያነባል፦ sh፣ ch፣ th፣ ck እና ng ድምፆችን፣ እንደ st፣ fr እና gr ያሉ ጥምር ድምፆችን፣ እንዲሁም ድምፅ በማጣመር የማይነበቡ አታላይ ቃላትን (said፣ was፣ come፣ have…)። ቀጥሎ ረጃጅም አናባቢዎች ይመጣሉ፦ «አስማተኛዋ e» (cap፣ cape፤ kit፣ kite) እና የአናባቢ ቡድኖቹ ee፣ ai እና oa (tree፣ rain፣ boat)። ከዚያም ልጅዎ በእገዛ ትንንሽ ታሪኮችን ያነባል፤ ማን፣ ምን እና የት ለሚሉ ጥያቄዎች ይመልሳል፤ ገላጭ ቃላትን (big፣ little፣ tall፣ ቀለሞች) እና በ-ing እና -ed የሚያልቁ የድርጊት ቃላትን ይጠቀማል። ቀጣዮቹ ደረጃዎች ትርጉምን ተረድቶ ማንበብን፣ የዕለት ተዕለት ንግግርንና መጻፍን ይጨምራሉ። ሁሉም ነገር ለአማርኛ ተናጋሪ ቤተሰቦች በአማርኛ ይብራራል፤ እያንዳንዱ የእንግሊዝኛ ቃል ይታያል፣ ይነገራልም፤ እያንዳንዱ ታሪክ አብሮ የሚደረግ ጥያቄና ተግባር አለው።",
+    en: "Your child will read longer English words: the sounds sh, ch, th, ck and ng, blends like st, fr and gr, and the tricky words that can't be sounded out (said, was, come, have…). Next come the long vowels: the \"magic e\" (cap, cape; kit, kite) and the vowel teams ee, ai and oa (tree, rain, boat). Then your child reads little stories with help, answers who, what and where questions, and uses describing words (big, little, tall, colors) and action words with -ing and -ed. Then come reading for meaning (putting events in order, predicting, retelling, the main idea, and because), everyday conversations at school, the shop, the clinic and on the bus (who, what, where, when, why, how; please, excuse me, sorry, you're welcome), and writing: capital letters and full stops, joining sentences with and and but, a postcard, a diary and a little story of their own. Everything is explained in Amharic for Amharic-speaking families, with every English word shown and spoken, and every story ends with questions and an activity to do together.",
+    am: "ልጅዎ ረዘም ያሉ የእንግሊዝኛ ቃላትን ያነባል፦ sh፣ ch፣ th፣ ck እና ng ድምፆችን፣ እንደ st፣ fr እና gr ያሉ ጥምር ድምፆችን፣ እንዲሁም ድምፅ በማጣመር የማይነበቡ አታላይ ቃላትን (said፣ was፣ come፣ have…)። ቀጥሎ ረጃጅም አናባቢዎች ይመጣሉ፦ «አስማተኛዋ e» (cap፣ cape፤ kit፣ kite) እና የአናባቢ ቡድኖቹ ee፣ ai እና oa (tree፣ rain፣ boat)። ከዚያም ልጅዎ በእገዛ ትንንሽ ታሪኮችን ያነባል፤ ማን፣ ምን እና የት ለሚሉ ጥያቄዎች ይመልሳል፤ ገላጭ ቃላትን (big፣ little፣ tall፣ ቀለሞች) እና በ-ing እና -ed የሚያልቁ የድርጊት ቃላትን ይጠቀማል። ከዚያም ትርጉምን ተረድቶ ማንበብ (ሁነቶችን በቅደም ተከተል ማስቀመጥ፣ መገመት፣ መልሶ መናገር፣ ዋናው ሐሳብ እና because)፣ በትምህርት ቤት፣ በሱቅ፣ በክሊኒክና በአውቶቡስ የዕለት ተዕለት ንግግር (who፣ what፣ where፣ when፣ why፣ how፤ please፣ excuse me፣ sorry፣ you're welcome)፣ እንዲሁም መጻፍ ይመጣሉ፦ ትልቅ ፊደልና ነጥብ፣ ዓረፍተ ነገሮችን በand እና but ማገናኘት፣ ፖስት ካርድ፣ ማስታወሻ ደብተርና የራስን ትንሽ ታሪክ። ሁሉም ነገር ለአማርኛ ተናጋሪ ቤተሰቦች በአማርኛ ይብራራል፤ እያንዳንዱ የእንግሊዝኛ ቃል ይታያል፣ ይነገራልም፤ እያንዳንዱ ታሪክ አብሮ የሚደረግ ጥያቄና ተግባር አለው።",
   },
   ages: ["6-7", "8-9"],
   color: "#0F766E",
@@ -660,6 +1146,63 @@ const course: Course = {
         { kind: "practice", quiz: { id: "english-readers-l3-practice", title: { en: "Practice: little stories", am: "ልምምድ፦ ትንንሽ ታሪኮች" }, questions: l3Practice } },
       ],
       quiz: { id: "english-readers-l3-quiz", title: { en: "Level 3 quiz", am: "የደረጃ 3 ፈተና" }, questions: l3Quiz },
+    },
+    {
+      id: "english-readers-4",
+      title: { en: "Reading for meaning", am: "ትርጉምን ተረድቶ ማንበብ" },
+      goal: {
+        en: "Puts events in order with first, next, then, last; predicts from clues; retells a story in their own words; finds the main idea; and explains why with because.",
+        am: "ሁነቶችን በfirst፣ next፣ then፣ last በቅደም ተከተል ያስቀምጣል፤ ከፍንጮች ይገምታል፤ ታሪክን በራሱ ቃላት መልሶ ይናገራል፤ ዋናውን ሐሳብ ያገኛል፤ ለምን እንደሆነ በbecause ያብራራል።",
+      },
+      lessons: [
+        { kind: "story", id: "coffee-steps" },
+        { kind: "demo", id: "order-the-steps", title: { en: "First, Next, Then, Last", am: "መጀመሪያ፣ ቀጥሎ፣ ከዚያ፣ በመጨረሻ" } },
+        { kind: "story", id: "clues-for-rain" },
+        { kind: "story", id: "story-hand" },
+        { kind: "story", id: "why-because" },
+        { kind: "demo", id: "because-match", title: { en: "Why? Because!", am: "ለምን? ምክንያቱም!" } },
+        { kind: "practice", quiz: { id: "english-readers-l4-practice", title: { en: "Practice: reading for meaning", am: "ልምምድ፦ ትርጉምን ተረድቶ ማንበብ" }, questions: l4Practice } },
+      ],
+      quiz: { id: "english-readers-l4-quiz", title: { en: "Level 4 quiz", am: "የደረጃ 4 ፈተና" }, questions: l4Quiz },
+    },
+    {
+      id: "english-readers-5",
+      title: { en: "Talking and asking", am: "መናገርና መጠየቅ" },
+      goal: {
+        en: "Makes a new friend, shops and answers a nurse in English; asks who, what, where, when, why and how; and uses please, may I, excuse me, sorry, thank you and you're welcome.",
+        am: "በእንግሊዝኛ አዲስ ጓደኛ ይይዛል፣ ይገበያል፣ ለነርስ ይመልሳል፤ who፣ what፣ where፣ when፣ why እና how ብሎ ይጠይቃል፤ please፣ may I፣ excuse me፣ sorry፣ thank you እና you're welcome ይጠቀማል።",
+      },
+      lessons: [
+        { kind: "story", id: "abdis-four-questions" },
+        { kind: "story", id: "gugu-goes-shopping" },
+        { kind: "demo", id: "say-it-nicely", title: { en: "Say It Nicely", am: "በጨዋነት ተናገሩ" } },
+        { kind: "story", id: "pretend-clinic" },
+        { kind: "demo", id: "act-it-out", title: { en: "Act It Out", am: "ተውኑት" } },
+        { kind: "story", id: "excuse-me-sorry" },
+        { kind: "story", id: "question-jar" },
+        { kind: "demo", id: "question-words", title: { en: "The Question Jar", am: "የጥያቄ ማሰሮ" } },
+        { kind: "practice", quiz: { id: "english-readers-l5-practice", title: { en: "Practice: talking and asking", am: "ልምምድ፦ መናገርና መጠየቅ" }, questions: l5Practice } },
+      ],
+      quiz: { id: "english-readers-l5-quiz", title: { en: "Level 5 quiz", am: "የደረጃ 5 ፈተና" }, questions: l5Quiz },
+    },
+    {
+      id: "english-readers-6",
+      title: { en: "Writing", am: "መጻፍ" },
+      goal: {
+        en: "Writes sentences with capital letters and full stops, joins them with and and but, and writes a postcard, a diary entry and a little story of their own.",
+        am: "በትልቅ ፊደልና በነጥብ ዓረፍተ ነገሮችን ይጽፋል፤ በand እና but ያገናኛቸዋል፤ ፖስት ካርድ፣ የማስታወሻ ደብተር ጽሑፍና የራሱን ትንሽ ታሪክ ይጽፋል።",
+      },
+      lessons: [
+        { kind: "story", id: "big-letter-little-dot" },
+        { kind: "demo", id: "fix-the-sentence", title: { en: "Fix the Sentence", am: "ዓረፍተ ነገሩን አስተካክሉ" } },
+        { kind: "story", id: "and-but-chain" },
+        { kind: "demo", id: "and-or-but", title: { en: "The And-But Chain", am: "የand እና የbut ሰንሰለት" } },
+        { kind: "story", id: "postcard-from-tana" },
+        { kind: "demo", id: "write-a-postcard", title: { en: "Write a Postcard", am: "ፖስት ካርድ ጻፉ" } },
+        { kind: "story", id: "gugus-diary" },
+        { kind: "practice", quiz: { id: "english-readers-l6-practice", title: { en: "Practice: writing", am: "ልምምድ፦ መጻፍ" }, questions: l6Practice } },
+      ],
+      quiz: { id: "english-readers-l6-quiz", title: { en: "Level 6 quiz", am: "የደረጃ 6 ፈተና" }, questions: l6Quiz },
     },
   ],
   finalTest: { id: "english-readers-final", title: { en: "English Readers: final test", am: "የእንግሊዝኛ አንባቢዎች፦ የመጨረሻ ፈተና" }, questions: finalTest },

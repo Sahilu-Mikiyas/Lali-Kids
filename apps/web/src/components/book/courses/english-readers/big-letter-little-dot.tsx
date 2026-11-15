@@ -5,7 +5,7 @@ import "./big-letter-little-dot.css";
 import { useId } from "react";
 
 import { Air, Place, vars } from "../../scenery";
-import { Cub, FONT, Gugu, TAP, Teacher, Tsehay, Wolf } from "./cast";
+import { Cub, Gugu, TAP, Teacher, Tsehay, Wolf } from "./cast";
 import { Label, Paper, Reeds } from "./more";
 import { Board, Club, Yard } from "./places";
 import { Hearts, SayBubble, Sign, Sparkles } from "./props";
