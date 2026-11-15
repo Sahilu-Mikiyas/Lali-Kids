@@ -31,8 +31,8 @@ const story: Story = {
       am: "ቅዳሜ ነው፤ የገበያ ቀን! አያቴ ለጉጉና ለፀሐይ ቅርጫትና ዝርዝር ሰጠቻቸው፦ ሎሚዎች፣ ቲማቲሞች፣ አንድ ዱባ፣ እንቁላሎች። «በጥንቃቄ አንብቡት» አለች። «እያንዳንዱ ቃል ዋጋ አለው።»",
     },
     {
-      en: `The market is busy and loud. Goats bleat, hens cluck, and sellers call out from under bright umbrellas. Gugu runs straight to the lemons. "ሎሚ! Lemon!" He buys one lemon and puts it in the basket. "Done!"`,
-      am: "ገበያው ሕዝብ የበዛበትና ጫጫታ ያለበት ነው። ፍየሎች ይጮኻሉ፣ ዶሮዎች ይንጫጫሉ፤ ነጋዴዎች ከደማቅ ጃንጥላዎች ሥር ይጣራሉ። ጉጉ በቀጥታ ወደ ሎሚዎቹ ሮጠ። «ሎሚ!» አንድ ሎሚ ገዝቶ ቅርጫቱ ውስጥ ከተተ። «አለቀ!»",
+      en: `The market is busy and loud. Goats bleat, hens cluck, sellers call from under bright umbrellas. Gugu runs to the lemons. "ሎሚ!" He buys one and puts it in the basket. "Done!"`,
+      am: "ገበያው ጫጫታ ያለበት ነው። ፍየሎች ይጮኻሉ፣ ዶሮዎች ይንጫጫሉ፤ ነጋዴዎች ከጃንጥላዎች ሥር ይጣራሉ። ጉጉ ወደ ሎሚዎቹ ሮጠ። «ሎሚ!» አንድ ሎሚ ገዝቶ ቅርጫቱ ውስጥ ከተተ። «አለቀ!»",
     },
     {
       en: `Tsehay looks at the list again. "It doesn't say ሎሚ. It says ሎሚዎች. See the ending, ዎች? That means many lemons!" A little ending makes many!`,
@@ -55,8 +55,8 @@ const story: Story = {
       am: "በዝርዝሩ መጨረሻ፦ እንቁላሎች። ጉጉ ራሱ ቀስ ብሎ አነበበው፦ «እንቁላል… ሎች። ል እና ኦች ሎች ይሆናሉ። ብዙ እንቁላል!» በጣም፣ በጣም በጥንቃቄ ያዛቸው። ትንሽ መጨረሻ ብዙ ያደርጋል!",
     },
     {
-      en: `On the way out they pass the animal market. Gugu reads the signs: በግ, በጎች. ፍየል, ፍየሎች. ዶሮ, ዶሮዎች. A little kid goat trots after them. "አንድ ፍየል!" says Tsehay. "Only one, and she's not on our list!"`,
-      am: "ሲወጡ በእንስሳት ገበያው በኩል አለፉ። ጉጉ ምልክቶቹን አነበበ፦ በግ፣ በጎች። ፍየል፣ ፍየሎች። ዶሮ፣ ዶሮዎች። አንዲት ትንሽ የፍየል ግልገል ተከተለቻቸው። «አንድ ፍየል!» አለች ፀሐይ። «አንድ ብቻ፤ ደግሞም በዝርዝራችን ላይ የለችም!»",
+      en: `At the animal market Gugu reads the signs: በግ, በጎች. ፍየል, ፍየሎች. ዶሮ, ዶሮዎች. A little kid goat trots after them. "አንድ ፍየል!" says Tsehay. "And not on our list!"`,
+      am: "በእንስሳት ገበያው ጉጉ ምልክቶቹን አነበበ፦ በግ፣ በጎች። ፍየል፣ ፍየሎች። ዶሮ፣ ዶሮዎች። አንዲት ትንሽ ግልገል ተከተለቻቸው። «አንድ ፍየል!» አለች ፀሐይ። «በዝርዝራችን ላይ ግን የለችም!»",
     },
     {
       en: `Now Gugu makes everything many. "ልጅ, ልጆች! ጫማ, ጫማዎች! ተማሪ, ተማሪዎች! ፀሐይ…" He looks at Tsehay and grins. "ፀሐዮች! Lots of Tsehays!"`,
@@ -67,8 +67,8 @@ const story: Story = {
       am: "ፀሐይ ቲማቲሞቹን ልትጥል እስክትደርስ ድረስ ሳቀች። «በሰማይ ላይ ያለችው ፀሐይ አንድ ናት፤ እኔም አንድ ብቻ ነኝ!» ትንሽ መጨረሻ ብዙ ያደርጋል፤ ግን ሁሉም ነገር ብዙ አይሆንም!",
     },
     {
-      en: `At home Grandma checks the basket against the list. Lemons, many. Tomatoes, many. One pumpkin. Eggs, many, and not one broken! "Everything is right," she says. "You read every ending."`,
-      am: "ቤት ሲደርሱ አያቴ ቅርጫቱን ከዝርዝሩ ጋር አስተያየች። ሎሚዎች፣ ብዙ። ቲማቲሞች፣ ብዙ። አንድ ዱባ። እንቁላሎች፣ ብዙ፤ አንድም አልተሰበረም! «ሁሉም ትክክል ነው» አለች። «እያንዳንዱን መጨረሻ አንብባችኋል።»",
+      en: `At home Grandma checks the basket against the list. Lemons, many. Tomatoes, many. One pumpkin. Eggs, many, none broken! "You read every ending," she says.`,
+      am: "ቤት ሲደርሱ አያቴ ቅርጫቱን ከዝርዝሩ ጋር አስተያየች። ሎሚዎች፣ ብዙ። ቲማቲሞች፣ ብዙ። አንድ ዱባ። እንቁላሎች፣ ብዙ፤ አንድም አልተሰበረም! «እያንዳንዱን መጨረሻ አንብባችኋል» አለች።",
     },
     {
       en: `That evening the tomatoes go into the wot and the pumpkin into the soup. Gugu counts around the table: "One Grandma, two friends, and many, many lemons!" A little ending makes many!`,

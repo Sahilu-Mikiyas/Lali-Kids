@@ -46,20 +46,20 @@ const story: Story = {
       am: "«ሁሉንም የሚያውቅ የለም» አሉ አባ ቶሎሳ። «ግን አንብበሽ ማወቅ ትችያለሽ።» ሀዊ ገጹን ገለጠች። ለምን? ምክንያቱም… እናንብብና እንይ!",
     },
     {
-      en: `She reads: የኢትዮጵያ ተኩላ የሚኖረው በከፍተኛ ተራሮች ላይ ነው፤ ምክንያቱም የሚበላቸው ፍልፈሎች እዚያ ብዙ ናቸው። "Because the mole-rats it eats live up there!" "ምክንያቱም means because," says Grandpa. "When you see it, the answer is coming."`,
-      am: "እንዲህ ብላ አነበበች፦ «የኢትዮጵያ ተኩላ የሚኖረው በከፍተኛ ተራሮች ላይ ነው፤ ምክንያቱም የሚበላቸው ፍልፈሎች እዚያ ብዙ ናቸው።» «‹ምክንያቱም› ስታዩ መልሱ እየመጣ ነው» አሉ አባ ቶሎሳ።",
+      en: `She reads: የኢትዮጵያ ተኩላ በተራሮች ላይ ይኖራል፤ ምክንያቱም የሚበላቸው ፍልፈሎች እዚያ ብዙ ናቸው። Because the mole-rats it eats live there! "ምክንያቱም means because," says Grandpa.`,
+      am: "እንዲህ ብላ አነበበች፦ «የኢትዮጵያ ተኩላ በተራሮች ላይ ይኖራል፤ ምክንያቱም የሚበላቸው ፍልፈሎች እዚያ ብዙ ናቸው።» «‹ምክንያቱም› ስታዩ መልሱ እየመጣ ነው» አሉ አባ ቶሎሳ።",
     },
     {
-      en: `"ለምን? Why is its nose so long?" asks Gugu. Hawi finds it: አፍንጫው ረጅምና ቀጭን ነው፤ ምክንያቱም ፍልፈሎችን ከጉድጓዳቸው አጠገብ ለመያዝ ይረዳዋል። "Because a long, thin nose helps it catch mole-rats by their holes!" Why? Because… let's read and see!`,
-      am: "«ለምን? አፍንጫው ለምን ረጅም ሆነ?» አለ ጉጉ። ሀዊ አገኘችው፦ «አፍንጫው ረጅምና ቀጭን ነው፤ ምክንያቱም ፍልፈሎችን ከጉድጓዳቸው አጠገብ ለመያዝ ይረዳዋል።» ለምን? ምክንያቱም… እናንብብና እንይ!",
+      en: `"Why is its nose so long?" asks Gugu. Hawi finds it: አፍንጫው ረጅም ነው፤ ምክንያቱም ፍልፈሎችን ለመያዝ ይረዳዋል። "Because a long nose helps it catch mole-rats!" Why? Because… let's read and see!`,
+      am: "«አፍንጫው ለምን ረጅም ሆነ?» አለ ጉጉ። ሀዊ አገኘችው፦ «አፍንጫው ረጅም ነው፤ ምክንያቱም ፍልፈሎችን ለመያዝ ይረዳዋል።» ለምን? ምክንያቱም… እናንብብና እንይ!",
     },
     {
-      en: `"ለምን? Why does it hunt in the daytime, not at night?" Hawi reads: …ምክንያቱም ፍልፈሎች የሚወጡት በቀን ነው። "Because mole-rats come out in the day!" The book also says there are only a few hundred of these wolves left, so people protect them.`,
-      am: "«ለምን? ለምን በሌሊት ሳይሆን በቀን ያድናል?» ሀዊ አነበበች፦ «…ምክንያቱም ፍልፈሎች የሚወጡት በቀን ነው።» መጽሐፉ እንደሚለው እነዚህ ተኩላዎች የቀሩት ጥቂት መቶዎች ብቻ ናቸው፤ ስለዚህ ሰዎች ይጠብቋቸዋል።",
+      en: `"Why does it hunt by day?" Hawi reads: …ምክንያቱም ፍልፈሎች የሚወጡት በቀን ነው። "Because mole-rats come out in the day!" Only a few hundred of these wolves are left, so people protect them.`,
+      am: "«ለምን በቀን ያድናል?» ሀዊ አነበበች፦ «…ምክንያቱም ፍልፈሎች የሚወጡት በቀን ነው።» የቀሩት ጥቂት መቶ ተኩላዎች ብቻ ናቸው፤ ስለዚህ ሰዎች ይጠብቋቸዋል።",
     },
     {
-      en: `On the next page: geladas! "That's ME!" shouts Gugu. ጭላዳዎች ሣር ይበላሉ። ማታ በገደል ዳር ይተኛሉ፤ ምክንያቱም እዚያ ጅብና ነብር ሊደርሱባቸው አይችሉም። "Because hyenas and leopards can't reach them there!" "I knew that," says Gugu, very pleased.`,
-      am: "በሚቀጥለው ገጽ፦ ጭላዳዎች! «ያ እኔ ነኝ!» ብሎ ጮኸ ጉጉ። «ጭላዳዎች ሣር ይበላሉ። ማታ በገደል ዳር ይተኛሉ፤ ምክንያቱም እዚያ ጅብና ነብር ሊደርሱባቸው አይችሉም።» «ይህንን አውቅ ነበር» አለ ጉጉ በጣም ተደስቶ።",
+      en: `Next page: geladas! "That's ME!" shouts Gugu. ጭላዳዎች ማታ በገደል ዳር ይተኛሉ፤ ምክንያቱም ጅብ ሊደርስባቸው አይችልም። "Because hyenas can't reach them there!" "I knew that," says Gugu.`,
+      am: "በሚቀጥለው ገጽ፦ ጭላዳዎች! «ያ እኔ ነኝ!» ብሎ ጮኸ ጉጉ። «ጭላዳዎች ማታ በገደል ዳር ይተኛሉ፤ ምክንያቱም ጅብ ሊደርስባቸው አይችልም።» «ይህንን አውቅ ነበር» አለ ጉጉ።",
     },
     {
       en: `Then Gugu points to his own chest. "ለምን? Why is my chest red?" Hawi reads the page once, twice. It only says: ደረታቸው ላይ ቀይ ምልክት አለ። There is no ምክንያቱም. "The book doesn't say!"`,
@@ -70,8 +70,8 @@ const story: Story = {
       am: "«አንዱ መጽሐፍ ካልተናገረ» አሉ አባ ቶሎሳ፣ «በሌላ እንፈልጋለን። ወደ ቤተ መጻሕፍት እንሂድ።» ስለዚህ በማግሥቱ ወደ ቤተ መጻሕፍት፣ ወደ መጻሕፍት ቤት ሄዱ።",
     },
     {
-      en: `In a big book about geladas, Hawi finds it: ቀዩ ምልክት ጭላዳዎች እርስ በርሳቸው እንዲግባቡ ይረዳቸዋል። "The red patch helps geladas talk to each other. A bright red chest says 'I'm healthy and strong'!" Gugu puffs out his chest.`,
-      am: "ስለ ጭላዳዎች በሚያወራ ትልቅ መጽሐፍ ውስጥ ሀዊ አገኘችው፦ «ቀዩ ምልክት ጭላዳዎች እርስ በርሳቸው እንዲግባቡ ይረዳቸዋል። ደማቅ ቀይ ደረት ‹ጤነኛና ጠንካራ ነኝ› ይላል።» ጉጉ ደረቱን ነፋ።",
+      en: `In a big gelada book, Hawi finds it: ቀዩ ምልክት ጭላዳዎች እንዲግባቡ ይረዳቸዋል። "The red patch helps geladas talk. A bright red chest says 'I'm strong'!" Gugu puffs out his chest.`,
+      am: "ስለ ጭላዳዎች በሚያወራ ትልቅ መጽሐፍ ሀዊ አገኘችው፦ «ቀዩ ምልክት ጭላዳዎች እንዲግባቡ ይረዳቸዋል። ደማቅ ቀይ ደረት ‹ጠንካራ ነኝ› ይላል።» ጉጉ ደረቱን ነፋ።",
     },
     {
       en: `On the way home Hawi has an idea. "Let's make our own Why Book!" On every page they write a question with ለምን? and an answer with ምክንያቱም. Gugu draws the pictures.`,

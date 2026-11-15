@@ -32,8 +32,8 @@ const story: Story = {
       am: "ጉጉ ትልቅ ፈገግታ ይዞ ከእንቅልፉ ተነሣ። «ዛሬ የተቃራኒ ቀን ነው! የሁሉንም ነገር ተቃራኒ አደርጋለሁ!» በቁርስ ሰዓት «ደህና እደሩ!» አለ። አንበሳ ሻዩን እየጠጣ ተንከተከተ።",
     },
     {
-      en: `"Sit down, Gugu," says Grandma. Gugu stands up. "Come inside!" He goes outside. "Speak quietly!" "I'M SPEAKING QUIETLY!" he shouts. Up and down, big and small: opposites, opposites, we know them all!`,
-      am: "«ጉጉ፣ ቁጭ በል» አለች አያቴ። ጉጉ ተነሣ። «ወደ ውስጥ ግባ!» ወደ ውጭ ወጣ። «ቀስ ብለህ ተናገር!» «ቀስ ብዬ እየተናገርኩ ነው!» ብሎ ጮኸ። ላይና ታች፣ ትልቅና ትንሽ፦ ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
+      en: `"Sit down," says Grandma. Gugu stands up. "Come in!" He goes out. "Speak quietly!" "I AM QUIET!" he shouts. Up and down, big and small: opposites, opposites, we know them all!`,
+      am: "«ቁጭ በል» አለች አያቴ። ጉጉ ተነሣ። «ግባ!» ወጣ። «ቀስ ብለህ ተናገር!» «ቀስ ብዬ ነው!» ብሎ ጮኸ። ላይና ታች፣ ትልቅና ትንሽ፦ ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
     },
     {
       en: `Then Grandma has to go to the market. She leaves a note on the table: ዝናብ ሊዘንብ ነው። መስኮቱን ዝጋ። ልብሶቹን ወደ ውስጥ አስገባ። "Rain is coming. Close the window. Bring the clothes inside."`,
@@ -52,20 +52,20 @@ const story: Story = {
       am: "አንበሳ እየሮጠ ገባ። «ጉጉ! ማስታወሻውን እንደገና አንብበው፤ በትክክለኛው መንገድ። ተቃራኒ በጨዋታ ደስ ይላል፤ ማስታወሻ ግን የሚለውን ማለቱ ነው!» ጉጉ እንደገና ቀስ ብሎ አነበበው፦ ዝጋ። አስገባ።",
     },
     {
-      en: `So they put it right. Open window: close it! Blankets outside: bring them inside! Wet blankets: hang them by the fire until they're dry. Up and down, big and small: opposites, opposites, we know them all!`,
-      am: "ስለዚህ አስተካከሉት። ክፍት መስኮት፦ ዝጋው! ውጭ ያሉ ብርድ ልብሶች፦ ወደ ውስጥ አስገባቸው! እርጥብ ብርድ ልብሶች፦ እስኪደርቁ ከእሳቱ አጠገብ አስጣቸው። ላይና ታች፣ ትልቅና ትንሽ፦ ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
+      en: `So they put it right. Open window: shut it! Blankets outside: bring them in! Wet blankets: dry them by the fire. Up and down, big and small: opposites, opposites, we know them all!`,
+      am: "ስለዚህ አስተካከሉት። ክፍት መስኮት፦ ዝጋው! ውጭ ያሉ ብርድ ልብሶች፦ አስገባቸው! እርጥብ ብርድ ልብሶች፦ በእሳቱ አጠገብ አድርቃቸው። ላይና ታች፣ ትልቅና ትንሽ፦ ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
     },
     {
-      en: `When Grandma comes home, Gugu tells her everything. "I did the opposite of your note. I'm sorry." Grandma hugs him. "Thank you for telling me. Now, shall we play Opposite Day the right way?"`,
-      am: "አያቴ ስትመለስ ጉጉ ሁሉንም ነገራት። «የማስታወሻሽን ተቃራኒ አደረግሁ። ይቅርታ።» አያቴ አቀፈችው። «ስለነገርከኝ አመሰግናለሁ። አሁን የተቃራኒ ቀንን በትክክለኛው መንገድ እንጫወት?»",
+      en: `Gugu tells Grandma everything. "I did the opposite of your note. Sorry." She hugs him. "Thank you for telling me. Now, shall we play Opposite Day the right way?"`,
+      am: "ጉጉ ለአያቴ ሁሉንም ነገራት። «የማስታወሻሽን ተቃራኒ አደረግሁ። ይቅርታ።» አቀፈችው። «ስለነገርከኝ አመሰግናለሁ። አሁን የተቃራኒ ቀንን በትክክለኛው መንገድ እንጫወት?»",
     },
     {
       en: `Grandma makes word cards: ትልቅ, ትንሽ, ረጅም, አጭር, ሞቃት, ቀዝቃዛ, ላይ, ታች, ክፍት, ዝግ, ፈጣን, ቀርፋፋ. "Read a card, then find its opposite, and act it out!"`,
       am: "አያቴ የቃላት ካርዶች ሠራች፦ ትልቅ፣ ትንሽ፣ ረጅም፣ አጭር፣ ሞቃት፣ ቀዝቃዛ፣ ላይ፣ ታች፣ ክፍት፣ ዝግ፣ ፈጣን፣ ቀርፋፋ። «ካርድ አንብቡ፤ ተቃራኒውን ፈልጉ፤ ከዚያ በተግባር አሳዩ!»",
     },
     {
-      en: `Anbessa reads ትልቅ and stretches up big. Gugu finds ትንሽ and curls up small. ፈጣን: they zoom round the room! ቀርፋፋ: they creep like tortoises. Up and down, big and small: opposites, opposites, we know them all!`,
-      am: "አንበሳ «ትልቅ» አንብቦ ራሱን ትልቅ አደረገ። ጉጉ «ትንሽ» አግኝቶ ተጨማደደ። ፈጣን፦ በክፍሉ ዙሪያ ሮጡ! ቀርፋፋ፦ እንደ ኤሊ ቀስ ብለው ተራመዱ። ላይና ታች፣ ትልቅና ትንሽ፦ ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
+      en: `Anbessa reads ትልቅ and stretches up big. Gugu reads ትንሽ and curls up small. Then ፈጣን, fast, and ቀርፋፋ, slow! Opposites, opposites, we know them all!`,
+      am: "አንበሳ «ትልቅ» አንብቦ ራሱን ትልቅ አደረገ። ጉጉ «ትንሽ» አንብቦ ተጨማደደ። ከዚያ ፈጣንና ቀርፋፋ! ተቃራኒ፣ ተቃራኒ፣ ሁሉንም እናውቃለን!",
     },
     {
       en: `The last card says ደስተኛ, happy. Its opposite is ያዘነ, sad. Gugu tries to make a sad face, but he's having far too much fun. His mouth keeps turning back into a smile!`,

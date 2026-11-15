@@ -38,8 +38,8 @@ const story: Story = {
       am: "በመንደሩ የውሃ ቧንቧ አጠገብ አለፉ። ውሃው ጠብ ጠብ ይላል። ሐበን በላዩ ያለውን ጽሑፍ አነበበች፦ «ቧ… ን… ቧ… ቧንቧ! በአንድ ቃል ሁለት ጅራቶች!» በደብተሯ ጻፈችው። ትንሿ ጅራት «ዋ» ትላለች!",
     },
     {
-      en: `A runner jogs past in a green, yellow and red shirt. On the back it says ሯጭ, runner. "ሯ! That's ረ with a tail!" shouts Gugu. Ethiopia is famous for its runners. Gugu runs too, until he's out of breath.`,
-      am: "አንድ ሯጭ አረንጓዴ፣ ቢጫና ቀይ ቲሸርት ለብሶ እየሮጠ አለፈ። ከጀርባው «ሯጭ» የሚል ጽሑፍ አለ። «ሯ! ይሄ ረ ከጅራት ጋር ነው!» ብሎ ጮኸ ጉጉ። ኢትዮጵያ በሯጮቿ ትታወቃለች። ጉጉም ትንፋሹ እስኪያጥር ሮጠ።",
+      en: `A runner jogs past in a green, yellow and red shirt that says ሯጭ, runner. "ሯ! That's ረ with a tail!" shouts Gugu. Ethiopia is famous for its runners. Gugu runs too!`,
+      am: "አንድ ሯጭ «ሯጭ» የሚል አረንጓዴ፣ ቢጫና ቀይ ቲሸርት ለብሶ አለፈ። «ሯ! ይሄ ረ ከጅራት ጋር ነው!» ብሎ ጮኸ ጉጉ። ኢትዮጵያ በሯጮቿ ትታወቃለች። ጉጉም ሮጠ!",
     },
     {
       en: `Ayan is walking at the very back, watching a beetle. "Ayan, don't stay at the back!" calls Teacher Meron. Haben writes it down: ኋላ, the back. "ኋ, from the ኀ family, with a tail!"`,

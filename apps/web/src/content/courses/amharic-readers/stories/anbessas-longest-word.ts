@@ -70,8 +70,8 @@ const story: Story = {
       am: "ስለዚህ አንበሳ ታሪኩን መረጠ። እንዴታ፣ ስለ እንቁራሪቶች የሚያወራ መጽሐፍ መረጠ! መምህርት መሮን አነበቡት፤ ረጅም ቃል በመጣ ቁጥር ልጆቹ ከእሳቸው ጋር ቁራሽ በቁራሽ አነበቡ።",
     },
     {
-      en: `On the way home Anbessa reads every long sign: ምግብ ቤት, ፖስታ ቤት… At home, Tsehay has written on the door: እንኳን ደህና መጣህ! Welcome home! He reads it in one breath. Piece by piece, then all together!`,
-      am: "ወደ ቤት ሲመለሱ አንበሳ ረጃጅሞቹን ጽሑፎች ሁሉ አነበበ፦ ምግብ ቤት፣ ፖስታ ቤት… ቤት ሲደርሱ ፀሐይ በበሩ ላይ ጽፋለች፦ እንኳን ደህና መጣህ! አንበሳ በአንድ ትንፋሽ አነበበው። ቁራሽ በቁራሽ፣ ከዚያ በአንድ ላይ!",
+      en: `Anbessa reads every long sign: ምግብ ቤት, ፖስታ ቤት… On the door Tsehay wrote: እንኳን ደህና መጣህ! Welcome home! He reads it in one breath. Piece by piece, then all together!`,
+      am: "አንበሳ ረጃጅሞቹን ጽሑፎች ሁሉ አነበበ፦ ምግብ ቤት፣ ፖስታ ቤት… ፀሐይ በበሩ ላይ ጽፋለች፦ እንኳን ደህና መጣህ! በአንድ ትንፋሽ አነበበው። ቁራሽ በቁራሽ፣ ከዚያ በአንድ ላይ!",
     },
   ],
   grownUps: {

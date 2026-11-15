@@ -35,8 +35,8 @@ const story: Story = {
       am: "አያቴ አጠገቧ ተቀመጠች። «ቃሉን ሳታውቂው ስትቀሪ ቤተሰቡን ፈልጊ። ቃላት እንደ ሰዎች ቤተሰብ አላቸው። ጸሐፊ የምታውቂውን ቃል ያስታውስሻል?»",
     },
     {
-      en: `Grandma draws a tree in the dust with a stick. At the bottom, the root: ጽ ሕ ፍ. "This root is about writing. Every word that grows from it has something to do with writing." One root, many branches!`,
-      am: "አያቴ በአቧራው ላይ በዱላ ዛፍ ሣለች። ከታች ሥሩ፦ ጽ ሕ ፍ። «ይህ ሥር ስለ መጻፍ ነው። ከእሱ የሚበቅል እያንዳንዱ ቃል ከመጻፍ ጋር ግንኙነት አለው።» አንድ ሥር፣ ብዙ ቅርንጫፎች!",
+      en: `Grandma draws a tree in the dust. Its root: ጽ ሕ ፍ. "This root means writing. Every word that grows from it is about writing." One root, many branches!`,
+      am: "አያቴ በአቧራው ላይ ዛፍ ሣለች። ሥሩ፦ ጽ ሕ ፍ። «ይህ ሥር መጻፍ ማለት ነው። ከእሱ የሚበቅል ቃል ሁሉ ስለ መጻፍ ነው።» አንድ ሥር፣ ብዙ ቅርንጫፎች!",
     },
     {
       en: `On the branches she writes: ጻፈ, he wrote. መጻፍ, to write. ጽሑፍ, writing. መጽሐፍ, a book! "And ጸሐፊ," says Haben slowly, "is someone who writes… a writer!" One root, many branches!`,
@@ -47,7 +47,7 @@ const story: Story = {
       am: "የሐበን ዓይኖች አበሩ። «ቤታችን ትግርኛ እንናገራለን፤ በትግርኛ መጽሐፍ ‹መጽሓፍ› ይባላል፤ ከሞላ ጎደል ያው ነው!» «አማርኛና ትግርኛ እንደ ዘመዶች ናቸው» አለች አያቴ። «ብዙ ሥሮችን ይጋራሉ።»",
     },
     {
-      en: `Anbessa comes home from school with his bag. "Let's grow another tree!" says Haben. The root ም ህ ር is about learning: ተማረ, he learned. ተማሪ, a pupil. መምህር, a teacher. ትምህርት, a lesson.`,
+      en: `Anbessa comes home from school. "Let's grow another tree!" says Haben. The root ም ህ ር is about learning: ተማረ, he learned. ተማሪ, pupil. መምህር, teacher. ትምህርት, lesson.`,
       am: "አንበሳ ቦርሳውን ይዞ ከትምህርት ቤት መጣ። «ሌላ ዛፍ እናብቅል!» አለች ሐበን። «ም ህ ር» የሚለው ሥር ስለ መማር ነው፦ ተማረ። ተማሪ። መምህር። ትምህርት።",
     },
     {
@@ -59,20 +59,20 @@ const story: Story = {
       am: "ጉጉ ከዋርካው ተንጠልጥሎ ወረደ። «እኔ ሌላ ዓይነት ዛፍ አውቃለሁ፦ ቤት!» ከፊቱ አንድ ቃል ጨመረበት፦ ትምህርት ቤት። ምግብ ቤት። መኝታ ቤት። ወጥ ቤት።",
     },
     {
-      en: `"These are two words joined together," says Grandma. "Each one is a special kind of house." Tsehay adds the longest: ቤተ መጻሕፍት, the house of books, the library! Then Gugu shouts, "ሙዝ ቤት! A banana house!" Everyone laughs.`,
-      am: "«እነዚህ ሁለት ቃላት ተያይዘው የተሠሩ ናቸው» አለች አያቴ። «እያንዳንዱ ልዩ ዓይነት ቤት ነው።» ፀሐይ ረጅሙን ጨመረች፦ ቤተ መጻሕፍት፣ የመጻሕፍት ቤት! ከዚያ ጉጉ «ሙዝ ቤት!» ብሎ ጮኸ። ሁሉም ሳቁ።",
+      en: `"Two words joined together," says Grandma. "Each is a special kind of house." Tsehay adds ቤተ መጻሕፍት, the house of books: a library! "ሙዝ ቤት! A banana house!" shouts Gugu.`,
+      am: "«እነዚህ ሁለት ቃላት ተያይዘው የተሠሩ ናቸው» አለች አያቴ። «እያንዳንዱ ልዩ ዓይነት ቤት ነው።» ፀሐይ «ቤተ መጻሕፍት»ን ጨመረች፦ የመጻሕፍት ቤት! «ሙዝ ቤት!» ብሎ ጮኸ ጉጉ።",
     },
     {
       en: `"Is that a real word?" asks Anbessa. "Not yet," smiles Grandma. "But if Gugu ever opens a banana shop, maybe it will be!" Now the dust is full of trees, and every branch has a word on it.`,
       am: "«ያ እውነተኛ ቃል ነው?» አለ አንበሳ። «ገና አይደለም» አለች አያቴ ፈገግ ብላ። «ግን ጉጉ አንድ ቀን የሙዝ ሱቅ ከከፈተ ምናልባት ይሆናል!» አሁን አቧራው በዛፎች ተሞልቷል፤ በእያንዳንዱ ቅርንጫፍ ላይ ቃል አለ።",
     },
     {
-      en: `Haben opens her book again and reads the sentence that stopped her: ጸሐፊዋ ስለ ዋርካ ጻፈች። "The writer wrote about a fig tree." Now she understands every word, and she looks up at the ዋርካ above her.`,
-      am: "ሐበን መጽሐፏን እንደገና ከፍታ ያቆማትን ዓረፍተ ነገር አነበበች፦ «ጸሐፊዋ ስለ ዋርካ ጻፈች።» አሁን እያንዳንዱን ቃል ተረዳች፤ ከበላይዋ ወዳለው ዋርካም ቀና ብላ አየች።",
+      en: `Haben reads again the sentence that stopped her: ጸሐፊዋ ስለ ዋርካ ጻፈች። "The writer wrote about a fig tree." Now she understands every word, and looks up at the ዋርካ.`,
+      am: "ሐበን ያቆማትን ዓረፍተ ነገር እንደገና አነበበች፦ «ጸሐፊዋ ስለ ዋርካ ጻፈች።» አሁን እያንዳንዱን ቃል ተረዳች፤ ቀና ብላም ዋርካውን አየች።",
     },
     {
-      en: `"One day," says Haben, "I'll be a ጸሐፊ too." She takes her pencil and writes her very first sentence about the tree: ዋርካው ትልቅ ነው፤ ጥላው ሰፊ ነው። "The fig tree is big; its shade is wide." The leaves rustle above them. One root, many branches!`,
-      am: "«አንድ ቀን» አለች ሐበን፣ «እኔም ጸሐፊ እሆናለሁ።» እርሳሷን አንሥታ ስለ ዛፉ የመጀመሪያ ዓረፍተ ነገሯን ጻፈች፦ «ዋርካው ትልቅ ነው፤ ጥላው ሰፊ ነው።» ቅጠሎቹ ከበላያቸው ተንሿሿሹ። አንድ ሥር፣ ብዙ ቅርንጫፎች!",
+      en: `"I'll be a ጸሐፊ too," says Haben, and writes her first sentence: ዋርካው ትልቅ ነው፤ ጥላው ሰፊ ነው። "The fig tree is big; its shade is wide." One root, many branches!`,
+      am: "«እኔም ጸሐፊ እሆናለሁ» አለች ሐበን፤ የመጀመሪያ ዓረፍተ ነገሯንም ጻፈች፦ «ዋርካው ትልቅ ነው፤ ጥላው ሰፊ ነው።» አንድ ሥር፣ ብዙ ቅርንጫፎች!",
     },
   ],
   grownUps: {
