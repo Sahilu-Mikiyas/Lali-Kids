@@ -231,16 +231,16 @@ export function Thing({ kind, x = 0, y = 0, s = 1, rot = 0 }: { kind: ThingKind;
 /**
  * A glass of tea on a saucer, with a spoon. `sugar`: "none", "falling" (from the spoon), "heap"
  * (a pile at the bottom), "dissolving" (fading away) or "gone". `stir` moves the spoon. `sand` puts
- * sand in plain water instead (it settles and stays).
+ * sand in plain water instead (it settles and stays); `plain` is a glass of cold water.
  */
-export function TeaGlass({ x, y, s = 1, sugar = "none", stir = false, sand = false, steam = true }: { x: number; y: number; s?: number; sugar?: "none" | "falling" | "heap" | "dissolving" | "gone"; stir?: boolean; sand?: boolean; steam?: boolean }) {
-  const drink = sand ? "#CFE8F4" : "#B8541E";
+export function TeaGlass({ x, y, s = 1, sugar = "none", stir = false, sand = false, plain = false, steam = true }: { x: number; y: number; s?: number; sugar?: "none" | "falling" | "heap" | "dissolving" | "gone"; stir?: boolean; sand?: boolean; plain?: boolean; steam?: boolean }) {
+  const drink = sand || plain ? "#CFE8F4" : "#B8541E";
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="wiggle" sound="pop">
         <g>
           <ellipse cx={0} cy={0} rx={26} ry={5} fill="#F2EEE2" stroke="#D8D0C0" />
-          {steam && !sand && (
+          {steam && !sand && !plain && (
             <g>
               {[-6, 4].map((sx, i) => (
                 <path key={sx} d={`M${sx} -50 q4 -6 0 -12 q-4 -6 0 -12`} stroke="#FFFFFF" strokeWidth={2.4} fill="none" strokeLinecap="round" className="sn-steam" style={vars({ "--delay": `${-i * 1.2}s` })} />

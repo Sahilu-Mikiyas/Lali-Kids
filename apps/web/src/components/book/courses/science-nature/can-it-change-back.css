@@ -1,0 +1,45 @@
+/* Can It Change Back? (can-it-change-back.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The salty water drying away in the sun (once). */
+@keyframes sccb-dry {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.2); opacity: 0; }
+}
+.sccb-dry {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sccb-dry 3s ease-in 0.4s both;
+}
+
+/* Sand grains swirling and settling to the bottom (once). */
+@keyframes sccb-settle {
+  0% { transform: translate(0, 0); }
+  40% { transform: translate(8px, 10px); }
+  100% { transform: translate(-2px, 48px); }
+}
+.sccb-settle { animation: sccb-settle 2.6s ease-in var(--delay, 0s) both; }
+
+/* The melted butter setting solid again (once). */
+@keyframes sccb-set {
+  0% { transform: scale(1.3, 0.2); opacity: 0.4; }
+  100% { transform: scale(1, 1); opacity: 1; }
+}
+.sccb-set {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sccb-set 4s ease-out 0.6s both;
+}
+
+/* The soggy injera drooping in the water. */
+@keyframes sccb-soggy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+.sccb-soggy { animation: sccb-soggy 3s ease-in-out infinite; }
+
+/* Water pouring through the cloth. */
+@keyframes sccb-pour {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -20; }
+}
+.sccb-pour { animation: sccb-pour 0.5s linear infinite; }
