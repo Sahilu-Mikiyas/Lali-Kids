@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "The Sentence Builders", am: "ዓረፍተ ነገር ገንቢዎቹ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2F6FD6",
   scene: "lib-abdis-sentence-builders",
   coverPage: 6,

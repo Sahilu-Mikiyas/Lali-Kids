@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "The Word Tree", am: "የቃላት ዛፍ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#3F7D3A",
   scene: "lib-habens-word-tree",
   coverPage: 3,

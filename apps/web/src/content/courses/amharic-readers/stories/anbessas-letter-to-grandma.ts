@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "A Letter to Grandma", am: "ለአያቴ የተጻፈ ደብዳቤ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#8A4FB0",
   scene: "lib-anbessas-letter-to-grandma",
   coverPage: 5,

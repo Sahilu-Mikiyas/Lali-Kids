@@ -23,7 +23,7 @@ const story: Story = {
   title: { en: "Haben's Clapping Poem", am: "የሐበን የጭብጨባ ግጥም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#D98A1E",
   scene: "lib-habens-clapping-poem",
   coverPage: 10,

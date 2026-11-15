@@ -27,7 +27,7 @@ const story: Story = {
   title: { en: "Hawi's Why Book", am: "የሀዊ «ለምን?» መጽሐፍ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#A8562A",
   scene: "lib-hawis-why-book",
   coverPage: 4,

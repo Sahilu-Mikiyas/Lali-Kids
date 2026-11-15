@@ -24,7 +24,7 @@ const story: Story = {
   title: { en: "The Fire on the Mountain", am: "በተራራው ላይ ያለው እሳት" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#3A4A8A",
   scene: "lib-arha-and-the-far-fire",
   coverPage: 4,

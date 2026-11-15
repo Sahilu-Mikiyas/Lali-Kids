@@ -23,7 +23,7 @@ const story: Story = {
   title: { en: "The Lion's Whisker", am: "የአንበሳው ጢም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#B5651D",
   scene: "lib-grandmas-lions-whisker",
   coverPage: 6,

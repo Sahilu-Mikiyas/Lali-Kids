@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "What Happens Next?", am: "ቀጥሎ ምን ይሆናል?" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#4A5BA8",
   scene: "lib-anbessa-no-peeking",
   coverPage: 6,

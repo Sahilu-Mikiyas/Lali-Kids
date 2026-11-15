@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "The Little Wa Tails", am: "ትንንሾቹ የ«ዋ» ጅራቶች" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2F7FB8",
   scene: "lib-little-wa-tails",
   coverPage: 9,

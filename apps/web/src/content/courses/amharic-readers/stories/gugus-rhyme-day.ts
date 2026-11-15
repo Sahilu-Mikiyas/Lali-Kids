@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Gugu's Rhyme Hunt", am: "የጉጉ የግጥም አደን" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#D9532B",
   scene: "lib-gugus-rhyme-day",
   coverPage: 9,

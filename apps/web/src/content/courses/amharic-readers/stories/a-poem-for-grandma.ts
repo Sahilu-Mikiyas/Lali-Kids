@@ -22,7 +22,7 @@ const story: Story = {
   title: { en: "A Poem for Grandma", am: "ለአያቴ ግጥም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#E3A511",
   scene: "lib-a-poem-for-grandma",
   coverPage: 10,

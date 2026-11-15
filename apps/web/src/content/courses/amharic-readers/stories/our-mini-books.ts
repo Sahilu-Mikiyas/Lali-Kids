@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "Our Mini Books", am: "የእኛ ትንንሽ መጻሕፍት" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#3E9B5A",
   scene: "lib-our-mini-books",
   coverPage: 11,

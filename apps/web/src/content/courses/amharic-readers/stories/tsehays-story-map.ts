@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Tsehay's Story Map", am: "የፀሐይ የታሪክ ካርታ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2E8A6A",
   scene: "lib-tsehays-story-map",
   coverPage: 7,

@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "Whose Is It?", am: "የማን ነው?" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#2E7DA8",
   scene: "lib-lost-and-found-box",
   coverPage: 7,

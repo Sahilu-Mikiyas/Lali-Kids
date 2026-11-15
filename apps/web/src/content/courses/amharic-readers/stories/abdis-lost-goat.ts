@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Abdi and the Lost Goat", am: "አብዲና የጠፋችው ፍየል" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#C9822B",
   scene: "lib-abdis-lost-goat",
   coverPage: 7,

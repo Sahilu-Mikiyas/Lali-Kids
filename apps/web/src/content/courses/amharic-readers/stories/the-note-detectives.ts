@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "The Note Detectives", am: "ማስታወሻ መርማሪዎቹ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#B0442A",
   scene: "lib-the-note-detectives",
   coverPage: 7,

@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Ayan's Mixed-Up Pages", am: "የአያን የተደበላለቁ ገጾች" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#D9822B",
   scene: "lib-ayans-mixed-up-pages",
   coverPage: 7,

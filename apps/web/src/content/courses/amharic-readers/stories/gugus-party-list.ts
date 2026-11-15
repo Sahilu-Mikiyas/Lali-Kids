@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Gugu's Party List", am: "የጉጉ የግብዣ ዝርዝር" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#E2463F",
   scene: "lib-gugus-party-list",
   coverPage: 10,

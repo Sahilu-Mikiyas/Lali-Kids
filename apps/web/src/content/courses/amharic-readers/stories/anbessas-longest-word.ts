@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "The Longest Word", am: "ረጅሙ ቃል" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#C2410C",
   scene: "lib-anbessas-longest-word",
   coverPage: 9,
