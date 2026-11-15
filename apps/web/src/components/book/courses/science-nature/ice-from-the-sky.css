@@ -1,0 +1,30 @@
+/* Ice from the Sky (ice-from-the-sky.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The water in the cup rising as the hail melts (once). */
+@keyframes sif-fill {
+  from { transform: scaleY(0.1); }
+  to { transform: scaleY(1); }
+}
+.sif-fill {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sif-fill 4s ease-in 0.8s both;
+}
+
+/* Hail falling from the storm cloud to the ground. */
+@keyframes sif-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110px); opacity: 0; }
+}
+.sif-fall { animation: sif-fall 1.4s ease-in var(--delay, 0s) infinite; }
+
+
+/* Invisible water vapour drifting up into the air (shown as faint dotted circles). */
+@keyframes sif-vapour {
+  0% { transform: translateY(60px); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+.sif-vapour { animation: sif-vapour 3s ease-out var(--delay, 0s) infinite; }

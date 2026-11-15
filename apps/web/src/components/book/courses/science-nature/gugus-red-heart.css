@@ -1,0 +1,75 @@
+/* Gugu's Red Heart (gugus-red-heart.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The clock's second hand going round. */
+@keyframes sgh-tick {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.sgh-tick {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: sgh-tick 6s steps(60) infinite;
+}
+
+/* A ring pulsing where the heartbeat is felt. */
+@keyframes sgh-ring {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; }
+  20% { transform: scale(1.3); opacity: 1; }
+}
+.sgh-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sgh-ring 1s ease-out infinite;
+}
+
+/* Racing round the field, left and right across the picture. */
+@keyframes sgh-run {
+  0% { transform: translate(60px, 290px) scaleX(1); }
+  49% { transform: translate(340px, 290px) scaleX(1); }
+  50% { transform: translate(340px, 290px) scaleX(-1); }
+  99% { transform: translate(60px, 290px) scaleX(-1); }
+  100% { transform: translate(60px, 290px) scaleX(1); }
+}
+.sgh-run { animation: sgh-run 4s linear infinite; }
+
+/* Puffs of breath, fast. */
+@keyframes sgh-puff {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(-16px, -12px) scale(1.2); opacity: 0; }
+}
+.sgh-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sgh-puff 0.9s ease-out var(--delay, 0s) infinite;
+}
+
+/* Blood flowing along the tube to the muscles. */
+@keyframes sgh-flow {
+  from { stroke-dashoffset: 48; }
+  to { stroke-dashoffset: 0; }
+}
+.sgh-flow { animation: sgh-flow 0.6s linear infinite; }
+
+/* Ayan's chest growing and shrinking as she breathes. */
+@keyframes sgh-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 1.03); }
+}
+.sgh-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sgh-breathe 3s ease-in-out infinite;
+}
+
+/* A little cloud of breath in the cold air. */
+@keyframes sgh-breath {
+  0% { transform: translate(0, 0) scale(0.3); opacity: 0; }
+  30% { opacity: 0.85; }
+  100% { transform: translate(30px, -16px) scale(1.4); opacity: 0; }
+}
+.sgh-breath {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sgh-breath 2.6s ease-out var(--delay, 0s) infinite;
+}

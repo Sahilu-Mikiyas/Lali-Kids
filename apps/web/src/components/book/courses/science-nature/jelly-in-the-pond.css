@@ -1,0 +1,83 @@
+/* The Jelly in the Pond (jelly-in-the-pond.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Bubbles rising under the water. */
+@keyframes sjp-bubble {
+  0% { transform: translateY(60px); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(-160px); opacity: 0; }
+}
+.sjp-bubble { animation: sjp-bubble 3.4s ease-in var(--delay, 0s) infinite; }
+
+/* The jelly wobbling as the tadpoles wriggle inside. */
+@keyframes sjp-jiggle {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.02, 0.98); }
+}
+.sjp-jiggle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sjp-jiggle 0.8s ease-in-out infinite;
+}
+
+/* A tadpole swimming up to the top to gulp air, and back down. */
+@keyframes sjp-gulp {
+  0%, 100% { transform: translateY(180px); }
+  45%, 55% { transform: translateY(0); }
+}
+.sjp-gulp { animation: sjp-gulp 4s ease-in-out var(--delay, 0s) infinite; }
+
+/* A froglet sliding back down the muddy bank. */
+@keyframes sjp-slip {
+  0%, 15% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -36px); }
+  65% { transform: translate(10px, -36px); }
+  100% { transform: translate(0, 0); }
+}
+.sjp-slip { animation: sjp-slip 2.6s ease-in-out var(--delay, 0s) infinite; }
+
+/* Froglets crawling up the stone ramp, from the water to the grass. */
+@keyframes sjp-climb {
+  0% { transform: translate(150px, 230px); opacity: 0; }
+  10% { opacity: 1; }
+  80% { transform: translate(262px, 146px); opacity: 1; }
+  100% { transform: translate(300px, 140px); opacity: 0; }
+}
+.sjp-climb { animation: sjp-climb 4s linear var(--delay, 0s) infinite; }
+
+/* The frog's tongue flicking out and back. */
+@keyframes sjp-tongue {
+  0%, 60%, 100% { transform: scale(0); }
+  70%, 76% { transform: scale(1); }
+}
+.sjp-tongue {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: sjp-tongue 2.4s ease-out 0.6s infinite;
+}
+
+/* The mosquito buzzing about, and vanishing when the tongue snaps. */
+@keyframes sjp-mosquito {
+  0% { transform: translate(-20px, 10px); opacity: 1; }
+  30% { transform: translate(10px, -10px); }
+  60% { transform: translate(0, 0); opacity: 1; }
+  72%, 100% { opacity: 0; }
+}
+.sjp-mosquito { animation: sjp-mosquito 2.4s ease-in-out 0.6s infinite; }
+
+/* The dashed circle turning slowly, round and round. */
+@keyframes sjp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.sjp-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sjp-spin 20s linear infinite;
+}
+
+/* Hawi hopping like a frog. */
+@keyframes sjp-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-16px); }
+}
+.sjp-hop { animation: sjp-hop 0.8s ease-in-out infinite; }

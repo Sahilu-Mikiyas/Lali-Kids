@@ -1,0 +1,23 @@
+/* Three Bean Jars (three-bean-jars.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Gugu shaking his bean by his ear. */
+@keyframes sbj-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+.sbj-shake { animation: sbj-shake 0.4s ease-in-out infinite; }
+
+/* Gugu jumping for joy. */
+@keyframes sbj-cheer {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+.sbj-cheer { animation: sbj-cheer 0.9s ease-in-out infinite; }
+
+/* The pale bean fading as the green one shows through (it greens in the light), once. */
+@keyframes sbj-fade {
+  0%, 20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.sbj-fade { animation: sbj-fade 5s ease-in-out 0.6s both; }

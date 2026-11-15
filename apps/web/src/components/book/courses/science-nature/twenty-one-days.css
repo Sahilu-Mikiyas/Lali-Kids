@@ -1,0 +1,20 @@
+/* Twenty-One Days (twenty-one-days.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The new chick, wet and tired, lying still and slowly lifting its head. */
+@keyframes stw-wet {
+  0% { transform: rotate(80deg) scale(0.8); opacity: 0.7; }
+  60% { transform: rotate(60deg) scale(0.85); opacity: 0.8; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+.stw-wet {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: stw-wet 4s ease-out 0.6s both;
+}
+
+/* The hen and her chicks walking slowly across the yard. */
+@keyframes stw-walk {
+  from { transform: translateX(-30px); }
+  to { transform: translateX(40px); }
+}
+.stw-walk { animation: stw-walk 7s ease-in-out infinite alternate; }

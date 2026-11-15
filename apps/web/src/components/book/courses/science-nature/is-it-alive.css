@@ -1,0 +1,95 @@
+/* Is It Alive? (is-it-alive.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* The cow's head going down to graze and up again. */
+@keyframes sia-graze {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+}
+.sia-graze { animation: sia-graze 6s ease-in-out infinite; }
+
+/* Warm breath puffing from the cow's nose. */
+@keyframes sia-puff {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translate(18px, -12px) scale(1.3); opacity: 0; }
+}
+.sia-puff {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sia-puff 2.2s ease-out var(--delay, 0s) infinite;
+}
+
+/* The stone bouncing and rolling down the hill (once), then resting. */
+@keyframes sia-roll {
+  0% { transform: translate(330px, 150px) rotate(0deg); }
+  20% { transform: translate(300px, 170px) rotate(-120deg); }
+  30% { transform: translate(285px, 160px) rotate(-180deg); }
+  50% { transform: translate(250px, 210px) rotate(-320deg); }
+  60% { transform: translate(236px, 200px) rotate(-380deg); }
+  85% { transform: translate(200px, 270px) rotate(-520deg); }
+  100% { transform: translate(190px, 274px) rotate(-540deg); }
+}
+.sia-roll { animation: sia-roll 3s ease-in 0.4s both; }
+
+/* Roots under the tree, showing faintly. */
+@keyframes sia-roots {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+.sia-roots { animation: sia-roots 3s ease-in-out infinite; }
+
+/* Sunbeams to the leaves. */
+@keyframes sia-ray {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.sia-ray { animation: sia-ray 2s ease-in-out var(--delay, 0s) infinite; }
+
+/* The cloud drifting and growing. */
+@keyframes sia-cloud {
+  0% { transform: translateX(-30px) scale(0.8); }
+  100% { transform: translateX(40px) scale(1.15); }
+}
+.sia-cloud {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sia-cloud 7s ease-in-out infinite alternate;
+}
+
+/* Wind lines blowing across. */
+@keyframes sia-wind {
+  0% { transform: translateX(-20px); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateX(60px); opacity: 0; }
+}
+.sia-wind { animation: sia-wind 2.4s ease-out var(--delay, 0s) infinite; }
+
+/* The mother bird flying back to the nest. */
+@keyframes sia-bird {
+  0% { transform: translate(80px, -30px); }
+  100% { transform: translate(-40px, 30px); }
+}
+.sia-bird { animation: sia-bird 4s ease-in-out infinite alternate; }
+
+/* Drops of water falling on the planted bean. */
+@keyframes sia-water {
+  0% { transform: translateY(-10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+.sia-water { animation: sia-water 1s ease-in infinite; }
+
+/* The dry leaf floating down. */
+@keyframes sia-leaf {
+  0% { transform: translate(0, -60px) rotate(-20deg); }
+  50% { transform: translate(-30px, 20px) rotate(20deg); }
+  100% { transform: translate(-50px, 60px) rotate(-10deg); }
+}
+.sia-leaf { animation: sia-leaf 4s ease-in-out 0.4s both; }
+
+/* Anbessa stretching up tall. */
+@keyframes sia-tall {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.sia-tall { animation: sia-tall 1.4s ease-in-out infinite; }
