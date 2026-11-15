@@ -30,8 +30,8 @@ const story: Story = {
       am: "ዝናባማ ምሽት ነው። አንበሳ፣ ጉጉና ፀሐይ ከእሳቱ አጠገብ ተጠጋግተው ተቀምጠዋል። አያቴ መጽሐፍ ከፍ አድርጋ አሳየች፦ «ትንሿ ንብና ዝናቡ»። «ከስሙ ተነሥታችሁ ምን የሚሆን ይመስላችኋል?»",
     },
     {
-      en: `"A bee… and rain… I think the bee gets wet!" says Tsehay. "Good," says Grandma. "The name is a clue. A clue is a little hint. Let's read and see." What comes next? Look for the clues!`,
-      am: "«ንብ… እና ዝናብ… ንቧ የምትርስ ይመስለኛል!» አለች ፀሐይ። «ጎበዝ» አለች አያቴ። «ስሙ ፍንጭ ነው። ፍንጭ ትንሽ ጠቋሚ ነው። እናንብብና እንይ።» ቀጥሎ ምን ይሆናል? ፍንጭ ፈልጉ!",
+      en: `"A bee… and rain… I think the bee gets wet!" says Tsehay. "Good," says Grandma. "The name is a clue, a little hint." What comes next? Look for the clues!`,
+      am: "«ንብ… እና ዝናብ… ንቧ የምትርስ ይመስለኛል!» አለች ፀሐይ። «ጎበዝ» አለች አያቴ። «ስሙ ፍንጭ ነው፤ ትንሽ ጠቋሚ።» ቀጥሎ ምን ይሆናል? ፍንጭ ፈልጉ!",
     },
     {
       en: `Grandma reads: "ትንሿ ንብ አበባ ልትፈልግ ሩቅ በረረች። ሰማዩ ጠቆረ።" The little bee flew far away to find flowers. The sky grew dark. She stops. "What comes next?"`,
@@ -54,24 +54,24 @@ const story: Story = {
       am: "አያቴ አነበበች፦ «ከቅጠሉ ሥር ተጠለለች።» ጉጉ ትክክል ነበር። አንበሳ አልነበረም፤ ችግር የለውም! «ግምት ግምት ነው» አለች አያቴ። «ከዚያ ቃላቱ ይነግሩናል።»",
     },
     {
-      en: `"Under the leaf was a snail. The snail smiled." Anbessa thinks hard. Will the snail chase her away? "He smiled! That's a clue. He'll share!" Grandma reads: "«ቦታ አለ፤ ግቢ» አለ።" "There's room, come in," he said.`,
-      am: "«ከቅጠሉ ሥር አንድ ቀንድ አውጣ ነበር። ቀንድ አውጣው ፈገግ አለ።» አንበሳ በደንብ አሰበ። ያባርራት ይሆን? «ፈገግ አለ! ያ ፍንጭ ነው። ያካፍላታል!» አያቴ አነበበች፦ «‹ቦታ አለ፤ ግቢ› አለ።»",
+      en: `"Under the leaf was a snail. The snail smiled." "He smiled! That's a clue," says Anbessa. "He'll share!" Grandma reads: «ቦታ አለ፤ ግቢ» አለ። "There's room, come in," he said.`,
+      am: "«ከቅጠሉ ሥር አንድ ቀንድ አውጣ ነበር። ቀንድ አውጣው ፈገግ አለ።» «ፈገግ አለ! ያ ፍንጭ ነው» አለ አንበሳ። «ያካፍላታል!» አያቴ አነበበች፦ «‹ቦታ አለ፤ ግቢ› አለ።»",
     },
     {
-      en: `"You used a clue!" says Grandma, and Anbessa sits up tall. "ዝናቡ ቆመ። ፀሐይ ወጣች።" The rain stopped. The sun came out. "Rain and sun together… a rainbow!" shouts Anbessa. And there it is, on the next page.`,
-      am: "«ፍንጭ ተጠቀምክ!» አለች አያቴ፤ አንበሳ ቀና ብሎ ተቀመጠ። «ዝናቡ ቆመ። ፀሐይ ወጣች።» «ዝናብና ፀሐይ በአንድ ላይ… ቀስተ ደመና!» ብሎ ጮኸ አንበሳ። ይኸው፣ በሚቀጥለው ገጽ ላይ አለ።",
+      en: `"You used a clue!" says Grandma. "ዝናቡ ቆመ። ፀሐይ ወጣች።" The rain stopped. The sun came out. "Rain and sun… a rainbow!" shouts Anbessa. And there it is, on the next page.`,
+      am: "«ፍንጭ ተጠቀምክ!» አለች አያቴ። «ዝናቡ ቆመ። ፀሐይ ወጣች።» «ዝናብና ፀሐይ… ቀስተ ደመና!» ብሎ ጮኸ አንበሳ። ይኸው፣ በሚቀጥለው ገጽ ላይ አለ።",
     },
     {
-      en: `The last page: "ንቧ ወደ ቀፎዋ ተመለሰች። ለቀንድ አውጣው ስጦታ አመጣች።" The bee flew home to her hive. She brought the snail a present. "What present can a bee give?" "Honey!" they all shout. Yes: ማር!`,
-      am: "የመጨረሻው ገጽ፦ «ንቧ ወደ ቀፎዋ ተመለሰች። ለቀንድ አውጣው ስጦታ አመጣች።» «ንብ ምን ስጦታ ልትሰጥ ትችላለች?» «ማር!» ብለው ሁሉም ጮኹ። አዎ፦ ማር!",
+      en: `Last page: "ንቧ ወደ ቀፎዋ ተመለሰች። ለቀንድ አውጣው ስጦታ አመጣች።" The bee went home and brought the snail a present. "What can a bee give?" "Honey!" they shout. Yes: ማር!`,
+      am: "የመጨረሻው ገጽ፦ «ንቧ ወደ ቀፎዋ ተመለሰች። ለቀንድ አውጣው ስጦታ አመጣች።» «ንብ ምን ልትሰጥ ትችላለች?» «ማር!» ብለው ጮኹ። አዎ፦ ማር!",
     },
     {
       en: `Just then: tap, tap, tap at the window. It's Lali, wet from the rain! "What comes next?" whispers Grandma. Anbessa looks for clues. "She's wet and cold… she'll come in by the fire!"`,
       am: "ልክ በዚያን ጊዜ፦ ኳ፣ ኳ፣ ኳ መስኮቱ ላይ። ላሊ ናት፤ በዝናብ ርሳለች! «ቀጥሎ ምን ይሆናል?» አለች አያቴ በሹክሹክታ። አንበሳ ፍንጭ ፈለገ። «ርሳለች፤ በርዷታል… ከእሳቱ አጠገብ ልትገባ ነው!»",
     },
     {
-      en: `They open the window, and Lali zooms in to warm her wings by the fire. Anbessa was right! "Again?" asks Grandma, holding up another book. "Yes! But no peeking!" What comes next? Look for the clues!`,
-      am: "መስኮቱን ከፈቱ፤ ላሊ ክንፎቿን ልታሞቅ ወደ እሳቱ በረረች። አንበሳ ትክክል ነበር! «እንደገና?» አለች አያቴ ሌላ መጽሐፍ ከፍ አድርጋ። «አዎ! ግን አስቀድሞ ማየት የለም!» ቀጥሎ ምን ይሆናል? ፍንጭ ፈልጉ!",
+      en: `They open the window, and Lali zooms in to the fire. Anbessa was right! "Again?" asks Grandma, holding up a book. "Yes! But no peeking!" What comes next? Look for the clues!`,
+      am: "መስኮቱን ከፈቱ፤ ላሊ ወደ እሳቱ በረረች። አንበሳ ትክክል ነበር! «እንደገና?» አለች አያቴ መጽሐፍ ከፍ አድርጋ። «አዎ! ግን አስቀድሞ ማየት የለም!» ቀጥሎ ምን ይሆናል? ፍንጭ ፈልጉ!",
     },
   ],
   grownUps: {

@@ -30,7 +30,7 @@ const story: Story = {
       am: "ዛሬ መምህርት መሮን ለእያንዳንዱ ጥንድ ትንሽ ታሪክ የተጻፈበት ካርድና ጥቂት ጥያቄዎች ሰጡ። ሐበን ከጉጉ ጋር ናት። «መጀመሪያ ታሪኩን አንብቡ» አሉ መምህርት መሮን። «ከዚያ መልሱ።»",
     },
     {
-      en: `Haben reads the card aloud: ቦሬ ትንሽ ነጭ ፍየል ናት። ጧት ወደ ተራራው ሄደች። ቅጠል ለመብላት ዛፍ ላይ ወጣች። ማታ ወደ ቤት ተመለሰች። "Bore is a little white goat. In the morning she went to the mountain. She climbed a tree to eat leaves. In the evening she came home."`,
+      en: `Haben reads the card aloud: ቦሬ ትንሽ ነጭ ፍየል ናት። ጧት ወደ ተራራው ሄደች። ቅጠል ለመብላት ዛፍ ላይ ወጣች። ማታ ወደ ቤት ተመለሰች። It is about Bore, a little white goat, and her day.`,
       am: "ሐበን ካርዱን ጮክ ብላ አነበበች፦ «ቦሬ ትንሽ ነጭ ፍየል ናት። ጧት ወደ ተራራው ሄደች። ቅጠል ለመብላት ዛፍ ላይ ወጣች። ማታ ወደ ቤት ተመለሰች።»",
     },
     {
@@ -38,16 +38,16 @@ const story: Story = {
       am: "የመጀመሪያው ጥያቄ፦ «ቦሬ ምን ዓይነት ቀለም አላት?» «ጥቁር!» ብሎ ወዲያው ጮኸ ጉጉ። «ፍየሎች ጥቁር ናቸው!» ሐበን ግን እርግጠኛ አልሆነችም።",
     },
     {
-      en: `"Don't guess, look," says Teacher Meron. "The answer is hiding in the story." Haben runs her finger along the words. There! ቦሬ ትንሽ ነጭ ፍየል ናት። "ነጭ! White!" Point to it! The answer is in the words!`,
-      am: "«አትገምቱ፤ ተመልከቱ» አሉ መምህርት መሮን። «መልሱ በታሪኩ ውስጥ ተደብቋል።» ሐበን ጣቷን በቃላቱ ላይ አንሸራተተች። እዚያ! «ቦሬ ትንሽ ነጭ ፍየል ናት።» «ነጭ!» በጣታችሁ አሳዩ! መልሱ በቃላቱ ውስጥ ነው!",
+      en: `"Don't guess, look!" says Teacher Meron. Haben's finger slides along the words: ቦሬ ትንሽ ነጭ ፍየል ናት። "ነጭ! White!" Point to it! The answer is in the words!`,
+      am: "«አትገምቱ፤ ተመልከቱ!» አሉ መምህርት መሮን። ሐበን ጣቷን በቃላቱ ላይ አንሸራተተች፦ «ቦሬ ትንሽ ነጭ ፍየል ናት።» «ነጭ!» በጣታችሁ አሳዩ! መልሱ በቃላቱ ውስጥ ነው!",
     },
     {
       en: `The next question: ቦሬ የት ሄደች? "Where did Bore go?" "To the market, to buy sweets!" says Gugu. Haben points: ጧት ወደ ተራራው ሄደች። "To the mountain!"`,
       am: "ቀጣዩ ጥያቄ፦ «ቦሬ የት ሄደች?» «ከረሜላ ልትገዛ ወደ ገበያ!» አለ ጉጉ። ሐበን አመለከተች፦ «ጧት ወደ ተራራው ሄደች።» «ወደ ተራራው!»",
     },
     {
-      en: `Gugu laughs. "Your finger is like a detective! Let me try." Question three: ቦሬ ለምን ዛፍ ላይ ወጣች? "Why did Bore climb a tree?" Gugu's finger slides along… "ቅጠል ለመብላት! To eat leaves!" Point to it! The answer is in the words!`,
-      am: "ጉጉ ሳቀ። «ጣትሽ እንደ መርማሪ ነው! እስቲ እኔ ልሞክር።» ሦስተኛው ጥያቄ፦ «ቦሬ ለምን ዛፍ ላይ ወጣች?» የጉጉ ጣት በቃላቱ ላይ ተንሸራተተ… «ቅጠል ለመብላት!» በጣታችሁ አሳዩ! መልሱ በቃላቱ ውስጥ ነው!",
+      en: `"Your finger is a detective!" laughs Gugu. "My turn." ቦሬ ለምን ዛፍ ላይ ወጣች? "Why did Bore climb a tree?" His finger slides along… "ቅጠል ለመብላት! To eat leaves!" Point to it!`,
+      am: "«ጣትሽ መርማሪ ነው!» ብሎ ሳቀ ጉጉ። «አሁን የእኔ ተራ።» «ቦሬ ለምን ዛፍ ላይ ወጣች?» ጣቱ በቃላቱ ላይ ተንሸራተተ… «ቅጠል ለመብላት!» በጣታችሁ አሳዩ!",
     },
     {
       en: `Question four: ቦሬ መቼ ወደ ቤት ተመለሰች? "When did Bore come home?" Both fingers find it at the same time: ማታ ወደ ቤት ተመለሰች። "ማታ! In the evening!" They bump fingers and giggle.`,
@@ -58,8 +58,8 @@ const story: Story = {
       am: "የመጨረሻው ጥያቄ አስቸጋሪ ነው፦ «ቦሬ ስንት ዓመቷ ነው?» ፈለጉ፣ ፈለጉ። እያንዳንዱን ዓረፍተ ነገር ሁለት ጊዜ አነበቡ። የለም! «ታሪኩ አይናገርም» አለች ሐበን።",
     },
     {
-      en: `"Well done!" says Teacher Meron. "Good readers find the answer in the words, and they also notice when it isn't there." Gugu whispers, "Next time, let's write our own story with the age in it."`,
-      am: "«ጎበዝ!» አሉ መምህርት መሮን። «ጥሩ አንባቢዎች መልሱን በቃላቱ ውስጥ ያገኛሉ፤ መልሱ በማይኖርበት ጊዜም ያውቃሉ።» ጉጉ በሹክሹክታ «በሚቀጥለው ጊዜ ዕድሜዋን የሚናገር የራሳችንን ታሪክ እንጻፍ» አለ።",
+      en: `"Well done!" says Teacher Meron. "Good readers find the answer in the words, and notice when it isn't there." Gugu whispers, "Let's write a story that tells her age!"`,
+      am: "«ጎበዝ!» አሉ መምህርት መሮን። «ጥሩ አንባቢዎች መልሱን በቃላቱ ውስጥ ያገኛሉ፤ በሌለበትም ጊዜ ያውቃሉ።» ጉጉ በሹክሹክታ «ዕድሜዋን የሚናገር ታሪክ እንጻፍ!» አለ።",
     },
     {
       en: `That evening Haben's mother is holding a note from school. "There's a school celebration, but I can't see the day. When is it?" Haben takes the note and runs her finger along it.`,

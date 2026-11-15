@@ -43,12 +43,12 @@ const story: Story = {
       am: "አባ ቶሎሳ ሳቁ። «ሙሉውን እንደገና አንብቢው፤ በዚህ ጊዜ ላላ አድርገሽ በይው።» «ዋና… ዋና… መዋኘት! ዋና ልንሄድ ነው!» ሀዊ በደስታ ዘለለች፤ ጨሌዋ ተንቃጨለ።",
     },
     {
-      en: `"Grandpa, how did you know which one?" "Some words are written the same but said two ways," he says. "One way is soft: ላልቶ. One is strong: ጠብቆ, you press a sound twice. Fidel doesn't show it. Read it all, and the sentence will tell!"`,
-      am: "«አባ ቶሎሳ፣ የትኛው እንደሆነ እንዴት አወቁ?» «አንዳንድ ቃላት አንድ ዓይነት ይጻፋሉ፤ ግን በሁለት ዓይነት ይነበባሉ» አሉ። «አንዱ ላልቶ ነው። ሌላው ጠብቆ ነው፤ አንዱን ድምፅ አጥብቀን እንጫነዋለን። ፊደሉ አያሳየንም። ሙሉውን አንብቡ፤ ዓረፍተ ነገሩ ይነግራችኋል!»",
+      en: `"Grandpa, how did you know?" "Some words are written the same but said two ways: soft, ላልቶ, or strong, ጠብቆ. Fidel doesn't show it. Read it all, and the sentence will tell!"`,
+      am: "«አባ ቶሎሳ፣ እንዴት አወቁ?» «አንዳንድ ቃላት አንድ ዓይነት ይጻፋሉ፤ ግን ላልቶ ወይም ጠብቆ ይነበባሉ። ፊደሉ አያሳየንም። ሙሉውን አንብቡ፤ ዓረፍተ ነገሩ ይነግራችኋል!»",
     },
     {
-      en: `Next day, Hawi tells the class. Teacher Meron writes: መልካም ገና! and ገና አልበላሁም። "In the first, ገና is strong: Genna, Christmas! In the second it's soft: 'not yet'." Read it all, and the sentence will tell!`,
-      am: "በማግሥቱ ሀዊ ለክፍሉ ነገረች። መምህርት መሮን ጻፉ፦ «መልካም ገና!» እና «ገና አልበላሁም።» «በመጀመሪያው ገና ጠብቆ ይነበባል፤ በዓሉ ነው። በሁለተኛው ላልቶ ይነበባል፤ ‹እስካሁን› ማለት ነው።» ሙሉውን አንብቡ፤ ዓረፍተ ነገሩ ይነግራችኋል!",
+      en: `Next day Teacher Meron writes: መልካም ገና! and ገና አልበላሁም። "In the first, ገና is strong: Christmas! In the second it's soft: 'not yet'." Read it all, and the sentence will tell!`,
+      am: "በማግሥቱ መምህርት መሮን ጻፉ፦ «መልካም ገና!» እና «ገና አልበላሁም።» «በመጀመሪያው ገና ጠብቆ ይነበባል፤ በዓሉ ነው። በሁለተኛው ላልቶ ነው፤ ‹እስካሁን› ማለት ነው።» ሙሉውን አንብቡ!",
     },
     {
       en: `Gugu tries two more: ጉጉ «ሰላም» አለ። and ውሃ አለ። First he mixes them up, and everyone laughs, Gugu too. Then he reads them all: soft አለ is "said"; strong አለ is "there is".`,

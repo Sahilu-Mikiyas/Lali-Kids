@@ -36,28 +36,28 @@ const story: Story = {
       am: "ቀይ ኳስ ከፍ አድርገው አሳዩ። «ጉጉ፣ ኳስህ ነው?» «አዎ! ኳሴ ነው!» «ኳስ» የሚለው ቃል አልተቀየረም። የተቀየረው መጨረሻው ብቻ ነው፦ «-ህ» ያንተ፣ «-ኤ» የእኔ ማለት ነው።",
     },
     {
-      en: `Then a blue bag. "Haben, ቦርሳሽ ነው?" To a boy, Teacher Meron says ቦርሳህ; to a girl she says ቦርሳሽ. Amharic always notices who it's talking to. "Yes, ቦርሳዬ ነው!" says Haben. Mine, yours, his, hers: the ending tells whose!`,
-      am: "ከዚያ ሰማያዊ ቦርሳ። «ሐበን፣ ቦርሳሽ ነው?» ለወንድ ልጅ መምህርት መሮን «ቦርሳህ» ይላሉ፤ ለሴት ልጅ «ቦርሳሽ» ይላሉ። አማርኛ የሚያናግረውን ሰው ሁልጊዜ ያስተውላል። «አዎ፣ ቦርሳዬ ነው!» አለች ሐበን። የእኔ፣ ያንተ፣ ያንቺ፣ የእሱ፣ የእሷ፦ መጨረሻው ይነግረናል!",
+      en: `Then a blue bag. "Haben, ቦርሳሽ ነው?" To a girl it's ቦርሳሽ; to a boy, ቦርሳህ. "Yes, ቦርሳዬ ነው!" says Haben. Mine, yours, his, hers: the ending tells whose!`,
+      am: "ከዚያ ሰማያዊ ቦርሳ። «ሐበን፣ ቦርሳሽ ነው?» ለሴት ልጅ «ቦርሳሽ»፣ ለወንድ ልጅ «ቦርሳህ»። «አዎ፣ ቦርሳዬ ነው!» አለች ሐበን። የእኔ፣ ያንተ፣ ያንቺ፣ የእሱ፣ የእሷ፦ መጨረሻው ይነግረናል!",
     },
     {
       en: `A green pencil with a little wolf on it. "That's Hawi's!" says Ayan. "እርሳሷ ነው: it's her pencil." A ruler with a lion on it. "Anbessa's! ማስመሪያው ነው: it's his ruler." For a girl, -ዋ; for a boy, -ኡ.`,
       am: "ትንሽ ተኩላ የተሣለበት አረንጓዴ እርሳስ። «የሀዊ ነው!» አለች አያን። «እርሳሷ ነው።» አንበሳ የተሣለበት ማስመሪያ። «የአንበሳ! ማስመሪያው ነው።» ስለ ሴት ልጅ ስናወራ «-ዋ»፣ ስለ ወንድ ልጅ «-ኡ» ይሆናል።",
     },
     {
-      en: `Teacher Meron writes on the board: ቤት, house. ቤቴ, my house. ቤትህ, your house (to a boy). ቤትሽ, your house (to a girl). ቤቱ, his house. ቤቷ, her house. And ቤታችን, our house! The class reads it together.`,
-      am: "መምህርት መሮን በሰሌዳው ላይ ጻፉ፦ ቤት። ቤቴ፣ የእኔ ቤት። ቤትህ፣ ያንተ ቤት። ቤትሽ፣ ያንቺ ቤት። ቤቱ፣ የእሱ ቤት። ቤቷ፣ የእሷ ቤት። ቤታችን ደግሞ፣ የእኛ ቤት! ክፍሉ በአንድ ላይ አነበበው።",
+      en: `Teacher Meron writes: ቤቴ, my house. ቤትህ, your house (boy). ቤትሽ, your house (girl). ቤቱ, his house. ቤቷ, her house. ቤታችን, our house! The class reads it together.`,
+      am: "መምህርት መሮን ጻፉ፦ ቤቴ፣ የእኔ ቤት። ቤትህ፣ ያንተ ቤት። ቤትሽ፣ ያንቺ ቤት። ቤቱ፣ የእሱ ቤት። ቤቷ፣ የእሷ ቤት። ቤታችን፣ የእኛ ቤት! ክፍሉ በአንድ ላይ አነበበው።",
     },
     {
       en: `Then she lifts out a plain brown notebook with no name on it. "ደብተሩ የማን ነው? Whose notebook is this?" Nobody knows. The cover gives no clue at all.`,
       am: "ከዚያ ስም ያልተጻፈበት ተራ ቡናማ ደብተር አወጡ። «ደብተሩ የማን ነው?» ማንም አያውቅም። ሽፋኑ ምንም ፍንጭ አይሰጥም።",
     },
     {
-      en: `"Let's read inside," says Anbessa. "The answer is in the words!" On the first page it says: ቤቴ ከትልቁ ዋርካ አጠገብ ነው። አያቴ ዳቦ ትጋግራለች። ጓደኛዬ ጉጉ ነው። "My house is next to the big fig tree. My grandma bakes bread. My friend is Gugu."`,
-      am: "«ውስጡን እናንብብ» አለ አንበሳ። «መልሱ በቃላቱ ውስጥ ነው!» በመጀመሪያው ገጽ ላይ እንዲህ ይላል፦ «ቤቴ ከትልቁ ዋርካ አጠገብ ነው። አያቴ ዳቦ ትጋግራለች። ጓደኛዬ ጉጉ ነው።»",
+      en: `"Let's read inside," says Anbessa. "The answer is in the words!" The first page says: ቤቴ ከትልቁ ዋርካ አጠገብ ነው። አያቴ ዳቦ ትጋግራለች። ጓደኛዬ ጉጉ ነው።`,
+      am: "«ውስጡን እናንብብ» አለ አንበሳ። «መልሱ በቃላቱ ውስጥ ነው!» የመጀመሪያው ገጽ እንዲህ ይላል፦ «ቤቴ ከትልቁ ዋርካ አጠገብ ነው። አያቴ ዳቦ ትጋግራለች። ጓደኛዬ ጉጉ ነው።»",
     },
     {
-      en: `"The big fig tree… a grandma who bakes bread… and I'm the friend!" says Gugu. Everyone turns to look at Anbessa. His eyes go wide. "ደብተሬ ነው! It's my notebook! I forgot I wrote that!"`,
-      am: "«ትልቁ ዋርካ… ዳቦ የምትጋግር አያት… ጓደኛው ደግሞ እኔ ነኝ!» አለ ጉጉ። ሁሉም ወደ አንበሳ ዞሩ። አንበሳ ዓይኖቹን አፈጠጠ። «ደብተሬ ነው! ያንን እንደጻፍኩ ረስቼ ነበር!»",
+      en: `"The big fig tree… a grandma who bakes bread… and I'm the friend!" says Gugu. Everyone looks at Anbessa. "ደብተሬ ነው! It's my notebook! I forgot I wrote that!"`,
+      am: "«ትልቁ ዋርካ… ዳቦ የምትጋግር አያት… ጓደኛው ደግሞ እኔ ነኝ!» አለ ጉጉ። ሁሉም ወደ አንበሳ ዞሩ። «ደብተሬ ነው! ያንን እንደጻፍኩ ረስቼ ነበር!»",
     },
     {
       en: `"From now on," says Teacher Meron, "write your name on your things." Everyone writes: የአንበሳ ደብተር, Anbessa's notebook. የሐበን ቦርሳ, Haben's bag. The little የ in front also tells whose!`,
@@ -68,8 +68,8 @@ const story: Story = {
       am: "በሣጥኑ ታች አንድ በጣም ትንሽ ነገር አለ፦ ከአውራ ጣት የምታንስ ቢጫና ጥቁር ኮፍያ። የማን ልትሆን ትችላለች? ዝዝዝ! ላሊ እየበረረች ገባች። «ኮፍያዬ!» የላሊ ናት፦ ኮፍያዋ!",
     },
     {
-      en: `Walking home, Anbessa points at everything. "ቤቱ: Gugu's house, his house. ቤቷ: Tsehay's house, her house." Then he runs to Grandma's door. "And this is ቤታችን, our house!" Mine, yours, his, hers: the ending tells whose!`,
-      am: "ወደ ቤት ሲሄድ አንበሳ ሁሉንም ነገር አመለከተ። «ቤቱ፦ የጉጉ ቤት። ቤቷ፦ የፀሐይ ቤት።» ከዚያ ወደ አያቴ በር ሮጠ። «ይሄ ደግሞ ቤታችን ነው!» የእኔ፣ ያንተ፣ ያንቺ፣ የእሱ፣ የእሷ፦ መጨረሻው ይነግረናል!",
+      en: `Walking home, Anbessa points. "ቤቱ: Gugu's house, his house. ቤቷ: Tsehay's house, her house." At Grandma's door: "And this is ቤታችን, our house!" The ending tells whose!`,
+      am: "ወደ ቤት ሲሄድ አንበሳ አመለከተ። «ቤቱ፦ የጉጉ ቤት። ቤቷ፦ የፀሐይ ቤት።» በአያቴ በር ላይ፦ «ይሄ ደግሞ ቤታችን ነው!» መጨረሻው የማን እንደሆነ ይነግረናል!",
     },
     {
       en: `That night Anbessa writes on the cover of his notebook in big, careful letters: የአንበሳ ደብተር. Under it, smaller: ደብተሬ! Now nobody will ever have to wonder whose it is.`,

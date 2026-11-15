@@ -43,12 +43,12 @@ const story: Story = {
       am: "ከጉድጓዱ አጠገብ ሁለተኛ ማስታወሻ አለ፤ ከጉጉ፦ «ዶሮዋ ወደ ጓሮ ሄደች።» «የት?» አለ አንበሳ። «ጓሮ!»",
     },
     {
-      en: `In the back yard, a third note is tied to the fence, from Haben: ዶሮዋ ገለባ ተሸከመች። "The hen carried straw." "ምን? What? ገለባ, straw," reads Ayan. "But why would a hen carry straw?"`,
-      am: "በጓሮው ውስጥ ሦስተኛ ማስታወሻ ከአጥሩ ጋር ታስሯል፤ ከሐበን፦ «ዶሮዋ ገለባ ተሸከመች።» «ምን? ገለባ» ብላ አነበበች አያን። «ግን ዶሮ ለምን ገለባ ትሸከማለች?»",
+      en: `In the back yard, a third note from Haben is tied to the fence: ዶሮዋ ገለባ ተሸከመች። "The hen carried straw." "ገለባ, straw?" says Ayan. "Why would a hen carry straw?"`,
+      am: "በጓሮው ሦስተኛ ማስታወሻ ከአጥሩ ጋር ታስሯል፤ ከሐበን፦ «ዶሮዋ ገለባ ተሸከመች።» «ገለባ?» አለች አያን። «ዶሮ ለምን ገለባ ትሸከማለች?»",
     },
     {
-      en: `Anbessa lays the three notes side by side and reads them again. In the morning… to the back yard… carrying straw… "She's making something!" Who? What? Where? When? The words will tell!`,
-      am: "አንበሳ ሦስቱን ማስታወሻዎች ጎን ለጎን አስቀምጦ እንደገና አነበባቸው። ጧት… ወደ ጓሮ… ገለባ ተሸክማ… «የሆነ ነገር እየሠራች ነው!» ማን? ምን? የት? መቼ? ቃላቱ ይነግሩናል!",
+      en: `Anbessa lays the three notes side by side. In the morning… to the back yard… carrying straw… "She's making something!" Who? What? Where? When? The words will tell!`,
+      am: "አንበሳ ሦስቱን ማስታወሻዎች ጎን ለጎን አስቀመጠ። ጧት… ወደ ጓሮ… ገለባ ተሸክማ… «የሆነ ነገር እየሠራች ነው!» ማን? ምን? የት? መቼ? ቃላቱ ይነግሩናል!",
     },
     {
       en: `They tiptoe round the back yard. Behind the woodpile they hear a soft, sleepy clucking. Ayan peeks round the corner, very, very slowly.`,

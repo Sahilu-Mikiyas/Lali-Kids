@@ -63,8 +63,8 @@ const story: Story = {
       am: "በትምህርት ቤት አያን መጽሐፏን ለክፍሉ አነበበች። «እነዚህ ትንንሽ ቃላት እንደ መሰላል ደረጃዎች ናቸው» አሉ መምህርት መሮን። «መጀመሪያ ምን እንደሆነና ከዚያ በኋላ ምን እንደሆነ ይነግሩናል።»",
     },
     {
-      en: `Gugu tells his morning: "At last I woke up. First I ate my breakfast. Then I…" Everyone laughs. "Eat breakfast while you're asleep?" Gugu laughs too and tries again, in the right order.`,
-      am: "ጉጉ ጧቱን ተረከ፦ «በመጨረሻ ከእንቅልፌ ተነሣሁ። መጀመሪያ ቁርሴን በላሁ። ከዚያ…» ሁሉም ሳቁ። «ተኝተህ ቁርስ በላህ?» ጉጉም ሳቀና በትክክለኛው ቅደም ተከተል እንደገና ሞከረ።",
+      en: `Gugu tells his morning: "At last I woke up. First I ate breakfast. Then…" Everyone laughs. "Breakfast while you're asleep?" Gugu laughs and tries again, in order.`,
+      am: "ጉጉ ጧቱን ተረከ፦ «በመጨረሻ ከእንቅልፌ ተነሣሁ። መጀመሪያ ቁርሴን በላሁ። ከዚያ…» ሁሉም ሳቁ። «ተኝተህ ቁርስ በላህ?» ጉጉም ሳቀና በቅደም ተከተል እንደገና ሞከረ።",
     },
     {
       en: `After school, Ayan ties her book with a new string. She writes a number on every page: 1, 2, 3, 4. "Now the wind can never mix them up again!"`,
