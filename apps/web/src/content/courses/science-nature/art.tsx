@@ -5,7 +5,10 @@ import type { ComponentType, ReactNode } from "react";
 import { Acacia, CloudShape } from "@/components/book/scenery";
 import { Camel, Cub, Gugu, Ibex, Wolf } from "@/components/book/courses/science-nature/kit-cast";
 import { BodyChart, Food, GroupSign, Heart, Lungs, SenseIcon, Smile, Tooth, type FoodKind, type Sense, type ToothKind } from "@/components/book/courses/science-nature/kit-body";
-import { Mitad } from "@/components/book/courses/science-nature/kit-crafts";
+import { Kebero, Krar, Mitad } from "@/components/book/courses/science-nature/kit-crafts";
+import { BananaPeel, BoxKrar, Dam, GoCart, Lever, Magnet, PlasticBag, RampBarrel, RingSeedling, Small, SolarLamp, Torch, Well, type SmallThing } from "@/components/book/courses/science-nature/kit-forces";
+import { Volcano } from "@/components/book/courses/science-nature/kit-land";
+import { Basalt, BottleFilter, EarthBall, Fluffy, LavaLake, MoonPhase, OrionBelt, Pinwheel, RainBarrel, Rainbow, SoilJar, StormTower, SunDisc, Vapour, WaterCycle } from "@/components/book/courses/science-nature/kit-sky";
 import { Bean, BeanJar, Caterpillar, Chick, Chrysalis, Cow, Egg, Fish, Frog, FrogSpawn, Goat, Hen, JarTag, LemonLeaf, Pebble, StrawNest, Swallowtail, Tadpole, Worm } from "@/components/book/courses/science-nature/kit-life";
 import { ButterPan, Frost, Hailstones, IceCube, InTub, Puddle, SteamPot, TeaGlass, Thing, Tub, type ThingKind } from "@/components/book/courses/science-nature/kit-stuff";
 import type { ArtProps } from "../types";
@@ -46,6 +49,8 @@ const who = (el: ReactNode, bg = "#E8F4FB") =>
     );
   };
 
+const small = (k: SmallThing, s = 2.5) => thing(<Small kind={k} x={50} y={56} s={s} />, "#F2EEE6");
+const moon = (phase: number) => thing(<MoonPhase x={50} y={50} r={30} phase={phase} />, "#141A4A");
 const food = (k: FoodKind) => thing(<Food kind={k} x={50} y={52} s={1.9} />, "#FFF6DD");
 const sense = (k: Sense) => thing(<SenseIcon kind={k} x={50} y={50} s={1.7} />, "#F4ECFA");
 const tooth = (k: ToothKind) => thing(<Tooth kind={k} x={50} y={56} s={2.4} />, "#FDECEE");
@@ -204,4 +209,52 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   "sand-water": thing(<TeaGlass x={50} y={86} s={1.3} sand steam={false} />, "#F4ECE0"),
   batter: thing(<Mitad x={50} y={56} s={0.55} injera="batter" fire={false} />, "#F4ECE0"),
   "injera-cooked": thing(<Mitad x={50} y={56} s={0.55} injera="eyes" fire={false} />, "#F4ECE0"),
+  // weather, water and seasons (level 4)
+  sun: thing(<SunDisc x={50} y={50} r={22} />, "#BFE4FA"),
+  vapour: thing(<g><rect y={70} width={100} height={30} fill="#4FA8E0" /><Vapour x={50} y={66} n={3} s={1.8} /><SunDisc x={82} y={18} r={10} /></g>, "#BFE4FA"),
+  "cloud-white": thing(<Fluffy x={50} y={50} s={0.9} color="#FFFFFF" />, "#8FC8F0"),
+  rain: thing(<g><Fluffy x={50} y={34} s={0.8} color="#C8D4E4" /><path d="M30 56 l-4 12 M46 60 l-4 12 M62 56 l-4 12 M78 60 l-4 12" stroke="#2F7FC0" strokeWidth={3} strokeLinecap="round" /></g>, "#DDEEFA"),
+  storm: thing(<StormTower x={50} y={50} s={0.55} bolt />, "#8A9AB8"),
+  rainbow: thing(<g><Rainbow x={50} y={90} r={44} w={4} /></g>, "#BFE4FA"),
+  wind: thing(<Pinwheel x={50} y={50} s={1.6} spin={false} />, "#DDF0FF"),
+  "water-cycle": thing(<g transform="scale(0.25)"><WaterCycle step={4} /></g>, "#BFE4FA"),
+  "rain-barrel": thing(<RainBarrel x={50} y={88} s={1.2} fill={0.7} />, "#E4F4DC"),
+  filter: thing(<BottleFilter x={50} y={64} s={0.85} drip={false} />, "#F4ECE0"),
+  // Earth and sky (level 5)
+  earth: thing(<EarthBall x={50} y={50} r={36} turn={0.8} />, "#0E1440"),
+  "earth-night": thing(<EarthBall x={50} y={50} r={36} turn={0.22} />, "#0E1440"),
+  "moon-new": moon(0),
+  "moon-crescent": moon(1),
+  "moon-half": moon(2),
+  "moon-full": moon(4),
+  "moon-half-late": moon(6),
+  orion: thing(<OrionBelt x={50} y={50} s={0.9} />, "#141A4A"),
+  volcano: thing(<Volcano x={50} y={84} s={0.62} />, "#3A2A48"),
+  "lava-lake": thing(<LavaLake x={50} y={56} s={0.42} />, "#2A2238"),
+  basalt: thing(<Basalt x={50} y={60} s={1.4} />, "#E8E4EE"),
+  "soil-jar": thing(<SoilJar x={50} y={88} s={1} />, "#F4ECE0"),
+  // forces, light, sound and our planet (level 6)
+  magnet: thing(<Magnet x={50} y={50} s={1.8} />, "#FFE8E8"),
+  nail: small("nail"),
+  clip: small("clip"),
+  needle: small("needle"),
+  "spoon-wood": small("spoon-wood"),
+  "cup-plastic": small("cup-plastic"),
+  "pot-alu": small("pot-alu", 2.2),
+  paper: small("paper"),
+  pulley: thing(<Well x={50} y={92} s={0.42} bucket="up" />, "#DDF0FF"),
+  lever: thing(<Lever x={50} y={80} s={0.42} lifted />, "#E4F4DC"),
+  ramp: thing(<RampBarrel x={50} y={86} s={0.4} at={0.6} />, "#E4F4DC"),
+  cart: thing(<GoCart x={50} y={74} s={1} rope={false} />, "#E4F4DC"),
+  torch: thing(<Torch x={14} y={50} s={0.6} len={70} />, "#141A3A"),
+  krar: thing(<Krar x={50} y={92} s={0.9} />, "#F4ECFA"),
+  kebero: thing(<Kebero x={50} y={86} s={1.2} />, "#F4ECFA"),
+  "box-krar": thing(<BoxKrar x={50} y={66} s={0.85} tuned />, "#F4ECFA"),
+  "plastic-bag": thing(<PlasticBag x={50} y={52} s={2.4} flap={false} />, "#DDF0FF"),
+  "banana-peel": thing(<BananaPeel x={50} y={64} s={2.6} />, "#E8D8C0"),
+  "peel-rotten": thing(<BananaPeel x={50} y={64} s={2.6} rotten />, "#E8D8C0"),
+  "seedling-ring": thing(<RingSeedling x={50} y={76} s={1.6} />, "#E4F4DC"),
+  "seedling-wilt": thing(<RingSeedling x={50} y={76} s={1.6} wilt />, "#F4E4C0"),
+  "solar-lamp": thing(<SolarLamp x={50} y={84} s={1.4} />, "#1E2A50"),
+  dam: thing(<g transform="translate(54 76) scale(0.4)"><Dam x={0} y={0} /></g>, "#BFE4FA"),
 };

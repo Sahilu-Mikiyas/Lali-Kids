@@ -3,7 +3,7 @@ import type { Story } from "../../../stories";
 /*
   "Grandma's Lost Needle" (level 6: magnets). Grandma, mending a netela outside, drops her sewing
   needle in the grass. Tsehay has a magnet from an old radio. What does it stick to? They test: the
-  key, a nail, a steel bottle top, a pin: click! Wood, cloth, plastic, paper, glass: no. Even some
+  scissors, a nail, a steel bottle top, a pin: click! Wood, cloth, plastic, paper, glass: no. Even some
   metals don't stick: the light aluminium pot doesn't. Magnets pull things made of iron or steel. The
   magnet pulls a paper clip through paper and cloth, without touching. Two magnets: one way they
   snap together, turned round they push apart. A magnetised needle on a floating leaf turns to point
@@ -41,16 +41,16 @@ const story: Story = {
       am: "ፀሐይ ከአሮጌ ሬዲዮ የወጣ ማግኔት ነበራት። «ምናልባት ይረዳል!» መጀመሪያ ግን ማወቅ ፈለገች፦ ማግኔት ምን ይይዛል? ቅጭ! ይጣበቃል? እስቲ በፍጥነት እንወቅ!",
     },
     {
-      en: "The key: click! A nail: click! A bottle top: click! A pin: click! Then the wooden spoon: nothing. The netela, a plastic cup, paper, a glass: nothing.",
-      am: "ቁልፉ፦ ቅጭ! ሚስማር፦ ቅጭ! የጠርሙስ ክዳን፦ ቅጭ! ፒን፦ ቅጭ! ከዚያ የእንጨት ማንኪያ፦ ምንም። ነጠላው፣ የፕላስቲክ ኩባያ፣ ወረቀት፣ ብርጭቆ፦ ምንም።",
+      en: "The scissors: click! A nail: click! A bottle top: click! A pin: click! Then the wooden spoon: nothing. The netela, a plastic cup, paper, a glass: nothing.",
+      am: "መቀሱ፦ ቅጭ! ሚስማር፦ ቅጭ! የጠርሙስ ክዳን፦ ቅጭ! ፒን፦ ቅጭ! ከዚያ የእንጨት ማንኪያ፦ ምንም። ነጠላው፣ የፕላስቲክ ኩባያ፣ ወረቀት፣ ብርጭቆ፦ ምንም።",
     },
     {
       en: "\"So it sticks to metal!\" guessed Tsehay. Then she tried Grandma's light, shiny pot. Nothing! \"Not every metal,\" said Grandma. \"That pot is aluminium.\"",
       am: "«ስለዚህ ብረት ይይዛል!» ገመተች ፀሐይ። ከዚያ የአያቴን ቀላልና የሚያብረቀርቅ ድስት ሞከረች። ምንም! «ሁሉንም ብረት አይደለም» አሉ አያቴ። «ያ ድስት አሉሚኒየም ነው።»",
     },
     {
-      en: "\"Magnets pull things made of iron or steel,\" said Grandma. \"Keys, nails, pins and needles are steel.\" Click! Will it stick? Let's find out quick!",
-      am: "«ማግኔት ከብረት ወይም ከአረብ ብረት የተሠሩ ነገሮችን ይስባል» አሉ አያቴ። «ቁልፍ፣ ሚስማር፣ ፒንና መርፌ አረብ ብረት ናቸው።» ቅጭ! ይጣበቃል? እስቲ በፍጥነት እንወቅ!",
+      en: "\"Magnets pull things made of iron or steel,\" said Grandma. \"Scissors, nails, pins and needles are steel.\" Click! Will it stick? Let's find out quick!",
+      am: "«ማግኔት ከብረት ወይም ከአረብ ብረት የተሠሩ ነገሮችን ይስባል» አሉ አያቴ። «መቀስ፣ ሚስማር፣ ፒንና መርፌ አረብ ብረት ናቸው።» ቅጭ! ይጣበቃል? እስቲ በፍጥነት እንወቅ!",
     },
     {
       en: "Tsehay put a paper clip on a sheet of paper and moved the magnet underneath. The clip slid along by itself! \"It pulls through paper, without touching!\"",

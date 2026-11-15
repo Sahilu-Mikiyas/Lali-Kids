@@ -86,9 +86,9 @@ export default function GrandmasLostNeedle({ page }: { page: number }) {
           <Sign x={260} y={90} kind="?" delay={1} />
         </g>
       );
-    // Key, nail, bottle top, pin: click! Wooden spoon, cloth, plastic cup, paper: nothing.
+    // Scissors, nail, bottle top, pin: click! Wooden spoon, cloth, plastic cup, paper: nothing.
     case 2:
-      return <TestTable stuck={["key", "nail", "cap", "clip"]} unstuck={["spoon-wood", "cloth", "cup-plastic", "paper"]} />;
+      return <TestTable stuck={["nail", "cap", "clip", "needle"]} unstuck={["spoon-wood", "cloth", "cup-plastic", "paper"]} />;
     // Grandma's light, shiny aluminium pot: nothing. Not every metal sticks.
     case 3:
       return (
@@ -113,7 +113,7 @@ export default function GrandmasLostNeedle({ page }: { page: number }) {
           <g transform="translate(110 150)">
             <circle r={90} fill="#FFE4E4" />
             <Magnet x={0} y={-50} s={1.4} />
-            {(["key", "nail", "needle", "cap"] as SmallThing[]).map((k, i) => (
+            {(["clip", "nail", "needle", "cap"] as SmallThing[]).map((k, i) => (
               <Small key={k} kind={k} x={-40 + (i % 2) * 60} y={10 + Math.floor(i / 2) * 36} s={1.3} />
             ))}
           </g>
