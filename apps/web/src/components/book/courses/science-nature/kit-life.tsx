@@ -25,6 +25,20 @@ import { Tappable } from "../../tappable";
   the butterfly is black with yellow patches and small red and blue eyespots, and has no tails.
 */
 
+/**
+ * Puts children at a spot and pops them in after `delay` (a CSS move needs its own group: a CSS
+ * transform replaces an SVG transform attribute on the same element). `cls` swaps the move.
+ */
+export function Pop({ x, y, delay = 0.8, s = 1, cls = "lali-pop-in", children }: { x: number; y: number; delay?: number; s?: number; cls?: string; children: ReactNode }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${s})`}>
+      <g className={cls} style={vars({ "--delay": `${delay}s` })}>
+        {children}
+      </g>
+    </g>
+  );
+}
+
 /* ---------- the scientist's tools ---------- */
 
 /** A magnifying glass, handle down-left. */
@@ -183,7 +197,12 @@ export function JarTag({ kind }: { kind: "sun" | "dark" | "dry" | "water" }) {
           ))}
         </g>
       )}
-      {kind === "dark" && <path d="M2 -6 A6 6 0 1 0 2 6 A4.6 4.6 0 1 1 2 -6Z" fill="#4A4A8A" />}
+      {kind === "dark" && (
+        <g>
+          <circle r={7} fill="#2A2A5A" />
+          <circle cx={3.4} cy={-2.4} r={5.4} fill="#FFFFFF" />
+        </g>
+      )}
       {kind === "water" && <path d="M0 -6 Q5 1 0 6 Q-5 1 0 -6Z" fill="#5BB8E8" />}
       {kind === "dry" && (
         <g>
@@ -365,13 +384,14 @@ export function Caterpillar({ x, y, s = 1, young = false, flip = false, munch = 
 }
 
 /** A chrysalis hanging on a stem by a silk belt; `open` is the empty, split case. */
-export function Chrysalis({ x, y, s = 1, open = false }: { x: number; y: number; s?: number; open?: boolean }) {
+export function Chrysalis({ x, y, s = 1, open = false, dark = false }: { x: number; y: number; s?: number; open?: boolean; dark?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <Tappable reaction="wiggle" sound="pop">
         <g>
           <path d="M-14 0 H14" stroke="#7A5236" strokeWidth={3} strokeLinecap="round" />
-          <path d="M0 0 C-8 4 -9 18 -6 26 C-4 32 4 32 6 26 C9 18 8 4 0 0Z" fill={open ? "#E8E2C8" : "#8CBF5A"} opacity={open ? 0.8 : 1} />
+          <path d="M0 0 C-8 4 -9 18 -6 26 C-4 32 4 32 6 26 C9 18 8 4 0 0Z" fill={open ? "#E8E2C8" : dark ? "#3A3A30" : "#8CBF5A"} opacity={open ? 0.8 : 1} />
+          {dark && <path d="M-4 10 l3 -2 l1 4Z M2 14 l3 -1 l-1 4Z" fill="#F5D24A" />}
           {open ? <path d="M-4 6 L0 16 L4 6" stroke="#C9C0A0" strokeWidth={1.2} fill="none" /> : <path d="M-4 8 Q0 6 4 8 M-5 15 Q0 13 5 15 M-4 22 Q0 20 4 22" stroke="#6E9E44" strokeWidth={1} fill="none" />}
           <path d="M-7 10 Q0 6 7 10" stroke="#F2EEE2" strokeWidth={0.8} fill="none" />
         </g>
