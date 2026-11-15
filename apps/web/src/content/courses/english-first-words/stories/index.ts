@@ -9,6 +9,18 @@ import nameSounds from "./name-sounds";
 import iSpyWithLali from "./i-spy-with-lali";
 import soundHunt from "./sound-hunt";
 import letterKite from "./letter-kite";
+import moveOxMove from "./move-ox-move";
+import wobblyTooth from "./wobbly-tooth";
+import vanToTheVet from "./van-to-the-vet";
+import xMarksTheSpot from "./x-marks-the-spot";
+import sayItSlowly from "./say-it-slowly";
+import rhymeShow from "./rhyme-show";
+import stopTheVan from "./stop-the-van";
+import snapWords from "./snap-words";
+import abdiCan from "./abdi-can";
+import iLikeMango from "./i-like-mango";
+import whatIsThis from "./what-is-this";
+import myLittleBook from "./my-little-book";
 
 /*
   This course's own teaching stories, in any order (the course decides the order in ../index.ts).
@@ -16,4 +28,4 @@ import letterKite from "./letter-kite";
   hello-feelings, opposites, weather-words) are lessons too; they stay in src/content/library
   until the package goes live.
 */
-export const STORIES: Story[] = [myNameIs, goodMorningGugu, thisIsMyFamily, laliSays, habensRainbowDress, countThemHome, nameSounds, iSpyWithLali, soundHunt, letterKite];
+export const STORIES: Story[] = [myNameIs, goodMorningGugu, thisIsMyFamily, laliSays, habensRainbowDress, countThemHome, nameSounds, iSpyWithLali, soundHunt, letterKite, moveOxMove, wobblyTooth, vanToTheVet, xMarksTheSpot, sayItSlowly, rhymeShow, stopTheVan, snapWords, abdiCan, iLikeMango, whatIsThis, myLittleBook];

@@ -1064,6 +1064,229 @@ export const THINGS: Record<string, () => ReactElement> = {
       <circle cx={0} cy={-22} r={3} fill="#E8413B" />
     </g>
   ),
+  /* ---------- English First Words, levels 4 to 6 ---------- */
+  nest: () => (
+    <g>
+      <path d="M-34 0 Q-30 26 0 26 Q30 26 34 0Z" fill="#A8743E" {...S} />
+      <path d="M-30 6 Q0 16 30 6 M-26 14 Q0 22 26 14 M-32 2 L-20 18 M-12 4 L-4 22 M8 4 L14 22 M24 2 L28 14" stroke="#7A4E26" strokeWidth={2} fill="none" />
+      <ellipse cx={-12} cy={-2} rx={8} ry={10} fill="#9FD4F0" {...S} strokeWidth={1.6} />
+      <ellipse cx={2} cy={-4} rx={8} ry={10} fill="#9FD4F0" {...S} strokeWidth={1.6} />
+      <ellipse cx={16} cy={-2} rx={8} ry={10} fill="#9FD4F0" {...S} strokeWidth={1.6} />
+      <path d="M-36 0 Q0 8 36 0" stroke="#7A4E26" strokeWidth={4} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  ox: () => (
+    <g>
+      <ellipse cx={6} cy={4} rx={30} ry={17} fill="#8A5A3A" {...S} />
+      <path d="M-16 18 V34 M-4 18 V34 M14 18 V34 M26 16 V34" {...S} strokeWidth={6} stroke="#6E4428" />
+      <path d="M34 0 Q42 10 38 22" stroke="#6E4428" strokeWidth={3} fill="none" strokeLinecap="round" />
+      <path d="M-4 -12 Q6 -20 18 -12" fill="#A8743E" {...S} strokeWidth={1.6} />
+      <g transform="translate(-28 -10)">
+        <path d="M-14 -10 Q-26 -14 -24 -26 M14 -10 Q26 -14 24 -26" stroke="#F3EDE2" strokeWidth={5} fill="none" strokeLinecap="round" />
+        <ellipse cx={0} cy={0} rx={13} ry={15} fill="#8A5A3A" {...S} />
+        <ellipse cx={0} cy={9} rx={9} ry={6} fill="#C9967A" {...S} strokeWidth={1.4} />
+        <circle cx={-5} cy={-4} r={2} fill={K} />
+        <circle cx={5} cy={-4} r={2} fill={K} />
+      </g>
+    </g>
+  ),
+  pot: () => (
+    <g>
+      <path d="M-18 -26 H18 L14 -18 Q34 -6 30 12 Q24 32 0 32 Q-24 32 -30 12 Q-34 -6 -14 -18Z" fill="#B8643A" {...S} />
+      <path d="M-28 4 Q0 14 28 4" stroke="#8E4A2A" strokeWidth={2.4} fill="none" />
+      <path d="M-26 12 Q0 22 26 12" stroke="#F5DCC0" strokeWidth={2} fill="none" strokeDasharray="3 4" />
+      <ellipse cx={-14} cy={-4} rx={4} ry={8} fill="#fff" opacity={0.25} />
+    </g>
+  ),
+  queen: () => (
+    <g>
+      <path d="M-24 -10 L-28 -32 L-14 -20 L0 -36 L14 -20 L28 -32 L24 -10Z" fill="#FFD233" {...S} />
+      <circle cx={0} cy={-26} r={3} fill="#2F6FD0" />
+      <circle cx={-16} cy={-16} r={2.4} fill="#E8413B" />
+      <circle cx={16} cy={-16} r={2.4} fill="#E8413B" />
+      <path d="M-22 -10 Q-30 14 -24 30 M22 -10 Q30 14 24 30" stroke="#2A1A10" strokeWidth={6} fill="none" strokeLinecap="round" />
+      <circle cx={0} cy={4} r={18} fill="#A8693F" {...S} />
+      <circle cx={-6} cy={2} r={2.2} fill={K} />
+      <circle cx={6} cy={2} r={2.2} fill={K} />
+      <path d="M-6 11 Q0 16 6 11" stroke={K} strokeWidth={2} fill="none" strokeLinecap="round" />
+      <path d="M-28 40 Q0 18 28 40" fill="#2E9A8A" {...S} />
+    </g>
+  ),
+  rock: () => (
+    <g>
+      <path d="M-34 24 Q-38 0 -20 -14 Q-6 -28 12 -22 Q34 -16 36 6 Q38 24 26 26Z" fill="#9C98A6" {...S} />
+      <path d="M-10 -10 Q0 -4 6 -12 M10 6 Q18 10 22 2" stroke="#7A7688" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+      <ellipse cx={-14} cy={-2} rx={6} ry={4} fill="#fff" opacity={0.25} />
+    </g>
+  ),
+  yoyo: () => (
+    <g>
+      <path d="M0 -40 V-12" stroke={K} strokeWidth={2} />
+      <circle cx={0} cy={10} r={24} fill="#E8413B" {...S} />
+      <circle cx={0} cy={10} r={14} fill="#FFD233" {...S} strokeWidth={1.6} />
+      <circle cx={0} cy={10} r={4} fill={K} />
+    </g>
+  ),
+  zebra: () => (
+    <g>
+      <ellipse cx={4} cy={4} rx={28} ry={15} fill="#fff" {...S} />
+      <g stroke={K} strokeWidth={4} strokeLinecap="round">
+        <path d="M-12 -8 V14 M-2 -10 V16 M8 -10 V16 M18 -8 V14" />
+      </g>
+      <path d="M-14 16 V34 M-4 18 V34 M14 18 V34 M24 16 V34" stroke={K} strokeWidth={5} />
+      <path d="M-20 -2 L-30 -24 Q-34 -32 -26 -34 L-14 -12Z" fill="#fff" {...S} />
+      <path d="M-24 -30 L-28 -22 M-20 -24 L-24 -16" stroke={K} strokeWidth={2.4} />
+      <path d="M-22 -34 Q-18 -24 -10 -16" stroke={K} strokeWidth={4} fill="none" />
+      <circle cx={-26} cy={-28} r={1.8} fill={K} />
+      <path d="M32 0 Q40 6 38 14" stroke={K} strokeWidth={2.4} fill="none" />
+    </g>
+  ),
+  box: () => (
+    <g>
+      <path d="M-32 -6 L0 -18 L32 -6 L0 6Z" fill="#E3B26A" {...S} />
+      <path d="M-32 -6 V24 L0 36 V6Z" fill="#C98A4A" {...S} />
+      <path d="M32 -6 V24 L0 36 V6Z" fill="#B8783A" {...S} />
+      <path d="M-16 -12 L16 0" stroke="#E8413B" strokeWidth={4} />
+      <path d="M-16 0 V30" stroke="#E8413B" strokeWidth={4} />
+    </g>
+  ),
+  sugarcane: () => (
+    <g transform="rotate(-30)">
+      <rect x={-6} y={-40} width={12} height={80} rx={5} fill="#C9B24A" {...S} />
+      <path d="M-6 -20 H6 M-6 0 H6 M-6 20 H6" stroke="#8A7A2A" strokeWidth={2.4} />
+      <path d="M0 -40 Q-14 -54 -20 -50 M0 -40 Q10 -56 18 -52" stroke="#4DBA54" strokeWidth={4} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  mat: () => (
+    <g>
+      <path d="M-38 6 L-30 -14 H30 L38 6Z" fill="#D9A04A" {...S} />
+      <path d="M-34 -2 H34 M-36 2 H36 M-32 -8 H32" stroke="#E8413B" strokeWidth={2} />
+      <path d="M-38 6 H38 V12 H-38Z" fill="#B8802A" {...S} strokeWidth={1.6} />
+    </g>
+  ),
+  mug: () => (
+    <g>
+      <path d="M-20 -26 H16 V22 Q16 30 8 30 H-12 Q-20 30 -20 22Z" fill="#2F9E8F" {...S} />
+      <path d="M16 -14 Q32 -14 32 0 Q32 14 16 14" stroke={K} strokeWidth={2.4} fill="none" />
+      <path d="M16 -14 Q32 -14 32 0 Q32 14 16 14" stroke="#2F9E8F" strokeWidth={6} fill="none" opacity={0.9} />
+      <path d="M-8 -34 q-4 -6 0 -10 M2 -34 q-4 -6 0 -10" stroke="#C9C4D6" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  fig: () => (
+    <g>
+      <path d="M0 -30 Q-6 -20 -14 -16 Q-32 -6 -28 14 Q-22 32 0 32 Q22 32 28 14 Q32 -6 14 -16 Q6 -20 0 -30Z" fill="#8E4A9A" {...S} />
+      <path d="M0 -30 Q2 -38 6 -40" stroke="#6B4A2E" strokeWidth={3} fill="none" strokeLinecap="round" />
+      <ellipse cx={-10} cy={4} rx={4} ry={8} fill="#fff" opacity={0.25} />
+    </g>
+  ),
+  wig: () => (
+    <g>
+      <path d="M-32 30 Q-40 -10 -20 -28 Q0 -42 20 -28 Q40 -10 32 30 Q24 10 20 -6 Q0 -16 -20 -6 Q-24 10 -32 30Z" fill="#F08A24" {...S} />
+      <g fill="#F5A64A">
+        <circle cx={-24} cy={-14} r={7} />
+        <circle cx={-6} cy={-26} r={8} />
+        <circle cx={14} cy={-24} r={8} />
+        <circle cx={26} cy={-8} r={7} />
+        <circle cx={-30} cy={10} r={6} />
+        <circle cx={30} cy={12} r={6} />
+      </g>
+    </g>
+  ),
+  fan: () => (
+    <g>
+      <path d="M0 30 L-30 -14 Q0 -40 30 -14Z" fill="#E8607A" {...S} />
+      <path d="M0 30 L-16 -24 M0 30 L0 -28 M0 30 L16 -24" stroke="#B8405A" strokeWidth={2} />
+      <path d="M0 30 V38" stroke="#7A4A26" strokeWidth={5} strokeLinecap="round" />
+    </g>
+  ),
+  pan: () => (
+    <g>
+      <ellipse cx={-6} cy={4} rx={26} ry={12} fill="#5A5A66" {...S} />
+      <ellipse cx={-6} cy={0} rx={22} ry={8} fill="#8A8A96" />
+      <path d="M18 2 L40 -6" stroke="#7A4A26" strokeWidth={7} strokeLinecap="round" />
+    </g>
+  ),
+  can: () => (
+    <g>
+      <rect x={-18} y={-28} width={36} height={56} rx={4} fill="#C9C4D6" {...S} />
+      <rect x={-18} y={-12} width={36} height={24} fill="#E8413B" />
+      <ellipse cx={0} cy={-28} rx={18} ry={5} fill="#E3E0EA" {...S} strokeWidth={1.6} />
+      <circle cx={0} cy={0} r={7} fill="#FFD233" />
+    </g>
+  ),
+  mop: () => (
+    <g>
+      <path d="M12 -40 L-6 16" stroke="#9C6A3A" strokeWidth={5} strokeLinecap="round" />
+      <path d="M-24 16 H14 L18 34 H-28Z" fill="#F3EDE2" {...S} />
+      <path d="M-22 34 V40 M-14 34 V42 M-6 34 V40 M2 34 V42 M10 34 V40" stroke="#C9C2B6" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  top: () => (
+    <g>
+      <path d="M0 -38 V-24" stroke="#7A4A26" strokeWidth={5} strokeLinecap="round" />
+      <path d="M-30 -14 Q0 -30 30 -14 L0 34Z" fill="#2F6FD0" {...S} />
+      <path d="M-24 -10 Q0 -22 24 -10 L16 2 Q0 -6 -16 2Z" fill="#FFD233" />
+      <path d="M-30 -14 Q0 -30 30 -14 L0 34Z" fill="none" {...S} />
+      <path d="M-40 26 q6 -4 12 0 M28 26 q6 -4 12 0" stroke="#9AA0A6" strokeWidth={2} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  pig: () => (
+    <g>
+      <ellipse cx={6} cy={6} rx={28} ry={18} fill="#F4A8B8" {...S} />
+      <path d="M-12 20 V32 M0 22 V32 M14 22 V32 M26 20 V32" {...S} strokeWidth={5} stroke="#D98898" />
+      <path d="M34 0 q8 -4 6 4 q-2 6 4 6" stroke="#D98898" strokeWidth={2.4} fill="none" strokeLinecap="round" />
+      <circle cx={-20} cy={-6} r={14} fill="#F4A8B8" {...S} />
+      <path d="M-30 -18 L-26 -26 L-20 -18 M-14 -18 L-10 -26 L-6 -18" fill="#F4A8B8" {...S} strokeWidth={1.6} />
+      <ellipse cx={-30} cy={-2} rx={6} ry={5} fill="#E88898" {...S} strokeWidth={1.4} />
+      <circle cx={-32} cy={-2} r={1.2} fill={K} />
+      <circle cx={-28} cy={-2} r={1.2} fill={K} />
+      <circle cx={-20} cy={-10} r={1.8} fill={K} />
+    </g>
+  ),
+  map: () => (
+    <g>
+      <path d="M-36 -24 L-12 -30 L12 -24 L36 -30 V24 L12 30 L-12 24 L-36 30Z" fill="#F5E6C0" {...S} />
+      <path d="M-12 -30 V24 M12 -24 V30" stroke="#C9B48A" strokeWidth={1.6} />
+      <path d="M-28 16 Q-20 0 -8 6 Q4 12 10 -2 Q16 -14 24 -10" stroke="#2F6FD0" strokeWidth={2} strokeDasharray="3 3" fill="none" />
+      <path d="M20 -16 L28 -6 M28 -16 L20 -6" stroke="#E8413B" strokeWidth={3.4} strokeLinecap="round" />
+    </g>
+  ),
+  bus: () => (
+    <g>
+      <rect x={-36} y={-22} width={72} height={40} rx={6} fill="#F5B21E" {...S} />
+      <rect x={-30} y={-16} width={14} height={12} rx={2} fill="#CFF0FF" />
+      <rect x={-12} y={-16} width={14} height={12} rx={2} fill="#CFF0FF" />
+      <rect x={6} y={-16} width={14} height={12} rx={2} fill="#CFF0FF" />
+      <rect x={24} y={-16} width={8} height={24} rx={2} fill="#CFF0FF" />
+      <circle cx={-20} cy={20} r={8} fill="#333" {...S} />
+      <circle cx={20} cy={20} r={8} fill="#333" {...S} />
+    </g>
+  ),
+  bat: () => (
+    <g>
+      <path d="M0 -6 Q-10 -20 -20 -14 Q-30 -26 -40 -14 Q-32 -8 -34 4 Q-20 -2 -12 8 Q-4 0 0 8 Q4 0 12 8 Q20 -2 34 4 Q32 -8 40 -14 Q30 -26 20 -14 Q10 -20 0 -6Z" fill="#5A4A6A" {...S} />
+      <circle cx={-3} cy={-6} r={1.6} fill="#fff" />
+      <circle cx={3} cy={-6} r={1.6} fill="#fff" />
+    </g>
+  ),
+  web: () => (
+    <g stroke="#9AA0A6" strokeWidth={1.8} fill="none">
+      {Array.from({ length: 8 }, (_, i) => {
+        const a = (i / 8) * Math.PI * 2;
+        return <path key={i} d={`M0 0 L${Math.round(Math.cos(a) * 36)} ${Math.round(Math.sin(a) * 36)}`} />;
+      })}
+      {[12, 22, 32].map((r) => (
+        <circle key={r} r={r} />
+      ))}
+      <circle cx={10} cy={-14} r={4} fill="#2A1A10" stroke="none" />
+    </g>
+  ),
+  sock: () => (
+    <g>
+      <path d="M-14 -34 H10 V6 Q10 14 18 18 L26 22 Q34 30 26 36 Q18 40 8 32 L-10 18 Q-16 14 -14 6Z" fill="#2F6FD0" {...S} />
+      <path d="M-14 -24 H10" stroke="#fff" strokeWidth={3} />
+    </g>
+  ),
 };
 
 /** One of the THINGS, at (x, y), scaled. */

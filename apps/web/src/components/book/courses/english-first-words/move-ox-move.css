@@ -1,0 +1,52 @@
+/* "Move, Ox, Move!" (move-ox-move.tsx): transforms and opacity only. */
+
+/* Chewing and chewing: the head bobs a little. */
+@keyframes mox-chew {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px); }
+}
+.mox-chew { animation: mox-chew 0.6s ease-in-out infinite; }
+
+/* A puff of breath from the big wet nose. */
+@keyframes mox-puff {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(-14px, 6px) scale(1.3); opacity: 0; }
+}
+.mox-puff {
+  transform-box: fill-box;
+  transform-origin: 100% 0%;
+  animation: mox-puff 1.6s ease-out 0.8s infinite;
+}
+
+/* Gugu pushing with all his might. */
+@keyframes mox-push {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+}
+.mox-push { animation: mox-push 0.5s ease-in-out infinite; }
+
+/* The mother bird's wing. */
+@keyframes mox-flap {
+  from { transform: rotate(-20deg); }
+  to { transform: rotate(20deg); }
+}
+.mox-flap {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: mox-flap 0.25s ease-in-out infinite alternate;
+}
+
+/* The new path being walked: the dots appear. */
+@keyframes mox-path {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.mox-path { animation: mox-path 1.2s ease-out 0.4s both; }
+
+/* The bird flies down to her nest. */
+@keyframes mox-land {
+  from { transform: translate(-120px, -110px); }
+  to { transform: translate(0, 0); }
+}
+.mox-land { animation: mox-land 1.8s ease-out 0.4s both; }

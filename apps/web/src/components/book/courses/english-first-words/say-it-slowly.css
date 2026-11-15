@@ -1,0 +1,42 @@
+/* "Grandma Says It Slowly" (say-it-slowly.tsx): transforms and opacity only. */
+
+/* Flames flickering. */
+@keyframes sis-flame {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.15); }
+}
+.sis-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sis-flame 0.4s ease-in-out infinite;
+}
+
+/* Bubbles rising from the shiro. */
+@keyframes sis-bubble {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-14px); opacity: 0; }
+}
+.sis-bubble { animation: sis-bubble 1.4s ease-out infinite; }
+
+/* Loose sounds floating, not yet a word. */
+@keyframes sis-float {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-8px) rotate(6deg); }
+}
+.sis-float { animation: sis-float 2s ease-in-out infinite; }
+
+/* The sound train: slow, slow, slow… FAST! */
+@keyframes sis-train {
+  0% { transform: translateX(-40px); }
+  60% { transform: translateX(0); }
+  100% { transform: translateX(220px); }
+}
+.sis-train { animation: sis-train 4s cubic-bezier(0.6, 0, 0.9, 0.6) 0.8s infinite; }
+
+/* Dimmet strolling to bed. */
+@keyframes sis-walk {
+  from { transform: translateX(-150px); }
+  to { transform: translateX(0); }
+}
+.sis-walk { animation: sis-walk 2.4s ease-out 0.6s both; }

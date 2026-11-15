@@ -214,7 +214,7 @@ export function Btn({ onClick, children, color = ACCENT, shade = "#8A2E08", disa
 /** Shuffles a list (a new array), but never leaves it in its original order when it has 2+ items. */
 export function shuffled<X>(list: X[], seed = Math.random()): X[] {
   const a = [...list];
-  let s = Math.floor(seed * 2147483646) + 1;
+  let s = Math.floor((Math.abs(seed) % 1) * 2147483646) + 1;
   const rnd = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(rnd() * (i + 1));

@@ -1,0 +1,23 @@
+/* Ayan and the Gates of Harar (gates-of-harar.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Walking in through the gate. */
+@keyframes gh-through {
+  from { transform: translateY(20px) scale(1.2); }
+  to { transform: translateY(-30px) scale(0.8); }
+}
+.gh-through {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gh-through 3s ease-in-out infinite alternate;
+}
+
+/* Turning round and round, lost in the lanes. */
+@keyframes gh-spin {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(-1); }
+}
+.gh-spin {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gh-spin 1.6s ease-in-out infinite;
+}

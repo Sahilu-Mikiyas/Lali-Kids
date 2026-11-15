@@ -15,6 +15,7 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "weather-words",
   pack: "english",
+  course: "english-first-words",
   title: { en: "Lali's Weather Words", am: "የላሊ የአየር ሁኔታ ቃላት" },
   category: "English",
   ageBands: ["3-5"],

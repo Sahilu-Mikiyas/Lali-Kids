@@ -70,7 +70,7 @@ const story: Story = {
     },
     {
       en: "To the south-east rose more mountains: the Bale Mountains. On their high, flat top grew giant lobelias, as tall as grown-ups, and below them lay a deep green forest. A red Ethiopian wolf trotted across the plateau. \"That's where Hawi's family lives!\" said Anbessa, and he waved.",
-      am: "በደቡብ ምሥራቅ ሌሎች ተራሮች ተነሡ፦ የባሌ ተራሮች። ከፍ ባለው ጠፍጣፋ አናታቸው ላይ እንደ ትልቅ ሰው የሚረዝሙ ጃይንት ሎቤሊያዎች በቅለዋል፤ ከታች ደግሞ ጥቅጥቅ ያለ አረንጓዴ ደን አለ። ቀይ የኢትዮጵያ ተኩላ በአምባው ላይ ሮጠ። «የሀዊ ቤተሰብ የሚኖረው እዚያ ነው!» አለ አንበሳ፤ እጁንም አውለበለበ።",
+      am: "በደቡብ ምሥራቅ ሌሎች ተራሮች ተነሡ፦ የባሌ ተራሮች። ከፍ ባለው ጠፍጣፋ አናታቸው ላይ እንደ ትልቅ ሰው የሚረዝሙ ጃይንት ሎቤሊያዎች በቅለዋል፤ ከታች ደግሞ ጥቅጥቅ ያለ አረንጓዴ ደን አለ። ቀይ የኢትዮጵያ ቀበሮ በአምባው ላይ ሮጠ። «የሀዊ ቤተሰብ የሚኖረው እዚያ ነው!» አለ አንበሳ፤ እጁንም አውለበለበ።",
     },
     {
       en: "On the way home they flew over the warm forests of the south-west, where wild coffee grows under tall trees. Then over the wide lowlands of the east, flat and dry, where camels and goats walk far to find grass and water.",

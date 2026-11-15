@@ -8,7 +8,8 @@ const path = require("node:path");
 
 const STUB = path.join(__dirname, "stub-fetch.cjs");
 const DIST_DIR = ".next-e2e";
-const E2E_PORT = 3900;
+// LALI_E2E_PORT moves the test server when 3900 is taken (e.g. by a dev server).
+const E2E_PORT = Number(process.env.LALI_E2E_PORT) || 3900;
 const PERF_PORT = 3901;
 /** Only for the cron test: the hourly job's secret header. */
 const CRON_SECRET = "e2e-cron-secret";

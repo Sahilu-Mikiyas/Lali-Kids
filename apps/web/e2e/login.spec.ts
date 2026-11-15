@@ -1,4 +1,5 @@
 import { expect, ready, test } from "./support/fixtures";
+import { E2E_PORT } from "./support/env.cjs";
 
 test("sign in with an email code", async ({ page, t }) => {
   await page.goto("/login?next=/account");
@@ -34,9 +35,9 @@ test("next= can't send a signed-in parent to another site", async ({ page, signI
     // The page redirects (sometimes twice), which can abort the navigation itself.
     await page.goto(`/login?next=${encodeURIComponent(next)}`).catch(() => {});
     await page.waitForLoadState();
-    expect(new URL(page.url()).host).toBe("localhost:3900");
+    expect(new URL(page.url()).host).toBe(`localhost:${E2E_PORT}`);
   }
   // The email link's landing page refuses it too.
   await page.goto(`/auth/callback?token_hash=good&type=email&next=${encodeURIComponent("/\\evil.example.com")}`);
-  expect(new URL(page.url()).host).toBe("localhost:3900");
+  expect(new URL(page.url()).host).toBe(`localhost:${E2E_PORT}`);
 });

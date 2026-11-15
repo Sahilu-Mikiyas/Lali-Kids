@@ -875,6 +875,49 @@ export const THINGS: Record<string, () => ReactElement> = {
       <path d="M-10 2 Q0 8 10 2" stroke="#2E6A2E" strokeWidth={2} fill="none" strokeLinecap="round" />
     </g>
   ),
+  // ብርቱካን, an orange
+  orange: () => (
+    <g>
+      <circle cx={0} cy={4} r={26} fill="#F5961E" {...S} />
+      <path d="M-12 -6 Q-4 -12 6 -8" stroke="#FFFFFF" strokeWidth={3} fill="none" opacity={0.6} strokeLinecap="round" />
+      <path d="M0 -22 Q2 -30 8 -32" stroke="#4D7A2E" strokeWidth={3} fill="none" strokeLinecap="round" />
+      <path d="M4 -26 Q16 -34 20 -24 Q10 -20 4 -26Z" fill="#4DAA4E" {...S} strokeWidth={1.6} />
+    </g>
+  ),
+  // ደብዳቤ, a letter in its envelope
+  letter: () => (
+    <g>
+      <rect x={-34} y={-22} width={68} height={44} rx={3} fill="#FFF4D6" {...S} />
+      <path d="M-34 -22 L0 4 L34 -22" fill="none" {...S} />
+      <rect x={18} y={-16} width={10} height={12} fill="#E2463F" />
+    </g>
+  ),
+  // ጭብጨባ, clapping hands
+  clap: () => (
+    <g>
+      <path d="M-14 24 Q-26 0 -14 -20 Q-8 -28 -2 -20 L4 0" fill="#C98A5A" {...S} />
+      <path d="M14 24 Q26 0 14 -20 Q8 -28 2 -20 L-4 0" fill="#B07448" {...S} />
+      <path d="M-26 -26 l-6 -6 M0 -34 V-42 M26 -26 l6 -6" stroke="#F5B21E" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  // ማበጠሪያ, a comb
+  comb: () => (
+    <g>
+      <rect x={-34} y={-14} width={68} height={12} rx={5} fill="#C2410C" {...S} />
+      <path d="M-28 -2 V18 M-19 -2 V18 M-10 -2 V18 M-1 -2 V18 M8 -2 V18 M17 -2 V18 M26 -2 V18" stroke="#C2410C" strokeWidth={4} strokeLinecap="round" />
+    </g>
+  ),
+  // እንጀራ, injera with its little "eyes"
+  injera: () => (
+    <g>
+      <ellipse cx={0} cy={4} rx={38} ry={26} fill="#D8B27E" {...S} />
+      <g fill="#B88A50">
+        {[[-20, -6], [-6, -12], [10, -8], [24, 0], [-26, 8], [-10, 4], [6, 8], [18, 14], [-14, 18], [2, 20], [-2, -2]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r={2} />
+        ))}
+      </g>
+    </g>
+  ),
   // ማሰሮ, a clay water pot
   pot: () => (
     <g>

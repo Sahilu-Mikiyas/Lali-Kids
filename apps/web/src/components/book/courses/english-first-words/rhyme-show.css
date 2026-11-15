@@ -1,0 +1,41 @@
+/* "Gugu's Rhyme Show" (rhyme-show.tsx): transforms and opacity only. */
+
+/* The starts of a word family take turns: each one shows for its share of the loop. */
+@keyframes rs-cycle {
+  0% { opacity: 0; transform: translateY(-10px); }
+  4%, 18% { opacity: 1; transform: translateY(0); }
+  22%, 100% { opacity: 0; transform: translateY(10px); }
+}
+.rs-cycle {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rs-cycle var(--dur, 5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The ending glows: that's the part that rhymes. */
+@keyframes rs-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.rs-glow { animation: rs-glow 1.2s ease-in-out 1s infinite; }
+
+/* Plop: the fig drops onto Gugu's head and bounces. */
+@keyframes rs-plop {
+  0% { transform: translateY(-60px); }
+  60% { transform: translateY(54px); }
+  75% { transform: translateY(40px); }
+  100% { transform: translateY(54px); }
+}
+.rs-plop { animation: rs-plop 1.2s ease-in 0.6s both; }
+
+/* Dancing round the tree. */
+@keyframes rs-round {
+  0%, 100% { transform: translateX(-110px); }
+  50% { transform: translateX(110px); }
+}
+.rs-round { animation: rs-round 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-cycle:first-of-type { opacity: 1; }
+}

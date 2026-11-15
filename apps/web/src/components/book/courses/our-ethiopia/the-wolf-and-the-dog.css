@@ -1,0 +1,34 @@
+/* Boji's Brave Day (the-wolf-and-the-dog.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The wild wolf pouncing: a little hop and a dig. */
+@keyframes wd-pounce {
+  0%, 40%, 100% { transform: translate(0, 0); }
+  55% { transform: translate(14px, -16px); }
+  70% { transform: translate(24px, 0); }
+}
+.wd-pounce { animation: wd-pounce 3s ease-in-out 0.4s infinite; }
+
+/* Boji running away behind the houses. */
+@keyframes wd-flee {
+  from { transform: translateX(0); }
+  to { transform: translateX(260px); }
+}
+.wd-flee { animation: wd-flee 1.6s ease-in 0.6s both; }
+
+/* Ears peeping over the woodpile. */
+@keyframes wd-peep {
+  0%, 20% { transform: translateY(16px); }
+  60%, 100% { transform: translateY(0); }
+}
+.wd-peep { animation: wd-peep 2.4s ease-out 0.4s both; }
+
+/* A wolf lifting its head to call. */
+@keyframes wd-howl {
+  0%, 100% { transform: rotate(0deg); }
+  40%, 70% { transform: rotate(-24deg); }
+}
+.wd-howl {
+  transform-box: fill-box;
+  transform-origin: 20% 90%;
+  animation: wd-howl 4s ease-in-out var(--delay, 0s) infinite;
+}

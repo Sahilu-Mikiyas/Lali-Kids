@@ -12,6 +12,7 @@ import type { Story } from "../stories";
 const story: Story = {
   id: "opposites",
   pack: "english",
+  course: "english-first-words",
   title: { en: "Opposites with Anbessa", am: "ተቃራኒዎች ከአንበሳ ጋር" },
   category: "English",
   ageBands: ["3-5"],

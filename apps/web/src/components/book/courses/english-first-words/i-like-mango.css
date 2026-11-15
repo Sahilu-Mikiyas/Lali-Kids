@@ -1,0 +1,34 @@
+/* "I Like Mango!" (i-like-mango.tsx): transforms and opacity only. */
+
+/* A food held up, bobbing. */
+@keyframes ilm-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.ilm-bob { animation: ilm-bob 1.8s ease-in-out infinite; }
+
+/* Tug of war over the last mango. */
+@keyframes ilm-tug {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.ilm-tug { animation: ilm-tug 0.6s ease-in-out infinite; }
+
+/* The knife line appearing. */
+@keyframes ilm-cut {
+  0%, 30% { opacity: 0; }
+  60%, 100% { opacity: 1; }
+}
+.ilm-cut { animation: ilm-cut 2s ease-in-out 1s infinite; }
+
+/* Two halves moving apart, one to each friend. */
+@keyframes ilm-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-30px); }
+}
+@keyframes ilm-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(30px); }
+}
+.ilm-left { animation: ilm-left 1s ease-out 0.5s both; }
+.ilm-right { animation: ilm-right 1s ease-out 0.5s both; }

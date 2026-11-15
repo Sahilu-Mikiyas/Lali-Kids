@@ -1,0 +1,37 @@
+/* Everyone's Victory (everyones-victory.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* Ships far away, drifting. */
+@keyframes ev-drift {
+  0%, 100% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+}
+.ev-drift { animation: ev-drift 5s ease-in-out var(--delay, 0s) infinite; }
+
+/* People walking in from every direction. */
+@keyframes ev-left {
+  from { transform: translateX(-60px); }
+  to { transform: translateX(10px); }
+}
+.ev-left { animation: ev-left 4s ease-out 0.3s both; }
+@keyframes ev-right {
+  from { transform: translateX(60px); }
+  to { transform: translateX(-10px); }
+}
+.ev-right { animation: ev-right 4s ease-out 0.5s both; }
+@keyframes ev-up {
+  from { transform: translateY(40px); }
+  to { transform: translateY(0); }
+}
+.ev-up { animation: ev-up 4s ease-out 0.7s both; }
+
+/* Friends coming onto the stage from each side. */
+@keyframes ev-in-l {
+  from { transform: translateX(-80px); }
+  to { transform: translateX(0); }
+}
+.ev-in-l { animation: ev-in-l 1.4s ease-out 0.2s both; }
+@keyframes ev-in-r {
+  from { transform: translateX(80px); }
+  to { transform: translateX(0); }
+}
+.ev-in-r { animation: ev-in-r 1.4s ease-out 0.8s both; }

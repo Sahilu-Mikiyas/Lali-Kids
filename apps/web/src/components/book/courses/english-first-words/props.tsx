@@ -26,9 +26,9 @@ export const textWidth = (text: string, size: number) => r1(text.length * size *
 
 /**
  * Keeps a card of width w inside the part of the picture a phone always shows: the reader crops
- * the 400-wide scene to about x 26 to 374 on a narrow screen.
+ * the 400-wide scene to about x 34 to 366 on a narrow screen.
  */
-export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 28 + w / 2), 372 - w / 2);
+export const inSafe = (x: number, w: number) => Math.min(Math.max(x, 38 + w / 2), 362 - w / 2);
 
 /* ---------- English on the page ---------- */
 
@@ -293,6 +293,77 @@ export function HandBell({ x, y, ring = true }: { x: number; y: number; ring?: b
       {ring && (
         <g stroke="#F5B21E" strokeWidth={2} strokeLinecap="round" fill="none">
           <path d="M-20 -14 l-6 -4 M20 -14 l6 -4 M-22 -2 h-7 M22 -2 h7" className="lali-twinkle" style={vars({ "--dur": "0.6s" })} />
+        </g>
+      )}
+    </g>
+  );
+}
+
+/**
+ * Sounding out a word: its letters as separate tiles that slide together ("slow, slow… fast!"),
+ * then the whole word (and its picture) pops up under them. Centred on (x, y).
+ */
+export function BlendCard({ x, y, word, pic, color = "#D9662B", delay = 0.6, s = 1 }: { x: number; y: number; word: string; pic?: string; color?: string; delay?: number; s?: number }) {
+  const letters = word.split("");
+  const gap = 34;
+  return (
+    <g transform={`translate(${inSafe(x, (letters.length * gap + 40) * s)} ${y}) scale(${s})`}>
+      {letters.map((l, i) => {
+        const off = (i - (letters.length - 1) / 2) * gap;
+        return (
+          <g key={`${i}-${l}`} transform={`translate(${off} 0)`}>
+            <g className="efw-blend" style={vars({ "--delay": `${delay}s`, "--bx": `${r1(-off * 0.17)}px` })}>
+              <rect x={-14} y={-18} width={28} height={34} rx={7} fill="#FFFDF6" stroke={color} strokeWidth={2.4} />
+              <text x={0} y={9} fontSize={24} fontFamily="var(--font-andika), sans-serif" fontWeight={700} fill={color} textAnchor="middle">
+                {l}
+              </text>
+            </g>
+          </g>
+        );
+      })}
+      <g className="efw-blend-word" style={vars({ "--delay": `${delay + 1.8}s` })}>
+        <rect x={-(word.length * 9 + 34)} y={22} width={word.length * 18 + 68} height={34} rx={10} fill={color} />
+        {pic && (
+          <g transform={`translate(${-(word.length * 9 + 14)} 39) scale(0.24)`}>
+            <circle r={40} fill="#FFFDF6" />
+            <Thing id={pic} />
+          </g>
+        )}
+        <text x={pic ? 12 : 0} y={46} fontSize={20} fontFamily={FONT} fontWeight={900} fill="#FFFFFF" textAnchor="middle">
+          {word}
+        </text>
+      </g>
+    </g>
+  );
+}
+
+/**
+ * An English sentence on a strip of paper, its words appearing one by one (as if being written or
+ * read), with an optional picture at the end. Centred on (x, y).
+ */
+export function SentenceCard({ x, y, text, pic, color = "#2A1A10", size = 18, delay = 0.6, step = 0.35 }: { x: number; y: number; text: string; pic?: string; color?: string; size?: number; delay?: number; step?: number }) {
+  const words = text.split(" ");
+  const tw = r1(text.length * size * 0.5);
+  const w = tw + (pic ? 56 : 30);
+  const tx = pic ? -22 : 0;
+  return (
+    <g transform={`translate(${inSafe(x, w)} ${y})`}>
+      <g className="lali-pop-in" style={vars({ "--delay": `${delay}s` })}>
+        <rect x={-w / 2} y={-size} width={w} height={size * 2} rx={10} fill="#FFFDF6" stroke="#E3D5C3" strokeWidth={2} />
+        <path d={`M${r1(-w / 2 + 10)} ${r1(size * 0.62)} H${r1(w / 2 - (pic ? 44 : 10))}`} stroke="#D3E4F4" strokeWidth={1.4} />
+      </g>
+      <text x={tx} y={r1(size * 0.36)} fontSize={size} fontFamily="var(--font-andika), sans-serif" fontWeight={700} fill={color} textAnchor="middle">
+        {words.map((word, i) => (
+          <tspan key={`${i}-${word}`} className="efw-word-in" style={vars({ "--delay": `${r1(delay + 0.3 + i * step)}s` })}>
+            {i ? ` ${word}` : word}
+          </tspan>
+        ))}
+      </text>
+      {pic && (
+        <g transform={`translate(${r1(w / 2 - 24)} 0) scale(${r1(size / 64)})`}>
+          <g className="lali-pop-in" style={vars({ "--delay": `${r1(delay + 0.4 + words.length * step)}s` })}>
+            <Thing id={pic} />
+          </g>
         </g>
       )}
     </g>

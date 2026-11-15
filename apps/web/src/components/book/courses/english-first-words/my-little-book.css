@@ -1,0 +1,45 @@
+/* "Anbessa Reads Alone" (my-little-book.tsx): transforms and opacity only. */
+
+/* Reading: each word lights up in turn. */
+@keyframes mlb-word {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+.mlb-word { opacity: 0.3; animation: mlb-word 0.4s ease-out var(--delay, 0.6s) both; }
+
+/* The stuck word blinks. */
+@keyframes mlb-stuck {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.mlb-stuck { animation: mlb-stuck 1s ease-in-out 1s infinite; }
+
+/* The pointing paw moving along under the words. */
+@keyframes mlb-point {
+  from { transform: translateX(0); }
+  to { transform: translateX(84px); }
+}
+.mlb-point { animation: mlb-point var(--dur, 3s) linear 0.6s both; }
+
+/* A fluttery tummy: a little shiver. */
+@keyframes mlb-flutter {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.5px); }
+  75% { transform: translateX(1.5px); }
+}
+.mlb-flutter { animation: mlb-flutter 0.25s linear infinite; }
+
+/* A ring round the picture clue. */
+@keyframes mlb-ring {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.12); opacity: 0.6; }
+}
+.mlb-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mlb-ring 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mlb-word { opacity: 1; }
+}

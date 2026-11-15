@@ -1,0 +1,30 @@
+/* Where Are the Eyes? (eyes-of-the-injera.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The lid lifting off the mitad. */
+@keyframes ei-lift {
+  0%, 20% { transform: translateY(0); }
+  60%, 100% { transform: translateY(-60px); }
+}
+.ei-lift { animation: ei-lift 2.4s ease-out 0.4s both; }
+
+/* The jug tipping as Anbessa pours. */
+@keyframes ei-tip {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(-44deg); }
+}
+.ei-tip {
+  transform-box: fill-box;
+  transform-origin: 80% 20%;
+  animation: ei-tip 2s ease-in-out infinite;
+}
+
+/* Bubbles popping up on the batter. */
+@keyframes ei-pop {
+  0%, 100% { transform: scale(0.4); opacity: 0.3; }
+  50% { transform: scale(1); opacity: 1; }
+}
+.ei-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ei-pop 1.6s ease-in-out var(--delay, 0s) infinite;
+}

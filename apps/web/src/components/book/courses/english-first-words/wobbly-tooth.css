@@ -1,0 +1,73 @@
+/* "Tsehay's Wobbly Tooth" (wobbly-tooth.tsx): transforms and opacity only. */
+
+/* Wiggle, wiggle, wobble, wobble. */
+@keyframes wt-wobble {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.wt-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: wt-wobble 0.5s ease-in-out infinite;
+}
+
+/* The new tooth's tip, peeking. */
+@keyframes wt-tip {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.wt-tip { animation: wt-tip 1.6s ease-in-out infinite; }
+
+/* The tomato rolling on the plate. */
+@keyframes wt-roll {
+  0%, 100% { transform: translateX(-6px) rotate(-10deg); }
+  50% { transform: translateX(6px) rotate(10deg); }
+}
+.wt-roll {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wt-roll 1.6s ease-in-out infinite;
+}
+
+/* PLOP: the tooth flies out and lands. */
+@keyframes wt-fly {
+  0% { transform: translate(-20px, 30px) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  60% { transform: translate(10px, -30px) rotate(200deg); }
+  100% { transform: translate(30px, 60px) rotate(360deg); opacity: 1; }
+}
+.wt-fly {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wt-fly 1.4s ease-in 0.8s both;
+}
+
+/* Running to hide behind the tree. */
+@keyframes wt-run {
+  from { transform: translateX(-180px); }
+  to { transform: translateX(0); }
+}
+.wt-run { animation: wt-run 1.4s ease-out 0.3s both; }
+
+/* A ripple in the water bowl. */
+@keyframes wt-ripple {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.02, 0.98); }
+}
+.wt-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wt-ripple 2.4s ease-in-out infinite;
+}
+
+/* The camera flash. */
+@keyframes wt-flash {
+  0%, 40% { opacity: 0; }
+  45% { opacity: 0.9; }
+  70%, 100% { opacity: 0; }
+}
+.wt-flash { animation: wt-flash 3s ease-out 0.6s 1 both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wt-flash { opacity: 0; }
+}

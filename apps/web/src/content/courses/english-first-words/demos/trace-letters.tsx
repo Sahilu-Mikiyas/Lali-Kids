@@ -290,7 +290,14 @@ function Tracer({ g, color, onTraced, lang }: { g: string; color: string; onTrac
   );
 }
 
-export default function TraceLetters({ lang, onDone }: DemoProps) {
+export default function TraceLetters(p: DemoProps) {
+  return <TraceGame {...p} letters={LETTERS} words={WORD} />;
+}
+
+/** The tracing pad for any set of letters (a to m here, n to z in ./trace-letters-n-z.tsx). */
+export function TraceGame({ lang, onDone, letters, words, lines = {} }: DemoProps & { letters: string[]; words: Record<string, string>; lines?: Record<string, string> }) {
+  const LETTERS = letters;
+  const WORD = words;
   const [letter, setLetter] = useState<string | null>(null);
   const [step, setStep] = useState<0 | 1>(0);
   const [traced, setTraced] = useState<string[]>([]);
@@ -305,7 +312,7 @@ export default function TraceLetters({ lang, onDone }: DemoProps) {
       return;
     }
     const w = WORD[letter];
-    say(`${w}!`);
+    say(lines[letter] ?? `${w}!`);
     const next = traced.includes(letter) ? traced : [...traced, letter];
     setTraced(next);
     setLetter(null);

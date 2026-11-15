@@ -1,0 +1,37 @@
+/* The Friendship Band (the-friendship-band.tsx): transforms and opacity only. Shared moves are in kit.css and kit-land.css. */
+
+/* The jumble of loud noise: shaking marks. */
+@keyframes fb-shake {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-3px, 2px); }
+  50% { transform: translate(3px, -2px); }
+  75% { transform: translate(-2px, -3px); }
+}
+.fb-shake { animation: fb-shake 0.25s linear infinite; }
+
+/* Lali flying out of the window. */
+@keyframes fb-out {
+  from { transform: translate(0, 0); }
+  to { transform: translate(140px, -120px); }
+}
+.fb-out { animation: fb-out 1.8s ease-in 0.8s both; }
+
+/* A soft heartbeat. */
+@keyframes fb-beat {
+  0%, 100% { transform: scale(1); }
+  12% { transform: scale(1.12); }
+  24% { transform: scale(1); }
+}
+.fb-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: fb-beat 1.2s ease-in-out infinite;
+}
+
+/* The spotlight moving from one player to the next. */
+@keyframes fb-turn {
+  0%, 30% { opacity: 1; }
+  34%, 96% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.fb-turn { animation: fb-turn 6s linear var(--delay, 0s) infinite; }

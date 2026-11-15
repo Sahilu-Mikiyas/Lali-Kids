@@ -23,9 +23,9 @@ const SOUNDS = ["f", "g", "h", "i", "j"];
 const TEAL = "#0E8C80";
 
 /** The team's Sound Hunt card, with ticks for the sounds found so far. */
-function HuntCard({ found, nibbled = false, x = 54, y = 64 }: { found: number; nibbled?: boolean; x?: number; y?: number }) {
+function HuntCard({ found, nibbled = false, x = 76, y = 84 }: { found: number; nibbled?: boolean; x?: number; y?: number }) {
   return (
-    <g transform={`translate(${x} ${y})`}>
+    <g transform={`translate(${x} ${y}) scale(0.82)`}>
       <Tappable reaction="wiggle" sound="pop">
         <path d={nibbled ? "M-42 -50 H30 Q34 -46 38 -42 Q34 -38 40 -34 V68 H-42Z" : "M-42 -50 H40 V68 H-42Z"} fill="#FFFDF6" stroke={TEAL} strokeWidth={3} strokeLinejoin="round" />
         {SOUNDS.map((s, i) => (
@@ -251,7 +251,7 @@ export default function SoundHunt({ page }: { page: number }) {
             <path d="M380 270 q-20 -40 -40 0 q-20 -40 -40 0 q-20 -40 -40 0 q-20 -40 -40 0" stroke="#fff" strokeWidth={2.4} strokeDasharray="2 6" fill="none" strokeLinecap="round" />
             <Team x={150} mood="joy" jump />
             <WordCard x={230} y={90} word="jump" color={TEAL} size={18} delay={0.6} />
-            <HuntCard found={5} nibbled x={340} />
+            <HuntCard found={5} nibbled x={326} />
           </Club>
           <Air kind="day" seed={10} />
         </g>
@@ -291,7 +291,7 @@ export default function SoundHunt({ page }: { page: number }) {
               ["j", "jug"],
             ].map(([l, w], i) => (
               <g key={l}>
-                <g transform={`translate(${60 + i * 70} 46)`}>
+                <g transform={`translate(${66 + i * 67} 50)`}>
                   <g className="lali-pop-in" style={vars({ "--delay": `${0.3 + i * 0.4}s` })}>
                     <circle r={16} fill={TEAL} />
                     <text y={7} fontSize={22} fontFamily="var(--font-andika), sans-serif" fontWeight={700} fill="#fff" textAnchor="middle">
@@ -299,7 +299,7 @@ export default function SoundHunt({ page }: { page: number }) {
                     </text>
                   </g>
                 </g>
-                <WordCard x={60 + i * 70} y={110} word={w} pic={w} color={TEAL} size={11} delay={0.5 + i * 0.4} />
+                <WordCard x={66 + i * 67} y={112} word={w} pic={w} color={TEAL} size={11} delay={0.5 + i * 0.4} />
               </g>
             ))}
             <Team x={150} mood="joy" />
@@ -313,7 +313,7 @@ export default function SoundHunt({ page }: { page: number }) {
         <g>
           <Yard id={id} time="evening" tree fig={80}>
             <Team x={170} mood="joy" />
-            <HuntCard found={5} nibbled x={330} y={86} />
+            <HuntCard found={5} nibbled x={322} y={90} />
             <g transform="translate(200 120)">
               <text x={0} y={0} fontSize={18} fontFamily={FONT} fontWeight={900} fill="#FFFDF6" textAnchor="middle" className="lali-pop-in" style={vars({ "--delay": "0.8s" })}>
                 f · g · h · i · j
