@@ -232,7 +232,7 @@ export default function TheBrokenCup({ page }: { page: number }) {
           <Place x={170} y={294} s={0.48} from={[90, 294]} dur={3} delay={0.4} tap={TAP.cub}>
             <Cub mood="happy" arm="hold" item={<Cup x={0} y={0} s={1.4} />} />
           </Place>
-          <Place x={360} y={296} s={0.38} flip tap={TAP.grandma}>
+          <Place x={335} y={296} s={0.38} flip tap={TAP.grandma}>
             <Grandma arm="clap" mood="joy" />
           </Place>
           <Hearts spots={[[220, 170, 2.4]]} />

@@ -263,10 +263,12 @@ export function PowerPole({ x, y, s = 1, kite = false }: { x: number; y: number;
         <path d="M12 -164 Q150 -140 260 -150" />
       </g>
       {kite && (
-        <g transform="translate(46 -158) rotate(18)" className="lali-sway" style={vars({ "--dur": "1.2s" })}>
+        <g transform="translate(46 -158) rotate(18)">
+          <g className="lali-sway" style={vars({ "--dur": "1.2s" })}>
           <path d="M0 -18 L14 0 L0 20 L-14 0Z" fill="#E2463F" />
           <path d="M0 -18 L0 20 M-14 0 L14 0" stroke="#FFD233" strokeWidth={1.6} />
           <path d="M0 20 q-6 10 0 18 q6 8 0 16" stroke="#2E9A8A" strokeWidth={1.6} fill="none" />
+          </g>
         </g>
       )}
     </g>
@@ -398,12 +400,14 @@ export function PuppyBasket({ x, y, s = 1 }: { x: number; y: number; s?: number 
     <g transform={`translate(${x} ${y}) scale(${s})`}>
       <path d="M-40 0 Q-42 -20 -36 -24 L36 -24 Q42 -20 40 0Z" fill="#D9A04A" />
       {colors.map((c, i) => (
-        <g key={c} transform={`translate(${-24 + i * 16} -26)`} className="lali-hop" style={vars({ "--dur": `${1.2 + i * 0.2}s`, "--delay": `${-i * 0.3}s` })}>
-          <ellipse cx={0} cy={0} rx={9} ry={8} fill={c} />
-          <ellipse cx={-6} cy={-2} rx={3} ry={5} fill={c} stroke="#000" strokeOpacity={0.15} />
-          <circle cx={-2} cy={-2} r={1.2} fill="#1A1A1A" />
-          <circle cx={3} cy={-2} r={1.2} fill="#1A1A1A" />
-          <circle cx={0.5} cy={2} r={1.4} fill="#1A1A1A" />
+        <g key={c} transform={`translate(${-24 + i * 16} -26)`}>
+          <g className="lali-hop" style={vars({ "--dur": `${1.2 + i * 0.2}s`, "--delay": `${-i * 0.3}s` })}>
+            <ellipse cx={0} cy={0} rx={9} ry={8} fill={c} />
+            <ellipse cx={-6} cy={-2} rx={3} ry={5} fill={c} stroke="#000" strokeOpacity={0.15} />
+            <circle cx={-2} cy={-2} r={1.2} fill="#1A1A1A" />
+            <circle cx={3} cy={-2} r={1.2} fill="#1A1A1A" />
+            <circle cx={0.5} cy={2} r={1.4} fill="#1A1A1A" />
+          </g>
         </g>
       ))}
       <path d="M-38 -12 H38 M-40 -4 H40" stroke="#B88A30" strokeWidth={2} />

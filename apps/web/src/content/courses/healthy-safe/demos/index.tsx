@@ -19,6 +19,15 @@ const BedtimeRoutine = dynamic(() => import("./bedtime-routine"), { ssr: false }
 // Level 3
 const FeelingsClues = dynamic(() => import("./feelings-clues"), { ssr: false });
 const SafeOrTell = dynamic(() => import("./safe-or-tell"), { ssr: false });
+// Level 4
+const SpotTheDangers = dynamic(() => import("./spot-the-dangers"), { ssr: false });
+const GrownUpThings = dynamic(() => import("./grown-up-things"), { ssr: false });
+// Level 5
+const CrossTheRoad = dynamic(() => import("./cross-the-road"), { ssr: false });
+const SafeOutside = dynamic(() => import("./safe-outside"), { ssr: false });
+// Level 6
+const ClinicVisit = dynamic(() => import("./clinic-visit"), { ssr: false });
+const GetWell = dynamic(() => import("./get-well"), { ssr: false });
 
 /** This course's interactive demonstrations, by id. Use next/dynamic with { ssr: false } for each. */
 export const DEMOS: Record<string, Demo> = {
@@ -29,4 +38,10 @@ export const DEMOS: Record<string, Demo> = {
   "bedtime-routine": BedtimeRoutine,
   "feelings-clues": FeelingsClues,
   "safe-or-tell": SafeOrTell,
+  "spot-the-dangers": SpotTheDangers,
+  "grown-up-things": GrownUpThings,
+  "cross-the-road": CrossTheRoad,
+  "safe-outside": SafeOutside,
+  "clinic-visit": ClinicVisit,
+  "get-well": GetWell,
 };

@@ -26,7 +26,7 @@ function Crawler({ x, y, s = 1, from }: { x: number; y: number; s?: number; from
     <g transform={`translate(${x} ${y})`}>
       <g className={from !== undefined ? "safety-crawl" : undefined} style={from !== undefined ? vars({ "--cx": `${from - x}px` }) : undefined}>
         <g className="lali-hop" style={vars({ "--dur": "0.8s" })}>
-          <Baby face="awake" s={1.6 * s} />
+          <Baby face="awake" s={1.2 * s} />
         </g>
       </g>
     </g>

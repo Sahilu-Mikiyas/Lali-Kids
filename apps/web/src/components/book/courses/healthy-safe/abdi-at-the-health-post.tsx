@@ -32,8 +32,10 @@ function Bench({ x, y }: { x: number; y: number }) {
 /** A little heart-beat sign. */
 function Beat({ x, y }: { x: number; y: number }) {
   return (
-    <g transform={`translate(${x} ${y})`} className="abdi-at-the-health-post-beat">
-      <path d="M0 10 C-14 0 -12 -12 -3 -12 C0 -12 0 -9 0 -7 C0 -9 0 -12 3 -12 C12 -12 14 0 0 10Z" fill="#E2463F" />
+    <g transform={`translate(${x} ${y})`}>
+      <g className="abdi-at-the-health-post-beat">
+        <path d="M0 10 C-14 0 -12 -12 -3 -12 C0 -12 0 -9 0 -7 C0 -9 0 -12 3 -12 C12 -12 14 0 0 10Z" fill="#E2463F" />
+      </g>
     </g>
   );
 }

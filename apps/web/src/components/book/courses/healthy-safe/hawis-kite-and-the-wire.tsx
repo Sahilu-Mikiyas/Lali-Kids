@@ -50,7 +50,7 @@ export default function HawisKiteAndTheWire({ page }: { page: number }) {
       return (
         <g>
           <Town id={id} pole={false}>
-            <Kite x={240} y={70} s={0.6} sx={170} sy={220} />
+            <Kite x={240} y={70} s={0.6} sx={-75} sy={170} />
           </Town>
           <Place x={150} y={294} s={0.46} tap={TAP.hawi}>
             <Wolf mood="joy" arm="wave" />
@@ -138,8 +138,10 @@ export default function HawisKiteAndTheWire({ page }: { page: number }) {
       return (
         <g>
           <Town id={id} />
-          <g transform="translate(316 92)" className="hawis-kite-and-the-wire-down">
-            <Kite x={0} y={0} s={0.45} />
+          <g transform="translate(316 92)">
+            <g className="hawis-kite-and-the-wire-down">
+              <Kite x={0} y={0} s={0.45} />
+            </g>
           </g>
           <Place x={300} y={294} s={0.48} flip tap={TAP.papa}>
             <Papa mood="joy" pose="point" />
@@ -224,7 +226,7 @@ export default function HawisKiteAndTheWire({ page }: { page: number }) {
       return (
         <g>
           <Yard id={id} time="day" house={false} />
-          <Kite x={230} y={50} s={0.7} sx={160} sy={230} />
+          <Kite x={230} y={50} s={0.7} sx={-80} sy={190} />
           <Place x={140} y={294} s={0.46} className="lali-hop" tap={TAP.hawi}>
             <Wolf mood="joy" arm="wave" wag />
           </Place>
