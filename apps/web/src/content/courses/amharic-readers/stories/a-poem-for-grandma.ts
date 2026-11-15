@@ -22,7 +22,7 @@ const story: Story = {
   title: { en: "A Poem for Grandma", am: "ለአያቴ ግጥም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E3A511",
   scene: "lib-a-poem-for-grandma",
   coverPage: 10,
@@ -73,8 +73,8 @@ const story: Story = {
       am: "ቀስ ብሎ፣ ከልቡ አነበበ፦ «መስከረም ጠባ፣ ፈካ አደይ አበባ፤ አያቴ ሆይ ተቀበይ፣ የፍቅር ቢጫ አበባ!»",
     },
     {
-      en: `Grandma's eyes fill with happy tears. She hugs him tight. "This is the best gift I have ever had." She pins the poem on the wall, where everyone can read it, all year long. Slowly, and from the heart!`,
-      am: "የአያቴ ዓይኖች በደስታ እንባ ተሞሉ። አጥብቃ አቀፈችው። «ይህ እስከ ዛሬ ካገኘኋቸው ስጦታዎች ሁሉ ምርጡ ነው።» ዓመቱን ሙሉ ሁሉም እንዲያነቡት ግጥሙን ግድግዳው ላይ ሰካችው። ቀስ ብሎ፣ ከልብ!",
+      en: `Grandma's eyes fill with happy tears. She hugs him tight. "This is the best gift I have ever had." She pins the poem on the wall for everyone to read. Slowly, and from the heart!`,
+      am: "የአያቴ ዓይኖች በደስታ እንባ ተሞሉ። አጥብቃ አቀፈችው። «ይህ እስከ ዛሬ ካገኘኋቸው ስጦታዎች ሁሉ ምርጡ ነው።» ሁሉም እንዲያነቡት ግጥሙን ግድግዳው ላይ ሰካችው። ቀስ ብሎ፣ ከልብ!",
     },
   ],
   grownUps: {

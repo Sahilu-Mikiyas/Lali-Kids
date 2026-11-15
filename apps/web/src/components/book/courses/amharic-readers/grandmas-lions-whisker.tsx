@@ -44,7 +44,7 @@ function Fireside({ id, children }: { id: string; children?: ReactNode }) {
 }
 
 /** The lion's hill: rocky slope with the cave, by night or by day. */
-function LionHill({ id, night = false, children }: { id: string; night?: boolean; children?: ReactNode }) {
+function LionHill({ night = false, children }: { night?: boolean; children?: ReactNode }) {
   return (
     <g>
       <rect width={400} height={300} fill={night ? "#16204E" : "#9FD4F0"} />
@@ -132,7 +132,7 @@ export default function GrandmasLionsWhisker({ page }: { page: number }) {
     // That night, the cave. The lion roared; she put the meat down far away and ran home.
     case 4:
       return (
-        <LionHill id={id} night>
+        <LionHill night>
           <BigLion x={290} y={250} s={0.8} mood="roar" />
           <g transform="translate(150 262)">{MEAT}</g>
           <Folk x={70} y={290} s={1.4} kind="woman" skin={1} tibeb={2} />
@@ -142,7 +142,7 @@ export default function GrandmasLionsWhisker({ page }: { page: number }) {
     // Next day a little closer, and the next day closer still. Little by little, closer and closer!
     case 5:
       return (
-        <LionHill id={id}>
+        <LionHill>
           <BigLion x={300} y={250} s={0.7} mood="calm" />
           {[0, 1, 2].map((k) => (
             <g key={k} transform={`translate(${150 + k * 40} ${264 - k * 3})`}>
@@ -160,7 +160,7 @@ export default function GrandmasLionsWhisker({ page }: { page: number }) {
     // After many weeks the lion ate right beside her, and let her stroke his golden mane.
     case 6:
       return (
-        <LionHill id={id}>
+        <LionHill>
           <BigLion x={240} y={268} s={0.9} mood="happy" />
           <Folk x={170} y={288} s={1.6} kind="woman" skin={1} tibeb={2} pose="hold" />
           <g transform="translate(250 266)">{MEAT}</g>
@@ -170,7 +170,7 @@ export default function GrandmasLionsWhisker({ page }: { page: number }) {
     // One evening, very gently, she pulled out three whiskers. The lion went on eating.
     case 7:
       return (
-        <LionHill id={id}>
+        <LionHill>
           <BigLion x={220} y={300} s={1.8} mood="happy" />
           {[0, 1, 2].map((k) => (
             <g key={k} transform={`translate(${290 + k * 6} ${150 + k * 8})`}>

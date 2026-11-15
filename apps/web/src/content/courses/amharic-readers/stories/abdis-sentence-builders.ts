@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "The Sentence Builders", am: "ዓረፍተ ነገር ገንቢዎቹ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2F6FD6",
   scene: "lib-abdis-sentence-builders",
   coverPage: 6,
@@ -51,7 +51,7 @@ const story: Story = {
       am: "ከዚያ አብዲ «ጨረቃ» ብቻ አስቀመጠ… ቆመ። «ጨረቃ… ምን?» ብላ ጠየቀች አያን። «አላለቀም! የድርጊት ቃል ያስፈልገናል።» አብዲ «ወጣች»ን አገኘ፦ ጨረቃ ወጣች።",
     },
     {
-      en: `Ayan swaps the marks at the end. ፍየሏ ሣር በላች? "Did the goat eat grass?" ፍየሏ ሣር በላች! "The goat ate grass!" "Same words," says Abdi, "different voice!" Who? Did what? And a mark at the end!`,
+      en: `Ayan swaps the marks: ፍየሏ ሣር በላች? "Did the goat eat grass?" ፍየሏ ሣር በላች! "The goat ate grass!" "Same words," says Abdi, "different voice!" Who? Did what? And a mark at the end!`,
       am: "አያን መጨረሻ ላይ ያሉትን ምልክቶች ቀያየረች። ፍየሏ ሣር በላች? ፍየሏ ሣር በላች! «ያው ቃላት» አለ አብዲ፣ «የተለየ ድምፅ!» ማን? ምን አደረገ? መጨረሻ ላይ ምልክት!",
     },
     {

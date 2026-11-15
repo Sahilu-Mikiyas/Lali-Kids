@@ -24,7 +24,7 @@ const story: Story = {
   title: { en: "The Fire on the Mountain", am: "በተራራው ላይ ያለው እሳት" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#3A4A8A",
   scene: "lib-arha-and-the-far-fire",
   coverPage: 4,
@@ -47,8 +47,8 @@ const story: Story = {
       am: "ስለዚህ ዓርሐ ተራራውን ወጣ። ነፋሱ በረዶ እንደሚመስል ቀዘቀዘ። ጥርሶቹ ተንቀጫቀጩ። እግሮቹ ደነዘዙ። እስከ ጧት እንዴት ይቆያል?",
     },
     {
-      en: `Then, far away across the valley, he saw a shepherd's fire, glowing orange in the dark. He kept his eyes on it all night long and thought about its warmth. Can a far-away fire keep you warm?`,
-      am: "ከዚያ ከሸለቆው ማዶ፣ በጣም ሩቅ፣ በጨለማው ውስጥ ብርቱካናማ ሆኖ የሚያበራ የእረኛ እሳት አየ። ሌሊቱን በሙሉ ዓይኑን ከእሱ ላይ አላነሣም፤ ሙቀቱንም አሰበ። የሩቅ እሳት ያሞቃል?",
+      en: `Then, far across the valley, he saw a shepherd's fire glowing orange in the dark. He watched it all night long and thought about its warmth. Can a far-away fire keep you warm?`,
+      am: "ከዚያ ከሸለቆው ማዶ፣ በጣም ሩቅ፣ በጨለማው ውስጥ የሚያበራ የእረኛ እሳት አየ። ሌሊቱን በሙሉ እሱን እያየ ሙቀቱን አሰበ። የሩቅ እሳት ያሞቃል?",
     },
     {
       en: `In the morning Arha came down, stiff and tired but proud. "I did it!" Haptom frowned. "Did you see a fire?" "Only far, far away." "Then the fire warmed you. You lose!"`,
@@ -63,20 +63,20 @@ const story: Story = {
       am: "በመንገድ ላይ ሽማግሌውን ኃይሉን አገኘ፤ እሳቸውም ታሪኩን በሙሉ አዳመጡ። «አትጨነቅ» አሉ ኃይሉ ጢማቸውን እየዳበሱ። «ምን እንደማደርግ አውቃለሁ። ጠብቅና እይ።»",
     },
     {
-      en: `Hailu invited Haptom and the judges to a big feast. All evening, wonderful smells came from the kitchen: spicy wot, fresh injera, roasting coffee. But no food came to the table. Their tummies rumbled.`,
-      am: "ኃይሉ ሀፕቶምንና ዳኞቹን ለትልቅ ግብዣ ጠሩ። ምሽቱን በሙሉ ከማብሰያ ቤቱ ግሩም ሽታዎች መጡ፦ የሚያቃጥል ወጥ፣ ትኩስ እንጀራ፣ የሚቆላ ቡና። ግን ምንም ምግብ ወደ ገበታው አልመጣም። ሆዳቸው ጮኸ።",
+      en: `Hailu invited Haptom and the judges to a feast. All evening, wonderful smells came from the kitchen: wot, injera, roasting coffee. But no food came to the table. Their tummies rumbled.`,
+      am: "ኃይሉ ሀፕቶምንና ዳኞቹን ለግብዣ ጠሩ። ምሽቱን በሙሉ ከማብሰያ ቤቱ ግሩም ሽታዎች መጡ፦ ወጥ፣ እንጀራ፣ የሚቆላ ቡና። ግን ምንም ምግብ ወደ ገበታው አልመጣም። ሆዳቸው ጮኸ።",
     },
     {
       en: `"Where is the food?" cried Haptom at last. "But you smelled it all evening," said Hailu. "If the smell of food can fill you, then a far-away fire can warm a man!"`,
       am: "በመጨረሻ ሀፕቶም «ምግቡ የት አለ?» ብሎ ጮኸ። «ምሽቱን በሙሉ አሸተታችሁት እኮ» አሉ ኃይሉ። «የምግብ ሽታ ካጠገበ፣ የሩቅ እሳትም ሰውን ያሞቃል!»",
     },
     {
-      en: `Everyone was quiet. Then Haptom laughed at himself. "You are right, old man. I was wrong." He kept his promise: Arha got his house and his field. Then, at last, they all ate the feast together.`,
-      am: "ሁሉም ጸጥ አሉ። ከዚያ ሀፕቶም በራሱ ሳቀ። «ትክክል ነዎት፣ አባቴ። ተሳስቼ ነበር።» ቃሉንም ጠበቀ፦ ዓርሐ ቤቱንና ማሳውን አገኘ። ከዚያ በመጨረሻ ሁሉም በአንድ ላይ ግብዣውን በሉ።",
+      en: `Everyone was quiet. Then Haptom laughed at himself. "You are right, old man. I was wrong." Arha got his house and his field. And at last, they all ate the feast together.`,
+      am: "ሁሉም ጸጥ አሉ። ከዚያ ሀፕቶም በራሱ ሳቀ። «ትክክል ነዎት፣ አባቴ። ተሳስቼ ነበር።» ዓርሐ ቤቱንና ማሳውን አገኘ። በመጨረሻም ሁሉም በአንድ ላይ ግብዣውን በሉ።",
     },
     {
-      en: `"Characters?" asks Teacher Meron. "Arha, Haptom, the judges and Hailu!" "Setting?" "A cold mountain and a village." "Problem?" "Haptom didn't keep his promise." "Ending?" "Hailu's clever feast put it right!"`,
-      am: "«ገጸ ባሕርያቱ?» ብለው ጠየቁ መምህርት መሮን። «ዓርሐ፣ ሀፕቶም፣ ዳኞቹና ኃይሉ!» «መቼቱ?» «ቀዝቃዛ ተራራና መንደር።» «ችግሩ?» «ሀፕቶም ቃሉን አልጠበቀም።» «መጨረሻው?» «የኃይሉ ብልህ ግብዣ አስተካከለው!»",
+      en: `"Characters?" "Arha, Haptom, the judges, Hailu!" "Setting?" "A cold mountain and a village." "Problem?" "Haptom broke his promise." "Ending?" "Hailu's clever feast!"`,
+      am: "«ገጸ ባሕርያቱ?» «ዓርሐ፣ ሀፕቶም፣ ዳኞቹና ኃይሉ!» «መቼቱ?» «ቀዝቃዛ ተራራና መንደር።» «ችግሩ?» «ሀፕቶም ቃሉን አልጠበቀም።» «መጨረሻው?» «የኃይሉ ብልህ ግብዣ!»",
     },
   ],
   grownUps: {

@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Gugu's Rhyme Hunt", am: "የጉጉ የግጥም አደን" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#D9532B",
   scene: "lib-gugus-rhyme-day",
   coverPage: 9,
@@ -70,8 +70,8 @@ const story: Story = {
       am: "በማግሥቱ በትምህርት ቤት ጉጉ የቤት ቤተሰቦቹን ለክፍሉ አነበበ። ከዚያ ግጥሙን አነበበ። ሁሉም ተቀላቀሉ፦ «ዶሮ በላች ሽሮ፣ ሸሸች ከቀበሮ!» መጨረሻቸው አንድ ነው፤ ቤት መቱ!",
     },
     {
-      en: `That night, in bed, Gugu whispers one more: "ጨረቃ ወጣች በሰማይ፣ ኮከብ ያበራል ከላይ…" "The moon came out in the sky, a star shines from up high…" Then he yawns. "…I'll finish it tomorrow." Same at the end: they rhyme!`,
-      am: "በዚያ ምሽት በአልጋው ላይ ጉጉ አንድ ተጨማሪ በሹክሹክታ አለ፦ «ጨረቃ ወጣች በሰማይ፣ ኮከብ ያበራል ከላይ…» ከዚያ አዛጋ። «…ነገ እጨርሰዋለሁ።» መጨረሻቸው አንድ ነው፤ ቤት መቱ!",
+      en: `That night in bed, Gugu whispers one more: "ጨረቃ ወጣች በሰማይ፣ ኮከብ ያበራል ከላይ…" "The moon came out in the sky, a star shines up high…" He yawns. "…I'll finish it tomorrow."`,
+      am: "በዚያ ምሽት በአልጋው ላይ ጉጉ አንድ ተጨማሪ በሹክሹክታ አለ፦ «ጨረቃ ወጣች በሰማይ፣ ኮከብ ያበራል ከላይ…» ከዚያ አዛጋ። «…ነገ እጨርሰዋለሁ።»",
     },
   ],
   grownUps: {

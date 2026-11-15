@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "The Answer Is Hiding", am: "መልሱ ተደብቋል" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#5B5FC7",
   scene: "lib-the-answer-is-hiding",
   coverPage: 3,

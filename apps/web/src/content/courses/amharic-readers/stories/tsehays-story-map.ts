@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Tsehay's Story Map", am: "የፀሐይ የታሪክ ካርታ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2E8A6A",
   scene: "lib-tsehays-story-map",
   coverPage: 7,
@@ -39,8 +39,8 @@ const story: Story = {
       am: "«አዞው የት ነበር?» ብላ ጠየቀች ሐበን። «ቶታ ለምን መዳን አስፈለገው?» ብሎ ጠየቀ ጉጉ። የፀሐይ ጉንጮች ሞቁ። ተቀመጠች። «ታሪኩን አውቀዋለሁ፤ ግን ተደበላልቆ ወጣ።»",
     },
     {
-      en: `Teacher Meron draws four boxes on a big paper. "This is a story map. Four questions: Who? Where? What went wrong? How did it end?" Who? Where? What went wrong? How did it end?`,
-      am: "መምህርት መሮን በትልቅ ወረቀት ላይ አራት ሳጥኖች ሣሉ። «ይህ የታሪክ ካርታ ነው። አራት ጥያቄዎች፦ እነማን? የት? ምን ተበላሸ? እንዴት አለቀ?» እነማን? የት? ምን ተበላሸ? እንዴት አለቀ?",
+      en: `Teacher Meron draws four boxes on a big paper. "This is a story map, with four questions." Who? Where? What went wrong? How did it end?`,
+      am: "መምህርት መሮን በትልቅ ወረቀት ላይ አራት ሳጥኖች ሣሉ። «ይህ የታሪክ ካርታ ነው፤ አራት ጥያቄዎች አሉት።» እነማን? የት? ምን ተበላሸ? እንዴት አለቀ?",
     },
     {
       en: `In the first box, Who?, Tsehay draws a little monkey and a big crocodile, and writes: ቶታ ጦጣ፣ ዞዞ አዞ። "Those are the characters," says Teacher Meron.`,
@@ -51,8 +51,8 @@ const story: Story = {
       am: "በሁለተኛው ሳጥን፣ «የት?» ውስጥ፣ ወንዝና ጣፋጭ ፍሬ የሞላበት ትልቅ የሾላ ዛፍ ሣለችና ጻፈች፦ ወንዝና የሾላ ዛፍ። «ያ መቼቱ ነው፤ ታሪኩ የሚፈጸምበት ቦታ።»",
     },
     {
-      en: `The third box, What went wrong?: in the middle of the river, Zozo wanted Tota's heart! Tsehay writes: ዞዞ የቶታን ልብ ፈለገ። "That's the problem," says Teacher Meron. Who? Where? What went wrong? How did it end?`,
-      am: "ሦስተኛው ሳጥን፣ «ምን ተበላሸ?»፦ በወንዙ መሃል ዞዞ የቶታን ልብ ፈለገ! ፀሐይ ጻፈች፦ ዞዞ የቶታን ልብ ፈለገ። «ያ ችግሩ ነው» አሉ መምህርት መሮን። እነማን? የት? ምን ተበላሸ? እንዴት አለቀ?",
+      en: `Third box: What went wrong? Tsehay writes: ዞዞ የቶታን ልብ ፈለገ። Zozo wanted Tota's heart! "That's the problem." Who? Where? What went wrong? How did it end?`,
+      am: "ሦስተኛው ሳጥን፦ «ምን ተበላሸ?» ፀሐይ ጻፈች፦ ዞዞ የቶታን ልብ ፈለገ። «ያ ችግሩ ነው።» እነማን? የት? ምን ተበላሸ? እንዴት አለቀ?",
     },
     {
       en: `And the last box, How did it end?: Tota kept calm and said, "I left my heart in the fig tree!" Back on the bank, he leapt to safety. Tsehay writes: ቶታ ተረጋግቶ አሰበ፤ ዳነ።`,

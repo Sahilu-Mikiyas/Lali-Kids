@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "Riddle Night", am: "የእንቆቅልሽ ምሽት" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#3B3F94",
   scene: "lib-grandmas-riddle-night",
   coverPage: 8,

@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "A Letter to Grandma", am: "ለአያቴ የተጻፈ ደብዳቤ" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#8A4FB0",
   scene: "lib-anbessas-letter-to-grandma",
   coverPage: 5,
@@ -68,7 +68,7 @@ const story: Story = {
       am: "ከዚያ አንድ ጧት፣ ፖስታ! ከፊቱ ላይ፦ ለአንበሳ። ውስጡ ክብ ማማዎች ያሉት የግንብ ሥዕልና በአያቴ ጠማማ የእጅ ጽሑፍ የተጻፈ ደብዳቤ አለ።",
     },
     {
-      en: `Anbessa reads it himself: ለውድ የልጅ ልጄ አንበሳ፣ ደብዳቤህ በጣም አስደሰተኝ። ቅዳሜ እመለሳለሁ። አያትህ። "To my dear grandson Anbessa, your letter made me very happy. I'll be back on Saturday. Your Grandma."`,
+      en: `Anbessa reads it himself: "To my dear grandson Anbessa, your letter made me very happy. I'll be back on Saturday. Your Grandma."`,
       am: "አንበሳ ራሱ አነበበው፦ «ለውድ የልጅ ልጄ አንበሳ፣ ደብዳቤህ በጣም አስደሰተኝ። ቅዳሜ እመለሳለሁ። አያትህ።»",
     },
     {

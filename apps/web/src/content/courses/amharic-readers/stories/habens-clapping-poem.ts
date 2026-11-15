@@ -23,7 +23,7 @@ const story: Story = {
   title: { en: "Haben's Clapping Poem", am: "የሐበን የጭብጨባ ግጥም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#D98A1E",
   scene: "lib-habens-clapping-poem",
   coverPage: 10,
@@ -34,7 +34,7 @@ const story: Story = {
       am: "ሰኞ መምህርት መሮን ዜና ነበራቸው። «ዓርብ ክፍላችን ለመላው ትምህርት ቤት ግጥም ያቀርባል። ሐበን፣ አንቺ ትመሪዋለሽ?» ሐበን ምራቋን ዋጠችና ራሷን ነቀነቀች።",
     },
     {
-      en: `The poem is on the board. All four lines end the same way, in ይ: ፀሐይ ወጣች ከሰማይ፣ ወፎች ዘመሩ ዛፍ ላይ፣ ልጆች ጠጡ ትኩስ ሻይ፣ ኑ እንጫወት ሜዳ ላይ! "The sun came up in the sky, the birds sang in the tree, the children drank fresh tea: come and play in the field!"`,
+      en: `All four lines of the poem on the board end the same way, in ይ: ፀሐይ ወጣች ከሰማይ፣ ወፎች ዘመሩ ዛፍ ላይ፣ ልጆች ጠጡ ትኩስ ሻይ፣ ኑ እንጫወት ሜዳ ላይ!`,
       am: `ግጥሙ በሰሌዳው ላይ አለ። አራቱም መስመሮች በአንድ ዓይነት፣ በ«ይ» ያልቃሉ፦ ${POEM}`,
     },
     {
@@ -84,7 +84,7 @@ const story: Story = {
       am: ["የሐበን የመጀመሪያ ንባብ ለምን እንደሚጋልብ ፈረስ መሰለ?", "በግጥሙ ውስጥ ቤት የሚመቱት የትኞቹ ቃላት ናቸው?"],
     },
     activity: {
-      en: "Say Haben's poem together, clapping once for every word and resting at each ፣. Then try a song you both know the same way. Can your child learn four lines by heart and perform them for the family?",
+      en: "Say Haben's poem together (it means: the sun came up in the sky, the birds sang in the tree, the children drank fresh tea: come and play in the field!), clapping once for every word and resting at each ፣. Then try a song you both know the same way. Can your child learn four lines by heart and perform them for the family?",
       am: "የሐበንን ግጥም ለእያንዳንዱ ቃል አንድ ጊዜ እያጨበጨባችሁና በእያንዳንዱ ነጠላ ሰረዝ እያረፋችሁ አብራችሁ በሉት። ከዚያ ሁለታችሁም የምታውቁትን ዘፈን በዚሁ መንገድ ሞክሩ። ልጃችሁ አራት መስመሮችን በቃሉ አጥንቶ ለቤተሰቡ ማቅረብ ይችላል?",
     },
   },

@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "Gugu's Opposite Day", am: "የጉጉ የተቃራኒ ቀን" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#8A4FB0",
   scene: "lib-gugus-opposite-day",
   coverPage: 9,

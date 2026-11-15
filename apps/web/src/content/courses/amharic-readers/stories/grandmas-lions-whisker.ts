@@ -23,7 +23,7 @@ const story: Story = {
   title: { en: "The Lion's Whisker", am: "የአንበሳው ጢም" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#B5651D",
   scene: "lib-grandmas-lions-whisker",
   coverPage: 6,
@@ -34,8 +34,8 @@ const story: Story = {
       am: "አያቴ ከእሳቱ አጠገብ ፈገግ አለች። «ተረት ተረት» አለች፤ ልጆቹም «የመሠረት!» ብለው መለሱ። ተረት እንዲህ ነው የሚጀመረው። «ዛሬ ማታ» አለች አያቴ፣ «ስለ አንበሳ ተረት።» አንበሳ ቀጥ ብሎ ተቀመጠ።",
     },
     {
-      en: `Long ago, in a village below the mountains, a woman called Bizunesh married a farmer. The farmer had a little son, Tesfaye. Tesfaye missed his own mother very much, and he would not even look at Bizunesh.`,
-      am: "ከብዙ ዘመን በፊት፣ ከተራሮቹ ሥር ባለች መንደር ውስጥ፣ ብዙነሽ የምትባል ሴት አንድ ገበሬ አገባች። ገበሬው ተስፋዬ የሚባል ትንሽ ልጅ ነበረው። ተስፋዬ እናቱን በጣም ናፍቆ ነበር፤ ብዙነሽንም ቀና ብሎ እንኳ አያያትም ነበር።",
+      en: `Long ago, in a village below the mountains, Bizunesh married a farmer. His little son Tesfaye missed his own mother so much that he would not even look at her.`,
+      am: "ከብዙ ዘመን በፊት፣ ከተራሮቹ ሥር ባለች መንደር፣ ብዙነሽ አንድ ገበሬ አገባች። የገበሬው ትንሽ ልጅ ተስፋዬ እናቱን በጣም ስለናፈቀ ብዙነሽን ቀና ብሎ እንኳ አያያትም ነበር።",
     },
     {
       en: `She made him sweet bread; he pushed it away. She sang him songs; he turned his back. "What can I do?" she cried. So she went to see a wise old man who lived at the edge of the village.`,
@@ -62,16 +62,16 @@ const story: Story = {
       am: "አንድ ምሽት በጣም በቀስታ ሦስት የጢም ጠጉሮቹን ነቀለች። አንበሳው መብላቱን ቀጠለ። ጢሞቹን አጥብቃ ይዛ ተራራውን ወርዳ ወደ ጠቢቡ ሽማግሌ ሮጠች።",
     },
     {
-      en: `The old man took the whiskers… and threw them into the fire! "Oh!" cried Bizunesh. He smiled. "You won a wild lion with patience. Now be just as patient with the boy, and you will win him too."`,
-      am: "ሽማግሌው ጢሞቹን ተቀበሉ… ከዚያ እሳት ውስጥ ጣሏቸው! «ወይ!» አለች ብዙነሽ። እሳቸው ፈገግ አሉ። «የዱር አንበሳን በትዕግሥት አሸነፍሽ። አሁን ለልጁም እንደዚሁ ታገሺ፤ እሱንም ታሸንፊዋለሽ።»",
+      en: `The old man took the whiskers… and threw them into the fire! "Oh!" cried Bizunesh. "You won a wild lion with patience. Be as patient with the boy, and you'll win him too."`,
+      am: "ሽማግሌው ጢሞቹን ተቀበሉ… ከዚያ እሳት ውስጥ ጣሏቸው! «ወይ!» አለች ብዙነሽ። «የዱር አንበሳን በትዕግሥት አሸነፍሽ። አሁን ለልጁም እንደዚሁ ታገሺ፤ እሱንም ታሸንፊዋለሽ።»",
     },
     {
       en: `So Bizunesh went home and was patient. She left a little bread by his bed. She sat a little nearer every day. Then one morning Tesfaye smiled, and took her hand. Little by little, closer and closer!`,
       am: "ስለዚህ ብዙነሽ ወደ ቤት ሄዳ ታገሠች። ከአልጋው አጠገብ ትንሽ ዳቦ አስቀመጠች። በየቀኑ ትንሽ ቀረብ ብላ ተቀመጠች። ከዚያ አንድ ጧት ተስፋዬ ፈገግ አለና እጇን ያዘ። ቀስ በቀስ፣ ቀረብ ቀረብ!",
     },
     {
-      en: `Anbessa strokes his own little whiskers and laughs. "Now," says Grandma, "who are the characters? Where does it happen? What is the problem? And how does it end?" Hands go up all round the fire.`,
-      am: "አንበሳ የራሱን ትንንሽ ጢሞች እየዳበሰ ሳቀ። «እሺ» አለች አያቴ፣ «ገጸ ባሕርያቱ እነማን ናቸው? የት ነው የሚፈጸመው? ችግሩ ምንድን ነው? መጨረሻውስ እንዴት ነው?» በእሳቱ ዙሪያ እጆች ወደ ላይ ወጡ።",
+      en: `Anbessa strokes his own little whiskers and laughs. "Now," says Grandma, "who are the characters? Where does it happen? What's the problem? How does it end?" Hands go up.`,
+      am: "አንበሳ የራሱን ትንንሽ ጢሞች እየዳበሰ ሳቀ። «እሺ» አለች አያቴ፣ «ገጸ ባሕርያቱ እነማን ናቸው? የት ነው የሚፈጸመው? ችግሩ ምንድን ነው? መጨረሻውስ እንዴት ነው?» እጆች ወደ ላይ ወጡ።",
     },
     {
       en: `"Bizunesh, Tesfaye, the lion and the wise man!" "A village and a lion's cave!" "Tesfaye wouldn't love her." "She was patient, and he did!" "Every good ተረት has all four," says Grandma.`,

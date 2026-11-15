@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Gugu's Party List", am: "የጉጉ የግብዣ ዝርዝር" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E2463F",
   scene: "lib-gugus-party-list",
   coverPage: 10,
@@ -42,8 +42,8 @@ const story: Story = {
       am: "አያን ልታነበው ሞከረች። «ዳቦሙዝ… ዳቦሙዝ ምንድን ነው? ሻይስኒስ… አዲስ ዓይነት ሻይ ነው እንዴ?» ክፍሉ በሙሉ ሳቀ፤ ጉጉም ሳቀ።",
     },
     {
-      en: `"Words need space to breathe," says Teacher Meron. "Put a space between words, a ፣ between the things on a list, and ። at the end." A space between words, a ፣ between things, and ። at the end!`,
-      am: "«ቃላት ለመተንፈስ ቦታ ያስፈልጋቸዋል» አሉ መምህርት መሮን። «በቃላት መካከል ክፍተት፣ በዝርዝሩ ዕቃዎች መካከል ነጠላ ሰረዝ፣ መጨረሻ ላይ ደግሞ አራት ነጥብ አድርግ።» በቃላት መካከል ክፍተት፣ በዕቃዎች መካከል ነጠላ ሰረዝ፣ መጨረሻ ላይ አራት ነጥብ!",
+      en: `"Words need space to breathe," says Teacher Meron. "Let me show you." A space between words, a ፣ between things, and ። at the end!`,
+      am: "«ቃላት ለመተንፈስ ቦታ ያስፈልጋቸዋል» አሉ መምህርት መሮን። «ላሳይህ።» በቃላት መካከል ክፍተት፣ በዕቃዎች መካከል ነጠላ ሰረዝ፣ መጨረሻ ላይ አራት ነጥብ!",
     },
     {
       en: `Gugu takes a clean page. Slowly this time. ዳቦ… space and a ፣. ሙዝ… ፣. ብርቱካን… ፣. ሻይና ስኒዎች… and ። at the very end.`,

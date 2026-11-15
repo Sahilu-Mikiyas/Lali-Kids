@@ -21,22 +21,22 @@ const story: Story = {
   title: { en: "Our Mini Books", am: "የእኛ ትንንሽ መጻሕፍት" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#3E9B5A",
   scene: "lib-our-mini-books",
   coverPage: 11,
   teaches: { words: ["ርዕስ", "ደራሲ", "ተፈጸመ", "የክፍላችን ቤተ መጻሕፍት"] },
   pages: [
     {
-      en: `"This term we've read so many books," says Teacher Meron. "Now we'll make our own, for our class library!" She shows how to fold a paper into a little book. Every reader can be a writer!`,
-      am: "«በዚህ መንፈቅ ብዙ መጻሕፍትን አነበብን» አሉ መምህርት መሮን። «አሁን ለክፍላችን ቤተ መጻሕፍት የራሳችንን እንሠራለን!» ወረቀትን አጥፎ ትንሽ መጽሐፍ እንዴት እንደሚሠራ አሳዩ። እያንዳንዱ አንባቢ ጸሐፊ መሆን ይችላል!",
+      en: `"This term we've read so many books," says Teacher Meron. "Now let's make our own, for our class library!" She shows how to fold a little book. Every reader can be a writer!`,
+      am: "«በዚህ መንፈቅ ብዙ መጻሕፍትን አነበብን» አሉ መምህርት መሮን። «አሁን ለክፍላችን ቤተ መጻሕፍት የራሳችንን እንሥራ!» ትንሽ መጽሐፍ እንዴት እንደሚታጠፍ አሳዩ። እያንዳንዱ አንባቢ ጸሐፊ መሆን ይችላል!",
     },
     {
       en: `"A book needs a cover with a title and the author's name, ደራሲ. Then pages, each with a sentence and a picture. And at the end, ተፈጸመ: the end."`,
       am: "«መጽሐፍ ርዕስና የደራሲው ስም ያለበት ሽፋን ያስፈልገዋል። ከዚያ ገጾች፤ እያንዳንዱ ዓረፍተ ነገርና ሥዕል ያለበት። በመጨረሻ ደግሞ ‹ተፈጸመ›።»",
     },
     {
-      en: `Everyone gets busy. Gugu makes a book of rhymes. Anbessa makes "My Longest Words". Ayan makes a book about her tree. Haben chews her pencil. "I'll write about a little walia ibex," she decides.`,
+      en: `Everyone gets busy. Gugu makes a book of rhymes, Anbessa "My Longest Words", Ayan a book about her tree. Haben chews her pencil. "I'll write about a little walia," she decides.`,
       am: "ሁሉም ሥራ ጀመሩ። ጉጉ የግጥም መጽሐፍ ሠራ። አንበሳ «ረጃጅም ቃላቶቼ»ን ሠራ። አያን ስለ ዛፏ መጽሐፍ ሠራች። ሐበን እርሳሷን ነከሰች። «ስለ አንዲት ትንሽ ዋልያ እጽፋለሁ» ብላ ወሰነች።",
     },
     {
@@ -52,28 +52,28 @@ const story: Story = {
       am: "ገጽ ሁለት፦ አንድ ቀን ጭጋግ መጣ፤ ትንሿ ዋልያ ጠፋች። ግራጫ ሽክርክሪቶችን ሣለች። ከዚያ ቆመች። «እንዴት ያልቃል?»",
     },
     {
-      en: `Tsehay leans over. "Use the story map! Who? The little walia. Where? The mountains. What went wrong? She got lost in the mist. How does it end?" Haben thinks. "…She finds her mother!"`,
-      am: "ፀሐይ ጎንበስ ብላ «የታሪክ ካርታውን ተጠቀሚ!» አለች። «እነማን? ትንሿ ዋልያ። የት? ተራሮቹ። ምን ተበላሸ? በጭጋጉ ጠፋች። እንዴት አለቀ?» ሐበን አሰበች። «…እናቷን ታገኛለች!»",
+      en: `"Use the story map!" says Tsehay. "Who? A little walia. Where? The mountains. What went wrong? Lost in the mist. And the end?" "She finds her mother!" says Haben.`,
+      am: "«የታሪክ ካርታውን ተጠቀሚ!» አለች ፀሐይ። «እነማን? ትንሿ ዋልያ። የት? ተራሮቹ። ምን ተበላሸ? በጭጋጉ ጠፋች። እንዴት አለቀ?» «እናቷን ታገኛለች!» አለች ሐበን።",
     },
     {
       en: `Page three: እናቷን በድምፅዋ አገኘቻት። "She found her mother by her voice." She draws the two of them, nose to nose. On the last page, in big letters: ተፈጸመ። Every reader can be a writer!`,
       am: "ገጽ ሦስት፦ እናቷን በድምፅዋ አገኘቻት። ሁለቱን አፍንጫ ለአፍንጫ ተገናኝተው ሣለች። በመጨረሻው ገጽ ላይ በትልልቅ ፊደሎች፦ ተፈጸመ። እያንዳንዱ አንባቢ ጸሐፊ መሆን ይችላል!",
     },
     {
-      en: `Then it's reading time. Each author sits in the special chair and reads their book to the class. Gugu reads his rhymes. Anbessa reads ቤተ መጻሕፍት and እንቁራሪቶች, piece by piece and then all together.`,
-      am: "ከዚያ የንባብ ሰዓት ደረሰ። እያንዳንዱ ደራሲ በልዩው ወንበር ላይ ተቀምጦ መጽሐፉን ለክፍሉ አነበበ። ጉጉ ግጥሞቹን አነበበ። አንበሳ «ቤተ መጻሕፍት»ን እና «እንቁራሪቶች»ን ቁራሽ በቁራሽ፣ ከዚያ በአንድ ላይ አነበበ።",
+      en: `Reading time! Each author sits in the special chair and reads to the class. Gugu reads his rhymes; Anbessa reads ቤተ መጻሕፍት and እንቁራሪቶች, piece by piece, then all together.`,
+      am: "የንባብ ሰዓት ደረሰ! እያንዳንዱ ደራሲ በልዩው ወንበር ላይ ተቀምጦ ለክፍሉ አነበበ። ጉጉ ግጥሞቹን አነበበ፤ አንበሳ «ቤተ መጻሕፍት»ን እና «እንቁራሪቶች»ን ቁራሽ በቁራሽ፣ ከዚያ በአንድ ላይ አነበበ።",
     },
     {
       en: `Haben reads hers slowly and from the heart. When the little walia finds her mother, the class says "Ahhh!" all together. Haben's cheeks go pink with happiness.`,
       am: "ሐበን የእሷን ቀስ ብላ፣ ከልቧ አነበበች። ትንሿ ዋልያ እናቷን ስታገኝ ክፍሉ በአንድ ላይ «አሃ!» አለ። የሐበን ጉንጮች በደስታ ቀሉ።",
     },
     {
-      en: `All the mini books go on a shelf with a sign: የክፍላችን ቤተ መጻሕፍት, Our Class Library. Then Lali flies in with the tiniest book of all, about honey, and sets it on the end. Every reader can be a writer!`,
-      am: "ትንንሾቹ መጻሕፍት በሙሉ «የክፍላችን ቤተ መጻሕፍት» የሚል ምልክት ባለበት መደርደሪያ ላይ ተቀመጡ። ከዚያ ላሊ ስለ ማር የሆነ ከሁሉም የምታንስ መጽሐፍ ይዛ እየበረረች ገባችና መጨረሻ ላይ አስቀመጠችው። እያንዳንዱ አንባቢ ጸሐፊ መሆን ይችላል!",
+      en: `All the mini books go on a shelf under a sign: የክፍላችን ቤተ መጻሕፍት, Our Class Library. Then Lali brings the tiniest book of all, about honey. Every reader can be a writer!`,
+      am: "ትንንሾቹ መጻሕፍት በሙሉ «የክፍላችን ቤተ መጻሕፍት» የሚል ምልክት ባለበት መደርደሪያ ላይ ተቀመጡ። ከዚያ ላሊ ስለ ማር የሆነ ከሁሉም የምታንስ መጽሐፍ ይዛ መጣች። እያንዳንዱ አንባቢ ጸሐፊ መሆን ይችላል!",
     },
     {
-      en: `"Remember," says Teacher Meron, "every book on every shelf was once just an idea in someone's head, like yours." Haben smiles at her little book. "My first book," she whispers. "But not my last." ተፈጸመ።`,
-      am: "«አስታውሱ» አሉ መምህርት መሮን፣ «በየመደርደሪያው ያለ እያንዳንዱ መጽሐፍ አንድ ጊዜ እንደ እናንተ በአንድ ሰው ራስ ውስጥ ያለ ሐሳብ ብቻ ነበር።» ሐበን ትንሿን መጽሐፏን አይታ ፈገግ አለች። «የመጀመሪያ መጽሐፌ» አለች በሹክሹክታ። «ግን የመጨረሻዬ አይደለም።» ተፈጸመ።",
+      en: `"Remember," says Teacher Meron, "every book on every shelf was once just an idea in someone's head." Haben smiles. "My first book," she whispers. "But not my last." ተፈጸመ።`,
+      am: "«አስታውሱ» አሉ መምህርት መሮን፣ «በመደርደሪያው ላይ ያለ እያንዳንዱ መጽሐፍ አንድ ጊዜ በአንድ ሰው ራስ ውስጥ ያለ ሐሳብ ብቻ ነበር።» ሐበን ፈገግ አለች። «የመጀመሪያ መጽሐፌ» አለች በሹክሹክታ። «ግን የመጨረሻዬ አይደለም።» ተፈጸመ።",
     },
   ],
   grownUps: {

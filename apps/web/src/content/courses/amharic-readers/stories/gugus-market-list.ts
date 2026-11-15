@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "One Goat, Many Goats", am: "አንድ ፍየል፣ ብዙ ፍየሎች" },
   category: "Fidel",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#C9732A",
   scene: "lib-gugus-market-list",
   coverPage: 7,
