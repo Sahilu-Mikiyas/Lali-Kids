@@ -1,0 +1,77 @@
+/* Shared moves for the Healthy & Safe level 4 to 6 scenes (safety-scenes). Transforms and opacity only. */
+
+/* Crawling along the floor from --cx. */
+@keyframes safety-crawl {
+  from { transform: translateX(var(--cx, -80px)); }
+  to { transform: translateX(0); }
+}
+.safety-crawl { animation: safety-crawl 3s ease-in-out 0.3s both; }
+
+/* Something growing into place. */
+@keyframes safety-grow {
+  from { transform: scale(0.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.safety-grow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: safety-grow 1.4s ease-out 0.4s both;
+}
+
+/* Driving along from --dx. */
+@keyframes safety-drive {
+  from { transform: translateX(var(--dx, -300px)); }
+  to { transform: translateX(var(--to, 0px)); }
+}
+.safety-drive { animation: safety-drive var(--dur, 2.4s) linear var(--delay, 0s) both; }
+
+/* Driving past, again and again. */
+@keyframes safety-pass {
+  from { transform: translateX(-160px); }
+  to { transform: translateX(560px); }
+}
+.safety-pass { animation: safety-pass var(--dur, 3s) linear var(--delay, 0s) infinite; }
+
+/* Falling into the well and fading. */
+@keyframes safety-fall {
+  0% { transform: translateY(-30px); opacity: 1; }
+  80% { transform: translateY(6px); opacity: 1; }
+  100% { transform: translateY(10px); opacity: 0; }
+}
+.safety-fall { animation: safety-fall 1.6s ease-in 0.6s both; }
+
+/* Coming up out of the well. */
+@keyframes safety-rise-up {
+  from { transform: translateY(30px); }
+  to { transform: translateY(0); }
+}
+.safety-rise-up { animation: safety-rise-up 2s ease-out 0.4s both; }
+
+/* A slow nod (listening, sniffing). */
+@keyframes safety-nod {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(4deg); }
+}
+.safety-nod {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: safety-nod 1.6s ease-in-out infinite;
+}
+
+/* Trotting off, away to the side. */
+@keyframes safety-away {
+  0%, 30% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(160px); opacity: 0; }
+}
+.safety-away { animation: safety-away 3.6s ease-in 0.6s both; }
+
+/* Looking this way, then that way. */
+@keyframes safety-look {
+  0%, 100% { transform: scaleX(1); }
+  45%, 55% { transform: scaleX(-1); }
+}
+.safety-look {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: safety-look 3s ease-in-out infinite;
+}

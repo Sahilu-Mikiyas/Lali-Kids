@@ -1,0 +1,19 @@
+/* Abdi Asks First (abdi-asks-first.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* Not sure about it: a soft pulse. */
+@keyframes abdi-asks-first-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.abdi-asks-first-glow { animation: abdi-asks-first-glow 1.4s ease-in-out infinite; }
+
+/* Leaning towards the table. */
+@keyframes abdi-asks-first-reach {
+  0%, 30% { transform: rotate(0deg); }
+  70%, 100% { transform: rotate(6deg); }
+}
+.abdi-asks-first-reach {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: abdi-asks-first-reach 2s ease-in-out 0.4s both;
+}

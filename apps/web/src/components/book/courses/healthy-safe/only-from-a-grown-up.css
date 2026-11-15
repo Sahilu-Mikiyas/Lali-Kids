@@ -1,0 +1,14 @@
+/* Only from a Grown-Up (only-from-a-grown-up.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* Grandma's sneeze: a wind-up and a jolt. */
+@keyframes only-from-a-grown-up-sneeze {
+  0%, 40% { transform: rotate(0deg); }
+  50% { transform: rotate(-5deg); }
+  60% { transform: rotate(6deg); }
+  75%, 100% { transform: rotate(0deg); }
+}
+.only-from-a-grown-up-sneeze {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: only-from-a-grown-up-sneeze 2.4s ease-in-out infinite;
+}

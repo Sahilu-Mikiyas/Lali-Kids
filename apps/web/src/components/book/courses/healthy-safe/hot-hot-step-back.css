@@ -1,0 +1,8 @@
+/* Hot, Hot, Step Back! (hot-hot-step-back.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* The warm glow of the coals, breathing. */
+@keyframes hot-hot-step-back-warm {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+.hot-hot-step-back-warm { animation: hot-hot-step-back-warm 1.8s ease-in-out infinite; }

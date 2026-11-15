@@ -1,0 +1,19 @@
+/* Haben Tells Her Teacher (haben-tells-teacher.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* Feeling poorly: a slow droop. */
+@keyframes haben-tells-teacher-droop {
+  0%, 100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(3deg) scaleY(0.97); }
+}
+.haben-tells-teacher-droop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: haben-tells-teacher-droop 3s ease-in-out infinite;
+}
+
+/* The warm, poorly glow, pulsing softly. */
+@keyframes haben-tells-teacher-warm {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+.haben-tells-teacher-warm { animation: haben-tells-teacher-warm 2s ease-in-out infinite; }

@@ -1,0 +1,26 @@
+/* Lost at the Market (lost-at-the-market.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* Shoppers walking across the market. */
+@keyframes lost-at-the-market-walk {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(460px); }
+}
+.lost-at-the-market-walk { animation: lost-at-the-market-walk var(--dur, 8s) linear var(--delay, 0s) infinite; }
+
+/* Singing: a happy little sway. */
+@keyframes lost-at-the-market-sing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.lost-at-the-market-sing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: lost-at-the-market-sing 1.2s ease-in-out infinite;
+}
+
+/* The spot where Anbessa stays, glowing. */
+@keyframes lost-at-the-market-spot {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+.lost-at-the-market-spot { animation: lost-at-the-market-spot 1.6s ease-in-out infinite; }

@@ -1,0 +1,27 @@
+/* The Broken Cup (the-broken-cup.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* A trip on the mat: a quick wobble forward. */
+@keyframes the-broken-cup-trip {
+  0%, 40% { transform: rotate(0deg); }
+  55% { transform: rotate(10deg); }
+  70%, 100% { transform: rotate(0deg); }
+}
+.the-broken-cup-trip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: the-broken-cup-trip 1.6s ease-in-out 0.3s both;
+}
+
+/* Stepping back from the pieces. */
+@keyframes the-broken-cup-back {
+  from { transform: translateX(40px); }
+  to { transform: translateX(0); }
+}
+.the-broken-cup-back { animation: the-broken-cup-back 1s ease-out 0.4s both; }
+
+/* The pieces swept along, then gone. */
+@keyframes the-broken-cup-sweep {
+  0% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(-80px); opacity: 0; }
+}
+.the-broken-cup-sweep { animation: the-broken-cup-sweep 2.4s ease-in 0.6s both; }

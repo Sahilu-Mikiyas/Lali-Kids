@@ -1,0 +1,32 @@
+/* Abdi at the Health Post (abdi-at-the-health-post.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* A little cough: a quick jolt. */
+@keyframes abdi-at-the-health-post-cough {
+  0%, 70%, 100% { transform: translateY(0); }
+  78% { transform: translateY(-3px); }
+  86% { transform: translateY(0); }
+  92% { transform: translateY(-2px); }
+}
+.abdi-at-the-health-post-cough { animation: abdi-at-the-health-post-cough 2s ease-in-out infinite; }
+
+/* A slow, deep breath. */
+@keyframes abdi-at-the-health-post-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 1.03); }
+}
+.abdi-at-the-health-post-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: abdi-at-the-health-post-breathe 3.6s ease-in-out infinite;
+}
+
+/* Thump-thump: a heartbeat. */
+@keyframes abdi-at-the-health-post-beat {
+  0%, 30%, 60%, 100% { transform: scale(1); }
+  15%, 45% { transform: scale(1.25); }
+}
+.abdi-at-the-health-post-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: abdi-at-the-health-post-beat 1.2s ease-in-out infinite;
+}
