@@ -619,7 +619,7 @@ export function Canjeero({ x, y, s = 1 }: { x: number; y: number; s?: number }) 
 export function Kuraz({ x, y, s = 1, lit = true }: { x: number; y: number; s?: number; lit?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      {lit && <circle cx={0} cy={-34} r={18} fill="#FFE9A0" opacity={0.35} className="hs-pulse-glow" />}
+      {lit && <circle cx={0} cy={-34} r={18} fill="#FFC86A" opacity={0.5} className="hs-pulse-glow" />}
       <path d="M-10 0 L-8 -18 L8 -18 L10 0Z" fill="#7A8898" />
       <rect x={-2} y={-26} width={4} height={8} fill="#5A6878" />
       {lit && <path d="M0 -40 Q-5 -32 0 -26 Q5 -32 0 -40Z" fill="#FFB43A" className="hs-flame" />}

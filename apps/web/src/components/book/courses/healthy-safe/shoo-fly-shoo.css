@@ -10,7 +10,7 @@
 /* Hawi bending down to the stream. */
 @keyframes shoo-fly-shoo-bend {
   0%, 20% { transform: rotate(0deg); }
-  60%, 100% { transform: rotate(14deg); }
+  60%, 100% { transform: rotate(8deg); }
 }
 .shoo-fly-shoo-bend {
   transform-box: fill-box;

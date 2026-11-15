@@ -16,6 +16,11 @@ const AnbessasSparklySmile = dynamic(() => import("./anbessas-sparkly-smile"), {
 const AbdisOneBucketBath = dynamic(() => import("./abdis-one-bucket-bath"), { ssr: false });
 const HabensSneezyWeek = dynamic(() => import("./habens-sneezy-week"), { ssr: false });
 const ShooFlyShoo = dynamic(() => import("./shoo-fly-shoo"), { ssr: false });
+// Level 2: food, sleep and moving
+const TsehaysRainbowPlate = dynamic(() => import("./tsehays-rainbow-plate"), { ssr: false });
+const AyansRunningBreakfast = dynamic(() => import("./ayans-running-breakfast"), { ssr: false });
+const WaterForTheTeam = dynamic(() => import("./water-for-the-team"), { ssr: false });
+const HabensSleepyMoon = dynamic(() => import("./habens-sleepy-moon"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -24,4 +29,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "abdis-one-bucket-bath": AbdisOneBucketBath,
   "habens-sneezy-week": HabensSneezyWeek,
   "shoo-fly-shoo": ShooFlyShoo,
+  "tsehays-rainbow-plate": TsehaysRainbowPlate,
+  "ayans-running-breakfast": AyansRunningBreakfast,
+  "water-for-the-team": WaterForTheTeam,
+  "habens-sleepy-moon": HabensSleepyMoon,
 };

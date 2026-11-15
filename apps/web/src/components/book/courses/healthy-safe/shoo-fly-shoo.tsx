@@ -273,9 +273,9 @@ export default function ShooFlyShoo({ page }: { page: number }) {
           <Place x={250} y={292} s={0.5} flip tap={TAP.elder}>
             <Wolf elder mood="joy" />
           </Place>
-          <Picnic x={140} y={284} covered />
-          <Flies x={140} y={244} n={3} r={34} />
-          <Place x={60} y={296} s={0.36} tap={TAP.hawi}>
+          <Picnic x={160} y={284} covered />
+          <Flies x={160} y={244} n={3} r={34} />
+          <Place x={84} y={296} s={0.38} tap={TAP.hawi}>
             <Wolf mood="joy" wag />
           </Place>
           <Air kind="day" seed={19} />
