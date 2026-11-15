@@ -34,11 +34,11 @@ const story: Story = {
   teaches: { words: ["ee", "see", "three", "green", "seed", "need", "keep", "week", "deep", "sweet", "beet", "teeth"] },
   pages: [
     {
-      en: 'Grandma gave Gugu a little paper packet. On it was a picture of a round red root. "b-ee-t… bet?" read Gugu. "Two e\'s together say ee," said Grandma, "like a happy squeak: eee! Beet. Beet seeds!"',
+      en: 'Grandma gave Gugu a little packet with a round red root on it. "b-ee-t… bet?" read Gugu. "Two e\'s together say ee," said Grandma, "like a happy squeak: eee! Beet seeds!"',
       am: 'አያቴ ለጉጉ ትንሽ የወረቀት እሽግ ሰጠችው። በላዩ ላይ የክብ ቀይ ሥር ሥዕል ነበረ። «b-ee-t… ቤት?» ብሎ አነበበ ጉጉ። «ሁለት e አብረው «ኢ» ይላሉ» አለች አያቴ፣ «እንደ ደስተኛ ጩኸት፦ ኢኢኢ! Beet። የቀይ ሥር ዘሮች!»',
     },
     {
-      en: '"Beets! For key sir!" Gugu loved key sir with potatoes. He planted three seeds in a pot, and put it in the deep shade of the fig tree, so they would not get too hot. "Grow, seeds, grow! Ee, ee, ee!"',
+      en: '"Beets! For key sir!" Gugu loved key sir with potatoes. He planted three seeds in a pot, and put it in the deep shade of the fig tree, to keep them cool. "Grow, seeds, grow! Ee, ee, ee!"',
       am: '«ቀይ ሥር! ለቀይ ሥር ወጥ!» ጉጉ ቀይ ሥርን ከድንች ጋር በጣም ይወድ ነበር። ሦስት ዘሮችን በማሰሮ ውስጥ ተከለ፤ በጣም እንዳይሞቃቸው በሾላው ዛፍ ጥቅጥቅ ጥላ ሥር አስቀመጣቸው። «Grow, seeds, grow! Ee, ee, ee!» (አድጉ፣ ዘሮች፣ አድጉ!)',
     },
     {
@@ -50,7 +50,7 @@ const story: Story = {
       am: 'ሁለት ሳምንት አለፈ። አሁንም ምንም የለም። ፀሐይ «ምናልባት ዘፈን ያስፈልጋቸው ይሆናል» አለች። ስለዚህ ጉጉ ጮክ ብሎና ረጅም ጊዜ ዘፈነላቸው። ምንም የለም። ጉጉ በጣም አዝኖ ከማሰሮው አጠገብ ተቀመጠ።',
     },
     {
-      en: 'Then he turned the packet over. On the back were some little words. Gugu read them, slowly. "Beets… n-ee-d… need… sun." He looked up at the dark leaves of the fig tree. "Seeds need SUN! And mine are in the deep shade!"',
+      en: 'Then he turned the packet over and read the little words on the back, slowly. "Beets… n-ee-d… need… sun." He looked up at the dark fig leaves. "Seeds need SUN! And mine are in the shade!"',
       am: 'ከዚያ እሽጉን ገለበጠው። ከኋላው ጥቂት ትንንሽ ቃላት ነበሩ። ጉጉ በቀስታ አነበባቸው። «Beets… n-ee-d… need… sun.» (ቀይ ሥሮች ፀሐይ ያስፈልጋቸዋል።) ቀና ብሎ የሾላውን ጨለማ ቅጠሎች ተመለከተ። «ዘሮች ፀሐይ ያስፈልጋቸዋል! የኔዎቹ ደግሞ ጥቅጥቅ ጥላ ውስጥ ናቸው!»',
     },
     {

@@ -52,7 +52,7 @@ const story: Story = {
       am: "ጉጉ በወረቀት ጀልባ እንደገና ሞከረ። ተንሳፈፈች! ግን ብዙም ሳይቆይ ወረቀቱ ርሶ ለሰለሰ፤ ጀልባዋም ቀስ፣ ቀስ ብላ ከውሃው ሥር ሰመጠች። ጉጉ ዳሩ ላይ ዘፍ ብሎ ተቀመጠ።",
     },
     {
-      en: 'Tsehay thought hard. "We need a boat that floats AND stays strong." Then she remembered Grandma\'s story about Lake Tana. "The tankwa! The fishermen there make boats from papyrus reeds, tied together tight!"',
+      en: 'Tsehay thought hard. "We need a boat that floats AND stays strong." Then she remembered Grandma\'s story: "The tankwa! On Lake Tana, fishermen make boats from papyrus reeds, tied tight!"',
       am: 'ፀሐይ በጥልቀት አሰበች። «የሚንሳፈፍና የማይፈርስ ጀልባ ያስፈልገናል።» ከዚያ አያቴ ስለ ጣና ሐይቅ የነገረቻትን ታሪክ አስታወሰች። «ታንኳ! እዚያ ያሉ ዓሣ አጥማጆች ከደንገል ሸምበቆ አጥብቀው አስረው ጀልባ ይሠራሉ!»',
     },
     {

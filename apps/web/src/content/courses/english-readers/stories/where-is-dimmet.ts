@@ -12,7 +12,7 @@ import type { Story } from "../../../stories";
   English taught: asking and answering who, what and where; describing words (little, gray,
   white, black); reading short sentences and following a story's clues.
 
-  In Amharic the English sentences stay as they are, followed by a translation in brackets.
+  In Amharic the English sentences stay as they are, followed by a translation in brackets (a short gist on the longest pages, so the page fits).
   AMHARIC: first draft, to be checked by a native-speaking editor before launch, especially «የድመት
   መርማሪ» for cat detective.
 */
@@ -43,15 +43,15 @@ const story: Story = {
     },
     {
       en: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\"",
-      am: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\" (አንበሳ ሐበንን «ዲሜትን አየሻት?» ብሎ ጠየቃት። ሐበን «አዎ! ወደ ቤቱ ገባች። በአፏ አንድ ነገር ይዛ ነበር» አለች። «ምን ነበር?» «ትንሽና ግራጫ ነበር።»)",
+      am: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\" (ሐበን ዲሜትን አየቻት፤ ትንሽ ግራጫ ነገር በአፏ ይዛ ነበር።)",
     },
     {
       en: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints!",
-      am: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints! (አሁን አንበሳ የድመት መርማሪ ነው። ፍንጭ ይፈልጋል። ምን ማየት ይችላል? የአያቴ ዱቄት መሬቱ ላይ ፈሷል። በዱቄቱ ውስጥ ደግሞ ትንንሽ የእግር ዱካዎች አሉ!)",
+      am: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints! (አንበሳ ፍንጭ ይፈልጋል፦ በዱቄቱ ውስጥ የእግር ዱካዎች!)",
     },
     {
       en: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue!",
-      am: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue! (የእግር ዱካዎቹ ወዴት ይሄዳሉ? ከጠረጴዛው አጠገብ ያልፋሉ። ከትልቁ ድስት አጠገብ ያልፋሉ። ወደ አያቴ አልጋ ይሄዳሉ። ማን? ምን? የት? ፍንጭ ፈልግ!)",
+      am: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue! (የእግር ዱካዎቹ ወደ አያቴ አልጋ ይሄዳሉ።)",
     },
     {
       en: "Anbessa looks under the bed. It is dark. He can't see. But he can hear something. \"Mew, mew, mew!\"",
@@ -63,15 +63,15 @@ const story: Story = {
     },
     {
       en: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth!",
-      am: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth! (ዲሜት ሦስት ትንንሽ ግልገሎች አሏት! አንዱ ግራጫ ነው። አንዱ ነጭ ነው። አንዱ ጥቁርና ነጭ ነው። ግራጫው ዲሜት በአፏ ይዛው የነበረው ትንሽ ነገር ነው!)",
+      am: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth! (ሦስት ግልገሎች! ግራጫ፣ ነጭ፣ ጥቁርና ነጭ።)",
     },
     {
       en: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says.",
-      am: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says. (አያቴ ገባች። «ምንድን ነው አንበሳ?» «ሽሽ፣ አያቴ! ከአልጋው ሥር ተመልከቺ። ዲሜት ግልገሎች ወልዳለች!» አያቴ ተመለከተች። «ውይ!» አለች።)",
+      am: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says. (አያቴ ገባች። «ሽሽ! ዲሜት ግልገሎች ወልዳለች!»)",
     },
     {
       en: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it!",
-      am: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it! (አያቴ ትልቅ ቅርጫትና ለስላሳ ብርድ ልብስ አመጣች። አሁን ዲሜትና ግልገሎቿ ሞቃት አልጋ አላቸው። ዲሜት ታንኮራፋለች። አንበሳ ፈገግ አለ። የድመት መርማሪው ተሳካለት!)",
+      am: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it! (ቅርጫትና ለስላሳ ብርድ ልብስ፦ ሞቃት አልጋ!)",
     },
     {
       en: "Who was missing? What did Anbessa see on the floor? Where was Dimmet? Who? What? Where? Can you give the kittens names, {name}?",

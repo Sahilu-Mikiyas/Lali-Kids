@@ -35,8 +35,8 @@ const story: Story = {
       am: 'የእንግሊዝኛ ክበቡ ቲያትር ሊያቀርብ ነበር፤ አንበሳ መንደሩን የሚያድነው ጀግና ነበር። «ጀግና ካባ ያስፈልገዋል» አለች መምህርት መሮን። «ቤት ውስጥ መሥራት ትችሉ እንደሆነ ጠይቁ።»',
     },
     {
-      en: 'That night Anbessa wrote a note for Grandma: "I need a cap." In the morning Grandma gave him a cap. A blue one. "Thank you, Grandma," said Anbessa. "But a hero doesn\'t need a cap. A hero needs a CAPE!"',
-      am: 'በዚያ ምሽት አንበሳ ለአያቴ ማስታወሻ ጻፈ፦ «I need a cap.» ጠዋት አያቴ ኮፍያ ሰጠችው። ሰማያዊ። «አመሰግናለሁ አያቴ» አለ አንበሳ። «ግን ጀግና ኮፍያ (cap) አያስፈልገውም። ጀግና ካባ (CAPE) ያስፈልገዋል!»',
+      en: 'That night Anbessa wrote a note for Grandma: "I need a cap." In the morning Grandma gave him a cap. A blue one. "Thank you, Grandma. But a hero needs a CAPE!"',
+      am: 'በዚያ ምሽት አንበሳ ለአያቴ ማስታወሻ ጻፈ፦ «I need a cap.» ጠዋት አያቴ ኮፍያ ሰጠችው። ሰማያዊ። «አመሰግናለሁ አያቴ። ግን ጀግና ካባ (CAPE) ያስፈልገዋል!»',
     },
     {
       en: 'Zoom! Lali flew in with a shiny little e. "You forgot the magic e! Put it at the end. The e stays quiet, but it makes the a say its name: A! c-a-pe. Cape!" Zap! Magic e! Say your name!',

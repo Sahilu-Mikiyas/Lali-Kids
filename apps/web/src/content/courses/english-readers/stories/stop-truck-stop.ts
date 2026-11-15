@@ -39,20 +39,20 @@ const story: Story = {
       am: 'አብዲም ሊያነበው ሞከረ። «t… r… አክ?» «tን እና rን ጎን ለጎን ፈጠን ብለህ በላቸው» አለች አያን። «ትር፣ ትር፣ እንደ ሞተሩ፦ ትርርር! Two sounds together, fast, fast, fast!» (ሁለት ድምፆች አብረው፣ ፈጠን፣ ፈጠን፣ ፈጠን!) «TRUCK!»',
     },
     {
-      en: 'On the way, they stopped at a pond to fill the water can. A painted sign stood by the gate: "Green Hill School". "Gr-ee-n," read Ayan. "Look, Abdi! A frog! f-r-o-g." It was green, with black spots.',
-      am: 'በመንገድ ላይ የውሃ ጀሪካኑን ለመሙላት ኩሬ አጠገብ ቆሙ። በበሩ አጠገብ ቀለም የተቀባ ምልክት ቆሞ ነበር፦ «Green Hill School» (የአረንጓዴ ኮረብታ ትምህርት ቤት)። «Gr-ee-n» ብላ አነበበች አያን። «አብዲ ተመልከት! እንቁራሪት! f-r-o-g።» አረንጓዴ ነበረች፤ ጥቁር ነጠብጣቦች ነበሯት።',
+      en: 'On the way, they stopped at a pond to fill the water can. By the gate stood a sign: "Green Hill School". "Look, Abdi! A frog! f-r-o-g." It was green, with black spots.',
+      am: 'በመንገድ ላይ የውሃ ጀሪካኑን ለመሙላት ኩሬ አጠገብ ቆሙ። በበሩ አጠገብ ቀለም የተቀባ ምልክት ቆሞ ነበር፦ «Green Hill School» (የአረንጓዴ ኮረብታ ትምህርት ቤት)። «አብዲ ተመልከት! እንቁራሪት! f-r-o-g።» አረንጓዴ ነበረች፤ ጥቁር ነጠብጣቦች ነበሯት።',
     },
     {
       en: 'At the busy market, Ayan bought grapes. "Gr-apes!" Abdi bought a little spinning top. "Sp-in, spin!" Two sounds together, fast, fast, fast!',
       am: 'በተጨናነቀው ገበያ አያን ወይን ገዛች። «Gr-apes!» (ወይን) አብዲ ትንሽ የሚሾር ገበጣ ገዛ። «Sp-in፣ spin!» (ሹር!) Two sounds together, fast, fast, fast!',
     },
     {
-      en: 'When Abdi lifted his basket, two eyes peeped out. "The frog! It hopped in at the pond!" The frog\'s skin looked dry. "Frogs need water to keep their skin wet," said Aabo. "We must take it home."',
+      en: 'When Abdi lifted his basket, two eyes peeped out. "The frog! It hopped in at the pond!" Its skin looked dry. "Frogs need wet skin," said Aabo. "We must take it home."',
       am: 'አብዲ ቅርጫቱን ሲያነሳ ሁለት ዓይኖች ብቅ አሉ። «እንቁራሪቷ! ኩሬው ጋ ዘላ ገብታ ነበር!» የእንቁራሪቷ ቆዳ የደረቀ ይመስል ነበር። «እንቁራሪቶች ቆዳቸው እርጥብ እንዲሆን ውሃ ያስፈልጋቸዋል» አለ አቦ። «ወደ ቤቷ መመለስ አለብን።»',
     },
     {
-      en: 'But there were lots of ponds on the long road home. Which one was hers? Abdi splashed water on the frog to keep her cool, and he thought hard. Then he remembered: "Her pond was by the school sign!"',
-      am: 'ግን ወደ ቤት በሚወስደው ረጅም መንገድ ላይ ብዙ ኩሬዎች ነበሩ። የሷ የትኛው ነበር? አብዲ እንድትቀዘቅዝ በእንቁራሪቷ ላይ ውሃ ረጨ፤ በጥልቀትም አሰበ። ከዚያ አስታወሰ፦ «ኩሬዋ የትምህርት ቤቱ ምልክት አጠገብ ነበር!»',
+      en: 'But there were lots of ponds on the long road home. Which one was hers? Abdi kept the frog wet, and he thought hard. Then he remembered: "Her pond was by the school sign!"',
+      am: 'ግን ወደ ቤት በሚወስደው ረጅም መንገድ ላይ ብዙ ኩሬዎች ነበሩ። የሷ የትኛው ነበር? አብዲ እንቁራሪቷን እርጥብ አድርጎ በጥልቀት አሰበ። ከዚያ አስታወሰ፦ «ኩሬዋ የትምህርት ቤቱ ምልክት አጠገብ ነበር!»',
     },
     {
       en: 'So Abdi watched every sign. Here was a red one! "s-t… st… STOP!" Aabo stopped. But it was not the pond, just goats crossing the road. "Baa!" Two sounds together, fast, fast, fast!',

@@ -15,7 +15,7 @@ import type { Story } from "../../../stories";
   answering who, what and where questions.
 
   In Amharic the English sentences stay as they are (the child reads them), followed by a
-  translation in brackets. AMHARIC: first draft, to be checked by a native-speaking editor before
+  translation in brackets (a short gist on the longest pages). AMHARIC: first draft, to be checked by a native-speaking editor before
   launch.
 */
 const story: Story = {
@@ -53,15 +53,15 @@ const story: Story = {
     },
     {
       en: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower.",
-      am: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower. (ሀዊ ቢጫ ኮፍያ ይዛለች። ግን ትልቅ ነው፤ አበባም የለውም። ይህ ኮፍያዬ ነው? አይደለም! ኮፍያዬ ትንሽና ቢጫ ነው፤ ቀይ አበባ አለው።)",
+      am: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower. (ሀዊ ትልቅ ቢጫ ኮፍያ አላት፤ አበባ የለውም። የኔ አይደለም!)",
     },
     {
       en: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\"",
-      am: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\" (ሐበን አሰበች። ገበያው በጣም ትልቅ ነው! ሁሉን ማየት የሚችል ማን ነው? ላሊ ትችላለች! ላሊ ወደ ላይ ከፍ ብላ መብረር ትችላለች። ሐበን ላሊን «ኮፍያዬ ትንሽና ቢጫ ነው፤ ቀይ አበባ አለው» አለቻት።)",
+      am: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\" (ሁሉን የምታይ ማን ናት? ላሊ! ከፍ ብላ ትበራለች።)",
     },
     {
       en: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it?",
-      am: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it? (ላሊ ወደ ላይ፣ ወደ ላይ፣ ወደ ላይ በረረች። ወደ ታች ተመለከተች። ብዙ ኮፍያዎችን አየች። ከዚያ ቀይ አበባ ያለው ትንሽ ቢጫ ኮፍያ አየች። የት ነው?)",
+      am: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it? (ላሊ ወደ ታች አየች፦ ቀይ አበባ ያለው ትንሽ ቢጫ ኮፍያ!)",
     },
     {
       en: "It is on a goat! The goat has the hat on her head. And she is eating the red flower! Munch, munch.",
@@ -77,7 +77,7 @@ const story: Story = {
     },
     {
       en: "Mom gets a new flower. It is a big pink flower! Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. Who had a big black hat? Where was the hat, {name}?",
-      am: "Mom gets a new flower. It is a big pink flower! Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. (እናቷ አዲስ አበባ ገዛች። ትልቅ ሮዝ አበባ ነው! አሁን የሐበን ኮፍያ ትንሽና ቢጫ ነው፤ ትልቅ ሮዝ አበባም አለው። ሐበን ተደሰተች።) {name}፣ ትልቅ ጥቁር ኮፍያ የነበረው ማን ነው? ኮፍያው የት ነበር?",
+      am: "Mom gets a new flower. It is a big pink flower! Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. (እናቷ ትልቅ ሮዝ አበባ ገዛች። ሐበን ተደሰተች!) {name}፣ ትልቅ ጥቁር ኮፍያ የነበረው ማን ነው? ኮፍያው የት ነበር?",
     },
   ],
   grownUps: {

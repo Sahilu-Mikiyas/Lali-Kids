@@ -40,8 +40,8 @@ const story: Story = {
       am: 'ሀዊ ወረቀቱን ዘረጋችው። «Look by the… b-l-a-c-k… ብላ-ክ-ክ?» መጨረሻው ላይ በጣም ብዙ ፊደሎች! c እና kን ፊቷን ቋጥራ ተመለከተቻቸው።',
     },
     {
-      en: '"c and k are good friends," said Grandpa. "They both say k. When they stand together at the end of a word, they say it only once: ck!" "Black! Look by the black rock!" Read the clue, find the clue!',
-      am: '«c እና k የቅርብ ጓደኛሞች ናቸው» አሉ አያት። «ሁለቱም «ክ» ይላሉ። በቃል መጨረሻ አብረው ሲቆሙ አንድ ጊዜ ብቻ ይላሉ፦ ck!» «Black! Look by the black rock!» (ጥቁሩ ድንጋይ አጠገብ ተመልከቺ!) Read the clue, find the clue! (ፍንጩን አንብብ፣ ፍንጩን ፈልግ!)',
+      en: '"c and k are good friends," said Grandpa. "They both say k. Together at the end of a word, they say it just once: ck!" "Black! Look by the black rock!" Read the clue, find the clue!',
+      am: '«c እና k የቅርብ ጓደኛሞች ናቸው» አሉ አያት። «ሁለቱም «ክ» ይላሉ። በቃል መጨረሻ አብረው ሲቆሙ አንድ ጊዜ ብቻ ይላሉ፦ ck!» «Black! Look by the black rock!» Read the clue, find the clue! (ፍንጩን አንብብ፣ ፍንጩን ፈልግ!)',
     },
     {
       en: 'Hawi ran to the big black rock. On top sat an old red sock, and in the sock was clue two: "Go to the duck pond." "s-o-ck, sock! d-u-ck, duck!" Read the clue, find the clue!',

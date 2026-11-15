@@ -14,7 +14,7 @@ import type { Story } from "../../../stories";
   -ing words of a story happening now (blowing, flying, running, laughing); reading short
   sentences and answering who and what questions.
 
-  In Amharic the English sentences stay as they are, followed by a translation in brackets.
+  In Amharic the English sentences stay as they are, followed by a translation in brackets (a short gist on the longest pages, so the page fits).
   AMHARIC: first draft, to be checked by a native-speaking editor before launch.
 */
 const story: Story = {
@@ -36,7 +36,7 @@ const story: Story = {
     },
     {
       en: "The wind is blowing. Gugu is running. Up goes the kite! It is flying high in the sky. \"Look at my kite!\" says Gugu. Up, up, up!",
-      am: "The wind is blowing. Gugu is running. Up goes the kite! It is flying high in the sky. \"Look at my kite!\" says Gugu. Up, up, up! (ነፋሱ እየነፈሰ ነው። ጉጉ እየሮጠ ነው። ካይቱ ወደ ላይ ወጣ! በሰማይ ላይ ከፍ ብሎ እየበረረ ነው። «ካይቴን ተመልከቱ!» አለ ጉጉ። ወደ ላይ፣ ወደ ላይ፣ ወደ ላይ!)",
+      am: "The wind is blowing. Gugu is running. Up goes the kite! It is flying high in the sky. \"Look at my kite!\" says Gugu. Up, up, up! (ነፋሱ ይነፍሳል፤ ካይቱ ከፍ ብሎ ይበራል!)",
     },
     {
       en: "Then the wind blows hard. Whoosh! Oh no! The kite is stuck in the big tree. It is up at the top. Gugu is sad.",

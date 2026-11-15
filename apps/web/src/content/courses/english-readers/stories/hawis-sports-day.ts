@@ -16,7 +16,7 @@ import type { Story } from "../../../stories";
   (jumped like t, played like d, painted like id). Only regular verbs that don't double a letter,
   apart from "running" (and "ran" is avoided).
 
-  In Amharic the English sentences stay as they are, followed by a translation in brackets.
+  In Amharic the English sentences stay as they are, followed by a translation in brackets (a short gist on the longest pages, so the page fits).
   AMHARIC: first draft, to be checked by a native-speaking editor before launch.
 */
 const story: Story = {
@@ -34,11 +34,11 @@ const story: Story = {
   pages: [
     {
       en: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad.",
-      am: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad. (በትምህርት ቤት የስፖርት ቀን ነው! ሀዊ ወደ ላይና ወደ ታች እየዘለለች ነው። ግን አያት ቶሎሳ መምጣት አይችሉም። እግራቸውን ያማቸዋል። ሀዊ አዘነች።)",
+      am: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad. (የስፖርት ቀን ነው! አያት ግን እግራቸውን ያማቸዋል።)",
     },
     {
       en: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\"",
-      am: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\" (ከዚያ ሀዊ ሐሳብ መጣላት። «አያቴ፣ ሁሉንም ነገር እመለከታለሁ። በደንብ እመለከታለሁ። ከዚያ ሁሉንም እነግርዎታለሁ!» አያት ፈገግ አሉ። «ሩጪ፣ ሀዊ፣ ሩጪ!»)",
+      am: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\" (ሀዊ «ሁሉንም አይቼ እነግርዎታለሁ!» አለች።)",
     },
     {
       en: "Look! Ayan is jumping. Jump, Ayan, jump! Haben is kicking a ball. Kick, Haben, kick! Hawi is looking at it all.",
@@ -66,7 +66,7 @@ const story: Story = {
     },
     {
       en: "In the evening, Hawi sits with Grandpa by the fire. \"Tell me everything,\" says Grandpa. So Hawi tells him. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\"",
-      am: "In the evening, Hawi sits with Grandpa by the fire. \"Tell me everything,\" says Grandpa. So Hawi tells him. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\" (ማታ ሀዊ ከአያቷ ጋር እሳቱ አጠገብ ተቀመጠች። «ሁሉንም ንገሪኝ» አሉ አያት። ስለዚህ ሀዊ ነገረቻቸው። «አያን ዘለለች። ሐበን ኳሱን መታች። አንበሳና ፀሐይ ገመዱን ጎተቱ።»)",
+      am: "In the evening, Hawi sits with Grandpa by the fire. \"Tell me everything,\" says Grandpa. So Hawi tells him. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\" (ማታ ሀዊ የሆነውን ሁሉ ለአያቷ ነገረቻቸው።)",
     },
     {
       en: "\"Gugu rolled on the grass. Then I raced. Gugu tripped, so I stopped. I helped him up, and we walked to the end together.\"",
@@ -74,7 +74,7 @@ const story: Story = {
     },
     {
       en: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\"",
-      am: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\" (አያት የወርቁን ኮከብ ተመለከቱ። ትልቅ ፈገግታ አሳዩ። «ተመለከትሽ፣ አስታወስሽም። ተጫወትሽ፣ ረዳሽም። አሁን ሁሉንም አውቄያለሁ። ምርጡ የስፖርት ቀን ነበር!»)",
+      am: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\" (አያት ኮከቡን አይተው ተደሰቱ፦ «ምርጡ የስፖርት ቀን!»)",
     },
     {
       en: "Happening now: jumping, kicking, pulling, helping. All done: jumped, kicked, pulled, helped. Who fell in the race? Who helped? What did you do today, {name}?",

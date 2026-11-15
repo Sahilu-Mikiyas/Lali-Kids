@@ -31,7 +31,7 @@ const story: Story = {
   teaches: { words: ["ai", "train", "rain", "wait", "snail", "pail", "paint", "nail", "tail", "again"] },
   pages: [
     {
-      en: 'Grandma Halima was coming home on the train from Djibouti! Hooyo, Ayan and Abdi went to the big station in Dire Dawa to meet her. "t-r-ai-n," read Ayan on the board. "a and i together say ay, like the name of a. Train!"',
+      en: 'Grandma Halima was coming home on the train from Djibouti! Hooyo, Ayan and Abdi went to meet her at the big station in Dire Dawa. "t-r-ai-n," read Ayan. "a and i say ay. Train!"',
       am: 'አያት ሀሊማ ከጅቡቲ በባቡር ወደ ቤት እየመጡ ነበር! ሁዮ፣ አያንና አብዲ ሊቀበሏቸው ወደ ድሬዳዋ ትልቁ ጣቢያ ሄዱ። «t-r-ai-n» ብላ አነበበች አያን ሰሌዳው ላይ። «a እና i አብረው «ኤይ» ይላሉ፤ እንደ a ስም። Train!» (ባቡር!)',
     },
     {
