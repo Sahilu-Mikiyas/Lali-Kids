@@ -1,0 +1,30 @@
+/* Hold My Hand, Gugu! (hold-my-hand-gugu.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* Gugu dashing a few steps towards the road, then held back. */
+@keyframes hold-my-hand-gugu-dash {
+  0% { transform: translateX(0); }
+  40% { transform: translateX(26px); }
+  100% { transform: translateX(20px); }
+}
+.hold-my-hand-gugu-dash { animation: hold-my-hand-gugu-dash 1.4s ease-out 0.4s both; }
+
+/* The zebra crossing shining. */
+@keyframes hold-my-hand-gugu-shine {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.hold-my-hand-gugu-shine { animation: hold-my-hand-gugu-shine 1.6s ease-in-out infinite; }
+
+/* Walking across the stripes, from the near pavement to the far side. */
+@keyframes hold-my-hand-gugu-cross {
+  from { transform: translateY(40px); }
+  to { transform: translateY(-14px); }
+}
+.hold-my-hand-gugu-cross { animation: hold-my-hand-gugu-cross 4s linear 0.6s both; }
+
+/* The view sliding past the bus window. */
+@keyframes hold-my-hand-gugu-view {
+  from { transform: translateX(0); }
+  to { transform: translateX(-60px); }
+}
+.hold-my-hand-gugu-view { animation: hold-my-hand-gugu-view 3s linear infinite alternate; }

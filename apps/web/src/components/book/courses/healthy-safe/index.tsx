@@ -26,6 +26,22 @@ const GugusTummyButterflies = dynamic(() => import("./gugus-tummy-butterflies"),
 const HawisHelpingHand = dynamic(() => import("./hawis-helping-hand"), { ssr: false });
 const MyBodyBelongsToMe = dynamic(() => import("./my-body-belongs-to-me"), { ssr: false });
 const SurpriseOrSecret = dynamic(() => import("./surprise-or-secret"), { ssr: false });
+// Level 4: safe at home
+const HotHotStepBack = dynamic(() => import("./hot-hot-step-back"), { ssr: false });
+const TheBrokenCup = dynamic(() => import("./the-broken-cup"), { ssr: false });
+const AbdiAsksFirst = dynamic(() => import("./abdi-asks-first"), { ssr: false });
+const HawisKiteAndTheWire = dynamic(() => import("./hawis-kite-and-the-wire"), { ssr: false });
+// Level 5: safe outside
+const HoldMyHandGugu = dynamic(() => import("./hold-my-hand-gugu"), { ssr: false });
+const TheWellHasALid = dynamic(() => import("./the-well-has-a-lid"), { ssr: false });
+const StillAsATree = dynamic(() => import("./still-as-a-tree"), { ssr: false });
+const LostAtTheMarket = dynamic(() => import("./lost-at-the-market"), { ssr: false });
+const AskBeforeYouGo = dynamic(() => import("./ask-before-you-go"), { ssr: false });
+// Level 6: when we're sick
+const HabenTellsTeacher = dynamic(() => import("./haben-tells-teacher"), { ssr: false });
+const AbdiAtTheHealthPost = dynamic(() => import("./abdi-at-the-health-post"), { ssr: false });
+const DawitsVaccineDay = dynamic(() => import("./dawits-vaccine-day"), { ssr: false });
+const OnlyFromAGrownUp = dynamic(() => import("./only-from-a-grown-up"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -42,4 +58,17 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "hawis-helping-hand": HawisHelpingHand,
   "my-body-belongs-to-me": MyBodyBelongsToMe,
   "surprise-or-secret": SurpriseOrSecret,
+  "hot-hot-step-back": HotHotStepBack,
+  "the-broken-cup": TheBrokenCup,
+  "abdi-asks-first": AbdiAsksFirst,
+  "hawis-kite-and-the-wire": HawisKiteAndTheWire,
+  "hold-my-hand-gugu": HoldMyHandGugu,
+  "the-well-has-a-lid": TheWellHasALid,
+  "still-as-a-tree": StillAsATree,
+  "lost-at-the-market": LostAtTheMarket,
+  "ask-before-you-go": AskBeforeYouGo,
+  "haben-tells-teacher": HabenTellsTeacher,
+  "abdi-at-the-health-post": AbdiAtTheHealthPost,
+  "dawits-vaccine-day": DawitsVaccineDay,
+  "only-from-a-grown-up": OnlyFromAGrownUp,
 };

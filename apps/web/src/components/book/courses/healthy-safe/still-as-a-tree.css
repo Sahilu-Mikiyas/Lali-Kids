@@ -1,0 +1,17 @@
+/* Still as a Tree (still-as-a-tree.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* The tree shape fading in behind a child standing still. */
+@keyframes still-as-a-tree-ghost {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.still-as-a-tree-ghost { animation: still-as-a-tree-ghost 1.6s ease-out 0.4s both; }
+
+/* The freeze game: hop, hop, then freeze. */
+@keyframes still-as-a-tree-freeze {
+  0%, 40% { transform: translateY(0); }
+  10%, 30% { transform: translateY(-8px); }
+  20% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+.still-as-a-tree-freeze { animation: still-as-a-tree-freeze 2.4s ease-in-out infinite; }

@@ -2,7 +2,7 @@
 
 import type { ComponentType, ReactNode } from "react";
 
-import { Camel, Cub, Gugu, Ibex, Teacher, Wolf } from "@/components/book/courses/healthy-safe/kit-cast";
+import { Camel, Cub, Grandma, Gugu, Ibex, Teacher, Wolf } from "@/components/book/courses/healthy-safe/kit-cast";
 import {
   Banana,
   Bed,
@@ -41,7 +41,37 @@ import {
 } from "@/components/book/courses/healthy-safe/kit-health";
 import { Book } from "@/components/book/courses/healthy-safe/kit-more";
 import { FigTree } from "@/components/book/courses/healthy-safe/kit-places";
-import { Ball, Mesob, WashSet } from "@/components/book/courses/healthy-safe/kit-props";
+import { Ball, Cup, Jebena, Kite, Mesob, WashSet } from "@/components/book/courses/healthy-safe/kit-props";
+import {
+  Bajaj,
+  BrokenPieces,
+  CleaningBottle,
+  CoffeeStove,
+  CrossingSign,
+  Dog,
+  GrassCircle,
+  HealthWorker,
+  HighShelf,
+  Knife,
+  MarketStall,
+  MedicineBottle,
+  MedicineBox,
+  Minibus,
+  OrangeBottle,
+  Phone,
+  PillStrip,
+  PowerPole,
+  PuppyBasket,
+  Road,
+  Scale,
+  Socket,
+  Stethoscope,
+  Sticker,
+  Thermometer,
+  VaccineCard,
+  Well,
+  Wire,
+} from "@/components/book/courses/healthy-safe/kit-safety";
 import { CloudShape, Daisy, Moon, Sun } from "@/components/book/scenery";
 import type { ArtProps } from "../types";
 
@@ -429,4 +459,125 @@ export const ART: Record<string, ComponentType<ArtProps>> = {
   ),
   wolf: who(<Wolf mood="happy" />, "#FFE9C8"),
   "foam-hands": thing(<Foam x={50} y={50} s={2.4} />, "#E4F6FF"),
+
+  /* ---------- level 4: safe at home ---------- */
+  jebena: thing(
+    <g>
+      <CoffeeStove x={50} y={90} s={1.1}>
+        <Jebena x={0} y={0} s={0.5} />
+      </CoffeeStove>
+      <path d="M62 26 q-6 -8 0 -16 M72 28 q-6 -8 0 -16" stroke="#B0A0A8" strokeWidth={3} fill="none" strokeLinecap="round" />
+    </g>,
+    "#FFE4E0",
+  ),
+  "grass-circle": thing(
+    <g>
+      <GrassCircle x={50} y={66} rx={40} ry={16} n={30} />
+      <CoffeeStove x={50} y={70} s={0.8}>
+        <Jebena x={0} y={0} s={0.42} />
+      </CoffeeStove>
+    </g>,
+    "#FFF6DD",
+  ),
+  "hot-tea": thing(
+    <g>
+      <Cup x={50} y={70} s={3} />
+      <path d="M42 46 q-6 -8 0 -16 M54 46 q-6 -8 0 -16" stroke="#B0A0A8" strokeWidth={3} fill="none" strokeLinecap="round" />
+    </g>,
+    "#FFE4E0",
+  ),
+  knife: thing(<Knife x={50} y={52} s={1.6} rot={-20} />, "#E4F6FF"),
+  "broken-cup": thing(<BrokenPieces x={50} y={56} s={1.8} />, "#E8E0D0"),
+  "wash-tomatoes": thing(
+    <g>
+      <ellipse cx={50} cy={68} rx={34} ry={10} fill="#C9C2B4" />
+      <circle cx={38} cy={60} r={10} fill="#E2463F" />
+      <circle cx={58} cy={58} r={10} fill="#D23A30" />
+      <circle cx={48} cy={50} r={9} fill="#E85A4A" />
+      <Drops x={50} y={14} n={4} w={40} fall={20} />
+    </g>,
+    "#E4F6FF",
+  ),
+  pills: thing(<PillStrip x={50} y={50} s={2.2} />, "#FFE4F0"),
+  medicine: thing(<MedicineBottle x={46} y={86} s={1.7} />, "#FFE4F0"),
+  "orange-bottle": thing(<OrangeBottle x={50} y={90} s={1.5} marked />, "#FFF6DD"),
+  bleach: thing(<CleaningBottle x={50} y={86} s={1.7} />, "#E4F6FF"),
+  "high-shelf": thing(
+    <HighShelf x={50} y={56} s={0.8}>
+      <MedicineBox x={-18} y={0} s={1.1} />
+      <CleaningBottle x={24} y={0} s={0.9} />
+    </HighShelf>,
+    "#FFF6DD",
+  ),
+  socket: thing(<Socket x={50} y={50} s={2.4} />, "#FFF6DD"),
+  "wire-worn": thing(<Wire x={24} y={36} s={1.1} worn />, "#FFF6DD"),
+  "kite-pole": thing(<PowerPole x={42} y={100} s={0.5} kite />, "#BFE6FF"),
+  "kite-field": thing(
+    <g>
+      <rect x={0} y={72} width={100} height={28} fill="#7FC36A" />
+      <Kite x={60} y={34} s={0.8} />
+      <path d="M58 46 Q40 70 30 86" stroke="#5A3A2A" strokeWidth={1.4} fill="none" />
+    </g>,
+    "#BFE6FF",
+  ),
+
+  /* ---------- level 5: safe outside ---------- */
+  crossing: thing(
+    <g>
+      <rect x={0} y={44} width={100} height={36} fill="#5A5A64" />
+      {[20, 30, 40, 50, 60].map((zx) => (
+        <rect key={zx} x={zx} y={47} width={6} height={30} fill="#FFFFFF" />
+      ))}
+      <CrossingSign x={84} y={96} s={0.9} />
+    </g>,
+    "#D9F2C9",
+  ),
+  "hold-hands": who(
+    <g>
+      <g transform="translate(-24 10) scale(0.95)">
+        <Grandma arm="hold" mood="joy" />
+      </g>
+      <g transform="translate(88 98) scale(0.6)">
+        <Gugu mood="joy" />
+      </g>
+    </g>,
+  ),
+  minibus: thing(<Minibus x={50} y={70} s={0.85} />, "#E4F6FF"),
+  bajaj: thing(<Bajaj x={48} y={72} s={1.1} />, "#E4F6FF"),
+  "ball-road": thing(
+    <g>
+      <g transform="scale(0.25 1)">
+        <Road y={40} h={40} />
+      </g>
+      <Ball x={50} y={64} s={0.9} />
+    </g>,
+    "#D9F2C9",
+  ),
+  "well-open": thing(<Well x={42} y={72} s={0.85} open />, "#D9F2C9"),
+  "well-closed": thing(<Well x={50} y={72} s={0.9} />, "#D9F2C9"),
+  dog: thing(<Dog x={40} y={84} s={0.95} wag={false} />, "#D9F2C9"),
+  puppies: thing(<PuppyBasket x={50} y={72} s={0.95} />, "#D9F2C9"),
+  "still-tree": who(<Ibex mood="happy" />, "#D9F2C9"),
+  market: thing(<MarketStall x={50} y={86} s={0.8} />, "#FFE9C8"),
+  phone: thing(<Phone x={50} y={50} s={2.4} ring />, "#E4F6FF"),
+  "run-off": who(<Gugu mood="joy" pose="hop" />, "#FFE9C8"),
+
+  /* ---------- level 6: when we're sick ---------- */
+  "health-worker": who(<HealthWorker mood="joy" pose="wave" />, "#DDF3EC"),
+  scale: thing(<Scale x={50} y={92} s={0.95} />, "#DDF3EC"),
+  thermometer: thing(<Thermometer x={50} y={52} s={2.2} rot={-30} />, "#DDF3EC"),
+  stethoscope: thing(<Stethoscope x={34} y={36} s={1.3} />, "#DDF3EC"),
+  "vaccine-card": thing(<VaccineCard x={50} y={50} s={1.3} ticks={4} />, "#DDF3EC"),
+  sticker: thing(<Sticker x={50} y={50} s={3} />, "#E4F6FF"),
+  "sick-bed": thing(
+    <Bed x={50} y={80} s={0.62} color="#C9622B">
+      <g transform="translate(-36 -6) scale(0.52) translate(-100 -240)">
+        <Wolf mood="happy" />
+      </g>
+    </Bed>,
+    "#E8E0F4",
+  ),
+  "water-mug": thing(<Mug x={50} y={74} s={2.4} />, "#E4F6FF"),
+  "tell-teacher": who(<Ibex mood="happy" pose="point" />, "#FFE9C8"),
+  "keep-quiet": who(<Ibex mood="sad" pose="sit" />, "#E8E0F4"),
 };

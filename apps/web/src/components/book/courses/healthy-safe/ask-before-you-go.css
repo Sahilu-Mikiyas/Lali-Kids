@@ -1,0 +1,26 @@
+/* Ask Before You Go (ask-before-you-go.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* One step forward… then a stop. */
+@keyframes ask-before-you-go-step {
+  0% { transform: translateX(-24px); }
+  50%, 100% { transform: translateX(0); }
+}
+.ask-before-you-go-step { animation: ask-before-you-go-step 1.6s ease-out 0.3s both; }
+
+/* Shouting the rule: a bounce. */
+@keyframes ask-before-you-go-shout {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.ask-before-you-go-shout {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ask-before-you-go-shout 0.6s ease-in-out infinite;
+}
+
+/* Grandpa chuckling. */
+@keyframes ask-before-you-go-chuckle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.ask-before-you-go-chuckle { animation: ask-before-you-go-chuckle 0.5s ease-in-out infinite; }

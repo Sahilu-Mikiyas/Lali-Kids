@@ -1,0 +1,16 @@
+/* The Well Has a Lid (the-well-has-a-lid.tsx): transforms and opacity only. Shared moves: kit.css, safety-scenes.css. */
+
+/* The ball wobbling on the edge. */
+@keyframes the-well-has-a-lid-wobble {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(3px); }
+}
+.the-well-has-a-lid-wobble { animation: the-well-has-a-lid-wobble 0.6s ease-in-out infinite; }
+
+/* Abdi running towards the well, then stopping short. */
+@keyframes the-well-has-a-lid-stop {
+  0% { transform: translateX(-40px); }
+  60% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+.the-well-has-a-lid-stop { animation: the-well-has-a-lid-stop 1.4s ease-out 0.2s both; }
