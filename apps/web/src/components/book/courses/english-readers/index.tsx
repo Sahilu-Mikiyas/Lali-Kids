@@ -26,6 +26,22 @@ const WhereIsMyHat = dynamic(() => import("./where-is-my-hat"), { ssr: false });
 const HawisSportsDay = dynamic(() => import("./hawis-sports-day"), { ssr: false });
 const WhereIsDimmet = dynamic(() => import("./where-is-dimmet"), { ssr: false });
 const KiteInTheTree = dynamic(() => import("./kite-in-the-tree"), { ssr: false });
+// Level 4: reading for meaning
+const CoffeeSteps = dynamic(() => import("./coffee-steps"), { ssr: false });
+const CluesForRain = dynamic(() => import("./clues-for-rain"), { ssr: false });
+const StoryHand = dynamic(() => import("./story-hand"), { ssr: false });
+const WhyBecause = dynamic(() => import("./why-because"), { ssr: false });
+// Level 5: talking and asking
+const AbdisFourQuestions = dynamic(() => import("./abdis-four-questions"), { ssr: false });
+const GuguGoesShopping = dynamic(() => import("./gugu-goes-shopping"), { ssr: false });
+const PretendClinic = dynamic(() => import("./pretend-clinic"), { ssr: false });
+const ExcuseMeSorry = dynamic(() => import("./excuse-me-sorry"), { ssr: false });
+const QuestionJar = dynamic(() => import("./question-jar"), { ssr: false });
+// Level 6: writing
+const BigLetterLittleDot = dynamic(() => import("./big-letter-little-dot"), { ssr: false });
+const AndButChain = dynamic(() => import("./and-but-chain"), { ssr: false });
+const PostcardFromTana = dynamic(() => import("./postcard-from-tana"), { ssr: false });
+const GugusDiary = dynamic(() => import("./gugus-diary"), { ssr: false });
 
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-shop-labels": AyansShopLabels,
@@ -41,4 +57,17 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "hawis-sports-day": HawisSportsDay,
   "where-is-dimmet": WhereIsDimmet,
   "kite-in-the-tree": KiteInTheTree,
+  "coffee-steps": CoffeeSteps,
+  "clues-for-rain": CluesForRain,
+  "story-hand": StoryHand,
+  "why-because": WhyBecause,
+  "abdis-four-questions": AbdisFourQuestions,
+  "gugu-goes-shopping": GuguGoesShopping,
+  "pretend-clinic": PretendClinic,
+  "excuse-me-sorry": ExcuseMeSorry,
+  "question-jar": QuestionJar,
+  "big-letter-little-dot": BigLetterLittleDot,
+  "and-but-chain": AndButChain,
+  "postcard-from-tana": PostcardFromTana,
+  "gugus-diary": GugusDiary,
 };

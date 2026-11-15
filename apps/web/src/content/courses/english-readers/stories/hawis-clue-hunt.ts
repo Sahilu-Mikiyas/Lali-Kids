@@ -68,12 +68,12 @@ const story: Story = {
       am: 'ዥዋዥዌው ላይ የመጨረሻው ፍንጭ ነበር፦ «Pull the long string.» (ረጅሙን ገመድ ጎትቺ።) ረጅም ገመድ ከዥዋዥዌው እስከ ትልቁ ዛፍ ላይ ድረስ ይዘልቅ ነበር። «l-o-ng፣ long! s-t-r-i-ng፣ string!»',
     },
     {
-      en: 'Hawi pulled and pulled. Down from the branches swung a little bundle, wrapped in cloth. Inside was a notebook and a pencil, and a note: "For Hawi, who can read. Now write your own clues!"',
-      am: 'ሀዊ ጎተተች፣ ጎተተች። ከቅርንጫፎቹ በጨርቅ የተጠቀለለ ትንሽ እሽግ ወረደ። ውስጥ ደብተርና እርሳስ ነበሩ፤ ማስታወሻም ነበር፦ «For Hawi, who can read. Now write your own clues!» (ማንበብ ለምትችለው ለሀዊ። አሁን የራስሽን ፍንጮች ጻፊ!)',
+      en: 'Hawi pulled. Down from the branches swung a bundle. Inside were a notebook, a pencil and a note: "For Hawi, who can read. Now write your own clues!"',
+      am: 'ሀዊ ጎተተች። ከቅርንጫፎቹ እሽግ ወረደ። ውስጥ ደብተር፣ እርሳስና ማስታወሻ ነበሩ፦ «For Hawi, who can read. Now write your own clues!» (ማንበብ ለምትችለው ለሀዊ። አሁን የራስሽን ፍንጮች ጻፊ!)',
     },
     {
-      en: 'So Hawi did. That evening Grandpa found a clue by his bed: "Look in your sock!" In his sock was a picture she had drawn, of the two of them. "Read the clue, find the clue!" laughed Grandpa.',
-      am: 'ሀዊም እንዲሁ አደረገች። በዚያ ምሽት አያት ከአልጋቸው አጠገብ ፍንጭ አገኙ፦ «Look in your sock!» (ካልሲህ ውስጥ ተመልከት!) በካልሲያቸው ውስጥ የሁለቱን ሥዕል ሣላ አስቀምጣ ነበር። «Read the clue, find the clue!» አሉ አያት እየሳቁ።',
+      en: 'That evening Grandpa found a clue by his bed: "Look in your sock!" In his sock was Hawi\'s drawing of the two of them. "Read the clue, find the clue!" laughed Grandpa.',
+      am: 'በዚያ ምሽት አያት ከአልጋቸው አጠገብ ፍንጭ አገኙ፦ «Look in your sock!» (ካልሲህ ውስጥ ተመልከት!) በካልሲያቸው ውስጥ የሀዊ ሥዕል ነበር። «Read the clue, find the clue!» አሉ አያት እየሳቁ።',
     },
     {
       en: "ck says k just once: black, rock, sock, duck. ng sings in your nose: ring, sing, swing, long. Read the clue, find the clue! Can you write a clue for someone at home, {name}?",

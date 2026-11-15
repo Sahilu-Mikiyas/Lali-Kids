@@ -33,51 +33,51 @@ const story: Story = {
   pages: [
     {
       en: "This is Haben. Haben has a hat. It is a little yellow hat. It has a red flower on it. Haben likes her hat a lot!",
-      am: "This is Haben. Haben has a hat. It is a little yellow hat. It has a red flower on it. Haben likes her hat a lot! (ይህች ሐበን ናት። ሐበን ኮፍያ አላት። ትንሽ ቢጫ ኮፍያ ነው። በላዩ ላይ ቀይ አበባ አለ። ሐበን ኮፍያዋን በጣም ትወደዋለች!)",
+      am: "This is Haben. Haben has a hat. It is a little yellow hat. It has a red flower on it. Haben likes her hat a lot! (ሐበን ትንሽ ቢጫ ኮፍያ አላት።)",
     },
     {
       en: "Haben and her mom go to the market. The market is big. It is very busy. The wind is blowing.",
-      am: "Haben and her mom go to the market. The market is big. It is very busy. The wind is blowing. (ሐበንና እናቷ ወደ ገበያ ይሄዳሉ። ገበያው ትልቅ ነው። በጣም ተጨናንቋል። ነፋሱ እየነፈሰ ነው።)",
+      am: "Haben and her mom go to the market. The market is big. It is very busy. The wind is blowing. (ገበያው ትልቅ ነው፤ ነፋስ ይነፍሳል።)",
     },
     {
       en: "Whoosh! The wind takes the hat. Up, up, up it goes! Where is my hat? Haben is sad.",
-      am: "Whoosh! The wind takes the hat. Up, up, up it goes! Where is my hat? Haben is sad. (ሹው! ነፋሱ ኮፍያውን ወሰደው። ወደ ላይ፣ ወደ ላይ፣ ወደ ላይ ሄደ! ኮፍያዬ የት ነው? ሐበን አዘነች።)",
+      am: "Whoosh! The wind takes the hat. Up, up, up it goes! Where is my hat? Haben is sad. (ነፋሱ ኮፍያውን ወሰደው!)",
     },
     {
       en: "A man has a hat. It is a big black hat. Is this my hat? No! My hat is little and yellow.",
-      am: "A man has a hat. It is a big black hat. Is this my hat? No! My hat is little and yellow. (አንድ ሰው ኮፍያ ይዟል። ትልቅ ጥቁር ኮፍያ ነው። ይህ ኮፍያዬ ነው? አይደለም! ኮፍያዬ ትንሽና ቢጫ ነው።)",
+      am: "A man has a hat. It is a big black hat. Is this my hat? No! My hat is little and yellow. (ትልቅ ጥቁር ኮፍያ? አይደለም!)",
     },
     {
       en: "Gugu has a hat. It is a little blue hat. Is this my hat? No! My hat is little and yellow.",
-      am: "Gugu has a hat. It is a little blue hat. Is this my hat? No! My hat is little and yellow. (ጉጉ ኮፍያ ይዟል። ትንሽ ሰማያዊ ኮፍያ ነው። ይህ ኮፍያዬ ነው? አይደለም! ኮፍያዬ ትንሽና ቢጫ ነው።)",
+      am: "Gugu has a hat. It is a little blue hat. Is this my hat? No! My hat is little and yellow. (ትንሽ ሰማያዊ ኮፍያ? አይደለም!)",
     },
     {
       en: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower.",
-      am: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower. (ሀዊ ትልቅ ቢጫ ኮፍያ አላት፤ አበባ የለውም። የኔ አይደለም!)",
+      am: "Hawi has a yellow hat. But it is big, and it has no flower. Is this my hat? No! My hat is little and yellow, with a red flower. (ትልቅ ቢጫ፣ አበባ የሌለው? አይደለም!)",
     },
     {
       en: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\"",
-      am: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\" (ሁሉን የምታይ ማን ናት? ላሊ! ከፍ ብላ ትበራለች።)",
+      am: "Haben thinks. The market is so big! Who can see it all? Lali can! Lali can fly up high. Haben tells Lali, \"My hat is little and yellow, with a red flower.\" (ላሊ ከፍ ብላ ትበራለች!)",
     },
     {
       en: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it?",
-      am: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it? (ላሊ ወደ ታች አየች፦ ቀይ አበባ ያለው ትንሽ ቢጫ ኮፍያ!)",
+      am: "Lali flies up, up, up. She looks down. She sees a lot of hats. Then she sees a little yellow hat with a red flower. Where is it? (ላሊ ኮፍያውን አየችው!)",
     },
     {
       en: "It is on a goat! The goat has the hat on her head. And she is eating the red flower! Munch, munch.",
-      am: "It is on a goat! The goat has the hat on her head. And she is eating the red flower! Munch, munch. (ፍየል ላይ ነው! ፍየሏ ኮፍያውን ራሷ ላይ አድርጋዋለች። ቀዩንም አበባ እየበላች ነው! ቅርጥፍ፣ ቅርጥፍ።)",
+      am: "It is on a goat! The goat has the hat on her head. And she is eating the red flower! Munch, munch. (ፍየል ላይ ነው!)",
     },
     {
       en: "\"Stop, goat, stop!\" Haben runs to the goat. The goat runs too. Run, Haben, run! Haben is fast. She gets her hat!",
-      am: "\"Stop, goat, stop!\" Haben runs to the goat. The goat runs too. Run, Haben, run! Haben is fast. She gets her hat! («ቁሚ፣ ፍየል፣ ቁሚ!» ሐበን ወደ ፍየሏ ሮጠች። ፍየሏም ሮጠች። ሩጪ፣ ሐበን፣ ሩጪ! ሐበን ፈጣን ናት። ኮፍያዋን አገኘች!)",
+      am: "\"Stop, goat, stop!\" Haben runs to the goat. The goat runs too. Run, Haben, run! Haben is fast. She gets her hat! (ሐበን ኮፍያዋን አገኘች!)",
     },
     {
       en: "It is her little yellow hat. But the red flower is gone. Haben is a bit sad. Then her mom has an idea.",
-      am: "It is her little yellow hat. But the red flower is gone. Haben is a bit sad. Then her mom has an idea. (ትንሹ ቢጫ ኮፍያዋ ነው። ግን ቀዩ አበባ የለም። ሐበን ትንሽ አዘነች። ከዚያ እናቷ ሐሳብ መጣላት።)",
+      am: "It is her little yellow hat. But the red flower is gone. Haben is a bit sad. Then her mom has an idea. (አበባው የለም።)",
     },
     {
-      en: "Mom gets a new flower. It is a big pink flower! Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. Who had a big black hat? Where was the hat, {name}?",
-      am: "Mom gets a new flower. It is a big pink flower! Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. (እናቷ ትልቅ ሮዝ አበባ ገዛች። ሐበን ተደሰተች!) {name}፣ ትልቅ ጥቁር ኮፍያ የነበረው ማን ነው? ኮፍያው የት ነበር?",
+      en: "Mom gets a big pink flower for the hat. Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. Where was the hat, {name}?",
+      am: "Mom gets a big pink flower for the hat. Now Haben's hat is little and yellow, with a big pink flower. Haben is happy. (ሐበን ተደሰተች!) {name}፣ ኮፍያው የት ነበር?",
     },
   ],
   grownUps: {

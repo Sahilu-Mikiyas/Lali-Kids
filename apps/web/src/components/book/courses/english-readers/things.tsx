@@ -1624,6 +1624,99 @@ export const THINGS: Record<string, () => ReactElement> = {
       ))}
     </g>
   ),
+  /* ---------- English Readers, levels 4 to 6 ---------- */
+  jebena: () => (
+    <g>
+      <path d="M-4 -34 Q0 -40 4 -34 L6 -14 Q30 -6 28 18 Q24 36 0 36 Q-24 36 -28 18 Q-30 -6 -6 -14Z" fill="#3A2A22" {...S} />
+      <path d="M22 -2 Q38 -10 40 -26" stroke="#3A2A22" strokeWidth={6} fill="none" strokeLinecap="round" />
+      <path d="M-26 6 Q-40 0 -36 -14 Q-34 -22 -26 -18" stroke="#3A2A22" strokeWidth={4} fill="none" />
+      <path d="M-18 14 Q0 22 18 14" stroke="#C99A6A" strokeWidth={2.4} fill="none" />
+    </g>
+  ),
+  mortar: () => (
+    <g>
+      <path d="M-26 -10 H26 L18 30 H-18Z" fill="#9C6A3A" {...S} />
+      <ellipse cx={0} cy={-10} rx={26} ry={7} fill="#6A4A2E" {...S} />
+      <path d="M8 -12 L28 -40" stroke="#B5743A" strokeWidth={8} strokeLinecap="round" />
+      <path d="M8 -12 L28 -40" stroke={K} strokeWidth={1.4} strokeLinecap="round" opacity={0.4} />
+    </g>
+  ),
+  crow: () => (
+    <g>
+      <path d="M-30 10 Q-10 -18 14 -10 Q30 -4 34 6 Q14 22 -8 20 L-36 26Z" fill="#2A2A33" {...S} />
+      <circle cx={18} cy={-12} r={11} fill="#2A2A33" {...S} />
+      <path d="M27 -14 L40 -10 L27 -6Z" fill="#5A5A66" {...S} strokeWidth={1.4} />
+      <circle cx={21} cy={-14} r={2.4} fill="#FFFFFF" />
+      <path d="M-4 20 V34 M6 18 V34" stroke="#5A5A66" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  coin: () => (
+    <g>
+      <circle r={26} fill="#E3B23C" {...S} />
+      <circle r={19} fill="none" stroke="#C49020" strokeWidth={3} />
+      <path d="M-6 -10 Q6 -14 6 -4 Q6 4 -4 6 Q8 8 6 14" stroke="#9C6A10" strokeWidth={3} fill="none" strokeLinecap="round" />
+    </g>
+  ),
+  postcard: () => (
+    <g transform="rotate(-6)">
+      <rect x={-38} y={-26} width={76} height={52} rx={3} fill="#FFFDF6" {...S} />
+      <path d="M2 -20 V20" stroke="#B9A58C" strokeWidth={1.6} />
+      <path d="M-32 -12 H-6 M-32 -2 H-8 M-32 8 H-10" stroke="#5A6A9A" strokeWidth={2.4} strokeLinecap="round" />
+      <rect x={20} y={-20} width={13} height={15} fill="#E8413B" stroke="#FFFDF6" strokeWidth={1.4} strokeDasharray="2 1.4" />
+      <path d="M8 6 H32 M8 14 H28" stroke="#B9A58C" strokeWidth={2} strokeLinecap="round" />
+    </g>
+  ),
+  pelican: () => (
+    <g>
+      <ellipse cx={-6} cy={14} rx={26} ry={16} fill="#FFFDF6" {...S} />
+      <path d="M8 4 Q14 -20 10 -28" stroke="#FFFDF6" strokeWidth={10} fill="none" strokeLinecap="round" />
+      <path d="M8 4 Q14 -20 10 -28" stroke={K} strokeWidth={1.4} fill="none" opacity={0.3} />
+      <circle cx={10} cy={-30} r={8} fill="#FFFDF6" {...S} />
+      <path d="M16 -32 L42 -24 Q30 -10 16 -24Z" fill="#F5B21E" {...S} strokeWidth={1.6} />
+      <circle cx={12} cy={-32} r={1.8} fill={K} />
+      <path d="M-14 30 V38 M-2 30 V38" stroke="#F08A24" strokeWidth={3} strokeLinecap="round" />
+    </g>
+  ),
+  stethoscope: () => (
+    <g>
+      <path d="M-18 -34 V-6 Q-18 14 0 14 Q18 14 18 -6 V-34" stroke="#2F6FD0" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <path d="M0 14 V24 Q0 34 12 34 Q24 34 24 22" stroke="#2F6FD0" strokeWidth={5} fill="none" strokeLinecap="round" />
+      <circle cx={24} cy={18} r={8} fill="#C9C4D6" {...S} />
+      <circle cx={-18} cy={-36} r={4} fill="#5A5A66" />
+      <circle cx={18} cy={-36} r={4} fill="#5A5A66" />
+    </g>
+  ),
+  jar: () => (
+    <g>
+      <rect x={-22} y={-24} width={44} height={56} rx={10} fill="#BFE6FA" fillOpacity={0.7} {...S} />
+      <rect x={-18} y={-32} width={36} height={10} rx={3} fill="#9C6A3A" {...S} />
+      {[-10, -2, 6, 14].map((x, i) => (
+        <path key={x} d={`M${x} 26 L${x + (i % 2 ? 4 : -4)} -36`} stroke={["#E8413B", "#2E9A5B", "#2F6FD0", "#F5B21E"][i]} strokeWidth={4} strokeLinecap="round" />
+      ))}
+    </g>
+  ),
+  "beans-green": () => (
+    <g>
+      {[[-14, 4], [0, -6], [14, 4], [-6, 14], [8, 16], [-18, -10], [16, -12]].map(([x, y], i) => (
+        <ellipse key={i} cx={x} cy={y} rx={7} ry={5} fill="#9CB86A" {...S} strokeWidth={1.4} transform={`rotate(${i * 30} ${x} ${y})`} />
+      ))}
+    </g>
+  ),
+  "beans-brown": () => (
+    <g>
+      {[[-14, 4], [0, -6], [14, 4], [-6, 14], [8, 16], [-18, -10], [16, -12]].map(([x, y], i) => (
+        <ellipse key={i} cx={x} cy={y} rx={7} ry={5} fill="#6A3A1E" {...S} strokeWidth={1.4} transform={`rotate(${i * 30} ${x} ${y})`} />
+      ))}
+    </g>
+  ),
+  washing: () => (
+    <g>
+      <path d="M-40 -30 Q0 -22 40 -30" stroke="#7A5236" strokeWidth={2} fill="none" />
+      <path d="M-30 -27 H-10 V0 H-30Z" fill="#E8413B" {...S} strokeWidth={1.6} />
+      <path d="M-4 -26 H14 L18 10 H-8Z" fill="#2F6FD0" {...S} strokeWidth={1.6} />
+      <path d="M22 -27 H30 V-4 Q30 4 36 6 L34 10 Q24 8 22 0Z" fill="#F5B21E" {...S} strokeWidth={1.4} />
+    </g>
+  ),
 };
 
 /** One of the THINGS, at (x, y), scaled. */

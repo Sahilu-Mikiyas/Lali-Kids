@@ -15,6 +15,11 @@ import type { Demo } from "../../types";
              oa baskets)
     level 3  read-along (a little story with the words lighting up, then who/what/where questions),
              sentence-scramble (put longer sentences back in order), now-or-done (-ing or -ed?)
+    level 4  order-the-steps (first, next, then, last), because-match (why? because…)
+    level 5  say-it-nicely (please, thank you, excuse me, sorry…), question-words (who, what, where,
+             when, why, how), act-it-out (short dialogues: a new friend, the shop, the clinic)
+    level 6  fix-the-sentence (capital letters and full stops), and-or-but (joining sentences),
+             write-a-postcard (Dear…, sentences, Love…)
 */
 export const DEMOS: Record<string, Demo> = {
   "digraph-detective": dynamic(() => import("./digraph-detective"), { ssr: false }),
@@ -25,4 +30,12 @@ export const DEMOS: Record<string, Demo> = {
   "read-along": dynamic(() => import("./read-along"), { ssr: false }),
   "sentence-scramble": dynamic(() => import("./sentence-scramble"), { ssr: false }),
   "now-or-done": dynamic(() => import("./now-or-done"), { ssr: false }),
+  "order-the-steps": dynamic(() => import("./order-the-steps"), { ssr: false }),
+  "because-match": dynamic(() => import("./because-match"), { ssr: false }),
+  "say-it-nicely": dynamic(() => import("./say-it-nicely"), { ssr: false }),
+  "question-words": dynamic(() => import("./question-words"), { ssr: false }),
+  "act-it-out": dynamic(() => import("./act-it-out"), { ssr: false }),
+  "fix-the-sentence": dynamic(() => import("./fix-the-sentence"), { ssr: false }),
+  "and-or-but": dynamic(() => import("./and-or-but"), { ssr: false }),
+  "write-a-postcard": dynamic(() => import("./write-a-postcard"), { ssr: false }),
 };

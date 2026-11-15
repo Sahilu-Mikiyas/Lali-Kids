@@ -1,0 +1,48 @@
+/* "Abdi's Four Questions" (abdis-four-questions.tsx): transforms and opacity only. */
+
+/* The question being asked, pulsing. */
+@keyframes afq-on {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.afq-on {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: afq-on 1s ease-in-out infinite;
+}
+
+/* Saying the questions over and over: a little nod. */
+@keyframes afq-mouth {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+.afq-mouth {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: afq-mouth 0.6s ease-in-out infinite;
+}
+
+/* A big breath in, and out. */
+@keyframes afq-breath {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.afq-breath {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: afq-breath 2.4s ease-in-out infinite;
+}
+
+/* The ball going back and forth. */
+@keyframes afq-ball {
+  0%, 100% { transform: translate(-70px, 0); }
+  50% { transform: translate(70px, -30px); }
+}
+.afq-ball { animation: afq-ball 1.6s ease-in-out infinite; }
+
+/* Proud little hops. */
+@keyframes afq-proud {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+}
+.afq-proud { animation: afq-proud 0.9s ease-in-out infinite; }

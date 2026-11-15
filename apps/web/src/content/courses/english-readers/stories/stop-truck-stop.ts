@@ -39,8 +39,8 @@ const story: Story = {
       am: 'አብዲም ሊያነበው ሞከረ። «t… r… አክ?» «tን እና rን ጎን ለጎን ፈጠን ብለህ በላቸው» አለች አያን። «ትር፣ ትር፣ እንደ ሞተሩ፦ ትርርር! Two sounds together, fast, fast, fast!» (ሁለት ድምፆች አብረው፣ ፈጠን፣ ፈጠን፣ ፈጠን!) «TRUCK!»',
     },
     {
-      en: 'On the way, they stopped at a pond to fill the water can. By the gate stood a sign: "Green Hill School". "Look, Abdi! A frog! f-r-o-g." It was green, with black spots.',
-      am: 'በመንገድ ላይ የውሃ ጀሪካኑን ለመሙላት ኩሬ አጠገብ ቆሙ። በበሩ አጠገብ ቀለም የተቀባ ምልክት ቆሞ ነበር፦ «Green Hill School» (የአረንጓዴ ኮረብታ ትምህርት ቤት)። «አብዲ ተመልከት! እንቁራሪት! f-r-o-g።» አረንጓዴ ነበረች፤ ጥቁር ነጠብጣቦች ነበሯት።',
+      en: 'They stopped at a pond to fill the water can. By the gate was a sign: "Green Hill School". "Look, Abdi! A frog! f-r-o-g." It was green, with black spots.',
+      am: 'ጀሪካኑን ለመሙላት ኩሬ አጠገብ ቆሙ። በበሩ አጠገብ ምልክት ነበር፦ «Green Hill School» (የአረንጓዴ ኮረብታ ትምህርት ቤት)። «አብዲ ተመልከት! እንቁራሪት! f-r-o-g።» አረንጓዴ ነበረች፤ ጥቁር ነጠብጣቦች ነበሯት።',
     },
     {
       en: 'At the busy market, Ayan bought grapes. "Gr-apes!" Abdi bought a little spinning top. "Sp-in, spin!" Two sounds together, fast, fast, fast!',

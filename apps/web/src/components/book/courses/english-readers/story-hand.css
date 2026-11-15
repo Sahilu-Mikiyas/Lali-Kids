@@ -1,0 +1,52 @@
+/* "The Story Hand" (story-hand.tsx): transforms and opacity only. */
+
+/* The finger for this part of the story, glowing. */
+@keyframes sth-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+.sth-glow { animation: sth-glow 1s ease-in-out infinite; }
+
+/* Haben's muddled story spinning round. */
+@keyframes sth-muddle {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.sth-muddle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sth-muddle 0.8s ease-in-out infinite;
+}
+
+/* The water rising in the pot. */
+@keyframes sth-rise {
+  from { transform: translateY(14px); }
+  to { transform: translateY(-6px); }
+}
+.sth-rise { animation: sth-rise 4s ease-out 0.6s both; }
+
+/* A stone falling into the pot. */
+@keyframes sth-stone {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(60px); opacity: 1; }
+  100% { transform: translateY(66px); opacity: 0; }
+}
+.sth-stone { animation: sth-stone 2.1s ease-in var(--delay, 0s) infinite; }
+
+/* The crow pecking down. */
+@keyframes sth-peck {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+}
+.sth-peck {
+  transform-box: fill-box;
+  transform-origin: 30% 80%;
+  animation: sth-peck 1.4s ease-in-out infinite;
+}
+
+/* The water in the cup rising to the top. */
+@keyframes sth-cup {
+  from { transform: translateY(0); }
+  to { transform: translateY(-16px); }
+}
+.sth-cup { animation: sth-cup 3s ease-out 0.4s both; }

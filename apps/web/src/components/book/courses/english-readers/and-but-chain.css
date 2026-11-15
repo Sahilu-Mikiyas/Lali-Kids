@@ -1,0 +1,34 @@
+/* "The And-But Chain" (and-but-chain.tsx): transforms and opacity only. */
+
+/* Robot words, one jerky beat at a time. */
+@keyframes abc-robot {
+  0%, 100% { transform: translateY(0); }
+  10% { transform: translateY(-6px); }
+  20% { transform: translateY(0); }
+}
+.abc-robot { animation: abc-robot 1.5s steps(2) var(--delay, 0s) infinite; }
+
+/* Gugu giggling. */
+@keyframes abc-giggle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.abc-giggle { animation: abc-giggle 0.35s ease-in-out infinite; }
+
+/* The paper chain swaying. */
+@keyframes abc-sway {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.abc-sway { animation: abc-sway 2.4s ease-in-out infinite; }
+
+/* Gugu strutting in his chain necklace. */
+@keyframes abc-strut {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.abc-strut {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: abc-strut 0.7s ease-in-out infinite;
+}

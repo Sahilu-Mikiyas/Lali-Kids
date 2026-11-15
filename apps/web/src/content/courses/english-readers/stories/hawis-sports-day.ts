@@ -34,51 +34,51 @@ const story: Story = {
   pages: [
     {
       en: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad.",
-      am: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad. (የስፖርት ቀን ነው! አያት ግን እግራቸውን ያማቸዋል።)",
+      am: "It is sports day at school! Hawi is jumping up and down. But Grandpa Tolosa can't come. His leg hurts. Hawi is sad. (ስፖርት ቀን! አያት ግን መምጣት አይችሉም።)",
     },
     {
       en: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\"",
-      am: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\" (ሀዊ «ሁሉንም አይቼ እነግርዎታለሁ!» አለች።)",
+      am: "Then Hawi has an idea. \"Grandpa, I will look at everything. I will look and look. Then I will tell you all of it!\" Grandpa smiles. \"Run, Hawi, run!\" (ሀዊ ሐሳብ መጣላት።)",
     },
     {
       en: "Look! Ayan is jumping. Jump, Ayan, jump! Haben is kicking a ball. Kick, Haben, kick! Hawi is looking at it all.",
-      am: "Look! Ayan is jumping. Jump, Ayan, jump! Haben is kicking a ball. Kick, Haben, kick! Hawi is looking at it all. (ተመልከቱ! አያን እየዘለለች ነው። ዝለዪ፣ አያን፣ ዝለዪ! ሐበን ኳስ እየመታች ነው። ምቺ፣ ሐበን፣ ምቺ! ሀዊ ሁሉንም እየተመለከተች ነው።)",
+      am: "Look! Ayan is jumping. Jump, Ayan, jump! Haben is kicking a ball. Kick, Haben, kick! Hawi is looking at it all. (ትዘልላለች፤ ትመታለች!)",
     },
     {
       en: "Anbessa and Tsehay are pulling a long rope. Pull! Pull! Gugu is pulling too. Then Gugu is rolling on the grass, laughing.",
-      am: "Anbessa and Tsehay are pulling a long rope. Pull! Pull! Gugu is pulling too. Then Gugu is rolling on the grass, laughing. (አንበሳና ፀሐይ ረጅም ገመድ እየጎተቱ ነው። ጎትቱ! ጎትቱ! ጉጉም እየጎተተ ነው። ከዚያ ጉጉ እየሳቀ በሣሩ ላይ እየተንከባለለ ነው።)",
+      am: "Anbessa and Tsehay are pulling a long rope. Pull! Pull! Gugu is pulling too. Then Gugu is rolling on the grass, laughing. (ገመድ እየጎተቱ ነው!)",
     },
     {
       en: "Now it is the big race. Hawi is running. She is running fast, like the wind. Run, Hawi, run!",
-      am: "Now it is the big race. Hawi is running. She is running fast, like the wind. Run, Hawi, run! (አሁን ትልቁ ሩጫ ነው። ሀዊ እየሮጠች ነው። እንደ ነፋስ በፍጥነት እየሮጠች ነው። ሩጪ፣ ሀዊ፣ ሩጪ!)",
+      am: "Now it is the big race. Hawi is running. She is running fast, like the wind. Run, Hawi, run! (ሀዊ በፍጥነት እየሮጠች ነው!)",
     },
     {
       en: "Oh no! Gugu trips and falls. He is crying. Hawi looks back. Will she run on? No. Hawi stops.",
-      am: "Oh no! Gugu trips and falls. He is crying. Hawi looks back. Will she run on? No. Hawi stops. (ወይኔ! ጉጉ ተደናቅፎ ወደቀ። እያለቀሰ ነው። ሀዊ ወደ ኋላ ተመለከተች። መሮጧን ትቀጥል ይሆን? አይደለም። ሀዊ ቆመች።)",
+      am: "Oh no! Gugu trips and falls. He is crying. Hawi looks back. Will she run on? No. Hawi stops. (ጉጉ ወደቀ። ሀዊ ቆመች።)",
     },
     {
       en: "Hawi helps Gugu up. \"Come on, Gugu. We can do it.\" They walk to the end, side by side. Everyone is clapping and cheering.",
-      am: "Hawi helps Gugu up. \"Come on, Gugu. We can do it.\" They walk to the end, side by side. Everyone is clapping and cheering. (ሀዊ ጉጉን አነሳችው። «ና ጉጉ። እንችላለን።» ጎን ለጎን ሆነው እስከ መጨረሻው ይሄዳሉ። ሁሉም እያጨበጨቡና እያበረታቱ ነው።)",
+      am: "Hawi helps Gugu up. \"Come on, Gugu. We can do it.\" They walk to the end, side by side. Everyone is clapping and cheering. (ሀዊ ጉጉን ረዳችው።)",
     },
     {
       en: "Teacher Meron gives Hawi a gold star. \"This star is for helping,\" she says. Hawi is so happy. She wants to tell Grandpa!",
-      am: "Teacher Meron gives Hawi a gold star. \"This star is for helping,\" she says. Hawi is so happy. She wants to tell Grandpa! (መምህርት መሮን ለሀዊ የወርቅ ኮከብ ሰጠቻት። «ይህ ኮከብ ስለረዳሽ ነው» አለች። ሀዊ በጣም ተደሰተች። ለአያቷ መንገር ፈለገች!)",
+      am: "Teacher Meron gives Hawi a gold star. \"This star is for helping,\" she says. Hawi is so happy. She wants to tell Grandpa! (ስለረዳች ኮከብ አገኘች!)",
     },
     {
-      en: "In the evening, Hawi sits with Grandpa by the fire. \"Tell me everything,\" says Grandpa. So Hawi tells him. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\"",
-      am: "In the evening, Hawi sits with Grandpa by the fire. \"Tell me everything,\" says Grandpa. So Hawi tells him. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\" (ማታ ሀዊ የሆነውን ሁሉ ለአያቷ ነገረቻቸው።)",
+      en: "In the evening, Hawi tells Grandpa everything. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\"",
+      am: "In the evening, Hawi tells Grandpa everything. \"Ayan jumped. Haben kicked the ball. Anbessa and Tsehay pulled the rope.\" (ሀዊ ለአያቷ ነገረቻቸው።)",
     },
     {
       en: "\"Gugu rolled on the grass. Then I raced. Gugu tripped, so I stopped. I helped him up, and we walked to the end together.\"",
-      am: "\"Gugu rolled on the grass. Then I raced. Gugu tripped, so I stopped. I helped him up, and we walked to the end together.\" («ጉጉ በሣሩ ላይ ተንከባለለ። ከዚያ ተወዳደርኩ። ጉጉ ተደናቀፈ፤ ስለዚህ ቆምኩ። አነሳሁት፤ አብረንም እስከ መጨረሻው ሄድን።»)",
+      am: "\"Gugu rolled on the grass. Then I raced. Gugu tripped, so I stopped. I helped him up, and we walked to the end together.\" (ሀዊ ጉጉን ረዳችው።)",
     },
     {
       en: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\"",
-      am: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\" (አያት ኮከቡን አይተው ተደሰቱ፦ «ምርጡ የስፖርት ቀን!»)",
+      am: "Grandpa looks at the gold star. He smiles a big smile. \"You looked and you remembered. You played and you helped. Now I know it all. It was the best sports day!\" (አያት ተደሰቱ።)",
     },
     {
-      en: "Happening now: jumping, kicking, pulling, helping. All done: jumped, kicked, pulled, helped. Who fell in the race? Who helped? What did you do today, {name}?",
-      am: "Happening now: jumping, kicking, pulling, helping. All done: jumped, kicked, pulled, helped. (አሁን እየሆነ ያለ፦ -ing፤ የተፈጸመ፦ -ed።) በሩጫው ላይ የወደቀው ማን ነው? የረዳው ማን ነው? {name}፣ ዛሬ ምን አደረጋችሁ?",
+      en: "Now: jumping, kicking, helping. All done: jumped, kicked, helped. Who helped Gugu? What did you do today, {name}?",
+      am: "Now: jumping, kicking, helping. All done: jumped, kicked, helped. (አሁን፦ -ing፤ ተፈጽሟል፦ -ed።) {name}፣ ዛሬ ምን አደረጋችሁ?",
     },
   ],
   grownUps: {

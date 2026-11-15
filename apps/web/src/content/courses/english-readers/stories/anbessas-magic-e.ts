@@ -39,16 +39,16 @@ const story: Story = {
       am: 'በዚያ ምሽት አንበሳ ለአያቴ ማስታወሻ ጻፈ፦ «I need a cap.» ጠዋት አያቴ ኮፍያ ሰጠችው። ሰማያዊ። «አመሰግናለሁ አያቴ። ግን ጀግና ካባ (CAPE) ያስፈልገዋል!»',
     },
     {
-      en: 'Zoom! Lali flew in with a shiny little e. "You forgot the magic e! Put it at the end. The e stays quiet, but it makes the a say its name: A! c-a-pe. Cape!" Zap! Magic e! Say your name!',
-      am: 'ዙም! ላሊ የሚያብረቀርቅ ትንሽ e ይዛ በርራ መጣች። «አስማተኛዋን e ረሳኻት! መጨረሻ ላይ አድርጋት። e ራሷ ዝም ትላለች፤ ግን aን ስሟን እንድትል ታደርጋታለች፦ «ኤ»! c-a-pe። Cape!» Zap! Magic e! Say your name! (ዛፕ! አስማተኛዋ e! ስምህን በል!)',
+      en: 'Zoom! Lali flew in with a shiny e. "Put a magic e at the end! It stays quiet, but it makes the a say its name: c-a-pe. Cape!" Zap! Magic e! Say your name!',
+      am: 'ዙም! ላሊ የሚያብረቀርቅ e ይዛ መጣች። «መጨረሻ ላይ አስማተኛዋን e አድርግ! e ዝም ትላለች፤ ግን aን ስሟን እንድትል ታደርጋታለች፦ c-a-pe። Cape!» Zap! Magic e! Say your name! (ዛፕ! ስምህን በል!)',
     },
     {
       en: '"Ah, a CAPE!" Grandma laughed. She found a piece of red cloth and sewed a gold star on it. Anbessa twirled. Swish! Now he looked like a real hero.',
       am: '«አሃ፣ ካባ!» ብላ ሳቀች አያቴ። ቀይ ጨርቅ አግኝታ የወርቅ ኮከብ ሰፋችበት። አንበሳ ተሽከረከረ። ሽው! አሁን እውነተኛ ጀግና መሰለ።',
     },
     {
-      en: 'At the club, Gugu was holding a toolkit. "My note said I need a kit. But I wanted a kite, to fly in the play!" "Magic e!" said Anbessa. "k-i-t, kit. Add e, and the i says its name: kite!" Zap!',
-      am: 'ክበቡ ጋ ጉጉ የመሣሪያ ሣጥን ይዞ ነበር። «ማስታወሻዬ «I need a kit» ይላል። ግን በቲያትሩ ላይ የምበርረው ካይት (kite) ነበር የፈለግሁት!» «አስማተኛዋ e!» አለ አንበሳ። «k-i-t፣ kit። eን ጨምር፤ iም ስሟን ትላለች፦ kite!» Zap!',
+      en: 'Gugu was holding a toolkit. "My note said I need a kit. But I wanted a kite for the play!" "Magic e!" said Anbessa. "k-i-t, kit. Add e, and the i says its name: kite!" Zap!',
+      am: 'ጉጉ የመሣሪያ ሣጥን ይዞ ነበር። «ማስታወሻዬ «I need a kit» ይላል። ግን ለቲያትሩ ካይት (kite) ነበር የፈለግሁት!» «አስማተኛዋ e!» አለ አንበሳ። «k-i-t፣ kit። eን ጨምር፤ iም ስሟን ትላለች፦ kite!» Zap!',
     },
     {
       en: 'Hawi held up one tiny pin. "We need a tree for the back of the stage, and I got… a pin." Anbessa wrote an e on the end. "p-i-ne. A pine tree!" Zap! Magic e! Say your name!',
@@ -71,8 +71,8 @@ const story: Story = {
       am: 'እንደ ጀግና በፍጥነት አንበሳ ጠመኔውን ያዘ፣ በርጩማ ላይ ወጣና አንዲት ትንሽ e ጨመረ። WE HOPE YOU LIKE THE PLAY። oም ስሟን አለች፦ hope! Zap! Magic e! Say your name!',
     },
     {
-      en: 'The play began. The hero saved the village, the kite flew over the stage, and everyone clapped and cheered. "Anbessa," smiled Teacher Meron, "you saved the play with one little letter!"',
-      am: 'ቲያትሩ ተጀመረ። ጀግናው መንደሩን አዳነ፤ ካይቱ ከመድረኩ በላይ በረረ፤ ሁሉም አጨበጨቡ፣ ደስታቸውንም ገለጹ። «አንበሳ» አለች መምህርት መሮን ፈገግ ብላ፣ «በአንዲት ትንሽ ፊደል ቲያትሩን አዳንከው!»',
+      en: 'The hero saved the village, the kite flew, and everyone cheered. "Anbessa," smiled Teacher Meron, "you saved the play with one little letter!"',
+      am: 'ጀግናው መንደሩን አዳነ፤ ካይቱ በረረ፤ ሁሉም አጨበጨቡ። «አንበሳ» አለች መምህርት መሮን ፈገግ ብላ፣ «በአንዲት ትንሽ ፊደል ቲያትሩን አዳንከው!»',
     },
     {
       en: "cap, cape. kit, kite. pin, pine. hop, hope. cub, cube. Zap! Magic e! Say your name! Which word can you change with a magic e, {name}?",
