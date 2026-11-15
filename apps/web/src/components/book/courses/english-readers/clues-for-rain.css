@@ -1,0 +1,49 @@
+/* "What Will Happen Next?" (clues-for-rain.tsx): transforms and opacity only. */
+
+/* A ball bouncing in the yard. */
+@keyframes cfr-ball {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -30px); }
+}
+.cfr-ball { animation: cfr-ball 1.2s ease-in-out infinite; }
+
+/* A ball kicked high. */
+@keyframes cfr-kick {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, -80px); }
+  100% { transform: translate(-90px, 0); }
+}
+.cfr-kick { animation: cfr-kick 1.6s ease-in-out 0.4s infinite; }
+
+/* Washing flapping in the wind. */
+@keyframes cfr-flap {
+  0%, 100% { transform: skewX(0deg) rotate(0deg); }
+  50% { transform: skewX(-18deg) rotate(8deg); }
+}
+.cfr-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: cfr-flap 0.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Laughing. */
+@keyframes cfr-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.cfr-laugh { animation: cfr-laugh 0.35s ease-in-out infinite; }
+
+/* Water dripping off Hooyo. */
+@keyframes cfr-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+.cfr-drip { animation: cfr-drip 1s ease-in var(--delay, 0s) infinite; }
+
+/* The rainbow fading in. */
+@keyframes cfr-rainbow {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+.cfr-rainbow { animation: cfr-rainbow 2.4s ease-out 0.6s both; }

@@ -1,0 +1,37 @@
+/* "Gugu's Diary" (gugus-diary.tsx): transforms and opacity only. */
+
+/* A line of writing appearing. */
+@keyframes gdi-write {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.gdi-write { animation: gdi-write 0.6s ease-out var(--delay, 0.6s) both; }
+
+/* The hen sitting on Gugu's head, wobbling. */
+@keyframes gdi-hen {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.gdi-hen {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gdi-hen 0.8s ease-in-out infinite;
+}
+
+/* A happy hop. */
+@keyframes gdi-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+.gdi-hop { animation: gdi-hop 0.7s ease-in-out infinite; }
+
+/* Chewing the pencil, thinking. */
+@keyframes gdi-chew {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.gdi-chew {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gdi-chew 0.4s ease-in-out infinite;
+}

@@ -1,0 +1,48 @@
+/* "Excuse Me or Sorry?" (excuse-me-sorry.tsx): transforms and opacity only. */
+
+/* The hills sliding past the windows. */
+@keyframes ems-pass {
+  from { transform: translateX(30px); }
+  to { transform: translateX(-30px); }
+}
+.ems-pass { animation: ems-pass 2.4s linear infinite; }
+
+/* The bus rumbling along. */
+@keyframes ems-rumble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1.5px); }
+}
+.ems-rumble { animation: ems-rumble 0.3s linear infinite; }
+
+/* The big bump. */
+@keyframes ems-bump {
+  0%, 30%, 100% { transform: translate(0, 0); }
+  40% { transform: translate(10px, -12px); }
+  60% { transform: translate(20px, 0); }
+}
+.ems-bump { animation: ems-bump 2s ease-in-out 0.2s both; }
+
+/* The lady moving her bag aside. */
+@keyframes ems-bag {
+  from { transform: translateX(-40px); }
+  to { transform: translateX(0); }
+}
+.ems-bag { animation: ems-bag 1s ease-out 1s both; }
+
+/* Standing up to give his seat. */
+@keyframes ems-stand {
+  from { transform: translateY(10px); }
+  to { transform: translateY(0); }
+}
+.ems-stand { animation: ems-stand 0.8s ease-out 0.2s both; }
+
+/* The hen flapping on Gugu's head. */
+@keyframes ems-flap {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-6px) rotate(6deg); }
+}
+.ems-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ems-flap 0.4s ease-in-out infinite;
+}

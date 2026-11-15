@@ -1,0 +1,30 @@
+/* "Why? Because!" (why-because.tsx): transforms and opacity only. */
+
+/* Gugu bouncing with questions. */
+@keyframes wyb-bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-12px); }
+}
+.wyb-bounce { animation: wyb-bounce 0.6s ease-in-out infinite; }
+
+/* Tsehay's head spinning. */
+@keyframes wyb-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.wyb-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wyb-spin 1.6s linear infinite;
+}
+
+/* Gugu licking honey off his fingers. */
+@keyframes wyb-lick {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-5deg); }
+}
+.wyb-lick {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wyb-lick 0.5s ease-in-out infinite;
+}

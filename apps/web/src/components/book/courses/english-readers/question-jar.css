@@ -1,0 +1,16 @@
+/* "The Question Jar" (question-jar.tsx): transforms and opacity only. */
+
+/* A question stick pulled up out of the jar. */
+@keyframes qjr-pull {
+  0% { transform: translate(-40px, 40px) rotate(-30deg); opacity: 0; }
+  60% { transform: translate(0, -6px) rotate(6deg); opacity: 1; }
+  100% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+}
+.qjr-pull { animation: qjr-pull 0.9s ease-out 0.3s both; }
+
+/* Little Grandpa walking over the hills to school. */
+@keyframes qjr-walk {
+  from { transform: translate(0, 0); }
+  to { transform: translate(110px, -18px); }
+}
+.qjr-walk { animation: qjr-walk 4s linear 1.4s infinite; }

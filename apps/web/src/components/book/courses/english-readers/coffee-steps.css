@@ -1,0 +1,61 @@
+/* "First, Next, Then, Last" (coffee-steps.tsx): transforms and opacity only. */
+
+/* Gugu bouncing: "Me too!" */
+@keyframes cfs-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+.cfs-hop { animation: cfs-hop 0.7s ease-in-out infinite; }
+
+/* The cards flying up and landing in a muddle. */
+@keyframes cfs-fly {
+  0% { transform: translate(0, 60px) rotate(0deg); opacity: 0; }
+  40% { transform: translate(var(--fx, 0px), -70px) rotate(40deg); opacity: 1; }
+  100% { transform: translate(var(--fx, 0px), 0) rotate(0deg); opacity: 1; }
+}
+.cfs-fly { animation: cfs-fly 1.4s ease-out var(--delay, 0.2s) both; }
+
+/* Tripping over. */
+@keyframes cfs-trip {
+  0%, 20% { transform: rotate(0deg); }
+  50% { transform: rotate(-25deg); }
+  100% { transform: rotate(0deg); }
+}
+.cfs-trip {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cfs-trip 1.4s ease-in-out 0.2s both;
+}
+
+/* Squish! */
+@keyframes cfs-squish {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.2, 0.8); }
+}
+.cfs-squish {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cfs-squish 0.8s ease-in-out infinite;
+}
+
+/* Water splashing up from the bowl. */
+@keyframes cfs-splash {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-24px); opacity: 0; }
+}
+.cfs-splash { animation: cfs-splash 0.9s ease-out var(--delay, 0s) infinite; }
+
+/* The pestle pounding. */
+@keyframes cfs-pound {
+  0%, 100% { transform: translateY(-14px); }
+  50% { transform: translateY(0); }
+}
+.cfs-pound { animation: cfs-pound 0.5s ease-in-out infinite; }
+
+/* The coffee pouring. */
+@keyframes cfs-pour {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.cfs-pour { animation: cfs-pour 0.8s ease-in-out infinite; }
