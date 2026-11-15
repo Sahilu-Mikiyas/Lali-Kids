@@ -146,8 +146,8 @@ export default function BeanTimeLapse({ lang, onDone }: DemoProps) {
         <rect width={400} height={300} fill={sky} />
         {light === 2 && <LightRays x={60} y={20} n={5} />}
         {light === 2 && <circle cx={60} cy={40} r={26} fill="#FFD54A" />}
-        <rect y={250} width={400} height={50} fill={light === 0 ? "#3A3048" : "#A8743A"} />
-        <BeanJar x={200} y={250} s={2.4} stage={stage} dark={light === 0} dry={water === 0} lean={light === 1 ? -14 : 0} label={<JarTag kind={water === 0 ? "dry" : "water"} />} />
+        <rect y={276} width={400} height={30} fill={light === 0 ? "#3A3048" : "#A8743A"} />
+        <BeanJar x={200} y={276} s={1.3} stage={stage} dark={light === 0} dry={water === 0} lean={light === 1 ? -14 : 0} label={<JarTag kind={water === 0 ? "dry" : "water"} />} />
         <NumberBadge x={330} y={50} n={String(day)} delay={0} color="#2FA35A" />
         <text x={330} y={92} textAnchor="middle" fontSize={14} fontWeight={800} fill={light === 0 ? "#FFFFFF" : "#1B2A4E"} fontFamily="var(--font-grandstander), sans-serif">
           {t(lang, { en: "days", am: "ቀናት" })}
