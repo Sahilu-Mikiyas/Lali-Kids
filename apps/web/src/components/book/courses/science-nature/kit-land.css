@@ -1,0 +1,195 @@
+/* Science & Nature course (copied from Our Ethiopia, oe- renamed sn-): moves for the land kit (kit-land.tsx) and the culture kit (kit-culture.tsx).
+   Transforms and opacity only; the reduced-motion rule in globals.css stops all of it.
+   Keep this file ASCII. */
+
+/* A big bird's wings beating slowly. */
+@keyframes sn-flap {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(var(--flap, -16deg)); }
+}
+.sn-flap {
+  transform-box: fill-box;
+  transform-origin: var(--ox, 20%) var(--oy, 80%);
+  animation: sn-flap var(--dur, 1.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Soaring: a slow rise and fall with a little tilt. */
+@keyframes sn-soar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(var(--rise, -8px)) rotate(var(--tilt, -2deg)); }
+}
+.sn-soar { animation: sn-soar var(--dur, 3.4s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Falling water: streaks that slide down and repeat. */
+@keyframes sn-fall {
+  from { transform: translateY(-24px); }
+  to { transform: translateY(0); }
+}
+.sn-fall { animation: sn-fall var(--dur, 0.5s) linear infinite; }
+
+/* Mist rising from the falls. */
+@keyframes sn-mist {
+  0% { transform: translate(0, 10px) scale(0.6); opacity: 0; }
+  30% { opacity: var(--op, 0.85); }
+  100% { transform: translate(var(--dx, 10px), var(--my, -60px)) scale(1.5); opacity: 0; }
+}
+.sn-mist {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sn-mist var(--dur, 4s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A bus or a boat bobbing as it goes. */
+@keyframes sn-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--bob, -2px)); }
+}
+.sn-bob { animation: sn-bob var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Driving across the picture and coming round again. */
+@keyframes sn-drive {
+  from { transform: translateX(var(--from, -160px)); }
+  to { transform: translateX(var(--to, 160px)); }
+}
+.sn-drive { animation: sn-drive var(--dur, 9s) linear var(--delay, 0s) infinite; }
+
+/* Driving in and stopping. */
+@keyframes sn-arrive {
+  from { transform: translateX(var(--from, -220px)); }
+  to { transform: translateX(0); }
+}
+.sn-arrive { animation: sn-arrive var(--dur, 2.4s) cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay, 0.3s) both; }
+
+/* The road or the land sliding past a window. */
+@keyframes sn-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--by, -200px)); }
+}
+.sn-scroll { animation: sn-scroll var(--dur, 6s) linear infinite; }
+
+/* A wheel turning. */
+@keyframes sn-turn {
+  to { transform: rotate(360deg); }
+}
+.sn-turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sn-turn var(--dur, 0.6s) linear infinite;
+}
+
+/* A rainbow or a glow coming and going. */
+@keyframes sn-glow {
+  0%, 100% { opacity: var(--lo, 0.35); }
+  50% { opacity: var(--hi, 0.9); }
+}
+.sn-glow { animation: sn-glow var(--dur, 3s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Bubbles in a hot pool, a hippo's nose, a pot. */
+@keyframes sn-bubble {
+  0% { transform: translateY(0) scale(0.4); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-14px) scale(1.1); opacity: 0; }
+}
+.sn-bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sn-bubble var(--dur, 1.8s) ease-out var(--delay, 0s) infinite;
+}
+
+/* The weaver's shuttle flying across the threads and back. */
+@keyframes sn-shuttle {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(var(--span, 60px)); }
+}
+.sn-shuttle { animation: sn-shuttle var(--dur, 1.2s) ease-in-out infinite; }
+
+/* A cloth growing longer as it is woven. */
+@keyframes sn-weave {
+  from { transform: scaleY(0.2); }
+  to { transform: scaleY(1); }
+}
+.sn-weave {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: sn-weave var(--dur, 6s) ease-out var(--delay, 0.5s) both;
+}
+
+/* A letter flying in and landing. */
+@keyframes sn-fly-in {
+  0% { transform: translate(var(--fx, 160px), var(--fy, -90px)) rotate(-30deg) scale(0.5); opacity: 0; }
+  70% { transform: translate(0, 0) rotate(6deg) scale(1.05); opacity: 1; }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+}
+.sn-fly-in { animation: sn-fly-in var(--dur, 1.4s) ease-out var(--delay, 0.5s) both; }
+
+/* Swinging the head or a load from side to side, as camels walk. */
+@keyframes sn-sway-x {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+}
+.sn-sway-x { animation: sn-sway-x var(--dur, 1.2s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A heat shimmer over hot ground. */
+@keyframes sn-shimmer {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.35; }
+  50% { transform: scaleY(1.4) translateY(-2px); opacity: 0.6; }
+}
+.sn-shimmer {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sn-shimmer var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Grass that droops, and grass that stands up again. */
+@keyframes sn-droop {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--droop, 40deg)); }
+}
+.sn-droop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sn-droop 1.6s ease-in var(--delay, 0.8s) both;
+}
+@keyframes sn-perk {
+  from { transform: rotate(var(--droop, 40deg)); }
+  to { transform: rotate(0deg); }
+}
+.sn-perk {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sn-perk 1.4s cubic-bezier(0.3, 1.4, 0.5, 1) var(--delay, 1s) both;
+}
+
+/* A map pin dropping onto the map. */
+@keyframes sn-pin {
+  0% { transform: translateY(-30px); opacity: 0; }
+  60% { transform: translateY(2px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.sn-pin { animation: sn-pin 0.7s ease-out var(--delay, 0.6s) both; }
+
+/* A gentle grow-in for things that appear. */
+@keyframes sn-grow-in {
+  from { transform: scale(0.2); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.sn-grow-in {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sn-grow-in var(--dur, 0.8s) cubic-bezier(0.3, 1.5, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* A load tipping off a camel's back. */
+@keyframes sn-slip {
+  0%, 30% { transform: rotate(0deg) translate(0, 0); }
+  60%, 100% { transform: rotate(-24deg) translate(-6px, 6px); }
+}
+.sn-slip {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: sn-slip 2.4s ease-in-out 0.6s infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sn-weave, .sn-fly-in, .sn-pin, .sn-grow-in, .sn-arrive { transform: none; opacity: 1; }
+}

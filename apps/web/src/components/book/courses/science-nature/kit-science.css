@@ -1,0 +1,291 @@
+/* Science & Nature course: moves for the science kits (kit-life.tsx, kit-body.tsx, kit-stuff.tsx).
+   Transforms and opacity only; the reduced-motion rule in globals.css stops all of it. */
+
+/* A tadpole or a fish wiggling its tail as it swims. */
+@keyframes snk-wiggle {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(12deg); }
+}
+.snk-wiggle {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  animation: snk-wiggle var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Swimming slowly to and fro. */
+@keyframes snk-swim {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(var(--sx, 18px), -3px); }
+  50% { transform: translate(calc(var(--sx, 18px) * 1.6), 2px); }
+  75% { transform: translate(calc(var(--sx, 18px) * 0.6), -2px); }
+}
+.snk-swim { animation: snk-swim var(--dur, 5s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A frog's hop: up in an arc and down. */
+@keyframes snk-hop {
+  0%, 60%, 100% { transform: translate(0, 0); }
+  75% { transform: translate(calc(var(--hx, 20px) * 0.5), var(--hy, -30px)); }
+  90% { transform: translate(var(--hx, 20px), 0); }
+}
+.snk-hop { animation: snk-hop var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A heart beating: a quick double squeeze. */
+@keyframes snk-beat {
+  0%, 40%, 100% { transform: scale(1); }
+  10% { transform: scale(1.14); }
+  20% { transform: scale(0.98); }
+  28% { transform: scale(1.08); }
+}
+.snk-beat {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-beat var(--dur, 1s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Lungs filling and emptying. */
+@keyframes snk-lungs {
+  0%, 100% { transform: scale(0.9, 0.92); }
+  50% { transform: scale(1.06, 1.08); }
+}
+.snk-lungs {
+  transform-box: fill-box;
+  transform-origin: 50% 20%;
+  animation: snk-lungs var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Butterfly wings opening and closing (seen from above). */
+@keyframes snk-flutter {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.25); }
+}
+.snk-flutter {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-flutter var(--dur, 0.35s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Slowly drying new wings: open and shut, slow. */
+.snk-flutter-slow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-flutter var(--dur, 3s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A caterpillar inching along (a gentle squash and stretch). */
+@keyframes snk-inch {
+  0%, 100% { transform: scale(1, 1) translateX(0); }
+  50% { transform: scale(0.88, 1.12) translateX(3px); }
+}
+.snk-inch {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: snk-inch var(--dur, 1.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A chick or hen pecking at the ground. */
+@keyframes snk-peck {
+  0%, 55%, 100% { transform: rotate(0deg); }
+  65% { transform: rotate(28deg); }
+  75% { transform: rotate(0deg); }
+  85% { transform: rotate(28deg); }
+}
+.snk-peck {
+  transform-box: fill-box;
+  transform-origin: 30% 90%;
+  animation: snk-peck var(--dur, 2.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* An egg rocking as the chick inside pushes. */
+@keyframes snk-rock {
+  0%, 50%, 100% { transform: rotate(0deg); }
+  60% { transform: rotate(-9deg); }
+  70% { transform: rotate(8deg); }
+  80% { transform: rotate(-5deg); }
+}
+.snk-rock {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-rock var(--dur, 1.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Something sinking to the bottom of the water (once), then resting. */
+@keyframes snk-sink {
+  0% { transform: translateY(var(--from, -70px)); }
+  100% { transform: translateY(0); }
+}
+.snk-sink { animation: snk-sink var(--dur, 1.6s) cubic-bezier(0.4, 0, 0.6, 1) var(--delay, 0.6s) both; }
+
+/* Floating: dropping in, bobbing at the top. */
+@keyframes snk-float-in {
+  0% { transform: translateY(var(--from, -50px)); }
+  40% { transform: translateY(6px); }
+  70% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+.snk-float-in { animation: snk-float-in var(--dur, 1.4s) ease-out var(--delay, 0.6s) both; }
+@keyframes snk-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(2.5px) rotate(2deg); }
+}
+.snk-bob { animation: snk-bob var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Melting: a lump slumping lower and wider. */
+@keyframes snk-melt {
+  0% { transform: scale(1, 1); }
+  100% { transform: scale(1.3, 0.35); }
+}
+.snk-melt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-melt var(--dur, 4s) ease-in var(--delay, 0.6s) both;
+}
+
+/* A puddle spreading under something that melts. */
+@keyframes snk-spread {
+  0% { transform: scale(0.2, 0.4); opacity: 0; }
+  100% { transform: scale(1, 1); opacity: 1; }
+}
+.snk-spread {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-spread var(--dur, 4s) ease-out var(--delay, 0.6s) both;
+}
+
+/* A drop running down and falling. */
+@keyframes snk-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(var(--dy, 20px)); opacity: 0; }
+}
+.snk-drip { animation: snk-drip var(--dur, 1.6s) ease-in var(--delay, 0s) infinite; }
+
+/* Stirring with a spoon. */
+@keyframes snk-stir {
+  0%, 100% { transform: rotate(-10deg) translateX(-3px); }
+  50% { transform: rotate(10deg) translateX(3px); }
+}
+.snk-stir {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-stir var(--dur, 0.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Sugar grains fading away as they dissolve (once). */
+@keyframes snk-dissolve {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(6px) scale(0.3); }
+}
+.snk-dissolve {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-dissolve var(--dur, 3s) ease-in var(--delay, 0.8s) both;
+}
+
+/* Grains falling from a spoon into the cup. */
+@keyframes snk-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(var(--dy, 30px)); opacity: 0; }
+}
+.snk-fall { animation: snk-fall var(--dur, 1s) ease-in var(--delay, 0s) infinite; }
+
+/* A plant growing up from the soil (once). */
+@keyframes snk-sprout {
+  0% { transform: scaleY(0.05); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+.snk-sprout {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-sprout var(--dur, 2.4s) ease-out var(--delay, 0.6s) both;
+}
+
+/* A root reaching down (once). */
+.snk-root {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: snk-sprout var(--dur, 2.4s) ease-out var(--delay, 0.6s) both;
+}
+
+/* A wobbly tooth. */
+@keyframes snk-wobble {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg); }
+}
+.snk-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-wobble var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A bone or a muscle highlighted: a soft pulse of light. */
+@keyframes snk-glow {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.85; }
+}
+.snk-glow { animation: snk-glow var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite; }
+
+/* An arm bending at the elbow. */
+@keyframes snk-bend {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(var(--deg, -70deg)); }
+}
+.snk-bend {
+  transform-box: view-box;
+  animation: snk-bend var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Sniffing: a nose twitching up and down. */
+@keyframes snk-sniff {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-2px); }
+}
+.snk-sniff { animation: snk-sniff var(--dur, 0.6s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Smell or sound waves drifting out and fading. */
+@keyframes snk-wave {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translate(var(--wx, 30px), var(--wy, -10px)) scale(1.2); opacity: 0; }
+}
+.snk-wave {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-wave var(--dur, 2s) ease-out var(--delay, 0s) infinite;
+}
+
+/* Hail bouncing down. */
+@keyframes snk-hail {
+  0% { transform: translate(0, -60px); opacity: 0; }
+  10% { opacity: 1; }
+  80% { transform: translate(-6px, var(--dy, 200px)); opacity: 1; }
+  90% { transform: translate(-8px, calc(var(--dy, 200px) - 8px)); }
+  100% { transform: translate(-10px, var(--dy, 200px)); opacity: 0; }
+}
+.snk-hail { animation: snk-hail var(--dur, 1.2s) linear var(--delay, 0s) infinite; }
+
+/* A tiny plant inside a seed glowing (look closely!). */
+@keyframes snk-peek {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.snk-peek {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: snk-peek var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A plant leaning toward the light (once). */
+@keyframes snk-lean {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--deg, 18deg)); }
+}
+.snk-lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: snk-lean var(--dur, 3s) ease-in-out var(--delay, 0.6s) both;
+}
