@@ -1087,7 +1087,7 @@ const course: Course = {
   ages: ["6-7", "8-9"],
   color: "#0F766E",
   priceEtb: 1500,
-  status: "soon",
+  status: "live",
   tasterStoryId: "ayans-shop-labels",
   levels: [
     {

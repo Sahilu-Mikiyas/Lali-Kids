@@ -30,7 +30,7 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 | 3 | Numbers & Counting (`numbers-counting`) | 3–6 | **Live** (6 levels) |
 | 4 | Maths Explorers (`maths-explorers`) | 6–9 | **Live** (6 levels) |
 | 5 | English First Words (`english-first-words`) | 3–6 | **Live** (6 levels) |
-| 6 | English Readers (`english-readers`) | 6–9 | Being written |
+| 6 | English Readers (`english-readers`) | 6–9 | **Live** (6 levels) |
 | 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
 | 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | **Live** (6 levels) |
 | 9 | Science & Nature (`science-nature`) | 5–9 | **Live** (6 levels) |
