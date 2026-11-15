@@ -35,8 +35,8 @@ const story: Story = {
   teaches: { words: ["egg", "tadpole", "froglet", "frog", "life cycle", "pond", "habitat"] },
   pages: [
     {
-      en: "The kiremt rains had filled the pond by Hawi's house. One morning, at the edge, she found something strange: a big clump of clear jelly, full of tiny black dots. \"What is it?\" she whispered.",
-      am: "የክረምቱ ዝናብ በሀዊ ቤት አጠገብ ያለውን ኩሬ ሞልቶት ነበር። አንድ ጠዋት በዳሩ ላይ እንግዳ ነገር አገኘች፦ በጥቃቅን ጥቁር ነጥቦች የተሞላ ትልቅ ግልጽ ዝልግልግ። «ይሄ ምንድን ነው?» ብላ በሹክሹክታ ጠየቀች።",
+      en: "The kiremt rains had filled the pond by Hawi's house. At the edge she found something strange: clear jelly full of tiny black dots. \"What is it?\"",
+      am: "የክረምቱ ዝናብ በሀዊ ቤት አጠገብ ያለውን ኩሬ ሞላው። በዳሩ እንግዳ ነገር አገኘች፦ በጥቃቅን ጥቁር ነጥቦች የተሞላ ግልጽ ዝልግልግ። «ይሄ ምንድን ነው?»",
     },
     {
       en: '"Fish eggs?" guessed Hawi. "Or melted hail?" Grandpa Tolosa knelt down beside her. "Good guesses. Let\'s look, not take, and come back every day to find out."',
@@ -47,8 +47,8 @@ const story: Story = {
       am: "ሀዊ በየቀኑ ማስታወሻዋን ይዛ መጣች። ቀን በቀን ክብ ጥቁሮቹ ነጥቦች እንደ ትንንሽ ነጠላ ሰረዞች ረዘሙ። ከዚያ በዝልግልጉ ውስጥ መንቀሳቀስ ጀመሩ! ውልውል፣ ውልውል።",
     },
     {
-      en: 'Then the wigglers wriggled out of the jelly and swam away. "Tadpoles!" said Grandpa. "These are baby frogs. They breathe the water like fish do, and they nibble the green slime on the stones." Egg, tadpole, froglet, frog!',
-      am: "ከዚያ ተንቀሳቃሾቹ ከዝልግልጉ ወጥተው ዋኙ። «ኩርንችቶች!» አሉ አባ ቶሎሳ። «እነዚህ የእንቁራሪት ልጆች ናቸው። እንደ ዓሣ ውሃውን ይተነፍሳሉ፤ በድንጋዮቹ ላይ ያለውን አረንጓዴ ልምላሜም ይግጣሉ።» እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት!",
+      en: "The wigglers swam out of the jelly. \"Tadpoles!\" said Grandpa. \"Baby frogs. They breathe the water like fish, and nibble green slime.\" Egg, tadpole, froglet, frog!",
+      am: "ተንቀሳቃሾቹ ከዝልግልጉ ወጥተው ዋኙ። «ኩርንችቶች!» አሉ አባ ቶሎሳ። «የእንቁራሪት ልጆች ናቸው። እንደ ዓሣ ውሃ ይተነፍሳሉ።» እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት!",
     },
     {
       en: '"But they look like little fish with big heads," said Hawi. "Where are their legs?" Grandpa smiled. "Be patient. Frogs take many weeks to grow up."',
@@ -59,28 +59,28 @@ const story: Story = {
       am: "ሳምንታት አለፉ። ከዚያ አንድ ቀን ሀዊ ጮኸች፦ «እግሮች! ሁለት ትንንሽ የኋላ እግሮች!» በማስታወሻዋ ሣለቻቸው። እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት!",
     },
     {
-      en: "Next, two front legs popped out, and every day the tails got shorter. Now the tadpoles kept swimming up to the top, to gulp air. \"They're growing lungs,\" said Grandpa. \"Soon they'll breathe air, like us.\"",
-      am: "ቀጥሎ ሁለት የፊት እግሮች ወጡ፤ ጅራቶቹም በየቀኑ እያጠሩ ሄዱ። አሁን ኩርንችቶቹ አየር ለመጉንጨት ደጋግመው ወደ ላይ ይዋኙ ነበር። «ሳምባ እያበቀሉ ነው» አሉ አባ ቶሎሳ። «በቅርቡ እንደ እኛ አየር ይተነፍሳሉ።»",
+      en: "Next, two front legs popped out, and the tails got shorter. The tadpoles swam up to gulp air. \"They're growing lungs,\" said Grandpa.",
+      am: "ቀጥሎ ሁለት የፊት እግሮች ወጡ፤ ጅራቶቹም አጠሩ። ኩርንችቶቹ አየር ለመጉንጨት ወደ ላይ ይዋኙ ነበር። «ሳምባ እያበቀሉ ነው» አሉ አባ ቶሎሳ።",
     },
     {
-      en: "But at this end of the pond, the bank was steep and muddy. The little frogs tried to climb out, and slid back, splash! Hawi thought hard. \"They need air now, and a way onto land.\"",
-      am: "በዚህኛው የኩሬው ጫፍ ግን ዳሩ ገደላማና ጭቃማ ነበር። ትንንሾቹ እንቁራሪቶች ለመውጣት ሞከሩ፤ ተንሸራትተው ተመለሱ፣ ጭልፕ! ሀዊ በደንብ አሰበች። «አሁን አየርና ወደ የብስ የሚወጡበት መንገድ ያስፈልጋቸዋል።»",
+      en: "Here the bank was steep and muddy. The little frogs tried to climb out, and slid back. Splash! Hawi thought hard. \"They need a way onto land.\"",
+      am: "እዚህ ዳሩ ገደላማና ጭቃማ ነበር። ትንንሾቹ እንቁራሪቶች ለመውጣት ሞክረው ተንሸራተቱ። ጭልፕ! ሀዊ አሰበች። «ወደ የብስ መውጫ ያስፈልጋቸዋል።»",
     },
     {
       en: "So Hawi rolled a long, flat stone into the water, sloping up to the grass like a little ramp. The froglets crawled up it, one by one, with tiny stubs of tail still behind them.",
       am: "ስለዚህ ሀዊ ረጅምና ጠፍጣፋ ድንጋይ ወደ ውሃው አንከባለለች፤ እንደ ትንሽ መወጣጫ ወደ ሣሩ ዘምብሎ ነበር። ትንንሾቹ እንቁራሪቶች ትንሽ የጅራት ቅሪት ከኋላቸው እያለ አንድ በአንድ በእሱ ላይ ወጡ።",
     },
     {
-      en: "A few days later, the tails were gone, and they were real frogs! Hop! Snap! A frog caught a mosquito with its long, sticky tongue. \"Frogs help us,\" said Grandpa. \"They eat lots of insects.\"",
-      am: "ከጥቂት ቀናት በኋላ ጅራቶቹ ጠፉ፤ እውነተኛ እንቁራሪቶችም ሆኑ! ዝልል! ቅልብ! አንድ እንቁራሪት በረጅምና በሚጣበቅ ምላሱ ትንኝ ያዘ። «እንቁራሪቶች ይረዱናል» አሉ አባ ቶሎሳ። «ብዙ ነፍሳት ይበላሉ።»",
+      en: "Days later, the tails were gone: real frogs! Snap! A long, sticky tongue caught a mosquito. \"Frogs help us,\" said Grandpa. \"They eat lots of insects.\"",
+      am: "ከቀናት በኋላ ጅራቶቹ ጠፉ፦ እውነተኛ እንቁራሪቶች! ቅልብ! ረጅም ምላስ ትንኝ ያዘ። «እንቁራሪቶች ይረዱናል» አሉ አባ ቶሎሳ። «ብዙ ነፍሳት ይበላሉ።»",
     },
     {
-      en: "The frogs hopped off into the wet grass near the pond. \"Will they come back?\" asked Hawi. \"Next kiremt,\" said Grandpa, \"when the rains fill the pond again, they'll come back to lay their eggs in the water.\"",
-      am: "እንቁራሪቶቹ በኩሬው አጠገብ ወዳለው እርጥብ ሣር ዘለው ሄዱ። «ይመለሳሉ?» ብላ ጠየቀች ሀዊ። «በሚቀጥለው ክረምት» አሉ አባ ቶሎሳ፤ «ዝናቡ ኩሬውን እንደገና ሲሞላው እንቁላሎቻቸውን በውሃው ውስጥ ሊጥሉ ይመለሳሉ።»",
+      en: "The frogs hopped off into the wet grass. \"Will they come back?\" \"Next kiremt,\" said Grandpa, \"to lay their eggs in the pond.\"",
+      am: "እንቁራሪቶቹ ወደ እርጥቡ ሣር ዘለው ሄዱ። «ይመለሳሉ?» «በሚቀጥለው ክረምት» አሉ አባ ቶሎሳ፤ «በኩሬው ውስጥ እንቁላል ሊጥሉ።»",
     },
     {
-      en: 'Hawi drew a circle in her notebook, with arrows going round and round: jelly eggs, tadpole, froglet, frog, and back to eggs again. "It\'s a life cycle!" She hopped like a frog: "Egg, tadpole, froglet, frog!"',
-      am: "ሀዊ በማስታወሻዋ ዙሪያ ክብ ሣለች፤ ቀስቶቹ እየዞሩ ይሄዳሉ፦ የዝልግልግ እንቁላሎች፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት፣ ደግሞም ወደ እንቁላል። «የሕይወት ዑደት ነው!» እንደ እንቁራሪት ዘለለች፦ «እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት!»",
+      en: "Hawi drew a circle with arrows: eggs, tadpole, froglet, frog, and back to eggs. \"A life cycle!\" She hopped: \"Egg, tadpole, froglet, frog!\"",
+      am: "ሀዊ ቀስቶች ያሉት ክብ ሣለች፦ እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት፣ ደግሞም እንቁላል። «የሕይወት ዑደት!» ዘለለች፦ «እንቁላል፣ ኩርንችት፣ ትንሽ እንቁራሪት፣ እንቁራሪት!»",
     },
   ],
   grownUps: {

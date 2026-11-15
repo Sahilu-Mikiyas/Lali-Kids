@@ -39,40 +39,40 @@ const story: Story = {
       am: "አንዲት ላም ሣር እያላመጠች አለፈች። ከጅረቱ ጠጣች፤ ሞቅ ያለ ትንፋሽም በአፍንጫዋ አወጣች። «ሕያው!» አሉ ሁለቱም። ይበላል፣ ይጠጣል፣ ይተነፍሳል፣ ያድጋል!",
     },
     {
-      en: 'Then a stone bounced down the hill. Bump, bump, bump! "It moved! It\'s alive!" shouted Anbessa. Haben looked closely. "Does it eat? Does it breathe? Will it grow?" No, no and no. The hill had only made it roll.',
-      am: "ከዚያ አንድ ድንጋይ ከኮረብታው እየነጠረ ወረደ። ደብ፣ ደብ፣ ደብ! «ተንቀሳቀሰ! ሕያው ነው!» ብሎ ጮኸ አንበሳ። ሐበን በጥንቃቄ ተመለከተች። «ይበላል? ይተነፍሳል? ያድጋል?» አይ፣ አይ፣ አይ። የኮረብታው ቁልቁለት ነው ያንከባለለው።",
+      en: "Then a stone bounced down the hill. Bump, bump! \"It moved! It's alive!\" shouted Anbessa. Haben looked closely. \"Does it eat? Does it breathe? Will it grow?\" No, no and no.",
+      am: "ከዚያ አንድ ድንጋይ ከኮረብታው ነጥሮ ወረደ። ደብ፣ ደብ! «ተንቀሳቀሰ! ሕያው ነው!» አለ አንበሳ። ሐበን ተመለከተች። «ይበላል? ይተነፍሳል? ያድጋል?» አይ፣ አይ፣ አይ።",
     },
     {
-      en: 'Anbessa pointed at the big tree. "Trees never walk. Not alive!" Bzzz! Lali landed on a leaf. "Trees are alive! Their roots drink water, their leaves take in air and use sunlight to make food, and they grow bigger every year."',
-      am: "አንበሳ ትልቁን ዛፍ አመለከተ። «ዛፍ አይራመድም። ሕያው አይደለም!» ቡዝዝ! ላሊ ቅጠል ላይ ዐረፈች። «ዛፎች ሕያው ናቸው! ሥሮቻቸው ውሃ ይጠጣሉ፤ ቅጠሎቻቸው አየር ያስገባሉ፣ በፀሐይ ብርሃንም ምግብ ይሠራሉ፤ በየዓመቱም ይበልጥ ያድጋሉ።»",
+      en: "\"Trees never walk. Not alive!\" said Anbessa. Bzzz! Lali landed on a leaf. \"Trees are alive! Roots drink water, leaves make food from sunlight, and trees grow.\"",
+      am: "«ዛፍ አይራመድም። ሕያው አይደለም!» አለ አንበሳ። ቡዝዝ! ላሊ ቅጠል ላይ ዐረፈች። «ዛፎች ሕያው ናቸው! ሥሮች ውሃ ይጠጣሉ፤ ቅጠሎች በፀሐይ ብርሃን ምግብ ይሠራሉ፤ ዛፎች ያድጋሉ።»",
     },
     {
-      en: 'Anbessa scratched his mane. "So moving isn\'t the test." Haben wrote in her notebook: Living things need food, water and air. They grow. They make new living things like themselves: babies, eggs or seeds.',
-      am: "አንበሳ ጋማውን አከከ። «ስለዚህ መንቀሳቀስ መለኪያው አይደለም።» ሐበን በማስታወሻዋ ጻፈች፦ ሕያዋን ነገሮች ምግብ፣ ውሃና አየር ያስፈልጋቸዋል። ያድጋሉ። እንደ ራሳቸው ያሉ አዳዲስ ሕያዋንን ይወልዳሉ፦ ልጆችን፣ እንቁላሎችን ወይም ዘሮችን።",
+      en: "\"So moving isn't the test.\" Haben wrote: Living things need food, water and air. They grow. They make new living things: babies, eggs or seeds.",
+      am: "«ስለዚህ መንቀሳቀስ መለኪያው አይደለም።» ሐበን ጻፈች፦ ሕያዋን ምግብ፣ ውሃና አየር ያስፈልጋቸዋል። ያድጋሉ። አዳዲስ ሕያዋንን ያፈራሉ፦ ልጆች፣ እንቁላሎች ወይም ዘሮች።",
     },
     {
-      en: 'A white cloud sailed over the mountain, getting bigger and bigger. "It moves AND it grows!" said Anbessa. "But it doesn\'t eat or breathe," said Haben. Lali buzzed, "A cloud is made of tiny drops of water, pushed by the wind. Not alive!"',
-      am: "አንድ ነጭ ደመና እየተለቀ በተራራው ላይ ተንሳፈፈ። «ይንቀሳቀሳል፣ ያድጋልም!» አለ አንበሳ። «ግን አይበላም፤ አይተነፍስምም» አለች ሐበን። ላሊ ቡዝ አለች፦ «ደመና ከጥቃቅን የውሃ ጠብታዎች የተሠራ ነው፤ ነፋስ ይገፋዋል። ሕያው አይደለም!»",
+      en: "A cloud sailed over the mountain, growing bigger. \"It moves AND grows!\" \"But it doesn't eat or breathe,\" said Haben. \"It's tiny drops of water, pushed by the wind.\"",
+      am: "ደመና እየተለቀ በተራራው ላይ ተንሳፈፈ። «ይንቀሳቀሳል፣ ያድጋልም!» «ግን አይበላም፣ አይተነፍስም» አለች ሐበን። «ነፋስ የሚገፋቸው ጥቃቅን የውሃ ጠብታዎች ናቸው።»",
     },
     {
-      en: "In the branches they found a nest with three chicks, peeping for food. Their mother had built it to keep them safe from rain, wind and sun. Living things need a home, too: a nest, a burrow, a cave or a house.",
-      am: "በቅርንጫፎቹ መካከል ምግብ የሚጠይቁ ሦስት ጫጩቶች ያሉበት ጎጆ አገኙ። እናታቸው ከዝናብ፣ ከነፋስና ከፀሐይ እንዲጠብቃቸው ሠርታዋለች። ሕያዋን ነገሮች መጠለያም ያስፈልጋቸዋል፦ ጎጆ፣ ጉድጓድ፣ ዋሻ ወይም ቤት።",
+      en: "In the tree was a nest of peeping chicks. Their mother built it to keep them safe. Living things need a home too: a nest, a burrow or a house.",
+      am: "በዛፉ ላይ የሚጮኹ ጫጩቶች ያሉበት ጎጆ ነበረ። እናታቸው እንዲጠበቁ ሠርታዋለች። ሕያዋን መጠለያም ያስፈልጋቸዋል፦ ጎጆ፣ ጉድጓድ ወይም ቤት።",
     },
     {
-      en: 'Anbessa found a dry bean in his pocket. "This doesn\'t eat or drink or grow. Not alive!" Haben wasn\'t sure. "Let\'s try it and find out." They planted it in wet soil by Grandma\'s door. Eat and drink, breathe and grow!',
-      am: "አንበሳ በኪሱ ውስጥ ደረቅ ባቄላ አገኘ። «ይሄ አይበላም፣ አይጠጣም፣ አያድግም። ሕያው አይደለም!» ሐበን እርግጠኛ አልነበረችም። «እንሞክርና እንወቅ።» በአያቴ በር አጠገብ ባለ እርጥብ አፈር ውስጥ ተከሉት። ይበላል፣ ይጠጣል፣ ይተነፍሳል፣ ያድጋል!",
+      en: "Anbessa found a dry bean. \"It doesn't eat or grow. Not alive!\" \"Let's try it and find out,\" said Haben. They planted it in wet soil. Eat and drink, breathe and grow!",
+      am: "አንበሳ ደረቅ ባቄላ አገኘ። «አይበላም፣ አያድግም። ሕያው አይደለም!» «እንሞክርና እንወቅ» አለች ሐበን። በእርጥብ አፈር ተከሉት። ይበላል፣ ይጠጣል፣ ይተነፍሳል፣ ያድጋል!",
     },
     {
-      en: 'Four days later, a little green shoot pushed up out of the soil! "The bean was alive all along!" said Anbessa. "A seed is a plant that is resting," said Lali, "with a tiny plant and its food packed inside."',
-      am: "ከአራት ቀን በኋላ ትንሽ አረንጓዴ ቡቃያ ከአፈሩ ውስጥ ብቅ አለ! «ባቄላው ሁልጊዜም ሕያው ነበር!» አለ አንበሳ። «ዘር የሚያርፍ ተክል ነው» አለች ላሊ፤ «በውስጡ ትንሽ ተክልና ምግቡ ታሽገው አሉ።»",
+      en: "Four days later, a green shoot pushed up! \"The bean was alive all along!\" \"A seed is a resting plant,\" said Lali, \"with a tiny plant and its food inside.\"",
+      am: "ከአራት ቀን በኋላ አረንጓዴ ቡቃያ ብቅ አለ! «ባቄላው ሕያው ነበር!» «ዘር የሚያርፍ ተክል ነው» አለች ላሊ፤ «ውስጡ ጥቃቅን ተክልና ምግቡ አለ።»",
     },
     {
-      en: 'Then Haben picked up a brown, dry leaf. "Is this alive?" Anbessa thought hard. "It was alive once, when it was on the tree. Now it can\'t grow any more." Haben gave him a tick in her notebook.',
-      am: "ከዚያ ሐበን ቡናማ ደረቅ ቅጠል አነሣች። «ይሄስ ሕያው ነው?» አንበሳ በደንብ አሰበ። «በዛፉ ላይ እያለ ሕያው ነበር። አሁን ግን ከዚህ በላይ ማደግ አይችልም።» ሐበን በማስታወሻዋ ላይ ምልክት አደረገችለት።",
+      en: "Haben picked up a dry brown leaf. \"Is this alive?\" Anbessa thought. \"It was alive once, on the tree. Now it can't grow.\" Haben gave him a tick.",
+      am: "ሐበን ደረቅ ቡናማ ቅጠል አነሣች። «ይሄስ ሕያው ነው?» አንበሳ አሰበ። «በዛፉ ላይ ሕያው ነበር። አሁን ማደግ አይችልም።» ሐበን ምልክት አደረገችለት።",
     },
     {
-      en: "At school they showed Teacher Meron their two lists. Alive: the cow, the tree, the chicks, Lali and the bean. Not alive: the stone, the cloud and the stream. \"And what about you, Anbessa?\" she asked.",
-      am: "በትምህርት ቤት ለመምህርት መሮን ሁለቱን ዝርዝሮቻቸውን አሳዩ። ሕያው፦ ላሚቱ፣ ዛፉ፣ ጫጩቶቹ፣ ላሊና ባቄላው። ሕያው ያልሆነ፦ ድንጋዩ፣ ደመናውና ጅረቱ። «አንተስ አንበሳ?» ብለው ጠየቁ።",
+      en: "At school they showed their lists. Alive: the cow, the tree, the chicks, Lali, the bean. Not alive: the stone, the cloud, the stream. \"And you, Anbessa?\"",
+      am: "በትምህርት ቤት ዝርዝሮቻቸውን አሳዩ። ሕያው፦ ላም፣ ዛፍ፣ ጫጩቶች፣ ላሊ፣ ባቄላ። ሕያው ያልሆነ፦ ድንጋይ፣ ደመና፣ ጅረት። «አንተስ አንበሳ?»",
     },
     {
       en: 'Anbessa stood up tall. "I eat injera, I drink water, I breathe air, and I\'m growing every day. I\'m alive!" And everyone joined in: "Eat and drink, breathe and grow!"',

@@ -40,52 +40,52 @@ const story: Story = {
   teaches: { words: ["ice", "water", "melt", "freeze", "steam", "solid", "liquid"] },
   pages: [
     {
-      en: 'Ayan had come all the way from hot Jijiga to visit Anbessa in the highlands. It was kiremt, and the sky turned dark grey. Then, rattle-tattle-tap! Little white balls came bouncing down on the grass.',
-      am: "አያን አንበሳን በደጋው ልትጠይቀው ከሞቃቷ ጅጅጋ ድረስ መጥታ ነበር። ክረምት ነበር፤ ሰማዩም ጥቁር ግራጫ ሆነ። ከዚያ ቻቻቻ-ቋ! ትንንሽ ነጫጭ ኳሶች በሣሩ ላይ እየነጠሩ ወረዱ።",
+      en: "Ayan had come from hot Jijiga to visit Anbessa in the highlands. It was kiremt. The sky turned grey, then, rattle-tap! Little white balls bounced on the grass.",
+      am: "አያን አንበሳን በደጋው ልትጠይቅ ከሞቃቷ ጅጅጋ መጣች። ክረምት ነበር። ሰማዩ ጠቆረ፤ ከዚያ ቻቻቻ-ቋ! ትንንሽ ነጫጭ ኳሶች በሣሩ ላይ ነጠሩ።",
     },
     {
-      en: 'When the storm passed, Ayan scooped some up. They were hard and freezing cold! "Stones from the sky!" she gasped. "That\'s hail," said Anbessa. "It\'s water." Ayan laughed. "Water is wet and runny. These are hard!" Ice to water, water to air, and back again!',
-      am: "ማዕበሉ ሲያልፍ አያን ጥቂቶቹን በእጇ ዛቀች። ጠንካራና በጣም ቀዝቃዛ ነበሩ! «ከሰማይ የወረዱ ድንጋዮች!» ብላ ደነገጠች። «ያ በረዶ ነው» አለ አንበሳ። «ውሃ ነው።» አያን ሳቀች። «ውሃ እርጥብና ፈሳሽ ነው። እነዚህ ጠንካሮች ናቸው!» በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
+      en: "Ayan scooped some up. Hard and freezing! \"Stones from the sky!\" \"That's hail,\" said Anbessa. \"It's water.\" \"Water is runny. These are hard!\" Ice to water, water to air, and back again!",
+      am: "አያን ዛቀች። ጠንካራና በጣም ቀዝቃዛ! «ከሰማይ የወረዱ ድንጋዮች!» «በረዶ ነው» አለ አንበሳ። «ውሃ ነው።» «ውሃ ፈሳሽ ነው!» በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
     },
     {
-      en: '"Let\'s test it," said Anbessa. They put a handful of hailstones in a cup and set it in the sunshine. Slowly the balls got smaller and rounder… and soon the cup held only water. "It IS water!" said Ayan. "Ice melts when it gets warm."',
-      am: "«እንሞክረው» አለ አንበሳ። እፍኝ በረዶ በስኒ ውስጥ አድርገው በፀሐይ ላይ አስቀመጡት። ቀስ እያሉ ኳሶቹ አነሱ፣ ክብ ሆኑ… ብዙም ሳይቆይ ስኒው ውሃ ብቻ ያዘ። «በእርግጥ ውሃ ነው!» አለች አያን። «በረዶ ሲሞቅ ይቀልጣል።»",
+      en: "\"Let's test it.\" They put hailstones in a cup in the sun. Slowly they got smaller… and soon the cup held only water. \"It IS water! Ice melts when it gets warm.\"",
+      am: "«እንሞክረው።» በረዶውን በስኒ አድርገው በፀሐይ ላይ አስቀመጡት። ቀስ እያሉ አነሱ… ስኒው ውሃ ብቻ ያዘ። «በእርግጥ ውሃ ነው! በረዶ ሲሞቅ ይቀልጣል።»",
     },
     {
-      en: '"But how did water turn into ice?" asked Ayan. Grandma looked up at the clouds. "High up inside storm clouds it is very, very cold, even above hot Jijiga. Raindrops freeze up there into hail, and fall before they can melt."',
-      am: "«ታዲያ ውሃ እንዴት በረዶ ሆነ?» ብላ ጠየቀች አያን። አያቴ ወደ ደመናዎቹ ቀና ብለው ተመለከቱ። «በማዕበል ደመናዎች ውስጥ ከፍ ብሎ በጣም፣ በጣም ቀዝቃዛ ነው፤ በሞቃቷ ጅጅጋ ላይም ቢሆን። የዝናብ ጠብታዎች እዚያ ይቀዘቅዙና በረዶ ይሆናሉ፤ ሳይቀልጡም ይወርዳሉ።»",
+      en: "\"But how did water turn into ice?\" Grandma looked up. \"High inside storm clouds it is very cold, even above Jijiga. Raindrops freeze into hail up there.\"",
+      am: "«ውሃ እንዴት በረዶ ሆነ?» አያቴ ቀና አሉ። «በማዕበል ደመና ውስጥ ከፍ ብሎ በጣም ቀዝቃዛ ነው፤ በጅጅጋ ላይም። የዝናብ ጠብታዎች እዚያ ቀዝቅዘው በረዶ ይሆናሉ።»",
     },
     {
-      en: "Very early next morning, Anbessa woke Ayan. \"Come and see!\" On the hill, the air was cold and clear, and every blade of grass was white and sparkly. \"Frost,\" said Anbessa. \"On cold, clear nights up here, water from the air freezes onto the grass.\"",
-      am: "በማግሥቱ በጣም በማለዳ አንበሳ አያንን ቀሰቀሳት። «ነዪ እይ!» በኮረብታው ላይ አየሩ ቀዝቃዛና ጥርት ያለ ነበር፤ እያንዳንዱ የሣር ቅጠል ነጭና የሚያብለጨልጭ ነበር። «አመዳይ» አለ አንበሳ። «እዚህ በቀዝቃዛና ጥርት ባሉ ሌሊቶች ከአየሩ የሚመጣ ውሃ በሣሩ ላይ ይቀዘቅዛል።»",
+      en: "Early next morning, Anbessa woke Ayan. On the hill, every blade of grass was white and sparkly. \"Frost! On cold, clear nights, water from the air freezes on the grass.\"",
+      am: "በማለዳ አንበሳ አያንን ቀሰቀሳት። በኮረብታው ላይ ሣሩ ሁሉ ነጭና የሚያብለጨልጭ ነበር። «አመዳይ! በቀዝቃዛ ሌሊት ከአየሩ የሚመጣ ውሃ በሣሩ ላይ ይቀዘቅዛል።»",
     },
     {
-      en: "Then the sun peeped over the mountains. As it warmed the hill, the white frost melted away, and the grass was covered in shining drops of water. Ice to water, water to air, and back again!",
-      am: "ከዚያ ፀሐይ በተራሮቹ ላይ ብቅ አለች። ኮረብታውን ስታሞቀው ነጩ አመዳይ ቀለጠ፤ ሣሩም በሚያንጸባርቁ የውሃ ጠብታዎች ተሸፈነ። በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
+      en: "Then the sun peeped over the mountains. The white frost melted away, and the grass sparkled with drops of water. Ice to water, water to air, and back again!",
+      am: "ከዚያ ፀሐይ በተራሮቹ ላይ ብቅ አለች። ነጩ አመዳይ ቀለጠ፤ ሣሩም በውሃ ጠብታዎች አበራ። በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
     },
     {
-      en: "At breakfast, Grandma boiled water for tea. (Hot pots are a grown-up's job.) Bubble, bubble! A white cloud rose from the pot, and after a while Ayan saw that there was less water in it than before. \"Where did the water go?\"",
-      am: "በቁርስ ሰዓት አያቴ ለሻይ ውሃ አፈሉ። (ትኩስ ድስት የትልቅ ሰው ሥራ ነው።) ቡል፣ ቡል! ከድስቱ ነጭ ደመና ተነሣ፤ ትንሽ ቆይቶም አያን በድስቱ ውስጥ ከበፊቱ ያነሰ ውሃ እንዳለ አየች። «ውሃው የት ሄደ?»",
+      en: "At breakfast, Grandma boiled water for tea. (Hot pots are a grown-up's job.) A white cloud rose, and soon there was less water in the pot. \"Where did it go?\"",
+      am: "በቁርስ አያቴ ለሻይ ውሃ አፈሉ። (ትኩስ ድስት የትልቅ ሰው ሥራ ነው።) ነጭ ደመና ተነሣ፤ በድስቱ ያለው ውሃ አነሰ። «ውሃው የት ሄደ?»",
     },
     {
-      en: '"Into the air!" said Grandma. "Hot water turns into water vapour, a gas we can\'t even see. The white cloud you see is tiny drops, where the vapour cools down again." Ice to water, water to air, and back again!',
-      am: "«ወደ አየር!» አሉ አያቴ። «ትኩስ ውሃ ልናየው እንኳ የማንችል ጋዝ፣ እንፋሎት ይሆናል። የምታዪው ነጭ ደመና እንፋሎቱ እንደገና ሲቀዘቅዝ የሚፈጠሩ ጥቃቅን ጠብታዎች ነው።» በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
+      en: "\"Into the air!\" said Grandma. \"It turns into water vapour, a gas we can't see. The white cloud is tiny drops, where it cools.\" Ice to water, water to air, and back again!",
+      am: "«ወደ አየር!» አሉ አያቴ። «የማይታይ ጋዝ፣ እንፋሎት ይሆናል። ነጩ ደመና ሲቀዘቅዝ የሚፈጠሩ ጥቃቅን ጠብታዎች ነው።» በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
     },
     {
-      en: 'Grandma held the cool lid above the pot for a moment, then turned it over. Underneath, it was covered in drops of water! Drip, drip. "The vapour touched the cool lid and turned back into water," said Grandma.',
-      am: "አያቴ ቀዝቃዛውን ክዳን ለጥቂት ጊዜ ከድስቱ በላይ ያዙና ገለበጡት። ከሥሩ በውሃ ጠብታዎች ተሸፍኖ ነበር! ጠብ፣ ጠብ። «እንፋሎቱ ቀዝቃዛውን ክዳን ሲነካ ተመልሶ ውሃ ሆነ» አሉ አያቴ።",
+      en: "Grandma held the cool lid above the pot, then turned it over. It was covered in drops! Drip, drip. \"The vapour touched the cool lid and turned back into water.\"",
+      am: "አያቴ ቀዝቃዛውን ክዳን ከድስቱ በላይ ያዙና ገለበጡት። በጠብታዎች ተሸፍኖ ነበር! ጠብ፣ ጠብ። «እንፋሎቱ ቀዝቃዛውን ክዳን ሲነካ ተመልሶ ውሃ ሆነ።»",
     },
     {
-      en: 'Soon it was time to go home. "I want to show Abdi the hail!" said Ayan. Then she stopped. "But the bus to Jijiga takes all day, and it\'s hot. The hail will melt!" She thought hard. "In Jijiga, I can\'t catch hail. But I can MAKE ice."',
-      am: "ብዙም ሳይቆይ ወደ ቤት የምትመለስበት ጊዜ ደረሰ። «ለአብዲ በረዶውን ማሳየት እፈልጋለሁ!» አለች አያን። ከዚያ ቆም አለች። «ወደ ጅጅጋ የሚሄደው አውቶቡስ ቀኑን ሙሉ ይወስዳል፤ ደግሞም ሞቃት ነው። በረዶው ይቀልጣል!» በደንብ አሰበች። «በጅጅጋ በረዶ መያዝ አልችልም። ግን በረዶ መሥራት እችላለሁ።»",
+      en: "\"I want to show Abdi the hail!\" said Ayan. Then she stopped. \"The bus to Jijiga takes all day, and it's hot. It will melt!\" She thought. \"But I can MAKE ice.\"",
+      am: "«ለአብዲ በረዶውን ማሳየት እፈልጋለሁ!» አለች አያን። ቆም አለች። «አውቶቡሱ ቀኑን ሙሉ ይሄዳል፤ ሞቃትም ነው። ይቀልጣል!» አሰበች። «ግን በረዶ መሥራት እችላለሁ።»",
     },
     {
-      en: "Back home, Ayan and Hooyo filled a cup with water and asked their neighbour to put it in her freezer, where it is very cold. The next morning, they took it out. The water had turned into a hard lump of ice!",
-      am: "ቤት ሲደርሱ አያንና ሁዮ ስኒ በውሃ ሞልተው ጎረቤታቸው በጣም ቀዝቃዛ በሆነው ማቀዝቀዣዋ ውስጥ እንድታስቀምጠው ጠየቁ። በማግሥቱ ጠዋት አወጡት። ውሃው ጠንካራ በረዶ ሆኖ ነበር!",
+      en: "Back home, Ayan and Hooyo put a cup of water in their neighbour's freezer, where it is very cold. Next morning, the water was a hard lump of ice!",
+      am: "ቤት ሲደርሱ አያንና ሁዮ ስኒ ውሃ በጎረቤታቸው ማቀዝቀዣ ውስጥ አስቀመጡ። በማግሥቱ ጠዋት ውሃው ጠንካራ በረዶ ሆኖ ነበር!",
     },
     {
-      en: 'Abdi held the ice in the hot Jijiga sun and watched it drip, drip, melt into water in his hands. "Ice is water, and water can be ice!" said Ayan. "And air!" They laughed: "Ice to water, water to air, and back again!"',
-      am: "አብዲ በረዶውን በሞቃቱ የጅጅጋ ፀሐይ ላይ ይዞ ጠብ፣ ጠብ እያለ በእጆቹ ውስጥ ወደ ውሃ ሲቀልጥ ተመለከተ። «በረዶ ውሃ ነው፤ ውሃም በረዶ ሊሆን ይችላል!» አለች አያን። «አየርም!» ሳቁ፦ «በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!»",
+      en: "Abdi held the ice in the hot sun and watched it melt in his hands. \"Ice is water, and water can be ice!\" said Ayan. \"And air!\" Ice to water, water to air, and back again!",
+      am: "አብዲ በረዶውን በሞቃቱ ፀሐይ ይዞ ሲቀልጥ ተመለከተ። «በረዶ ውሃ ነው፤ ውሃም በረዶ ይሆናል!» አለች አያን። «አየርም!» በረዶ ወደ ውሃ፣ ውሃ ወደ አየር፣ ደግሞም ይመለሳል!",
     },
   ],
   grownUps: {

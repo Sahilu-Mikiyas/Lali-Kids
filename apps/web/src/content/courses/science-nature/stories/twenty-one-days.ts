@@ -36,36 +36,36 @@ const story: Story = {
   teaches: { words: ["egg", "hatch", "chick", "hen", "calf", "kid", "life cycle"] },
   pages: [
     {
-      en: 'Grandma\'s brown hen stopped laying her eggs in the basket. Instead she sat on a pile of eggs in a straw nest, all fluffed up, and she would not move. "Is she sick?" asked Tsehay.',
-      am: "የአያቴ ቡናማ ዶሮ እንቁላሎቿን በቅርጫቱ ውስጥ መጣል አቆመች። ይልቁንም ላባዋን አፍታ በገለባ ጎጆ ውስጥ ባሉ እንቁላሎች ላይ ተቀመጠች፤ ፈጽሞም አልተነሣችም። «ታማለች እንዴ?» ብላ ጠየቀች ፀሐይ።",
+      en: "Grandma's brown hen stopped laying in the basket. She sat on a pile of eggs in a straw nest, all fluffed up, and would not move. \"Is she sick?\" asked Tsehay.",
+      am: "የአያቴ ቡናማ ዶሮ በቅርጫቱ መጣል አቆመች። ላባዋን አፍታ በገለባ ጎጆ ውስጥ በእንቁላሎች ላይ ተቀመጠች፤ አልተነሣችም። «ታማለች እንዴ?» አለች ፀሐይ።",
     },
     {
       en: '"She\'s keeping her eggs warm," said Grandma. "If we\'re lucky, in twenty-one days, chicks will come out." Tsehay drew a chart with twenty-one boxes, and ticked the first one.',
       am: "«እንቁላሎቿን እያሞቀች ነው» አሉ አያቴ። «ዕድለኞች ከሆንን በሃያ አንድ ቀን ውስጥ ጫጩቶች ይወጣሉ።» ፀሐይ ሃያ አንድ ሳጥኖች ያሉት ሠንጠረዥ ሣለች፤ የመጀመሪያውንም ምልክት አደረገችበት።",
     },
     {
-      en: '"What is happening inside?" wondered Tsehay. That night, in the dark room, Grandma held an egg up to a torch. The egg glowed orange, and inside they saw a dark shadow and tiny red lines. "A chick is growing," whispered Grandma. Peep, peep! Who\'s inside?',
-      am: "«ውስጥ ምን እየሆነ ነው?» ብላ አሰበች ፀሐይ። በዚያ ምሽት በጨለማው ክፍል ውስጥ አያቴ አንድ እንቁላል በባትሪ ብርሃን ፊት ያዙ። እንቁላሉ ብርቱካናማ ሆኖ አበራ፤ ውስጡም ጥቁር ጥላና ጥቃቅን ቀይ መስመሮች አዩ። «ጫጩት እያደገ ነው» አሉ አያቴ በሹክሹክታ። ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
+      en: "\"What's happening inside?\" That night, Grandma held an egg up to a torch. It glowed orange, with a dark shadow and tiny red lines. \"A chick is growing.\" Peep, peep! Who's inside?",
+      am: "«ውስጥ ምን እየሆነ ነው?» ማታ አያቴ እንቁላል በባትሪ ብርሃን ፊት ያዙ። አበራ፤ ጥቁር ጥላና ቀይ መስመሮች ታዩ። «ጫጩት እያደገ ነው።» ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
     },
     {
-      en: "Day after day, the hen turned her eggs gently with her beak. She only got up to eat and drink, very quickly, and ran straight back. So Tsehay put grain and a dish of water right next to the nest.",
-      am: "ቀን ከቀን ዶሮዋ እንቁላሎቿን በመንቁሯ ቀስ ብላ ታገላብጣቸው ነበር። የምትነሣው ለመብላትና ለመጠጣት ብቻ ነበር፤ በጣም በፍጥነት፣ ወዲያውም ትመለሳለች። ስለዚህ ፀሐይ እህልና ውሃ ያለበት ሳህን ከጎጆው አጠገብ አስቀመጠች።",
+      en: "Day after day, the hen turned her eggs with her beak. She got up only to eat and drink, quickly. So Tsehay put grain and water right by the nest.",
+      am: "ቀን ከቀን ዶሮዋ እንቁላሎቿን በመንቁሯ ታገላብጥ ነበር። የምትነሣው ለመብላትና ለመጠጣት ብቻ ነበር። ስለዚህ ፀሐይ እህልና ውሃ ከጎጆው አጠገብ አስቀመጠች።",
     },
     {
-      en: "While she waited, Tsehay visited the other mothers. The cow was licking her new calf, and the calf was drinking her milk. The goat's kid was drinking milk too. \"Calves and kids are born,\" said Grandma. \"Chicks hatch from eggs.\"",
-      am: "እየጠበቀች ሳለ ፀሐይ ሌሎቹን እናቶች ጎበኘች። ላሚቱ አዲሱን ጥጃዋን እየላሰች ነበር፤ ጥጃውም ወተቷን እየጠባ ነበር። የፍየሏ ግልገልም ወተት እየጠባ ነበር። «ጥጆችና ግልገሎች ይወለዳሉ» አሉ አያቴ። «ጫጩቶች ደግሞ ከእንቁላል ይፈለፈላሉ።»",
+      en: "Tsehay visited the other mothers. The calf and the goat's kid were drinking their mothers' milk. \"Calves and kids are born,\" said Grandma. \"Chicks hatch from eggs.\"",
+      am: "ፀሐይ ሌሎቹን እናቶች ጎበኘች። ጥጃውና ግልገሉ የእናቶቻቸውን ወተት ይጠቡ ነበር። «ጥጆችና ግልገሎች ይወለዳሉ» አሉ አያቴ። «ጫጩቶች ከእንቁላል ይፈለፈላሉ።»",
     },
     {
-      en: "Tsehay ticked box after box. Ten, fifteen, nineteen… On day twenty, she put her ear close to the nest and heard a tiny sound from inside an egg: peep, peep! Peep, peep! Who's inside?",
-      am: "ፀሐይ ሳጥን በሳጥን ምልክት አደረገች። አሥር፣ አሥራ አምስት፣ አሥራ ዘጠኝ… በሃያኛው ቀን ጆሮዋን ወደ ጎጆው አስጠግታ ከአንድ እንቁላል ውስጥ ትንሽ ድምፅ ሰማች፦ ጪፕ፣ ጪፕ! ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
+      en: "Tsehay ticked box after box. Ten, fifteen, nineteen… On day twenty, she heard a tiny sound from inside an egg: peep, peep! Peep, peep! Who's inside?",
+      am: "ፀሐይ ሳጥን በሳጥን ምልክት አደረገች። አሥር፣ አሥራ አምስት… በሃያኛው ቀን ከእንቁላል ውስጥ ትንሽ ድምፅ ሰማች፦ ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
     },
     {
-      en: "On day twenty-one, a tiny crack appeared. Then a little hole, and a beak poked through! The chick pushed and rested, pushed and rested. Tsehay's paws itched. \"Can I peel the shell off to help it?\"",
-      am: "በሃያ አንደኛው ቀን ትንሽ ስንጥቅ ታየ። ከዚያ ትንሽ ቀዳዳ፤ መንቁርም ብቅ አለ! ጫጩቱ ገፋ፣ ዐረፈ፤ ገፋ፣ ዐረፈ። የፀሐይ እጆች አሳከኳት። «እንዲወጣ ልረዳው ቅርፊቱን ልላጠው?»",
+      en: "On day twenty-one, a crack appeared, then a hole, and a beak poked through! The chick pushed and rested. \"Can I peel the shell off to help it?\"",
+      am: "በሃያ አንደኛው ቀን ስንጥቅ ታየ፤ ከዚያ ቀዳዳ፤ መንቁርም ብቅ አለ! ጫጩቱ ገፋ፣ ዐረፈ። «እንዲወጣ ቅርፊቱን ልላጠው?»",
     },
     {
-      en: "Then she remembered what Grandma had told her: the chick has a little bump on its beak, an egg tooth, just for breaking the shell, and pushing out makes it strong. Peeling it out too early could hurt it. So Tsehay sat on her paws, and waited.",
-      am: "ከዚያ አያቴ የነገሯትን አስታወሰች፦ ጫጩቱ በመንቁሩ ላይ ቅርፊቱን ለመስበር ብቻ የሚያገለግል ትንሽ እብጠት፣ የእንቁላል ጥርስ አለው፤ ገፍቶ መውጣቱም ያጠነክረዋል። ቀድሞ መላጥ ሊጎዳው ይችላል። ስለዚህ ፀሐይ እጆቿን ሰብስባ ጠበቀች።",
+      en: "Then she remembered: the chick has an egg tooth on its beak, just for breaking the shell, and pushing makes it strong. So Tsehay sat on her paws and waited.",
+      am: "ከዚያ አስታወሰች፦ ጫጩቱ ቅርፊቱን የሚሰብርበት የእንቁላል ጥርስ በመንቁሩ ላይ አለው፤ መግፋቱም ያጠነክረዋል። ስለዚህ ፀሐይ ጠበቀች።",
     },
     {
       en: "Crack! The shell broke in two, and out flopped a chick, wet and tired. It lay still under its mother's warm feathers. \"Welcome, little one,\" whispered Tsehay.",
@@ -76,12 +76,12 @@ const story: Story = {
       am: "በማግሥቱ ጠዋት ጫጩቱ ደርቆ ለስላሳና ቢጫ ሆነ። ሌሎቹም እንቁላሎች አንድ በአንድ ተፈለፈሉ፦ አንድ፣ ሁለት፣ ሦስት፣ አራት፣ አምስት ጫጩቶች! ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
     },
     {
-      en: "Soon the chicks were running after their mother and pecking up seeds by themselves. \"Don't they need milk, like the calf?\" asked Tsehay. \"No,\" said Grandma. \"Birds don't make milk. Chicks can find their own food from the very first day.\"",
-      am: "ብዙም ሳይቆዩ ጫጩቶቹ እናታቸውን ተከትለው እየሮጡ እህል በራሳቸው ለቀሙ። «እንደ ጥጃው ወተት አያስፈልጋቸውም?» ብላ ጠየቀች ፀሐይ። «አያስፈልጋቸውም» አሉ አያቴ። «ወፎች ወተት አይሠሩም። ጫጩቶች ከመጀመሪያው ቀን ጀምሮ የራሳቸውን ምግብ ማግኘት ይችላሉ።»",
+      en: "Soon the chicks ran after their mother, pecking seeds. \"Don't they need milk?\" asked Tsehay. \"No,\" said Grandma. \"Birds don't make milk. Chicks find their own food.\"",
+      am: "ጫጩቶቹ እናታቸውን ተከትለው እህል ለቀሙ። «ወተት አያስፈልጋቸውም?» አለች ፀሐይ። «አያስፈልጋቸውም» አሉ አያቴ። «ወፎች ወተት አይሠሩም። ጫጩቶች ራሳቸው ይመገባሉ።»",
     },
     {
-      en: "Tsehay drew a circle on the back of her chart: an egg, a chick, a hen, and an egg again. \"One day, these chicks will lay eggs of their own.\" The chicks peeped all around her feet. Peep, peep! Who's inside?",
-      am: "ፀሐይ በሠንጠረዧ ጀርባ ክብ ሣለች፦ እንቁላል፣ ጫጩት፣ ዶሮ፣ ደግሞም እንቁላል። «አንድ ቀን እነዚህ ጫጩቶች የራሳቸውን እንቁላል ይጥላሉ።» ጫጩቶቹ በእግሮቿ ዙሪያ ጪፕ ጪፕ አሉ። ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
+      en: "Tsehay drew a circle: egg, chick, hen, and egg again. \"One day these chicks will lay eggs too.\" The chicks peeped round her feet. Peep, peep! Who's inside?",
+      am: "ፀሐይ ክብ ሣለች፦ እንቁላል፣ ጫጩት፣ ዶሮ፣ ደግሞም እንቁላል። «አንድ ቀን እነዚህም እንቁላል ይጥላሉ።» ጫጩቶቹ በእግሮቿ ዙሪያ ጮኹ። ጪፕ፣ ጪፕ! ውስጥ ማን አለ?",
     },
   ],
   grownUps: {

@@ -40,16 +40,16 @@ const story: Story = {
       am: "ጉጉ በደረቱ ላይ ያለውን ደማቅ ቀይ ቦታ ወደ ታች ተመለከተ። «ይሄ ምን እንደሆነ ታውቂያለሽ?» ብሎ አያንን በኩራት ጠየቃት። «ልቤ ነው። ቀይና የልብ ቅርጽ ያለው ለዚህ ነው!»",
     },
     {
-      en: '"Hmm," said Teacher Meron. "Let\'s find out. Put your hand flat on your chest and keep very still. What do you feel?" Gugu waited. Thump-thump. Thump-thump. It was there… but deep inside, and a little to the left.',
-      am: "«እምም» አሉ መምህርት መሮን። «እስቲ እንደርስበት። እጃችሁን በደረታችሁ ላይ ዘርግታችሁ አድርጉና ጸጥ በሉ። ምን ይሰማችኋል?» ጉጉ ጠበቀ። ድው-ድው። ድው-ድው። እዚያ ነበር… ግን በጣም ውስጥ፣ ትንሽ ወደ ግራ።",
+      en: "\"Let's find out,\" said Teacher Meron. \"Put your hand flat on your chest and keep still.\" Gugu waited. Thump-thump. It was there… deep inside, a little to the left.",
+      am: "«እስቲ እንደርስበት» አሉ መምህርቷ። «እጃችሁን በደረታችሁ ላይ አድርጉና ጸጥ በሉ።» ጉጉ ጠበቀ። ድው-ድው። እዚያ ነበር… ውስጥ፣ ትንሽ ወደ ግራ።",
     },
     {
-      en: "\"Your heart is inside your chest, behind your ribs,\" said Teacher Meron. \"Your red patch is skin. Your heart is a strong muscle, about as big as your fist. It squeezes, thump, and pushes blood all round your body through tiny tubes.\" Thump-thump, in and out!",
-      am: "«ልባችሁ በደረታችሁ ውስጥ፣ ከጎድን አጥንቶቻችሁ ጀርባ ነው» አሉ መምህርት መሮን። «ቀዩ ቦታህ ቆዳ ነው። ልብህ ጠንካራ ጡንቻ ነው፤ የጡጫህን ያህል ይሆናል። ይጨመቃል፣ ድው፣ በጥቃቅን ቱቦዎች በኩልም ደምን በመላ ሰውነታችሁ ይገፋል።» ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!",
+      en: "\"Your heart is inside, behind your ribs. Your red patch is skin. Your heart is a muscle as big as your fist. It pumps blood all round your body.\" Thump-thump, in and out!",
+      am: "«ልብህ ውስጥ፣ ከጎድን አጥንቶች ጀርባ ነው። ቀዩ ቦታህ ቆዳ ነው። ልብ የጡጫህን ያህል ጡንቻ ነው፤ ደምን በመላ ሰውነት ይገፋል።» ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!",
     },
     {
-      en: "Gugu made a fist and looked at it. Then he and Ayan sat very still and counted. Ayan counted Gugu's heartbeats while Teacher Meron watched the clock. Then Gugu counted Ayan's breaths: in, out, in, out. Slow and steady.",
-      am: "ጉጉ ጡጫ ጨብጦ ተመለከተው። ከዚያ እሱና አያን ጸጥ ብለው ተቀምጠው ቆጠሩ። መምህርት መሮን ሰዓቱን ሲመለከቱ አያን የጉጉን የልብ ምቶች ቆጠረች። ከዚያ ጉጉ የአያንን ትንፋሾች ቆጠረ፦ ወደ ውስጥ፣ ወደ ውጭ፣ ወደ ውስጥ፣ ወደ ውጭ። ቀስ ያለና የተረጋጋ።",
+      en: "Gugu and Ayan sat very still. Ayan counted Gugu's heartbeats while Teacher Meron watched the clock. Then Gugu counted Ayan's breaths: in, out. Slow and steady.",
+      am: "ጉጉና አያን ጸጥ ብለው ተቀመጡ። መምህርቷ ሰዓቱን ሲያዩ አያን የጉጉን የልብ ምት ቆጠረች። ከዚያ ጉጉ የአያንን ትንፋሽ ቆጠረ። ቀስ ያለና የተረጋጋ።",
     },
     {
       en: '"Now, run!" said Teacher Meron. Gugu and Ayan raced round the school field, once, twice, three times, as fast as they could go, and flopped down on the grass.',
@@ -60,28 +60,28 @@ const story: Story = {
       am: "ድው-ድው-ድው-ድው! የጉጉ ልብ ይሮጥ ነበር፤ እሱም በኃይል ያለከልክ ነበር። «ልቤ አበደ! ፈርቶ ይሆን?» ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!",
     },
     {
-      en: "\"Not scared,\" laughed Teacher Meron. \"When you run, your leg muscles work hard and need more air and more food from your blood. So your lungs breathe faster to take in more air, and your heart pumps faster to carry it to your muscles.\"",
-      am: "«አልፈራም» ብለው ሳቁ መምህርት መሮን። «ስትሮጡ የእግራችሁ ጡንቻዎች በብርቱ ይሠራሉ፤ ከደማችሁም ተጨማሪ አየርና ተጨማሪ ምግብ ይፈልጋሉ። ስለዚህ ሳምባችሁ ተጨማሪ አየር ለማስገባት በፍጥነት ይተነፍሳል፤ ልባችሁም ወደ ጡንቻዎቻችሁ ለማድረስ በፍጥነት ይመታል።»",
+      en: "\"Not scared,\" laughed Teacher Meron. \"Running muscles need more air and food from your blood. So you breathe faster, and your heart pumps faster.\"",
+      am: "«አልፈራም» ብለው ሳቁ መምህርቷ። «የሚሮጡ ጡንቻዎች ከደም ተጨማሪ አየርና ምግብ ይፈልጋሉ። ስለዚህ በፍጥነት ትተነፍሳላችሁ፤ ልባችሁም ይፈጥናል።»",
     },
     {
-      en: 'Ayan put her hands on her ribs and took a big breath. Her chest grew bigger! She breathed out, and it went smaller. "The air goes in through my nose, down a tube to my two lungs, and they fill up like bags!"',
-      am: "አያን እጆቿን በጎድን አጥንቶቿ ላይ አድርጋ ትልቅ ትንፋሽ ወሰደች። ደረቷ ተለቀ! ትንፋሿን ስታወጣ አነሰ። «አየሩ በአፍንጫዬ ይገባል፤ በቱቦ ወደ ሁለቱ ሳምባዎቼ ይወርዳል፤ እነሱም እንደ ከረጢት ይሞላሉ!»",
+      en: "Ayan put her hands on her ribs and took a big breath. Her chest grew! She breathed out, and it shrank. \"The air goes down a tube into my two lungs!\"",
+      am: "አያን እጆቿን በጎድን አጥንቶቿ ላይ አድርጋ ትልቅ ትንፋሽ ወሰደች። ደረቷ ተለቀ! ስታወጣ አነሰ። «አየሩ በቱቦ ወደ ሁለቱ ሳምባዎቼ ይወርዳል!»",
     },
     {
-      en: "Next morning was cold and misty on the highlands. When Gugu breathed out, a little white cloud puffed from his mouth! \"My breath is warm and wet,\" he said, \"and the cold air turns it into a tiny cloud.\" Thump-thump, in and out!",
-      am: "በማግሥቱ ጠዋት በደጋው ላይ ቀዝቃዛና ጭጋጋማ ነበር። ጉጉ ትንፋሹን ሲያወጣ ከአፉ ትንሽ ነጭ ደመና ወጣ! «ትንፋሼ ሞቃትና እርጥብ ነው» አለ፤ «ቀዝቃዛው አየር ጥቃቅን ደመና ያደርገዋል።» ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!",
+      en: "Next morning was cold on the highlands. When Gugu breathed out, a little white cloud puffed from his mouth! \"My breath is warm and wet.\" Thump-thump, in and out!",
+      am: "በማግሥቱ ጠዋት ደጋው ቀዝቃዛ ነበር። ጉጉ ትንፋሹን ሲያወጣ ከአፉ ትንሽ ነጭ ደመና ወጣ! «ትንፋሼ ሞቃትና እርጥብ ነው።» ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!",
     },
     {
-      en: "Back in class, they lay quietly on the mat for a while. Then they counted again. Gugu's heart had slowed down, and Ayan's breaths were slow and steady again. \"Resting lets them slow down,\" said Teacher Meron.",
-      am: "ወደ ክፍል ተመልሰው ለጥቂት ጊዜ በምንጣፉ ላይ ጸጥ ብለው ተኙ። ከዚያ እንደገና ቆጠሩ። የጉጉ ልብ ቀስ ብሎ ነበር፤ የአያን ትንፋሾችም እንደገና ቀስ ያሉና የተረጋጉ ሆኑ። «ማረፍ እንዲረጋጉ ያደርጋቸዋል» አሉ መምህርት መሮን።",
+      en: "Back in class, they lay quietly on the mat. Then they counted again. Gugu's heart had slowed down, and Ayan's breathing too. \"Resting lets them slow down.\"",
+      am: "ወደ ክፍል ተመልሰው በምንጣፉ ላይ ጸጥ ብለው ተኙ። እንደገና ቆጠሩ። የጉጉ ልብ ቀስ ብሎ ነበር፤ የአያንም ትንፋሽ። «ማረፍ ያረጋጋቸዋል።»",
     },
     {
-      en: '"Does my heart ever stop to rest?" asked Gugu. "Never," said Teacher Meron. "Your heart beats all day and all night, even when you\'re fast asleep, all your life long." Gugu patted his chest gently. "Thank you, heart."',
-      am: "«ልቤ ለማረፍ ይቆማል?» ብሎ ጠየቀ ጉጉ። «በጭራሽ» አሉ መምህርት መሮን። «ልብህ ቀንና ሌሊት ይመታል፤ በጥልቅ እንቅልፍ ስትተኛም፣ ዕድሜ ልክህን።» ጉጉ ደረቱን በቀስታ መታ መታ አደረገ። «አመሰግናለሁ ልቤ።»",
+      en: "\"Does my heart ever rest?\" asked Gugu. \"Never,\" said Teacher Meron. \"It beats all day and all night, even when you're asleep, all your life.\" \"Thank you, heart.\"",
+      am: "«ልቤ ያርፋል?» አለ ጉጉ። «በጭራሽ» አሉ መምህርቷ። «ቀንና ሌሊት ይመታል፤ ስትተኛም፣ ዕድሜ ልክህን።» «አመሰግናለሁ ልቤ።»",
     },
     {
-      en: 'That evening Gugu told his friend Tsehay, "My red patch is just my skin. My heart is inside, about as big as my fist, and it never stops!" They put their hands on their chests and whispered together, "Thump-thump, in and out!"',
-      am: "በዚያ ምሽት ጉጉ ለጓደኛው ለፀሐይ ነገራት፦ «ቀዩ ቦታዬ ቆዳዬ ብቻ ነው። ልቤ ውስጥ ነው፤ የጡጫዬን ያህል ነው፤ ፈጽሞም አይቆምም!» እጆቻቸውን በደረታቸው ላይ አድርገው አብረው በሹክሹክታ አሉ፦ «ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!»",
+      en: "Gugu told his friend Tsehay, \"My red patch is just skin. My heart is inside, as big as my fist!\" Hands on their chests, they whispered, \"Thump-thump, in and out!\"",
+      am: "ጉጉ ለጓደኛው ለፀሐይ ነገራት፦ «ቀዩ ቦታዬ ቆዳ ብቻ ነው። ልቤ ውስጥ ነው፤ የጡጫዬን ያህል!» እጃቸውን በደረታቸው አድርገው አሉ፦ «ድው-ድው፣ ወደ ውስጥ፣ ወደ ውጭ!»",
     },
   ],
   grownUps: {

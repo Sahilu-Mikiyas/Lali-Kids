@@ -34,52 +34,52 @@ const story: Story = {
   teaches: { words: ["float", "sink", "heavy", "light", "shape", "boat"] },
   pages: [
     {
-      en: 'It was a hot day, so Haben and Hawi filled a big tub of water in Hawi\'s yard. Haben puffed out her chest. "I know all about floating. Big, heavy things sink. Small, light things float. Easy!"',
-      am: "ሞቃት ቀን ነበር፤ ስለዚህ ሐበንና ሀዊ በሀዊ ግቢ ውስጥ ትልቅ ገንዳ ውሃ ሞሉ። ሐበን ደረቷን ነፋች። «ስለ መንሳፈፍ ሁሉንም አውቃለሁ። ትልልቅና ከባድ ነገሮች ይሰምጣሉ። ትንንሽና ቀላል ነገሮች ይንሳፈፋሉ። ቀላል ነው!»",
+      en: "On a hot day, Haben and Hawi filled a big tub in Hawi's yard. \"I know all about floating,\" said Haben. \"Big, heavy things sink. Small, light things float!\"",
+      am: "በሞቃት ቀን ሐበንና ሀዊ በሀዊ ግቢ ትልቅ ገንዳ ውሃ ሞሉ። «ስለ መንሳፈፍ አውቃለሁ» አለች ሐበን። «ትልቅና ከባድ ይሰምጣል። ትንሽና ቀላል ይንሳፈፋል!»",
     },
     {
-      en: '"Let\'s test your rule," said Hawi. "Guess first, then drop it in." The wooden spoon: "Float!" Plop… it floated. The stone: "Sink!" Plunk… it sank to the bottom. "See?" said Haben. Will it float, or will it sink? Try it out, and stop and think!',
-      am: "«ሕግሽን እንፈትነው» አለች ሀዊ። «መጀመሪያ ገምቺ፣ ከዚያ ጣዪው።» የእንጨት ማንኪያው፦ «ይንሳፈፋል!» ዱብ… ተንሳፈፈ። ድንጋዩ፦ «ይሰምጣል!» ድብ… ወደ ታች ሰመጠ። «አየሽ?» አለች ሐበን። ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!",
+      en: "\"Guess first, then drop it in,\" said Hawi. The wooden spoon floated. The stone sank. \"See?\" said Haben. Will it float, or will it sink? Try it out, and stop and think!",
+      am: "«መጀመሪያ ገምቺ፣ ከዚያ ጣዪው» አለች ሀዊ። የእንጨት ማንኪያው ተንሳፈፈ። ድንጋዩ ሰመጠ። «አየሽ?» ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!",
     },
     {
       en: "The metal key sank. The plastic bottle top floated. \"My rule works every time!\" Haben said, and she wrote it in her notebook in big letters.",
       am: "የብረቱ ቁልፍ ሰመጠ። የፕላስቲኩ የጠርሙስ ክዳን ተንሳፈፈ። «ሕጌ ሁልጊዜ ይሠራል!» አለች ሐበን፤ በማስታወሻዋም በትልልቅ ፊደላት ጻፈችው።",
     },
     {
-      en: 'Grandpa Tolosa rolled over a big log from the woodpile. Haben tried to lift it. "Ooof! Too heavy! It will sink for sure." Grandpa rolled it into the tub, and… it floated! It bobbed on the top like a fat brown boat.',
-      am: "አባ ቶሎሳ ከእንጨት ክምሩ ትልቅ ግንድ አንከባለው አመጡ። ሐበን ልታነሣው ሞከረች። «ውፍ! በጣም ከባድ ነው! በእርግጥ ይሰምጣል።» አባ ቶሎሳ ወደ ገንዳው አንከባለሉት፤ እና… ተንሳፈፈ! እንደ ወፍራም ቡናማ ጀልባ ከላይ ይዋልል ነበር።",
+      en: "Grandpa Tolosa rolled over a big log. Haben tried to lift it. \"Too heavy! It will sink for sure.\" Into the tub it went, and… it floated, like a fat brown boat!",
+      am: "አባ ቶሎሳ ትልቅ ግንድ አንከባለው አመጡ። ሐበን ልታነሣው ሞከረች። «በጣም ከባድ ነው! ይሰምጣል።» ወደ ገንዳው ገባ፤ እና… እንደ ቡናማ ጀልባ ተንሳፈፈ!",
     },
     {
-      en: 'Then Hawi found a tiny coin, small and light. "That will float," said Haben, more quietly. Plink! It sank straight to the bottom. Haben stared. "My rule is broken!" Will it float, or will it sink? Try it out, and stop and think!',
-      am: "ከዚያ ሀዊ ትንሽና ቀላል ሳንቲም አገኘች። «ያ ይንሳፈፋል» አለች ሐበን፣ ዝግ ብላ። ቅጭል! ቀጥታ ወደ ታች ሰመጠ። ሐበን አፍጥጣ ተመለከተች። «ሕጌ ተሰበረ!» ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!",
+      en: "Then Hawi found a tiny, light coin. \"That will float,\" said Haben. Plink! It sank to the bottom. \"My rule is broken!\" Will it float, or will it sink? Try it out, and stop and think!",
+      am: "ከዚያ ሀዊ ትንሽና ቀላል ሳንቲም አገኘች። «ያ ይንሳፈፋል» አለች ሐበን። ቅጭል! ሰመጠ። «ሕጌ ተሰበረ!» ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!",
     },
     {
-      en: '"It isn\'t just how heavy something is," said Grandpa. "It\'s how heavy it is for its size. Wood is light for its size, so even a big log floats. A coin is metal, heavy for its tiny size, so it sinks." Haben crossed out her rule and wrote a better one.',
-      am: "«ዋናው ነገር ምን ያህል ከባድ መሆኑ ብቻ አይደለም» አሉ አባ ቶሎሳ። «ለመጠኑ ምን ያህል ከባድ እንደሆነ ነው። እንጨት ለመጠኑ ቀላል ነው፤ ስለዚህ ትልቅ ግንድም ይንሳፈፋል። ሳንቲም ብረት ነው፤ ለትንሽ መጠኑ ከባድ ነው፤ ስለዚህ ይሰምጣል።» ሐበን ሕጓን ሰርዛ የተሻለ ጻፈች።",
+      en: "\"It's how heavy it is for its size,\" said Grandpa. \"Wood is light for its size, so even a big log floats. A metal coin is heavy for its size, so it sinks.\"",
+      am: "«ዋናው ለመጠኑ ምን ያህል ከባድ መሆኑ ነው» አሉ አባ ቶሎሳ። «እንጨት ለመጠኑ ቀላል ነው፤ ትልቅ ግንድም ይንሳፈፋል። የብረት ሳንቲም ለመጠኑ ከባድ ነው፤ ይሰምጣል።»",
     },
     {
-      en: 'Hawi dropped in an orange. It floated! Then she peeled it and dropped it in again. Down it went! "The peel is full of tiny pockets of air," said Grandpa, "like a little life jacket."',
-      am: "ሀዊ ብርቱካን ጣለች። ተንሳፈፈ! ከዚያ ልጣዋ እንደገና ጣለችው። ወደ ታች ሄደ! «ልጣጩ በጥቃቅን የአየር ኪሶች የተሞላ ነው» አሉ አባ ቶሎሳ፤ «እንደ ትንሽ የሕይወት አድን ጃኬት።»",
+      en: "Hawi dropped in an orange. It floated! She peeled it and tried again. Down it went! \"The peel is full of tiny pockets of air,\" said Grandpa, \"like a life jacket.\"",
+      am: "ሀዊ ብርቱካን ጣለች። ተንሳፈፈ! ልጣ እንደገና ሞከረች። ሰመጠ! «ልጣጩ በጥቃቅን የአየር ኪሶች የተሞላ ነው» አሉ አባ ቶሎሳ፤ «እንደ ሕይወት አድን ጃኬት።»",
     },
     {
-      en: "Now Hawi had a problem. She wanted to float a little treasure, a shiny pebble, across the tub to Haben. She tried a ball of clay to carry it. Plunk! The clay sank, pebble and all.",
-      am: "አሁን ሀዊ አንድ ችግር ገጠማት። ትንሽ ውድ ነገር፣ የሚያብረቀርቅ ጠጠር፣ በገንዳው ላይ አንሳፍፋ ወደ ሐበን መላክ ፈለገች። እንዲሸከመው የሸክላ ኳስ ሞከረች። ድብ! ሸክላው ከጠጠሩ ጋር ሰመጠ።",
+      en: "Now Hawi had a problem. She wanted to float a shiny pebble across to Haben. She tried a ball of clay to carry it. Plunk! It sank, pebble and all.",
+      am: "አሁን ሀዊ ችግር ገጠማት። የሚያብረቀርቅ ጠጠር አንሳፍፋ ወደ ሐበን መላክ ፈለገች። የሸክላ ኳስ ሞከረች። ድብ! ከጠጠሩ ጋር ሰመጠ።",
     },
     {
-      en: 'Hawi fished out the clay and thought. "What if I change its shape?" She pressed it flat and pinched up the sides into a hollow little boat. She set it on the water, gently… and it floated! Will it float, or will it sink? Try it out, and stop and think!',
-      am: "ሀዊ ሸክላውን አውጥታ አሰበች። «ቅርጹን ብቀይረውስ?» ጠፍጣፋ አድርጋ ጫፎቹን ወደ ላይ በማጠፍ ውስጡ ክፍት የሆነ ትንሽ ጀልባ ሠራች። ቀስ ብላ በውሃው ላይ አስቀመጠችው… ተንሳፈፈም! ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!",
+      en: "\"What if I change its shape?\" Hawi pressed the clay flat and pinched up the sides into a hollow boat. She set it on the water… and it floated! Will it float, or will it sink?",
+      am: "«ቅርጹን ብቀይረውስ?» ሀዊ ሸክላውን ጠፍጣፋ አድርጋ ጫፎቹን አጥፋ ውስጡ ክፍት የሆነ ጀልባ ሠራች። በውሃው ላይ አስቀመጠችው… ተንሳፈፈ! ይንሳፈፋል ወይስ ይሰምጣል?",
     },
     {
-      en: 'Hawi put her pebble inside and blew the boat across the tub. Haben caught it! "Same clay, new shape!" Then they added pebbles one at a time: one, two, three, four, five… at the sixth, the boat sank. They counted again and cheered.',
-      am: "ሀዊ ጠጠሯን ውስጡ አድርጋ ጀልባዋን በገንዳው ላይ እፍ ብላ ገፋቻት። ሐበን ያዘቻት! «ያው ሸክላ፣ አዲስ ቅርጽ!» ከዚያ ጠጠሮችን አንድ በአንድ ጨመሩ፦ አንድ፣ ሁለት፣ ሦስት፣ አራት፣ አምስት… በስድስተኛው ጀልባዋ ሰመጠች። እንደገና ቆጥረው ደስ አላቸው።",
+      en: "She put the pebble in and blew the boat across. Haben caught it! \"Same clay, new shape!\" They added pebbles: one, two, three, four, five… at the sixth, it sank!",
+      am: "ጠጠሩን ውስጡ አድርጋ ጀልባዋን እፍ ብላ ገፋች። ሐበን ያዘቻት! «ያው ሸክላ፣ አዲስ ቅርጽ!» ጠጠሮች ጨመሩ፦ አንድ፣ ሁለት፣ ሦስት፣ አራት፣ አምስት… በስድስተኛው ሰመጠች!",
     },
     {
-      en: '"On Lake Tana," said Grandpa, "fishermen sail in tankwas, boats made of papyrus reeds, light and full of air. And big metal ships cross the sea. They\'re very heavy, but they float, because they\'re hollow inside, like your clay boat."',
-      am: "«በጣና ሐይቅ ላይ» አሉ አባ ቶሎሳ፣ «ዓሣ አጥማጆች ከደንገል በተሠሩ ቀላልና አየር በሞላባቸው ታንኳዎች ይጓዛሉ። ትልልቅ የብረት መርከቦችም ባሕሩን ያቋርጣሉ። በጣም ከባድ ናቸው፤ ግን ይንሳፈፋሉ፤ ምክንያቱም እንደ ሸክላ ጀልባችሁ ውስጣቸው ክፍት ነው።»",
+      en: "\"On Lake Tana, fishermen sail in tankwas made of light papyrus,\" said Grandpa. \"And big metal ships float because they're hollow inside, like your clay boat.\"",
+      am: "«በጣና ሐይቅ ላይ ዓሣ አጥማጆች ከቀላል ደንገል በተሠራ ታንኳ ይጓዛሉ» አሉ አባ ቶሎሳ። «ትልልቅ የብረት መርከቦችም ውስጣቸው ክፍት ስለሆነ ይንሳፈፋሉ።»",
     },
     {
-      en: 'Haben read out her new rule: "It\'s not big or small. It\'s how heavy for its size, and its shape!" Then they tested everything in the yard until the sun went down. "Will it float, or will it sink? Try it out, and stop and think!"',
-      am: "ሐበን አዲሱን ሕጓን አነበበች፦ «ትልቅ ወይም ትንሽ መሆኑ አይደለም። ለመጠኑ ምን ያህል ከባድ መሆኑና ቅርጹ ነው!» ከዚያ ፀሐይ እስክትጠልቅ ድረስ በግቢው ያለውን ሁሉ ሞከሩ። «ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!»",
+      en: "Haben read out her new rule: \"How heavy for its size, and its shape!\" Then they tested everything till sunset. \"Will it float, or will it sink? Try it out, and stop and think!\"",
+      am: "ሐበን አዲሱን ሕጓን አነበበች፦ «ለመጠኑ ምን ያህል ከባድ መሆኑና ቅርጹ!» እስከ ምሽት ሁሉን ሞከሩ። «ይንሳፈፋል ወይስ ይሰምጣል? ሞክረን እንይ፣ ቆም ብለን እናስብ!»",
     },
   ],
   grownUps: {

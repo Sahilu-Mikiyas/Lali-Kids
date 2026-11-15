@@ -34,52 +34,52 @@ const story: Story = {
   teaches: { words: ["see", "hear", "smell", "taste", "touch", "senses", "brain"] },
   pages: [
     {
-      en: 'Anbessa woke up and sniffed. "Grandma is roasting coffee!" He ran to the kitchen, and there she was, shaking the beans over the fire. "How did you know before you saw it?" she asked. Anbessa tapped his nose.',
-      am: "አንበሳ ከእንቅልፉ ነቅቶ አሸተተ። «አያቴ ቡና እየቆሉ ነው!» ወደ ማድ ቤቱ ሮጠ፤ እዚያም ከእሳቱ በላይ ፍሬዎቹን እያንቀሳቀሱ ነበሩ። «ሳታየው እንዴት አወቅህ?» ብለው ጠየቁ። አንበሳ አፍንጫውን መታ መታ አደረገ።",
+      en: "Anbessa woke up and sniffed. \"Grandma is roasting coffee!\" He ran to the kitchen, and there she was. \"How did you know before you saw it?\" Anbessa tapped his nose.",
+      am: "አንበሳ ነቅቶ አሸተተ። «አያቴ ቡና እየቆሉ ነው!» ወደ ማድ ቤት ሮጠ፤ እዚያም ነበሩ። «ሳታየው እንዴት አወቅህ?» አንበሳ አፍንጫውን መታ መታ አደረገ።",
     },
     {
       en: '"Let\'s play a game," said Grandma, and she tied a soft scarf over his eyes. Anbessa wobbled. "But without my eyes, I won\'t know anything!" Gugu giggled. "Let\'s find out."',
       am: "«እስቲ እንጫወት» አሉ አያቴ፤ በዓይኖቹም ላይ ለስላሳ ሻሽ አሰሩለት። አንበሳ ተንገዳገደ። «ያለ ዓይኖቼ ግን ምንም አላውቅም!» ጉጉ ተንከተከተ። «እስቲ እንሞክር።»",
     },
     {
-      en: '"Listen," said Grandma. Outside, something went "Mooooo!" "That\'s the cow!" said Anbessa. Then the coffee beans went crackle, pop. "And the beans are popping!" His ears could tell. Look, listen, sniff, taste and touch!',
-      am: "«አዳምጥ» አሉ አያቴ። ውጭ የሆነ ነገር «ሙውው!» አለ። «ላሚቱ ናት!» አለ አንበሳ። ከዚያ የቡናው ፍሬዎች ቻ፣ ቋ አሉ። «ፍሬዎቹም እየፈነዱ ነው!» ጆሮዎቹ ለዩት። እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
+      en: "\"Listen,\" said Grandma. Outside, something went \"Mooooo!\" \"The cow!\" The coffee beans went crackle, pop. \"The beans are popping!\" Look, listen, sniff, taste and touch!",
+      am: "«አዳምጥ» አሉ አያቴ። ውጭ የሆነ ነገር «ሙውው!» አለ። «ላሚቱ!» ፍሬዎቹ ቻ፣ ቋ አሉ። «ፍሬዎቹ እየፈነዱ ነው!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
     },
     {
-      en: 'Grandma put something in his paw. It was smooth and hard and cool, round at both ends, and fatter at one end. "An egg!" said Anbessa. The skin on his paw could feel its shape, and how warm or cool it was.',
-      am: "አያቴ የሆነ ነገር በእጁ ላይ አስቀመጡ። ለስላሳ፣ ጠንካራና ቀዝቃዛ ነበር፤ ሁለቱም ጫፎቹ ክብ ናቸው፤ አንዱ ጫፍ ወፈር ይላል። «እንቁላል!» አለ አንበሳ። የእጁ ቆዳ ቅርጹን፣ ሞቃትም ይሁን ቀዝቃዛ መሆኑን ሊሰማው ቻለ።",
+      en: "Grandma put something in his paw: smooth, hard and cool, round at both ends. \"An egg!\" The skin on his paw could feel its shape, and how cool it was.",
+      am: "አያቴ የሆነ ነገር በእጁ አስቀመጡ፦ ለስላሳ፣ ጠንካራና ቀዝቃዛ፣ ሁለቱም ጫፎች ክብ። «እንቁላል!» የእጁ ቆዳ ቅርጹንና ቅዝቃዜውን ተሰማው።",
     },
     {
-      en: 'Next Grandma held something under his nose. Sniff, sniff. "Fresh and sharp… lemon!" Then she gave him a tiny taste. Sour! He scrunched up his face. Then a taste of something soft and sweet. "Banana!" Look, listen, sniff, taste and touch!',
-      am: "ቀጥሎ አያቴ የሆነ ነገር በአፍንጫው ሥር ያዙ። ሽት፣ ሽት። «ትኩስና የሚያቃጥል… ሎሚ!» ከዚያ ትንሽ እንዲቀምሰው ሰጡት። ኮምጣጣ! ፊቱን ኮሰኮሰ። ከዚያ ለስላሳና ጣፋጭ የሆነ ነገር ቀመሰ። «ሙዝ!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
+      en: "Sniff, sniff. \"Fresh and sharp… lemon!\" A tiny taste: sour! He scrunched his face. Then something soft and sweet. \"Banana!\" Look, listen, sniff, taste and touch!",
+      am: "ሽት፣ ሽት። «ትኩስና የሚያቃጥል… ሎሚ!» ትንሽ ቀመሰ፦ ኮምጣጣ! ፊቱን ኮሰኮሰ። ከዚያ ለስላሳና ጣፋጭ። «ሙዝ!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
     },
     {
-      en: 'Now Gugu wanted a turn. He held his nose tight and Grandma gave him a bite of mango, then a bite of banana. "They taste… the same. Just sweet!" Then he let go of his nose. "Oh! MANGO!" "Your nose helps you taste," said Grandma.',
-      am: "አሁን ጉጉ ተራውን ፈለገ። አፍንጫውን አጥብቆ ያዘ፤ አያቴም ትንሽ ማንጎ፣ ከዚያ ትንሽ ሙዝ ሰጡት። «አንድ ዓይነት… ይጣፍጣሉ። ጣፋጭ ብቻ!» ከዚያ አፍንጫውን ለቀቀ። «ኦ! ማንጎ!» «አፍንጫህ እንድትቀምስ ይረዳሃል» አሉ አያቴ።",
+      en: "Gugu held his nose and tasted mango, then banana. \"They taste the same. Just sweet!\" He let go. \"Oh! MANGO!\" \"Your nose helps you taste,\" said Grandma.",
+      am: "ጉጉ አፍንጫውን ይዞ ማንጎና ሙዝ ቀመሰ። «አንድ ዓይነት ናቸው። ጣፋጭ ብቻ!» አፍንጫውን ለቀቀ። «ኦ! ማንጎ!» «አፍንጫ እንድትቀምስ ይረዳል» አሉ አያቴ።",
     },
     {
-      en: 'Bzzz! Lali flew in. "You have five helpers! Eyes to see, ears to hear, a nose to smell, a tongue to taste and skin to touch. They all send messages to your brain, and your brain works out what\'s there."',
-      am: "ቡዝዝ! ላሊ በርራ ገባች። «አምስት ረዳቶች አሏችሁ! ለማየት ዓይኖች፣ ለመስማት ጆሮዎች፣ ለማሽተት አፍንጫ፣ ለመቅመስ ምላስ፣ ለመዳሰስ ቆዳ። ሁሉም ወደ አንጎላችሁ መልእክት ይልካሉ፤ አንጎላችሁም እዚያ ያለውን ይደርስበታል።»",
+      en: "Bzzz! Lali flew in. \"You have five helpers: eyes to see, ears to hear, a nose to smell, a tongue to taste and skin to touch. They send messages to your brain.\"",
+      am: "ቡዝዝ! ላሊ መጣች። «አምስት ረዳቶች አሏችሁ፦ ዓይን፣ ጆሮ፣ አፍንጫ፣ ምላስና ቆዳ። ሁሉም ወደ አንጎላችሁ መልእክት ይልካሉ።»",
     },
     {
       en: 'Then Grandma set down a little clay pot with a lid on. "Last puzzle. What\'s inside? No looking, and no touching!" Gugu frowned. How could he find out?',
       am: "ከዚያ አያቴ ክዳን ያላት ትንሽ የሸክላ ማሰሮ አስቀመጡ። «የመጨረሻው እንቆቅልሽ። ውስጡ ምን አለ? ማየትም መንካትም የለም!» ጉጉ ፊቱን አጨፈገገ። እንዴት ሊያውቅ ይችላል?",
     },
     {
-      en: 'Gugu shook the pot by his ear. Rattle, rattle. "Something small and hard. Beans? Lentils?" Then he lifted the lid a crack and sniffed. Hot and spicy… "Berbere! It\'s red pepper powder!" "Two senses together," laughed Grandma. "Clever!"',
-      am: "ጉጉ ማሰሮውን በጆሮው አጠገብ ነቀነቀው። ኳ፣ ኳ። «ትንሽና ጠንካራ ነገር። ባቄላ? ምስር?» ከዚያ ክዳኑን ትንሽ ገልጦ አሸተተ። የሚያቃጥልና ቅመም ያለው… «በርበሬ! የበርበሬ ዱቄት ነው!» «ሁለት ስሜቶች አንድ ላይ» ብለው ሳቁ አያቴ። «ጎበዝ!»",
+      en: "Gugu shook the pot. Rattle, rattle. \"Something small and hard.\" He lifted the lid a crack and sniffed. Hot and spicy… \"Berbere!\" \"Two senses together. Clever!\"",
+      am: "ጉጉ ማሰሮውን ነቀነቀው። ኳ፣ ኳ። «ትንሽና ጠንካራ ነገር።» ክዳኑን ትንሽ ገልጦ አሸተተ። ቅመም… «በርበሬ!» «ሁለት ስሜቶች አንድ ላይ። ጎበዝ!»",
     },
     {
-      en: '"Why didn\'t you taste it?" asked Anbessa. "Because we only taste things a grown-up says are food," said Gugu. "And berbere on its own is HOT!" Look, listen, sniff, taste and touch!',
-      am: "«ለምን አልቀመስከውም?» ብሎ ጠየቀ አንበሳ። «ምክንያቱም ትልቅ ሰው ምግብ ነው ያለውን ብቻ ነው የምንቀምሰው» አለ ጉጉ። «በርበሬ ብቻውን ደግሞ ያቃጥላል!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
+      en: "\"Why didn't you taste it?\" asked Anbessa. \"We only taste what a grown-up says is food,\" said Gugu. \"And berbere is HOT!\" Look, listen, sniff, taste and touch!",
+      am: "«ለምን አልቀመስከውም?» አለ አንበሳ። «ትልቅ ሰው ምግብ ያለውን ብቻ ነው የምንቀምሰው» አለ ጉጉ። «በርበሬ ደግሞ ያቃጥላል!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
     },
     {
-      en: '"Animals use their senses too," said Lali. "I smell flowers with my feelers! And Hawi\'s big ears can hear a mole-rat digging under the grass." Anbessa wiggled his ears. Could he hear the coffee bubbling now?',
-      am: "«እንስሳትም ስሜቶቻቸውን ይጠቀማሉ» አለች ላሊ። «እኔ አበቦችን በአንቴናዎቼ አሸታለሁ! የሀዊ ትልልቅ ጆሮዎች ደግሞ ከሣሩ ሥር የሚቆፍር ፍልፈል ይሰማሉ።» አንበሳ ጆሮዎቹን አንቀሳቀሰ። አሁን ቡናው ሲፈላ ይሰማው ይሆን?",
+      en: "\"Animals use their senses too,\" said Lali. \"I smell flowers with my feelers! And Hawi's big ears can hear a mole-rat digging under the grass.\"",
+      am: "«እንስሳትም ስሜቶቻቸውን ይጠቀማሉ» አለች ላሊ። «እኔ አበቦችን በአንቴናዎቼ አሸታለሁ! የሀዊ ትልልቅ ጆሮዎች ከሣሩ ሥር የሚቆፍር ፍልፈል ይሰማሉ።»",
     },
     {
-      en: 'Grandma untied the scarf. Anbessa blinked at the bright room, the steaming jebena and his smiling friends. "My eyes are great," he said, "but I have five helpers!" And they all sang, "Look, listen, sniff, taste and touch!"',
-      am: "አያቴ ሻሹን ፈቱለት። አንበሳ ብሩሁን ክፍል፣ የሚተነፍሰውን ጀበና፣ ፈገግ የሚሉትን ጓደኞቹንም እያየ ዓይኖቹን አርገበገበ። «ዓይኖቼ ድንቅ ናቸው» አለ፤ «ግን አምስት ረዳቶች አሉኝ!» ሁሉም አብረው ዘመሩ፦ «እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!»",
+      en: "Grandma untied the scarf. Anbessa blinked at the bright room and his smiling friends. \"My eyes are great, but I have five helpers!\" Look, listen, sniff, taste and touch!",
+      am: "አያቴ ሻሹን ፈቱ። አንበሳ ብሩሁን ክፍልና ጓደኞቹን አየ። «ዓይኖቼ ድንቅ ናቸው፤ ግን አምስት ረዳቶች አሉኝ!» እዩ፣ አዳምጡ፣ አሽትቱ፣ ቅመሱ፣ ዳስሱ!",
     },
   ],
   grownUps: {

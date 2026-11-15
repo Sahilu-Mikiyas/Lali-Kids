@@ -35,24 +35,24 @@ const story: Story = {
   teaches: { words: ["wood", "metal", "clay", "cloth", "plastic", "material", "waterproof"] },
   pages: [
     {
-      en: 'Grandma\'s little cabbage seedlings were drooping in the sun. "They\'re thirsty," she said, "but Gugu\'s papa has taken the jerrycan to the river. Can you two carry water from the tap in something from the house?"',
-      am: "የአያቴ ትንንሽ የጎመን ችግኞች በፀሐይ ተዝለፍልፈው ነበር። «ተጠምተዋል» አሉ፤ «የጉጉ አባት ግን ጀሪካኑን ወደ ወንዝ ወስዶታል። ሁለታችሁ ከቤት ባለ ነገር ከቧንቧው ውሃ ልታመጡ ትችላላችሁ?»",
+      en: "Grandma's cabbage seedlings were drooping. \"They're thirsty, but the jerrycan has gone to the river. Can you carry water from the tap in something from the house?\"",
+      am: "የአያቴ የጎመን ችግኞች ተዝለፍልፈው ነበር። «ተጠምተዋል፤ ጀሪካኑ ግን ወደ ወንዝ ሄዷል። ከቤት ባለ ነገር ከቧንቧው ውሃ ልታመጡ ትችላላችሁ?»",
     },
     {
       en: '"Easy!" said Anbessa. "Choose well," said Grandma. "Look at each thing and ask: what is it made of? What can it do?" What is it made of? What can it do?',
       am: "«ቀላል ነው!» አለ አንበሳ። «በደንብ ምረጡ» አሉ አያቴ። «እያንዳንዱን ነገር ተመልከቱና ጠይቁ፦ ከምን ተሠራ? ምን ይሠራል?» ከምን ተሠራ? ምን ይሠራል?",
     },
     {
-      en: 'Gugu grabbed Grandma\'s beautiful woven basket. "It\'s big and light!" He filled it at the tap… and the water poured straight out through all the little gaps. Splash, all over his feet!',
-      am: "ጉጉ የአያቴን ውብ የተሸመነ ቅርጫት አነሣ። «ትልቅና ቀላል ነው!» ከቧንቧው ሞላው… ውሃውም በትንንሾቹ ክፍተቶች ሁሉ ቀጥታ ፈሰሰ። ጭልፕ፣ በእግሮቹ ላይ ሁሉ!",
+      en: "Gugu grabbed Grandma's woven basket. \"It's big and light!\" He filled it at the tap… and the water poured out through all the gaps. Splash, over his feet!",
+      am: "ጉጉ የአያቴን የተሸመነ ቅርጫት አነሣ። «ትልቅና ቀላል ነው!» ከቧንቧው ሞላው… ውሃውም በክፍተቶቹ ሁሉ ፈሰሰ። ጭልፕ፣ በእግሮቹ ላይ!",
     },
     {
-      en: 'Anbessa folded Grandma\'s cotton netela into a bag. The water didn\'t pour out… but the cloth soaked it all up and dripped, drip, drip, drip. "Cloth drinks water," said Anbessa. "Good for drying, not for carrying!"',
-      am: "አንበሳ የአያቴን የጥጥ ነጠላ አጣጥፎ ከረጢት አደረገው። ውሃው አልፈሰሰም… ግን ጨርቁ ሁሉንም መጠጠው፤ ጠብ፣ ጠብ፣ ጠብ እያለም ያንጠባጥብ ጀመር። «ጨርቅ ውሃ ይጠጣል» አለ አንበሳ። «ለማድረቅ ጥሩ ነው፣ ለመሸከም አይደለም!»",
+      en: "Anbessa folded Grandma's cotton netela into a bag. The cloth soaked up the water and dripped, drip, drip. \"Cloth drinks water. Good for drying, not for carrying!\"",
+      am: "አንበሳ የአያቴን ነጠላ አጣጥፎ ከረጢት አደረገው። ጨርቁ ውሃውን መጠጠና ጠብ፣ ጠብ አለ። «ጨርቅ ውሃ ይጠጣል። ለማድረቅ ጥሩ ነው፣ ለመሸከም አይደለም!»",
     },
     {
-      en: "So they stopped guessing and started sorting. Wood: the stool, the spoon, the door. Metal: the cooking pot, the key, the sickle. Clay: the jebena and the water pot. Cloth: the netela and the gabi. Grass: the basket and the mesob. Plastic: the bucket and the cups.",
-      am: "ስለዚህ መገመቱን ትተው መለየት ጀመሩ። እንጨት፦ በርጩማው፣ ማንኪያው፣ በሩ። ብረት፦ የማብሰያ ድስቱ፣ ቁልፉ፣ ማጭዱ። ሸክላ፦ ጀበናውና የውሃ እንስራው። ጨርቅ፦ ነጠላውና ጋቢው። ሣር፦ ቅርጫቱና መሶቡ። ፕላስቲክ፦ ባልዲውና ኩባያዎቹ።",
+      en: "So they sorted things. Wood: the stool, the spoon. Metal: the pot, the key. Clay: the jebena. Cloth: the netela. Grass: the basket. Plastic: the bucket.",
+      am: "ስለዚህ ነገሮችን ለዩ። እንጨት፦ በርጩማ፣ ማንኪያ። ብረት፦ ድስት፣ ቁልፍ። ሸክላ፦ ጀበና። ጨርቅ፦ ነጠላ። ሣር፦ ቅርጫት። ፕላስቲክ፦ ባልዲ።",
     },
     {
       en: 'They tried the clay water pot. It held every drop! But it was heavy, and Gugu wobbled. "If I drop it, it will break." What is it made of? What can it do?',
@@ -63,24 +63,24 @@ const story: Story = {
       am: "የብረቱ ማብሰያ ድስትም ውሃውን ያዘ፤ አይሰበርምም። ግን ከባድ ነበር፤ በሞቃቱ ፀሐይ ደግሞ እጀታዎቹ ሞቁ። «ውይ!» አለ አንበሳ።",
     },
     {
-      en: 'Then they tried the plastic bucket. It held all the water, it was light enough to carry, and when Gugu bumped it on the step, it didn\'t break. "Waterproof, light and strong!" The seedlings drank and drank.',
-      am: "ከዚያ የፕላስቲኩን ባልዲ ሞከሩ። ውሃውን ሁሉ ያዘ፤ ለመሸከም ቀላል ነበር፤ ጉጉ በደረጃው ላይ ሲያጋጨውም አልተሰበረም። «ውሃ የማያሳልፍ፣ ቀላልና ጠንካራ!» ችግኞቹ ጠጡ፣ ጠጡ።",
+      en: "Then the plastic bucket. It held the water, it was light, and when Gugu bumped it, it didn't break. \"Waterproof, light and strong!\" The seedlings drank and drank.",
+      am: "ከዚያ የፕላስቲኩ ባልዲ። ውሃውን ያዘ፤ ቀላል ነበር፤ ጉጉ ሲያጋጨውም አልተሰበረም። «ውሃ የማያሳልፍ፣ ቀላልና ጠንካራ!» ችግኞቹ ጠጡ፣ ጠጡ።",
     },
     {
-      en: "Grandma was stirring hot stew. \"Why do you use the wooden spoon, not the metal one?\" asked Gugu. \"Feel,\" said Grandma. The metal spoon in the pot was hot at the top; the wooden spoon was not. \"Wood doesn't let the heat through so easily.\"",
-      am: "አያቴ ትኩስ ወጥ እያማሰሉ ነበር። «ለምን የብረቱን ሳይሆን የእንጨቱን ማንኪያ ይጠቀማሉ?» ብሎ ጠየቀ ጉጉ። «ንካው» አሉ አያቴ። በድስቱ ውስጥ ያለው የብረት ማንኪያ ጫፉ ሞቆ ነበር፤ የእንጨቱ ማንኪያ ግን አልሞቀም። «እንጨት ሙቀትን በቀላሉ አያሳልፍም።»",
+      en: "\"Why do you stir hot stew with a wooden spoon?\" asked Gugu. \"Feel,\" said Grandma. The metal spoon in the pot was hot; the wooden one was not.",
+      am: "«ትኩስ ወጥ በእንጨት ማንኪያ ለምን ያማስላሉ?» አለ ጉጉ። «ንካው» አሉ አያቴ። በድስቱ ያለው የብረት ማንኪያ ሞቆ ነበር፤ የእንጨቱ ግን አልሞቀም።",
     },
     {
-      en: 'Anbessa looked around the room with new eyes. Clay cups for hot coffee. The netela to keep warm. The basket for bread, because bread doesn\'t leak! "Every material is good at its own job." What is it made of? What can it do?',
-      am: "አንበሳ ክፍሉን በአዲስ ዓይን ተመለከተ። ለትኩስ ቡና የሸክላ ስኒዎች። ለማሞቅ ነጠላው። ቅርጫቱ ለዳቦ፣ ምክንያቱም ዳቦ አያፈስም! «እያንዳንዱ ቁስ በራሱ ሥራ ጎበዝ ነው።» ከምን ተሠራ? ምን ይሠራል?",
+      en: "Anbessa looked around. Clay cups for hot coffee. The netela to keep warm. The basket for bread, because bread doesn't leak! What is it made of? What can it do?",
+      am: "አንበሳ ዙሪያውን ተመለከተ። ለትኩስ ቡና የሸክላ ስኒ። ለማሞቅ ነጠላ። ለዳቦ ቅርጫት፤ ዳቦ አያፈስም! ከምን ተሠራ? ምን ይሠራል?",
     },
     {
-      en: '"Where do materials come from?" asked Gugu. "Wood comes from trees," said Grandma. "Cotton cloth from the cotton plant. Clay from the ground, and metal from rocks dug out of the ground. Plastic is made in factories."',
-      am: "«ቁሶች ከየት ይመጣሉ?» ብሎ ጠየቀ ጉጉ። «እንጨት ከዛፎች ይመጣል» አሉ አያቴ። «የጥጥ ጨርቅ ከጥጥ ተክል። ሸክላ ከመሬት፤ ብረት ደግሞ ከመሬት ከሚቆፈሩ ዐለቶች። ፕላስቲክ በፋብሪካ ይሠራል።»",
+      en: "\"Where do materials come from?\" \"Wood from trees,\" said Grandma. \"Cotton from the cotton plant. Clay from the ground, metal from rocks. Plastic is made in factories.\"",
+      am: "«ቁሶች ከየት ይመጣሉ?» «እንጨት ከዛፍ» አሉ አያቴ። «ጥጥ ከጥጥ ተክል። ሸክላ ከመሬት፣ ብረት ከዐለት። ፕላስቲክ በፋብሪካ ይሠራል።»",
     },
     {
-      en: 'Gugu\'s papa came home with the jerrycan and found the seedlings standing tall and the netela drying in the sun. "Who chose so well?" Anbessa and Gugu held up the plastic bucket and sang, "What is it made of? What can it do?"',
-      am: "የጉጉ አባት ጀሪካኑን ይዞ ወደ ቤት ሲመጣ ችግኞቹ ቀጥ ብለው ቆመው፣ ነጠላውም በፀሐይ ላይ ሲደርቅ አገኘ። «ይህን ያህል በደንብ የመረጠ ማን ነው?» አንበሳና ጉጉ የፕላስቲኩን ባልዲ ከፍ አድርገው ዘመሩ፦ «ከምን ተሠራ? ምን ይሠራል?»",
+      en: "Gugu's papa came home with the jerrycan. The seedlings stood tall. \"Who chose so well?\" Anbessa and Gugu held up the bucket: \"What is it made of? What can it do?\"",
+      am: "የጉጉ አባት ጀሪካኑን ይዞ መጣ። ችግኞቹ ቀጥ ብለው ቆመዋል። «ማን ነው በደንብ የመረጠው?» ልጆቹ ባልዲውን አነሡ፦ «ከምን ተሠራ? ምን ይሠራል?»",
     },
   ],
   grownUps: {
