@@ -1,0 +1,56 @@
+/* The Smell Detective (the-smell-detective.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Anbessa wobbling in the blindfold. */
+@keyframes ssd-wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+.ssd-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ssd-wobble 1.6s ease-in-out infinite;
+}
+
+/* Gugu pinching his nose, then letting go. */
+@keyframes ssd-pinch {
+  0%, 60% { opacity: 1; }
+  70%, 100% { opacity: 0; }
+}
+.ssd-pinch { animation: ssd-pinch 4s ease-in-out 0.6s both; }
+
+/* A message travelling from a sense to the brain. */
+@keyframes ssd-msg {
+  0% { transform: translate(0, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--mx, 0px), var(--my, 0px)); opacity: 0; }
+}
+.ssd-msg { animation: ssd-msg 1.5s ease-in var(--delay, 0s) infinite; }
+
+/* The brain glowing as the messages arrive. */
+@keyframes ssd-think {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.ssd-think {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ssd-think 1.5s ease-in-out infinite;
+}
+
+/* The pot rattling as Gugu shakes it. */
+@keyframes ssd-rattle {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(8deg); }
+}
+.ssd-rattle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ssd-rattle 0.3s ease-in-out infinite;
+}
+
+/* The mole-rat's mound heaving as it digs. */
+@keyframes ssd-dig {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.ssd-dig { animation: ssd-dig 0.7s ease-in-out infinite; }
