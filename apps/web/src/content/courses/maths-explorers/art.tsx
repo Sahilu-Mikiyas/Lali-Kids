@@ -15,8 +15,8 @@ import type { ArtProps } from "../types";
   and single things to count: camel, goat, mandarin, cup, ox-pair, tomato-pile, bajaj.
   Levels 4-6 (ART_456): ruler-<from>-<to>, scale-<left>-<right> (weights on each pan),
   jug-<litres>, money-<notes and coins>, clock-<h>-<m>, cal-<ringed day>, the solid and flat
-  shapes (cone, cylinder, sphere, cube, cuboid, tukul, triangle, square, circle),
-  butterfly-match/odd and tibeb-match/odd (symmetry), beads-<pattern> and bead-<colour>,
+  shapes (cone, cylinder, sphere, cube, cuboid, tukul, triangle),
+  butterfly-match/odd and tibeb-odd (symmetry), beads-<pattern> and bead-<colour>,
   tally-<n>, and bars (the fruit-vote bar chart).
 */
 
@@ -913,31 +913,6 @@ const TriangleArt = (p: ArtProps) => (
     />
   </Box>
 );
-const SquareArt = (p: ArtProps) => (
-  <Box {...p}>
-    <rect
-      x={12}
-      y={12}
-      width={40}
-      height={40}
-      fill="#7FC8C0"
-      stroke="#3A8A80"
-      strokeWidth={1.4}
-    />
-  </Box>
-);
-const CircleArt = (p: ArtProps) => (
-  <Box {...p}>
-    <circle
-      cx={32}
-      cy={32}
-      r={22}
-      fill="#F4E4C0"
-      stroke="#C9A06A"
-      strokeWidth={1.4}
-    />
-  </Box>
-);
 
 /* symmetry */
 const Wing = ({ c }: { c: string }) => (
@@ -1139,9 +1114,7 @@ const ART_456: Record<string, ComponentType<ArtProps>> = {
   "money-100": at(MoneyArt, { items: [100] }),
   "money-10-10-1-1-1": at(MoneyArt, { items: [10, 10, 1, 1, 1] }),
   "money-50-50": at(MoneyArt, { items: [50, 50] }),
-  "clock-3-0": at(ClockArt, { h: 3, m: 0 }),
   "clock-7-30": at(ClockArt, { h: 7, m: 30 }),
-  "clock-9-15": at(ClockArt, { h: 9, m: 15 }),
   "clock-8-0": at(ClockArt, { h: 8, m: 0 }),
   "clock-12-0": at(ClockArt, { h: 12, m: 0 }),
   "clock-4-45": at(ClockArt, { h: 4, m: 45 }),
@@ -1155,14 +1128,10 @@ const ART_456: Record<string, ComponentType<ArtProps>> = {
   cuboid: CuboidArt,
   tukul: TukulArt,
   triangle: TriangleArt,
-  square: SquareArt,
-  circle: CircleArt,
   "butterfly-match": at(ButterflyArt, { match: true }),
   "butterfly-odd": at(ButterflyArt, { match: false }),
-  "tibeb-match": at(TibebArt, { match: true }),
   "tibeb-odd": at(TibebArt, { match: false }),
   "beads-rw": at(BeadsArt, { colors: [RD, WH, RD, WH, RD, WH, RD] }),
-  "beads-rww": at(BeadsArt, { colors: [RD, WH, WH, RD, WH, WH, RD] }),
   "beads-ykk": at(BeadsArt, { colors: [YE, BK, BK, YE, BK, BK, YE, BK] }),
   "bead-red": at(BeadArt, { c: RD }),
   "bead-white": at(BeadArt, { c: WH }),
@@ -1170,7 +1139,6 @@ const ART_456: Record<string, ComponentType<ArtProps>> = {
   "bead-black": at(BeadArt, { c: BK }),
   "tally-7": at(TallyArt, { n: 7 }),
   "tally-12": at(TallyArt, { n: 12 }),
-  "tally-8": at(TallyArt, { n: 8 }),
   bars: BarsArt,
 };
 
