@@ -729,14 +729,14 @@ const l5Quiz: Question[] = [
     pic: { art: "volcano" },
     options: [{ label: { en: "Ice", am: "በረዶ" } }, { label: { en: "Hot, melted rock called lava", am: "ቀልጦ የሚፈስ ትኩስ ድንጋይ" } }, { label: { en: "Clean drinking water", am: "ንጹሕ የመጠጥ ውሃ" } }],
     answer: 1,
-    explain: { en: "Deep under the ground it is so hot that rock melts. At a volcano it comes up as glowing lava.", am: "ከመሬት በታች በጥልቀት ድንጋይ እስኪቀልጥ ድረስ በጣም ይሞቃል። በእሳተ ገሞራ በኩል የሚያበራ ቀልጦ የሚፈስ ድንጋይ ሆኖ ይወጣል።" },
+    explain: { en: "Deep under the ground it is so hot that rock melts. At a volcano it comes up as glowing lava.", am: "ከመሬት በታች በጥልቀት ድንጋይ እስኪቀልጥ ድረስ በጣም ይሞቃል። በእሳተ ገሞራ በኩል የሚያበራ ቀልጦ የሚፈስ ዐለት ሆኖ ይወጣል።" },
   },
   {
     kind: "truefalse",
     prompt: { en: "When lava cools down, it turns into hard rock.", am: "የቀለጠው ድንጋይ ሲቀዘቅዝ ጠንካራ ድንጋይ ይሆናል።" },
     pic: { art: "basalt" },
     answer: true,
-    explain: { en: "Yes. Cooled lava becomes dark rock, like basalt. Over hundreds of years, rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ድንጋይ እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል። በመቶዎች ዓመታት ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
+    explain: { en: "Yes. Cooled lava becomes dark rock, like basalt. Over hundreds of years, rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ዐለት እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል። በመቶዎች ዓመታት ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
   },
   {
     kind: "choice",
@@ -862,9 +862,9 @@ const l6Quiz: Question[] = [
     kind: "choice",
     prompt: { en: "Gugu stretches a rubber band tighter. Its note goes…", am: "ጉጉ የላስቲክ ማሰሪያውን አጠበቀው። ድምፁ…" },
     pic: { art: "box-krar" },
-    options: [{ label: { en: "Lower", am: "ዝቅ ይላል" } }, { label: { en: "Higher", am: "ከፍ ይላል" } }],
+    options: [{ label: { en: "Lower", am: "ይወፍራል" } }, { label: { en: "Higher", am: "ይቀጥናል" } }],
     answer: 1,
-    explain: { en: "Tight strings sing high; loose strings sing low. Short strings sing higher than long ones.", am: "የጠበቀ ክር ከፍ ብሎ ይዘምራል፤ የላላ ክር ዝቅ ብሎ ይዘምራል። አጭር ክርም ከረጅም ይበልጥ ከፍ ይላል።" },
+    explain: { en: "Tight strings sing high; loose strings sing low. Short strings sing higher than long ones.", am: "የጠበቀ ክር ቀጭን ድምፅ ያሰማል፤ የላላ ክር ወፍራም ድምፅ ያሰማል። አጭር ክርም ከረጅም ይበልጥ ቀጭን ድምፅ ያሰማል።" },
   },
   {
     kind: "truefalse",
@@ -1021,10 +1021,10 @@ const finalTest: Question[] = [
   },
   {
     kind: "truefalse",
-    prompt: { en: "When lava from a volcano cools, it becomes hard rock.", am: "ከእሳተ ገሞራ የሚወጣ ቀልጦ የሚፈስ ድንጋይ ሲቀዘቅዝ ጠንካራ ድንጋይ ይሆናል።" },
+    prompt: { en: "When lava from a volcano cools, it becomes hard rock.", am: "ከእሳተ ገሞራ የሚወጣ ቀልጦ የሚፈስ ዐለት ሲቀዘቅዝ ጠንካራ ድንጋይ ይሆናል።" },
     pic: { art: "volcano" },
     answer: true,
-    explain: { en: "Yes. Cooled lava becomes dark rock like basalt, and over hundreds of years rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ድንጋይ እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል፤ በመቶዎች ዓመታትም ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
+    explain: { en: "Yes. Cooled lava becomes dark rock like basalt, and over hundreds of years rock can break down into soil.", am: "አዎ። የቀዘቀዘ ቀልጦ የሚፈስ ዐለት እንደ ባዝልት ያለ ጥቁር ድንጋይ ይሆናል፤ በመቶዎች ዓመታትም ድንጋይ ተሰባብሮ አፈር ሊሆን ይችላል።" },
   },
   // level 6
   {

@@ -9,7 +9,8 @@ import type { ComponentType } from "react";
   places, props and land copied from Our Ethiopia (./kit-cast.tsx, ./kit-places.tsx, ./kit-props.tsx,
   ./kit-more.tsx, ./kit-land.tsx, ./kit-crafts.tsx, ./kit-culture.tsx, ./kit.css, ./kit-land.css),
   and the science kits: living things (./kit-life.tsx), the body, senses and food (./kit-body.tsx),
-  and materials and changes (./kit-stuff.tsx), with moves in ./kit-science.css. Loaded in the
+  materials and changes (./kit-stuff.tsx), weather, Earth and sky (./kit-sky.tsx), and forces,
+  light, sound and our planet (./kit-forces.tsx), with moves in ./kit-science.css. Loaded in the
   browser only (ssr: false).
 */
 // Level 1: living things

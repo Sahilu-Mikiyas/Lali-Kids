@@ -1,6 +1,6 @@
 "use client";
 
-import { Fluffy, Vapour, WaterCycle } from "@/components/book/courses/science-nature/kit-sky";
+import { Fluffy, WaterCycle } from "@/components/book/courses/science-nature/kit-sky";
 import type { DemoProps } from "../../types";
 import { Order, type Step } from "./rounds-kit";
 
@@ -15,7 +15,7 @@ const STEPS: Step[] = [
     key: "rise",
     label: { en: "Water rises as vapour", am: "ውሃ እንፋሎት ሆኖ ይወጣል" },
     fact: { en: "The Sun warms the lake, and some water turns into vapour, a gas we can't see.", am: "ፀሐይ ሐይቁን ታሞቀዋለች፤ ጥቂት ውሃም ልናየው የማንችል ጋዝ፣ እንፋሎት ይሆናል።" },
-    pic: <Vapour x={22} y={38} n={2} s={0.8} />,
+    pic: <path d="M12 38 q-4 -6 0 -12 q4 -6 0 -12 M22 38 q-4 -6 0 -12 q4 -6 0 -12 M32 38 q-4 -6 0 -12 q4 -6 0 -12" stroke="#7FA8D0" strokeWidth={2.6} fill="none" strokeLinecap="round" />,
   },
   {
     key: "cloud",

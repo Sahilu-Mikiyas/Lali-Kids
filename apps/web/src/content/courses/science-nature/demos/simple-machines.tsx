@@ -96,7 +96,7 @@ export default function SimpleMachines({ lang, onDone }: DemoProps) {
       goal={{ en: "Which simple machine makes each job easier?", am: "እያንዳንዱን ሥራ የሚያቀልለው የትኛው ቀላል ማሽን ነው?" }}
       rounds={ROUNDS}
       hint={{ en: "Think of the village well: pulling down, pressing down, rolling up, or rolling along?", am: "የመንደሩን ጉድጓድ አስቡ፦ ወደ ታች መጎተት፣ ወደ ታች መጫን፣ ወደ ላይ ማንከባለል ወይስ ወደ ፊት ማንከባለል?" }}
-      finale={{ en: "A little help from a simple machine!", am: "ከቀላል ማሽን ትንሽ እገዛ!" }}
+      finale={{ en: "A little help from a simple machine!", am: "ከቀላል መሣሪያ ትንሽ እርዳታ!" }}
       end={ROUNDS[0].scene(true)}
       onDone={onDone}
     />
