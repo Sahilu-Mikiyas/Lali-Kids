@@ -1,0 +1,45 @@
+/* Our Star, the Sun (our-star-the-sun.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* A sun shrinking to a star-sized dot as it goes far away. */
+@keyframes sos-shrink {
+  0%, 15% { transform: scale(1); }
+  85%, 100% { transform: scale(0.06); }
+}
+.sos-shrink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sos-shrink 5s ease-in-out infinite alternate;
+}
+
+/* Grandpa's torch going far across the valley. */
+@keyframes sos-walk {
+  from { transform: translate(150px, 270px) scale(3); }
+  to { transform: translate(330px, 210px) scale(0.6); }
+}
+.sos-walk { animation: sos-walk 5s ease-in-out 0.4s both; }
+
+/* Sunbeams reaching the plants. */
+@keyframes sos-ray {
+  from { stroke-dashoffset: 28; }
+  to { stroke-dashoffset: 0; }
+}
+.sos-ray { animation: sos-ray 1s linear var(--delay, 0s) infinite; }
+
+/* A star twinkling. */
+@keyframes sos-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  30% { transform: scale(0.6) rotate(10deg); opacity: 0.5; }
+  60% { transform: scale(1.1) rotate(-6deg); opacity: 0.9; }
+}
+.sos-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sos-twinkle 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Walking up the hill, away from the town lights. */
+@keyframes sos-climb {
+  from { transform: translate(0, 50px); }
+  to { transform: translate(160px, -40px); }
+}
+.sos-climb { animation: sos-climb 5s ease-in-out 0.4s both; }

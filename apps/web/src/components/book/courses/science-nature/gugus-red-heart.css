@@ -6,8 +6,8 @@
   to { transform: rotate(360deg); }
 }
 .sgh-tick {
-  transform-box: view-box;
-  transform-origin: 0 0;
+  transform-box: fill-box;
+  transform-origin: center;
   animation: sgh-tick 6s steps(60) infinite;
 }
 

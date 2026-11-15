@@ -1,0 +1,45 @@
+/* The Mountain with Fire Inside (fire-mountain.tsx): transforms and opacity only. Shared moves are in kit.css, kit-land.css and kit-science.css. */
+
+/* Walking slowly up the volcano path (once). */
+@keyframes sfm-walk {
+  from { transform: translate(-60px, 10px); }
+  to { transform: translate(0, 0); }
+}
+.sfm-walk { animation: sfm-walk 4s ease-out 0.2s both; }
+
+/* Lava cooling: the dark crust spreading over it (once). */
+@keyframes sfm-cool {
+  from { opacity: 0; transform: scale(0.2); }
+  to { opacity: 1; transform: scale(1); }
+}
+.sfm-cool {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sfm-cool 4s ease-in 0.6s both;
+}
+
+/* The two sides of the rift drifting apart a little. */
+@keyframes sfm-apart {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--ax, -10px)); }
+}
+.sfm-apartL { animation: sfm-apart 3s ease-in-out infinite alternate; --ax: -10px; }
+.sfm-apartR { animation: sfm-apart 3s ease-in-out infinite alternate; --ax: 10px; }
+
+/* Shaking the soil jar. */
+@keyframes sfm-shake {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.sfm-shake {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sfm-shake 0.4s ease-in-out infinite;
+}
+
+/* Muddy water running down the slope. */
+@keyframes sfm-mud {
+  from { stroke-dashoffset: 44; }
+  to { stroke-dashoffset: 0; }
+}
+.sfm-mud { animation: sfm-mud 0.9s linear infinite; }

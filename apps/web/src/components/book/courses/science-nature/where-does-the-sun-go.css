@@ -1,0 +1,26 @@
+/* Where Does the Sun Go? (where-does-the-sun-go.tsx): transforms and opacity only. Shared moves are in kit.css and kit-science.css. */
+
+/* Day and night signs taking turns. */
+@keyframes sws-flip {
+  0%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
+.sws-dayflip { animation: sws-flip 4s ease-in-out infinite; }
+.sws-nightflip { animation: sws-flip 4s ease-in-out -2s infinite; }
+
+/* Trees seeming to slide past the bus window. */
+@keyframes sws-trees {
+  from { transform: translateX(0); }
+  to { transform: translateX(-240px); }
+}
+.sws-trees { animation: sws-trees 4s linear infinite; }
+
+/* The Sun crossing the sky from east to west. */
+@keyframes sws-arc {
+  0% { transform: translate(40px, 230px); }
+  25% { transform: translate(110px, 110px); }
+  50% { transform: translate(200px, 76px); }
+  75% { transform: translate(290px, 110px); }
+  100% { transform: translate(360px, 230px); }
+}
+.sws-arc { animation: sws-arc 8s ease-in-out infinite; }
