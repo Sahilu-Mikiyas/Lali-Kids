@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Shapes in the Village", am: "በመንደሩ ያሉ ቅርጾች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#C9A06A",
   scene: "lib-shapes-of-home",
   coverPage: 1,

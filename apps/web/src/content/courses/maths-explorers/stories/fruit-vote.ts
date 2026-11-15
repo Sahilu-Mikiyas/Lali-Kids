@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "The Fruit Vote", am: "የፍራፍሬ ምርጫ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#F5B21E",
   scene: "lib-fruit-vote",
   coverPage: 6,

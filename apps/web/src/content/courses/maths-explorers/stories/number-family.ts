@@ -18,7 +18,7 @@ const story: Story = {
   title: { en: "Ayan's Number Family", am: "የአያን የቁጥር ቤተሰብ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#C98A4E",
   scene: "lib-number-family",
   coverPage: 5,

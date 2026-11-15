@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Piles of Five", am: "አምስት አምስት ክምር" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#E2463F",
   scene: "lib-market-piles",
   coverPage: 5,

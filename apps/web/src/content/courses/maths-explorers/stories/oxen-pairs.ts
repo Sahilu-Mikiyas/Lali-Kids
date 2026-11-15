@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Two by Two to the Field", am: "ሁለት ሁለት ሆነው ወደ እርሻ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#7A5A3A",
   scene: "lib-oxen-pairs",
   coverPage: 4,

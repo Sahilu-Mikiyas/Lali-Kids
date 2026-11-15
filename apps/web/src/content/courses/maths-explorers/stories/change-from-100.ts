@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Change from 100 Birr", am: "ከ100 ብር መልስ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#4E8A5A",
   scene: "lib-change-from-100",
   coverPage: 3,

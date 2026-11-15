@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "How Long Does It Take?", am: "ምን ያህል ጊዜ ይወስዳል?" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#7A3FA0",
   scene: "lib-how-long",
   coverPage: 5,

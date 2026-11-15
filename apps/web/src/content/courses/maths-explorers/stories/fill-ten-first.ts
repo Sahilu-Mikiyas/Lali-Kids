@@ -17,7 +17,7 @@ const story: Story = {
   title: { en: "Fill the Ten First", am: "መጀመሪያ አሥሩን ሙሉ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#E8813B",
   scene: "lib-fill-ten-first",
   coverPage: 3,

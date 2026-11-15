@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Grandpa Tolosa's Riddles", am: "የአባ ቶሎሳ እንቆቅልሾች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#C9622B",
   scene: "lib-tolosas-riddles",
   coverPage: 1,

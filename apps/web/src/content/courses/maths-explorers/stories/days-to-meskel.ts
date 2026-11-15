@@ -20,7 +20,7 @@ const story: Story = {
   title: { en: "Counting the Days to Meskel", am: "እስከ መስቀል ያሉትን ቀናት መቁጠር" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#E8813B",
   scene: "lib-days-to-meskel",
   coverPage: 7,

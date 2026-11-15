@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Equal Pieces, Please!", am: "እባካችሁ እኩል ቁረጡ!" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#D9964A",
   scene: "lib-equal-pieces",
   coverPage: 3,

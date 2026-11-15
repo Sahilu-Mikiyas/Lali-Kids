@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "One Left Over", am: "አንድ ተረፈ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: true,
+  isFree: false,
   color: "#F5961E",
   scene: "lib-one-left-over",
   coverPage: 3,
