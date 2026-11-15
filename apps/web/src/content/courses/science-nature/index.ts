@@ -1065,7 +1065,7 @@ const course: Course = {
   ages: ["6-7", "8-9"],
   color: "#7C3AED",
   priceEtb: 1500,
-  status: "soon",
+  status: "live",
   tasterStoryId: "three-bean-jars",
   levels: [
     {

@@ -33,7 +33,7 @@ sessions a week. Content format: `apps/web/src/content/courses/types.ts`.
 | 6 | English Readers (`english-readers`) | 6–9 | Being written |
 | 7 | Values & Character (`values-character`) | 3–9 | **Live** (6 levels) |
 | 8 | Our Ethiopia (`our-ethiopia`) | 5–9 | **Live** (6 levels) |
-| 9 | Science & Nature (`science-nature`) | 5–9 | Coming soon |
+| 9 | Science & Nature (`science-nature`) | 5–9 | **Live** (6 levels) |
 | 10 | Healthy & Safe (`healthy-safe`) | 3–7 | Coming soon |
 
 The six Fidel stories become the first levels of Fidel Foundations and the six Numbers stories the
