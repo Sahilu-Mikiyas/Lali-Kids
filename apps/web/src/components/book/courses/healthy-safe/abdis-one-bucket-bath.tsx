@@ -9,7 +9,7 @@ import { Camel, TAP } from "./kit-cast";
 import { LemonPlant } from "./kit-more";
 import { Bubbles, Bucket, Drops, Foam, Glint, SoapBar, Towel } from "./kit-health";
 import { Yard } from "./kit-places";
-import { Hearts, Jerrycan, Sparkles, Speech } from "./kit-props";
+import { Hearts, Jerrycan, Sparkles } from "./kit-props";
 
 /*
   "Abdi's One-Bucket Bath": one living picture per page (12 pages), in Ayan's dry, sunny home

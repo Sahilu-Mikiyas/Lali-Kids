@@ -1,0 +1,58 @@
+/* My Body Belongs to Me (my-body-belongs-to-me.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* Auntie bending down for a kiss. */
+@keyframes my-body-belongs-to-me-lean {
+  0%, 20% { transform: rotate(0deg); }
+  50%, 100% { transform: rotate(6deg); }
+}
+.my-body-belongs-to-me-lean {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: my-body-belongs-to-me-lean 2.4s ease-in-out 0.4s both;
+}
+
+/* The high five: a star that pops and spins. */
+@keyframes my-body-belongs-to-me-five {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  40% { transform: scale(1.4) rotate(30deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.my-body-belongs-to-me-five {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: my-body-belongs-to-me-five 0.9s ease-out 0.6s both;
+}
+
+/* A dotted ring round "me", slowly turning. */
+@keyframes my-body-belongs-to-me-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.my-body-belongs-to-me-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: my-body-belongs-to-me-ring 12s linear infinite;
+}
+
+/* Giggling. */
+@keyframes my-body-belongs-to-me-giggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+.my-body-belongs-to-me-giggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: my-body-belongs-to-me-giggle 0.5s ease-in-out 4;
+}
+
+/* Standing tall and strong. */
+@keyframes my-body-belongs-to-me-strong {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+.my-body-belongs-to-me-strong {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: my-body-belongs-to-me-strong 1.4s ease-in-out infinite;
+}

@@ -6,7 +6,7 @@ import type { Lang } from "@/content/stories";
 import { Choice, DemoFrame, Feedback, Finale, Next, sound, Stage, t, type T } from "./demo-kit";
 
 /*
-  A shared shape for the level 4 to 6 choice demos: a few rounds, each a moment in the picture
+  A shared shape for the choice demos (copied from Values & Character): a few rounds, each a moment in the picture
   and two to four answers. A good answer plays out in the picture and is praised; an answer that
   doesn't fit is explained kindly, and the child tries again (that answer stays marked). After the
   last round there can be an extra step (`ending`) before the finale.

@@ -21,6 +21,11 @@ const TsehaysRainbowPlate = dynamic(() => import("./tsehays-rainbow-plate"), { s
 const AyansRunningBreakfast = dynamic(() => import("./ayans-running-breakfast"), { ssr: false });
 const WaterForTheTeam = dynamic(() => import("./water-for-the-team"), { ssr: false });
 const HabensSleepyMoon = dynamic(() => import("./habens-sleepy-moon"), { ssr: false });
+// Level 3: my feelings, and my body belongs to me
+const GugusTummyButterflies = dynamic(() => import("./gugus-tummy-butterflies"), { ssr: false });
+const HawisHelpingHand = dynamic(() => import("./hawis-helping-hand"), { ssr: false });
+const MyBodyBelongsToMe = dynamic(() => import("./my-body-belongs-to-me"), { ssr: false });
+const SurpriseOrSecret = dynamic(() => import("./surprise-or-secret"), { ssr: false });
 
 /** Animated scenes for this course's stories, by story id. Use dynamic(() => import("./<id>"), { ssr: false }). */
 export const SCENES: Record<string, ComponentType<{ page: number }>> = {
@@ -33,4 +38,8 @@ export const SCENES: Record<string, ComponentType<{ page: number }>> = {
   "ayans-running-breakfast": AyansRunningBreakfast,
   "water-for-the-team": WaterForTheTeam,
   "habens-sleepy-moon": HabensSleepyMoon,
+  "gugus-tummy-butterflies": GugusTummyButterflies,
+  "hawis-helping-hand": HawisHelpingHand,
+  "my-body-belongs-to-me": MyBodyBelongsToMe,
+  "surprise-or-secret": SurpriseOrSecret,
 };

@@ -9,7 +9,8 @@ import { playTapSound } from "@/lib/tap-sound";
 import type { Lang } from "@/content/stories";
 
 /*
-  The shared frame for the Values & Character demos: a title and goal, progress dots, a 4:3
+  The shared frame for the Healthy & Safe demos (copied from Values & Character, courses do not
+  import each other): a title and goal, progress dots, a 4:3
   picture (an SVG stage, 400 × 300 like the storybook scenes) and big buttons underneath. Words
   are in both languages; the pictures never hold words. Everything fits a 390-wide phone: the
   stage scales to the width, the buttons wrap, and nothing scrolls sideways.
@@ -21,7 +22,7 @@ export type T = Record<Lang, string>;
 export const t = (lang: Lang, s: T) => s[lang];
 
 /** The frame round a demo: heading, goal, progress dots. */
-export function DemoFrame({ lang, title, goal, step, total, color = "#D63B72", children }: { lang: Lang; title: T; goal: T; step: number; total: number; color?: string; children: ReactNode }) {
+export function DemoFrame({ lang, title, goal, step, total, color = "#EA580C", children }: { lang: Lang; title: T; goal: T; step: number; total: number; color?: string; children: ReactNode }) {
   return (
     <div className="mx-auto w-full max-w-2xl px-4 py-5 sm:px-6" lang={lang}>
       <div className="mb-3 flex items-start justify-between gap-3">
@@ -99,7 +100,7 @@ export function Feedback({ tone, children, action }: { tone: "great" | "gentle";
 }
 
 /** A chunky "next" style button. */
-export function Next({ children, onClick, color = "#D63B72" }: { children: ReactNode; onClick: () => void; color?: string }) {
+export function Next({ children, onClick, color = "#EA580C" }: { children: ReactNode; onClick: () => void; color?: string }) {
   return (
     <button
       type="button"
@@ -130,7 +131,7 @@ export function HeartIcon({ size = 24 }: { size?: number }) {
 }
 
 /** The happy ending: stars, confetti, a line of praise, and the button that finishes the demo. */
-export function Finale({ lang, text, stars = 3, onDone, color = "#D63B72", children }: { lang: Lang; text: T; stars?: number; onDone: () => void; color?: string; children?: ReactNode }) {
+export function Finale({ lang, text, stars = 3, onDone, color = "#EA580C", children }: { lang: Lang; text: T; stars?: number; onDone: () => void; color?: string; children?: ReactNode }) {
   useEffect(() => {
     playTapSound("chime");
     confetti(0.4);
