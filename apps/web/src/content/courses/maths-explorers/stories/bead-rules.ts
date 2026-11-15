@@ -18,7 +18,7 @@ const story: Story = {
   title: { en: "Hawi's Bead Rule", am: "የሀዊ የዶቃ ሕግ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E2463F",
   scene: "lib-bead-rules",
   coverPage: 2,

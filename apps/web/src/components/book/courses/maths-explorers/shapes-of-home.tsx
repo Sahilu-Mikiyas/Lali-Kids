@@ -170,8 +170,8 @@ export default function ShapesOfHome({ page }: { page: number }) {
     case 8:
       return (
         <Outside id={id}>
-          <Cuboid x={200} y={220} s={2.2} color="#B5643A" />
-          <Label x={200} y={260} text="6" size={26} color="#E8513B" delay={1.4} />
+          <Cuboid x={200} y={262} s={2.2} color="#B5643A" />
+          <Label x={200} y={150} text="6" size={30} color="#E8513B" delay={1.4} />
           <Place x={70} y={300} s={0.36} tap={TAP.grandma}>
             <Grandma arm="hold" />
           </Place>

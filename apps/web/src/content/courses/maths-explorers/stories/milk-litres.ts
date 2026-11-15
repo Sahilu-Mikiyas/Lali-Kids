@@ -17,7 +17,7 @@ const story: Story = {
   title: { en: "Litres of Milk", am: "የወተት ሊትሮች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#5BB8E8",
   scene: "lib-milk-litres",
   coverPage: 2,

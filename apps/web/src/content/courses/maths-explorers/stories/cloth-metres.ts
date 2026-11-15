@@ -18,7 +18,7 @@ const story: Story = {
   title: { en: "Metres of Cloth", am: "የጨርቅ ሜትሮች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#2E9A5A",
   scene: "lib-cloth-metres",
   coverPage: 4,

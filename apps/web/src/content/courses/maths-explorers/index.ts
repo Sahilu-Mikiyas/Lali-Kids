@@ -859,17 +859,17 @@ const L4_PRACTICE: Question[] = [
   {
     kind: "order",
     prompt: t(
-      "Put the pencils in order, shortest first.",
-      "እርሳሶቹን ከአጭሩ ጀምራችሁ አስቀምጡ።",
+      "Put them in order, shortest first.",
+      "ከአጭሩ ጀምራችሁ በቅደም ተከተል አስቀምጡ።",
     ),
     items: [
-      { pic: { art: "ruler-2-7" } },
-      { pic: { art: "ruler-0-6" } },
-      { pic: { art: "ruler-0-8" } },
+      { label: t("a bead: 1 cm", "ዶቃ፦ 1 ሳ.ሜ") },
+      { label: t("a pencil: 15 cm", "እርሳስ፦ 15 ሳ.ሜ") },
+      { label: t("cloth for a dress: 3 m", "ለቀሚስ የሚሆን ጨርቅ፦ 3 ሜትር") },
     ],
     explain: t(
-      "5 cm (from 2 to 7), then 6 cm, then 8 cm.",
-      "5 ሳ.ሜ (ከ2 እስከ 7)፣ ከዚያ 6 ሳ.ሜ፣ ከዚያ 8 ሳ.ሜ።",
+      "1 cm, then 15 cm. A metre is 100 centimetres, so 3 metres is much longer than the pencil.",
+      "1 ሳ.ሜ፣ ከዚያ 15 ሳ.ሜ። አንድ ሜትር 100 ሳንቲ ሜትር ነው፤ ስለዚህ 3 ሜትር ከእርሳሱ በጣም ይረዝማል።",
     ),
   },
 ];
@@ -1177,25 +1177,18 @@ const L5_QUIZ: Question[] = [
     explain: t("Fifty and fifty is one hundred.", "ሃምሳና ሃምሳ መቶ ነው።"),
   },
   {
-    kind: "match",
-    prompt: t("Match each clock to its time.", "እያንዳንዱን ሰዓት ከጊዜው ጋር አገናኙ።"),
-    pairs: [
-      {
-        left: { pic: { art: "clock-3-0" } },
-        right: { label: t("3 o'clock", "በሰዓቱ ላይ 3") },
-      },
-      {
-        left: { pic: { art: "clock-9-15" } },
-        right: { label: t("quarter past 9", "በሰዓቱ ላይ 9 ከሩብ") },
-      },
-      {
-        left: { pic: { art: "clock-4-45" } },
-        right: { label: t("quarter to 5", "በሰዓቱ ላይ ለ5 ሩብ ጉዳይ") },
-      },
+    kind: "choice",
+    prompt: t("What time does the clock show?", "ሰዓቱ ስንት ያሳያል?"),
+    pic: { art: "clock-4-45" },
+    options: [
+      { label: t("quarter past 4", "በሰዓቱ ላይ 4 ከሩብ") },
+      { label: t("quarter to 5", "በሰዓቱ ላይ ለ5 ሩብ ጉዳይ") },
+      { label: t("half past 4", "በሰዓቱ ላይ 4 ተኩል") },
     ],
+    answer: 1,
     explain: t(
-      "Long hand on 12: o'clock. On 3: quarter past. On 9: quarter to the next hour.",
-      "ረጅሙ ቀስት 12 ላይ፦ ሙሉ ሰዓት። 3 ላይ፦ ከሩብ። 9 ላይ፦ ለሚቀጥለው ሰዓት ሩብ ጉዳይ።",
+      "The long hand is on 9: three quarters of the way round, a quarter of an hour to go. The short hand is nearly at 5: quarter to 5.",
+      "ረጅሙ ቀስት 9 ላይ ነው፦ ዙሩን ሦስት አራተኛ ሄዷል፤ ሩብ ሰዓት ይቀራል። አጭሩ ቀስት 5 ሊደርስ ነው፦ ለ5 ሩብ ጉዳይ።",
     ),
   },
   {

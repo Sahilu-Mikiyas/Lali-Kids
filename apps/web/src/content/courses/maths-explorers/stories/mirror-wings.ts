@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "Mirror Wings", am: "የመስታወት ክንፎች" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#F5961E",
   scene: "lib-mirror-wings",
   coverPage: 1,

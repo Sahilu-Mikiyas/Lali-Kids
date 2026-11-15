@@ -19,7 +19,7 @@ const story: Story = {
   title: { en: "The Big Market Day", am: "ትልቁ የገበያ ቀን" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#E8513B",
   scene: "lib-big-market-day",
   coverPage: 4,

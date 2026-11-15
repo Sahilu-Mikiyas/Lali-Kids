@@ -676,11 +676,11 @@ const MoneyArt = ({ items, ...p }: ArtProps & { items: number[] }) => {
             stroke="#00000033"
             strokeWidth={0.6}
           />
-          <circle cx={9} cy={10} r={5} fill="#FFFFFF" opacity={0.3} />
+          <circle cx={32} cy={12} r={5} fill="#FFFFFF" opacity={0.3} />
           <text
-            x={28}
-            y={14}
-            fontSize={9}
+            x={13}
+            y={9}
+            fontSize={8}
             fontFamily={FONT}
             fontWeight={900}
             fill="#FFF6E2"

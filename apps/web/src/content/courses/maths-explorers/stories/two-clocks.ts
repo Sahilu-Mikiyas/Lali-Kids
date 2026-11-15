@@ -21,7 +21,7 @@ const story: Story = {
   title: { en: "Two Ways to Tell the Time", am: "ሰዓትን በሁለት መንገድ" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#3B4BB0",
   scene: "lib-two-clocks",
   coverPage: 3,

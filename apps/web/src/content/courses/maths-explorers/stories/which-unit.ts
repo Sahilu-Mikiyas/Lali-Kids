@@ -18,7 +18,7 @@ const story: Story = {
   title: { en: "Gugu Measures Everything", am: "ጉጉ ሁሉንም ይለካል" },
   category: "Maths",
   ageBands: ["6-7", "8-9"],
-  isFree: false,
+  isFree: true,
   color: "#6A9A3A",
   scene: "lib-which-unit",
   coverPage: 3,
