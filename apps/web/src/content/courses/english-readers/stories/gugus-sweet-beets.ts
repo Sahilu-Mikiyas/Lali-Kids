@@ -38,8 +38,8 @@ const story: Story = {
       am: 'አያቴ ለጉጉ ትንሽ የወረቀት እሽግ ሰጠችው። በላዩ ላይ የክብ ቀይ ሥር ሥዕል ነበረ። «b-ee-t… ቤት?» ብሎ አነበበ ጉጉ። «ሁለት e አብረው «ኢ» ይላሉ» አለች አያቴ፣ «እንደ ደስተኛ ጩኸት፦ ኢኢኢ! Beet። የቀይ ሥር ዘሮች!»',
     },
     {
-      en: '"Beets! For key sir!" Gugu loved key sir with potatoes. He planted three seeds in a pot, and put it in the deep shade of the fig tree, to keep them cool. "Grow, seeds, grow! Ee, ee, ee!"',
-      am: '«ቀይ ሥር! ለቀይ ሥር ወጥ!» ጉጉ ቀይ ሥርን ከድንች ጋር በጣም ይወድ ነበር። ሦስት ዘሮችን በማሰሮ ውስጥ ተከለ፤ በጣም እንዳይሞቃቸው በሾላው ዛፍ ጥቅጥቅ ጥላ ሥር አስቀመጣቸው። «Grow, seeds, grow! Ee, ee, ee!» (አድጉ፣ ዘሮች፣ አድጉ!)',
+      en: '"Beets! For key sir!" Gugu planted three seeds in a pot, and put it in the deep shade of the fig tree, to keep them cool. "Grow, seeds, grow! Ee, ee, ee!"',
+      am: '«ቀይ ሥር!» ጉጉ ሦስት ዘሮችን በማሰሮ ተከለ፤ እንዳይሞቃቸው በሾላው ዛፍ ጥላ ሥር አስቀመጣቸው። «Grow, seeds, grow! Ee, ee, ee!» (አድጉ፣ ዘሮች፣ አድጉ!)',
     },
     {
       en: 'One week went by. Gugu peeked into the pot every day. "I see… brown. Just brown." Not one green leaf. "Sleepy seeds," he grumbled.',
@@ -50,8 +50,8 @@ const story: Story = {
       am: 'ሁለት ሳምንት አለፈ። አሁንም ምንም የለም። ፀሐይ «ምናልባት ዘፈን ያስፈልጋቸው ይሆናል» አለች። ስለዚህ ጉጉ ጮክ ብሎና ረጅም ጊዜ ዘፈነላቸው። ምንም የለም። ጉጉ በጣም አዝኖ ከማሰሮው አጠገብ ተቀመጠ።',
     },
     {
-      en: 'Then he turned the packet over and read the little words on the back, slowly. "Beets… n-ee-d… need… sun." He looked up at the dark fig leaves. "Seeds need SUN! And mine are in the shade!"',
-      am: 'ከዚያ እሽጉን ገለበጠው። ከኋላው ጥቂት ትንንሽ ቃላት ነበሩ። ጉጉ በቀስታ አነበባቸው። «Beets… n-ee-d… need… sun.» (ቀይ ሥሮች ፀሐይ ያስፈልጋቸዋል።) ቀና ብሎ የሾላውን ጨለማ ቅጠሎች ተመለከተ። «ዘሮች ፀሐይ ያስፈልጋቸዋል! የኔዎቹ ደግሞ ጥቅጥቅ ጥላ ውስጥ ናቸው!»',
+      en: 'Then he turned the packet over and read the back, slowly. "Beets… n-ee-d… need… sun." He looked up. "And mine are in the shade!"',
+      am: 'ከዚያ እሽጉን ገለበጠና ከኋላው ያሉትን ቃላት በቀስታ አነበበ። «Beets… n-ee-d… need… sun.» (ፀሐይ ያስፈልጋቸዋል።) «የኔዎቹ ደግሞ ጥላ ውስጥ ናቸው!»',
     },
     {
       en: 'There was one more line. "K-ee-p… keep the soil wet." Gugu gulped. He had forgotten the water, too! Ee, ee, ee!',

@@ -31,51 +31,51 @@ const story: Story = {
   pages: [
     {
       en: "This is Dimmet. Dimmet is a gray cat. She lives with Anbessa and Grandma. Every day she sleeps on the step, in the sun.",
-      am: "This is Dimmet. Dimmet is a gray cat. She lives with Anbessa and Grandma. Every day she sleeps on the step, in the sun. (ይህች ዲሜት ናት። ዲሜት ግራጫ ድመት ናት። ከአንበሳና ከአያቴ ጋር ትኖራለች። በየቀኑ በደረጃው ላይ በፀሐይ ትተኛለች።)",
+      am: "This is Dimmet. Dimmet is a gray cat. She lives with Anbessa and Grandma. Every day she sleeps on the step, in the sun. (ዲሜት በደረጃው ላይ ትተኛለች።)",
     },
     {
       en: "But today the step is empty. Where is Dimmet? Anbessa looks in the yard. He looks up in the tree. She is not there.",
-      am: "But today the step is empty. Where is Dimmet? Anbessa looks in the yard. He looks up in the tree. She is not there. (ዛሬ ግን ደረጃው ባዶ ነው። ዲሜት የት ናት? አንበሳ ግቢውን ተመለከተ። ዛፉ ላይ ቀና ብሎ ተመለከተ። እዚያ የለችም።)",
+      am: "But today the step is empty. Where is Dimmet? Anbessa looks in the yard. He looks up in the tree. She is not there. (ዲሜት የለችም! የት ናት?)",
     },
     {
       en: "Anbessa asks Gugu, \"Who saw Dimmet?\" Gugu says, \"Not me. I saw a bird.\" Who? What? Where? Look for a clue!",
-      am: "Anbessa asks Gugu, \"Who saw Dimmet?\" Gugu says, \"Not me. I saw a bird.\" Who? What? Where? Look for a clue! (አንበሳ ጉጉን «ዲሜትን ማን አያት?» ብሎ ጠየቀው። ጉጉ «እኔ አይደለሁም። እኔ ያየሁት ወፍ ነው» አለ። ማን? ምን? የት? ፍንጭ ፈልግ!)",
+      am: "Anbessa asks Gugu, \"Who saw Dimmet?\" Gugu says, \"Not me. I saw a bird.\" Who? What? Where? Look for a clue! (ጉጉ አላያትም።)",
     },
     {
       en: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\"",
-      am: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\" (ሐበን ዲሜትን አየቻት፤ ትንሽ ግራጫ ነገር በአፏ ይዛ ነበር።)",
+      am: "Anbessa asks Haben, \"Did you see Dimmet?\" Haben says, \"Yes! She went into the house. She had something in her mouth.\" \"What was it?\" \"It was little and gray.\" (ሐበን አየቻት።)",
     },
     {
       en: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints!",
-      am: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints! (አንበሳ ፍንጭ ይፈልጋል፦ በዱቄቱ ውስጥ የእግር ዱካዎች!)",
+      am: "Now Anbessa is a cat detective. He looks for clues. What can he see? Grandma's flour is on the floor. And in the flour are little paw prints! (የእግር ዱካዎች!)",
     },
     {
       en: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue!",
-      am: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue! (የእግር ዱካዎቹ ወደ አያቴ አልጋ ይሄዳሉ።)",
+      am: "Where do the paw prints go? They go past the table. They go past the big pot. They go to Grandma's bed. Who? What? Where? Look for a clue! (ዱካዎቹ ወደ አልጋው ይሄዳሉ።)",
     },
     {
       en: "Anbessa looks under the bed. It is dark. He can't see. But he can hear something. \"Mew, mew, mew!\"",
-      am: "Anbessa looks under the bed. It is dark. He can't see. But he can hear something. \"Mew, mew, mew!\" (አንበሳ ከአልጋው ሥር ተመለከተ። ጨለማ ነው። ማየት አይችልም። ግን አንድ ነገር መስማት ይችላል። «ሚው፣ ሚው፣ ሚው!»)",
+      am: "Anbessa looks under the bed. It is dark. He can't see. But he can hear something. \"Mew, mew, mew!\" (ከአልጋው ሥር «ሚው»!)",
     },
     {
       en: "Who is under the bed? It is Dimmet! And she is not on her own.",
-      am: "Who is under the bed? It is Dimmet! And she is not on her own. (ከአልጋው ሥር ማን አለ? ዲሜት ናት! ብቻዋንም አይደለችም።)",
+      am: "Who is under the bed? It is Dimmet! And she is not on her own. (ዲሜት ናት!)",
     },
     {
       en: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth!",
-      am: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth! (ሦስት ግልገሎች! ግራጫ፣ ነጭ፣ ጥቁርና ነጭ።)",
+      am: "Dimmet has three little kittens! One is gray. One is white. One is black and white. The gray one is the little thing in Dimmet's mouth! (ሦስት ግልገሎች!)",
     },
     {
       en: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says.",
-      am: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says. (አያቴ ገባች። «ሽሽ! ዲሜት ግልገሎች ወልዳለች!»)",
+      am: "Grandma comes in. \"What is it, Anbessa?\" \"Shh, Grandma! Look under the bed. Dimmet has kittens!\" Grandma looks. \"Oh my!\" she says. (አያቴ ገባች። «ሽሽ!»)",
     },
     {
       en: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it!",
-      am: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it! (ቅርጫትና ለስላሳ ብርድ ልብስ፦ ሞቃት አልጋ!)",
+      am: "Grandma gets a big basket and a soft blanket. Now Dimmet and her kittens have a warm bed. Dimmet purrs. Anbessa smiles. The cat detective did it! (ሞቃት አልጋ!)",
     },
     {
-      en: "Who was missing? What did Anbessa see on the floor? Where was Dimmet? Who? What? Where? Can you give the kittens names, {name}?",
-      am: "Who was missing? What did Anbessa see on the floor? Where was Dimmet? (የጠፋው ማን ነበር? አንበሳ መሬቱ ላይ ምን አየ? ዲሜት የት ነበረች?) Who? What? Where? {name}፣ ለግልገሎቹ ስም ማውጣት ትችላላችሁ?",
+      en: "Who was missing? Where was she? What did Anbessa find? Can you name the kittens, {name}?",
+      am: "Who was missing? Where was she? What did Anbessa find? (ማን ጠፋ? የት ነበረች?) {name}፣ ለግልገሎቹ ስም አውጡ!",
     },
   ],
   grownUps: {

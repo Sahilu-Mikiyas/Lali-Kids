@@ -64,8 +64,8 @@ const story: Story = {
       am: 'አምስተኛው ማስታወሻ በጓሮው በር ላይ ነበር። «We have a surprise for you. Come here!» (ላንቺ ድንገተኛ ስጦታ አለን። ወደዚህ ነዪ!) ፀሐይ አንድ ጊዜም ሳታቆም ሁሉንም አነበበችው። «Have» «ሄቭ» የሚል ይመስላል፤ ግን «ሃቭ» ይላል። አታላይ!',
     },
     {
-      en: 'Round the back of the house… "SURPRISE!" There were Mama and Papa, baby Dawit, Grandma, Anbessa and all her friends. "Happy birthday, Tsehay!" There was a big round bread with a candle on top.',
-      am: 'ከቤቱ ጀርባ ስትዞር… «SURPRISE!» እማማና አባባ፣ ሕፃኑ ዳዊት፣ አያቴ፣ አንበሳና ጓደኞቿ ሁሉ ነበሩ። «Happy birthday, Tsehay!» (መልካም ልደት፣ ፀሐይ!) በላዩ ላይ ሻማ ያለበት ትልቅ ክብ ዳቦ ነበር።',
+      en: 'Round the back of the house… "SURPRISE!" There were Mama, Papa, baby Dawit, Grandma and her friends. "Happy birthday, Tsehay!" There was a big round bread with a candle.',
+      am: 'ከቤቱ ጀርባ ስትዞር… «SURPRISE!» እማማና አባባ፣ ሕፃኑ ዳዊት፣ አያቴ፣ አንበሳና ጓደኞቿ ሁሉ ነበሩ። «Happy birthday, Tsehay!» (መልካም ልደት፣ ፀሐይ!) ሻማ ያለበት ትልቅ ክብ ዳቦ ነበር።',
     },
     {
       en: '"Who wrote the notes?" asked Tsehay. "We did," said Mama. "We used the trickiest words we could find. We knew you could read them!"',

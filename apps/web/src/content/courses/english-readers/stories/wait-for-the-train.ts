@@ -35,8 +35,8 @@ const story: Story = {
       am: 'አያት ሀሊማ ከጅቡቲ በባቡር ወደ ቤት እየመጡ ነበር! ሁዮ፣ አያንና አብዲ ሊቀበሏቸው ወደ ድሬዳዋ ትልቁ ጣቢያ ሄዱ። «t-r-ai-n» ብላ አነበበች አያን ሰሌዳው ላይ። «a እና i አብረው «ኤይ» ይላሉ፤ እንደ a ስም። Train!» (ባቡር!)',
     },
     {
-      en: 'But under it, the board said: "The train is late. Please wait." "w-ai-t. Wait?" groaned Abdi. "I don\'t WANT to wait!" Wait, wait, wait for the train!',
-      am: 'ከሥሩ ግን ሰሌዳው እንዲህ ይል ነበር፦ «The train is late. Please wait.» (ባቡሩ ዘግይቷል። እባካችሁ ጠብቁ።) «w-ai-t። Wait?» ብሎ አቃሰተ አብዲ። «መጠበቅ አልፈልግም!» Wait, wait, wait for the train! (ጠብቅ፣ ጠብቅ፣ ባቡሩን ጠብቅ!)',
+      en: 'The board said: "The train is late. Please wait." "w-ai-t. Wait?" groaned Abdi. "I don\'t WANT to wait!" Wait, wait, wait for the train!',
+      am: 'ሰሌዳው «The train is late. Please wait.» (ባቡሩ ዘግይቷል። ጠብቁ።) ይላል። «Wait?» ብሎ አቃሰተ አብዲ። «መጠበቅ አልፈልግም!» Wait, wait, wait for the train!',
     },
     {
       en: 'Then the sky went dark. Pitter-patter, pitter-patter… "r-ai-n. RAIN!" They ran under the big station roof and sat on a bench. Wait, wait, wait for the train!',
@@ -55,8 +55,8 @@ const story: Story = {
       am: 'ይኸው፣ በእርጥቡ ግድግዳ ላይ፦ ቀንድ አውጣ፣ እጅግ በቀስታ ወደ ላይ እየወጣ። «s-n-ai-l፣ snail!» የአብዲ እንባ ጠፍቶ ነበር። «የኔ ተራ! አያለሁ… a pail!» (ባልዲ!) ከወንበሩ አጠገብ ባልዲ ቆሞ ነበር። «p-ai-l። Pail!»',
     },
     {
-      en: '"I spy… paint!" said Ayan. The station doors were painted bright yellow. "I spy… a nail!" said Abdi, and he found a nail on the bench. They were laughing now. Wait, wait, wait for the train!',
-      am: '«አያለሁ… paint!» (ቀለም!) አለች አያን። የጣቢያው በሮች ደማቅ ቢጫ ቀለም ተቀብተው ነበር። «አያለሁ… a nail!» (ሚስማር!) አለ አብዲ፤ በወንበሩ ላይ ሚስማር አገኘ። አሁን እየሳቁ ነበር። Wait, wait, wait for the train!',
+      en: '"I spy… paint!" said Ayan. The doors were bright yellow. "I spy… a nail!" said Abdi. They were laughing now. Wait, wait, wait for the train!',
+      am: '«አያለሁ… paint!» (ቀለም!) አለች አያን። በሮቹ ደማቅ ቢጫ ነበሩ። «አያለሁ… a nail!» (ሚስማር!) አለ አብዲ። አሁን እየሳቁ ነበር። Wait, wait, wait for the train!',
     },
     {
       en: 'Hooyo gave them paper and a pencil. Abdi drew a long train. Ayan drew the rain and the snail, and wrote at the top: "Grandma\'s train". Abdi read it again and again.',
