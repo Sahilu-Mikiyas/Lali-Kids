@@ -264,8 +264,8 @@ export function Tadpole({ x, y, s = 1, legs = 0, flip = false, swim = true, dela
     <g transform={`translate(${x} ${y}) scale(${flip ? -s : s} ${s})`}>
       <g className={swim ? "snk-swim" : undefined} style={vars({ "--delay": `${delay}s`, "--sx": "10px", "--dur": "4s" })}>
         <g transform="translate(-6 0)">
-          <g className="snk-wiggle" style={vars({ "--delay": `${delay}s` })}>
-            <path d={`M0 0 Q${-tail / 2} -4 ${-tail} 0 Q${-tail / 2} 4 0 0Z`} fill={legs === 4 ? "#4E7A3A" : "#3A3A2E"} transform="scale(-1 1) translate(0 0)" />
+          <g className="snk-wiggle" style={{ ...vars({ "--delay": `${delay}s` }), transformOrigin: "100% 50%" }}>
+            <path d={`M0 0 Q${-tail / 2} -4 ${-tail} 0 Q${-tail / 2} 4 0 0Z`} fill={legs === 4 ? "#4E7A3A" : "#3A3A2E"} />
           </g>
         </g>
         {legs >= 2 && <path d="M-6 3 l-4 5 l-3 0 M-4 3 l-1 6 l-3 1" stroke="#3A3A2E" strokeWidth={1.4} fill="none" strokeLinecap="round" />}

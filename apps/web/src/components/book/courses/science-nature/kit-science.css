@@ -233,7 +233,8 @@
   50% { transform: rotate(var(--deg, -70deg)); }
 }
 .snk-bend {
-  transform-box: view-box;
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
   animation: snk-bend var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
 }
 
