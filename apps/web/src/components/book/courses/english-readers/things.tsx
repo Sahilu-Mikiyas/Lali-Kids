@@ -1610,6 +1610,13 @@ export const THINGS: Record<string, () => ReactElement> = {
       ))}
     </g>
   ),
+  "red-ball": () => (
+    <g>
+      <circle r={30} fill="#E8413B" {...S} />
+      <path d="M-22 -8 Q0 10 22 -8" stroke="#FFFDF6" strokeWidth={4} fill="none" />
+      <circle cx={-12} cy={-14} r={5} fill="#FFFFFF" opacity={0.5} />
+    </g>
+  ),
   three: () => (
     <g>
       {[-24, 0, 24].map((x, i) => (

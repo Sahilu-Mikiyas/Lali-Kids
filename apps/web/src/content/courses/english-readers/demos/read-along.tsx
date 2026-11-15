@@ -19,7 +19,7 @@ const PAGES: Page[] = [
   {
     text: "Ayan has a big red ball.",
     am: "አያን ትልቅ ቀይ ኳስ አላት።",
-    pics: ["camel", "ball"],
+    pics: ["camel", "red-ball"],
     q: { en: "Who has the ball?", am: "Who has the ball? (ኳሱ ያላት ማን ናት?)" },
     options: [{ label: "Gugu" }, { label: "Ayan" }, { label: "Hawi" }],
     answer: 1,
@@ -27,7 +27,7 @@ const PAGES: Page[] = [
   {
     text: "She kicks it up, up, up!",
     am: "ወደ ላይ፣ ወደ ላይ፣ ወደ ላይ ትመታዋለች!",
-    pics: ["ball", "foot"],
+    pics: ["red-ball", "foot"],
     q: { en: "What color is the ball?", am: "What color is the ball? (ኳሱ ምን ዓይነት ቀለም ነው?)" },
     options: [{ label: "blue" }, { label: "green" }, { label: "red" }],
     answer: 2,
@@ -35,7 +35,7 @@ const PAGES: Page[] = [
   {
     text: "Oh no! The ball is in the tree.",
     am: "ወይኔ! ኳሱ ዛፉ ላይ ነው።",
-    pics: ["tree", "ball"],
+    pics: ["tree", "red-ball"],
     q: { en: "Where is the ball?", am: "Where is the ball? (ኳሱ የት ነው?)" },
     options: [
       { label: "in the box", pic: "box" },
@@ -47,7 +47,7 @@ const PAGES: Page[] = [
   {
     text: "Gugu climbs up and gets it. Ayan is happy!",
     am: "ጉጉ ወጥቶ አወረደው። አያን ተደሰተች!",
-    pics: ["monkey", "ball"],
+    pics: ["monkey", "red-ball"],
     q: { en: "Who gets the ball down?", am: "Who gets the ball down? (ኳሱን ያወረደው ማን ነው?)" },
     options: [{ label: "Gugu" }, { label: "Ayan" }, { label: "Lali" }],
     answer: 0,

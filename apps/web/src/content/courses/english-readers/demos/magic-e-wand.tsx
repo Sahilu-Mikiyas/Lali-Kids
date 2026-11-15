@@ -101,7 +101,7 @@ export default function MagicEWand({ lang, onDone }: DemoProps) {
 
       <div className="mt-3 flex min-h-[76px] items-center justify-center gap-1" lang="en" data-zapped={zapped ? "1" : "0"}>
         {w.from.split("").map((ch, k) => (
-          <motion.span key={k} animate={{ color: zapped && k === v ? GOLD : "#2A1A10", scale: zapped && k === v ? [1, 1.3, 1] : 1 }} transition={{ delay: 0.6 }} className="grid h-16 w-12 place-items-center rounded-xl bg-white text-4xl font-bold shadow-[0_3px_0_#00000018]" style={ANDIKA}>
+          <motion.span key={`${i}-${k}`} animate={{ color: zapped && k === v ? GOLD : "#2A1A10", scale: zapped && k === v ? [1, 1.3, 1] : 1 }} transition={{ delay: 0.6 }} className="grid h-16 w-12 place-items-center rounded-xl bg-white text-4xl font-bold shadow-[0_3px_0_#00000018]" style={ANDIKA}>
             {ch}
           </motion.span>
         ))}

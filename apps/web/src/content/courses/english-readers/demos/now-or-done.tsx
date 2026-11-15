@@ -105,17 +105,19 @@ export default function NowOrDone({ lang, onDone }: DemoProps) {
 
       <p className="mt-4 flex flex-wrap items-center justify-center gap-2 text-3xl font-bold" style={ANDIKA} lang="en">
         <span>{r.before}</span>
-        {hit ? (
-          <motion.span initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="rounded-xl px-2 text-white" style={{ background: color }}>
-            {right}
-          </motion.span>
-        ) : (
-          <span className="inline-block min-w-[110px] rounded-xl border-4 border-dashed px-2 text-center text-[#D8C8A8]" style={{ borderColor: "#E3D5C3" }}>
-            ?
-          </span>
-        )}
+        <span className="flex items-center">
+          {hit ? (
+            <motion.span initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="rounded-xl px-2 text-white" style={{ background: color }}>
+              {right}
+            </motion.span>
+          ) : (
+            <span className="inline-block min-w-[110px] rounded-xl border-4 border-dashed px-2 text-center text-[#D8C8A8]" style={{ borderColor: "#E3D5C3" }}>
+              ?
+            </span>
+          )}
+          {r.after === "." && <span>.</span>}
+        </span>
         {r.after !== "." && <span>{r.after}</span>}
-        {r.after === "." && <span>.</span>}
       </p>
 
       <div className="mt-4 grid grid-cols-2 gap-2" lang="en">
