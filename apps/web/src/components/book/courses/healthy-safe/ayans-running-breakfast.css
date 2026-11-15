@@ -1,0 +1,63 @@
+/* Ayan's Running Breakfast (ayans-running-breakfast.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The rumbling tummy lines shaking. */
+@keyframes ayans-running-breakfast-rumble {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  25% { transform: translateX(-3px); opacity: 1; }
+  75% { transform: translateX(3px); opacity: 1; }
+}
+.ayans-running-breakfast-rumble { animation: ayans-running-breakfast-rumble 0.4s linear infinite; }
+
+/* A dizzy wobble line above her head. */
+@keyframes ayans-running-breakfast-dizzy {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  50% { transform: translateX(-10px); opacity: 1; }
+}
+.ayans-running-breakfast-dizzy { animation: ayans-running-breakfast-dizzy 1.6s ease-in-out infinite; }
+
+/* Abdi giggling. */
+@keyframes ayans-running-breakfast-giggle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.ayans-running-breakfast-giggle { animation: ayans-running-breakfast-giggle 0.4s ease-in-out infinite; }
+
+/* The lamp: dim, then filled and bright. */
+@keyframes ayans-running-breakfast-lamp {
+  0%, 30% { opacity: 0.35; }
+  60%, 100% { opacity: 1; }
+}
+.ayans-running-breakfast-lamp { animation: ayans-running-breakfast-lamp 2.4s ease-in-out 0.4s both; }
+
+/* Abdi copying: a nod, bite for bite. */
+@keyframes ayans-running-breakfast-copy {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(4deg); }
+}
+.ayans-running-breakfast-copy {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ayans-running-breakfast-copy 0.9s ease-in-out infinite;
+}
+
+/* Ready on the line: a little crouch, again and again. */
+@keyframes ayans-running-breakfast-ready {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.95); }
+}
+.ayans-running-breakfast-ready {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: ayans-running-breakfast-ready 1s ease-in-out infinite;
+}
+
+/* The dust kicked up behind her. */
+@keyframes ayans-running-breakfast-dust {
+  0% { transform: translateX(0) scale(0.6); opacity: 0.8; }
+  100% { transform: translateX(-60px) scale(1.4); opacity: 0; }
+}
+.ayans-running-breakfast-dust {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ayans-running-breakfast-dust 1.4s ease-out infinite;
+}

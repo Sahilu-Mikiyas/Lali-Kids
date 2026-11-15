@@ -1,0 +1,37 @@
+/* Gugu's Tummy Butterflies (gugus-tummy-butterflies.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* A sad face sinking heavily. */
+@keyframes gugus-tummy-butterflies-heavy {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.gugus-tummy-butterflies-heavy { animation: gugus-tummy-butterflies-heavy 2.4s ease-in-out infinite; }
+
+/* A slow breath with the whole body. */
+@keyframes gugus-tummy-butterflies-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 1.03); }
+}
+.gugus-tummy-butterflies-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-tummy-butterflies-breathe 4s ease-in-out infinite;
+}
+
+/* Singing: swaying to the song. */
+@keyframes gugus-tummy-butterflies-sing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.gugus-tummy-butterflies-sing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-tummy-butterflies-sing 1.2s ease-in-out infinite;
+}
+
+/* The audience bobbing as they watch. */
+@keyframes gugus-tummy-butterflies-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.gugus-tummy-butterflies-bob { animation: gugus-tummy-butterflies-bob 1.4s ease-in-out infinite; }

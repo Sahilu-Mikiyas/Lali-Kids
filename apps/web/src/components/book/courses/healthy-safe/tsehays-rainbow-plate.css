@@ -1,0 +1,32 @@
+/* Tsehay's Rainbow Plate (tsehays-rainbow-plate.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The plate held up proudly, bobbing a little. */
+@keyframes tsehays-rainbow-plate-show {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.tsehays-rainbow-plate-show { animation: tsehays-rainbow-plate-show 2s ease-in-out infinite; }
+
+/* A rainbow arc that fades in over the plate. */
+@keyframes tsehays-rainbow-plate-arc {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+.tsehays-rainbow-plate-arc {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: tsehays-rainbow-plate-arc 1.6s ease-out 0.6s both;
+}
+
+/* Hopping along the hopscotch, up the squares. */
+@keyframes tsehays-rainbow-plate-hop {
+  0% { transform: translate(0, 30px); }
+  15% { transform: translate(0, 10px); }
+  25% { transform: translate(0, 14px); }
+  40% { transform: translate(0, -6px); }
+  50% { transform: translate(0, -2px); }
+  65% { transform: translate(0, -20px); }
+  75% { transform: translate(0, -16px); }
+  100% { transform: translate(0, 30px); }
+}
+.tsehays-rainbow-plate-hop { animation: tsehays-rainbow-plate-hop 3s ease-in-out infinite; }

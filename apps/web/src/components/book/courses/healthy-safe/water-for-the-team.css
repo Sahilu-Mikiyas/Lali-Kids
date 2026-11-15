@@ -1,0 +1,23 @@
+/* Water for the Team (water-for-the-team.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The fizzy drink put away for a special day. */
+@keyframes water-for-the-team-away {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(40px, 20px) scale(0.6); opacity: 0.2; }
+}
+.water-for-the-team-away {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: water-for-the-team-away 2s ease-in 1.6s both;
+}
+
+/* The friendly sun, gently pulsing. */
+@keyframes water-for-the-team-sun {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.water-for-the-team-sun {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: water-for-the-team-sun 3s ease-in-out infinite;
+}

@@ -1,0 +1,37 @@
+/* Haben's Sneezy Week (habens-sneezy-week.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The sneeze: a wind-up and a jolt into the elbow. */
+@keyframes habens-sneezy-week-sneeze {
+  0%, 30% { transform: rotate(0deg); }
+  45% { transform: rotate(-5deg); }
+  55% { transform: rotate(6deg); }
+  70%, 100% { transform: rotate(0deg); }
+}
+.habens-sneezy-week-sneeze {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: habens-sneezy-week-sneeze 2.4s ease-in-out infinite;
+}
+
+/* The blown kiss flies across the room. */
+@keyframes habens-sneezy-week-kiss {
+  0% { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  15% { opacity: 1; transform: translate(0, -6px) scale(1); }
+  100% { transform: translate(var(--kx, -120px), var(--ky, 0px)) scale(1.2); opacity: 1; }
+}
+.habens-sneezy-week-kiss { animation: habens-sneezy-week-kiss 2.4s ease-in-out 0.8s both; }
+
+/* The tissue drops into the bin. */
+@keyframes habens-sneezy-week-drop {
+  0% { transform: translateY(-20px); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+.habens-sneezy-week-drop { animation: habens-sneezy-week-drop 1.8s ease-in 0.4s infinite; }
+
+/* The kiss tucked safely into the pocket. */
+@keyframes habens-sneezy-week-pocket {
+  0% { transform: translate(40px, -60px) scale(1.2); opacity: 1; }
+  100% { transform: translate(0, 0) scale(0.8); opacity: 1; }
+}
+.habens-sneezy-week-pocket { animation: habens-sneezy-week-pocket 1.8s ease-in-out 0.6s both; }
