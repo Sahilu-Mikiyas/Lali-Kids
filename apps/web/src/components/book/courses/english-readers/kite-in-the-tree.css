@@ -1,0 +1,44 @@
+/* "The Kite in the Tree" (kite-in-the-tree.tsx): transforms and opacity only. */
+
+/* The stuck kite tugging in the branch. */
+@keyframes kte-stuck {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.kte-stuck {
+  transform-box: fill-box;
+  transform-origin: 50% 20%;
+  animation: kte-stuck 1.4s ease-in-out infinite;
+}
+
+/* Jumping and jumping. */
+@keyframes kte-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-30px); }
+}
+.kte-jump { animation: kte-jump 0.7s ease-in-out infinite; }
+
+/* Poking with the short stick. */
+@keyframes kte-poke {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(4px, -10px); }
+}
+.kte-poke { animation: kte-poke 0.5s ease-in-out infinite; }
+
+/* The tallest one, glowing in Gugu's thought. */
+@keyframes kte-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.kte-glow { animation: kte-glow 1s ease-in-out infinite; }
+
+/* Thinking hard: a slow head tilt. */
+@keyframes kte-think {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.kte-think {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: kte-think 2s ease-in-out infinite;
+}

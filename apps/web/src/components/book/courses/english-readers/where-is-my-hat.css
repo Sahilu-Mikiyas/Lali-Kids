@@ -1,0 +1,46 @@
+/* "Where Is My Hat?" (where-is-my-hat.tsx): transforms and opacity only. */
+
+/* The hat wobbling in the wind. */
+@keyframes wmh-wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(8deg) translateY(-2px); }
+}
+.wmh-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wmh-wobble 0.6s ease-in-out infinite;
+}
+
+/* Lali rising up, up, up. */
+@keyframes wmh-rise {
+  from { transform: translateY(80px); }
+  to { transform: translateY(-40px); }
+}
+.wmh-rise { animation: wmh-rise 3s ease-out 0.4s both; }
+
+/* Found it! A pulse round Haben's hat. */
+@keyframes wmh-found {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.wmh-found {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wmh-found 1s ease-in-out 1s infinite;
+}
+
+/* The goat munching the flower. */
+@keyframes wmh-munch {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(2px) rotate(2deg); }
+}
+.wmh-munch { animation: wmh-munch 0.35s ease-in-out infinite; }
+
+/* The goat running away (and back, and away). */
+@keyframes wmh-flee {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(14px, -6px); }
+  50% { transform: translate(28px, 0); }
+  75% { transform: translate(14px, -6px); }
+}
+.wmh-flee { animation: wmh-flee 1.2s ease-in-out infinite; }

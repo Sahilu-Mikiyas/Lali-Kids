@@ -1,0 +1,134 @@
+/* English Readers: moves for the new pieces in more.tsx and the stories' scenes.
+   Transforms and opacity only; the reduced-motion rule in globals.css stops all of it. */
+
+/* Lali's magic e flying in from the top right and landing with a bounce. */
+@keyframes enr-zap {
+  0% { transform: translate(60px, -60px) scale(0.4) rotate(-90deg); opacity: 0; }
+  60% { transform: translate(0, 0) scale(1.25) rotate(10deg); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+}
+.enr-zap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: enr-zap 1s cubic-bezier(0.3, 1.2, 0.5, 1) var(--delay, 0.6s) both;
+}
+
+/* A gust of wind blowing across. */
+@keyframes enr-gust {
+  0% { transform: translateX(-80px); opacity: 0; }
+  30%, 70% { opacity: 0.9; }
+  100% { transform: translateX(320px); opacity: 0; }
+}
+.enr-gust { animation: enr-gust 2.4s ease-in-out var(--delay, 0s) infinite; }
+
+/* Ripples flowing along the stream. */
+@keyframes enr-ripple-flow {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(20px); }
+}
+.enr-ripple-flow { animation: enr-ripple-flow 2.4s ease-in-out var(--delay, 0s) infinite alternate; }
+
+/* A little waterfall streaming down. */
+@keyframes enr-fall {
+  from { transform: translateY(-12px); }
+  to { transform: translateY(0); }
+}
+.enr-fall { animation: enr-fall 0.5s linear infinite; }
+
+/* A boat bobbing on the water. */
+@keyframes enr-bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-4px) rotate(3deg); }
+}
+.enr-bob {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: enr-bob var(--dur, 1.8s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Drifting slowly along, left to right, and back to the start. */
+@keyframes enr-drift-by {
+  from { transform: translateX(var(--from, -60px)); }
+  to { transform: translateX(var(--to, 60px)); }
+}
+.enr-drift-by { animation: enr-drift-by var(--dur, 8s) linear var(--delay, 0s) infinite; }
+
+/* Sinking: down and gone. */
+@keyframes enr-sink {
+  0%, 20% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(var(--sink, 34px)); opacity: 0; }
+}
+.enr-sink { animation: enr-sink var(--dur, 2.4s) ease-in var(--delay, 0.8s) both; }
+
+/* A frog's hop: up in an arc and down. */
+@keyframes enr-hop {
+  0%, 60%, 100% { transform: translate(0, 0); }
+  75% { transform: translate(var(--hx, 10px), -26px); }
+  90% { transform: translate(calc(var(--hx, 10px) * 1.4), 0); }
+}
+.enr-hop { animation: enr-hop var(--dur, 1.8s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Something blown away by the wind, up and off to the right. */
+@keyframes enr-blow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(var(--bx, 160px), var(--by, -110px)) rotate(var(--br, 300deg)); }
+}
+.enr-blow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: enr-blow var(--dur, 2.2s) cubic-bezier(0.4, 0, 0.6, 1) var(--delay, 0.6s) both;
+}
+
+/* A snail creeping, very slowly. */
+@keyframes enr-crawl {
+  from { transform: translate(0, 0); }
+  to { transform: translate(var(--cx, 0px), var(--cy, -40px)); }
+}
+.enr-crawl { animation: enr-crawl var(--dur, 14s) linear var(--delay, 0s) both; }
+
+/* The train sliding into the station from the right. */
+@keyframes enr-arrive {
+  from { transform: translateX(var(--ax, 420px)); }
+  to { transform: translateX(0); }
+}
+.enr-arrive { animation: enr-arrive var(--dur, 3s) cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay, 0.4s) both; }
+
+/* Running: a quick bounce. */
+@keyframes enr-run {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.enr-run { animation: enr-run var(--dur, 0.36s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Reaching up tall (a long neck, a stretch), and back. */
+@keyframes enr-stretch {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(var(--tall, 1.25)); }
+}
+.enr-stretch {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: enr-stretch var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A letter or word glowing to say "look at me". */
+@keyframes enr-hi {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14); }
+}
+.enr-hi {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: enr-hi 1.2s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Falling down and over (a stone boat, a stumble). */
+@keyframes enr-topple {
+  0%, 30% { transform: rotate(0deg); }
+  60%, 100% { transform: rotate(var(--rot, -70deg)); }
+}
+.enr-topple {
+  transform-box: fill-box;
+  transform-origin: 30% 100%;
+  animation: enr-topple var(--dur, 2.4s) ease-in var(--delay, 0.6s) both;
+}

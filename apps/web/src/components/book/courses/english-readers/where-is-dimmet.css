@@ -1,0 +1,56 @@
+/* "Where Is Dimmet?" (where-is-dimmet.tsx): transforms and opacity only. */
+
+/* A kitten's wobbly head. */
+@keyframes wid-wobble {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+.wid-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wid-wobble 1.6s ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Looking this way and that. */
+@keyframes wid-look {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(-1); }
+}
+.wid-look {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wid-look 2.4s steps(1) infinite;
+}
+
+/* Dimmet dashing into the house. */
+@keyframes wid-dash {
+  0% { transform: translateX(-120px); opacity: 1; }
+  80% { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+.wid-dash { animation: wid-dash 2.4s ease-in 0.6s infinite; }
+
+/* The cat detective sniffing along the floor. */
+@keyframes wid-sniff {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(4px) rotate(4deg); }
+}
+.wid-sniff {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wid-sniff 1s ease-in-out infinite;
+}
+
+/* Dimmet peeking out from under the bed. */
+@keyframes wid-peek {
+  0% { transform: translateX(-60px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.wid-peek { animation: wid-peek 1.4s ease-out 0.4s both; }
+
+/* A soft purr, fading in and out. */
+@keyframes wid-purr {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+.wid-purr { animation: wid-purr 1.6s ease-in-out infinite; }

@@ -1,0 +1,56 @@
+/* "Stop, Truck, Stop!" (stop-truck-stop.tsx): transforms and opacity only. */
+
+/* A sitting frog's throat going in and out. */
+@keyframes sts-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.04, 0.96); }
+}
+.sts-breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sts-breathe 1.6s ease-in-out infinite;
+}
+
+/* Ripples spreading on the pond. */
+@keyframes sts-ripple {
+  0% { transform: scale(0.3); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+.sts-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sts-ripple 1.8s ease-out var(--delay, 1s) infinite;
+}
+
+/* The frog peeping up out of the basket. */
+@keyframes sts-peep {
+  0%, 100% { transform: translateY(14px); }
+  40%, 80% { transform: translateY(0); }
+}
+.sts-peep { animation: sts-peep 3s ease-in-out infinite; }
+
+/* Water drops falling on the frog. */
+@keyframes sts-drip {
+  0% { transform: translateY(-10px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+.sts-drip { animation: sts-drip 0.9s ease-in var(--delay, 0s) infinite; }
+
+/* Goats ambling across the road. */
+@keyframes sts-cross {
+  0% { transform: translate(-30px, 0); }
+  50% { transform: translate(0, -3px); }
+  100% { transform: translate(30px, 0); }
+}
+.sts-cross { animation: sts-cross 3s ease-in-out var(--delay, 0s) infinite alternate; }
+
+/* The frog's big leap into the pond. */
+@keyframes sts-leap {
+  0%, 20% { transform: translate(0, 0); opacity: 1; }
+  50% { transform: translate(30px, -40px); }
+  80% { transform: translate(50px, 30px); opacity: 1; }
+  100% { transform: translate(50px, 40px); opacity: 0; }
+}
+.sts-leap { animation: sts-leap 2s ease-in-out 0.6s both; }

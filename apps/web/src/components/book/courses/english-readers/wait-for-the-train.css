@@ -1,0 +1,46 @@
+/* "Wait for the Train" (wait-for-the-train.tsx): transforms and opacity only. */
+
+/* Abdi stamping his feet. */
+@keyframes wft-stamp {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-3deg); }
+  75% { transform: translateY(-4px) rotate(3deg); }
+}
+.wft-stamp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wft-stamp 0.5s ease-in-out infinite;
+}
+
+/* Wriggling on the bench. */
+@keyframes wft-wriggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+.wft-wriggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: wft-wriggle 0.7s ease-in-out infinite;
+}
+
+/* A tear rolling down. */
+@keyframes wft-tear {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(16px); opacity: 0; }
+}
+.wft-tear { animation: wft-tear 1.4s ease-in 0.6s infinite; }
+
+/* Bouncing with fun. */
+@keyframes wft-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.wft-bounce { animation: wft-bounce 0.6s ease-in-out infinite; }
+
+/* Jumping up and down for the train. */
+@keyframes wft-jump {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+}
+.wft-jump { animation: wft-jump 0.7s ease-in-out infinite; }

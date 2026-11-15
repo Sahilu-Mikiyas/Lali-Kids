@@ -1,0 +1,41 @@
+/* "Three Sweet Beets" (gugus-sweet-beets.tsx): transforms and opacity only. */
+
+/* Water dripping from the jug. */
+@keyframes gsb-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(30px); opacity: 0; }
+}
+.gsb-drip { animation: gsb-drip 0.8s ease-in var(--delay, 0s) infinite; }
+
+/* Gugu's happy dance. */
+@keyframes gsb-dance {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(-6deg); }
+  75% { transform: translateY(-10px) rotate(6deg); }
+}
+.gsb-dance {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gsb-dance 0.9s ease-in-out infinite;
+}
+
+/* A beet popping up out of the soil. */
+@keyframes gsb-pop {
+  0% { transform: translateY(70px) scale(0.6); opacity: 0; }
+  50% { opacity: 1; }
+  70% { transform: translateY(-10px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.gsb-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gsb-pop 1s ease-out var(--delay, 0.4s) both;
+}
+
+/* Pink teeth flashing in a big smile. */
+@keyframes gsb-flash {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+.gsb-flash { animation: gsb-flash 0.8s ease-in-out infinite; }
