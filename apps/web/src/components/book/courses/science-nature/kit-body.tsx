@@ -312,7 +312,7 @@ export function Tooth({ kind, x = 0, y = 0, s = 1, wobble = false }: { kind: Too
 }
 
 /** An open smile showing the top teeth: front cutters, pointed tearers and wide grinders; `gap` leaves a space. */
-export function Smile({ x, y, s = 1, gap = -1, wobble = -1, newTooth = -1 }: { x: number; y: number; s?: number; gap?: number; wobble?: number; newTooth?: number }) {
+export function Smile({ x = 0, y = 0, s = 1, gap = -1, wobble = -1, newTooth = -1 }: { x?: number; y?: number; s?: number; gap?: number; wobble?: number; newTooth?: number }) {
   const row: ToothKind[] = ["molar", "canine", "incisor", "incisor", "incisor", "incisor", "canine", "molar"];
   const xs = [-52, -34, -20, -7, 6, 19, 33, 51];
   return (
