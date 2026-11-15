@@ -1,0 +1,152 @@
+/* Healthy and Safe course: moves for the health things in kit-health.tsx. Transforms and opacity only. */
+
+/* Soap bubbles drifting up and fading. */
+@keyframes hs-bubble {
+  0% { transform: translate(0, 6px) scale(0.2); opacity: 0; }
+  15% { opacity: 0.95; }
+  100% { transform: translate(var(--dx, 4px), var(--up, -40px)) scale(1); opacity: 0; }
+}
+.hs-bubble {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hs-bubble var(--dur, 2.6s) ease-out var(--delay, 0s) infinite;
+}
+
+/* A scrubbing rub, side to side. */
+@keyframes hs-rub {
+  0%, 100% { transform: translate(-5px, 1px) rotate(-4deg); }
+  50% { transform: translate(5px, -1px) rotate(4deg); }
+}
+.hs-rub {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hs-rub var(--dur, 0.5s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A rub that goes round in small circles. */
+@keyframes hs-circle {
+  0% { transform: translate(4px, 0); }
+  25% { transform: translate(0, 4px); }
+  50% { transform: translate(-4px, 0); }
+  75% { transform: translate(0, -4px); }
+  100% { transform: translate(4px, 0); }
+}
+.hs-circle { animation: hs-circle var(--dur, 0.6s) linear var(--delay, 0s) infinite; }
+
+/* A fly buzzing round a little loop. */
+@keyframes hs-buzz {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  20% { transform: translate(var(--bx, 14px), -8px) rotate(14deg); }
+  45% { transform: translate(calc(var(--bx, 14px) * 0.4), 6px) rotate(-10deg); }
+  70% { transform: translate(calc(var(--bx, 14px) * -0.8), -4px) rotate(8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.hs-buzz { animation: hs-buzz var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite; }
+
+/* Fly wings: a quick shimmer. */
+@keyframes hs-whirr {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.35; }
+}
+.hs-whirr { animation: hs-whirr 0.12s linear infinite; }
+
+/* Water drops falling and fading. */
+@keyframes hs-drip {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(var(--fall, 26px)); opacity: 0; }
+}
+.hs-drip { animation: hs-drip var(--dur, 1.2s) ease-in var(--delay, 0s) infinite; }
+
+/* Something sparkling clean: a glint that pulses. */
+@keyframes hs-glint {
+  0%, 60%, 100% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+  75% { transform: scale(1) rotate(45deg); opacity: 1; }
+}
+.hs-glint {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hs-glint var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* The candle flame flickers; blown, it leans away. */
+@keyframes hs-flame {
+  0%, 100% { transform: scale(1, 1) rotate(-3deg); }
+  50% { transform: scale(0.9, 1.1) rotate(3deg); }
+}
+.hs-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hs-flame 0.9s ease-in-out infinite;
+}
+
+/* A slow in-and-out breath (a ring, a tummy). */
+@keyframes hs-breath {
+  0%, 100% { transform: scale(0.75); opacity: 0.55; }
+  45%, 55% { transform: scale(1.25); opacity: 1; }
+}
+.hs-breath {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hs-breath var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Fluttering butterflies in a little cloud. */
+@keyframes hs-flutter {
+  0%, 100% { transform: translate(0, 0) scale(1, 1); }
+  25% { transform: translate(3px, -4px) scale(0.6, 1); }
+  50% { transform: translate(-2px, -2px) scale(1, 1); }
+  75% { transform: translate(-4px, 3px) scale(0.6, 1); }
+}
+.hs-flutter {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hs-flutter var(--dur, 0.7s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* Running fast across: a jog bounce. */
+@keyframes hs-jog {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.hs-jog { animation: hs-jog var(--dur, 0.36s) ease-in-out var(--delay, 0s) infinite; }
+
+/* A river's ripples sliding by. */
+@keyframes hs-flow {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--flow, -40px)); }
+}
+.hs-flow { animation: hs-flow var(--dur, 1.4s) linear infinite; }
+
+/* Wobbly, tired legs: a slow sway. */
+@keyframes hs-wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.hs-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: hs-wobble var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite;
+}
+
+/* A soft yellow highlight that pulses (where to scrub). */
+@keyframes hs-pulse-glow {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.75; }
+}
+.hs-pulse-glow { animation: hs-pulse-glow 1.4s ease-in-out infinite; }
+
+/* A hand held up like a wall: a little push. */
+@keyframes hs-push {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.hs-push { animation: hs-push 0.8s ease-in-out var(--delay, 0s) infinite; }
+
+/* A ball kicked across and back. */
+@keyframes hs-kick {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(var(--kx, 90px), -40px) rotate(360deg); }
+  100% { transform: translate(calc(var(--kx, 90px) * 2), 0) rotate(720deg); }
+}
+.hs-kick { animation: hs-kick var(--dur, 1.6s) ease-out var(--delay, 0.6s) both; }

@@ -1,0 +1,38 @@
+/* Gugu's Soapy Song (gugus-soapy-song.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The wobbly clay lion. */
+@keyframes gugus-soapy-song-wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.gugus-soapy-song-wobble {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-soapy-song-wobble 1.4s ease-in-out infinite;
+}
+
+/* Shake, shake: a too-quick wash. */
+@keyframes gugus-soapy-song-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.gugus-soapy-song-shake { animation: gugus-soapy-song-shake 0.35s ease-in-out 3; }
+
+/* Singing: a happy little sway. */
+@keyframes gugus-soapy-song-sing {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.gugus-soapy-song-sing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: gugus-soapy-song-sing 1.2s ease-in-out infinite;
+}
+
+/* The last bits of clay running away down the basin. */
+@keyframes gugus-soapy-song-run {
+  0% { transform: translate(0, 0); opacity: 1; }
+  100% { transform: translate(60px, 14px); opacity: 0; }
+}
+.gugus-soapy-song-run { animation: gugus-soapy-song-run 2.4s ease-in 0.8s infinite; }

@@ -1,0 +1,34 @@
+/* Shoo, Fly, Shoo! (shoo-fly-shoo.tsx): transforms and opacity only. Shared moves are in kit.css and kit-health.css. */
+
+/* The cow's head dipping to drink. */
+@keyframes shoo-fly-shoo-drink {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+.shoo-fly-shoo-drink { animation: shoo-fly-shoo-drink 2s ease-in-out infinite; }
+
+/* Hawi bending down to the stream. */
+@keyframes shoo-fly-shoo-bend {
+  0%, 20% { transform: rotate(0deg); }
+  60%, 100% { transform: rotate(14deg); }
+}
+.shoo-fly-shoo-bend {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: shoo-fly-shoo-bend 2.4s ease-in-out 0.4s both;
+}
+
+/* The last fly finds nothing and buzzes away out of the window. */
+@keyframes shoo-fly-shoo-away {
+  0% { transform: translate(-80px, 40px); opacity: 1; }
+  45% { transform: translate(-20px, 10px); opacity: 1; }
+  100% { transform: translate(140px, -120px); opacity: 0; }
+}
+.shoo-fly-shoo-away { animation: shoo-fly-shoo-away 4s ease-in-out 0.4s infinite; }
+
+/* Laughing. */
+@keyframes shoo-fly-shoo-laugh {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.shoo-fly-shoo-laugh { animation: shoo-fly-shoo-laugh 0.6s ease-in-out infinite; }
