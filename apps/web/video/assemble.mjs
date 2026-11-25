@@ -8,7 +8,7 @@
   audio dir: music.wav, sting.wav, chime.wav (video/music.py). narration dir: the clips named in
   the timeline (intro.mp3, page-00.mp3 …); a clip that isn't there is left out, with a warning.
 */
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -58,22 +58,36 @@ clips.forEach((c, k) => {
 });
 
 const pages = segments.filter((s) => s.chime);
-filters.push(`[${chime}:a]volume=0.5,asplit=${pages.length}${pages.map((_, k) => `[ch${k}]`).join("")}`);
+filters.push(`[${chime}:a]volume=0.3,afade=t=out:st=0.4:d=0.35,asplit=${pages.length}${pages.map((_, k) => `[ch${k}]`).join("")}`);
 pages.forEach((s, k) => filters.push(`[ch${k}]adelay=${ms(s.start + 0.15)}:all=1[chd${k}]`));
 filters.push(`${pages.map((_, k) => `[chd${k}]`).join("")}amix=inputs=${pages.length}:normalize=0[chimes]`);
-filters.push(`[${sting}:a]volume=0.7[st]`);
+filters.push(`[${sting}:a]volume=0.6[st]`);
 
 if (voiced) {
   filters.push(`${clips.map((_, k) => `[c${k}]`).join("")}amix=inputs=${clips.length}:normalize=0,apad,atrim=0:${total.toFixed(3)},asplit=2[voice][key]`);
-  // The music sits well under the voice and dips further while someone is speaking.
-  filters.push(`[${music}:a]volume=0.22,apad,atrim=0:${total.toFixed(3)}[bed]`);
-  filters.push(`[bed][key]sidechaincompress=threshold=0.03:ratio=5:attack=30:release=500[ducked]`);
+  // The voice always leads: the music sits well under it and dips further while someone is
+  // speaking, and the page chimes are short and fade out before the voice comes in.
+  filters.push(`[${music}:a]volume=0.13,apad,atrim=0:${total.toFixed(3)}[bed]`);
+  filters.push(`[bed][key]sidechaincompress=threshold=0.02:ratio=8:attack=20:release=600[ducked]`);
   filters.push(`[voice][ducked][chimes][st]amix=inputs=4:normalize=0[mix]`);
 } else {
   filters.push(`[${music}:a]volume=0.55,apad,atrim=0:${total.toFixed(3)}[bed]`);
   filters.push(`[bed][chimes][st]amix=inputs=3:normalize=0[mix]`);
 }
-filters.push(`[mix]loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[aout]`);
+// Loudness for YouTube (-14 LUFS) as one steady gain for the whole video (two passes, linear),
+// so the voice is never squashed or pumped by the levelling.
+const LOUD = "I=-14:TP=-1.5:LRA=20";
+const measure = spawnSync(
+  "ffmpeg",
+  [...args.map((x) => (x === "error" ? "info" : x)), "-filter_complex", [...filters, "[vout]nullsink", `[mix]loudnorm=${LOUD}:print_format=json[aout]`].join(";"), "-map", "[aout]", "-f", "null", "-"],
+  { encoding: "utf8", maxBuffer: 1 << 26 },
+);
+const json = /\{[^{}]*"input_i"[^{}]*\}/.exec(measure.stderr ?? "");
+if (!json) throw new Error(`loudness measurement failed: ${(measure.stderr ?? "").slice(-800)}`);
+const m = JSON.parse(json[0]);
+filters.push(
+  `[mix]loudnorm=${LOUD}:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true,aresample=48000[aout]`,
+);
 
 args.push(
   "-filter_complex", filters.join(";"),

@@ -17,6 +17,11 @@ The pilot is **The Biggest Injera** (`biggest-injera`).
 | Music | Original music made in code (krar-like strings, kebero-like drum, washint-like flute, the tizita scale in 6/8), plus the intro sting and page chime. Nothing for Content ID to match | `video/music.py` |
 | Assemble | Segments dissolve into each other; narrator, music ducking under the voice, chimes, loudness set for YouTube (-14 LUFS) | `video/assemble.mjs` |
 
+**The voice always leads the mix**: the voice plays at full YouTube loudness (about -14 LUFS),
+the music sits about 15 dB under it between pages and dips further while the narrator speaks, the
+page chime fades out before the voice comes in, and the final level is one steady gain (two-pass,
+linear), so nothing pumps or dims the voice.
+
 The stage page only exists when the server runs with `LALI_VIDEO_STAGE=1`. It never does on the
 live site, so it can't show paid stories to anyone.
 
@@ -52,8 +57,9 @@ any clip.
 - **Real narrators** are the plan, above all for Amharic: there is no good computer voice for
   Amharic, and the rule stands that an English voice never reads Amharic. The recordings made for
   the reader (Admin → narration) can be exported for this, one clip per page.
-- **The pilot's English voice** is a computer voice from vidIQ (ElevenLabs voice "Bella"). It is a
-  stand-in to judge the format; a warm human narrator will do better.
+- **The English voice** is a computer voice from vidIQ (ElevenLabs voice "Bella",
+  `hpp4J3VqNfWAUOO0d1Us`), chosen by the founder for the English channel. Send all of a story's
+  lines in one `scriptLines` job (one clip per line; about 28 credits per 1,000 characters).
 - **Without clips** a language becomes a read-along video: the words light up at a calm reading
   pace over the music.
 
