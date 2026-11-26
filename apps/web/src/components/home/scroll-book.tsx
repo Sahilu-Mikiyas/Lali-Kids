@@ -28,8 +28,8 @@ import { Scene } from "../scenes";
   Only the page on show and its neighbours are mounted; the rest of the work is transforms,
   opacity and the curl's clip paths, written straight to the DOM on each scroll frame.
 
-  Edge to edge: the scenes are drawn for 4:3 with what matters roughly in x 50..350 and y 60..300 (characters
-  sometimes stand nearer the edges, so x 30..370 is kept).
+  Edge to edge: the scenes are drawn for 4:3 with what matters roughly in x 50..350 and
+  y 60..300 (characters sometimes stand nearer the edges, so x 30..370 is kept).
   `frame` scales the picture as large as it can without losing that box, bottom-aligned, and
   where the screen is wider or taller than the picture, `Stretch` extends it with the picture's
   own outermost strip of pixels, stretched and softened (sky above on tall phones, the
