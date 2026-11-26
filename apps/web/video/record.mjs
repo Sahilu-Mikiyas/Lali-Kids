@@ -55,7 +55,8 @@ function encoder(file) {
 }
 
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+// Story videos are 1920x1080; the promo (video/promo-plan.mjs) says it is 1080x1920.
+const ctx = await browser.newContext({ viewport: { width: timeline.width ?? 1920, height: timeline.height ?? 1080 }, deviceScaleFactor: 1 });
 await ctx.addCookies([{ name: "lali-lang", value: lang, url: base }]);
 const page = await ctx.newPage();
 const errors = [];
@@ -69,8 +70,8 @@ for (const [i, seg] of timeline.segments.entries()) {
   await page.goto(`${base}/video-stage/${story}?seg=${seg.seg}`, { waitUntil: "networkidle" });
   await page.waitForFunction(() => window.__laliFrame && document.querySelectorAll("svg *").length > 40, null, { timeout: 120000 });
   await page.evaluate(() => document.fonts.ready);
-  // Let the scene's lazy parts settle before the first frame.
-  await page.waitForTimeout(500);
+  // Let the scene's lazy parts (and the promo's edge colours and covers) settle before the first frame.
+  await page.waitForTimeout(timeline.width ? 2500 : 500);
   const tmp = `${file}.part.mp4`;
   const { ff, done } = encoder(tmp);
   for (let f = 0; f < seg.frames; f++) {

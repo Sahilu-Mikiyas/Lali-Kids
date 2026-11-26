@@ -3298,6 +3298,14 @@ html.lang-arriving body {
 .home-sbook-arrow {
   animation: bob 1s ease-in-out infinite;
 }
+/* The last page's parts (home/scroll-book.tsx, Pitch) pop in one by one the same way. */
+.home-sbook-pop {
+  --on: clamp(0, var(--lit, 0) - var(--i, 0), 1);
+  opacity: calc(0.12 + 0.88 * var(--on));
+  translate: 0 calc((1 - var(--on)) * 0.35em);
+  scale: calc(0.94 + 0.06 * var(--on));
+  transition: opacity 0.3s ease-out, translate 0.35s cubic-bezier(0.3, 1.5, 0.5, 1), scale 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
 /* While the book fills the screen, the site bar steps out of the way. */
 html:has([data-scroll-book]) header.fixed {
   transition-property: background, box-shadow, translate;

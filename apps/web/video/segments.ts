@@ -43,3 +43,35 @@ export const END_CARD = {
     url: "lali-kids.onrender.com",
   },
 } as const;
+
+/*
+  The vertical promo for parents (1080×1920, see video/README.md and video/promo-plan.mjs).
+  Its main lines are the home book's last page (t.home.try.pitch in src/i18n/dict.ts); these
+  are the few extra words only the video shows.
+*/
+export const PROMO_BEATS = ["hook", "pages", "values", "proof", "end"] as const;
+export type PromoBeat = (typeof PROMO_BEATS)[number];
+
+/**
+ * The pages that turn in the "pages" beat, and the pages behind each values word: only pages
+ * whose pictures have no English words in them (pages 3-6 and 8 do), so both videos can use them.
+ */
+export const PROMO_PAGES = [1, 9, 10];
+export const PROMO_VALUE_PAGES = [11, 9, 1, 2, 7];
+
+export const PROMO = {
+  en: {
+    care: "Every Lali story is made with care.",
+    over: (n: number) => `Over ${n}`,
+    stories: "stories",
+    proofSub: "in English and Amharic, for ages 3 to 9",
+    url: "lali-kids.onrender.com",
+  },
+  am: {
+    care: "እያንዳንዱ የላሊ ተረት በጥንቃቄ የተሰራ ነው።",
+    over: (n: number) => `ከ${n} በላይ`,
+    stories: "ተረቶች",
+    proofSub: "በአማርኛና በእንግሊዝኛ፣ ከ3 እስከ 9 ዓመት ለሆኑ ልጆች",
+    url: "lali-kids.onrender.com",
+  },
+};

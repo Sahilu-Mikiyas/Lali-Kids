@@ -37,6 +37,12 @@ test("scroll book: Skip jumps past it, and reduced motion gets a plain book", as
   await expect(still.getByRole("button", { name: t.home.try.prev })).toBeDisabled();
   await still.getByRole("button", { name: t.home.try.next }).click();
   await expect(still.getByText(t.home.try.pageOf(2, 8))).toBeVisible();
+  // The last page is a word to parents, with a way in and the whole story.
+  for (let i = 1; i < 8; i++) await still.getByRole("button", { name: t.home.try.next }).click();
+  await expect(still.getByText(t.home.try.pitch.hook)).toBeVisible();
+  await expect(still.getByText(t.home.try.pitch.values[0], { exact: true })).toBeVisible();
+  await expect(still.getByRole("link", { name: t.home.try.pitch.start })).toHaveAttribute("href", /\/stories$/);
+  await expect(still.getByRole("link", { name: t.home.try.readAll })).toHaveAttribute("href", /\/stories\/new-year-flowers$/);
 });
 
 test("language switch: the same page comes back in the other language", async ({ page, uiLang, t }) => {

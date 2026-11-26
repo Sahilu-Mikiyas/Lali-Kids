@@ -45,3 +45,6 @@ next-env.d.ts
 /.next-e2e/
 /test-results/
 /playwright-report/
+
+# video stage builds (video/README.md)
+/.next-video/

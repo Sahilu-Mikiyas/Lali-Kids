@@ -391,8 +391,16 @@ const en = {
       pageOf: (n: number, t: number) => `Page ${n} of ${t}`,
       prev: "Previous page",
       next: "Next page",
-      endNote: "That was a short taste. Read the whole story with Lali.",
       readAll: "Read the whole story",
+      /** The book's last page: a word to busy parents (also the promo video's lines). */
+      pitch: {
+        hook: "Busy days? You can’t teach them everything. Let stories help.",
+        values: ["Kindness", "Courage", "Good manners", "Saying sorry", "Trying again"],
+        proof: "Over 280 stories, in English and Amharic, made with care for ages 3 to 9.",
+        contrast: "No ads. Nothing made to keep them scrolling. Just good stories.",
+        start: "Start reading",
+        cta: "Start reading with Lali",
+      },
     },
     music: {
       on: "Play gentle music",
@@ -1477,8 +1485,15 @@ const am: Dict = {
       pageOf: (n: number, t: number) => `ገጽ ${n} ከ${t}`,
       prev: "ያለፈው ገጽ",
       next: "ቀጣዩ ገጽ",
-      endNote: "ይህ የታሪኩ አጭር ቅምሻ ነበር። ሙሉውን ታሪክ ከላሊ ጋር ያንብቡ።",
       readAll: "ሙሉውን ታሪክ ያንብቡ",
+      pitch: {
+        hook: "ሥራ በዝቶብዎታል? ሁሉንም ነገር ብቻዎን ማስተማር አይችሉም። ተረቶች ያግዙዎት።",
+        values: ["ደግነት", "ድፍረት", "መልካም ሥነ ምግባር", "ይቅርታ መጠየቅ", "እንደገና መሞከር"],
+        proof: "ከ280 በላይ ተረቶች፣ በአማርኛና በእንግሊዝኛ፣ ከ3 እስከ 9 ዓመት ለሆኑ ልጆች በጥንቃቄ የተሰሩ።",
+        contrast: "ማስታወቂያ የለም። ማለቂያ የሌለው ማሸብለል የለም። ጥሩ ተረቶች ብቻ።",
+        start: "ማንበብ ይጀምሩ",
+        cta: "ከላሊ ጋር ማንበብ ይጀምሩ",
+      },
     },
     music: {
       on: "ለስላሳ ሙዚቃ አጫውት",
