@@ -384,7 +384,15 @@ const en = {
     try: {
       eyebrow: "Try a page",
       title: "A real book, on any screen",
-      sub: "Turn the pages, tap any word to hear it, or press Read to me and watch the words light up. Switch to Amharic with one tap.",
+      sub: "Scroll down and the book opens. Keep going to turn the pages one by one, and watch the words light up.",
+      label: "A picture book: scroll to turn its pages",
+      hint: "Keep scrolling to turn the page",
+      skip: "Skip the book",
+      pageOf: (n: number, t: number) => `Page ${n} of ${t}`,
+      prev: "Previous page",
+      next: "Next page",
+      endNote: "That was a short taste. Read the whole story with Lali.",
+      readAll: "Read the whole story",
     },
     music: {
       on: "Play gentle music",
@@ -1462,7 +1470,15 @@ const am: Dict = {
     try: {
       eyebrow: "አንድ ገጽ ይሞክሩ",
       title: "እውነተኛ መጽሐፍ፣ በማንኛውም ስክሪን",
-      sub: "ገጾቹን ይግለጡ፣ ለመስማት ማንኛውንም ቃል ይንኩ፣ ወይም «አንብብልኝ»ን ተጭነው ቃላቱ ሲበሩ ይመልከቱ። በአንድ ንክኪ ወደ እንግሊዝኛ ይቀይሩ።",
+      sub: "ወደ ታች ሲሸበልሉ መጽሐፉ ይከፈታል። ገጾቹን አንድ በአንድ ለመግለጥ ይቀጥሉ፤ ቃላቱም ሲበሩ ይመልከቱ።",
+      label: "የሥዕል መጽሐፍ፦ ገጾቹን ለመግለጥ ወደ ታች ይሸብልሉ",
+      hint: "ገጹን ለመግለጥ ወደ ታች ይሸብልሉ",
+      skip: "መጽሐፉን እለፍ",
+      pageOf: (n: number, t: number) => `ገጽ ${n} ከ${t}`,
+      prev: "ያለፈው ገጽ",
+      next: "ቀጣዩ ገጽ",
+      endNote: "ይህ የታሪኩ አጭር ቅምሻ ነበር። ሙሉውን ታሪክ ከላሊ ጋር ያንብቡ።",
+      readAll: "ሙሉውን ታሪክ ያንብቡ",
     },
     music: {
       on: "ለስላሳ ሙዚቃ አጫውት",

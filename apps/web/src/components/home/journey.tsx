@@ -288,6 +288,8 @@ export function Bedtime() {
   const moonY = useScene(p, [0.3, 0.95], [220, 0], still);
   const tint = useTransform(night, [0, 1], [0, 0.42]);
   const farY = useScene(p, [0, 1], [40, 0], still);
+  // The words drift up a little slower than the hills behind them.
+  const textY = useScene(p, [0, 1], [70, 0], still);
   // The moon closes its eyes and the tukul lights up once it is properly dark. With reduced
   // motion it is night from the start (read hydration-safely, so server and browser agree).
   const nightOnly = useMedia("(prefers-reduced-motion: reduce)");
@@ -405,10 +407,11 @@ export function Bedtime() {
 
       <div className="relative z-20 mx-auto max-w-6xl px-4 pb-[300px] pt-24 sm:px-6 sm:pb-[320px] sm:pt-28">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
+          style={{ y: textY }}
           className="max-w-xl space-y-5 [text-shadow:0_2px_12px_rgba(20,10,60,.35)]"
         >
           <p className="flex items-center gap-2 font-display text-lg font-extrabold text-gold">

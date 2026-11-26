@@ -13,6 +13,7 @@ import { SOCIAL_LABEL, SocialIcon } from "../social-icons";
 import { Buddy } from "./buddies";
 import { Drift } from "./kit";
 import { useAwake } from "./live";
+import { Depth, Lift } from "./scroll-fx";
 import { SectionHead } from "./sections";
 
 /*
@@ -477,8 +478,10 @@ export function Cinema({ coming = [] }: { coming?: ComingStory[] }) {
   const anyLive = networks.some((n) => SOCIAL[n]);
   return (
     <section ref={ref} id="watch" data-bee="watch" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-24">
-      <SectionHead eyebrow={t.watch.eyebrow} title={t.watch.title} sub={t.watch.sub} />
-      {FEATURED_VIDEOS.length ? <Stage /> : <ComingSoon stories={coming} />}
+      <Depth speed={0.06}>
+        <SectionHead eyebrow={t.watch.eyebrow} title={t.watch.title} sub={t.watch.sub} />
+      </Depth>
+      <Lift rise={72} tilt={-1.5}>{FEATURED_VIDEOS.length ? <Stage /> : <ComingSoon stories={coming} />}</Lift>
       <div className="mt-10 flex flex-wrap items-center gap-6 rounded-[32px] bg-white p-7">
         <div className="min-w-60 flex-1">
           <p className="font-display text-2xl font-black">{t.watch.follow}</p>

@@ -3192,3 +3192,43 @@ html.lang-arriving body {
     animation: none !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Home: the scroll book (home/scroll-book.tsx). The track is as long as the
+   book takes to read; the sticky stage inside it is drawn from scroll progress.
+   With reduced motion the track is left out and a plain book shows instead.
+   ------------------------------------------------------------------ */
+.home-sbook-track {
+  height: calc((var(--sbook-len, 9) + 1) * 100lvh);
+}
+.home-sbook-still {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-sbook-track {
+    display: none;
+  }
+  .home-sbook-still {
+    display: block;
+  }
+}
+/* Before the first scroll frame the book waits as a small closed card. */
+.home-sbook-book {
+  transform: scale(0.55);
+}
+/* Each word lights up when --lit (set on its card while scrolling) passes its index. */
+.home-sbook-word {
+  opacity: calc(0.28 + 0.72 * clamp(0, var(--lit, 0) - var(--i, 0), 1));
+  transition: opacity 0.3s ease-out;
+}
+.home-sbook-arrow {
+  animation: bob 1s ease-in-out infinite;
+}
+/* While the book fills the screen, the site bar steps out of the way. */
+html:has([data-scroll-book]) header.fixed {
+  transition-property: background, box-shadow, translate;
+  transition-duration: 0.3s;
+}
+html[data-book-full] header.fixed {
+  translate: 0 -110%;
+}
