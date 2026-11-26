@@ -38,6 +38,15 @@ const AIR: Partial<Record<SceneKind, (page: number) => "day" | "dusk" | "night">
 export function Scene({ kind, page, className }: { kind: SceneKind; page: number; className?: string }) {
   return (
     <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className={className ?? "block h-full w-full"} aria-hidden>
+      <SceneBody kind={kind} page={page} />
+    </svg>
+  );
+}
+
+/** What's inside a scene's 400 x 300 SVG, for drawing it inside another SVG (the reader's full-bleed picture). */
+export function SceneBody({ kind, page }: { kind: SceneKind; page: number }) {
+  return (
+    <>
       {kind === "moon" && <LostMoonScene page={page} />}
       {kind === "count" && <CountingScene page={page} />}
       {kind === "share" && <HoneyScene page={page} />}
@@ -49,7 +58,7 @@ export function Scene({ kind, page, className }: { kind: SceneKind; page: number
       {kind === "lalibela" && <LalibelaScene page={page} />}
       {kind.startsWith("lib-") && (LIBRARY_SCENES[kind.slice(4)] || COURSE_SCENES[kind.slice(4)]) && <LibraryScene kind={kind} page={page} />}
       {AIR[kind] && <Air kind={AIR[kind](page)} seed={page * 7 + 3} />}
-    </svg>
+    </>
   );
 }
 

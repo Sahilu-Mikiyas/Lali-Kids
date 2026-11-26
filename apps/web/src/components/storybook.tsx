@@ -44,14 +44,16 @@ import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/l
 import { currentBasis, recordFind, recordFinish, recordRead, syncStickers, useFindHints } from "@/lib/stickers/store";
 import { useFamilyVoices } from "@/lib/voices/client";
 import type { FamilyVoice } from "@/lib/voices/shared";
-import { BeeShape, STAR_PATH } from "./characters";
+import { Bee, BeeShape, STAR_PATH } from "./characters";
 import { FindCounter, HiddenLali } from "./find-lali";
 import { StickerBookButton, StickerReward, type RewardSticker } from "./stickers/sticker-reward";
 import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { MicButton, MicPanel } from "./book/mic-reader";
-import { CoverBack, CoverFront } from "./book/cover";
-import { EndArt, PageArt } from "./book/page-art";
+import { CoverBack } from "./book/cover";
+import { BleedArt, EndArt, PageArt } from "./book/page-art";
+import { loadEdges, type Rect } from "./book/bleed";
+import { leafLayout, NO_INSET, type Insets, type LeafLayout } from "./book/leaf-layout";
 import { READER } from "./book/reader-words";
 import { TapZone } from "./book/tappable";
 import { BookplateArt, BookplateText, ChoiceButtons, ChoicePrompt, PLATE, type ChoiceState } from "./book/choices";
@@ -64,6 +66,8 @@ const RecordVoiceModal = dynamic(() => import("./voice/record-voice").then((m) =
 /** Page shape on a two-page spread (width / height). */
 const PAGE_ASPECT = 1.18;
 const TURN_MS = 820;
+/** The full-screen book's buttons fade after this long without a touch, a move or a key. */
+const IDLE_MS = 3500;
 const LANGS: Lang[] = ["en", "am"];
 /** Sparkles kept ready for the page turn (reused round-robin). */
 const SPARKS = 18;
@@ -116,6 +120,7 @@ function ArtFace({
   choice,
   lang = "en",
   fontSize,
+  bleed,
 }: {
   story: Story;
   page: number;
@@ -126,26 +131,59 @@ function ArtFace({
   choice?: ChoiceState;
   lang?: Lang;
   fontSize?: number;
+  /** The full-screen reader: the picture fills the whole page edge to edge. */
+  bleed?: Bleed;
 }) {
   const end = page >= story.pages.length;
   const plate = page === PLATE;
-  return (
-    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : plate ? "plate" : page} data-live={tap ? "" : undefined}>
-      <TapZone enabled={tap}>{end ? <EndArt /> : plate ? <BookplateArt story={story} /> : <PageArt story={story} page={page} />}</TapZone>
+  const art = bleed ? (
+    <BleedArt story={story} page={page} what={end ? "end" : plate ? "plate" : "page"} w={bleed.w} h={bleed.h} region={bleed.layout.region} anchorY={bleed.layout.anchorY} />
+  ) : end ? (
+    <EndArt />
+  ) : plate ? (
+    <BookplateArt story={story} />
+  ) : (
+    <PageArt story={story} page={page} />
+  );
+  // Lali, her counter and the choice buttons stay where the picture is free: not under the
+  // words panel, nor under the buttons around the edge of the screen.
+  const o = bleed?.overlay;
+  const extras = (
+    <>
       {/* Lali hides in the picture; she's clipped by it, so she never covers the words. */}
       {finder && !end && !plate && (
         <HiddenLali story={story} page={page} live={tap} found={finder.found.has(page)} hints={finder.hints} onFind={finder.onFind} lang={finder.lang} />
       )}
-      {finder && !end && !plate && tap && <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />}
+      {finder && !end && !plate && tap && !bleed && <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />}
       {choice && !end && !plate && (
         <div className="absolute inset-x-0 bottom-0 z-[8] bg-gradient-to-t from-black/45 via-black/20 to-transparent p-[0.5em] pt-[1.6em]" style={{ fontSize }}>
           <ChoiceButtons story={story} page={page} lang={lang} live={tap} choice={choice} />
+        </div>
+      )}
+    </>
+  );
+  return (
+    <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : plate ? "plate" : page} data-live={tap ? "" : undefined}>
+      <TapZone enabled={tap}>{art}</TapZone>
+      {o ? (
+        <div className="pointer-events-none absolute overflow-hidden [&>*:not(.pointer-events-none)]:pointer-events-auto" style={{ left: o.x, top: o.y, width: o.w, height: o.h }}>
+          {extras}
+        </div>
+      ) : (
+        extras
+      )}
+      {bleed && finder && !end && !plate && tap && (
+        <div className="pointer-events-none absolute" style={{ left: bleed.counter.x, top: bleed.counter.y, width: 280 }}>
+          <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />
         </div>
       )}
       {gutter === "right" && <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-black/30 to-transparent" />}
     </div>
   );
 }
+
+/** How a full-screen page is laid out (see leafLayout), plus where Lali and her counter may go. */
+type Bleed = { w: number; h: number; layout: LeafLayout; overlay: Rect; counter: { x: number; y: number } };
 
 function PageHeader({ story, num, of, lang }: { story: Story; num: number; of: number; lang: Lang }) {
   return (
@@ -373,7 +411,10 @@ function TextFace({
   chosen,
   canTryOther,
   classroom,
+  panel,
 }: {
+  /** In the full-screen reader the words float on a panel over the picture. */
+  panel?: "landscape" | "portrait";
   story: Story;
   page: number;
   lang: Lang;
@@ -467,12 +508,16 @@ function TextFace({
 
   return (
     <div
-      className={`relative h-full w-full overflow-hidden bg-paper text-paper-ink ${shadow === "left" ? "shadow-[inset_26px_0_30px_-24px_rgba(0,0,0,.4)]" : ""}`}
+      // The landscape panel is as tall as its words (within its column); the others fill their box.
+      className={`relative w-full overflow-hidden text-paper-ink ${panel === "landscape" ? "flex max-h-full min-h-[min(100%,14em)] flex-col" : "h-full"} ${panel ? `lali-panel lali-panel-${panel}` : "bg-paper"} ${shadow === "left" ? "shadow-[inset_26px_0_30px_-24px_rgba(0,0,0,.4)]" : ""}`}
       style={{ fontSize }}
+      data-words-panel={panel}
     >
       {/* soft paper grain */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
-      <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto p-[1.1em] sm:p-[1.3em]">
+      <div
+        className={`relative flex flex-col gap-[0.7em] overflow-y-auto overscroll-contain ${panel === "landscape" ? "min-h-0 flex-1" : "h-full"} ${panel === "portrait" ? "lali-panel-portrait-pad px-[1.1em] pt-[1em]" : panel ? "p-[1.2em] sm:p-[1.4em]" : "p-[1.1em] sm:p-[1.3em]"}`}
+      >
         {end ? (
           <EndText
             storyId={story.id}
@@ -708,6 +753,19 @@ function useSize(ref: RefObject<HTMLElement | null>) {
   return size;
 }
 
+/** The screen's safe-area insets (notch, home bar), read from a probe padded with env(). */
+function useInsets(ref: RefObject<HTMLElement | null>, key: string): Insets {
+  const [ins, setIns] = useState<Insets>(NO_INSET);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const cs = getComputedStyle(el);
+    const v = { t: parseFloat(cs.paddingTop) || 0, r: parseFloat(cs.paddingRight) || 0, b: parseFloat(cs.paddingBottom) || 0, l: parseFloat(cs.paddingLeft) || 0 };
+    setIns((s) => (s.t === v.t && s.r === v.r && s.b === v.b && s.l === v.l ? s : v));
+  }, [ref, key]);
+  return ins;
+}
+
 const subscribeFullscreen = (cb: () => void) => {
   document.addEventListener("fullscreenchange", cb);
   return () => document.removeEventListener("fullscreenchange", cb);
@@ -880,29 +938,54 @@ function Book({
   const sparkRefs = useRef<(HTMLDivElement | null)[]>([]);
   const sparkAt = useRef({ i: 0, t: 0 });
   const size = useSize(stageRef);
+  const insetRef = useRef<HTMLDivElement>(null);
+  const insets = useInsets(insetRef, `${size.w}x${size.h}`);
 
-  // Page size in pixels.
-  const spread = wide;
+  // Page size in pixels. The full-screen book is one page as big as the screen, turned like a
+  // page of a picture book; the small book on the home page is a spread (wide) or a card.
+  const spread = !immersive && wide;
   let W = 0;
   let H = 0;
   if (size.w > 0) {
-    if (spread) {
-      const room = immersive ? size.w - (size.w > 1000 ? 200 : 150) : size.w - 24;
-      W = Math.max(150, Math.min(room / 2, (immersive ? size.h - 16 : 9999) * PAGE_ASPECT, 640));
+    if (immersive) {
+      W = size.w;
+      H = size.h;
+    } else if (spread) {
+      W = Math.max(150, Math.min((size.w - 24) / 2, 640));
       H = W / PAGE_ASPECT;
     } else {
-      W = Math.max(220, Math.min(size.w - (immersive ? 24 : 0), immersive ? size.h * 0.74 : 9999, 560));
-      H = immersive ? Math.min(size.h - 8, W * 2) : W * 1.62;
+      W = Math.max(220, Math.min(size.w, 560));
+      H = W * 1.62;
     }
   }
+  const leaf = immersive && W > 0 ? leafLayout(W, H, insets) : null;
+  const portrait = leaf?.mode === "portrait";
+  const short = leaf?.short ?? false;
+  const narrow = portrait && W < 440;
   const artH = spread ? H : Math.min(W * 0.86, H * 0.52);
-  const fontSize = spread ? Math.max(15, Math.min(30, W * 0.047)) : Math.max(16, Math.min(22, W * 0.058));
+  const fontSize = leaf ? leaf.font : spread ? Math.max(15, Math.min(30, W * 0.047)) : Math.max(16, Math.min(22, W * 0.058));
+  // Where Lali may hide and where her counter sits: clear of the buttons around the screen's edge.
+  const bleed: Bleed | undefined = leaf
+    ? (() => {
+        const top = (leaf.short ? 58 : 70) + insets.t;
+        const side = leaf.mode === "landscape" ? (leaf.short ? 72 : 92) + insets.l : 0;
+        const bottom = leaf.mode === "landscape" ? 52 + insets.b : 0;
+        const r = leaf.region;
+        return {
+          w: W,
+          h: H,
+          layout: leaf,
+          overlay: { x: r.x + side, y: r.y + top, w: Math.max(40, r.w - side), h: Math.max(40, r.h - top - bottom) },
+          counter: { x: Math.max(4, side - 8), y: top - 4 },
+        };
+      })()
+    : undefined;
 
   /* ----- the curl, applied straight to the DOM every frame ----- */
-  const dims = useRef({ W: 0, H: 0, spread: true });
+  const dims = useRef({ W: 0, H: 0, spread: true, full: false });
   useLayoutEffect(() => {
-    dims.current = { W, H, spread };
-  }, [W, H, spread]);
+    dims.current = { W, H, spread, full: immersive };
+  }, [W, H, spread, immersive]);
   const frontRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
   const underRef = useRef<HTMLDivElement>(null);
@@ -976,7 +1059,8 @@ function Book({
       }
       if (under) {
         under.style.opacity = String(0.5 + 0.5 * Math.min(1, c.t * 1.6));
-        under.style.transform = `translateX(${((1 - c.t) * 18).toFixed(1)}px)`;
+        // (A full-screen page stays put: sliding it would open a gap at the screen's edge.)
+        if (!dims.current.full) under.style.transform = `translateX(${((1 - c.t) * 18).toFixed(1)}px)`;
       }
       // Light and shade: a shadow on the page underneath, and a curved highlight on the flap.
       const fade = Math.min(1, (1 - c.t) * 5, c.depth / 30);
@@ -1028,7 +1112,8 @@ function Book({
       setPage(landed);
       // The page lands with a little bounce, and light sweeps over it.
       if (landed !== t.from) {
-        bookRef.current?.animate(
+        // (A full-screen page has no edge to bounce: a bounce would open a gap at the screen's edge.)
+        if (!immersive) bookRef.current?.animate(
           [
             { transform: "translateY(0)" },
             { transform: "translateY(3px) scale(0.997, 1.003)" },
@@ -1040,7 +1125,7 @@ function Book({
         sweep();
       }
     },
-    [clearCurl, sweep],
+    [clearCurl, sweep, immersive],
   );
 
   /** Move the corner from wherever it is to flat (0) or turned (1). */
@@ -1241,6 +1326,42 @@ function Book({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [atEnd]);
 
+  /* ----- the buttons around the full-screen book fade away while the child reads ----- */
+  const [idle, setIdle] = useState(false);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const poke = useCallback(() => {
+    setIdle(false);
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => setIdle(true), IDLE_MS);
+  }, []);
+  useEffect(() => () => {
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+  }, []);
+  // They stay while the book opens, at The End, and while anything else is open over the book.
+  const holdChrome = !immersive || cover !== "open" || atEnd || cardOpen || voiceOpen || reward !== null;
+  useEffect(() => {
+    if (!holdChrome) poke();
+  }, [holdChrome, poke]);
+  // A page read aloud to its end brings them back, so the glowing "next" arrow is seen.
+  useEffect(() => {
+    if (pageRead) poke();
+  }, [pageRead, poke]);
+  const chromeHidden = idle && !holdChrome;
+  // On a touch screen, the first tap on a faded button only brings the buttons back.
+  const swallow = useRef(false);
+  const chromeProps = {
+    "data-chrome": chromeHidden ? "hidden" : "shown",
+    onPointerDownCapture: (e: ReactPointerEvent) => {
+      swallow.current = chromeHidden && e.pointerType !== "mouse";
+    },
+    onClickCapture: (e: { preventDefault: () => void; stopPropagation: () => void }) => {
+      if (!swallow.current) return;
+      swallow.current = false;
+      e.preventDefault();
+      e.stopPropagation();
+    },
+  };
+
   /* ----- sound and depth ----- */
   // The scene's soundscape (full-screen book only). It shares the sound toggle.
   const mood = immersive && cover !== "closed" ? ambienceFor(story, Math.max(0, at(page))) : null;
@@ -1248,6 +1369,10 @@ function Book({
     setAmbience(mood);
   }, [mood]);
   useEffect(() => () => setAmbience(null), []);
+  // The scene's edge colours (for the full-bleed pictures) load while the cover is still closed.
+  useEffect(() => {
+    if (immersive) loadEdges(story.scene);
+  }, [immersive, story.scene]);
   // Layers in the pictures drift with the mouse or the phone's tilt.
   useDepth(stageRef, !reduce && cover === "open", `${page}|${turn ? turn.leaf : "-"}|${cardOpen}`);
 
@@ -1262,6 +1387,7 @@ function Book({
         setCardOpen(false);
         return;
       }
+      if (immersive) poke();
       if (e.key === "ArrowRight") {
         if (cover === "closed") openCover();
         else go(page + 1);
@@ -1274,7 +1400,7 @@ function Book({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen, shelfHref, classroom, backHref]);
+  }, [go, page, cover, openCover, immersive, router, cardOpen, voiceOpen, shelfHref, classroom, backHref, poke]);
 
   // The full-screen book owns the page: no scrolling underneath.
   useEffect(() => {
@@ -1374,11 +1500,12 @@ function Book({
     if (idx < 0 || idx >= pagesInBook || !story.pages[idx].choices?.options.length) return undefined;
     return { picked: picks[idx], tried, onChoose: (o: number) => choose(idx, o), ready: pageRead && isLive };
   };
-  const textFace = (pos: number, isLive: boolean, shadow: "left" | "none" = "left") => {
+  const textFace = (pos: number, isLive: boolean, shadow: "left" | "none" = "left", panel?: "landscape" | "portrait") => {
     const idx = at(pos);
     const real = idx >= 0 && idx < pagesInBook;
     return (
     <TextFace
+      panel={panel}
       story={story}
       page={idx}
       pos={pos - plateShift}
@@ -1452,31 +1579,40 @@ function Book({
     } else {
       const L = turn?.leaf ?? -1;
       const cards = turn ? [L + 1, L] : [page];
-      const card = (i: number, isLive: boolean) => (
-        <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
-          <div className="relative shrink-0" style={{ height: artH }}>
-            <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} />
+      const card = (i: number, isLive: boolean) =>
+        leaf && bleed ? (
+          // The full-screen page: the picture edge to edge, the words on a panel over it.
+          <div className="relative h-full w-full overflow-hidden" data-leaf={leaf.mode}>
+            <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} bleed={bleed} />
+            <div className={`absolute ${leaf.mode === "landscape" ? "flex items-center" : ""}`} style={{ left: leaf.panel.x, top: leaf.panel.y, width: leaf.panel.w, height: leaf.panel.h }}>
+              {textFace(i, isLive, "none", leaf.mode)}
+            </div>
           </div>
-          <div className="min-h-0 flex-1">{textFace(i, isLive, "none")}</div>
-        </div>
-      );
+        ) : (
+          <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
+            <div className="relative shrink-0" style={{ height: artH }}>
+              <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} />
+            </div>
+            <div className="min-h-0 flex-1">{textFace(i, isLive, "none")}</div>
+          </div>
+        );
       pages = (
         <>
           {cards.map((i) => (
             <div
               key={`c${i}-${at(i)}`}
               ref={turn ? (i === L ? frontRef : underRef) : undefined}
-              className="rounded-[22px]"
+              className={leaf ? "" : "rounded-[22px]"}
               style={layer(turn && i === L ? 20 : 10)}
             >
               {card(i, live)}
-              {!turn && i < total && cover === "open" && <CornerHint />}
+              {!turn && i < total && cover === "open" && !leaf && <CornerHint />}
             </div>
           ))}
           {turn && (
             <div
               ref={backRef}
-              className="absolute top-0 rounded-[22px] bg-[linear-gradient(100deg,#F4ECD8,#FFFDF6_60%,#EFE4CA)]"
+              className={`absolute top-0 bg-[linear-gradient(100deg,#F4ECD8,#FFFDF6_60%,#EFE4CA)] ${leaf ? "" : "rounded-[22px]"}`}
               style={{ left: -W, width: W, height: H, zIndex: 30, transformOrigin: "0 0", visibility: "hidden" }}
             />
           )}
@@ -1512,7 +1648,7 @@ function Book({
           style={{ background: story.color, opacity: leftShown }}
         />
       )}
-      {!spread && <div className="absolute inset-0 translate-y-2 rounded-[22px] bg-black/15" />}
+      {!spread && !immersive && <div className="absolute inset-0 translate-y-2 rounded-[22px] bg-black/15" />}
       {reduce ? (
         <motion.div key={page} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
           {pages}
@@ -1545,7 +1681,7 @@ function Book({
       {/* the magic of a page turn: a sweep of light on arrival, and sparkles off the fold */}
       {W > 0 && !reduce && (
         <>
-          <div className={`pointer-events-none absolute inset-0 z-[44] overflow-hidden ${spread ? "rounded-[16px]" : "rounded-[22px]"}`} aria-hidden>
+          <div className={`pointer-events-none absolute inset-0 z-[44] overflow-hidden ${immersive ? "" : spread ? "rounded-[16px]" : "rounded-[22px]"}`} aria-hidden>
             <div ref={sweepRef} className="lali-sweep" />
           </div>
           <div className="pointer-events-none absolute inset-0 z-[45]" aria-hidden>
@@ -1561,15 +1697,15 @@ function Book({
           </div>
         </>
       )}
-      {cover !== "open" && W > 0 && <BookCover story={story} W={W} H={H} spread={spread} opening={cover === "opening"} onOpen={openCover} rot={rot} fade={coverFade} />}
+      {cover !== "open" && W > 0 && <BookCover story={story} W={W} H={H} insets={insets} opening={cover === "opening"} onOpen={openCover} rot={rot} fade={coverFade} />}
     </motion.div>
   );
 
-  const prev = <Arrow dir="left" big={immersive} label="Previous page" onClick={() => go(page - 1)} disabled={page === 0 || busy} />;
+  const prev = <Arrow dir="left" big={immersive && !short && !portrait} label="Previous page" onClick={() => go(page - 1)} disabled={page === 0 || busy} />;
   const next = (
     <Arrow
       dir="right"
-      big={immersive}
+      big={immersive && !short && !portrait}
       label={cover === "closed" ? "Open the book" : page === total - 1 ? "Finish the story" : "Next page"}
       onClick={() => (cover === "closed" ? openCover() : go(page + 1))}
       disabled={page === total || (busy && cover !== "closed") || (cover === "open" && waiting(page))}
@@ -1636,16 +1772,31 @@ function Book({
       aria-modal="true"
       aria-label={story.title[lang]}
       lang={lang}
-      className="fixed inset-0 z-[70] flex flex-col overflow-hidden"
+      data-reader={leaf?.mode ?? ""}
+      className="lali-reader fixed left-0 top-0 z-[70] w-full overflow-hidden"
       style={{
-        background: `radial-gradient(120% 90% at 50% 25%, color-mix(in oklab, ${story.color} 26%, #FFF8E8), color-mix(in oklab, ${story.color} 78%, #0B1030))`,
+        // Under a turning page: the page beneath sits in its shadow.
+        background: `color-mix(in oklab, ${story.color} 35%, #0B1030)`,
       }}
       // iOS asks before a page may read the tilt, and only from a tap.
       onPointerUpCapture={askForTilt}
+      onPointerDownCapture={poke}
+      onPointerMove={(e) => {
+        if (e.pointerType === "mouse") poke();
+      }}
+      onFocusCapture={poke}
     >
-      <BackdropSparkles />
+      {/* reads the screen's safe-area insets (notch, home bar) */}
+      <div ref={insetRef} aria-hidden className="lali-inset-probe pointer-events-none invisible absolute left-0 top-0" />
+      <div ref={stageRef} className="absolute inset-0">
+        <div className="absolute inset-0">{book}</div>
+      </div>
+
       {/* above the grown-ups card, so its language can still be switched */}
-      <div className="relative z-[65] flex items-center gap-2 px-3 pt-3 sm:gap-3 sm:px-5 sm:pt-4">
+      <div
+        {...chromeProps}
+        className={`lali-chrome lali-topbar absolute inset-x-0 top-0 z-[65] flex items-center gap-2 ${short ? "pt-2" : "pt-3 sm:pt-4"} sm:gap-3`}
+      >
         <Link
           href={shelfHref}
           onClick={(e) => {
@@ -1657,14 +1808,10 @@ function Book({
         >
           {Icon.close}
         </Link>
-        <p className="hidden min-w-0 flex-1 truncate text-center font-display text-lg font-black text-white [text-shadow:0_2px_0_rgba(0,0,0,.2)] md:block">
-          <Swap lang={lang} className="max-w-full" layerClass="truncate">
-            {(l) => story.title[l]}
-          </Swap>
-        </p>
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
-          <LangToggle lang={lang} setLang={setLang} />
-          {!classroom && <StickerBookButton lang={lang} />}
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <LangToggle lang={lang} setLang={setLang} short={narrow} />
+          {/* On a small phone the sticker book waits for The End, where its button is too. */}
+          {!classroom && !narrow && <StickerBookButton lang={lang} />}
           {!classroom && (
             <RoundButton label={dict[lang].voices.openTools} onClick={() => setVoiceOpen(true)}>
               <MicIcon />
@@ -1687,21 +1834,32 @@ function Book({
         </div>
       </div>
 
-      <div ref={stageRef} className="relative min-h-0 flex-1">
-        <div className="absolute inset-0 grid place-items-center">{book}</div>
-        {spread && W > 0 && (
-          <>
-            <div className="absolute left-3 top-1/2 z-10 -translate-y-1/2 lg:left-6">{prev}</div>
-            <div className="absolute right-3 top-1/2 z-10 -translate-y-1/2 lg:right-6">{next}</div>
-          </>
-        )}
-      </div>
-
-      <div className="relative z-10 flex items-center justify-center gap-3 px-3 pb-[max(14px,env(safe-area-inset-bottom))] pt-3">
-        {!spread && prev}
-        <PageDots total={total} page={page} light choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
-        {!spread && next}
-      </div>
+      {leaf && !portrait && (
+        <>
+          {/* Landscape: the arrows at the screen's sides, the dots under the picture. */}
+          <div {...chromeProps} className="lali-chrome lali-side-l absolute top-1/2 z-[60] -translate-y-1/2">
+            {prev}
+          </div>
+          <div {...chromeProps} className="lali-chrome lali-side-r absolute z-[60] -translate-y-1/2" style={{ top: leaf.panel.y + leaf.panel.h / 2 }}>
+            {next}
+          </div>
+          <div
+            {...chromeProps}
+            className="lali-chrome lali-dots-bar pointer-events-none absolute bottom-0 z-[60] flex justify-center"
+            style={{ left: leaf.region.x, width: leaf.region.w }}
+          >
+            <PageDots total={total} page={page} light choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
+          </div>
+        </>
+      )}
+      {portrait && (
+        // Upright: the arrows and dots along the bottom of the words panel.
+        <div {...chromeProps} className="lali-chrome lali-navbar absolute inset-x-0 bottom-0 z-[60] flex items-center justify-between gap-2">
+          {prev}
+          <PageDots total={total} page={page} choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
+          {next}
+        </div>
+      )}
       {cardOpen && atEnd && story.grownUps && (
         <GrownUpsCard
           story={named}
@@ -1747,31 +1905,15 @@ function CornerHint() {
   );
 }
 
-/** Faint sparkles drifting in the backdrop around the book. */
-function BackdropSparkles() {
-  return (
-    <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
-      {[
-        [8, 20, 0],
-        [92, 14, -1],
-        [16, 78, -2],
-        [86, 70, -0.5],
-        [50, 92, -1.5],
-        [70, 8, -2.4],
-        [30, 6, -3],
-      ].map(([x, y, d], i) => (
-        <circle key={i} cx={`${x}%`} cy={`${y}%`} r={i % 2 ? 2.5 : 3.5} fill="#fff" opacity={0.5} className="lali-twinkle" style={{ "--delay": `${d}s` } as CSSProperties} />
-      ))}
-    </svg>
-  );
-}
-
-/** The closed book. It swings open in 3D, and the book slides to the middle as it does. */
+/**
+ * The closed book, as big as the screen: the story's picture edge to edge with its title. It
+ * swings open like a book's cover (hinged at the left edge), showing the first page beneath.
+ */
 function BookCover({
   story,
   W,
   H,
-  spread,
+  insets,
   opening,
   onOpen,
   rot,
@@ -1780,7 +1922,7 @@ function BookCover({
   story: Story;
   W: number;
   H: number;
-  spread: boolean;
+  insets: Insets;
   opening: boolean;
   onOpen: () => void;
   rot: MotionValue<number>;
@@ -1788,29 +1930,48 @@ function BookCover({
 }) {
   const frontOpacity = useTransform(rot, [-89, -91], [1, 0]);
   const backOpacity = useTransform(rot, [-89, -91], [0, 1]);
-  const edges = useTransform(rot, [0, -30], [1, 0]);
+  const portrait = W / Math.max(1, H) < 1.15;
+  // The title sits in the sky; the picture's important part fills the rest of the screen.
+  const titleH = portrait ? Math.min(H * 0.3, 220) : Math.min(H * 0.26, 210);
+  const region = { x: insets.l, y: titleH * 0.55, w: W - insets.l - insets.r, h: H - titleH * 0.55 };
+  const scale = Math.max(0.75, Math.min(1.5, Math.min(W, H * 1.4) / 620));
   return (
-    <motion.div className="absolute inset-0 z-50 [perspective:2200px]" style={{ opacity: fade }}>
-        <motion.button
-          type="button"
-          aria-label={`Open ${story.title.en}`}
-          onClick={onOpen}
-          className="absolute top-0 block cursor-pointer [transform-style:preserve-3d]"
-          style={{ left: spread ? W : 0, width: W, height: H, rotateY: rot, transformOrigin: "0% 50%" }}
-          whileHover={opening ? undefined : { rotateY: -8 }}
-        >
-          <motion.div className="absolute inset-0 shadow-[0_18px_40px_-10px_rgba(0,0,0,.45)]" style={{ opacity: frontOpacity, borderRadius: 18 }}>
-            <CoverFront story={story} scale={Math.min(1.3, W / 420)} />
-          </motion.div>
-          <motion.div className="absolute inset-0 [transform:scaleX(-1)]" style={{ opacity: backOpacity }}>
-            <CoverBack color={story.color} />
-          </motion.div>
-        </motion.button>
-        {/* the pages' edges, seen under the cover while it is closed */}
-        <motion.div
-          className="absolute top-1.5 rounded-r-[14px] bg-[repeating-linear-gradient(0deg,#FFFDF6_0_3px,#E9E1CB_3px_4px)]"
-          style={{ left: spread ? W + 4 : 4, width: W - 2, height: H - 6, zIndex: -1, opacity: edges }}
-        />
+    <motion.div className="absolute inset-0 z-50 [perspective:2600px]" style={{ opacity: fade }}>
+      <motion.button
+        type="button"
+        aria-label={`Open ${story.title.en}`}
+        onClick={onOpen}
+        className="absolute left-0 top-0 block cursor-pointer [transform-style:preserve-3d]"
+        style={{ width: W, height: H, rotateY: rot, transformOrigin: "0% 50%" }}
+        whileHover={opening ? undefined : { rotateY: -4 }}
+      >
+        <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: frontOpacity, background: story.color }} data-cover-front="">
+          <BleedArt story={story} page={story.coverPage} w={W} h={H} region={region} anchorY={0.4} />
+          {/* the cloth of the cover shows at the spine, and a soft light falls on the title */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/25 to-transparent" />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0"
+            style={{ height: titleH * 1.6, background: `linear-gradient(to bottom, color-mix(in oklab, ${story.color} 70%, transparent), transparent)` }}
+          />
+          <div className="absolute inset-x-0 flex flex-col items-center px-6 text-center text-white" style={{ top: Math.max(16, insets.t + 12) + titleH * 0.12 }}>
+            <p className="font-display font-black leading-[1.05] [text-shadow:0_3px_0_rgba(0,0,0,.25),0_0_24px_rgba(0,0,0,.25)]" style={{ fontSize: 40 * scale }}>
+              {story.title.en}
+            </p>
+            <p className="mt-1 font-ethiopic font-bold text-white/95 [text-shadow:0_2px_0_rgba(0,0,0,.25)]" style={{ fontSize: 25 * scale }}>
+              {story.title.am}
+            </p>
+            <p className="mt-2 flex items-center gap-2 font-display font-black text-white/90 [text-shadow:0_2px_0_rgba(0,0,0,.2)]" style={{ fontSize: 16 * scale }}>
+              <span className="animate-float">
+                <Bee size={26 * scale} />
+              </span>
+              Lali · ላሊ
+            </p>
+          </div>
+        </motion.div>
+        <motion.div className="absolute inset-0 [transform:scaleX(-1)]" style={{ opacity: backOpacity }}>
+          <CoverBack color={story.color} />
+        </motion.div>
+      </motion.button>
     </motion.div>
   );
 }

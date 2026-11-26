@@ -16,7 +16,17 @@ import { PageArt } from "./page-art";
 export const PLATE = -1;
 
 /** The bookplate's picture: the story's colour, a honeycomb frame, and Lali looping over an open book. */
-export function BookplateArt({ story }: { story: Story }) {
+export function BookplateArt({ story, bare = false }: { story: Story; bare?: boolean }) {
+  const body = <BookplateBody story={story} />;
+  if (bare) return body;
+  return (
+    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="block h-full w-full" aria-hidden>
+      {body}
+    </svg>
+  );
+}
+
+function BookplateBody({ story }: { story: Story }) {
   const hexes = Array.from({ length: 14 }, (_, i) => {
     const top = i < 7;
     const x = 30 + (i % 7) * 57;
@@ -24,7 +34,7 @@ export function BookplateArt({ story }: { story: Story }) {
     return { x, y, k: i };
   });
   return (
-    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="block h-full w-full" aria-hidden data-bookplate-art="">
+    <g data-bookplate-art="">
       <defs>
         <radialGradient id="lali-plate-glow" cx="0.5" cy="0.45" r="0.7">
           <stop offset="0" stopColor="#FFFFFF" stopOpacity={0.55} />
@@ -61,7 +71,7 @@ export function BookplateArt({ story }: { story: Story }) {
       </g>
       <BeeFlight path="M200 70 C270 60 300 110 260 140 C220 170 150 150 140 110 C130 70 170 74 200 70Z" dur={6.5} s={1.6} rest={[262, 118]} trailColor="#FFF2A8" happy />
       <Pollen seed={4} n={8} color="#FFF6C0" top={60} bottom={240} />
-    </svg>
+    </g>
   );
 }
 
