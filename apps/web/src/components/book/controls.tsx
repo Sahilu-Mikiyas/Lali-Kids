@@ -38,7 +38,7 @@ export function Arrow({
 }
 
 /** English ⇄ አማርኛ, with the dark pill gliding across to the chosen language. */
-export function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
+export function LangToggle({ lang, setLang, short = false }: { lang: Lang; setLang: (l: Lang) => void; short?: boolean }) {
   const id = useId();
   return (
     <div className="flex rounded-full bg-white p-1 shadow-[0_3px_0_rgba(27,42,78,.18)]" role="group" aria-label="Story language">
@@ -47,13 +47,15 @@ export function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
           key={l}
           type="button"
           aria-pressed={lang === l}
+          // Short labels on a small phone; the button's name stays the language's full name.
+          aria-label={short ? (l === "en" ? "English" : "አማርኛ") : undefined}
           onClick={() => setLang(l)}
-          className={`relative rounded-full px-3.5 py-1.5 font-bold transition-colors duration-300 sm:px-4 ${lang === l ? "text-white" : "text-muted hover:text-ink"} ${l === "am" ? "font-ethiopic" : ""}`}
+          className={`relative rounded-full py-1.5 font-bold transition-colors duration-300 ${short ? "min-w-11 px-2.5" : "px-3.5 sm:px-4"} ${lang === l ? "text-white" : "text-muted hover:text-ink"} ${l === "am" ? "font-ethiopic" : ""}`}
         >
           {lang === l && (
             <motion.span layoutId={`lali-lang-pill-${id}`} className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 520, damping: 40 }} />
           )}
-          <span className="relative">{l === "en" ? "English" : "አማርኛ"}</span>
+          <span className="relative">{l === "en" ? (short ? "EN" : "English") : short ? "አማ" : "አማርኛ"}</span>
         </button>
       ))}
     </div>

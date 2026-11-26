@@ -1048,6 +1048,80 @@ html.lang-arriving body {
 }
 
 /* ------------------------------------------------------------------
+   The full-screen reader (storybook.tsx): one page as big as the screen.
+   dvh follows the phone browser's bars as they come and go, so the
+   picture never leaves a gap under them or slips beneath them.
+   ------------------------------------------------------------------ */
+.lali-reader {
+  height: 100vh;
+  height: 100dvh;
+  overscroll-behavior: none;
+}
+.lali-inset-probe {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+/* The words panel: soft paper floating over the picture. */
+.lali-panel {
+  background: color-mix(in oklab, var(--color-paper) 95%, transparent);
+  box-shadow: 0 22px 50px -20px rgba(24, 16, 4, 0.55), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
+}
+.lali-panel-landscape {
+  border-radius: 28px;
+}
+.lali-panel-portrait {
+  border-radius: 26px 26px 0 0;
+  box-shadow: 0 -12px 28px -14px rgba(24, 16, 4, 0.45), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
+}
+/* A phone held sideways: smaller buttons, so they sit side by side under the words. */
+.lali-panel-tight .btn {
+  padding: 0.5rem 0.8rem;
+  gap: 0.4rem;
+}
+/* Room at the bottom of the upright panel for the arrows and dots, and the home bar. */
+.lali-panel-portrait-pad {
+  padding-bottom: calc(68px + max(10px, env(safe-area-inset-bottom)));
+}
+/* Buttons around the edge of the screen; they fade while the child reads. */
+.lali-topbar {
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  margin-top: env(safe-area-inset-top);
+}
+.lali-side-l {
+  left: max(12px, env(safe-area-inset-left));
+}
+.lali-side-r {
+  right: max(12px, env(safe-area-inset-right));
+}
+.lali-corner {
+  bottom: max(16px, env(safe-area-inset-bottom));
+}
+/* level with the middle of the arrows (64px, or 56px on a phone held sideways) */
+.lali-dots-bar {
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 26px);
+}
+.lali-dots-bar.lali-dots-short {
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 22px);
+}
+.lali-navbar {
+  padding: 0 max(12px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+.lali-chrome {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.lali-chrome[data-chrome="hidden"] {
+  opacity: 0;
+}
+.lali-chrome[data-chrome="hidden"]:focus-within {
+  opacity: 1;
+}
+@media (hover: hover) {
+  .lali-chrome[data-chrome="hidden"]:hover {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------
    "Gugu and the Rainbow Puddle" (rainbow-puddle-scenes.tsx).
    Gugu's jump is a 1.4 s loop that lands at 58 %; the splash parts fire on that landing.
    ------------------------------------------------------------------ */
