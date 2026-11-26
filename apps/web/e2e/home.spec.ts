@@ -10,7 +10,7 @@ test("home page: hero, the try-a-story book and the plans", async ({ page, uiLan
   await expect(page.locator("[data-scroll-book]")).toBeAttached();
   await expect(page.locator('[data-sbook-page="0"]')).toBeAttached();
   await expect(page.getByRole("button", { name: t.home.try.skip })).toBeAttached();
-  await expect(page.locator("[data-still-book]").getByRole("button", { name: t.home.try.next })).toBeAttached();
+  await expect(page.locator("[data-still-book] button")).toHaveCount(2);
   await expect(page.locator("#plans")).toContainText(t.plans.names.reader);
   // Nothing on a phone scrolls sideways.
   await ready(page);

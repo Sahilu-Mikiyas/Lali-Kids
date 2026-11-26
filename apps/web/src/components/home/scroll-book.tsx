@@ -176,6 +176,7 @@ function Words({ text, lang, size, cardRef, head, foot }: { text: string; lang: 
   return (
     <div
       ref={cardRef}
+      data-words={words.length}
       className="home-sbook-card pointer-events-auto relative mx-auto w-full max-w-[54rem] rounded-[26px] bg-paper/95 px-[1.1em] pb-[0.8em] pt-[0.55em] text-paper-ink shadow-[0_14px_40px_-16px_rgba(27,42,78,.55)]"
       style={{ fontSize: size }}
     >
@@ -218,7 +219,7 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, faceR
   return (
     <div
       ref={(el) => faceRef(i, el)}
-      className="home-sbook-face absolute inset-0 overflow-hidden"
+      className="home-sbook-face pointer-events-none absolute inset-0 overflow-hidden [contain:strict]"
       style={{ background: end ? "#141B45" : story.color, visibility: "hidden" }}
       data-sbook-page={end ? "end" : i}
       data-asleep=""
@@ -278,6 +279,24 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, faceR
     </div>
   );
 });
+
+/** Last value written to each element, so a scroll frame only touches what really changed. */
+const written = new WeakMap<Element, Map<string, string | null>>();
+
+/**
+ * Set a style property (kebab-case, or a --custom property) or, with an "@" prefix, an
+ * attribute (null removes it), but only when the value differs from the last write.
+ */
+function put(el: HTMLElement | SVGElement, key: string, value: string | null) {
+  let m = written.get(el);
+  if (!m) written.set(el, (m = new Map()));
+  if (m.has(key) && m.get(key) === value) return;
+  m.set(key, value);
+  if (key[0] === "@") {
+    if (value === null) el.removeAttribute(key.slice(1));
+    else el.setAttribute(key.slice(1), value);
+  } else el.style.setProperty(key, value ?? "");
+}
 
 /* ---------- the scroll book ---------- */
 
@@ -353,24 +372,23 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
     const { cur, turn } = viewRef.current;
     for (const [i, el] of faces.current) {
       const shown = i === cur || (turn !== null && i === turn + 1);
-      el.style.visibility = shown ? "visible" : "hidden";
-      el.style.zIndex = turn !== null && i === turn ? "20" : "10";
-      if (shown) el.removeAttribute("data-asleep");
-      else el.setAttribute("data-asleep", "");
-      el.toggleAttribute("inert", !shown || turn !== null);
-      el.setAttribute("aria-hidden", shown && turn === null ? "false" : "true");
+      put(el, "visibility", shown ? "visible" : "hidden");
+      put(el, "z-index", turn !== null && i === turn ? "20" : "10");
+      put(el, "@data-asleep", shown ? null : "");
+      put(el, "@inert", !shown || turn !== null ? "" : null);
+      put(el, "@aria-hidden", shown && turn === null ? "false" : "true");
     }
     // Words light up one after another as their page settles.
     for (const [i, card] of cards.current) {
       const arrive = i === 0 ? GROW * 0.85 : L.pagesAt + (i - 1) * PER + TURN;
-      const words = card.querySelectorAll(".home-sbook-word").length;
+      const words = Number(card.dataset.words);
       const lit = clamp01((x - arrive + 0.14) / 0.34) * (words + 1);
-      card.style.setProperty("--lit", lit.toFixed(2));
+      put(card, "--lit", lit.toFixed(1));
     }
     // The hint fades once the first page has been turned.
     const hint = stageRef.current?.querySelector<HTMLElement>("[data-sbook-hint]");
-    if (hint) hint.style.opacity = String(x > GROW * 0.8 && x < L.pagesAt + TURN * 0.5 ? 1 : 0);
-    if (skipRef.current) skipRef.current.style.opacity = String(x < L.closeAt + CLOSE * 0.4 ? 1 : 0);
+    if (hint) put(hint, "opacity", x > GROW * 0.8 && x < L.pagesAt + TURN * 0.5 ? "1" : "0");
+    if (skipRef.current) put(skipRef.current, "opacity", x < L.closeAt + CLOSE * 0.4 ? "1" : "0");
 
     const front = turn !== null ? faces.current.get(turn) : undefined;
     const under = turn !== null ? faces.current.get(turn + 1) : undefined;
@@ -378,34 +396,36 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
     const svg = curlRef.current;
     if (turn === null || !front || !back || !svg) {
       for (const el of faces.current.values()) {
-        el.style.clipPath = "";
-        el.style.opacity = "";
-        el.style.transform = "";
+        put(el, "clip-path", "");
+        put(el, "opacity", "");
+        put(el, "transform", "");
       }
-      if (back) back.style.visibility = "hidden";
-      if (svg) svg.style.visibility = "hidden";
+      if (back) put(back, "visibility", "hidden");
+      if (svg) put(svg, "visibility", "hidden");
       stageRef.current?.classList.remove("lali-turning");
       return;
     }
     stageRef.current?.classList.add("lali-turning");
     const P = cornerPath(ease(u), W, H, H);
     const c = computeCurl(constrain(P, W, H, H), W, H, H);
-    front.style.clipPath = polygon(c.front);
-    back.style.visibility = c.lifted.length > 2 ? "visible" : "hidden";
-    back.style.transform = backTransform(c, W);
-    back.style.clipPath = backClip(c, W);
+    put(front, "clip-path", polygon(c.front));
+    put(front, "opacity", "");
+    put(front, "transform", "");
+    put(back, "visibility", c.lifted.length > 2 ? "visible" : "hidden");
+    put(back, "transform", backTransform(c, W));
+    put(back, "clip-path", backClip(c, W));
     if (under) {
-      under.style.clipPath = "";
-      under.style.opacity = String(0.55 + 0.45 * Math.min(1, c.t * 1.6));
-      under.style.transform = `translate3d(${((1 - c.t) * 18).toFixed(1)}px,0,0)`;
+      put(under, "clip-path", "");
+      put(under, "opacity", (0.55 + 0.45 * Math.min(1, c.t * 1.6)).toFixed(3));
+      put(under, "transform", `translate3d(${((1 - c.t) * 18).toFixed(1)}px,0,0)`);
     }
-    svg.style.visibility = "visible";
+    put(svg, "visibility", "visible");
     const fade = Math.min(1, (1 - c.t) * 5, c.depth / 30);
     const reach = Math.min(c.depth, W * 0.45) + 1;
     const m = { x: c.M.x + W, y: c.M.y };
     if (shadowRef.current && shadowGrad.current) {
       shadowRef.current.setAttribute("points", points(c.lifted, W));
-      shadowRef.current.style.opacity = String(fade);
+      put(shadowRef.current, "opacity", fade.toFixed(3));
       const g = shadowGrad.current;
       g.setAttribute("x1", String(m.x));
       g.setAttribute("y1", String(m.y));
@@ -414,7 +434,7 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
     }
     if (shadeRef.current && shadeGrad.current) {
       shadeRef.current.setAttribute("points", points(c.flap, W));
-      shadeRef.current.style.opacity = String(fade);
+      put(shadeRef.current, "opacity", fade.toFixed(3));
       const g = shadeGrad.current;
       g.setAttribute("x1", String(m.x));
       g.setAttribute("y1", String(m.y));
@@ -451,16 +471,15 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
       const s = s0 + (1 - s0) * full;
       // While the cover is open and the book is small, slide it so the open spread is centred.
       const shift = (W * s * 0.5) * open * (1 - full);
-      book.style.transform = `translate3d(${shift.toFixed(1)}px,0,0) scale(${s.toFixed(4)})`;
-      const radius = (28 * (1 - full)) / s;
-      clip.style.borderRadius = `${radius.toFixed(1)}px`;
-      cover.style.borderRadius = `${radius.toFixed(1)}px`;
-      cover.style.transform = `perspective(${(W * 2.4).toFixed(0)}px) rotateY(${(-180 * open).toFixed(2)}deg)`;
+      put(book, "transform", `translate3d(${shift.toFixed(1)}px,0,0) scale(${s.toFixed(4)})`);
+      const radius = `${((28 * (1 - full)) / s).toFixed(1)}px`;
+      put(clip, "border-radius", radius);
+      put(cover, "border-radius", radius);
       const coverGone = open > 0.999;
-      cover.style.visibility = coverGone ? "hidden" : "visible";
-      if (coverGone) cover.setAttribute("data-asleep", "");
-      else cover.removeAttribute("data-asleep");
-      document.documentElement.toggleAttribute("data-book-full", full > 0.985 && x > 0.5 && x < L.total - 0.05);
+      put(cover, "transform", coverGone ? "none" : `perspective(${(W * 2.4).toFixed(0)}px) rotateY(${(-180 * open).toFixed(2)}deg)`);
+      put(cover, "visibility", coverGone ? "hidden" : "visible");
+      put(cover, "@data-asleep", coverGone ? "" : null);
+      put(document.documentElement, "@data-book-full", full > 0.985 && x > 0.5 && x < L.total - 0.05 ? "" : null);
 
       // Which page shows, and which one is turning.
       const { cur, turn, u } = where(x, L.pagesAt, n);
@@ -525,7 +544,7 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
     >
       <div ref={stageRef} className="home-sbook-stage sticky top-0 h-[100lvh] w-full overflow-hidden" role="region" aria-roledescription="book" aria-label={t.home.try.label}>
         <div ref={probeRef} className="pointer-events-none invisible absolute left-0 top-0 h-[100svh] w-px" aria-hidden />
-        <div ref={bookRef} className="home-sbook-book absolute inset-0 origin-center will-change-transform">
+        <div ref={bookRef} className="home-sbook-book pointer-events-none absolute inset-0 origin-center will-change-transform">
           <div ref={clipRef} className="absolute inset-0 overflow-hidden rounded-[48px] bg-[#2a2414] shadow-[0_40px_80px_-30px_rgba(27,42,78,.6)]">
             {mounted.map((i) => (
               <Face key={i} i={i} n={n} story={story} page={pages[i] ?? null} lang={lang} W={W} H={H} Hs={Hs} href={href} faceRef={setFace} cardRef={setCard} />
