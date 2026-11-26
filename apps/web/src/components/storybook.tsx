@@ -1966,10 +1966,10 @@ function BookCover({
   const frontOpacity = useTransform(rot, [-89, -91], [1, 0]);
   const backOpacity = useTransform(rot, [-89, -91], [0, 1]);
   const scale = Math.max(0.75, Math.min(1.5, Math.min(W, H * 1.4) / 620));
-  // The title sits in the sky, under the buttons; the picture's important part fills the rest
-  // (its own sky may run behind the title's last line).
+  // The title sits in the sky, under the buttons, on a soft shade of the story's colour; the
+  // picture's important part fills nearly the whole screen behind it.
   const titleH = insets.t + 66 + 80 * scale;
-  const region = { x: insets.l, y: titleH, w: W - insets.l - insets.r, h: Math.max(80, H - titleH) };
+  const region = { x: insets.l, y: insets.t + 40, w: W - insets.l - insets.r, h: Math.max(80, H - insets.t - 40) };
   return (
     <motion.div className="absolute inset-0 z-50 [perspective:2600px]" style={{ opacity: fade }}>
       <motion.button
@@ -1981,7 +1981,7 @@ function BookCover({
         whileHover={opening ? undefined : { rotateY: -4 }}
       >
         <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity: frontOpacity, background: story.color }} data-cover-front="">
-          <BleedArt story={story} page={story.coverPage} w={W} h={H} region={region} anchorY={0.4} />
+          <BleedArt story={story} page={story.coverPage} w={W} h={H} region={region} anchorY={W < H ? 0.85 : 0.4} />
           {/* the cloth of the cover shows at the spine, and a soft light falls on the title */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/25 to-transparent" />
           <div
