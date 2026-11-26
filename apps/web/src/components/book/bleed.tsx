@@ -142,7 +142,37 @@ function meanColor(stops: Stop[], len: number): string {
   return `rgb(${sum.map((v) => Math.round(v / total)).join(",")})`;
 }
 
+const toRgb = (c: string) => (/^#[0-9a-f]{6}$/i.test(c) ? [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16)) : null);
+
+/**
+ * The same edge, blurred along its length: what a side band settles into further out, so a
+ * hut or a window cut by the edge becomes a soft glow there rather than a long stripe.
+ */
+function soften(stops: Stop[], len: number): Stop[] {
+  const rgb = stops.map(([, c]) => toRgb(c));
+  if (stops.length < 2 || rgb.some((c) => !c)) return stops;
+  const N = 41;
+  const at = (p: number) => {
+    let i = 0;
+    while (i < stops.length - 1 && stops[i + 1][0] < p) i++;
+    const j = Math.min(stops.length - 1, i + 1);
+    const span = stops[j][0] - stops[i][0];
+    const t = span > 0 ? Math.max(0, Math.min(1, (p - stops[i][0]) / span)) : 0;
+    return [0, 1, 2].map((k) => rgb[i]![k] + (rgb[j]![k] - rgb[i]![k]) * t);
+  };
+  const samples = Array.from({ length: N }, (_, i) => at((i / (N - 1)) * len));
+  const R = 6;
+  return samples.map((_, i) => {
+    const win = samples.slice(Math.max(0, i - R), Math.min(N, i + R + 1));
+    const c = [0, 1, 2].map((k) => Math.round(win.reduce((s, v) => s + v[k], 0) / win.length));
+    return [(i / (N - 1)) * len, `rgb(${c.join(",")})`] as Stop;
+  });
+}
+
 /* ---------- the picture ---------- */
+
+/** Beside the scene, the side bands soften over this distance (scene units). */
+const SETTLE_X = 90;
 
 /** Above and below the scene, the band settles into one even colour this far out (scene units). */
 const SETTLE = 70;
@@ -191,6 +221,30 @@ export function BleedScene({ w, h, fit, edges, children }: { w: number; h: numbe
         {needR && <Grad id={id("r")} stops={edges.r} vertical />}
         {needT && <Grad id={id("t")} stops={edges.t} vertical={false} />}
         {needB && <Grad id={id("b")} stops={edges.b} vertical={false} />}
+        {needL && <Grad id={id("sl")} stops={soften(edges.l, SCENE_H)} vertical />}
+        {needR && <Grad id={id("sr")} stops={soften(edges.r, SCENE_H)} vertical />}
+        {needL && (
+          <linearGradient id={id("gl")} gradientUnits="userSpaceOnUse" x1={0} y1={0} x2={-SETTLE_X} y2={0}>
+            <stop offset={0} stopColor="#000" />
+            <stop offset={1} stopColor="#fff" />
+          </linearGradient>
+        )}
+        {needR && (
+          <linearGradient id={id("gr")} gradientUnits="userSpaceOnUse" x1={SCENE_W} y1={0} x2={SCENE_W + SETTLE_X} y2={0}>
+            <stop offset={0} stopColor="#000" />
+            <stop offset={1} stopColor="#fff" />
+          </linearGradient>
+        )}
+        {needL && (
+          <mask id={id("msl")} maskUnits="userSpaceOnUse" x={left} y={top} width={1 - left} height={bottom - top}>
+            <rect x={left} y={top} width={1 - left} height={bottom - top} fill={`url(#${id("gl")})`} />
+          </mask>
+        )}
+        {needR && (
+          <mask id={id("msr")} maskUnits="userSpaceOnUse" x={SCENE_W - 1} y={top} width={right - SCENE_W + 1} height={bottom - top}>
+            <rect x={SCENE_W - 1} y={top} width={right - SCENE_W + 1} height={bottom - top} fill={`url(#${id("gr")})`} />
+          </mask>
+        )}
         {needT && (
           <linearGradient id={id("st")} gradientUnits="userSpaceOnUse" x1={0} y1={0} x2={0} y2={-SETTLE}>
             <stop offset={0} style={{ stopColor: meanColor(edges.t, SCENE_W), stopOpacity: 0 }} />
@@ -257,6 +311,8 @@ export function BleedScene({ w, h, fit, edges, children }: { w: number; h: numbe
       {/* ...and each side's band carries on to the frame's edge (corners included) */}
       {needL && <rect x={left} y={top} width={1 - left} height={bottom - top} fill={`url(#${id("l")})`} />}
       {needR && <rect x={SCENE_W - 1} y={top} width={right - SCENE_W + 1} height={bottom - top} fill={`url(#${id("r")})`} />}
+      {needL && <rect x={left} y={top} width={1 - left} height={bottom - top} fill={`url(#${id("sl")})`} mask={`url(#${id("msl")})`} />}
+      {needR && <rect x={SCENE_W - 1} y={top} width={right - SCENE_W + 1} height={bottom - top} fill={`url(#${id("sr")})`} mask={`url(#${id("msr")})`} />}
       <svg x={0} y={0} width={SCENE_W} height={SCENE_H} viewBox={`0 0 ${SCENE_W} ${SCENE_H}`} overflow="hidden">
         {children}
       </svg>

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { connection } from "next/server";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -16,6 +16,8 @@ import { fmtDate } from "@/i18n/format";
 import { getLang, getT } from "@/i18n/server";
 
 export const metadata: Metadata = { title: "Lesson", robots: { index: false } };
+/** A story lesson's book fills the whole screen, under a notch too (its buttons keep clear of the safe area). */
+export const viewport: Viewport = { themeColor: "#86d3ff", viewportFit: "cover" };
 
 function Note({ children, back, label }: { children: ReactNode; back: string; label: string }) {
   return (

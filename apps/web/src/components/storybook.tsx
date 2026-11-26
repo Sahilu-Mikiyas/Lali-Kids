@@ -944,20 +944,9 @@ function Book({
   // Page size in pixels. The full-screen book is one page as big as the screen, turned like a
   // page of a picture book; the small book on the home page is a spread (wide) or a card.
   const spread = !immersive && wide;
-  let W = 0;
-  let H = 0;
-  if (size.w > 0) {
-    if (immersive) {
-      W = size.w;
-      H = size.h;
-    } else if (spread) {
-      W = Math.max(150, Math.min((size.w - 24) / 2, 640));
-      H = W / PAGE_ASPECT;
-    } else {
-      W = Math.max(220, Math.min(size.w, 560));
-      H = W * 1.62;
-    }
-  }
+  const spreadW = Math.max(150, Math.min((size.w - 24) / 2, 640));
+  const cardW = Math.max(220, Math.min(size.w, 560));
+  const [W, H] = size.w <= 0 ? [0, 0] : immersive ? [size.w, size.h] : spread ? [spreadW, spreadW / PAGE_ASPECT] : [cardW, cardW * 1.62];
   const leaf = immersive && W > 0 ? leafLayout(W, H, insets) : null;
   const portrait = leaf?.mode === "portrait";
   const short = leaf?.short ?? false;
@@ -965,21 +954,24 @@ function Book({
   const artH = spread ? H : Math.min(W * 0.86, H * 0.52);
   const fontSize = leaf ? leaf.font : spread ? Math.max(15, Math.min(30, W * 0.047)) : Math.max(16, Math.min(22, W * 0.058));
   // Where Lali may hide and where her counter sits: clear of the buttons around the screen's edge.
-  const bleed: Bleed | undefined = leaf
-    ? (() => {
-        const top = (leaf.short ? 58 : 70) + insets.t;
-        const side = leaf.mode === "landscape" ? (leaf.short ? 72 : 92) + insets.l : 0;
-        const bottom = leaf.mode === "landscape" ? 52 + insets.b : 0;
-        const r = leaf.region;
-        return {
-          w: W,
-          h: H,
-          layout: leaf,
-          overlay: { x: r.x + side, y: r.y + top, w: Math.max(40, r.w - side), h: Math.max(40, r.h - top - bottom) },
-          counter: { x: Math.max(4, side - 8), y: top - 4 },
-        };
-      })()
-    : undefined;
+  const bleedFor = (l: LeafLayout): Bleed => {
+    const top = (l.short ? 58 : 70) + insets.t;
+    const side = l.mode === "landscape" ? (l.short ? 72 : 92) + insets.l : 0;
+    const bottom = l.mode === "landscape" ? 52 + insets.b : 0;
+    const r = l.region;
+    const y = Math.max(r.y, top);
+    return {
+      w: W,
+      h: H,
+      layout: l,
+      overlay: { x: Math.max(r.x, side), y, w: Math.max(40, r.x + r.w - Math.max(r.x, side)), h: Math.max(40, r.y + r.h - y - bottom) },
+      counter: { x: Math.max(4, side - 8), y: top - 4 },
+    };
+  };
+  const bleed = leaf ? bleedFor(leaf) : undefined;
+  // The End's words need more room than a page's: upright, its picture gives some up.
+  const endLeaf = leaf && portrait ? leafLayout(W, H, insets, true) : leaf;
+  const endBleed = endLeaf ? bleedFor(endLeaf) : undefined;
 
   /* ----- the curl, applied straight to the DOM every frame ----- */
   const dims = useRef({ W: 0, H: 0, spread: true, full: false });
@@ -1329,23 +1321,30 @@ function Book({
   /* ----- the buttons around the full-screen book fade away while the child reads ----- */
   const [idle, setIdle] = useState(false);
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const poke = useCallback(() => {
-    setIdle(false);
+  /** Start the countdown to fading. */
+  const arm = useCallback(() => {
     if (idleTimer.current) clearTimeout(idleTimer.current);
     idleTimer.current = setTimeout(() => setIdle(true), IDLE_MS);
   }, []);
+  const poke = useCallback(() => {
+    setIdle(false);
+    arm();
+  }, [arm]);
   useEffect(() => () => {
     if (idleTimer.current) clearTimeout(idleTimer.current);
   }, []);
   // They stay while the book opens, at The End, and while anything else is open over the book.
+  // A page read aloud to its end brings them back too, so the glowing "next" arrow is seen.
   const holdChrome = !immersive || cover !== "open" || atEnd || cardOpen || voiceOpen || reward !== null;
+  const wakeKey = `${holdChrome}|${pageRead}`;
+  const [shownFor, setShownFor] = useState(wakeKey);
+  if (shownFor !== wakeKey) {
+    setShownFor(wakeKey);
+    if (!holdChrome) setIdle(false);
+  }
   useEffect(() => {
-    if (!holdChrome) poke();
-  }, [holdChrome, poke]);
-  // A page read aloud to its end brings them back, so the glowing "next" arrow is seen.
-  useEffect(() => {
-    if (pageRead) poke();
-  }, [pageRead, poke]);
+    if (!holdChrome) arm();
+  }, [holdChrome, pageRead, arm]);
   const chromeHidden = idle && !holdChrome;
   // On a touch screen, the first tap on a faded button only brings the buttons back.
   const swallow = useRef(false);
@@ -1579,15 +1578,21 @@ function Book({
     } else {
       const L = turn?.leaf ?? -1;
       const cards = turn ? [L + 1, L] : [page];
-      const card = (i: number, isLive: boolean) =>
-        leaf && bleed ? (
+      const fullPage = (i: number, isLive: boolean, b: Bleed) => {
+        const l = b.layout;
+        return (
           // The full-screen page: the picture edge to edge, the words on a panel over it.
-          <div className="relative h-full w-full overflow-hidden" data-leaf={leaf.mode}>
-            <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} bleed={bleed} />
-            <div className={`absolute ${leaf.mode === "landscape" ? "flex items-center" : ""}`} style={{ left: leaf.panel.x, top: leaf.panel.y, width: leaf.panel.w, height: leaf.panel.h }}>
-              {textFace(i, isLive, "none", leaf.mode)}
+          <div className="relative h-full w-full overflow-hidden" data-leaf={l.mode}>
+            <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} bleed={b} />
+            <div className={`absolute ${l.mode === "landscape" ? "flex items-center" : ""}`} style={{ left: l.panel.x, top: l.panel.y, width: l.panel.w, height: l.panel.h }}>
+              {textFace(i, isLive, "none", l.mode)}
             </div>
           </div>
+        );
+      };
+      const card = (i: number, isLive: boolean) =>
+        bleed && endBleed ? (
+          fullPage(i, isLive, at(i) >= pagesInBook ? endBleed : bleed)
         ) : (
           <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
             <div className="relative shrink-0" style={{ height: artH }}>
@@ -1930,11 +1935,11 @@ function BookCover({
 }) {
   const frontOpacity = useTransform(rot, [-89, -91], [1, 0]);
   const backOpacity = useTransform(rot, [-89, -91], [0, 1]);
-  const portrait = W / Math.max(1, H) < 1.15;
-  // The title sits in the sky; the picture's important part fills the rest of the screen.
-  const titleH = portrait ? Math.min(H * 0.3, 220) : Math.min(H * 0.26, 210);
-  const region = { x: insets.l, y: titleH * 0.55, w: W - insets.l - insets.r, h: H - titleH * 0.55 };
   const scale = Math.max(0.75, Math.min(1.5, Math.min(W, H * 1.4) / 620));
+  // The title sits in the sky, under the buttons; the picture's important part fills the rest
+  // (its own sky may run behind the title's last line).
+  const titleH = insets.t + 66 + 80 * scale;
+  const region = { x: insets.l, y: titleH, w: W - insets.l - insets.r, h: Math.max(80, H - titleH) };
   return (
     <motion.div className="absolute inset-0 z-50 [perspective:2600px]" style={{ opacity: fade }}>
       <motion.button
@@ -1953,7 +1958,7 @@ function BookCover({
             className="pointer-events-none absolute inset-x-0 top-0"
             style={{ height: titleH * 1.6, background: `linear-gradient(to bottom, color-mix(in oklab, ${story.color} 70%, transparent), transparent)` }}
           />
-          <div className="absolute inset-x-0 flex flex-col items-center px-6 text-center text-white" style={{ top: Math.max(16, insets.t + 12) + titleH * 0.12 }}>
+          <div className="absolute inset-x-0 flex flex-col items-center px-6 text-center text-white" style={{ top: insets.t + 66 }}>
             <p className="font-display font-black leading-[1.05] [text-shadow:0_3px_0_rgba(0,0,0,.25),0_0_24px_rgba(0,0,0,.25)]" style={{ fontSize: 40 * scale }}>
               {story.title.en}
             </p>

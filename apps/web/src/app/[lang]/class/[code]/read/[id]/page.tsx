@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { connection } from "next/server";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -9,6 +9,8 @@ import { cleanCode } from "@/lib/schools/shared";
 import { ClassReader } from "./class-reader";
 
 export const metadata: Metadata = { title: "Class reading", robots: { index: false } };
+/** The book fills the whole screen, under a notch too (its buttons keep clear of the safe area). */
+export const viewport: Viewport = { themeColor: "#86d3ff", viewportFit: "cover" };
 
 /**
  * A book on the class tablet. Only for the pupil signed in with their pictures, only for a class

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -13,6 +13,9 @@ import { courseById } from "@/lib/courses/catalog";
 import { storyForReading } from "@/lib/stories";
 import { getLang, getT } from "@/i18n/server";
 import { fillName } from "@/lib/story-path";
+
+/** The book fills the whole screen, under a notch too (its buttons keep clear of the safe area). */
+export const viewport: Viewport = { themeColor: "#86d3ff", viewportFit: "cover" };
 
 export function generateStaticParams() {
   return STORIES.map((s) => ({ id: s.id }));

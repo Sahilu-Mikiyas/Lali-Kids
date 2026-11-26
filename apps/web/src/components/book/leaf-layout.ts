@@ -35,7 +35,8 @@ export type LeafLayout = {
 const clamp = (lo: number, v: number, hi: number) => Math.max(lo, Math.min(hi, v));
 export const NO_INSET: Insets = { t: 0, r: 0, b: 0, l: 0 };
 
-export function leafLayout(W: number, H: number, inset: Insets = NO_INSET): LeafLayout {
+/** `roomy`: the page's words need more room than a story page's (The End, upright). */
+export function leafLayout(W: number, H: number, inset: Insets = NO_INSET, roomy = false): LeafLayout {
   const w = Math.max(1, W);
   const h = Math.max(1, H);
   if (w / h >= 1.15) {
@@ -51,7 +52,7 @@ export function leafLayout(W: number, H: number, inset: Insets = NO_INSET): Leaf
     return { mode: "landscape", panel, region, anchorY: 0.7, font, short, inset };
   }
   // Upright: the picture as tall as its important part needs at full width, within limits.
-  const pic = Math.round(clamp(h * 0.4, (w * 276) / 300 + 8 + inset.t, h * 0.58));
+  const pic = roomy ? Math.round(Math.max(h * 0.3, inset.t + 160)) : Math.round(clamp(h * 0.4, (w * 276) / 300 + 8 + inset.t, h * 0.58));
   const panel = { x: 0, y: pic, w, h: h - pic };
   const region = { x: 0, y: inset.t, w, h: pic - inset.t };
   const font = clamp(16, Math.min(w * 0.048, panel.h * 0.055), 28);
