@@ -28,6 +28,8 @@ export default async function Home() {
   const t = await getT();
   const book = demo();
   const href = `/stories/${DEMO_ID}`;
+  // The book's last page invites parents in where the site bar's Start reading button goes.
+  const start = "/stories";
   return (
     <HomeMotion>
       <SiteNav />
@@ -39,8 +41,8 @@ export default async function Home() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:px-12">
             <SectionHead eyebrow={t.home.try.eyebrow} title={t.home.try.title} sub={t.home.try.sub} />
           </div>
-          <ScrollBook story={book.story} pages={book.pages} href={href} />
-          <StillBook story={book.story} pages={book.pages} href={href} />
+          <ScrollBook story={book.story} pages={book.pages} href={href} start={start} />
+          <StillBook story={book.story} pages={book.pages} href={href} start={start} />
           <div id="after-book" tabIndex={-1} className="outline-none" />
         </section>
         <DayWalk phase="morning" />

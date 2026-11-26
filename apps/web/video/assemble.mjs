@@ -57,9 +57,10 @@ clips.forEach((c, k) => {
   input++;
 });
 
-const pages = segments.filter((s) => s.chime);
+// A chime as each page opens (chime: true), and at any moments a segment lists (chimes: [s]).
+const pages = segments.flatMap((s) => [...(s.chime ? [s.start + 0.15] : []), ...(s.chimes ?? []).map((c) => s.start + c)]);
 filters.push(`[${chime}:a]volume=0.3,afade=t=out:st=0.4:d=0.35,asplit=${pages.length}${pages.map((_, k) => `[ch${k}]`).join("")}`);
-pages.forEach((s, k) => filters.push(`[ch${k}]adelay=${ms(s.start + 0.15)}:all=1[chd${k}]`));
+pages.forEach((at, k) => filters.push(`[ch${k}]adelay=${ms(at)}:all=1[chd${k}]`));
 filters.push(`${pages.map((_, k) => `[chd${k}]`).join("")}amix=inputs=${pages.length}:normalize=0[chimes]`);
 filters.push(`[${sting}:a]volume=0.6[st]`);
 

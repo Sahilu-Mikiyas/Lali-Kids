@@ -63,6 +63,38 @@ any clip.
 - **Without clips** a language becomes a read-along video: the words light up at a calm reading
   pace over the music.
 
+## The promo for parents (vertical, Shorts and Reels)
+
+A 30-second 1080×1920 video for busy parents, in five beats drawn from **Anbessa and the New
+Year Flowers**: the hook over Anbessa's home, three pages turning with their words lighting up,
+the values (kindness, courage, good manners, saying sorry, trying again) popping in over the
+story's pictures, "Over 280 stories" with the shelf's covers flying past, and an end card (no
+ads, just good stories, Lali, "Start reading with Lali" and the address).
+
+| Part | Where |
+|---|---|
+| Words | The home book's last page, `t.home.try.pitch` in `src/i18n/dict.ts`; the few video-only words in `PROMO` (`video/segments.ts`) |
+| Stage | `?seg=promo-hook` … `promo-end` on the same stage page, drawn by `src/components/video/promo.tsx`. Each beat is drawn from the recorder's clock (`window.__laliTime`), scenes full-bleed with `BleedScene` |
+| Plan | `video/promo-plan.mjs`: the beats' lengths, the voice lines' places and the chimes. The timeline says 1080×1920 and `record.mjs` follows it |
+
+```bash
+node video/promo-plan.mjs en $W/narration-en $W/promo-en.json
+node video/record.mjs $W/promo-en.json $W/promo-segs-en
+python3 video/music.py $W/audio 31 11
+node video/assemble.mjs $W/promo-en.json $W/promo-segs-en $W/audio $W/narration-en $W/promo-en.mp4
+```
+
+- **English voice:** six lines in one vidIQ job (Bella, as above), saved as `line-0.mp3` …
+  `line-5.mp3` (the lines are listed at the top of `promo-plan.mjs`; about 300 characters).
+- **Amharic:** no voice (no computer voice reads Amharic, and an English voice never does):
+  the same beats with the words on screen, music and chimes.
+- The words stay in the column x 60–900 and above y 1500, clear of the Shorts/Reels buttons.
+- The scene pages it uses have no English words drawn in them, so the Amharic video has none.
+- Recording is quicker from a production build kept apart from the real one:
+  `LALI_VIDEO_STAGE=1 NEXT_DIST_DIR=.next-video npx next build`, then `next start` with the same
+  two variables. About 15 minutes per language on 4 CPUs.
+- Don't name other platforms in the video or its caption; say it positively.
+
 ## Before uploading
 
 - Mark every video **made for kids** (YouTube's rules and COPPA). Comments and personalised ads

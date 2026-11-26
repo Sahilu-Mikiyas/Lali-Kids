@@ -24,11 +24,14 @@ declare global {
   interface Window {
     __laliFrame?: (ms: number, word: number, cam: { zoom: number; x: number; y: number }) => void;
     __laliReady?: boolean;
+    /** A stage drawn from the clock (the promo, video/promo.tsx) redraws itself for ms first. */
+    __laliTime?: (ms: number) => void;
   }
 }
 
 if (typeof window !== "undefined") {
   window.__laliFrame = (ms, word, cam) => {
+    window.__laliTime?.(ms);
     // CSS animations and transitions, frozen at this moment of the segment.
     for (const a of document.getAnimations()) {
       a.pause();

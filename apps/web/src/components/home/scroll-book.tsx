@@ -48,7 +48,8 @@ const FIRST = 0.35;
 const TURN = 0.45;
 const DWELL = 0.3;
 const PER = TURN + DWELL;
-const END = 0.35;
+/** The last page stays a while: it carries a word to parents (see `Pitch`). */
+const END = 0.8;
 const CLOSE = 1.1;
 
 export function bookLength(pages: number) {
@@ -118,6 +119,74 @@ function Words({ text, lang, size, cardRef, head, foot }: { text: string; lang: 
   );
 }
 
+/* ---------- the last page: a word to busy parents ---------- */
+
+/** The values badges, in the site's colours (gold takes dark letters). */
+const BADGES = [
+  ["#E8513B", "#fff"],
+  ["#0E8C80", "#fff"],
+  ["#F5B21E", "#2A1A00"],
+  ["#D63B72", "#fff"],
+  ["#2F5BD3", "#fff"],
+] as const;
+
+/** How many parts of the pitch light up one after another (see `Pitch`). */
+const PITCH_PARTS = 10;
+
+/**
+ * The End, then why Lali: the hook, the values as badges, the proof, the contrast and two ways on.
+ * Sized in em of the parent's font size. Each part pops in as --lit (on the parent) passes its index.
+ */
+function Pitch({ lang, href, start }: { lang: Lang; href: string; start: string }) {
+  const t = useT();
+  const p = t.home.try.pitch;
+  const script = lang === "am" ? "font-ethiopic leading-[1.5]" : "font-body leading-[1.3]";
+  const at = (i: number) => ({ "--i": i }) as CSSProperties;
+  return (
+    <>
+      <p className="home-sbook-pop font-display text-[1.5em] font-black leading-[1.1] text-coral" style={at(0)}>
+        {READER[lang].theEnd}
+      </p>
+      <p className={`home-sbook-pop mt-[0.3em] ${script} font-bold`} style={at(1)}>
+        {p.hook}
+      </p>
+      <ul className="mt-[0.45em] flex flex-wrap gap-[0.4em] text-[max(13px,0.6em)]">
+        {p.values.map((v, k) => (
+          <li
+            key={v}
+            className={`home-sbook-pop rounded-full px-[0.8em] py-[0.2em] font-extrabold shadow-[0_3px_0_rgba(27,42,78,.18)] ${lang === "am" ? "font-ethiopic" : "font-display"}`}
+            style={{ ...at(2 + k), background: BADGES[k % BADGES.length][0], color: BADGES[k % BADGES.length][1] }}
+          >
+            {v}
+          </li>
+        ))}
+      </ul>
+      <div className={`mt-[0.55em] space-y-[0.15em] text-[max(14px,0.66em)] font-bold ${script}`}>
+        <p className="home-sbook-pop text-paper-ink/80" style={at(7)}>
+          {p.proof}
+        </p>
+        <p className="home-sbook-pop text-teal-deep" style={at(8)}>
+          {p.contrast}
+        </p>
+      </div>
+      <div className="home-sbook-pop mt-[0.7em] flex flex-wrap items-center gap-x-[0.6em] gap-y-[0.7em] text-[max(15px,0.6em)]" style={at(9)}>
+        <Link href={start} className="btn btn-primary !px-[1.1em] !py-[0.55em] !text-[1em]" data-pitch-start="">
+          {p.start} →
+        </Link>
+        <Link href={href} className="btn btn-plain !px-[1.1em] !py-[0.55em] !text-[1em]">
+          {t.home.try.readAll}
+        </Link>
+      </div>
+    </>
+  );
+}
+
+/**
+ * How far the last page's card sits above the bottom: on narrower screens it spans the corners,
+ * so it clears the Skip button (bottom left) and the music button (bottom right).
+ */
+const endLift = (W: number) => (W < 1200 ? 88 : 16);
+
 /* ---------- one page ---------- */
 
 type FaceProps = {
@@ -130,11 +199,12 @@ type FaceProps = {
   H: number;
   Hs: number;
   href: string;
+  start: string;
   faceRef: (i: number, el: HTMLDivElement | null) => void;
   cardRef: (i: number, el: HTMLDivElement | null) => void;
 };
 
-const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, faceRef, cardRef }: FaceProps) {
+const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, start, faceRef, cardRef }: FaceProps) {
   const t = useT();
   const f = useMemo(() => frame(W, Hs), [W, Hs]);
   const size = wordSize(W, Hs, lang);
@@ -157,23 +227,18 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, faceR
       ) : (
         kind && page && <Picture f={f} W={W} H={H} story={story} page={page.n} />
       )}
-      <div className="absolute inset-x-0 top-0 px-3 pt-3 sm:px-6 sm:pt-5" style={end ? { top: "auto", bottom: Math.max(16, H - Hs + 16) } : undefined}>
+      <div className="absolute inset-x-0 top-0 px-3 pt-3 sm:px-6 sm:pt-5" style={end ? { top: "auto", bottom: H - Hs + endLift(W) } : undefined}>
         {end ? (
-          <Words
-            text={READER[lang].theEnd}
-            lang={lang}
-            size={size * 1.5}
-            cardRef={(el) => cardRef(i, el)}
-            head={<span>{story.title[lang]}</span>}
-            foot={
-              <div className="mt-[0.3em] flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.42em]">
-                <p className="font-body font-bold text-paper-ink/70">{t.home.try.endNote}</p>
-                <Link href={href} className="btn btn-primary !px-4 !py-2 !text-base">
-                  {t.home.try.readAll}
-                </Link>
-              </div>
-            }
-          />
+          <div
+            ref={(el) => cardRef(i, el)}
+            data-words={PITCH_PARTS}
+            data-sbook-pitch=""
+            className="pointer-events-auto relative mx-auto w-full max-w-[54rem] rounded-[26px] bg-paper/95 px-[1.1em] pb-[0.9em] pt-[0.55em] text-paper-ink shadow-[0_14px_40px_-16px_rgba(27,42,78,.55)]"
+            style={{ fontSize: size }}
+          >
+            <p className="mb-[0.2em] text-[0.45em] font-bold text-paper-ink/55">{story.title[lang]}</p>
+            <Pitch lang={lang} href={href} start={start} />
+          </div>
         ) : (
           page && (
             <Words
@@ -238,7 +303,7 @@ function where(x: number, pagesAt: number, n: number): { cur: number; turn: numb
 
 type View = { cur: number; turn: number | null };
 
-export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPage[]; href: string }) {
+export function ScrollBook({ story, pages, href, start }: { story: Story; pages: DemoPage[]; href: string; start: string }) {
   const t = useT();
   const lang = useLang() as Lang;
   const n = pages.length;
@@ -306,7 +371,8 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
     for (const [i, card] of cards.current) {
       const arrive = i === 0 ? GROW * 0.85 : L.pagesAt + (i - 1) * PER + TURN;
       const words = Number(card.dataset.words);
-      const lit = clamp01((x - arrive + 0.14) / 0.34) * (words + 1);
+      // The last page's parts come in more slowly, one after another.
+      const lit = clamp01((x - arrive + 0.14) / (i >= n ? 0.6 : 0.34)) * (words + 1);
       put(card, "--lit", lit.toFixed(1));
     }
     // The hint fades once the first page has been turned.
@@ -366,7 +432,7 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
       g.setAttribute("y2", String(m.y - c.n.y * reach));
     }
   },
-    [L],
+    [L, n],
   );
 
   /** Write one scroll position onto the stage. */
@@ -471,7 +537,7 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
         <div ref={bookRef} className="home-sbook-book pointer-events-none absolute inset-0 origin-center will-change-transform">
           <div ref={clipRef} className="absolute inset-0 overflow-hidden rounded-[48px] bg-[#2a2414] shadow-[0_40px_80px_-30px_rgba(27,42,78,.6)]">
             {mounted.map((i) => (
-              <Face key={i} i={i} n={n} story={story} page={pages[i] ?? null} lang={lang} W={W} H={H} Hs={Hs} href={href} faceRef={setFace} cardRef={setCard} />
+              <Face key={i} i={i} n={n} story={story} page={pages[i] ?? null} lang={lang} W={W} H={H} Hs={Hs} href={href} start={start} faceRef={setFace} cardRef={setCard} />
             ))}
             {/* the back of the turning page */}
             <div
@@ -526,7 +592,7 @@ export function ScrollBook({ story, pages, href }: { story: Story; pages: DemoPa
 
 /* ---------- with reduced motion: a plain book ---------- */
 
-export function StillBook({ story, pages, href }: { story: Story; pages: DemoPage[]; href: string }) {
+export function StillBook({ story, pages, href, start }: { story: Story; pages: DemoPage[]; href: string; start: string }) {
   const t = useT();
   const lang = useLang() as Lang;
   const [i, setI] = useState(0);
@@ -544,14 +610,12 @@ export function StillBook({ story, pages, href }: { story: Story; pages: DemoPag
             <span>{story.title[lang]}</span>
             {!end && <span>{t.home.try.pageOf(i + 1, n)}</span>}
           </p>
-          <p className={`${lang === "am" ? "font-ethiopic" : "font-body"} text-xl font-bold leading-relaxed text-paper-ink sm:text-2xl`}>{end ? READER[lang].theEnd : page[lang]}</p>
-          {end && (
-            <div className="flex flex-wrap items-center gap-3">
-              <p className="text-paper-ink/70">{t.home.try.endNote}</p>
-              <Link href={href} className="btn btn-primary !px-4 !py-2 !text-base">
-                {t.home.try.readAll}
-              </Link>
+          {end ? (
+            <div className="text-[20px] text-paper-ink sm:text-[26px]" style={{ "--lit": PITCH_PARTS } as CSSProperties} data-sbook-pitch="">
+              <Pitch lang={lang} href={href} start={start} />
             </div>
+          ) : (
+            <p className={`${lang === "am" ? "font-ethiopic" : "font-body"} text-xl font-bold leading-relaxed text-paper-ink sm:text-2xl`}>{page[lang]}</p>
           )}
           <div className="flex items-center justify-between pt-2">
             <button type="button" className="btn btn-plain !px-4 !py-2 !text-base disabled:opacity-40" disabled={i === 0} onClick={() => setI(i - 1)}>
