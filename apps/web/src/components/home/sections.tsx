@@ -14,6 +14,7 @@ import { Scene } from "../scenes";
 import { Buddy } from "./buddies";
 import { boop, Drift, Edge, FlyBy, Twinkles, usePointerLook } from "./kit";
 import { useAwake } from "./live";
+import { Depth, Lift } from "./scroll-fx";
 import { PAPER_GRAIN, TIBEB } from "./popup-worlds";
 
 /* ---------- shared ---------- */
@@ -189,15 +190,18 @@ export function Worlds() {
     <section ref={ref} id="worlds" data-bee="worlds" className="relative mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6 sm:py-28">
       <Drift kind="pollen" n={6} area={[0, 10, 100, 90]} />
       <FlyBy color="#FF8FB1" top="9%" dur={19} delay={-6} />
-      <SectionHead
-        eyebrow={t.worlds.eyebrow}
-        title={t.worlds.title}
-        sub={t.worlds.sub}
-      />
+      <Depth speed={0.06}>
+        <SectionHead
+          eyebrow={t.worlds.eyebrow}
+          title={t.worlds.title}
+          sub={t.worlds.sub}
+        />
+      </Depth>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {WORLDS.map((w, i) => ({ ...w, ...t.worlds.list[i] })).map((w, i) => (
+          <Lift key={w.name} i={i} tilt={i % 2 ? 2.5 : -2.5}>
           <motion.div
-            key={w.name}
+            className="h-full"
             initial={{ opacity: 0, y: 70, rotate: i % 2 ? 5 : -5, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -231,6 +235,7 @@ export function Worlds() {
                 <p className="text-sm font-bold text-muted">{w.tags}</p>
             </Tilt>
           </motion.div>
+          </Lift>
         ))}
       </div>
     </section>
@@ -248,6 +253,7 @@ export function FeedVsBook({ bookColor = "#1F8A5B" }: { bookColor?: string }) {
     <section ref={ref} id="parents" data-bee="parents" className="relative scroll-mt-24 bg-white pb-28 pt-32">
       <Edge kind="tear" color="#ffffff" className="!top-[-23px] sm:!top-[-31px]" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Depth speed={0.06}>
         <SectionHead
           eyebrow={t.parents.eyebrow}
           title={
@@ -258,13 +264,15 @@ export function FeedVsBook({ bookColor = "#1F8A5B" }: { bookColor?: string }) {
           }
           sub={t.parents.sub}
         />
+        </Depth>
         <div className="grid gap-8 md:grid-cols-2">
+          <Lift i={0} className="h-full">
           <motion.div
             initial={{ opacity: 0, x: -60, rotate: -4 }}
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ type: "spring", stiffness: 110, damping: 15 }}
-            className="relative overflow-hidden rounded-[32px] bg-[#EEF0F5] p-6"
+            className="relative h-full overflow-hidden rounded-[32px] bg-[#EEF0F5] p-6"
           >
             <p className="font-display text-2xl font-black text-muted">{t.parents.feed}</p>
             <div className="relative mt-5 h-72 overflow-hidden rounded-2xl" aria-hidden>
@@ -288,13 +296,15 @@ export function FeedVsBook({ bookColor = "#1F8A5B" }: { bookColor?: string }) {
               ))}
             </ul>
           </motion.div>
+          </Lift>
 
+          <Lift i={1} className="h-full">
           <motion.div
             initial={{ opacity: 0, x: 60, rotate: 4 }}
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ type: "spring", stiffness: 110, damping: 15, delay: 0.12 }}
-            className="relative overflow-hidden rounded-[32px] bg-[radial-gradient(120%_80%_at_80%_0%,#2E3790,#141B45_60%)] p-6 text-white shadow-[0_20px_40px_-20px_rgba(20,27,69,.6)]"
+            className="relative h-full overflow-hidden rounded-[32px] bg-[radial-gradient(120%_80%_at_80%_0%,#2E3790,#141B45_60%)] p-6 text-white shadow-[0_20px_40px_-20px_rgba(20,27,69,.6)]"
           >
             <Drift kind="star" n={8} area={[4, 2, 96, 12]} />
             <p className="font-display text-2xl font-black text-gold">{t.parents.lali}</p>
@@ -309,6 +319,7 @@ export function FeedVsBook({ bookColor = "#1F8A5B" }: { bookColor?: string }) {
               ))}
             </ul>
           </motion.div>
+          </Lift>
         </div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -384,7 +395,9 @@ export function StarGame() {
     <section ref={ref} data-bee="stars" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28">
       <div className="grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <SectionHead eyebrow={t.starGame.eyebrow} title={t.starGame.title} sub={t.starGame.sub} />
+          <Depth speed={0.05}>
+            <SectionHead eyebrow={t.starGame.eyebrow} title={t.starGame.title} sub={t.starGame.sub} />
+          </Depth>
           <div className="-mt-4 flex items-baseline gap-5" aria-live="polite">
             <motion.span key={count} initial={{ scale: 1.5 }} animate={{ scale: 1 }} className="font-display text-8xl font-black tabular-nums text-coral">
               {count}
@@ -411,6 +424,7 @@ export function StarGame() {
             {t.starGame.again}
           </button>
         </div>
+        <Lift rise={80} tilt={2}>
         <div className="relative aspect-[16/10] overflow-hidden rounded-[32px] bg-[radial-gradient(120%_90%_at_70%_10%,#3B3F94,#141B45_70%)] shadow-[0_10px_0_rgba(27,42,78,.15),0_30px_60px_-30px_rgba(20,27,69,.7)]">
           {/* the Milky Way, a far range of the Simien and the moon */}
           <span className="pointer-events-none absolute -left-[10%] top-[30%] h-[30%] w-[130%] -rotate-[16deg] bg-[radial-gradient(ellipse_at_center,rgba(200,210,255,.22),rgba(200,210,255,0)_70%)]" aria-hidden />
@@ -481,6 +495,7 @@ export function StarGame() {
             {done ? t.starGame.proud : t.starGame.hiding}
           </span>
         </div>
+        </Lift>
       </div>
     </section>
   );
@@ -498,11 +513,13 @@ export function ParentReport() {
   return (
     <section data-bee="report" className="relative bg-white pb-28 pt-16">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
-        <SectionHead
-          eyebrow={t.report.eyebrow}
-          title={t.report.title}
-          sub={t.report.sub}
-        />
+        <Depth speed={0.07}>
+          <SectionHead
+            eyebrow={t.report.eyebrow}
+            title={t.report.title}
+            sub={t.report.sub}
+          />
+        </Depth>
         <motion.div
           ref={ref}
           initial={{ opacity: 0, x: 120, y: -80, rotate: 14, scale: 0.7 }}
@@ -587,19 +604,23 @@ export function Plans() {
   return (
     <section ref={ref} id="plans" data-bee="plans" className="relative mx-auto max-w-6xl scroll-mt-24 px-4 pb-28 pt-16 sm:px-6">
       <FlyBy color="#FFD23F" top="4%" dur={22} delay={-3} reverse />
-      <Drift kind="petal" n={5} area={[0, 0, 100, 30]} />
-      <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
+      <Depth speed={0.25} className="pointer-events-none absolute inset-0">
+        <Drift kind="petal" n={5} area={[0, 0, 100, 30]} />
+      </Depth>
+      <Depth speed={0.05}>
+        <SectionHead center eyebrow={t.plans.eyebrow} title={t.plans.title} sub={t.plans.sub} />
+      </Depth>
       <div className="grid items-stretch gap-6 md:grid-cols-3">
         {PLANS.map((p) => ({ ...p, name: t.plans.names[p.id], for: t.plans.for[p.id], items: t.plans.items[p.id] })).map((p, i) => (
+          <Lift key={p.id} i={i} className="flex">
           <motion.div
-            key={p.id}
             initial={{ opacity: 0, y: 60, rotate: (i - 1) * 4 }}
             whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 150, damping: 13, delay: i * 0.1 }}
             whileHover={{ y: -10, rotate: (i - 1) * 0.8 }}
             whileTap={{ scaleX: 1.03, scaleY: 0.97 }}
-            className={`group relative mt-10 flex flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] transition-shadow hover:shadow-[0_8px_0_var(--color-line),0_30px_50px_-24px_rgba(27,42,78,.45)] ${
+            className={`group relative mt-10 flex w-full flex-col gap-4 rounded-[32px] p-7 shadow-[0_8px_0_var(--color-line)] transition-shadow hover:shadow-[0_8px_0_var(--color-line),0_30px_50px_-24px_rgba(27,42,78,.45)] ${
               p.featured ? "bg-ink text-white shadow-[0_8px_0_#0d1530]" : "bg-white"
             }`}
           >
@@ -643,6 +664,7 @@ export function Plans() {
               {t.plans.choose(p.name)}
             </Link>
           </motion.div>
+          </Lift>
         ))}
       </div>
       <p className="mt-10 text-center">
