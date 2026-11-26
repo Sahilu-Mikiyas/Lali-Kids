@@ -155,13 +155,40 @@ function ArtFace({
         <HiddenLali story={story} page={page} live={tap} found={finder.found.has(page)} hints={finder.hints} onFind={finder.onFind} lang={finder.lang} />
       )}
       {finder && !end && !plate && tap && !bleed && <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />}
-      {choice && !end && !plate && (
+      {choice && !end && !plate && !bleed && (
         <div className="absolute inset-x-0 bottom-0 z-[8] bg-gradient-to-t from-black/45 via-black/20 to-transparent p-[0.5em] pt-[1.6em]" style={{ fontSize }}>
           <ChoiceButtons story={story} page={page} lang={lang} live={tap} choice={choice} />
         </div>
       )}
     </>
   );
+  // On a full-screen page the choices sit along the bottom of the free part of the picture,
+  // clear of the arrows and dots, on a shade that melts into the picture at its ends.
+  const r = bleed?.layout.region;
+  const landscape = bleed?.layout.mode === "landscape";
+  const choices =
+    bleed && r && choice && !end && !plate ? (
+      <div
+        className={`absolute z-[8] bg-gradient-to-t from-black/45 via-black/20 to-transparent pt-[1.6em] ${landscape ? "[mask-image:linear-gradient(to_right,#000_80%,transparent)]" : ""}`}
+        style={{
+          left: 0,
+          width: r.x + r.w,
+          top: Math.max(bleed.overlay.y, r.y + r.h - 300),
+          height: Math.min(300, r.y + r.h - bleed.overlay.y),
+          display: "flex",
+          alignItems: "flex-end",
+          paddingLeft: Math.max(8, r.x + 8),
+          paddingRight: landscape ? 24 : 8,
+          // (above the arrows and dots along the bottom, in landscape)
+          paddingBottom: landscape ? r.y + r.h - (bleed.overlay.y + bleed.overlay.h) : 10,
+          fontSize: Math.min(fontSize ?? 18, 19),
+        }}
+      >
+        <div className="w-full">
+          <ChoiceButtons story={story} page={page} lang={lang} live={tap} choice={choice} />
+        </div>
+      </div>
+    ) : null;
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ background: story.color }} data-art-face={end ? "end" : plate ? "plate" : page} data-live={tap ? "" : undefined}>
       <TapZone enabled={tap}>{art}</TapZone>
@@ -172,6 +199,7 @@ function ArtFace({
       ) : (
         extras
       )}
+      {choices}
       {bleed && finder && !end && !plate && tap && (
         <div className="pointer-events-none absolute" style={{ left: bleed.counter.x, top: bleed.counter.y, width: 280 }}>
           <FindCounter found={finder.count} total={finder.total} lang={finder.lang} bump={finder.bump} />
@@ -956,16 +984,18 @@ function Book({
   // Where Lali may hide and where her counter sits: clear of the buttons around the screen's edge.
   const bleedFor = (l: LeafLayout): Bleed => {
     const top = (l.short ? 58 : 70) + insets.t;
-    const side = l.mode === "landscape" ? (l.short ? 72 : 92) + insets.l : 0;
-    const bottom = l.mode === "landscape" ? 52 + insets.b : 0;
+    // Landscape: the buttons along the top sit right of the picture's free part, and the arrows
+    // and dots along its bottom. Upright, the buttons run all along the top.
+    const landscape = l.mode === "landscape";
+    const bottom = landscape ? (l.short ? 76 : 92) + insets.b : 0;
     const r = l.region;
-    const y = Math.max(r.y, top);
+    const y = landscape ? r.y : Math.max(r.y, top);
     return {
       w: W,
       h: H,
       layout: l,
-      overlay: { x: Math.max(r.x, side), y, w: Math.max(40, r.x + r.w - Math.max(r.x, side)), h: Math.max(40, r.y + r.h - y - bottom) },
-      counter: { x: Math.max(4, side - 8), y: top - 4 },
+      overlay: { x: r.x, y, w: r.w, h: Math.max(40, r.y + r.h - y - bottom) },
+      counter: { x: 4 + insets.l, y: top - 4 },
     };
   };
   const bleed = leaf ? bleedFor(leaf) : undefined;
@@ -1584,7 +1614,7 @@ function Book({
           // The full-screen page: the picture edge to edge, the words on a panel over it.
           <div className="relative h-full w-full overflow-hidden" data-leaf={l.mode}>
             <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} bleed={b} />
-            <div className={`absolute ${l.mode === "landscape" ? "flex items-center" : ""}`} style={{ left: l.panel.x, top: l.panel.y, width: l.panel.w, height: l.panel.h }}>
+            <div className={`absolute ${l.mode === "landscape" ? "flex items-center" : ""} ${l.short ? "lali-panel-tight" : ""}`} style={{ left: l.panel.x, top: l.panel.y, width: l.panel.w, height: l.panel.h }}>
               {textFace(i, isLive, "none", l.mode)}
             </div>
           </div>
@@ -1841,17 +1871,17 @@ function Book({
 
       {leaf && !portrait && (
         <>
-          {/* Landscape: the arrows at the screen's sides, the dots under the picture. */}
-          <div {...chromeProps} className="lali-chrome lali-side-l absolute top-1/2 z-[60] -translate-y-1/2">
+          {/* Landscape: the arrows in the bottom corners, where thumbs are; the dots between. */}
+          <div {...chromeProps} className="lali-chrome lali-side-l lali-corner absolute z-[60]">
             {prev}
           </div>
-          <div {...chromeProps} className="lali-chrome lali-side-r absolute z-[60] -translate-y-1/2" style={{ top: leaf.panel.y + leaf.panel.h / 2 }}>
+          <div {...chromeProps} className="lali-chrome lali-side-r lali-corner absolute z-[60]">
             {next}
           </div>
           <div
             {...chromeProps}
-            className="lali-chrome lali-dots-bar pointer-events-none absolute bottom-0 z-[60] flex justify-center"
-            style={{ left: leaf.region.x, width: leaf.region.w }}
+            className={`lali-chrome lali-dots-bar pointer-events-none absolute z-[60] flex justify-center ${short ? "lali-dots-short" : ""}`}
+            style={{ left: leaf.region.x + (short ? 76 : 92), width: Math.max(60, leaf.region.w - (short ? 76 : 92)) }}
           >
             <PageDots total={total} page={page} light choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
           </div>

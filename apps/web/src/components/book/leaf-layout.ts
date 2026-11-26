@@ -45,7 +45,7 @@ export function leafLayout(W: number, H: number, inset: Insets = NO_INSET, roomy
     // Room at the right edge for the next-page arrow (it fades away while the child reads).
     const lane = (short ? 72 : w < 1100 ? 88 : 104) + inset.r;
     const top = (short ? 58 : 76) + inset.t;
-    const pw = Math.round(clamp(short ? 260 : 330, w * (short ? 0.36 : 0.34), 620));
+    const pw = Math.round(clamp(short ? 280 : 330, w * (short ? 0.38 : 0.34), 620));
     const panel = { x: w - lane - pw, y: top, w: pw, h: h - top - margin - inset.b };
     const region = { x: inset.l, y: 0, w: Math.max(1, panel.x - margin - inset.l), h };
     const font = clamp(15, Math.min(pw * 0.052, h * 0.042), 30);

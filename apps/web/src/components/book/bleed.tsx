@@ -18,8 +18,10 @@ import { EDGE_FILES } from "./bleed-edges";
      side of each page has its edge colours, sampled from the real picture ahead of time
      (scripts/scene-edges.mjs, stored in ./bleed-edges/<scene>.json). Each side's band is one
      gradient across the edge (sky, hills, ground at their own heights), so the picture just
-     keeps going. A soft feather over the outer strip of the scene blends anything cut by the
-     edge (a hut, a cloud) into that band, so there is never a hard seam.
+     keeps going; further out it softens (a blurred copy of the same edge), so whatever the
+     edge cuts through becomes a gentle glow, not a stripe. Above and below, the sky and the
+     ground settle into one even colour. A soft feather over the outer strip of the scene
+     blends anything cut by the edge (a hut, a cloud) into the band: there is never a seam.
 
   It costs one extra gradient rect per side and is drawn in the same SVG as the scene: nothing
   is drawn twice, no blur filters, nothing extra to animate.
@@ -148,7 +150,7 @@ const toRgb = (c: string) => (/^#[0-9a-f]{6}$/i.test(c) ? [1, 3, 5].map((i) => p
  * The same edge, blurred along its length: what a side band settles into further out, so a
  * hut or a window cut by the edge becomes a soft glow there rather than a long stripe.
  */
-function soften(stops: Stop[], len: number): Stop[] {
+function soften(stops: Stop[], len: number, R: number): Stop[] {
   const rgb = stops.map(([, c]) => toRgb(c));
   if (stops.length < 2 || rgb.some((c) => !c)) return stops;
   const N = 41;
@@ -161,7 +163,6 @@ function soften(stops: Stop[], len: number): Stop[] {
     return [0, 1, 2].map((k) => rgb[i]![k] + (rgb[j]![k] - rgb[i]![k]) * t);
   };
   const samples = Array.from({ length: N }, (_, i) => at((i / (N - 1)) * len));
-  const R = 6;
   return samples.map((_, i) => {
     const win = samples.slice(Math.max(0, i - R), Math.min(N, i + R + 1));
     const c = [0, 1, 2].map((k) => Math.round(win.reduce((s, v) => s + v[k], 0) / win.length));
@@ -175,7 +176,7 @@ function soften(stops: Stop[], len: number): Stop[] {
 const SETTLE_X = 90;
 
 /** Above and below the scene, the band settles into one even colour this far out (scene units). */
-const SETTLE = 70;
+const SETTLE = 45;
 
 /** How far (scene units) the scene's outer strip fades into the band on each side. */
 const FEATHER = { x: 22, top: 18, bottom: 6 };
@@ -217,12 +218,12 @@ export function BleedScene({ w, h, fit, edges, children }: { w: number; h: numbe
   return (
     <svg width={w} height={h} viewBox={`${vx} ${vy} ${vw} ${vh}`} preserveAspectRatio="none" className="block" aria-hidden data-bleed="">
       <defs>
-        {needL && <Grad id={id("l")} stops={edges.l} vertical />}
-        {needR && <Grad id={id("r")} stops={edges.r} vertical />}
+        {needL && <Grad id={id("l")} stops={soften(edges.l, SCENE_H, 2)} vertical />}
+        {needR && <Grad id={id("r")} stops={soften(edges.r, SCENE_H, 2)} vertical />}
         {needT && <Grad id={id("t")} stops={edges.t} vertical={false} />}
         {needB && <Grad id={id("b")} stops={edges.b} vertical={false} />}
-        {needL && <Grad id={id("sl")} stops={soften(edges.l, SCENE_H)} vertical />}
-        {needR && <Grad id={id("sr")} stops={soften(edges.r, SCENE_H)} vertical />}
+        {needL && <Grad id={id("sl")} stops={soften(edges.l, SCENE_H, 9)} vertical />}
+        {needR && <Grad id={id("sr")} stops={soften(edges.r, SCENE_H, 9)} vertical />}
         {needL && (
           <linearGradient id={id("gl")} gradientUnits="userSpaceOnUse" x1={0} y1={0} x2={-SETTLE_X} y2={0}>
             <stop offset={0} stopColor="#000" />

@@ -25,14 +25,14 @@ const W = 400;
 const H = 300;
 /*
   How deep into the picture each edge is looked at, and how far along it a colour must last to
-  count (scene units). The sides look deep, so a cloud or a hut cut by the edge loses to the sky
-  or the grass around it; the top and bottom look shallow (the sky's gradient runs downwards)
-  but smooth widely along the edge, which drops clouds, flowers and feet the same way.
+  count (scene units). The sides look half the picture deep, counting what's nearest the edge
+  most, so a cloud or a basket cut by the edge loses to the sky or the ground around it, while a
+  big thing further in (a book held up in the middle) loses to the wall at the edge. The top and
+  bottom look shallow (the sky's gradient runs downwards) but smooth widely along the edge,
+  which drops clouds, flowers and feet the same way.
 */
-const DEPTH = { side: 160, tb: 14 };
-/** The colour right at the edge is kept when at least this share of the strip has it too. */
-const EDGE = { depth: 12, share: 0.5 };
-const SMOOTH = { side: 3, tb: 30 };
+const DEPTH = { side: 200, tb: 14 };
+const SMOOTH = { side: 12, tb: 50 };
 const MAX_STOPS = 14;
 
 const hex = (c) => c.map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
@@ -57,31 +57,21 @@ function along(px, side) {
       const g = px[o + 1];
       const b = px[o + 2];
       const k = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4);
-      const e = buckets.get(k) ?? { w: 0, near: 0, r: 0, g: 0, b: 0, nr: 0, ng: 0, nb: 0 };
-      e.w += 1;
-      e.r += r;
-      e.g += g;
-      e.b += b;
-      if (d < EDGE.depth) {
-        e.near += 1;
-        e.nr += r;
-        e.ng += g;
-        e.nb += b;
-      }
+      // Pixels nearer the edge count more, fading to nothing at the strip's far end.
+      const w = 1 - d / depth;
+      const e = buckets.get(k) ?? { w: 0, r: 0, g: 0, b: 0 };
+      e.w += w;
+      e.r += r * w;
+      e.g += g * w;
+      e.b += b * w;
       buckets.set(k, e);
     }
     let best = null;
-    let near = null;
-    for (const e of buckets.values()) {
-      if (!best || e.w > best.w) best = e;
-      if (!near || e.near > near.near) near = e;
-    }
-    // The edge's own colour carries on if the strip is mostly that colour too (sky, grass);
-    // otherwise something is cut by the edge (a hut, a basket) and the strip's own colour wins.
-    if (!vertical || near.w / depth >= EDGE.share) out.push([near.nr / near.near, near.ng / near.near, near.nb / near.near]);
-    else out.push([best.r / best.w, best.g / best.w, best.b / best.w]);
+    for (const e of buckets.values()) if (!best || e.w > best.w) best = e;
+    out.push([best.r / best.w, best.g / best.w, best.b / best.w]);
   }
-  // A running median smooths away what crosses the edge but is narrow along it.
+  // A running median smooths away what crosses the edge but is narrow along it (a plank, a
+  // bunting string, a highlight on a wall).
   const R = vertical ? SMOOTH.side : SMOOTH.tb;
   return out.map((_, i) => {
     const win = out.slice(Math.max(0, i - R), Math.min(out.length, i + R + 1));

@@ -1072,6 +1072,11 @@ html.lang-arriving body {
   border-radius: 26px 26px 0 0;
   box-shadow: 0 -12px 28px -14px rgba(24, 16, 4, 0.45), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
 }
+/* A phone held sideways: smaller buttons, so they sit side by side under the words. */
+.lali-panel-tight .btn {
+  padding: 0.5rem 0.8rem;
+  gap: 0.4rem;
+}
 /* Room at the bottom of the upright panel for the arrows and dots, and the home bar. */
 .lali-panel-portrait-pad {
   padding-bottom: calc(68px + max(10px, env(safe-area-inset-bottom)));
@@ -1088,8 +1093,15 @@ html.lang-arriving body {
 .lali-side-r {
   right: max(12px, env(safe-area-inset-right));
 }
+.lali-corner {
+  bottom: max(16px, env(safe-area-inset-bottom));
+}
+/* level with the middle of the arrows (64px, or 56px on a phone held sideways) */
 .lali-dots-bar {
-  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 26px);
+}
+.lali-dots-bar.lali-dots-short {
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 22px);
 }
 .lali-navbar {
   padding: 0 max(12px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
