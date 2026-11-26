@@ -94,7 +94,9 @@ const FEATHER = 28;
  * The copy is still (its animations are paused) so it is drawn once and then left alone.
  */
 function Stretch({ side, f, W, H, children }: { side: "top" | "bottom" | "left" | "right"; f: Frame; W: number; H: number; children: ReactNode }) {
-  const e = STRIP * f.s;
+  // Whole pixels: a strip with a fractional edge has a half-clear last row, which the stretch
+  // would turn into a see-through band.
+  const e = Math.max(2, Math.round(STRIP * f.s));
   // The strip is taken a little way in from the edge (edges can carry a hairline).
   const d = INSET * f.s;
   // `wrap` is the gap (plus the strip itself); `strip` is a thin window onto a copy of the
