@@ -43,6 +43,8 @@ async function Segment({ params, searchParams }: PageProps<"/[lang]/video-stage/
         story={bare(story)}
         pageCount={story.pages.length}
         pages={PROMO_PAGES.map((n) => story.pages[n][lang])}
+        // (both languages of those pages: their English says who the characters are, for their colours)
+        both={PROMO_PAGES.map((n) => ({ en: story.pages[n].en, am: story.pages[n].am }))}
         covers={covers}
       />
     );

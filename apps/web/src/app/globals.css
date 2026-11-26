@@ -976,6 +976,184 @@ html.lang-arriving body {
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
+/* ------------------------------------------------------------------
+   Words on the sky (book/sky.tsx): a page's words sit straight on its
+   picture, with no card, over a soft glow of the sky's own colour. Used by
+   the full-screen reader and the home page's scroll book.
+   ------------------------------------------------------------------ */
+.lali-story-en {
+  font-family: var(--font-playpen), var(--font-andika), system-ui, sans-serif;
+  font-weight: 800;
+}
+.lali-story-am {
+  font-family: var(--font-noto-ethiopic), "Nyala", sans-serif;
+  font-weight: 700;
+}
+/* Ink, the read and highlighted words and each name's colour: deep shades by day... */
+.lali-sky-light {
+  --ink: #22180a;
+  --read: #23408f;
+  --hi-bg: #ffd54a;
+  --hi-ink: #2a1a00;
+  --accent: #a12b1a;
+  --t-anbessa: #7c2b04;
+  --u-anbessa: #ff9a4d;
+  --t-lali: #5e3d00;
+  --u-lali: #ffc83d;
+  --t-gugu: #57301a;
+  --u-gugu: #c98d55;
+  --t-grandma: #7a2148;
+  --u-grandma: #f39ac0;
+  --t-n1: #08514b;
+  --u-n1: #3cc6b4;
+  --t-n2: #27510f;
+  --u-n2: #7fcf4a;
+  --t-n3: #861827;
+  --u-n3: #ff7f8f;
+  --t-n4: #43258f;
+  --u-n4: #a98cf5;
+  --t-child: #8f005e;
+  --u-child: #ffc83d;
+  color: var(--ink);
+}
+/* ...and bright ones on a night sky. */
+.lali-sky-dark {
+  --ink: #fff8e8;
+  --read: #dbe7ff;
+  --hi-bg: #ffd54a;
+  --hi-ink: #2a1a00;
+  --accent: #ffd54a;
+  --t-anbessa: #ffc49a;
+  --u-anbessa: #ff8a3d;
+  --t-lali: #ffe27e;
+  --u-lali: #f5b21e;
+  --t-gugu: #f5d6b6;
+  --u-gugu: #c98d55;
+  --t-grandma: #ffc8de;
+  --u-grandma: #e0679a;
+  --t-n1: #a6f5e8;
+  --u-n1: #2bb3a1;
+  --t-n2: #cff5ad;
+  --u-n2: #6fbf3a;
+  --t-n3: #ffc0c6;
+  --u-n3: #f0607a;
+  --t-n4: #ddd0ff;
+  --u-n4: #9a7cf0;
+  --t-child: #ffc4e8;
+  --u-child: #ffc83d;
+  color: var(--ink);
+}
+/* The glow: the sky's own colour, fading out to nothing at every edge (a fixed mask, no blur). */
+.lali-sky-glow {
+  position: absolute;
+  inset: -2.6em -6em;
+  background: var(--glow);
+  opacity: 0.92;
+  /* long, eased fades: the glow has no edge or corner anywhere */
+  -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3) 3em, rgba(0, 0, 0, 0.75) 5em, #000 7em, #000 calc(100% - 7em), rgba(0, 0, 0, 0.75) calc(100% - 5em), rgba(0, 0, 0, 0.3) calc(100% - 3em), transparent),
+    linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3) 1.1em, rgba(0, 0, 0, 0.75) 2em, #000 2.9em, #000 calc(100% - 2.9em), rgba(0, 0, 0, 0.75) calc(100% - 2em), rgba(0, 0, 0, 0.3) calc(100% - 1.1em), transparent);
+  mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3) 3em, rgba(0, 0, 0, 0.75) 5em, #000 7em, #000 calc(100% - 7em), rgba(0, 0, 0, 0.75) calc(100% - 5em), rgba(0, 0, 0, 0.3) calc(100% - 3em), transparent),
+    linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3) 1.1em, rgba(0, 0, 0, 0.75) 2em, #000 2.9em, #000 calc(100% - 2.9em), rgba(0, 0, 0, 0.75) calc(100% - 2em), rgba(0, 0, 0, 0.3) calc(100% - 1.1em), transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  pointer-events: none;
+}
+/* Over an uploaded picture's blurred copy, which can be any colour at all. */
+.lali-sky-strong .lali-sky-glow {
+  opacity: 0.97;
+}
+/* A soft halo of the same light round each letter (two shadows, painted once per word). */
+.lali-sky .lali-story-en,
+.lali-sky .lali-story-am,
+.lali-sky-head,
+.lali-sky [data-end-name],
+.lali-sky [data-bookplate] p {
+  text-shadow: 0 0 0.06em var(--halo), 0 0 0.3em var(--halo);
+}
+/* The home book redraws its words' brightness while it scrolls: no halo there, the glow is enough,
+   and the glow gets a layer of its own, so it is drawn once and not again with the words. */
+.lali-sky-flat .lali-sky-glow {
+  will-change: transform;
+}
+.lali-sky-flat .lali-story-en,
+.lali-sky-flat .lali-story-am,
+.lali-sky-flat .lali-sky-head,
+/* (nor while a page of the reader turns: the halos would be drawn again on every frame of the curl) */
+.lali-turning .lali-sky .lali-story-en,
+.lali-turning .lali-sky .lali-story-am,
+.lali-turning .lali-sky-head {
+  text-shadow: none;
+}
+.lali-sky-head {
+  color: var(--ink);
+}
+/* the words */
+.lali-sky .lali-word {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.lali-sky .lali-word::after {
+  display: none;
+}
+.lali-sky .lali-word[data-read] {
+  color: var(--read);
+}
+/* (names keep their colour once read) */
+.lali-sky [data-tone],
+.lali-sky .lali-word[data-tone] {
+  color: var(--tone);
+  text-decoration: underline 0.14em var(--tone-u);
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: none;
+}
+.lali-sky [data-tone="anbessa"] { --tone: var(--t-anbessa); --tone-u: var(--u-anbessa); }
+.lali-sky [data-tone="lali"] { --tone: var(--t-lali); --tone-u: var(--u-lali); }
+.lali-sky [data-tone="gugu"] { --tone: var(--t-gugu); --tone-u: var(--u-gugu); }
+.lali-sky [data-tone="grandma"] { --tone: var(--t-grandma); --tone-u: var(--u-grandma); }
+.lali-sky [data-tone="n1"] { --tone: var(--t-n1); --tone-u: var(--u-n1); }
+.lali-sky [data-tone="n2"] { --tone: var(--t-n2); --tone-u: var(--u-n2); }
+.lali-sky [data-tone="n3"] { --tone: var(--t-n3); --tone-u: var(--u-n3); }
+.lali-sky [data-tone="n4"] { --tone: var(--t-n4); --tone-u: var(--u-n4); }
+.lali-sky [data-tone="child"] {
+  --tone: var(--t-child);
+  --tone-u: var(--u-child);
+  text-decoration-style: wavy;
+  text-decoration-thickness: 0.09em;
+}
+/* The word being read: a gold highlighter mark, dark ink on it on any sky. */
+.lali-sky .lali-word[data-on] {
+  background-color: var(--hi-bg);
+  color: var(--hi-ink);
+  text-shadow: none;
+  box-shadow: 0 0.08em 0 rgba(120, 70, 0, 0.28);
+}
+@media (hover: hover) {
+  .lali-sky .lali-word:not([data-on]):hover {
+    background-color: color-mix(in oklab, var(--hi-bg) 30%, transparent);
+  }
+}
+.lali-sky .lali-word.mic-heard {
+  color: #13723f;
+  background-color: #ddf5d9;
+  text-shadow: none;
+}
+/* The microphone's steps keep a little card of their own: they are buttons, not the story. */
+.lali-sky-card {
+  align-self: center;
+  max-width: 100%;
+  padding: 0.6em 0.9em 0.7em;
+  border-radius: 1.1em;
+  background: color-mix(in oklab, var(--color-paper) 94%, transparent);
+  color: var(--color-paper-ink);
+  text-shadow: none;
+  box-shadow: 0 14px 30px -16px rgba(24, 16, 4, 0.5);
+  font-size: 0.72em;
+}
+.lali-sky-buttons {
+  text-shadow: none;
+  font-size: max(15px, 0.62em);
+}
+
 /* page-turn magic: sparkles off the turning edge, and a sweep of light on arrival */
 .lali-spark {
   position: absolute;
@@ -1060,24 +1238,13 @@ html.lang-arriving body {
 .lali-inset-probe {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
-/* The words panel: soft paper floating over the picture. */
-.lali-panel {
-  background: color-mix(in oklab, var(--color-paper) 95%, transparent);
-  box-shadow: 0 22px 50px -20px rgba(24, 16, 4, 0.55), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
-}
-.lali-panel-landscape {
-  border-radius: 28px;
-}
-.lali-panel-portrait {
-  border-radius: 26px 26px 0 0;
-  box-shadow: 0 -12px 28px -14px rgba(24, 16, 4, 0.45), 0 2px 0 rgba(255, 255, 255, 0.6) inset;
-}
+/* (The words sit on the picture's sky, with no card: see "Words on the sky" below.) */
 /* A phone held sideways: smaller buttons, so they sit side by side under the words. */
 .lali-panel-tight .btn {
   padding: 0.5rem 0.8rem;
   gap: 0.4rem;
 }
-/* Room at the bottom of the upright panel for the arrows and dots, and the home bar. */
+/* Room under the words, upright beside a picture (The End), for the arrows and dots and the home bar. */
 .lali-panel-portrait-pad {
   padding-bottom: calc(68px + max(10px, env(safe-area-inset-bottom)));
 }

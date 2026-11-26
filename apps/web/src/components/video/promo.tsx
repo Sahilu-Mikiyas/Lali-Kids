@@ -8,6 +8,8 @@ import { BeeShape } from "../characters";
 import { CoverFront } from "../book/cover";
 import { EndArt } from "../book/page-art";
 import { BleedScene, fallbackEdges, fitScene, loadEdges, useEdges } from "../book/bleed";
+import { SkyGlow, skyFor, skyProps } from "../book/sky";
+import { nameTones } from "@/lib/story-names";
 import { SceneBody } from "../scenes";
 import "./stage";
 import { PROMO, PROMO_PAGES, PROMO_VALUE_PAGES, type PromoBeat } from "../../../video/segments";
@@ -63,7 +65,6 @@ function popIn(s: number, at: number, rise = 50): CSSProperties {
 /* ---------- pieces ---------- */
 
 const FONT = { en: "var(--font-grandstander), sans-serif", am: "var(--font-noto-ethiopic), var(--font-andika), sans-serif" } as const;
-const BODY = { en: "var(--font-andika), sans-serif", am: "var(--font-noto-ethiopic), sans-serif" } as const;
 const full: CSSProperties = { position: "absolute", inset: 0 };
 
 /** A page of a drawn scene filling the whole frame, its sky and ground carried to the edges. */
@@ -102,7 +103,7 @@ const shadeTop: CSSProperties = { position: "absolute", left: 0, right: 0, top: 
 /* ---------- the beats ---------- */
 
 type Copy = { hook: string; values: readonly string[]; contrast: string; cta: string };
-type BeatProps = { lang: "en" | "am"; copy: Copy; story: Story; pageCount: number; pages: string[]; covers: Story[] };
+type BeatProps = { lang: "en" | "am"; copy: Copy; story: Story; pageCount: number; pages: string[]; both: { en: string; am: string }[]; covers: Story[] };
 
 /** Splits a line into its sentences (they come in one by one). */
 const sentences = (s: string) => s.split(/(?<=[?.!።])\s+/).filter(Boolean);
@@ -154,7 +155,7 @@ function Hook({ lang, copy, story }: BeatProps) {
 }
 
 /** 2. Pages turning, their words lighting up as if read. */
-function Pages({ lang, story, pageCount, pages }: BeatProps) {
+function Pages({ lang, story, pageCount, pages, both }: BeatProps) {
   const s = useSeconds();
   const PER = 2.2;
   const TURN = 0.55;
@@ -182,34 +183,7 @@ function Pages({ lang, story, pageCount, pages }: BeatProps) {
             <Bleed kind={story.scene!} page={page} color={story.color} zoom={1.02 + 0.04 * clamp01((s - k * PER) / PER)} />
             {/* the shade of the turning page */}
             <div style={{ ...full, background: "linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.35))", opacity: u }} />
-            <div
-              style={{
-                position: "absolute",
-                left: COL.left,
-                width: COL.width,
-                top: 290,
-                boxSizing: "border-box",
-                background: "rgba(255,253,246,.96)",
-                borderRadius: 40,
-                padding: "30px 40px 36px",
-                boxShadow: "0 20px 50px rgba(27,42,78,.4)",
-              }}
-            >
-              <p style={{ margin: "0 0 10px", fontFamily: FONT.en, fontSize: 30, fontWeight: 800, color: "rgba(42,36,20,.5)", display: "flex", justifyContent: "space-between" }}>
-                <span style={{ fontFamily: FONT[lang] }}>{story.title[lang]}</span>
-                <span>{page + 1} / {pageCount}</span>
-              </p>
-              <p style={{ margin: 0, fontFamily: BODY[lang], fontSize: lang === "am" ? 54 : 60, fontWeight: 700, lineHeight: lang === "am" ? 1.5 : 1.3, color: "#2A2414" }}>
-                {words.map((w, i) => {
-                  const on = clamp01(lit - i);
-                  return (
-                    <span key={i}>
-                      <span style={{ opacity: 0.3 + 0.7 * on, borderRadius: 12, background: i === Math.floor(lit) && lit < words.length ? "#FFD54A" : "transparent", padding: "0 4px", margin: "0 -4px" }}>{w}</span>{" "}
-                    </span>
-                  );
-                })}
-              </p>
-            </div>
+            <PageWords story={story} page={page} cast={both} en={both[k].en} lang={lang} words={words} lit={lit} pageCount={pageCount} />
           </div>
         );
       })}
@@ -220,6 +194,70 @@ function Pages({ lang, story, pageCount, pages }: BeatProps) {
         </p>
       </Column>
     </>
+  );
+}
+
+/** Where a page's scene goes in the frame (as `Bleed` places it, before its slow zoom). */
+const PAGE_FIT = fitScene(PROMO_W, PROMO_H, { x: 0, y: 0, w: PROMO_W, h: PROMO_H }, 0.72);
+
+/**
+ * A page's words as the reader sets them: straight on the picture's sky, over a soft glow of the
+ * sky's own colour (book/sky.tsx), names in their colours, the word being read on a gold mark.
+ */
+function PageWords({
+  story,
+  page,
+  cast,
+  en,
+  lang,
+  words,
+  lit,
+  pageCount,
+}: {
+  story: Story;
+  page: number;
+  /** The promo's pages in both languages: they say who the characters are. */
+  cast: { en: string; am: string }[];
+  en: string;
+  lang: "en" | "am";
+  words: string[];
+  lit: number;
+  pageCount: number;
+}) {
+  const edges = useEdges(story.scene, page) ?? fallbackEdges(story.color);
+  const sp = skyProps(skyFor({ x: COL.left, y: 290, w: COL.width, h: 520 }, PAGE_FIT, edges));
+  const tones = nameTones({ pages: cast }, words, lang, en);
+  return (
+    <div className={sp.className} style={{ ...sp.style, position: "absolute", left: COL.left, width: COL.width, top: 300, fontSize: lang === "am" ? 64 : 70 }}>
+      <SkyGlow />
+      <div style={{ position: "relative" }}>
+        <p className="lali-sky-head" style={{ margin: "0 0 14px", fontFamily: FONT.en, fontSize: 30, fontWeight: 800, display: "flex", justifyContent: "space-between" }}>
+          <span style={{ fontFamily: FONT[lang] }}>{story.title[lang]}</span>
+          <span>
+            {page + 1} / {pageCount}
+          </span>
+        </p>
+        <p className={lang === "am" ? "lali-story-am" : "lali-story-en"} style={{ margin: 0, lineHeight: lang === "am" ? 1.6 : 1.42 }}>
+          {words.map((w, i) => {
+            const on = clamp01(lit - i);
+            const now = i === Math.floor(lit) && lit < words.length;
+            return (
+              <span key={i}>
+                <span
+                  className="lali-word"
+                  data-tone={tones[i]}
+                  data-on={now ? "" : undefined}
+                  data-read={!now && on >= 1 && lit < words.length ? "" : undefined}
+                  style={{ opacity: 0.3 + 0.7 * on, borderRadius: 14, padding: "0 4px", margin: "0 -4px" }}
+                >
+                  {w}
+                </span>{" "}
+              </span>
+            );
+          })}
+        </p>
+      </div>
+    </div>
   );
 }
 

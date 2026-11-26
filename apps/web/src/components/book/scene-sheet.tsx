@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import type { SceneKind } from "@/content/stories";
 import { Scene, SceneBody } from "../scenes";
-import { BleedScene, fitScene, useEdges } from "./bleed";
+import { BleedScene, useEdges } from "./bleed";
 import { leafLayout } from "./leaf-layout";
 
 /*
@@ -41,7 +41,7 @@ export function BleedSheet({ kind, w, h, color }: { kind: SceneKind; w: number; 
   }, []);
   const edges = useEdges(kind, page);
   const L = leafLayout(w, h);
-  const fit = fitScene(w, h, L.region, L.anchorY);
+  const fit = L.fit;
   return (
     <div data-sheet-frame={edges ? page : "loading"} style={{ width: w, height: h, background: "#FF00FF", position: "relative", overflow: "hidden" }}>
       {edges && (

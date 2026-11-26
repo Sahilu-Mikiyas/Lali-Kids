@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Andika, Grandstander, Noto_Sans_Ethiopic } from "next/font/google";
+import { Andika, Grandstander, Noto_Sans_Ethiopic, Playpen_Sans } from "next/font/google";
 
 import { lang } from "next/root-params";
 
@@ -18,6 +18,15 @@ const andika = Andika({
   variable: "--font-andika",
   subsets: ["latin"],
   weight: ["400", "700"],
+});
+
+// The storybook's English face: handwriting made for early readers (single-storey a and g).
+// Only the reader and the home book use it, so it isn't preloaded either.
+const playpen = Playpen_Sans({
+  variable: "--font-playpen",
+  subsets: ["latin"],
+  weight: ["800"],
+  preload: false,
 });
 
 const ethiopic = Noto_Sans_Ethiopic({
@@ -50,7 +59,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   const l = await lang();
   const current = isLang(l) ? l : "en";
   return (
-    <html lang={current} className={`${grandstander.variable} ${andika.variable} ${ethiopic.variable} antialiased`}>
+    <html lang={current} className={`${grandstander.variable} ${andika.variable} ${playpen.variable} ${ethiopic.variable} antialiased`}>
       <head>
         {/* Fades the page in after a language switch (set by LangSwitch), before the first paint. */}
         <script

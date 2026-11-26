@@ -11,6 +11,8 @@ import { CoverBack, CoverFront } from "../book/cover";
 import { EndArt } from "../book/page-art";
 import { BleedScene, fallbackEdges, useEdges } from "../book/bleed";
 import { READER } from "../book/reader-words";
+import { SkyGlow, skyFor, skyProps, type Sky } from "../book/sky";
+import { nameTones } from "@/lib/story-names";
 import { Scene, SceneBody } from "../scenes";
 
 /*
@@ -72,10 +74,15 @@ export function frame(W: number, H: number) {
 
 type Frame = ReturnType<typeof frame>;
 
-/** Size of the book's words for a W x H screen. */
+/** Size of the book's words for a W x H screen (the pitch card's too). */
 function wordSize(W: number, H: number, lang: Lang) {
   const px = Math.max(18, Math.min(W / 19, H / 26, 32));
   return lang === "am" ? px * 0.92 : px;
+}
+
+/** The story pages' words sit on the sky, bigger than the old card's (as in the reader). */
+function skySize(W: number, H: number) {
+  return Math.max(22, Math.min(W / 14.5, H / 20, 42));
 }
 
 /* ---------- the picture, carried to the screen's edges ---------- */
@@ -96,25 +103,57 @@ function Picture({ f, W, H, story, page }: { f: Frame; W: number; H: number; sto
 
 /* ---------- the words ---------- */
 
-function Words({ text, lang, size, cardRef, head, foot }: { text: string; lang: Lang; size: number; cardRef: (el: HTMLDivElement | null) => void; head: ReactNode; foot?: ReactNode }) {
+/**
+ * A page's words on its sky, as the reader sets them (book/sky.tsx): no card, a soft glow of the
+ * sky's own colour behind them (fixed: only the words' brightness changes while scrolling),
+ * and the characters' names in their own colours.
+ */
+function Words({
+  text,
+  en,
+  cast,
+  lang,
+  size,
+  sky,
+  cardRef,
+  head,
+  foot,
+}: {
+  text: string;
+  en: string;
+  /** The demo's pages, which say who its characters are (see lib/story-names.ts). */
+  cast: Pick<Story, "pages">;
+  lang: Lang;
+  size: number;
+  sky: Sky;
+  cardRef: (el: HTMLDivElement | null) => void;
+  head: ReactNode;
+  foot?: ReactNode;
+}) {
   const words = text.split(/\s+/).filter(Boolean);
+  const tones = nameTones(cast, words, lang, en);
+  const sp = skyProps(sky);
   return (
     <div
       ref={cardRef}
       data-words={words.length}
-      className="home-sbook-card pointer-events-auto relative mx-auto w-full max-w-[54rem] rounded-[26px] bg-paper/95 px-[1.1em] pb-[0.8em] pt-[0.55em] text-paper-ink shadow-[0_14px_40px_-16px_rgba(27,42,78,.55)]"
-      style={{ fontSize: size }}
+      data-sky={sky.dark ? "dark" : "light"}
+      className={`home-sbook-card pointer-events-auto relative mx-auto w-full max-w-[30em] px-[0.4em] pt-[0.3em] ${sp.className} lali-sky-flat`}
+      style={{ ...sp.style, fontSize: size }}
     >
-      <div className="mb-[0.25em] flex items-center justify-between gap-3 text-[0.5em] font-bold text-paper-ink/55">{head}</div>
-      <p className={`${lang === "am" ? "font-ethiopic leading-[1.55]" : "font-body leading-[1.42]"} font-bold`}>
-        {words.map((w, i) => (
-          <span key={i} className="home-sbook-word" style={{ "--i": i } as CSSProperties}>
-            {w}
-            {i < words.length - 1 ? " " : ""}
-          </span>
-        ))}
-      </p>
-      {foot}
+      <SkyGlow />
+      <div className="relative">
+        <div className="lali-sky-head mb-[0.3em] flex items-center justify-between gap-3 text-[0.46em] font-bold">{head}</div>
+        <p className={lang === "am" ? "lali-story-am leading-[1.6]" : "lali-story-en leading-[1.45]"}>
+          {words.map((w, i) => (
+            <span key={i} className="home-sbook-word" data-tone={tones[i]} style={{ "--i": i } as CSSProperties}>
+              {w}
+              {i < words.length - 1 ? " " : ""}
+            </span>
+          ))}
+        </p>
+        {foot}
+      </div>
     </div>
   );
 }
@@ -200,16 +239,23 @@ type FaceProps = {
   Hs: number;
   href: string;
   start: string;
+  cast: Pick<Story, "pages">;
   faceRef: (i: number, el: HTMLDivElement | null) => void;
   cardRef: (i: number, el: HTMLDivElement | null) => void;
 };
 
-const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, start, faceRef, cardRef }: FaceProps) {
+const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, start, cast, faceRef, cardRef }: FaceProps) {
   const t = useT();
   const f = useMemo(() => frame(W, Hs), [W, Hs]);
   const size = wordSize(W, Hs, lang);
   const end = i >= n;
   const kind = story.scene;
+  // The look of the words: worked out from the page's sky once (not on scroll frames).
+  const edges = useEdges(kind, page?.n ?? 0);
+  const sky = useMemo(
+    () => skyFor({ x: 0, y: 0, w: W, h: Math.min(Hs * 0.42, f.top + 170 * f.s) }, { s: f.s, ox: f.left, oy: f.top }, edges ?? fallbackEdges(story.color)),
+    [W, Hs, f, edges, story.color],
+  );
   return (
     <div
       ref={(el) => faceRef(i, el)}
@@ -243,8 +289,11 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, start
           page && (
             <Words
               text={page[lang]}
+              en={page.en}
+              cast={cast}
               lang={lang}
-              size={size}
+              size={skySize(W, Hs)}
+              sky={sky}
               cardRef={(el) => cardRef(i, el)}
               head={
                 <>
@@ -256,7 +305,7 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, start
               }
               foot={
                 i === 0 ? (
-                  <p data-sbook-hint="" className="mt-[0.35em] text-[0.5em] font-bold text-coral opacity-0 transition-opacity duration-300" aria-hidden>
+                  <p data-sbook-hint="" className="mt-[0.35em] text-[0.46em] font-bold text-[var(--accent)] opacity-0 transition-opacity duration-300" aria-hidden>
                     {t.home.try.hint} <span className="home-sbook-arrow inline-block">↓</span>
                   </p>
                 ) : undefined
@@ -308,6 +357,8 @@ export function ScrollBook({ story, pages, href, start }: { story: Story; pages:
   const lang = useLang() as Lang;
   const n = pages.length;
   const L = useMemo(() => bookLength(n), [n]);
+  // The demo's pages are all the story the home page has: they say who its characters are.
+  const cast = useMemo(() => ({ pages }), [pages]);
 
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -537,7 +588,7 @@ export function ScrollBook({ story, pages, href, start }: { story: Story; pages:
         <div ref={bookRef} className="home-sbook-book pointer-events-none absolute inset-0 origin-center will-change-transform">
           <div ref={clipRef} className="absolute inset-0 overflow-hidden rounded-[48px] bg-[#2a2414] shadow-[0_40px_80px_-30px_rgba(27,42,78,.6)]">
             {mounted.map((i) => (
-              <Face key={i} i={i} n={n} story={story} page={pages[i] ?? null} lang={lang} W={W} H={H} Hs={Hs} href={href} start={start} faceRef={setFace} cardRef={setCard} />
+              <Face key={i} i={i} n={n} story={story} page={pages[i] ?? null} lang={lang} W={W} H={H} Hs={Hs} href={href} start={start} cast={cast} faceRef={setFace} cardRef={setCard} />
             ))}
             {/* the back of the turning page */}
             <div

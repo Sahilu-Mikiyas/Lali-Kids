@@ -74,7 +74,7 @@ ads, just good stories, Lali, "Start reading with Lali" and the address).
 | Part | Where |
 |---|---|
 | Words | The home book's last page, `t.home.try.pitch` in `src/i18n/dict.ts`; the few video-only words in `PROMO` (`video/segments.ts`) |
-| Stage | `?seg=promo-hook` … `promo-end` on the same stage page, drawn by `src/components/video/promo.tsx`. Each beat is drawn from the recorder's clock (`window.__laliTime`), scenes full-bleed with `BleedScene` |
+| Stage | `?seg=promo-hook` … `promo-end` on the same stage page, drawn by `src/components/video/promo.tsx`. Each beat is drawn from the recorder's clock (`window.__laliTime`), scenes full-bleed with `BleedScene`; the pages' words sit on the sky as the reader sets them (`src/components/book/sky.tsx`) |
 | Plan | `video/promo-plan.mjs`: the beats' lengths, the voice lines' places and the chimes. The timeline says 1080×1920 and `record.mjs` follows it |
 
 ```bash

@@ -38,6 +38,7 @@ import { readThreshold } from "@/lib/read-aloud/match";
 import { useMicReader } from "@/lib/read-aloud/use-mic-reader";
 import { useLang } from "@/i18n/provider";
 import { cleanName, fillName, hasName, nameWords, storyPath, withName } from "@/lib/story-path";
+import { nameTones } from "@/lib/story-names";
 import { dict } from "@/i18n/dict";
 import { inApp, tellApp } from "@/lib/in-app";
 import { earnedStickers, goldenStickerId, MILESTONES, storyStickerId } from "@/lib/stickers/catalog";
@@ -51,8 +52,9 @@ import { ambienceFor } from "./book/ambience";
 import { Arrow, Icon, LangToggle, PageDots, RoundButton } from "./book/controls";
 import { MicButton, MicPanel } from "./book/mic-reader";
 import { CoverBack } from "./book/cover";
-import { BleedArt, EndArt, PageArt } from "./book/page-art";
-import { loadEdges, type Rect } from "./book/bleed";
+import { BleedArt, END_SKY, EndArt, PageArt } from "./book/page-art";
+import { fallbackEdges, loadEdges, useEdges, type Rect } from "./book/bleed";
+import { skyFor, SkyGlow, skyOn, skyProps } from "./book/sky";
 import { leafLayout, NO_INSET, type Insets, type LeafLayout } from "./book/leaf-layout";
 import { READER } from "./book/reader-words";
 import { TapZone } from "./book/tappable";
@@ -72,7 +74,9 @@ const LANGS: Lang[] = ["en", "am"];
 /** Sparkles kept ready for the page turn (reused round-robin). */
 const SPARKS = 18;
 
-function textFont(lang: Lang) {
+/** The words' face: on the sky, the storybook faces (Playpen Sans, Noto Sans Ethiopic); else the site's. */
+function textFont(lang: Lang, sky = false) {
+  if (sky) return lang === "am" ? "lali-story-am" : "lali-story-en";
   return lang === "am" ? "font-ethiopic" : "font-body";
 }
 
@@ -137,7 +141,7 @@ function ArtFace({
   const end = page >= story.pages.length;
   const plate = page === PLATE;
   const art = bleed ? (
-    <BleedArt story={story} page={page} what={end ? "end" : plate ? "plate" : "page"} w={bleed.w} h={bleed.h} region={bleed.layout.region} anchorY={bleed.layout.anchorY} />
+    <BleedArt story={story} page={page} what={end ? "end" : plate ? "plate" : "page"} w={bleed.w} h={bleed.h} region={bleed.layout.region} anchorY={bleed.layout.anchorY} fit={bleed.layout.fit} />
   ) : end ? (
     <EndArt />
   ) : plate ? (
@@ -213,9 +217,9 @@ function ArtFace({
 /** How a full-screen page is laid out (see leafLayout), plus where Lali and her counter may go. */
 type Bleed = { w: number; h: number; layout: LeafLayout; overlay: Rect; counter: { x: number; y: number } };
 
-function PageHeader({ story, num, of, lang }: { story: Story; num: number; of: number; lang: Lang }) {
+function PageHeader({ story, num, of, lang, sky = false }: { story: Story; num: number; of: number; lang: Lang; sky?: boolean }) {
   return (
-    <div className="flex items-center justify-between gap-3 text-[0.8em] font-bold text-[#7A6A45]">
+    <div className={`flex items-center justify-between gap-3 font-bold ${sky ? "lali-sky-head text-[0.56em]" : "text-[0.8em] text-[#7A6A45]"}`}>
       <Swap lang={lang} className="min-w-0" layerClass="truncate">
         {(l) => <span className={l === "am" ? "font-ethiopic" : "font-display"}>{story.title[l]}</span>}
       </Swap>
@@ -303,7 +307,10 @@ function EndText({
   chosen,
   canTryOther,
   classroom,
+  sky = false,
 }: {
+  /** On the night sky (no card): light ink. */
+  sky?: boolean;
   storyId: string;
   lang: Lang;
   interactive: boolean;
@@ -327,11 +334,11 @@ function EndText({
   const shown = starLanded ? stars : Math.max(0, stars - 1);
   return (
     <div className={`flex flex-1 flex-col items-center justify-center text-center ${chosen?.length ? "gap-[0.4em]" : "gap-[0.55em]"}`}>
-      <p className={`font-display font-black leading-none text-coral ${chosen?.length ? "text-[1.8em]" : "text-[2.2em]"}`}>
+      <p className={`font-display font-black leading-none ${sky ? "text-[var(--accent)]" : "text-coral"} ${chosen?.length ? "text-[1.8em]" : "text-[2.2em]"}`}>
         <Swap lang={lang}>{(l) => READER[l].theEnd}</Swap>
       </p>
       {name && (
-        <p className="font-display text-[1.15em] font-black text-ink" data-end-name={name}>
+        <p className={`font-display text-[1.15em] font-black ${sky ? "text-[var(--ink)]" : "text-ink"}`} data-end-name={name}>
           <Swap lang={lang}>{(l) => dict[l].storyName.wellDone(name)}</Swap>
         </p>
       )}
@@ -369,7 +376,7 @@ function EndText({
         </Swap>
       </p>
       {interactive && finds && (
-        <p className="flex items-center gap-1.5 rounded-full bg-gold/20 px-3 py-1 text-[0.8em] font-bold text-[#7A3E00]" data-end-finds="">
+        <p className={`flex items-center gap-1.5 rounded-full ${sky ? "bg-[#FFF1C9]" : "bg-gold/20"} px-3 py-1 text-[0.8em] font-bold text-[#7A3E00]`} data-end-finds="">
           <svg viewBox="0 0 40 40" className="h-[1.4em] w-[1.4em] shrink-0" aria-hidden>
             <BeeShape />
           </svg>
@@ -400,7 +407,11 @@ function EndText({
           {!classroom && <StickersLink lang={lang} />}
           <MoreStoriesLink lang={lang} href={classroom?.shelfHref} />
           {!classroom && (
-            <ActivitiesLink lang={lang} storyId={storyId} className="self-center rounded-full px-2 py-1 text-[0.85em] font-bold text-blue underline decoration-2 underline-offset-4 hover:text-ink" />
+            <ActivitiesLink
+              lang={lang}
+              storyId={storyId}
+              className={`self-center rounded-full px-2 py-1 text-[0.85em] font-bold underline decoration-2 underline-offset-4 ${sky ? "text-[var(--ink)] decoration-[var(--accent)]" : "text-blue hover:text-ink"}`}
+            />
           )}
         </div>
       )}
@@ -439,10 +450,10 @@ function TextFace({
   chosen,
   canTryOther,
   classroom,
-  panel,
+  leaf,
 }: {
-  /** In the full-screen reader the words float on a panel over the picture. */
-  panel?: "landscape" | "portrait";
+  /** In the full-screen reader: the page's layout. The words sit on the picture's sky, with no card. */
+  leaf?: LeafLayout;
   story: Story;
   page: number;
   lang: Lang;
@@ -534,181 +545,239 @@ function TextFace({
     if (!live) stop();
   }, [live, stop]);
 
-  return (
-    <div
-      // The landscape panel is as tall as its words (within its column); the others fill their box.
-      className={`relative w-full overflow-hidden text-paper-ink ${panel === "landscape" ? "flex max-h-full min-h-[min(100%,14em)] flex-col" : "h-full"} ${panel ? `lali-panel lali-panel-${panel}` : "bg-paper"} ${shadow === "left" ? "shadow-[inset_26px_0_30px_-24px_rgba(0,0,0,.4)]" : ""}`}
-      style={{ fontSize }}
-      data-words-panel={panel}
-    >
-      {/* soft paper grain */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
-      <div
-        className={`relative flex flex-col gap-[0.7em] overflow-y-auto overscroll-contain ${panel === "landscape" ? "min-h-0 flex-1" : "h-full"} ${panel === "portrait" ? "lali-panel-portrait-pad px-[1.1em] pt-[1em]" : panel ? "p-[1.2em] sm:p-[1.4em]" : "p-[1.1em] sm:p-[1.3em]"}`}
-      >
-        {end ? (
-          <EndText
-            storyId={story.id}
-            lang={lang}
-            interactive={live}
-            onAgain={onAgain}
-            starLanded={starLanded}
-            finds={finds}
-            readAloud={readAloud}
-            name={name}
-            chosen={chosen}
-            canTryOther={canTryOther}
-            classroom={classroom}
-          />
-        ) : plate ? (
-          <BookplateText name={name ?? ""} lang={lang} />
-        ) : (
-          <>
-            <PageHeader story={story} num={pos + 1} of={count} lang={lang} />
-            <div className="grid flex-1 content-start">
-              {LANGS.map((l) => {
-                const on = l === lang;
-                if (!on) {
-                  // The other language waits underneath as plain text (light to mount), spaced like
-                  // the word buttons so it takes the same room: the page never changes height.
-                  return (
-                    <p
-                      key={`${l}-${gen[l]}`}
-                      aria-hidden
-                      className={`lali-lang-layer pointer-events-none -translate-y-[0.2em] pl-[3px] leading-[1.55] opacity-0 [grid-area:1/1] [word-spacing:6px] ${textFont(l)}`}
-                    >
-                      {fillName(story.pages[page][l], name, l)}
-                    </p>
-                  );
-                }
-                const ws = words;
-                const mode: WordMode = !opened && !reduce ? "hidden" : gen[l] > 0 ? "swap" : "arrive";
+  /* ----- on the sky: the look behind the words, names in colour, and a size that fits ----- */
+  const sky = Boolean(leaf);
+  const picture = !end && !plate && Boolean(story.pictures?.[page]);
+  const sampled = useEdges(leaf?.kind === "sky" ? story.scene : undefined, page);
+  const look = useMemo(() => {
+    if (!leaf) return null;
+    if (end) return skyOn(END_SKY);
+    if (plate || leaf.kind !== "sky") return skyOn(story.color, picture);
+    return skyFor(leaf.panel, leaf.fit, sampled ?? fallbackEdges(story.color));
+  }, [leaf, end, plate, picture, story.color, sampled]);
+  const tones = sky && !end && !plate ? nameTones(story, words, lang, story.pages[page].en, named.nameAt) : [];
+  // A long page shrinks its words step by step until they fit the sky, never below the old card's size.
+  const fitKey = leaf ? `${leaf.panel.w}x${leaf.panel.h}:${leaf.font}:${page}:${name ?? ""}` : "";
+  const [fitted, setFitted] = useState({ key: fitKey, size: leaf?.font ?? fontSize });
+  if (fitted.key !== fitKey) setFitted({ key: fitKey, size: leaf?.font ?? fontSize });
+  const size = leaf && !end && !plate ? fitted.size : leaf ? leaf.minFont * (leaf.mode === "landscape" ? 1.05 : 1) : fontSize;
+  const boxRef = useRef<HTMLDivElement>(null);
+  const blockRef = useRef<HTMLDivElement>(null);
+  // Still too long at the smallest size (or The End on a phone held sideways): the words scroll.
+  // (Only then: a scrolling box clips the glow, which reaches past the words' edges.)
+  const [scrolls, setScrolls] = useState(false);
+  useLayoutEffect(() => {
+    const el = boxRef.current;
+    const block = blockRef.current;
+    if (!leaf || !el || !block || fitted.key !== fitKey) return;
+    const cs = getComputedStyle(el);
+    const room = el.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 0.8 * size;
+    const over = block.offsetHeight > room + 1;
+    if (over && !end && !plate && fitted.size > leaf.minFont) {
+      setFitted({ key: fitKey, size: Math.max(leaf.minFont, Math.floor(fitted.size * 0.92 * 10) / 10) });
+      return;
+    }
+    setScrolls(over);
+  }, [leaf, end, plate, fitKey, fitted, size]);
+
+  const body = end ? (
+    <EndText
+      storyId={story.id}
+      lang={lang}
+      interactive={live}
+      onAgain={onAgain}
+      starLanded={starLanded}
+      finds={finds}
+      readAloud={readAloud}
+      name={name}
+      chosen={chosen}
+      canTryOther={canTryOther}
+      classroom={classroom}
+      sky={sky}
+    />
+  ) : plate ? (
+    <BookplateText name={name ?? ""} lang={lang} sky={sky} />
+  ) : (
+    <>
+      <PageHeader story={story} num={pos + 1} of={count} lang={lang} sky={sky} />
+      <div className="grid flex-1 content-start">
+        {LANGS.map((l) => {
+          const on = l === lang;
+          const lead = sky ? (l === "am" ? "leading-[1.7]" : "leading-[1.5]") : "leading-[1.55]";
+          if (!on) {
+            // The other language waits underneath as plain text (light to mount), spaced like
+            // the word buttons and in the same face, so it takes the same room: the page never
+            // changes height.
+            return (
+              <p
+                key={`${l}-${gen[l]}`}
+                aria-hidden
+                className={`lali-lang-layer pointer-events-none -translate-y-[0.2em] pl-[3px] opacity-0 [grid-area:1/1] [word-spacing:6px] ${lead} ${textFont(l, sky)}`}
+              >
+                {fillName(story.pages[page][l], name, l)}
+              </p>
+            );
+          }
+          const ws = words;
+          const mode: WordMode = !opened && !reduce ? "hidden" : gen[l] > 0 ? "swap" : "arrive";
+          return (
+            <p key={`${l}-${gen[l]}`} aria-live={live ? "polite" : undefined} className={`lali-lang-layer [grid-area:1/1] ${lead} ${textFont(l, sky)}`}>
+              {ws.map((w, i) => {
+                const anim: CSSProperties | undefined =
+                  mode === "hidden"
+                    ? { opacity: 0 }
+                    : mode === "arrive"
+                      ? { animationDelay: `${Math.round(120 + Math.min(i * 45, (1300 * i) / Math.max(1, ws.length)))}ms` }
+                      : { animationDelay: `${Math.min(i * 16, 420)}ms` };
+                const cls = mode === "arrive" ? "lali-word-in" : mode === "swap" ? "lali-word-swap" : "";
+                const said = mic.heard.has(i) || (mic.playIndex >= 0 && i <= mic.playIndex);
+                const tryIt = mic.missed.indexOf(i);
+                // On the sky the word being read gets a gold highlighter mark, words already read a
+                // calmer colour, and names their own colour (.lali-sky in globals.css).
+                const wordCls = sky
+                  ? `${i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)]" : ""}`
+                  : `hover:bg-[#F3E8C6] ${i === active ? "-translate-y-[0.18em] scale-110 text-[#7A3E00]" : i < active ? "text-blue" : ""} ${
+                      i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)] text-coral" : ""
+                    }`;
                 return (
-                  <p
-                    key={`${l}-${gen[l]}`}
-                    aria-live={live ? "polite" : undefined}
-                    className={`lali-lang-layer [grid-area:1/1] leading-[1.55] ${textFont(l)}`}
-                  >
-                    {ws.map((w, i) => {
-                      const anim: CSSProperties | undefined =
-                        mode === "hidden"
-                          ? { opacity: 0 }
-                          : mode === "arrive"
-                            ? { animationDelay: `${Math.round(120 + Math.min(i * 45, (1300 * i) / Math.max(1, ws.length)))}ms` }
-                            : { animationDelay: `${Math.min(i * 16, 420)}ms` };
-                      const cls = mode === "arrive" ? "lali-word-in" : mode === "swap" ? "lali-word-swap" : "";
-                      const said = mic.heard.has(i) || (mic.playIndex >= 0 && i <= mic.playIndex);
-                      const tryIt = mic.missed.indexOf(i);
-                      return (
-                        <span key={`${i}-${w}`}>
-                          <span className={`inline-block ${cls}`} style={anim}>
-                            <button
-                              type="button"
-                              tabIndex={live ? 0 : -1}
-                              data-on={i === active ? "" : undefined}
-                              data-heard={said ? "" : undefined}
-                              data-try={tryIt === 0 ? dict[l].mic.tryThis : tryIt > 0 ? "" : undefined}
-                              onClick={() => {
-                                if (!live) return;
-                                setPopped(i);
-                                speakWord(w, i);
-                              }}
-                              className={`lali-word inline-block rounded-lg px-[3px] transition-[transform,color,background-color] duration-200 hover:bg-[#F3E8C6] ${
-                                i === active ? "-translate-y-[0.18em] scale-110 text-[#7A3E00]" : i < active ? "text-blue" : ""
-                              } ${said ? "mic-heard" : ""} ${i === mic.playIndex ? "-translate-y-[0.14em] scale-110" : ""} ${tryIt >= 0 ? "mic-try" : ""} ${
-                                i === popped ? "animate-[pop_.45s_cubic-bezier(.3,2,.5,1)] text-coral" : ""
-                              }`}
-                              onAnimationEnd={() => setPopped(-1)}
-                            >
-                              {w}
-                            </button>
-                          </span>{" "}
-                        </span>
-                      );
-                    })}
-                  </p>
+                  <span key={`${i}-${w}`}>
+                    <span className={`inline-block ${cls}`} style={anim}>
+                      <button
+                        type="button"
+                        tabIndex={live ? 0 : -1}
+                        data-on={i === active ? "" : undefined}
+                        data-read={sky && active >= 0 && i < active ? "" : undefined}
+                        data-tone={tones[i]}
+                        data-heard={said ? "" : undefined}
+                        data-try={tryIt === 0 ? dict[l].mic.tryThis : tryIt > 0 ? "" : undefined}
+                        onClick={() => {
+                          if (!live) return;
+                          setPopped(i);
+                          speakWord(w, i);
+                        }}
+                        className={`lali-word inline-block rounded-lg px-[3px] transition-[transform,color,background-color] duration-200 ${wordCls} ${said ? "mic-heard" : ""} ${
+                          i === mic.playIndex ? "-translate-y-[0.14em] scale-110" : ""
+                        } ${tryIt >= 0 ? "mic-try" : ""}`}
+                        onAnimationEnd={() => setPopped(-1)}
+                      >
+                        {w}
+                      </button>
+                    </span>{" "}
+                  </span>
                 );
               })}
-            </div>
-            {mic.phase !== "idle" ? (
-              <div className="pb-1">
-                <MicPanel mic={mic} lang={lang} live={live} />
-              </div>
-            ) : (
-            <div className="relative flex flex-wrap items-center justify-center gap-2 pb-1">
-              {silent && reading && lang === "am" && (
-                <p className="lali-fade absolute inset-x-0 bottom-full mb-2 text-center text-[0.65em] text-[#7A6A45] font-ethiopic">{READER.am.silent}</p>
-              )}
-              {familyUrl && voice && (
-                // Family voices come first; "Read to me" stays right beside it.
-                <span className="inline-flex items-center gap-1">
-                  <button
-                    type="button"
-                    tabIndex={live ? 0 : -1}
-                    data-read-family={voice.name}
-                    className="btn !bg-berry !text-base !text-white ![--edge:#A12456] shadow-[0_6px_0_#A12456]"
-                    onClick={family.reading ? stop : readFamily}
-                  >
-                    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                      {family.reading ? (
-                        <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
-                      ) : (
-                        <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3 1.7-1.8 3.2-3 5.3-3 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="currentColor" />
-                      )}
-                    </svg>
-                    <Swap lang={lang}>{(l) => (family.reading ? READER[l].stop : dict[l].voices.readBy(voice.name))}</Swap>
-                  </button>
-                  {voiceCount > 1 && onNextVoice && (
-                    <button
-                      type="button"
-                      tabIndex={live ? 0 : -1}
-                      aria-label="Another family voice"
-                      onClick={() => {
-                        stop();
-                        onNextVoice();
-                      }}
-                      className="grid h-9 w-9 place-items-center rounded-full bg-white text-berry shadow-[0_3px_0_rgba(27,42,78,.15)]"
-                    >
-                      ⇄
-                    </button>
-                  )}
-                </span>
-              )}
+            </p>
+          );
+        })}
+      </div>
+      {mic.phase !== "idle" ? (
+        <div className={`pb-1 ${sky ? "lali-sky-card" : ""}`}>
+          <MicPanel mic={mic} lang={lang} live={live} />
+        </div>
+      ) : (
+        <div className={`relative flex flex-wrap items-center justify-center gap-2 pb-1 ${sky ? "lali-sky-buttons" : ""}`}>
+          {silent && reading && lang === "am" && (
+            <p className={`lali-fade absolute inset-x-0 bottom-full mb-2 text-center text-[0.65em] font-ethiopic ${sky ? "font-bold" : "text-[#7A6A45]"}`}>{READER.am.silent}</p>
+          )}
+          {familyUrl && voice && (
+            // Family voices come first; "Read to me" stays right beside it.
+            <span className="inline-flex items-center gap-1">
               <button
                 type="button"
                 tabIndex={live ? 0 : -1}
-                className={`btn !text-base ${familyUrl ? "btn-plain" : "btn-primary"}`}
-                onClick={own.reading ? stop : readOwn}
-                data-read-own=""
+                data-read-family={voice.name}
+                className="btn !bg-berry !text-base !text-white ![--edge:#A12456] shadow-[0_6px_0_#A12456]"
+                onClick={family.reading ? stop : readFamily}
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                  {own.reading ? (
+                  {family.reading ? (
                     <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
                   ) : (
-                    <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor" />
+                    <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3 1.7-1.8 3.2-3 5.3-3 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z" fill="currentColor" />
                   )}
                 </svg>
-                <Swap lang={lang}>{(l) => (own.reading ? READER[l].stop : READER[l].readToMe)}</Swap>
+                <Swap lang={lang}>{(l) => (family.reading ? READER[l].stop : dict[l].voices.readBy(voice.name))}</Swap>
               </button>
-              <MicButton
-                lang={lang}
-                live={live}
-                onClick={() => {
-                  stop();
-                  void mic.begin();
-                }}
-              />
-              {clip?.narrator && (
-                <p className="w-full text-center text-[0.62em] font-bold text-[#7A6A45]" data-narrator={clip.narrator}>
-                  {dict[lang].narration.credit(clip.narrator)}
-                </p>
+              {voiceCount > 1 && onNextVoice && (
+                <button
+                  type="button"
+                  tabIndex={live ? 0 : -1}
+                  aria-label="Another family voice"
+                  onClick={() => {
+                    stop();
+                    onNextVoice();
+                  }}
+                  className="grid h-9 w-9 place-items-center rounded-full bg-white text-berry shadow-[0_3px_0_rgba(27,42,78,.15)]"
+                >
+                  ⇄
+                </button>
               )}
-            </div>
-            )}
-            {choice && <ChoicePrompt story={story} page={page} lang={lang} picked={choice.picked} />}
-          </>
-        )}
+            </span>
+          )}
+          <button type="button" tabIndex={live ? 0 : -1} className={`btn !text-base ${familyUrl ? "btn-plain" : "btn-primary"}`} onClick={own.reading ? stop : readOwn} data-read-own="">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
+              {own.reading ? (
+                <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
+              ) : (
+                <path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor" />
+              )}
+            </svg>
+            <Swap lang={lang}>{(l) => (own.reading ? READER[l].stop : READER[l].readToMe)}</Swap>
+          </button>
+          <MicButton
+            lang={lang}
+            live={live}
+            onClick={() => {
+              stop();
+              void mic.begin();
+            }}
+          />
+          {clip?.narrator && (
+            <p className={`w-full text-center text-[0.62em] font-bold ${sky ? "" : "text-[#7A6A45]"}`} data-narrator={clip.narrator}>
+              {dict[lang].narration.credit(clip.narrator)}
+            </p>
+          )}
+        </div>
+      )}
+      {choice && <ChoicePrompt story={story} page={page} lang={lang} picked={choice.picked} />}
+    </>
+  );
+
+  if (leaf && look) {
+    // On the sky: no card. The words sit a little above the middle of the sky they have, over
+    // a soft glow of the sky's own colour; a long page takes all of it.
+    const sp = skyProps(look);
+    const side = leaf.kind === "side";
+    const pad = leaf.mode === "portrait" ? (side ? "px-[1em] pt-[0.8em] lali-panel-portrait-pad" : "px-[1.1em]") : side ? "px-[0.6em]" : "";
+    return (
+      <div
+        ref={boxRef}
+        className={`relative flex h-full w-full flex-col ${scrolls ? "overflow-y-auto overscroll-contain [scrollbar-width:none]" : ""} ${pad} ${sp.className}`}
+        style={{ ...sp.style, fontSize: size }}
+        data-words-panel={leaf.mode}
+        data-words-kind={leaf.kind}
+        data-words-font={size.toFixed(1)}
+        data-sky={look.dark ? "dark" : "light"}
+        data-words-scroll={scrolls ? "" : undefined}
+      >
+        <div className="min-h-[0.4em] flex-[1_1_0]" aria-hidden />
+        <div ref={blockRef} className="relative w-full shrink-0">
+          <SkyGlow />
+          <div className={`relative flex flex-col ${end || plate ? "" : "gap-[0.45em]"}`}>{body}</div>
+        </div>
+        <div className="min-h-[0.4em] flex-[1.6_1_0]" aria-hidden />
       </div>
+    );
+  }
+
+  return (
+    <div
+      className={`relative h-full w-full overflow-hidden bg-paper text-paper-ink ${shadow === "left" ? "shadow-[inset_26px_0_30px_-24px_rgba(0,0,0,.4)]" : ""}`}
+      style={{ fontSize }}
+    >
+      {/* soft paper grain */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_20%,transparent_55%,rgba(180,150,90,.12))]" />
+      <div className="relative flex h-full flex-col gap-[0.7em] overflow-y-auto overscroll-contain p-[1.1em] sm:p-[1.3em]">{body}</div>
     </div>
   );
 }
@@ -975,12 +1044,14 @@ function Book({
   const spreadW = Math.max(150, Math.min((size.w - 24) / 2, 640));
   const cardW = Math.max(220, Math.min(size.w, 560));
   const [W, H] = size.w <= 0 ? [0, 0] : immersive ? [size.w, size.h] : spread ? [spreadW, spreadW / PAGE_ASPECT] : [cardW, cardW * 1.62];
-  const leaf = immersive && W > 0 ? leafLayout(W, H, insets) : null;
+  // A drawn page's words go on its sky; the bookplate, The End and uploaded pictures keep their own side.
+  const leaf = immersive && W > 0 ? leafLayout(W, H, insets, "sky") : null;
+  const sideLeaf = immersive && W > 0 ? leafLayout(W, H, insets, "side") : null;
   const portrait = leaf?.mode === "portrait";
   const short = leaf?.short ?? false;
   const narrow = portrait && W < 440;
   const artH = spread ? H : Math.min(W * 0.86, H * 0.52);
-  const fontSize = leaf ? leaf.font : spread ? Math.max(15, Math.min(30, W * 0.047)) : Math.max(16, Math.min(22, W * 0.058));
+  const fontSize = leaf ? leaf.minFont : spread ? Math.max(15, Math.min(30, W * 0.047)) : Math.max(16, Math.min(22, W * 0.058));
   // Where Lali may hide and where her counter sits: clear of the buttons around the screen's edge.
   const bleedFor = (l: LeafLayout): Bleed => {
     const top = (l.short ? 58 : 70) + insets.t;
@@ -989,18 +1060,22 @@ function Book({
     const landscape = l.mode === "landscape";
     const bottom = landscape ? (l.short ? 76 : 92) + insets.b : 0;
     const r = l.region;
-    const y = landscape ? r.y : Math.max(r.y, top);
+    // On the sky, Lali hides below the words (never under them), and her counter waits at the
+    // bottom left of that free part, out of the words' way.
+    const y = l.kind === "sky" ? Math.max(r.y, l.panel.y + l.panel.h) : landscape ? r.y : Math.max(r.y, top);
+    const h = Math.max(40, r.y + r.h - y - bottom);
     return {
       w: W,
       h: H,
       layout: l,
-      overlay: { x: r.x, y, w: r.w, h: Math.max(40, r.y + r.h - y - bottom) },
-      counter: { x: 4 + insets.l, y: top - 4 },
+      overlay: { x: r.x, y, w: r.w, h },
+      counter: l.kind === "sky" ? { x: 4 + insets.l, y: y + h - 40 } : { x: 4 + insets.l, y: top - 4 },
     };
   };
   const bleed = leaf ? bleedFor(leaf) : undefined;
+  const sideBleed = sideLeaf ? bleedFor(sideLeaf) : undefined;
   // The End's words need more room than a page's: upright, its picture gives some up.
-  const endLeaf = leaf && portrait ? leafLayout(W, H, insets, true) : leaf;
+  const endLeaf = sideLeaf && portrait ? leafLayout(W, H, insets, "side", true) : sideLeaf;
   const endBleed = endLeaf ? bleedFor(endLeaf) : undefined;
 
   /* ----- the curl, applied straight to the DOM every frame ----- */
@@ -1529,12 +1604,12 @@ function Book({
     if (idx < 0 || idx >= pagesInBook || !story.pages[idx].choices?.options.length) return undefined;
     return { picked: picks[idx], tried, onChoose: (o: number) => choose(idx, o), ready: pageRead && isLive };
   };
-  const textFace = (pos: number, isLive: boolean, shadow: "left" | "none" = "left", panel?: "landscape" | "portrait") => {
+  const textFace = (pos: number, isLive: boolean, shadow: "left" | "none" = "left", l?: LeafLayout) => {
     const idx = at(pos);
     const real = idx >= 0 && idx < pagesInBook;
     return (
     <TextFace
-      panel={panel}
+      leaf={l}
       story={story}
       page={idx}
       pos={pos - plateShift}
@@ -1611,18 +1686,24 @@ function Book({
       const fullPage = (i: number, isLive: boolean, b: Bleed) => {
         const l = b.layout;
         return (
-          // The full-screen page: the picture edge to edge, the words on a panel over it.
-          <div className="relative h-full w-full overflow-hidden" data-leaf={l.mode}>
+          // The full-screen page: the picture edge to edge, the words straight on its sky.
+          <div className="relative h-full w-full overflow-hidden" data-leaf={l.mode} data-leaf-kind={l.kind}>
             <ArtFace story={story} page={at(i)} gutter="none" tap={isLive} finder={finder} choice={choiceOn(i, isLive)} lang={lang} fontSize={fontSize} bleed={b} />
-            <div className={`absolute ${l.mode === "landscape" ? "flex items-center" : ""} ${l.short ? "lali-panel-tight" : ""}`} style={{ left: l.panel.x, top: l.panel.y, width: l.panel.w, height: l.panel.h }}>
-              {textFace(i, isLive, "none", l.mode)}
+            <div className={`absolute ${l.short ? "lali-panel-tight" : ""}`} style={{ left: l.panel.x, top: l.panel.y, width: l.panel.w, height: l.panel.h }}>
+              {textFace(i, isLive, "none", l)}
             </div>
           </div>
         );
       };
+      /** Which layout a page takes: a drawn page's words on its sky; the rest beside their picture. */
+      const bleedAt = (i: number, sky: Bleed, side: Bleed, ending: Bleed) => {
+        const idx = at(i);
+        if (idx >= pagesInBook) return ending;
+        return idx >= 0 && story.scene && !story.pictures?.[idx] ? sky : side;
+      };
       const card = (i: number, isLive: boolean) =>
-        bleed && endBleed ? (
-          fullPage(i, isLive, at(i) >= pagesInBook ? endBleed : bleed)
+        bleed && endBleed && sideBleed ? (
+          fullPage(i, isLive, bleedAt(i, bleed, sideBleed, endBleed))
         ) : (
           <div className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-paper">
             <div className="relative shrink-0" style={{ height: artH }}>
@@ -1881,17 +1962,17 @@ function Book({
           <div
             {...chromeProps}
             className={`lali-chrome lali-dots-bar pointer-events-none absolute z-[60] flex justify-center ${short ? "lali-dots-short" : ""}`}
-            style={{ left: leaf.region.x + (short ? 76 : 92), width: Math.max(60, leaf.region.w - (short ? 76 : 92)) }}
+            style={{ left: leaf.region.x + (short ? 76 : 92), width: Math.max(60, leaf.region.w - 2 * (short ? 76 : 92)) }}
           >
-            <PageDots total={total} page={page} light choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
+            <PageDots total={total} page={page} light onPicture choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
           </div>
         </>
       )}
       {portrait && (
-        // Upright: the arrows and dots along the bottom of the words panel.
+        // Upright: the arrows and dots along the bottom of the screen, under the picture.
         <div {...chromeProps} className="lali-chrome lali-navbar absolute inset-x-0 bottom-0 z-[60] flex items-center justify-between gap-2">
           {prev}
-          <PageDots total={total} page={page} choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
+          <PageDots total={total} page={page} light onPicture choiceAt={choiceAt} unsureFrom={openAt >= 0 ? openAt + 1 : -1} />
           {next}
         </div>
       )}

@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { Story } from "@/content/stories";
 import { STAR_PATH } from "../characters";
 import { Scene, SceneBody } from "../scenes";
-import { BleedScene, fallbackEdges, fitScene, flatEdges, useEdges, type Rect } from "./bleed";
+import { BleedScene, fallbackEdges, fitScene, flatEdges, useEdges, type Fit, type Rect } from "./bleed";
 import { BookplateArt } from "./choices";
 import { BeeFlight, Pollen, Stars, vars } from "./scenery";
 
@@ -49,7 +49,7 @@ export function EndArt() {
 }
 
 /** The night sky at the edges of the ending picture, carried on across a wide screen. */
-const END_SKY = "#141B45";
+export const END_SKY = "#141B45";
 
 function EndArtBody() {
   return (
@@ -113,6 +113,7 @@ export function BleedArt({
   h,
   region,
   anchorY,
+  fit: given,
 }: {
   story: Story;
   page: number;
@@ -121,12 +122,14 @@ export function BleedArt({
   h: number;
   region: Rect;
   anchorY: number;
+  /** Where the drawn scene goes, when the layout has placed it already (see leafLayout). */
+  fit?: Fit;
 }) {
   const picture = what === "page" ? story.pictures?.[page] : null;
   const kind = what === "page" && !picture ? story.scene : undefined;
   const sampled = useEdges(kind, page);
   if (picture) return <BleedPicture src={picture} page={page} w={w} h={h} region={region} anchorY={anchorY} />;
-  const fit = fitScene(w, h, region, anchorY);
+  const fit = given ?? fitScene(w, h, region, anchorY);
   const edges =
     what === "end" ? flatEdges(END_SKY) : what === "plate" ? flatEdges(story.color) : kind ? (sampled ?? fallbackEdges(story.color)) : flatEdges("#FFF6DD");
   return (

@@ -76,8 +76,10 @@ function BookplateBody({ story }: { story: Story }) {
 }
 
 /** The bookplate's words: "This book belongs to" and the child's name, big. */
-export function BookplateText({ name, lang }: { name: string; lang: Lang }) {
+export function BookplateText({ name, lang, sky = false }: { name: string; lang: Lang; sky?: boolean }) {
   const t = dict[lang].storyName;
+  // On the sky (no card) the words take the sky's ink (see .lali-sky in globals.css).
+  const soft = sky ? "font-bold" : "text-[#7A6A45]";
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-[0.5em] text-center" data-bookplate={name}>
       <div className="flex gap-1.5" aria-hidden>
@@ -85,12 +87,12 @@ export function BookplateText({ name, lang }: { name: string; lang: Lang }) {
           <span key={i} className="h-2.5 w-2.5 rotate-45 rounded-[3px] bg-gold" />
         ))}
       </div>
-      <p className={`text-[0.85em] font-bold uppercase tracking-[0.14em] text-[#7A6A45] ${lang === "am" ? "font-ethiopic normal-case tracking-normal" : ""}`}>{t.belongsTo}</p>
-      <p className="name-plate-in max-w-full break-words font-display text-[2.4em] font-black leading-tight text-coral" lang={lang}>
+      <p className={`text-[0.85em] font-bold uppercase tracking-[0.14em] ${soft} ${lang === "am" ? "font-ethiopic normal-case tracking-normal" : ""}`}>{t.belongsTo}</p>
+      <p className={`name-plate-in max-w-full break-words font-display text-[2.4em] font-black leading-tight ${sky ? "text-[var(--accent)]" : "text-coral"}`} lang={lang}>
         {name}
       </p>
       <div className="h-[3px] w-24 rounded-full bg-[repeating-linear-gradient(90deg,#E9DDBF_0_8px,transparent_8px_12px)]" aria-hidden />
-      <p className={`text-[0.9em] text-[#7A6A45] ${lang === "am" ? "font-ethiopic" : ""}`}>{t.happyReading}</p>
+      <p className={`text-[0.9em] ${soft} ${lang === "am" ? "font-ethiopic" : ""}`}>{t.happyReading}</p>
     </div>
   );
 }

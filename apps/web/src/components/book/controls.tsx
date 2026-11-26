@@ -115,20 +115,28 @@ export function PageDots({
   total,
   page,
   light = false,
+  onPicture = false,
   choiceAt,
   unsureFrom = -1,
 }: {
   total: number;
   page: number;
   light?: boolean;
+  /** Straight on the picture (no card under them): on a soft dark pill, so they show on any scene. */
+  onPicture?: boolean;
   choiceAt?: ReadonlySet<number>;
   unsureFrom?: number;
 }) {
   return (
-    <div className="flex max-w-[60vw] flex-wrap items-center justify-center gap-1.5 sm:gap-2" aria-hidden data-dots={total} data-dots-page={page}>
+    <div
+      className={`flex max-w-[60vw] flex-wrap items-center justify-center gap-1.5 sm:gap-2 ${onPicture ? "rounded-full bg-[rgba(20,24,48,.34)] px-2.5 py-1.5" : ""}`}
+      aria-hidden
+      data-dots={total}
+      data-dots-page={page}
+    >
       {Array.from({ length: total + 1 }, (_, i) => {
         const unsure = unsureFrom >= 0 && i >= unsureFrom && i !== page;
-        const fill = i === page ? "w-7 bg-coral sm:w-8" : unsure ? `w-2.5 sm:w-3 border-2 border-dashed ${light ? "border-white/60" : "border-[#C9BF9F]"}` : `w-2.5 sm:w-3 ${light ? "bg-white/55" : "bg-[#D9D2BC]"}`;
+        const fill = i === page ? "w-7 bg-coral sm:w-8" : unsure ? `w-2.5 sm:w-3 border-2 border-dashed ${light ? "border-white/60" : "border-[#C9BF9F]"}` : `w-2.5 sm:w-3 ${light ? "bg-white/70" : "bg-[#D9D2BC]"}`;
         return (
           <span
             key={i}
