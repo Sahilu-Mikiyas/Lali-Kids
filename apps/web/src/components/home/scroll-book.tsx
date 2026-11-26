@@ -9,8 +9,9 @@ import { useLang, useT } from "@/i18n/provider";
 import { backClip, backTransform, computeCurl, constrain, cornerPath, points, polygon } from "@/lib/page-curl";
 import { CoverBack, CoverFront } from "../book/cover";
 import { EndArt } from "../book/page-art";
+import { BleedScene, fallbackEdges, useEdges } from "../book/bleed";
 import { READER } from "../book/reader-words";
-import { Scene } from "../scenes";
+import { Scene, SceneBody } from "../scenes";
 
 /*
   The home page's scroll book: a short demo of a free story that you read by scrolling.
@@ -31,9 +32,9 @@ import { Scene } from "../scenes";
   Edge to edge: the scenes are drawn for 4:3 with what matters roughly in x 50..350 and
   y 60..300 (characters sometimes stand nearer the edges, so x 30..370 is kept).
   `frame` scales the picture as large as it can without losing that box, bottom-aligned, and
-  where the screen is wider or taller than the picture, `Stretch` extends it with the picture's
-  own outermost strip of pixels, stretched and softened (sky above on tall phones, the
-  landscape to the sides on very wide screens), so no bars show.
+  where the screen is wider or taller than the picture, the reader's `BleedScene` carries the
+  scene's own sky and ground on to the edges (colours sampled from each page ahead of time,
+  see book/bleed.tsx), so no bars show and the reader and this book look the same.
 
   With reduced motion the stage is not used at all: <StillBook> shows the same pages as a
   plain book with previous and next buttons (the switch is in CSS, so nothing jumps).
@@ -76,99 +77,20 @@ function wordSize(W: number, H: number, lang: Lang) {
   return lang === "am" ? px * 0.92 : px;
 }
 
-/* ---------- the picture, extended to the screen's edges ---------- */
+/* ---------- the picture, carried to the screen's edges ---------- */
 
-/** Thickness of the edge strip that is stretched, in picture units. */
-const STRIP = 2;
-/** How far in from the picture's edge the strip is taken, in picture units. */
-const INSET = 1;
-/** How much the stretched strip is softened, in px. */
-const BLUR = 8;
-/** Roughly where the ground meets the sky in the scenes, in picture units. */
-const HORIZON = 220;
-/** Width of the soft edge where the picture meets a stretched gap, in px. */
-const FEATHER = 28;
-
-/**
- * One gap beside the picture, filled with the picture's own edge pixels stretched across it.
- * The copy is still (its animations are paused) so it is drawn once and then left alone.
- */
-function Stretch({ side, f, W, H, children }: { side: "top" | "bottom" | "left" | "right"; f: Frame; W: number; H: number; children: ReactNode }) {
-  // Whole pixels: a strip with a fractional edge has a half-clear last row, which the stretch
-  // would turn into a see-through band.
-  const e = Math.max(2, Math.round(STRIP * f.s));
-  // The strip is taken a little way in from the edge (edges can carry a hairline).
-  const d = INSET * f.s;
-  // `wrap` is the gap (plus the strip itself); `strip` is a thin window onto a copy of the
-  // picture, at the gap's inner edge, stretched across the gap. Only the thin window is
-  // stretched, so the browser never has to draw a huge stretched copy.
-  // The gap is softened with a blur; `pad` reaches past the screen's edge and under the
-  // picture, so the blur's soft rim never shows. Along the gap the strip is stretched a
-  // touch, if needed, to reach past the screen's edges too.
-  const pad = BLUR * 3 + FEATHER;
-  let wrap: CSSProperties;
-  let strip: CSSProperties;
-  let box: CSSProperties;
-  if (side === "top" || side === "bottom") {
-    // Columns line up exactly at the middle of the picture.
-    const sx = Math.max(1, (W + 2 * pad) / f.bw);
-    const gap = side === "top" ? f.top : H - (f.top + f.bh);
-    wrap = { left: -pad, top: side === "top" ? -pad : f.top + f.bh - pad, width: W + 2 * pad, height: gap + 2 * pad };
-    strip = { left: f.left + pad, top: 0, width: f.bw, height: e, transformOrigin: `${f.bw / 2}px 0`, transform: `scale(${sx}, ${(gap + 2 * pad) / e})` };
-    box = { left: 0, top: side === "top" ? -d : -(f.bh - e - d) };
-  } else {
-    // Rows line up exactly at the horizon (y 220), where a mismatch would show most.
-    const h = HORIZON * f.s;
-    const below = f.bh - h;
-    const sy = Math.max(1, (f.top + pad + h) / h, (below + pad + (H - f.top - f.bh) + pad) / below);
-    const gap = side === "left" ? f.left : W - (f.left + f.bw);
-    wrap = { left: side === "left" ? -pad : f.left + f.bw - pad, top: -pad, width: gap + 2 * pad, height: H + 2 * pad };
-    strip = { left: 0, top: f.top + pad, width: e, height: f.bh, transformOrigin: `0 ${h}px`, transform: `scale(${(gap + 2 * pad) / e}, ${sy})` };
-    box = { left: side === "left" ? -d : -(f.bw - e - d), top: 0 };
-  }
+/** The picture where `frame` puts it on a W x H page, its sky and ground carried to the edges. */
+function Picture({ f, W, H, story, page }: { f: Frame; W: number; H: number; story: Story; page: number }) {
+  const kind = story.scene;
+  const edges = useEdges(kind, page) ?? fallbackEdges(story.color);
+  if (!kind) return null;
   return (
-    <div className="home-sbook-stretch pointer-events-none absolute overflow-hidden" style={{ ...wrap, filter: `blur(${BLUR}px)` }} data-asleep="" aria-hidden>
-      <div className="absolute overflow-hidden" style={strip}>
-        <div className="absolute" style={{ ...box, width: f.bw, height: f.bh }}>
-          {children}
-        </div>
-      </div>
+    <div className="absolute inset-0">
+      <BleedScene w={W} h={H} fit={{ s: f.s, ox: f.left, oy: f.top }} edges={edges}>
+        <SceneBody kind={kind} page={page} />
+      </BleedScene>
     </div>
   );
-}
-
-/** The picture, as big as it may be, with the gaps around it filled. */
-function Picture({ f, W, H, children }: { f: Frame; W: number; H: number; children: () => ReactNode }) {
-  const gaps = {
-    top: f.top > 0.5,
-    bottom: H - (f.top + f.bh) > 0.5,
-    left: f.left > 0.5,
-    right: W - (f.left + f.bw) > 0.5,
-  };
-  return (
-    <>
-      {(Object.keys(gaps) as (keyof typeof gaps)[]).map((side) =>
-        gaps[side] ? (
-          <Stretch key={side} side={side} f={f} W={W} H={H}>
-            {children()}
-          </Stretch>
-        ) : null,
-      )}
-      <div className="absolute" style={{ left: f.left, top: f.top, width: f.bw, height: f.bh, ...feather(f, gaps) }}>
-        {children()}
-      </div>
-    </>
-  );
-}
-
-/** Soft edges where the picture meets a stretched gap, so the two blend instead of meeting in a line. */
-function feather(f: Frame, gaps: Record<"top" | "bottom" | "left" | "right", boolean>): CSSProperties {
-  const fx = FEATHER;
-  const fy = FEATHER;
-  const x = `linear-gradient(to right, ${gaps.left ? `transparent 0, #000 ${fx}px` : "#000 0"}, ${gaps.right ? `#000 calc(100% - ${fx}px), transparent 100%` : "#000 100%"})`;
-  const y = `linear-gradient(to bottom, ${gaps.top ? `transparent 0, #000 ${fy}px` : "#000 0"}, ${gaps.bottom ? `#000 calc(100% - ${fy}px), transparent 100%` : "#000 100%"})`;
-  if (!gaps.left && !gaps.right && !gaps.top && !gaps.bottom) return {};
-  return { maskImage: `${x}, ${y}`, maskComposite: "intersect", WebkitMaskComposite: "source-in" } as CSSProperties;
 }
 
 /* ---------- the words ---------- */
@@ -233,7 +155,7 @@ const Face = memo(function Face({ i, n, story, page, lang, W, H, Hs, href, faceR
           <EndArt />
         </div>
       ) : (
-        kind && page && <Picture f={f} W={W} H={H}>{() => <Scene kind={kind} page={page.n} />}</Picture>
+        kind && page && <Picture f={f} W={W} H={H} story={story} page={page.n} />
       )}
       <div className="absolute inset-x-0 top-0 px-3 pt-3 sm:px-6 sm:pt-5" style={end ? { top: "auto", bottom: Math.max(16, H - Hs + 16) } : undefined}>
         {end ? (
