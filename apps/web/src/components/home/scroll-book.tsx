@@ -28,7 +28,8 @@ import { Scene } from "../scenes";
   Only the page on show and its neighbours are mounted; the rest of the work is transforms,
   opacity and the curl's clip paths, written straight to the DOM on each scroll frame.
 
-  Edge to edge: the scenes are drawn for 4:3 with what matters in x 50..350 and y 60..300.
+  Edge to edge: the scenes are drawn for 4:3 with what matters roughly in x 50..350 and y 60..300 (characters
+  sometimes stand nearer the edges, so x 30..370 is kept).
   `frame` scales the picture as large as it can without losing that box, bottom-aligned, and
   where the screen is wider or taller than the picture, `Stretch` extends it with the picture's
   own outermost strip of pixels, stretched and softened (sky above on tall phones, the
@@ -61,7 +62,7 @@ const ease = (t: number) => t * t * (3 - 2 * t);
 
 /** Where the 400x300 picture goes on a W x H page (see the note at the top). */
 export function frame(W: number, H: number) {
-  const s = Math.min(Math.max(W / 400, H / 300), W / 300, H / 240);
+  const s = Math.min(Math.max(W / 400, H / 300), W / 340, H / 240);
   const bw = 400 * s;
   const bh = 300 * s;
   return { s, bw, bh, left: (W - bw) / 2, top: H - bh };
@@ -79,8 +80,14 @@ function wordSize(W: number, H: number, lang: Lang) {
 
 /** Thickness of the edge strip that is stretched, in picture units. */
 const STRIP = 2;
+/** How far in from the picture's edge the strip is taken, in picture units. */
+const INSET = 1;
 /** How much the stretched strip is softened, in px. */
-const BLUR = 6;
+const BLUR = 8;
+/** Roughly where the ground meets the sky in the scenes, in picture units. */
+const HORIZON = 220;
+/** Width of the soft edge where the picture meets a stretched gap, in px. */
+const FEATHER = 28;
 
 /**
  * One gap beside the picture, filled with the picture's own edge pixels stretched across it.
@@ -88,34 +95,41 @@ const BLUR = 6;
  */
 function Stretch({ side, f, W, H, children }: { side: "top" | "bottom" | "left" | "right"; f: Frame; W: number; H: number; children: ReactNode }) {
   const e = STRIP * f.s;
-  // The strip is taken a little way in from the edge, so the softening never reaches past
-  // the picture's edge (where it would mix in the colour behind it).
-  const d = Math.max(3 * f.s, BLUR * 3.5);
-  // `wrap` is the gap (plus the strip itself); `box` places a copy of the picture so that its
-  // strip starts at the gap's inner edge; stretching it from there fills the gap.
+  // The strip is taken a little way in from the edge (edges can carry a hairline).
+  const d = INSET * f.s;
+  // `wrap` is the gap (plus the strip itself); `strip` is a thin window onto a copy of the
+  // picture, at the gap's inner edge, stretched across the gap. Only the thin window is
+  // stretched, so the browser never has to draw a huge stretched copy.
+  // The gap is softened with a blur; `pad` reaches past the screen's edge and under the
+  // picture, so the blur's soft rim never shows. Along the gap the strip is stretched a
+  // touch, if needed, to reach past the screen's edges too.
+  const pad = BLUR * 3 + FEATHER;
   let wrap: CSSProperties;
+  let strip: CSSProperties;
   let box: CSSProperties;
-  if (side === "top") {
-    wrap = { left: 0, top: 0, width: W, height: f.top + e };
-    box = { left: f.left, top: -d, transformOrigin: `0 ${d}px`, transform: `scaleY(${(f.top + e) / e})` };
-  } else if (side === "bottom") {
-    const gap = H - (f.top + f.bh);
-    const o = f.bh - e - d;
-    wrap = { left: 0, top: f.top + f.bh - e, width: W, height: gap + e };
-    box = { left: f.left, top: -o, transformOrigin: `0 ${o}px`, transform: `scaleY(${(gap + e) / e})` };
-  } else if (side === "left") {
-    wrap = { left: 0, top: 0, width: f.left + e, height: H };
-    box = { left: -d, top: f.top, transformOrigin: `${d}px 0`, transform: `scaleX(${(f.left + e) / e})` };
+  if (side === "top" || side === "bottom") {
+    // Columns line up exactly at the middle of the picture.
+    const sx = Math.max(1, (W + 2 * pad) / f.bw);
+    const gap = side === "top" ? f.top : H - (f.top + f.bh);
+    wrap = { left: -pad, top: side === "top" ? -pad : f.top + f.bh - pad, width: W + 2 * pad, height: gap + 2 * pad };
+    strip = { left: f.left + pad, top: 0, width: f.bw, height: e, transformOrigin: `${f.bw / 2}px 0`, transform: `scale(${sx}, ${(gap + 2 * pad) / e})` };
+    box = { left: 0, top: side === "top" ? -d : -(f.bh - e - d) };
   } else {
-    const gap = W - (f.left + f.bw);
-    const o = f.bw - e - d;
-    wrap = { left: f.left + f.bw - e, top: 0, width: gap + e, height: H };
-    box = { left: -o, top: f.top, transformOrigin: `${o}px 0`, transform: `scaleX(${(gap + e) / e})` };
+    // Rows line up exactly at the horizon (y 220), where a mismatch would show most.
+    const h = HORIZON * f.s;
+    const below = f.bh - h;
+    const sy = Math.max(1, (f.top + pad + h) / h, (below + pad + (H - f.top - f.bh) + pad) / below);
+    const gap = side === "left" ? f.left : W - (f.left + f.bw);
+    wrap = { left: side === "left" ? -pad : f.left + f.bw - pad, top: -pad, width: gap + 2 * pad, height: H + 2 * pad };
+    strip = { left: 0, top: f.top + pad, width: e, height: f.bh, transformOrigin: `0 ${h}px`, transform: `scale(${(gap + 2 * pad) / e}, ${sy})` };
+    box = { left: side === "left" ? -d : -(f.bw - e - d), top: 0 };
   }
   return (
-    <div className="home-sbook-stretch pointer-events-none absolute overflow-hidden" style={wrap} data-asleep="" aria-hidden>
-      <div className="absolute" style={{ ...box, width: f.bw, height: f.bh, filter: `blur(${BLUR}px)` }}>
-        {children}
+    <div className="home-sbook-stretch pointer-events-none absolute overflow-hidden" style={{ ...wrap, filter: `blur(${BLUR}px)` }} data-asleep="" aria-hidden>
+      <div className="absolute overflow-hidden" style={strip}>
+        <div className="absolute" style={{ ...box, width: f.bw, height: f.bh }}>
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -138,11 +152,21 @@ function Picture({ f, W, H, children }: { f: Frame; W: number; H: number; childr
           </Stretch>
         ) : null,
       )}
-      <div className="absolute" style={{ left: f.left, top: f.top, width: f.bw, height: f.bh }}>
+      <div className="absolute" style={{ left: f.left, top: f.top, width: f.bw, height: f.bh, ...feather(f, gaps) }}>
         {children()}
       </div>
     </>
   );
+}
+
+/** Soft edges where the picture meets a stretched gap, so the two blend instead of meeting in a line. */
+function feather(f: Frame, gaps: Record<"top" | "bottom" | "left" | "right", boolean>): CSSProperties {
+  const fx = FEATHER;
+  const fy = FEATHER;
+  const x = `linear-gradient(to right, ${gaps.left ? `transparent 0, #000 ${fx}px` : "#000 0"}, ${gaps.right ? `#000 calc(100% - ${fx}px), transparent 100%` : "#000 100%"})`;
+  const y = `linear-gradient(to bottom, ${gaps.top ? `transparent 0, #000 ${fy}px` : "#000 0"}, ${gaps.bottom ? `#000 calc(100% - ${fy}px), transparent 100%` : "#000 100%"})`;
+  if (!gaps.left && !gaps.right && !gaps.top && !gaps.bottom) return {};
+  return { maskImage: `${x}, ${y}`, maskComposite: "intersect", WebkitMaskComposite: "source-in" } as CSSProperties;
 }
 
 /* ---------- the words ---------- */
